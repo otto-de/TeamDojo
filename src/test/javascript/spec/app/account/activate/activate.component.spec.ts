@@ -4,38 +4,40 @@ import { Observable } from 'rxjs/Observable';
 
 import { DojoTestModule } from '../../../test.module';
 import { MockActivatedRoute } from '../../../helpers/mock-route.service';
-import { ActivateService } from '../../../../../../main/webapp/app/account/activate/activate.service';
-import { ActivateComponent } from '../../../../../../main/webapp/app/account/activate/activate.component';
+import { ActivateService } from 'app/account/activate/activate.service';
+import { ActivateComponent } from 'app/account/activate/activate.component';
 
 describe('Component Tests', () => {
-
     describe('ActivateComponent', () => {
-
         let comp: ActivateComponent;
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                imports: [DojoTestModule],
-                declarations: [ActivateComponent],
-                providers: [
-                    ActivateService,
-                    {
-                        provide: ActivatedRoute,
-                        useValue: new MockActivatedRoute({'key': 'ABC123'})
-                    }
-                ]
+        beforeEach(
+            async(() => {
+                TestBed.configureTestingModule({
+                    imports: [DojoTestModule],
+                    declarations: [ActivateComponent],
+                    providers: [
+                        ActivateService,
+                        {
+                            provide: ActivatedRoute,
+                            useValue: new MockActivatedRoute({ key: 'ABC123' })
+                        }
+                    ]
+                })
+                    .overrideTemplate(ActivateComponent, '')
+                    .compileComponents();
             })
-            .overrideTemplate(ActivateComponent, '')
-            .compileComponents();
-        }));
+        );
 
         beforeEach(() => {
             const fixture = TestBed.createComponent(ActivateComponent);
             comp = fixture.componentInstance;
         });
 
-        it('calls activate.get with the key from params',
-            inject([ActivateService],
+        it(
+            'calls activate.get with the key from params',
+            inject(
+                [ActivateService],
                 fakeAsync((service: ActivateService) => {
                     spyOn(service, 'get').and.returnValue(Observable.of());
 
@@ -47,8 +49,10 @@ describe('Component Tests', () => {
             )
         );
 
-        it('should set set success to OK upon successful activation',
-            inject([ActivateService],
+        it(
+            'should set set success to OK upon successful activation',
+            inject(
+                [ActivateService],
                 fakeAsync((service: ActivateService) => {
                     spyOn(service, 'get').and.returnValue(Observable.of({}));
 
@@ -61,8 +65,10 @@ describe('Component Tests', () => {
             )
         );
 
-        it('should set set error to ERROR upon activation failure',
-            inject([ActivateService],
+        it(
+            'should set set error to ERROR upon activation failure',
+            inject(
+                [ActivateService],
                 fakeAsync((service: ActivateService) => {
                     spyOn(service, 'get').and.returnValue(Observable.throw('ERROR'));
 

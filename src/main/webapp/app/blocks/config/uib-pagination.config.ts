@@ -1,6 +1,6 @@
-import { ITEMS_PER_PAGE } from '../../shared';
 import { Injectable } from '@angular/core';
-import { NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap';
+import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ITEMS_PER_PAGE } from 'app/shared';
 
 @Injectable()
 export class PaginationConfig {

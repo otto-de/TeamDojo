@@ -1,18 +1,16 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { JhiTrackerService } from './../shared/tracker/tracker.service';
-
-import { DojoSharedModule } from '../shared';
+import { DojoSharedModule } from 'app/shared';
 /* jhipster-needle-add-admin-module-import - JHipster will add admin modules imports here */
 
 import {
     adminState,
+    AuditResolvePagingParams,
     AuditsComponent,
-    UserMgmtComponent,
-    UserDialogComponent,
     UserDeleteDialogComponent,
+    UserMgmtComponent,
     UserMgmtDetailComponent,
-    UserMgmtDialogComponent,
+    UserMgmtUpdateComponent,
     UserMgmtDeleteDialogComponent,
     LogsComponent,
     JhiMetricsMonitoringModalComponent,
@@ -28,23 +26,22 @@ import {
     JhiTrackerComponent,
     LogsService,
     UserResolvePagingParams,
-    UserResolve,
-    UserModalService
+    UserMgmtResolve,
+    UserResolve
 } from './';
 
 @NgModule({
     imports: [
         DojoSharedModule,
-        RouterModule.forChild(adminState),
+        RouterModule.forChild(adminState)
         /* jhipster-needle-add-admin-module - JHipster will add admin modules here */
     ],
     declarations: [
         AuditsComponent,
-        UserMgmtComponent,
-        UserDialogComponent,
         UserDeleteDialogComponent,
+        UserMgmtComponent,
         UserMgmtDetailComponent,
-        UserMgmtDialogComponent,
+        UserMgmtUpdateComponent,
         UserMgmtDeleteDialogComponent,
         LogsComponent,
         JhiConfigurationComponent,
@@ -55,22 +52,17 @@ import {
         JhiMetricsMonitoringComponent,
         JhiMetricsMonitoringModalComponent
     ],
-    entryComponents: [
-        UserMgmtDialogComponent,
-        UserMgmtDeleteDialogComponent,
-        JhiHealthModalComponent,
-        JhiMetricsMonitoringModalComponent,
-    ],
+    entryComponents: [UserMgmtUpdateComponent, UserMgmtDeleteDialogComponent, JhiHealthModalComponent, JhiMetricsMonitoringModalComponent],
     providers: [
+        AuditResolvePagingParams,
         AuditsService,
         JhiConfigurationService,
         JhiHealthService,
         JhiMetricsService,
         LogsService,
-        JhiTrackerService,
         UserResolvePagingParams,
         UserResolve,
-        UserModalService
+        UserMgmtResolve
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

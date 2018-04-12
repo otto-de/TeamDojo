@@ -2,41 +2,41 @@ import { ComponentFixture, TestBed, inject, tick, fakeAsync } from '@angular/cor
 import { Observable } from 'rxjs/Observable';
 
 import { DojoTestModule } from '../../../test.module';
-import { Session } from '../../../../../../main/webapp/app/account/sessions/session.model';
-import { SessionsComponent } from '../../../../../../main/webapp/app/account/sessions/sessions.component';
-import { SessionsService } from '../../../../../../main/webapp/app/account/sessions/sessions.service';
+import { Session } from 'app/account/sessions/session.model';
+import { SessionsComponent } from 'app/account/sessions/sessions.component';
+import { SessionsService } from 'app/account/sessions/sessions.service';
 import { MockPrincipal } from '../../../helpers/mock-principal.service';
-import { Principal } from '../../../../../../main/webapp/app/shared/auth/principal.service';
+import { Principal } from 'app/core/auth/principal.service';
 
 describe('Component Tests', () => {
-
     let sessions: Session[];
     let fixture: ComponentFixture<SessionsComponent>;
     let comp: SessionsComponent;
 
     describe('SessionsComponent', function() {
-
         beforeEach(() => {
             sessions = [new Session('xxxxxx==', new Date(2015, 10, 15), '0:0:0:0:0:0:0:1', 'Mozilla/5.0')];
 
             fixture = TestBed.configureTestingModule({
                 imports: [DojoTestModule],
                 declarations: [SessionsComponent],
-                providers: [
-                    SessionsService
-                ]
+                providers: [SessionsService]
             })
-            .overrideTemplate(SessionsComponent, '')
-            .createComponent(SessionsComponent);
+                .overrideTemplate(SessionsComponent, '')
+                .createComponent(SessionsComponent);
             comp = fixture.componentInstance;
         });
 
-        it('should define its initial state',
-            inject([Principal, SessionsService],
+        it(
+            'should define its initial state',
+            inject(
+                [Principal, SessionsService],
                 fakeAsync((mockPrincipal: MockPrincipal, service: SessionsService) => {
-                    mockPrincipal.spy('identity').and.returnValue(Promise.resolve({
-                        id: 'fuzzer'
-                    }));
+                    mockPrincipal.spy('identity').and.returnValue(
+                        Promise.resolve({
+                            id: 'fuzzer'
+                        })
+                    );
                     spyOn(service, 'findAll').and.returnValue(Observable.of(sessions));
 
                     comp.ngOnInit();
@@ -54,12 +54,16 @@ describe('Component Tests', () => {
             )
         );
 
-        it('should call delete on Sessions to invalidate a session',
-            inject([Principal, SessionsService],
+        it(
+            'should call delete on Sessions to invalidate a session',
+            inject(
+                [Principal, SessionsService],
                 fakeAsync((mockPrincipal: MockPrincipal, service: SessionsService) => {
-                    mockPrincipal.spy('identity').and.returnValue(Promise.resolve({
-                        id: 'fuzzer'
-                    }));
+                    mockPrincipal.spy('identity').and.returnValue(
+                        Promise.resolve({
+                            id: 'fuzzer'
+                        })
+                    );
                     spyOn(service, 'findAll').and.returnValue(Observable.of(sessions));
                     spyOn(service, 'delete').and.returnValue(Observable.of({}));
 
@@ -72,16 +76,22 @@ describe('Component Tests', () => {
             )
         );
 
-        it('should call delete on Sessions and notify of error',
-            inject([Principal, SessionsService],
+        it(
+            'should call delete on Sessions and notify of error',
+            inject(
+                [Principal, SessionsService],
                 fakeAsync((mockPrincipal: MockPrincipal, service: SessionsService) => {
-                    mockPrincipal.spy('identity').and.returnValue(Promise.resolve({
-                        id: 'fuzzer'
-                    }));
+                    mockPrincipal.spy('identity').and.returnValue(
+                        Promise.resolve({
+                            id: 'fuzzer'
+                        })
+                    );
                     spyOn(service, 'findAll').and.returnValue(Observable.of(sessions));
-                    spyOn(service, 'delete').and.returnValue(Observable.of({
-                        status: 400
-                    }));
+                    spyOn(service, 'delete').and.returnValue(
+                        Observable.of({
+                            status: 400
+                        })
+                    );
 
                     comp.ngOnInit();
                     comp.invalidate('xyz');
@@ -93,16 +103,22 @@ describe('Component Tests', () => {
             )
         );
 
-        it('should call notify of success upon session invalidation',
-            inject([Principal, SessionsService],
+        it(
+            'should call notify of success upon session invalidation',
+            inject(
+                [Principal, SessionsService],
                 fakeAsync((mockPrincipal: MockPrincipal, service: SessionsService) => {
-                    mockPrincipal.spy('identity').and.returnValue(Promise.resolve({
-                        id: 'fuzzer'
-                    }));
+                    mockPrincipal.spy('identity').and.returnValue(
+                        Promise.resolve({
+                            id: 'fuzzer'
+                        })
+                    );
                     spyOn(service, 'findAll').and.returnValue(Observable.of(sessions));
-                    spyOn(service, 'delete').and.returnValue(Observable.of({
-                        status: 200
-                    }));
+                    spyOn(service, 'delete').and.returnValue(
+                        Observable.of({
+                            status: 200
+                        })
+                    );
 
                     comp.ngOnInit();
                     comp.invalidate('xyz');

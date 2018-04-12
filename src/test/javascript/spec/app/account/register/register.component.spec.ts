@@ -2,27 +2,26 @@ import { ComponentFixture, TestBed, async, inject, tick, fakeAsync } from '@angu
 import { Observable } from 'rxjs/Observable';
 
 import { DojoTestModule } from '../../../test.module';
-import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from '../../../../../../main/webapp/app/shared';
-import { Register } from '../../../../../../main/webapp/app/account/register/register.service';
-import { RegisterComponent } from '../../../../../../main/webapp/app/account/register/register.component';
+import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from 'app/shared';
+import { Register } from 'app/account/register/register.service';
+import { RegisterComponent } from 'app/account/register/register.component';
 
 describe('Component Tests', () => {
-
     describe('RegisterComponent', () => {
         let fixture: ComponentFixture<RegisterComponent>;
         let comp: RegisterComponent;
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                imports: [DojoTestModule],
-                declarations: [RegisterComponent],
-                providers: [
-                    Register
-                ]
+        beforeEach(
+            async(() => {
+                TestBed.configureTestingModule({
+                    imports: [DojoTestModule],
+                    declarations: [RegisterComponent],
+                    providers: [Register]
+                })
+                    .overrideTemplate(RegisterComponent, '')
+                    .compileComponents();
             })
-            .overrideTemplate(RegisterComponent, '')
-            .compileComponents();
-        }));
+        );
 
         beforeEach(() => {
             fixture = TestBed.createComponent(RegisterComponent);
@@ -39,8 +38,10 @@ describe('Component Tests', () => {
             expect(comp.doNotMatch).toEqual('ERROR');
         });
 
-        it('should update success to OK after creating an account',
-            inject([Register],
+        it(
+            'should update success to OK after creating an account',
+            inject(
+                [Register],
                 fakeAsync((service: Register) => {
                     spyOn(service, 'save').and.returnValue(Observable.of({}));
                     comp.registerAccount.password = comp.confirmPassword = 'password';
@@ -61,13 +62,17 @@ describe('Component Tests', () => {
             )
         );
 
-        it('should notify of user existence upon 400/login already in use',
-            inject([Register],
+        it(
+            'should notify of user existence upon 400/login already in use',
+            inject(
+                [Register],
                 fakeAsync((service: Register) => {
-                    spyOn(service, 'save').and.returnValue(Observable.throw({
-                        status: 400,
-                        error: { type: LOGIN_ALREADY_USED_TYPE }
-                    }));
+                    spyOn(service, 'save').and.returnValue(
+                        Observable.throw({
+                            status: 400,
+                            error: { type: LOGIN_ALREADY_USED_TYPE }
+                        })
+                    );
                     comp.registerAccount.password = comp.confirmPassword = 'password';
 
                     comp.register();
@@ -80,13 +85,17 @@ describe('Component Tests', () => {
             )
         );
 
-        it('should notify of email existence upon 400/email address already in use',
-            inject([Register],
+        it(
+            'should notify of email existence upon 400/email address already in use',
+            inject(
+                [Register],
                 fakeAsync((service: Register) => {
-                    spyOn(service, 'save').and.returnValue(Observable.throw({
-                        status: 400,
-                        error: { type: EMAIL_ALREADY_USED_TYPE }
-                    }));
+                    spyOn(service, 'save').and.returnValue(
+                        Observable.throw({
+                            status: 400,
+                            error: { type: EMAIL_ALREADY_USED_TYPE }
+                        })
+                    );
                     comp.registerAccount.password = comp.confirmPassword = 'password';
 
                     comp.register();
@@ -99,12 +108,16 @@ describe('Component Tests', () => {
             )
         );
 
-        it('should notify of generic error',
-            inject([Register],
+        it(
+            'should notify of generic error',
+            inject(
+                [Register],
                 fakeAsync((service: Register) => {
-                    spyOn(service, 'save').and.returnValue(Observable.throw({
-                        status: 503
-                    }));
+                    spyOn(service, 'save').and.returnValue(
+                        Observable.throw({
+                            status: 503
+                        })
+                    );
                     comp.registerAccount.password = comp.confirmPassword = 'password';
 
                     comp.register();

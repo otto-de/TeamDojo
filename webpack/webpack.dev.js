@@ -3,6 +3,7 @@ const writeFilePlugin = require('write-file-webpack-plugin');
 const webpackMerge = require('webpack-merge');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const path = require('path');
 
 const utils = require('./utils.js');
@@ -56,11 +57,26 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
         },
         {
             test: /\.ts$/,
-            loaders: [
-                'angular2-template-loader',
-                'awesome-typescript-loader'
+            use: [
+                { loader: 'angular2-template-loader' },
+                { loader: 'cache-loader' },
+                {
+                    loader: 'thread-loader',
+                    options: {
+                        // there should be 1 cpu for the fork-ts-checker-webpack-plugin
+                        workers: require('os').cpus().length - 1
+                    }
+                },
+                {
+                    loader: 'ts-loader',
+                    options: {
+                        transpileOnly: true,
+                        happyPackMode: true
+                    }
+                },
+                { loader: 'angular-router-loader' }
             ],
-            exclude: ['node_modules/generator-jhipster']
+            exclude: ['node_modules']
         },
         {
             test: /\.scss$/,
@@ -82,6 +98,7 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
         }]
     },
     plugins: [
+        new ForkTsCheckerWebpackPlugin(),
         new BrowserSyncPlugin({
             host: 'localhost',
             port: 9000,
@@ -92,8 +109,10 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
         }, {
             reload: false
         }),
-        new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.NamedModulesPlugin(),
+        new webpack.ContextReplacementPlugin(
+            /angular(\\|\/)core(\\|\/)/,
+            path.resolve(__dirname, './src/main/webapp')
+        ),
         new writeFilePlugin(),
         new webpack.WatchIgnorePlugin([
             utils.root('src/test'),
@@ -102,5 +121,6 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
             title: 'JHipster',
             contentImage: path.join(__dirname, 'logo-jhipster.png')
         })
-    ]
+    ],
+    mode: 'development'
 });

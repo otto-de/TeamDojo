@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { DojoSharedModule } from '../shared';
+import { DojoSharedModule } from 'app/shared';
 
 import {
     Register,
@@ -22,10 +22,7 @@ import {
 } from './';
 
 @NgModule({
-    imports: [
-        DojoSharedModule,
-        RouterModule.forChild(accountState)
-    ],
+    imports: [DojoSharedModule, RouterModule.forChild(accountState)],
     declarations: [
         ActivateComponent,
         RegisterComponent,
@@ -36,14 +33,7 @@ import {
         SessionsComponent,
         SettingsComponent
     ],
-    providers: [
-        SessionsService,
-        Register,
-        ActivateService,
-        PasswordService,
-        PasswordResetInitService,
-        PasswordResetFinishService
-    ],
+    providers: [SessionsService, Register, ActivateService, PasswordService, PasswordResetInitService, PasswordResetFinishService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DojoAccountModule {}
