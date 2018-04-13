@@ -8,4 +8,4 @@ services:
             - POSTGRES_USER=dojo
             - POSTGRES_PASSWORD=
         ports:
-            - 5432:5432
+            - 25442:5432
