@@ -29,14 +29,25 @@ task copyDockerFiles(type: Copy) {
     include "*"
     exclude "**/*.yml"
 }
+def dockerImageName = "docker.iteratec.io/otto/dojo";
+def dockerTags = ["$dockerImageName:${project.version}".toString()]
+if (project.version.contains('SNAPSHOT')) {
+    dockerTags.push("$dockerImageName:next".toString());
+} else {
+    dockerTags.push("$dockerImageName:latest".toString());
+}
 
 task buildDocker(type: DockerBuildImage, dependsOn: 'copyDockerFiles') {
     description = "Package application as Docker image"
     group = "Docker"
     inputDir = project.file("${project.buildDir}/docker")
-    tags = ["docker.iteratec.io/otto/dojo:latest".toString(), "docker.iteratec.io/otto/dojo:${project.version}".toString()]
+    tags = dockerTags
 }
 
-task pushDocker(type: DockerPushImage, dependsOn: 'buildDocker') {
-    imageName = "docker.iteratec.io/otto/dojo"
+task pushDockerVersion(type: DockerPushImage, dependsOn: 'buildDocker') {
+    imageName = dockerTags[0]
+}
+
+task pushDocker(type: DockerPushImage, dependsOn: 'pushDockerVersion') {
+    imageName = dockerTags[1]
 }
