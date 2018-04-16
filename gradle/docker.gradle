@@ -11,6 +11,15 @@ buildscript {
 apply plugin: com.bmuschko.gradle.docker.DockerRemoteApiPlugin
 
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+
+docker {
+    registryCredentials {
+        username = project.docker_user
+        password = project.docker_password
+        email = project.docker_email
+    }
+}
 
 task copyDockerFiles(type: Copy) {
     description = "Copy Dockerfile and required data to build directory"
@@ -25,5 +34,9 @@ task buildDocker(type: DockerBuildImage, dependsOn: 'copyDockerFiles') {
     description = "Package application as Docker image"
     group = "Docker"
     inputDir = project.file("${project.buildDir}/docker")
-    tags = ["docker.iteratec.io/dojo:latest".toString(), "docker.iteratec.io/dojo:${project.version}".toString()]
+    tags = ["docker.iteratec.io/otto/dojo:latest".toString(), "docker.iteratec.io/otto/dojo:${project.version}".toString()]
+}
+
+task pushDocker(type: DockerPushImage, dependsOn: 'buildDocker') {
+    imageName = "docker.iteratec.io/otto/dojo"
 }
