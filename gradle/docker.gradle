@@ -29,7 +29,7 @@ task copyDockerFiles(type: Copy) {
     include "*"
     exclude "**/*.yml"
 }
-def dockerImageName = "docker.iteratec.io/otto/dojo";
+def dockerImageName = "docker.iteratec.io/otto/ec-dojo";
 def dockerTags = ["$dockerImageName:${project.version}".toString()]
 if (project.version.contains('SNAPSHOT')) {
     dockerTags.push("$dockerImageName:next".toString());
