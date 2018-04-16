@@ -25,5 +25,5 @@ task buildDocker(type: DockerBuildImage, dependsOn: 'copyDockerFiles') {
     description = "Package application as Docker image"
     group = "Docker"
     inputDir = project.file("${project.buildDir}/docker")
-    tags = ["dojo:latest".toString(), "dojo:${project.version}".toString()]
+    tags = ["docker.iteratec.io/dojo:latest".toString(), "docker.iteratec.io/dojo:${project.version}".toString()]
 }
