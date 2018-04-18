@@ -42,6 +42,7 @@ public class CacheConfiguration {
             cm.createCache(de.otto.dojo.domain.User.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(de.otto.dojo.domain.PersistentToken.class.getName(), jcacheConfiguration);
             cm.createCache(de.otto.dojo.domain.User.class.getName() + ".persistentTokens", jcacheConfiguration);
+            cm.createCache(de.otto.dojo.domain.Dimension.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
