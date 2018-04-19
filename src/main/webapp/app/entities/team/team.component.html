@@ -1,0 +1,63 @@
+<div>
+    <h2 id="page-heading">
+        <span>Teams</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-team" [routerLink]="['/team/new']">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Team
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="teams">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Name</span></th>
+            <th><span>Picture</span></th>
+            <th><span>Contact Person</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let team of teams ;trackBy: trackId">
+                <td><a [routerLink]="['/team', team.id, 'view' ]">{{team.id}}</a></td>
+                <td>{{team.name}}</td>
+                <td>
+                    <a *ngIf="team.picture" (click)="openFile(team.pictureContentType, team.picture)">
+                        <img [src]="'data:' + team.pictureContentType + ';base64,' + team.picture" style="max-height: 30px;" alt="team image"/>
+                    </a>
+                    <span *ngIf="team.picture">{{team.pictureContentType}}, {{byteSize(team.picture)}}</span>
+                </td>
+                <td>{{team.contactPerson}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/team', team.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/team', team.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'team/'+ team.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

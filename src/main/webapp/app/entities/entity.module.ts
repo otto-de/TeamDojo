@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { DojoDimensionModule } from './dimension/dimension.module';
 import { DojoSkillModule } from './skill/skill.module';
+import { DojoTeamModule } from './team/team.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -9,6 +10,7 @@ import { DojoSkillModule } from './skill/skill.module';
     imports: [
         DojoDimensionModule,
         DojoSkillModule,
+        DojoTeamModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],
