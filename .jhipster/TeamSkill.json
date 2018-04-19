@@ -1,0 +1,25 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "achievedAt",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "verified",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "note",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180419092355",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "team_skill",
+    "jpaMetamodelFiltering": true,
+    "pagination": "infinite-scroll"
+}
