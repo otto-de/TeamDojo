@@ -82,6 +82,9 @@ public class LevelQueryService extends QueryService<Level> {
             if (criteria.getDependsOnId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getDependsOnId(), Level_.dependsOn, Level_.id));
             }
+            if (criteria.getSkillsId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getSkillsId(), Level_.skills, LevelSkill_.id));
+            }
         }
         return specification;
     }

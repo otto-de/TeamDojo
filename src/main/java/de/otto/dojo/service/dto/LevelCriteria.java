@@ -36,6 +36,8 @@ public class LevelCriteria implements Serializable {
 
     private LongFilter dependsOnId;
 
+    private LongFilter skillsId;
+
     public LevelCriteria() {
     }
 
@@ -79,6 +81,14 @@ public class LevelCriteria implements Serializable {
         this.dependsOnId = dependsOnId;
     }
 
+    public LongFilter getSkillsId() {
+        return skillsId;
+    }
+
+    public void setSkillsId(LongFilter skillsId) {
+        this.skillsId = skillsId;
+    }
+
     @Override
     public String toString() {
         return "LevelCriteria{" +
@@ -87,6 +97,7 @@ public class LevelCriteria implements Serializable {
                 (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
                 (dimensionId != null ? "dimensionId=" + dimensionId + ", " : "") +
                 (dependsOnId != null ? "dependsOnId=" + dependsOnId + ", " : "") +
+                (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
             "}";
     }
 
