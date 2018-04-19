@@ -5,6 +5,8 @@ import { DojoSkillModule } from './skill/skill.module';
 import { DojoTeamModule } from './team/team.module';
 import { DojoTeamSkillModule } from './team-skill/team-skill.module';
 import { DojoLevelModule } from './level/level.module';
+import { DojoBadgeModule } from './badge/badge.module';
+import { DojoBadgeSkillModule } from './badge-skill/badge-skill.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -15,6 +17,8 @@ import { DojoLevelModule } from './level/level.module';
         DojoTeamModule,
         DojoTeamSkillModule,
         DojoLevelModule,
+        DojoBadgeModule,
+        DojoBadgeSkillModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

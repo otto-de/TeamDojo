@@ -7,6 +7,12 @@
             "otherEntityName": "teamSkill",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "skill"
+        },
+        {
+            "relationshipName": "badges",
+            "otherEntityName": "badgeSkill",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "skill"
         }
     ],
     "fields": [
