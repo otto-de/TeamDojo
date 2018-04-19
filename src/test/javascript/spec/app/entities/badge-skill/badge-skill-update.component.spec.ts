@@ -9,6 +9,7 @@ import { BadgeSkillService } from 'app/entities/badge-skill/badge-skill.service'
 import { BadgeSkill } from 'app/shared/model/badge-skill.model';
 
 import { BadgeService } from 'app/entities/badge';
+import { SkillService } from 'app/entities/skill';
 
 describe('Component Tests', () => {
     describe('BadgeSkill Management Update Component', () => {
@@ -20,7 +21,7 @@ describe('Component Tests', () => {
             TestBed.configureTestingModule({
                 imports: [DojoTestModule],
                 declarations: [BadgeSkillUpdateComponent],
-                providers: [BadgeService, BadgeSkillService]
+                providers: [BadgeService, SkillService, BadgeSkillService]
             })
                 .overrideTemplate(BadgeSkillUpdateComponent, '')
                 .compileComponents();

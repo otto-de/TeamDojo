@@ -17,6 +17,7 @@
             <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="score"><span>Score</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="badge.name"><span>Badge</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="skill.title"><span>Skill</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -27,6 +28,11 @@
                 <td>
                     <div *ngIf="badgeSkill.badge">
                         <a [routerLink]="['../badge', badgeSkill.badge?.id, 'view' ]" >{{badgeSkill.badge?.name}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="badgeSkill.skill">
+                        <a [routerLink]="['../skill', badgeSkill.skill?.id, 'view' ]" >{{badgeSkill.skill?.title}}</a>
                     </div>
                 </td>
                 <td class="text-right">

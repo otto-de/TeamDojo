@@ -35,6 +35,11 @@ public class BadgeSkill implements Serializable {
     @JsonIgnoreProperties("skills")
     private Badge badge;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("badges")
+    private Skill skill;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -68,6 +73,19 @@ public class BadgeSkill implements Serializable {
 
     public void setBadge(Badge badge) {
         this.badge = badge;
+    }
+
+    public Skill getSkill() {
+        return skill;
+    }
+
+    public BadgeSkill skill(Skill skill) {
+        this.skill = skill;
+        return this;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

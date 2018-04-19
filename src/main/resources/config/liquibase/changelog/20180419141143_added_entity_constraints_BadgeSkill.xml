@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="badge"/>
 
+        <addForeignKeyConstraint baseColumnNames="skill_id"
+                                 baseTableName="badge_skill"
+                                 constraintName="fk_badge_skill_skill_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="skill"/>
+
     </changeSet>
 </databaseChangeLog>

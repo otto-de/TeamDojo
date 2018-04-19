@@ -42,6 +42,19 @@
                         This field is required.
                     </small>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_skill">Skill</label>
+                    <select class="form-control" id="field_skill" name="skill" [(ngModel)]="badgeSkill.skill"  required>
+                        <option *ngIf="!editForm.value.skill" [ngValue]="null" selected></option>
+                        <option [ngValue]="skillOption.id === badgeSkill.skill?.id ? badgeSkill.skill : skillOption" *ngFor="let skillOption of skills; trackBy: trackSkillById">{{skillOption.title}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.skill?.dirty && editForm.controls.skill?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.skill?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

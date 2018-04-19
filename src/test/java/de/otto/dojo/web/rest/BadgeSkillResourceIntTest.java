@@ -4,6 +4,7 @@ import de.otto.dojo.DojoApp;
 
 import de.otto.dojo.domain.BadgeSkill;
 import de.otto.dojo.domain.Badge;
+import de.otto.dojo.domain.Skill;
 import de.otto.dojo.repository.BadgeSkillRepository;
 import de.otto.dojo.service.BadgeSkillService;
 import de.otto.dojo.web.rest.errors.ExceptionTranslator;
@@ -100,6 +101,11 @@ public class BadgeSkillResourceIntTest {
         em.persist(badge);
         em.flush();
         badgeSkill.setBadge(badge);
+        // Add required entity
+        Skill skill = SkillResourceIntTest.createEntity(em);
+        em.persist(skill);
+        em.flush();
+        badgeSkill.setSkill(skill);
         return badgeSkill;
     }
 
@@ -274,6 +280,25 @@ public class BadgeSkillResourceIntTest {
 
         // Get all the badgeSkillList where badge equals to badgeId + 1
         defaultBadgeSkillShouldNotBeFound("badgeId.equals=" + (badgeId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllBadgeSkillsBySkillIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Skill skill = SkillResourceIntTest.createEntity(em);
+        em.persist(skill);
+        em.flush();
+        badgeSkill.setSkill(skill);
+        badgeSkillRepository.saveAndFlush(badgeSkill);
+        Long skillId = skill.getId();
+
+        // Get all the badgeSkillList where skill equals to skillId
+        defaultBadgeSkillShouldBeFound("skillId.equals=" + skillId);
+
+        // Get all the badgeSkillList where skill equals to skillId + 1
+        defaultBadgeSkillShouldNotBeFound("skillId.equals=" + (skillId + 1));
     }
 
     /**

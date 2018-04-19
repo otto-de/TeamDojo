@@ -85,6 +85,9 @@ public class SkillQueryService extends QueryService<Skill> {
             if (criteria.getTeamsId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getTeamsId(), Skill_.teams, TeamSkill_.id));
             }
+            if (criteria.getBadgesId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getBadgesId(), Skill_.badges, BadgeSkill_.id));
+            }
         }
         return specification;
     }

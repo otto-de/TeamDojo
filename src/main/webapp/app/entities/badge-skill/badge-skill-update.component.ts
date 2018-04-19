@@ -8,6 +8,8 @@ import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
 import { BadgeSkillService } from './badge-skill.service';
 import { IBadge } from 'app/shared/model/badge.model';
 import { BadgeService } from 'app/entities/badge';
+import { ISkill } from 'app/shared/model/skill.model';
+import { SkillService } from 'app/entities/skill';
 
 @Component({
     selector: 'jhi-badge-skill-update',
@@ -19,10 +21,13 @@ export class BadgeSkillUpdateComponent implements OnInit {
 
     badges: IBadge[];
 
+    skills: ISkill[];
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private badgeSkillService: BadgeSkillService,
         private badgeService: BadgeService,
+        private skillService: SkillService,
         private route: ActivatedRoute
     ) {}
 
@@ -34,6 +39,12 @@ export class BadgeSkillUpdateComponent implements OnInit {
         this.badgeService.query().subscribe(
             (res: HttpResponse<IBadge[]>) => {
                 this.badges = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.skillService.query().subscribe(
+            (res: HttpResponse<ISkill[]>) => {
+                this.skills = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -70,6 +81,10 @@ export class BadgeSkillUpdateComponent implements OnInit {
     }
 
     trackBadgeById(index: number, item: IBadge) {
+        return item.id;
+    }
+
+    trackSkillById(index: number, item: ISkill) {
         return item.id;
     }
     get badgeSkill() {

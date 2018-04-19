@@ -15,6 +15,12 @@
                         <a [routerLink]="['/badge', badgeSkill.badge?.id, 'view']">{{badgeSkill.badge?.name}}</a>
                     </div>
                 </dd>
+                <dt><span>Skill</span></dt>
+                <dd>
+                    <div *ngIf="badgeSkill.skill">
+                        <a [routerLink]="['/skill', badgeSkill.skill?.id, 'view']">{{badgeSkill.skill?.title}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"
