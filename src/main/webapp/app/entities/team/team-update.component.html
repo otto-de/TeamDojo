@@ -51,6 +51,12 @@
                         [(ngModel)]="team.contactPerson" />
                 </div>
 
+                <div class="form-group">
+                    <label for="field_participations">Participations</label>
+                    <select class="form-control" id="field_participations" multiple name="participations" [(ngModel)]="team.participations">
+                        <option [ngValue]="getSelected(team.participations, dimensionOption)" *ngFor="let dimensionOption of dimensions; trackBy: trackDimensionById">{{dimensionOption.name}}</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

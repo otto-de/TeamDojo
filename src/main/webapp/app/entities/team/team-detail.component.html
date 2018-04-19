@@ -22,6 +22,12 @@
                 <dd>
                     <span>{{team.contactPerson}}</span>
                 </dd>
+                <dt><span>Participations</span></dt>
+                <dd>
+                    <span *ngFor="let participations of team.participations; let last = last">
+                        <a [routerLink]="['/dimension', participations?.id, 'view' ]">{{participations.name}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
             </dl>
 
             <button type="submit"

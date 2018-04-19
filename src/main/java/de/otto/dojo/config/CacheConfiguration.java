@@ -45,6 +45,8 @@ public class CacheConfiguration {
             cm.createCache(de.otto.dojo.domain.Dimension.class.getName(), jcacheConfiguration);
             cm.createCache(de.otto.dojo.domain.Skill.class.getName(), jcacheConfiguration);
             cm.createCache(de.otto.dojo.domain.Team.class.getName(), jcacheConfiguration);
+            cm.createCache(de.otto.dojo.domain.Dimension.class.getName() + ".participants", jcacheConfiguration);
+            cm.createCache(de.otto.dojo.domain.Team.class.getName() + ".participations", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

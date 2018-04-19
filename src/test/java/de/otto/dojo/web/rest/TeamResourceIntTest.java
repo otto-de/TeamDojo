@@ -3,6 +3,7 @@ package de.otto.dojo.web.rest;
 import de.otto.dojo.DojoApp;
 
 import de.otto.dojo.domain.Team;
+import de.otto.dojo.domain.Dimension;
 import de.otto.dojo.repository.TeamRepository;
 import de.otto.dojo.service.TeamService;
 import de.otto.dojo.web.rest.errors.ExceptionTranslator;
@@ -16,6 +17,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -32,6 +35,7 @@ import java.util.ArrayList;
 import static de.otto.dojo.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -58,8 +62,11 @@ public class TeamResourceIntTest {
     @Autowired
     private TeamRepository teamRepository;
 
-
+    @Mock
+    private TeamRepository teamRepositoryMock;
     
+    @Mock
+    private TeamService teamServiceMock;
 
     @Autowired
     private TeamService teamService;
@@ -189,6 +196,36 @@ public class TeamResourceIntTest {
             .andExpect(jsonPath("$.[*].contactPerson").value(hasItem(DEFAULT_CONTACT_PERSON.toString())));
     }
     
+    public void getAllTeamsWithEagerRelationshipsIsEnabled() throws Exception {
+        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService);
+        when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restTeamMockMvc.perform(get("/api/teams?eagerload=true"))
+        .andExpect(status().isOk());
+
+        verify(teamServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    public void getAllTeamsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService);
+            when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restTeamMockMvc.perform(get("/api/teams?eagerload=true"))
+        .andExpect(status().isOk());
+
+            verify(teamServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
 
     @Test
     @Transactional
@@ -284,6 +321,25 @@ public class TeamResourceIntTest {
         // Get all the teamList where contactPerson is null
         defaultTeamShouldNotBeFound("contactPerson.specified=false");
     }
+
+    @Test
+    @Transactional
+    public void getAllTeamsByParticipationsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Dimension participations = DimensionResourceIntTest.createEntity(em);
+        em.persist(participations);
+        em.flush();
+        team.addParticipations(participations);
+        teamRepository.saveAndFlush(team);
+        Long participationsId = participations.getId();
+
+        // Get all the teamList where participations equals to participationsId
+        defaultTeamShouldBeFound("participationsId.equals=" + participationsId);
+
+        // Get all the teamList where participations equals to participationsId + 1
+        defaultTeamShouldNotBeFound("participationsId.equals=" + (participationsId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned
      */

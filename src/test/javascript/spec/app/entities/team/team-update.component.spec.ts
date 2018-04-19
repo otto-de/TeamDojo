@@ -8,6 +8,8 @@ import { TeamUpdateComponent } from 'app/entities/team/team-update.component';
 import { TeamService } from 'app/entities/team/team.service';
 import { Team } from 'app/shared/model/team.model';
 
+import { DimensionService } from 'app/entities/dimension';
+
 describe('Component Tests', () => {
     describe('Team Management Update Component', () => {
         let comp: TeamUpdateComponent;
@@ -18,7 +20,7 @@ describe('Component Tests', () => {
             TestBed.configureTestingModule({
                 imports: [DojoTestModule],
                 declarations: [TeamUpdateComponent],
-                providers: [TeamService]
+                providers: [DimensionService, TeamService]
             })
                 .overrideTemplate(TeamUpdateComponent, '')
                 .compileComponents();

@@ -76,6 +76,9 @@ public class TeamQueryService extends QueryService<Team> {
             if (criteria.getContactPerson() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getContactPerson(), Team_.contactPerson));
             }
+            if (criteria.getParticipationsId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getParticipationsId(), Team_.participations, Dimension_.id));
+            }
         }
         return specification;
     }

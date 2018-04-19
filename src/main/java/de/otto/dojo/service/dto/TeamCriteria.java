@@ -32,6 +32,8 @@ public class TeamCriteria implements Serializable {
 
     private StringFilter contactPerson;
 
+    private LongFilter participationsId;
+
     public TeamCriteria() {
     }
 
@@ -59,12 +61,21 @@ public class TeamCriteria implements Serializable {
         this.contactPerson = contactPerson;
     }
 
+    public LongFilter getParticipationsId() {
+        return participationsId;
+    }
+
+    public void setParticipationsId(LongFilter participationsId) {
+        this.participationsId = participationsId;
+    }
+
     @Override
     public String toString() {
         return "TeamCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
                 (contactPerson != null ? "contactPerson=" + contactPerson + ", " : "") +
+                (participationsId != null ? "participationsId=" + participationsId + ", " : "") +
             "}";
     }
 

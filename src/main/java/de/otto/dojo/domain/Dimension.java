@@ -1,5 +1,6 @@
 package de.otto.dojo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -7,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -32,6 +35,11 @@ public class Dimension implements Serializable {
     @Size(max = 255)
     @Column(name = "description", length = 255)
     private String description;
+
+    @ManyToMany(mappedBy = "participations")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Team> participants = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -66,6 +74,31 @@ public class Dimension implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Team> getParticipants() {
+        return participants;
+    }
+
+    public Dimension participants(Set<Team> teams) {
+        this.participants = teams;
+        return this;
+    }
+
+    public Dimension addParticipants(Team team) {
+        this.participants.add(team);
+        team.getParticipations().add(this);
+        return this;
+    }
+
+    public Dimension removeParticipants(Team team) {
+        this.participants.remove(team);
+        team.getParticipations().remove(this);
+        return this;
+    }
+
+    public void setParticipants(Set<Team> teams) {
+        this.participants = teams;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -7,6 +7,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -38,6 +40,13 @@ public class Team implements Serializable {
 
     @Column(name = "contact_person")
     private String contactPerson;
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "team_participations",
+               joinColumns = @JoinColumn(name="teams_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="participations_id", referencedColumnName="id"))
+    private Set<Dimension> participations = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -98,6 +107,31 @@ public class Team implements Serializable {
 
     public void setContactPerson(String contactPerson) {
         this.contactPerson = contactPerson;
+    }
+
+    public Set<Dimension> getParticipations() {
+        return participations;
+    }
+
+    public Team participations(Set<Dimension> dimensions) {
+        this.participations = dimensions;
+        return this;
+    }
+
+    public Team addParticipations(Dimension dimension) {
+        this.participations.add(dimension);
+        dimension.getParticipants().add(this);
+        return this;
+    }
+
+    public Team removeParticipations(Dimension dimension) {
+        this.participations.remove(dimension);
+        dimension.getParticipants().remove(this);
+        return this;
+    }
+
+    public void setParticipations(Set<Dimension> dimensions) {
+        this.participations = dimensions;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
