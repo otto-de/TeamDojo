@@ -8,6 +8,8 @@ import { DimensionUpdateComponent } from 'app/entities/dimension/dimension-updat
 import { DimensionService } from 'app/entities/dimension/dimension.service';
 import { Dimension } from 'app/shared/model/dimension.model';
 
+import { TeamService } from 'app/entities/team';
+
 describe('Component Tests', () => {
     describe('Dimension Management Update Component', () => {
         let comp: DimensionUpdateComponent;
@@ -18,7 +20,7 @@ describe('Component Tests', () => {
             TestBed.configureTestingModule({
                 imports: [DojoTestModule],
                 declarations: [DimensionUpdateComponent],
-                providers: [DimensionService]
+                providers: [TeamService, DimensionService]
             })
                 .overrideTemplate(DimensionUpdateComponent, '')
                 .compileComponents();

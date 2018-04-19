@@ -32,6 +32,8 @@ public class DimensionCriteria implements Serializable {
 
     private StringFilter description;
 
+    private LongFilter participantsId;
+
     public DimensionCriteria() {
     }
 
@@ -59,12 +61,21 @@ public class DimensionCriteria implements Serializable {
         this.description = description;
     }
 
+    public LongFilter getParticipantsId() {
+        return participantsId;
+    }
+
+    public void setParticipantsId(LongFilter participantsId) {
+        this.participantsId = participantsId;
+    }
+
     @Override
     public String toString() {
         return "DimensionCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
+                (participantsId != null ? "participantsId=" + participantsId + ", " : "") +
             "}";
     }
 

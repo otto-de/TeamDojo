@@ -76,6 +76,9 @@ public class DimensionQueryService extends QueryService<Dimension> {
             if (criteria.getDescription() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescription(), Dimension_.description));
             }
+            if (criteria.getParticipantsId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getParticipantsId(), Dimension_.participants, Team_.id));
+            }
         }
         return specification;
     }

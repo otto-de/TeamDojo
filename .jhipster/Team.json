@@ -1,0 +1,48 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "participations",
+            "otherEntityName": "dimension",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "participants"
+        },
+        {
+            "relationshipName": "skills",
+            "otherEntityName": "teamSkill",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "team"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "2",
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
+            "fieldName": "picture",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "contactPerson",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180419083624",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "team",
+    "jpaMetamodelFiltering": true,
+    "pagination": "no"
+}

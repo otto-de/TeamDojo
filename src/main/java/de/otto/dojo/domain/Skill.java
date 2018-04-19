@@ -1,5 +1,6 @@
 package de.otto.dojo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -7,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -38,6 +41,10 @@ public class Skill implements Serializable {
     @Pattern(regexp = "^P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?$")
     @Column(name = "expiry_period")
     private String expiryPeriod;
+
+    @OneToMany(mappedBy = "skill")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<TeamSkill> teams = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -98,6 +105,31 @@ public class Skill implements Serializable {
 
     public void setExpiryPeriod(String expiryPeriod) {
         this.expiryPeriod = expiryPeriod;
+    }
+
+    public Set<TeamSkill> getTeams() {
+        return teams;
+    }
+
+    public Skill teams(Set<TeamSkill> teamSkills) {
+        this.teams = teamSkills;
+        return this;
+    }
+
+    public Skill addTeams(TeamSkill teamSkill) {
+        this.teams.add(teamSkill);
+        teamSkill.setSkill(this);
+        return this;
+    }
+
+    public Skill removeTeams(TeamSkill teamSkill) {
+        this.teams.remove(teamSkill);
+        teamSkill.setSkill(null);
+        return this;
+    }
+
+    public void setTeams(Set<TeamSkill> teamSkills) {
+        this.teams = teamSkills;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

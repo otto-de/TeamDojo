@@ -3,6 +3,7 @@ package de.otto.dojo.web.rest;
 import de.otto.dojo.DojoApp;
 
 import de.otto.dojo.domain.Dimension;
+import de.otto.dojo.domain.Team;
 import de.otto.dojo.repository.DimensionRepository;
 import de.otto.dojo.service.DimensionService;
 import de.otto.dojo.web.rest.errors.ExceptionTranslator;
@@ -270,6 +271,25 @@ public class DimensionResourceIntTest {
         // Get all the dimensionList where description is null
         defaultDimensionShouldNotBeFound("description.specified=false");
     }
+
+    @Test
+    @Transactional
+    public void getAllDimensionsByParticipantsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Team participants = TeamResourceIntTest.createEntity(em);
+        em.persist(participants);
+        em.flush();
+        dimension.addParticipants(participants);
+        dimensionRepository.saveAndFlush(dimension);
+        Long participantsId = participants.getId();
+
+        // Get all the dimensionList where participants equals to participantsId
+        defaultDimensionShouldBeFound("participantsId.equals=" + participantsId);
+
+        // Get all the dimensionList where participants equals to participantsId + 1
+        defaultDimensionShouldNotBeFound("participantsId.equals=" + (participantsId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned
      */

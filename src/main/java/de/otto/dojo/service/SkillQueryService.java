@@ -82,6 +82,9 @@ public class SkillQueryService extends QueryService<Skill> {
             if (criteria.getExpiryPeriod() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getExpiryPeriod(), Skill_.expiryPeriod));
             }
+            if (criteria.getTeamsId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getTeamsId(), Skill_.teams, TeamSkill_.id));
+            }
         }
         return specification;
     }
