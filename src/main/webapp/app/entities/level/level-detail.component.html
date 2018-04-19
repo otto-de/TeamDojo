@@ -1,0 +1,52 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="level">
+            <h2><span>Level</span> {{level.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{level.name}}</span>
+                </dd>
+                <dt><span>Picture</span></dt>
+                <dd>
+                    <div *ngIf="level.picture">
+                        <a (click)="openFile(level.pictureContentType, level.picture)">
+                            <img [src]="'data:' + level.pictureContentType + ';base64,' + level.picture" style="max-width: 100%;" alt="level image"/>
+                        </a>
+                        {{level.pictureContentType}}, {{byteSize(level.picture)}}
+                    </div>
+                </dd>
+                <dt><span>Required Score</span></dt>
+                <dd>
+                    <span>{{level.requiredScore}}</span>
+                </dd>
+                <dt><span>Dimension</span></dt>
+                <dd>
+                    <div *ngIf="level.dimension">
+                        <a [routerLink]="['/dimension', level.dimension?.id, 'view']">{{level.dimension?.name}}</a>
+                    </div>
+                </dd>
+                <dt><span>Depends On</span></dt>
+                <dd>
+                    <div *ngIf="level.dependsOn">
+                        <a [routerLink]="['/level', level.dependsOn?.id, 'view']">{{level.dependsOn?.name}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/level', level.id, 'edit']"
+                    class="btn btn-primary">
+                <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
