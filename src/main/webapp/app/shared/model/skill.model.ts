@@ -6,6 +6,7 @@ export interface ISkill {
     id?: number;
     title?: string;
     description?: string;
+    implementation?: string;
     validation?: string;
     expiryPeriod?: string;
     teams?: ITeamSkill[];
@@ -18,6 +19,7 @@ export class Skill implements ISkill {
         public id?: number,
         public title?: string,
         public description?: string,
+        public implementation?: string,
         public validation?: string,
         public expiryPeriod?: string,
         public teams?: ITeamSkill[],

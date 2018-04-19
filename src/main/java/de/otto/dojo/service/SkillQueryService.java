@@ -76,6 +76,9 @@ public class SkillQueryService extends QueryService<Skill> {
             if (criteria.getDescription() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescription(), Skill_.description));
             }
+            if (criteria.getImplementation() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getImplementation(), Skill_.implementation));
+            }
             if (criteria.getValidation() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getValidation(), Skill_.validation));
             }

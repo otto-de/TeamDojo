@@ -32,6 +32,8 @@ public class SkillCriteria implements Serializable {
 
     private StringFilter description;
 
+    private StringFilter implementation;
+
     private StringFilter validation;
 
     private StringFilter expiryPeriod;
@@ -67,6 +69,14 @@ public class SkillCriteria implements Serializable {
 
     public void setDescription(StringFilter description) {
         this.description = description;
+    }
+
+    public StringFilter getImplementation() {
+        return implementation;
+    }
+
+    public void setImplementation(StringFilter implementation) {
+        this.implementation = implementation;
     }
 
     public StringFilter getValidation() {
@@ -115,6 +125,7 @@ public class SkillCriteria implements Serializable {
                 (id != null ? "id=" + id + ", " : "") +
                 (title != null ? "title=" + title + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
+                (implementation != null ? "implementation=" + implementation + ", " : "") +
                 (validation != null ? "validation=" + validation + ", " : "") +
                 (expiryPeriod != null ? "expiryPeriod=" + expiryPeriod + ", " : "") +
                 (teamsId != null ? "teamsId=" + teamsId + ", " : "") +
