@@ -3,6 +3,7 @@ package de.otto.dojo.web.rest;
 import de.otto.dojo.DojoApp;
 
 import de.otto.dojo.domain.BadgeSkill;
+import de.otto.dojo.domain.Badge;
 import de.otto.dojo.repository.BadgeSkillRepository;
 import de.otto.dojo.service.BadgeSkillService;
 import de.otto.dojo.web.rest.errors.ExceptionTranslator;
@@ -94,6 +95,11 @@ public class BadgeSkillResourceIntTest {
     public static BadgeSkill createEntity(EntityManager em) {
         BadgeSkill badgeSkill = new BadgeSkill()
             .score(DEFAULT_SCORE);
+        // Add required entity
+        Badge badge = BadgeResourceIntTest.createEntity(em);
+        em.persist(badge);
+        em.flush();
+        badgeSkill.setBadge(badge);
         return badgeSkill;
     }
 
@@ -249,6 +255,25 @@ public class BadgeSkillResourceIntTest {
 
         // Get all the badgeSkillList where score less than or equals to UPDATED_SCORE
         defaultBadgeSkillShouldBeFound("score.lessThan=" + UPDATED_SCORE);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllBadgeSkillsByBadgeIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Badge badge = BadgeResourceIntTest.createEntity(em);
+        em.persist(badge);
+        em.flush();
+        badgeSkill.setBadge(badge);
+        badgeSkillRepository.saveAndFlush(badgeSkill);
+        Long badgeId = badge.getId();
+
+        // Get all the badgeSkillList where badge equals to badgeId
+        defaultBadgeSkillShouldBeFound("badgeId.equals=" + badgeId);
+
+        // Get all the badgeSkillList where badge equals to badgeId + 1
+        defaultBadgeSkillShouldNotBeFound("badgeId.equals=" + (badgeId + 1));
     }
 
     /**

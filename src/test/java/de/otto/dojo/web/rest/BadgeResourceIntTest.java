@@ -3,6 +3,7 @@ package de.otto.dojo.web.rest;
 import de.otto.dojo.DojoApp;
 
 import de.otto.dojo.domain.Badge;
+import de.otto.dojo.domain.BadgeSkill;
 import de.otto.dojo.repository.BadgeRepository;
 import de.otto.dojo.service.BadgeService;
 import de.otto.dojo.web.rest.errors.ExceptionTranslator;
@@ -451,6 +452,25 @@ public class BadgeResourceIntTest {
         // Get all the badgeList where requiredScore is null
         defaultBadgeShouldNotBeFound("requiredScore.specified=false");
     }
+
+    @Test
+    @Transactional
+    public void getAllBadgesBySkillsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        BadgeSkill skills = BadgeSkillResourceIntTest.createEntity(em);
+        em.persist(skills);
+        em.flush();
+        badge.addSkills(skills);
+        badgeRepository.saveAndFlush(badge);
+        Long skillsId = skills.getId();
+
+        // Get all the badgeList where skills equals to skillsId
+        defaultBadgeShouldBeFound("skillsId.equals=" + skillsId);
+
+        // Get all the badgeList where skills equals to skillsId + 1
+        defaultBadgeShouldNotBeFound("skillsId.equals=" + (skillsId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned
      */

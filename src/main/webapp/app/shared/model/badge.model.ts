@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { IBadgeSkill } from './badge-skill.model';
 
 export interface IBadge {
     id?: number;
@@ -9,6 +10,7 @@ export interface IBadge {
     availableUntil?: Moment;
     availableAmount?: number;
     requiredScore?: number;
+    skills?: IBadgeSkill[];
 }
 
 export class Badge implements IBadge {
@@ -20,6 +22,7 @@ export class Badge implements IBadge {
         public logo?: any,
         public availableUntil?: Moment,
         public availableAmount?: number,
-        public requiredScore?: number
+        public requiredScore?: number,
+        public skills?: IBadgeSkill[]
     ) {}
 }

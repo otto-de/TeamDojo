@@ -38,6 +38,8 @@ public class BadgeCriteria implements Serializable {
 
     private DoubleFilter requiredScore;
 
+    private LongFilter skillsId;
+
     public BadgeCriteria() {
     }
 
@@ -89,6 +91,14 @@ public class BadgeCriteria implements Serializable {
         this.requiredScore = requiredScore;
     }
 
+    public LongFilter getSkillsId() {
+        return skillsId;
+    }
+
+    public void setSkillsId(LongFilter skillsId) {
+        this.skillsId = skillsId;
+    }
+
     @Override
     public String toString() {
         return "BadgeCriteria{" +
@@ -98,6 +108,7 @@ public class BadgeCriteria implements Serializable {
                 (availableUntil != null ? "availableUntil=" + availableUntil + ", " : "") +
                 (availableAmount != null ? "availableAmount=" + availableAmount + ", " : "") +
                 (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
+                (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
             "}";
     }
 

@@ -8,6 +8,8 @@ import { BadgeSkillUpdateComponent } from 'app/entities/badge-skill/badge-skill-
 import { BadgeSkillService } from 'app/entities/badge-skill/badge-skill.service';
 import { BadgeSkill } from 'app/shared/model/badge-skill.model';
 
+import { BadgeService } from 'app/entities/badge';
+
 describe('Component Tests', () => {
     describe('BadgeSkill Management Update Component', () => {
         let comp: BadgeSkillUpdateComponent;
@@ -18,7 +20,7 @@ describe('Component Tests', () => {
             TestBed.configureTestingModule({
                 imports: [DojoTestModule],
                 declarations: [BadgeSkillUpdateComponent],
-                providers: [BadgeSkillService]
+                providers: [BadgeService, BadgeSkillService]
             })
                 .overrideTemplate(BadgeSkillUpdateComponent, '')
                 .compileComponents();

@@ -1,5 +1,6 @@
 package de.otto.dojo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -8,6 +9,8 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -51,6 +54,10 @@ public class Badge implements Serializable {
     @DecimalMax(value = "1")
     @Column(name = "required_score")
     private Double requiredScore;
+
+    @OneToMany(mappedBy = "badge")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<BadgeSkill> skills = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -150,6 +157,31 @@ public class Badge implements Serializable {
 
     public void setRequiredScore(Double requiredScore) {
         this.requiredScore = requiredScore;
+    }
+
+    public Set<BadgeSkill> getSkills() {
+        return skills;
+    }
+
+    public Badge skills(Set<BadgeSkill> badgeSkills) {
+        this.skills = badgeSkills;
+        return this;
+    }
+
+    public Badge addSkills(BadgeSkill badgeSkill) {
+        this.skills.add(badgeSkill);
+        badgeSkill.setBadge(this);
+        return this;
+    }
+
+    public Badge removeSkills(BadgeSkill badgeSkill) {
+        this.skills.remove(badgeSkill);
+        badgeSkill.setBadge(null);
+        return this;
+    }
+
+    public void setSkills(Set<BadgeSkill> badgeSkills) {
+        this.skills = badgeSkills;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

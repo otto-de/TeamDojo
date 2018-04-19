@@ -1,7 +1,14 @@
 {
     "fluentMethods": true,
     "clientRootFolder": "",
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipName": "skills",
+            "otherEntityName": "badgeSkill",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "badge"
+        }
+    ],
     "fields": [
         {
             "fieldName": "name",

@@ -30,6 +30,8 @@ public class BadgeSkillCriteria implements Serializable {
 
     private IntegerFilter score;
 
+    private LongFilter badgeId;
+
     public BadgeSkillCriteria() {
     }
 
@@ -49,11 +51,20 @@ public class BadgeSkillCriteria implements Serializable {
         this.score = score;
     }
 
+    public LongFilter getBadgeId() {
+        return badgeId;
+    }
+
+    public void setBadgeId(LongFilter badgeId) {
+        this.badgeId = badgeId;
+    }
+
     @Override
     public String toString() {
         return "BadgeSkillCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (score != null ? "score=" + score + ", " : "") +
+                (badgeId != null ? "badgeId=" + badgeId + ", " : "") +
             "}";
     }
 

@@ -16,6 +16,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="score"><span>Score</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="badge.name"><span>Badge</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -23,6 +24,11 @@
             <tr *ngFor="let badgeSkill of badgeSkills ;trackBy: trackId">
                 <td><a [routerLink]="['/badge-skill', badgeSkill.id, 'view' ]">{{badgeSkill.id}}</a></td>
                 <td>{{badgeSkill.score}}</td>
+                <td>
+                    <div *ngIf="badgeSkill.badge">
+                        <a [routerLink]="['../badge', badgeSkill.badge?.id, 'view' ]" >{{badgeSkill.badge?.name}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

@@ -1,5 +1,6 @@
 package de.otto.dojo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -29,6 +30,11 @@ public class BadgeSkill implements Serializable {
     @Column(name = "score", nullable = false)
     private Integer score;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("skills")
+    private Badge badge;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -49,6 +55,19 @@ public class BadgeSkill implements Serializable {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public Badge getBadge() {
+        return badge;
+    }
+
+    public BadgeSkill badge(Badge badge) {
+        this.badge = badge;
+        return this;
+    }
+
+    public void setBadge(Badge badge) {
+        this.badge = badge;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

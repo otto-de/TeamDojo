@@ -29,6 +29,19 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="form-control-label" for="field_badge">Badge</label>
+                    <select class="form-control" id="field_badge" name="badge" [(ngModel)]="badgeSkill.badge"  required>
+                        <option *ngIf="!editForm.value.badge" [ngValue]="null" selected></option>
+                        <option [ngValue]="badgeOption.id === badgeSkill.badge?.id ? badgeSkill.badge : badgeOption" *ngFor="let badgeOption of badges; trackBy: trackBadgeById">{{badgeOption.name}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.badge?.dirty && editForm.controls.badge?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.badge?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
