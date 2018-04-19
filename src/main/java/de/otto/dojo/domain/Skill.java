@@ -50,6 +50,10 @@ public class Skill implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<BadgeSkill> badges = new HashSet<>();
 
+    @OneToMany(mappedBy = "skill")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<LevelSkill> levels = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -159,6 +163,31 @@ public class Skill implements Serializable {
 
     public void setBadges(Set<BadgeSkill> badgeSkills) {
         this.badges = badgeSkills;
+    }
+
+    public Set<LevelSkill> getLevels() {
+        return levels;
+    }
+
+    public Skill levels(Set<LevelSkill> levelSkills) {
+        this.levels = levelSkills;
+        return this;
+    }
+
+    public Skill addLevels(LevelSkill levelSkill) {
+        this.levels.add(levelSkill);
+        levelSkill.setSkill(this);
+        return this;
+    }
+
+    public Skill removeLevels(LevelSkill levelSkill) {
+        this.levels.remove(levelSkill);
+        levelSkill.setSkill(null);
+        return this;
+    }
+
+    public void setLevels(Set<LevelSkill> levelSkills) {
+        this.levels = levelSkills;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

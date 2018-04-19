@@ -56,6 +56,8 @@ public class CacheConfiguration {
             cm.createCache(de.otto.dojo.domain.Badge.class.getName() + ".skills", jcacheConfiguration);
             cm.createCache(de.otto.dojo.domain.Skill.class.getName() + ".badges", jcacheConfiguration);
             cm.createCache(de.otto.dojo.domain.LevelSkill.class.getName(), jcacheConfiguration);
+            cm.createCache(de.otto.dojo.domain.Level.class.getName() + ".skills", jcacheConfiguration);
+            cm.createCache(de.otto.dojo.domain.Skill.class.getName() + ".levels", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

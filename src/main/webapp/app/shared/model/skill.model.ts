@@ -1,5 +1,6 @@
 import { ITeamSkill } from './team-skill.model';
 import { IBadgeSkill } from './badge-skill.model';
+import { ILevelSkill } from './level-skill.model';
 
 export interface ISkill {
     id?: number;
@@ -9,6 +10,7 @@ export interface ISkill {
     expiryPeriod?: string;
     teams?: ITeamSkill[];
     badges?: IBadgeSkill[];
+    levels?: ILevelSkill[];
 }
 
 export class Skill implements ISkill {
@@ -19,6 +21,7 @@ export class Skill implements ISkill {
         public validation?: string,
         public expiryPeriod?: string,
         public teams?: ITeamSkill[],
-        public badges?: IBadgeSkill[]
+        public badges?: IBadgeSkill[],
+        public levels?: ILevelSkill[]
     ) {}
 }

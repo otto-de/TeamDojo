@@ -40,6 +40,8 @@ public class SkillCriteria implements Serializable {
 
     private LongFilter badgesId;
 
+    private LongFilter levelsId;
+
     public SkillCriteria() {
     }
 
@@ -99,6 +101,14 @@ public class SkillCriteria implements Serializable {
         this.badgesId = badgesId;
     }
 
+    public LongFilter getLevelsId() {
+        return levelsId;
+    }
+
+    public void setLevelsId(LongFilter levelsId) {
+        this.levelsId = levelsId;
+    }
+
     @Override
     public String toString() {
         return "SkillCriteria{" +
@@ -109,6 +119,7 @@ public class SkillCriteria implements Serializable {
                 (expiryPeriod != null ? "expiryPeriod=" + expiryPeriod + ", " : "") +
                 (teamsId != null ? "teamsId=" + teamsId + ", " : "") +
                 (badgesId != null ? "badgesId=" + badgesId + ", " : "") +
+                (levelsId != null ? "levelsId=" + levelsId + ", " : "") +
             "}";
     }
 

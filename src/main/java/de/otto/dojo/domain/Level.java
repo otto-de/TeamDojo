@@ -1,5 +1,6 @@
 package de.otto.dojo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -8,6 +9,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -49,7 +52,12 @@ public class Level implements Serializable {
     private Dimension dimension;
 
     @OneToOne
+    @JoinColumn(unique = true)
     private Level dependsOn;
+
+    @OneToMany(mappedBy = "level")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<LevelSkill> skills = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -136,6 +144,31 @@ public class Level implements Serializable {
 
     public void setDependsOn(Level level) {
         this.dependsOn = level;
+    }
+
+    public Set<LevelSkill> getSkills() {
+        return skills;
+    }
+
+    public Level skills(Set<LevelSkill> levelSkills) {
+        this.skills = levelSkills;
+        return this;
+    }
+
+    public Level addSkills(LevelSkill levelSkill) {
+        this.skills.add(levelSkill);
+        levelSkill.setLevel(this);
+        return this;
+    }
+
+    public Level removeSkills(LevelSkill levelSkill) {
+        this.skills.remove(levelSkill);
+        levelSkill.setLevel(null);
+        return this;
+    }
+
+    public void setSkills(Set<LevelSkill> levelSkills) {
+        this.skills = levelSkills;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

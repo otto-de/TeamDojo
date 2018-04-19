@@ -18,6 +18,12 @@
             "otherEntityField": "name",
             "ownerSide": true,
             "otherEntityRelationshipName": "level"
+        },
+        {
+            "relationshipName": "skills",
+            "otherEntityName": "levelSkill",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "level"
         }
     ],
     "fields": [

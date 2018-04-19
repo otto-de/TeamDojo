@@ -1,5 +1,6 @@
 import { IDimension } from './dimension.model';
 import { ILevel } from './level.model';
+import { ILevelSkill } from './level-skill.model';
 
 export interface ILevel {
     id?: number;
@@ -9,6 +10,7 @@ export interface ILevel {
     requiredScore?: number;
     dimension?: IDimension;
     dependsOn?: ILevel;
+    skills?: ILevelSkill[];
 }
 
 export class Level implements ILevel {
@@ -19,6 +21,7 @@ export class Level implements ILevel {
         public picture?: any,
         public requiredScore?: number,
         public dimension?: IDimension,
-        public dependsOn?: ILevel
+        public dependsOn?: ILevel,
+        public skills?: ILevelSkill[]
     ) {}
 }

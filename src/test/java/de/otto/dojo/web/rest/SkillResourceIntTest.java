@@ -5,6 +5,7 @@ import de.otto.dojo.DojoApp;
 import de.otto.dojo.domain.Skill;
 import de.otto.dojo.domain.TeamSkill;
 import de.otto.dojo.domain.BadgeSkill;
+import de.otto.dojo.domain.LevelSkill;
 import de.otto.dojo.repository.SkillRepository;
 import de.otto.dojo.service.SkillService;
 import de.otto.dojo.web.rest.errors.ExceptionTranslator;
@@ -400,6 +401,25 @@ public class SkillResourceIntTest {
 
         // Get all the skillList where badges equals to badgesId + 1
         defaultSkillShouldNotBeFound("badgesId.equals=" + (badgesId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllSkillsByLevelsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        LevelSkill levels = LevelSkillResourceIntTest.createEntity(em);
+        em.persist(levels);
+        em.flush();
+        skill.addLevels(levels);
+        skillRepository.saveAndFlush(skill);
+        Long levelsId = levels.getId();
+
+        // Get all the skillList where levels equals to levelsId
+        defaultSkillShouldBeFound("levelsId.equals=" + levelsId);
+
+        // Get all the skillList where levels equals to levelsId + 1
+        defaultSkillShouldNotBeFound("levelsId.equals=" + (levelsId + 1));
     }
 
     /**

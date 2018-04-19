@@ -5,6 +5,7 @@ import de.otto.dojo.DojoApp;
 import de.otto.dojo.domain.Level;
 import de.otto.dojo.domain.Dimension;
 import de.otto.dojo.domain.Level;
+import de.otto.dojo.domain.LevelSkill;
 import de.otto.dojo.repository.LevelRepository;
 import de.otto.dojo.service.LevelService;
 import de.otto.dojo.web.rest.errors.ExceptionTranslator;
@@ -345,6 +346,25 @@ public class LevelResourceIntTest {
 
         // Get all the levelList where dependsOn equals to dependsOnId + 1
         defaultLevelShouldNotBeFound("dependsOnId.equals=" + (dependsOnId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllLevelsBySkillsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        LevelSkill skills = LevelSkillResourceIntTest.createEntity(em);
+        em.persist(skills);
+        em.flush();
+        level.addSkills(skills);
+        levelRepository.saveAndFlush(level);
+        Long skillsId = skills.getId();
+
+        // Get all the levelList where skills equals to skillsId
+        defaultLevelShouldBeFound("skillsId.equals=" + skillsId);
+
+        // Get all the levelList where skills equals to skillsId + 1
+        defaultLevelShouldNotBeFound("skillsId.equals=" + (skillsId + 1));
     }
 
     /**
