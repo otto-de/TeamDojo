@@ -1,0 +1,106 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-badge-heading">Create or edit a Badge</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!badge.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="badge.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                        [(ngModel)]="badge.name" required minlength="2" maxlength="20"/>
+                    <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.name?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.name?.errors?.minlength">
+                        This field is required to be at least 2 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.name?.errors?.maxlength">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                        [(ngModel)]="badge.description" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_logo">Logo</label>
+                    <div>
+                        <img [src]="'data:' + badge.logoContentType + ';base64,' + badge.logo" style="max-height: 100px;" *ngIf="badge.logo" alt="badge image"/>
+                        <div *ngIf="badge.logo" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{badge.logoContentType}}, {{byteSize(badge.logo)}}</span>
+                            <button type="button" (click)="clearInputImage('logo', 'logoContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <span class="fa fa-times"></span>
+                            </button>
+                        </div>
+                        <input type="file" id="file_logo" (change)="setFileData($event, badge, 'logo', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="logo" id="field_logo"
+                        [(ngModel)]="badge.logo" />
+                    <input type="hidden" class="form-control" name="logoContentType" id="field_logoContentType"
+                        [(ngModel)]="badge.logoContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_availableUntil">Available Until</label>
+                    <div class="d-flex">
+                        <input id="field_availableUntil" type="datetime-local" class="form-control" name="availableUntil" [(ngModel)]="availableUntil"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_availableAmount">Available Amount</label>
+                    <input type="number" class="form-control" name="availableAmount" id="field_availableAmount"
+                        [(ngModel)]="badge.availableAmount" min="1"/>
+                    <div [hidden]="!(editForm.controls.availableAmount?.dirty && editForm.controls.availableAmount?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.availableAmount?.errors?.min">
+                            This field should be at least 1.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.availableAmount?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_requiredScore">Required Score</label>
+                    <input type="number" class="form-control" name="requiredScore" id="field_requiredScore"
+                        [(ngModel)]="badge.requiredScore" min="0" max="1"/>
+                    <div [hidden]="!(editForm.controls.requiredScore?.dirty && editForm.controls.requiredScore?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.requiredScore?.errors?.min">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.requiredScore?.errors?.max">
+                            This field cannot be more than 1.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.requiredScore?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
