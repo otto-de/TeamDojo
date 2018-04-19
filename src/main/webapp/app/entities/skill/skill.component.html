@@ -17,6 +17,7 @@
             <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="title"><span>Title</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="description"><span>Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="implementation"><span>Implementation</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="validation"><span>Validation</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="expiryPeriod"><span>Expiry Period</span> <span class="fa fa-sort"></span></th>
             <th></th>
@@ -27,6 +28,7 @@
                 <td><a [routerLink]="['/skill', skill.id, 'view' ]">{{skill.id}}</a></td>
                 <td>{{skill.title}}</td>
                 <td>{{skill.description}}</td>
+                <td>{{skill.implementation}}</td>
                 <td>{{skill.validation}}</td>
                 <td>{{skill.expiryPeriod}}</td>
                 <td class="text-right">

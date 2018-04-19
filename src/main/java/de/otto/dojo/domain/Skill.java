@@ -35,6 +35,9 @@ public class Skill implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "implementation")
+    private String implementation;
+
     @Column(name = "jhi_validation")
     private String validation;
 
@@ -87,6 +90,19 @@ public class Skill implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImplementation() {
+        return implementation;
+    }
+
+    public Skill implementation(String implementation) {
+        this.implementation = implementation;
+        return this;
+    }
+
+    public void setImplementation(String implementation) {
+        this.implementation = implementation;
     }
 
     public String getValidation() {
@@ -217,6 +233,7 @@ public class Skill implements Serializable {
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
             ", description='" + getDescription() + "'" +
+            ", implementation='" + getImplementation() + "'" +
             ", validation='" + getValidation() + "'" +
             ", expiryPeriod='" + getExpiryPeriod() + "'" +
             "}";
