@@ -3,6 +3,8 @@ package de.otto.dojo.web.rest;
 import de.otto.dojo.DojoApp;
 
 import de.otto.dojo.domain.TeamSkill;
+import de.otto.dojo.domain.Skill;
+import de.otto.dojo.domain.Team;
 import de.otto.dojo.repository.TeamSkillRepository;
 import de.otto.dojo.service.TeamSkillService;
 import de.otto.dojo.web.rest.errors.ExceptionTranslator;
@@ -104,6 +106,16 @@ public class TeamSkillResourceIntTest {
             .achievedAt(DEFAULT_ACHIEVED_AT)
             .verified(DEFAULT_VERIFIED)
             .note(DEFAULT_NOTE);
+        // Add required entity
+        Skill skill = SkillResourceIntTest.createEntity(em);
+        em.persist(skill);
+        em.flush();
+        teamSkill.setSkill(skill);
+        // Add required entity
+        Team team = TeamResourceIntTest.createEntity(em);
+        em.persist(team);
+        em.flush();
+        teamSkill.setTeam(team);
         return teamSkill;
     }
 
@@ -300,6 +312,44 @@ public class TeamSkillResourceIntTest {
         // Get all the teamSkillList where note is null
         defaultTeamSkillShouldNotBeFound("note.specified=false");
     }
+
+    @Test
+    @Transactional
+    public void getAllTeamSkillsBySkillIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Skill skill = SkillResourceIntTest.createEntity(em);
+        em.persist(skill);
+        em.flush();
+        teamSkill.setSkill(skill);
+        teamSkillRepository.saveAndFlush(teamSkill);
+        Long skillId = skill.getId();
+
+        // Get all the teamSkillList where skill equals to skillId
+        defaultTeamSkillShouldBeFound("skillId.equals=" + skillId);
+
+        // Get all the teamSkillList where skill equals to skillId + 1
+        defaultTeamSkillShouldNotBeFound("skillId.equals=" + (skillId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllTeamSkillsByTeamIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Team team = TeamResourceIntTest.createEntity(em);
+        em.persist(team);
+        em.flush();
+        teamSkill.setTeam(team);
+        teamSkillRepository.saveAndFlush(teamSkill);
+        Long teamId = team.getId();
+
+        // Get all the teamSkillList where team equals to teamId
+        defaultTeamSkillShouldBeFound("teamId.equals=" + teamId);
+
+        // Get all the teamSkillList where team equals to teamId + 1
+        defaultTeamSkillShouldNotBeFound("teamId.equals=" + (teamId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned
      */

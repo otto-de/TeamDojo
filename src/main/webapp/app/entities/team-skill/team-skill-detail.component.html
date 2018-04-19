@@ -17,6 +17,18 @@
                 <dd>
                     <span>{{teamSkill.note}}</span>
                 </dd>
+                <dt><span>Skill</span></dt>
+                <dd>
+                    <div *ngIf="teamSkill.skill">
+                        <a [routerLink]="['/skill', teamSkill.skill?.id, 'view']">{{teamSkill.skill?.title}}</a>
+                    </div>
+                </dd>
+                <dt><span>Team</span></dt>
+                <dd>
+                    <div *ngIf="teamSkill.team">
+                        <a [routerLink]="['/team', teamSkill.team?.id, 'view']">{{teamSkill.team?.name}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

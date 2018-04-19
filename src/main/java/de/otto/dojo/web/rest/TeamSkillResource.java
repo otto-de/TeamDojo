@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -53,7 +54,7 @@ public class TeamSkillResource {
      */
     @PostMapping("/team-skills")
     @Timed
-    public ResponseEntity<TeamSkill> createTeamSkill(@RequestBody TeamSkill teamSkill) throws URISyntaxException {
+    public ResponseEntity<TeamSkill> createTeamSkill(@Valid @RequestBody TeamSkill teamSkill) throws URISyntaxException {
         log.debug("REST request to save TeamSkill : {}", teamSkill);
         if (teamSkill.getId() != null) {
             throw new BadRequestAlertException("A new teamSkill cannot already have an ID", ENTITY_NAME, "idexists");
@@ -75,7 +76,7 @@ public class TeamSkillResource {
      */
     @PutMapping("/team-skills")
     @Timed
-    public ResponseEntity<TeamSkill> updateTeamSkill(@RequestBody TeamSkill teamSkill) throws URISyntaxException {
+    public ResponseEntity<TeamSkill> updateTeamSkill(@Valid @RequestBody TeamSkill teamSkill) throws URISyntaxException {
         log.debug("REST request to update TeamSkill : {}", teamSkill);
         if (teamSkill.getId() == null) {
             return createTeamSkill(teamSkill);

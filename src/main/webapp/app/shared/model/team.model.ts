@@ -1,4 +1,5 @@
 import { IDimension } from './dimension.model';
+import { ITeamSkill } from './team-skill.model';
 
 export interface ITeam {
     id?: number;
@@ -7,6 +8,7 @@ export interface ITeam {
     picture?: any;
     contactPerson?: string;
     participations?: IDimension[];
+    skills?: ITeamSkill[];
 }
 
 export class Team implements ITeam {
@@ -16,6 +18,7 @@ export class Team implements ITeam {
         public pictureContentType?: string,
         public picture?: any,
         public contactPerson?: string,
-        public participations?: IDimension[]
+        public participations?: IDimension[],
+        public skills?: ITeamSkill[]
     ) {}
 }

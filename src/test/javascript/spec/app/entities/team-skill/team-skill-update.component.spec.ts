@@ -8,6 +8,9 @@ import { TeamSkillUpdateComponent } from 'app/entities/team-skill/team-skill-upd
 import { TeamSkillService } from 'app/entities/team-skill/team-skill.service';
 import { TeamSkill } from 'app/shared/model/team-skill.model';
 
+import { SkillService } from 'app/entities/skill';
+import { TeamService } from 'app/entities/team';
+
 describe('Component Tests', () => {
     describe('TeamSkill Management Update Component', () => {
         let comp: TeamSkillUpdateComponent;
@@ -18,7 +21,7 @@ describe('Component Tests', () => {
             TestBed.configureTestingModule({
                 imports: [DojoTestModule],
                 declarations: [TeamSkillUpdateComponent],
-                providers: [TeamSkillService]
+                providers: [SkillService, TeamService, TeamSkillService]
             })
                 .overrideTemplate(TeamSkillUpdateComponent, '')
                 .compileComponents();

@@ -33,6 +33,14 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="skill_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="team_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="team_skill" columnName="achieved_at" columnDataType="datetime"/>

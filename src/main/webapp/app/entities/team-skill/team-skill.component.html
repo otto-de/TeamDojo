@@ -18,6 +18,8 @@
             <th jhiSortBy="achievedAt"><span>Achieved At</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="verified"><span>Verified</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="note"><span>Note</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="skill.title"><span>Skill</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="team.name"><span>Team</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -27,6 +29,16 @@
                 <td>{{teamSkill.achievedAt | date:'medium'}}</td>
                 <td>{{teamSkill.verified}}</td>
                 <td>{{teamSkill.note}}</td>
+                <td>
+                    <div *ngIf="teamSkill.skill">
+                        <a [routerLink]="['../skill', teamSkill.skill?.id, 'view' ]" >{{teamSkill.skill?.title}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="teamSkill.team">
+                        <a [routerLink]="['../team', teamSkill.team?.id, 'view' ]" >{{teamSkill.team?.name}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

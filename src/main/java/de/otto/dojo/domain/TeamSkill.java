@@ -1,9 +1,11 @@
 package de.otto.dojo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -32,6 +34,16 @@ public class TeamSkill implements Serializable {
 
     @Column(name = "note")
     private String note;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("teams")
+    private Skill skill;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("skills")
+    private Team team;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -79,6 +91,32 @@ public class TeamSkill implements Serializable {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Skill getSkill() {
+        return skill;
+    }
+
+    public TeamSkill skill(Skill skill) {
+        this.skill = skill;
+        return this;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public TeamSkill team(Team team) {
+        this.team = team;
+        return this;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

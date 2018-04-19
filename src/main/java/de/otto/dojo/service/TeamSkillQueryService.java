@@ -79,6 +79,12 @@ public class TeamSkillQueryService extends QueryService<TeamSkill> {
             if (criteria.getNote() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getNote(), TeamSkill_.note));
             }
+            if (criteria.getSkillId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getSkillId(), TeamSkill_.skill, Skill_.id));
+            }
+            if (criteria.getTeamId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getTeamId(), TeamSkill_.team, Team_.id));
+            }
         }
         return specification;
     }

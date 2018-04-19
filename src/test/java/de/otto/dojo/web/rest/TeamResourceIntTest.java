@@ -4,6 +4,7 @@ import de.otto.dojo.DojoApp;
 
 import de.otto.dojo.domain.Team;
 import de.otto.dojo.domain.Dimension;
+import de.otto.dojo.domain.TeamSkill;
 import de.otto.dojo.repository.TeamRepository;
 import de.otto.dojo.service.TeamService;
 import de.otto.dojo.web.rest.errors.ExceptionTranslator;
@@ -338,6 +339,25 @@ public class TeamResourceIntTest {
 
         // Get all the teamList where participations equals to participationsId + 1
         defaultTeamShouldNotBeFound("participationsId.equals=" + (participationsId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllTeamsBySkillsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        TeamSkill skills = TeamSkillResourceIntTest.createEntity(em);
+        em.persist(skills);
+        em.flush();
+        team.addSkills(skills);
+        teamRepository.saveAndFlush(team);
+        Long skillsId = skills.getId();
+
+        // Get all the teamList where skills equals to skillsId
+        defaultTeamShouldBeFound("skillsId.equals=" + skillsId);
+
+        // Get all the teamList where skills equals to skillsId + 1
+        defaultTeamShouldNotBeFound("skillsId.equals=" + (skillsId + 1));
     }
 
     /**

@@ -9,6 +9,12 @@
             "otherEntityField": "name",
             "ownerSide": true,
             "otherEntityRelationshipName": "participants"
+        },
+        {
+            "relationshipName": "skills",
+            "otherEntityName": "teamSkill",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "team"
         }
     ],
     "fields": [

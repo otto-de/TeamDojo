@@ -1,7 +1,26 @@
 {
     "fluentMethods": true,
     "clientRootFolder": "",
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipName": "skill",
+            "otherEntityName": "skill",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "title"
+        },
+        {
+            "relationshipName": "team",
+            "otherEntityName": "team",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
+        }
+    ],
     "fields": [
         {
             "fieldName": "achievedAt",

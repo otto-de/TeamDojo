@@ -3,6 +3,7 @@ package de.otto.dojo.web.rest;
 import de.otto.dojo.DojoApp;
 
 import de.otto.dojo.domain.Skill;
+import de.otto.dojo.domain.TeamSkill;
 import de.otto.dojo.repository.SkillRepository;
 import de.otto.dojo.service.SkillService;
 import de.otto.dojo.web.rest.errors.ExceptionTranslator;
@@ -362,6 +363,25 @@ public class SkillResourceIntTest {
         // Get all the skillList where expiryPeriod is null
         defaultSkillShouldNotBeFound("expiryPeriod.specified=false");
     }
+
+    @Test
+    @Transactional
+    public void getAllSkillsByTeamsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        TeamSkill teams = TeamSkillResourceIntTest.createEntity(em);
+        em.persist(teams);
+        em.flush();
+        skill.addTeams(teams);
+        skillRepository.saveAndFlush(skill);
+        Long teamsId = teams.getId();
+
+        // Get all the skillList where teams equals to teamsId
+        defaultSkillShouldBeFound("teamsId.equals=" + teamsId);
+
+        // Get all the skillList where teams equals to teamsId + 1
+        defaultSkillShouldNotBeFound("teamsId.equals=" + (teamsId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned
      */
