@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "score",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        }
+    ],
+    "changelogDate": "20180419154302",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "level_skill",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

@@ -1,0 +1,27 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="levelSkill">
+            <h2><span>Level Skill</span> {{levelSkill.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Score</span></dt>
+                <dd>
+                    <span>{{levelSkill.score}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/level-skill', levelSkill.id, 'edit']"
+                    class="btn btn-primary">
+                <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
