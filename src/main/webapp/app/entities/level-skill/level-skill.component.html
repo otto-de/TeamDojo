@@ -16,6 +16,8 @@
             <tr>
             <th><span>ID</span></th>
             <th><span>Score</span></th>
+            <th><span>Skill</span></th>
+            <th><span>Level</span></th>
             <th></th>
             </tr>
             </thead>
@@ -23,6 +25,16 @@
             <tr *ngFor="let levelSkill of levelSkills ;trackBy: trackId">
                 <td><a [routerLink]="['/level-skill', levelSkill.id, 'view' ]">{{levelSkill.id}}</a></td>
                 <td>{{levelSkill.score}}</td>
+                <td>
+                    <div *ngIf="levelSkill.skill">
+                        <a [routerLink]="['../skill', levelSkill.skill?.id, 'view' ]" >{{levelSkill.skill?.title}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="levelSkill.level">
+                        <a [routerLink]="['../level', levelSkill.level?.id, 'view' ]" >{{levelSkill.level?.name}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

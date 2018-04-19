@@ -1,5 +1,6 @@
 package de.otto.dojo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -29,6 +30,16 @@ public class LevelSkill implements Serializable {
     @Column(name = "score", nullable = false)
     private Integer score;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("levels")
+    private Skill skill;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("skills")
+    private Level level;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -49,6 +60,32 @@ public class LevelSkill implements Serializable {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public Skill getSkill() {
+        return skill;
+    }
+
+    public LevelSkill skill(Skill skill) {
+        this.skill = skill;
+        return this;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public LevelSkill level(Level level) {
+        this.level = level;
+        return this;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

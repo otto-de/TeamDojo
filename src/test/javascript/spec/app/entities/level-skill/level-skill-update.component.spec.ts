@@ -8,6 +8,9 @@ import { LevelSkillUpdateComponent } from 'app/entities/level-skill/level-skill-
 import { LevelSkillService } from 'app/entities/level-skill/level-skill.service';
 import { LevelSkill } from 'app/shared/model/level-skill.model';
 
+import { SkillService } from 'app/entities/skill';
+import { LevelService } from 'app/entities/level';
+
 describe('Component Tests', () => {
     describe('LevelSkill Management Update Component', () => {
         let comp: LevelSkillUpdateComponent;
@@ -18,7 +21,7 @@ describe('Component Tests', () => {
             TestBed.configureTestingModule({
                 imports: [DojoTestModule],
                 declarations: [LevelSkillUpdateComponent],
-                providers: [LevelSkillService]
+                providers: [SkillService, LevelService, LevelSkillService]
             })
                 .overrideTemplate(LevelSkillUpdateComponent, '')
                 .compileComponents();

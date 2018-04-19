@@ -9,6 +9,18 @@
                 <dd>
                     <span>{{levelSkill.score}}</span>
                 </dd>
+                <dt><span>Skill</span></dt>
+                <dd>
+                    <div *ngIf="levelSkill.skill">
+                        <a [routerLink]="['/skill', levelSkill.skill?.id, 'view']">{{levelSkill.skill?.title}}</a>
+                    </div>
+                </dd>
+                <dt><span>Level</span></dt>
+                <dd>
+                    <div *ngIf="levelSkill.level">
+                        <a [routerLink]="['/level', levelSkill.level?.id, 'view']">{{levelSkill.level?.name}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

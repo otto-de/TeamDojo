@@ -3,6 +3,8 @@ package de.otto.dojo.web.rest;
 import de.otto.dojo.DojoApp;
 
 import de.otto.dojo.domain.LevelSkill;
+import de.otto.dojo.domain.Skill;
+import de.otto.dojo.domain.Level;
 import de.otto.dojo.repository.LevelSkillRepository;
 import de.otto.dojo.service.LevelSkillService;
 import de.otto.dojo.web.rest.errors.ExceptionTranslator;
@@ -89,6 +91,16 @@ public class LevelSkillResourceIntTest {
     public static LevelSkill createEntity(EntityManager em) {
         LevelSkill levelSkill = new LevelSkill()
             .score(DEFAULT_SCORE);
+        // Add required entity
+        Skill skill = SkillResourceIntTest.createEntity(em);
+        em.persist(skill);
+        em.flush();
+        levelSkill.setSkill(skill);
+        // Add required entity
+        Level level = LevelResourceIntTest.createEntity(em);
+        em.persist(level);
+        em.flush();
+        levelSkill.setLevel(level);
         return levelSkill;
     }
 
