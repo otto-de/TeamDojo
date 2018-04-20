@@ -28,6 +28,10 @@
     "applicationType": "monolith",
     "testFrameworks": [],
     "jhiPrefix": "jhi",
-    "enableTranslation": true
+    "enableTranslation": true,
+    "languages": [
+      "de",
+      "en"
+    ]
   }
 }
