@@ -1,0 +1,67 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-team-skill-heading">Create or edit a Team Skill</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!teamSkill.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="teamSkill.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_achievedAt">Achieved At</label>
+                    <div class="d-flex">
+                        <input id="field_achievedAt" type="datetime-local" class="form-control" name="achievedAt" [(ngModel)]="achievedAt"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_verified">Verified</label>
+                    <input type="checkbox" class="form-control" name="verified" id="field_verified"
+                        [(ngModel)]="teamSkill.verified" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_note">Note</label>
+                    <input type="text" class="form-control" name="note" id="field_note"
+                        [(ngModel)]="teamSkill.note" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_skill">Skill</label>
+                    <select class="form-control" id="field_skill" name="skill" [(ngModel)]="teamSkill.skill"  required>
+                        <option *ngIf="!editForm.value.skill" [ngValue]="null" selected></option>
+                        <option [ngValue]="skillOption.id === teamSkill.skill?.id ? teamSkill.skill : skillOption" *ngFor="let skillOption of skills; trackBy: trackSkillById">{{skillOption.title}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.skill?.dirty && editForm.controls.skill?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.skill?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_team">Team</label>
+                    <select class="form-control" id="field_team" name="team" [(ngModel)]="teamSkill.team"  required>
+                        <option *ngIf="!editForm.value.team" [ngValue]="null" selected></option>
+                        <option [ngValue]="teamOption.id === teamSkill.team?.id ? teamSkill.team : teamOption" *ngFor="let teamOption of teams; trackBy: trackTeamById">{{teamOption.name}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.team?.dirty && editForm.controls.team?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.team?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

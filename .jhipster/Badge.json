@@ -1,0 +1,62 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "skills",
+            "otherEntityName": "badgeSkill",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "badge"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "2",
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "logo",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "availableUntil",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "availableAmount",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min"
+            ],
+            "fieldValidateRulesMin": "1"
+        },
+        {
+            "fieldName": "requiredScore",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": "0",
+            "fieldValidateRulesMax": "1"
+        }
+    ],
+    "changelogDate": "20180419135514",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "badge",
+    "jpaMetamodelFiltering": true,
+    "pagination": "infinite-scroll"
+}

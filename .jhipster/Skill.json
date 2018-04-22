@@ -1,0 +1,63 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "teams",
+            "otherEntityName": "teamSkill",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "skill"
+        },
+        {
+            "relationshipName": "badges",
+            "otherEntityName": "badgeSkill",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "skill"
+        },
+        {
+            "relationshipName": "levels",
+            "otherEntityName": "levelSkill",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "skill"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "5",
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "validation",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "expiryPeriod",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "^P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?$"
+        },
+        {
+            "fieldName": "implementation",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180418141117",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "skill",
+    "jpaMetamodelFiltering": true,
+    "pagination": "infinite-scroll"
+}

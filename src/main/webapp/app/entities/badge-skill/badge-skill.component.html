@@ -1,0 +1,66 @@
+<div>
+    <h2 id="page-heading">
+        <span>Badge Skills</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-badge-skill" [routerLink]="['/badge-skill/new']">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Badge Skill
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="badgeSkills">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="score"><span>Score</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="badge.name"><span>Badge</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="skill.title"><span>Skill</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let badgeSkill of badgeSkills ;trackBy: trackId">
+                <td><a [routerLink]="['/badge-skill', badgeSkill.id, 'view' ]">{{badgeSkill.id}}</a></td>
+                <td>{{badgeSkill.score}}</td>
+                <td>
+                    <div *ngIf="badgeSkill.badge">
+                        <a [routerLink]="['../badge', badgeSkill.badge?.id, 'view' ]" >{{badgeSkill.badge?.name}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="badgeSkill.skill">
+                        <a [routerLink]="['../skill', badgeSkill.skill?.id, 'view' ]" >{{badgeSkill.skill?.title}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/badge-skill', badgeSkill.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/badge-skill', badgeSkill.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'badge-skill/'+ badgeSkill.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

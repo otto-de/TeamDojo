@@ -1,0 +1,75 @@
+<div>
+    <h2 id="page-heading">
+        <span>Levels</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-level" [routerLink]="['/level/new']">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Level
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="levels">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Name</span></th>
+            <th><span>Picture</span></th>
+            <th><span>Required Score</span></th>
+            <th><span>Dimension</span></th>
+            <th><span>Depends On</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let level of levels ;trackBy: trackId">
+                <td><a [routerLink]="['/level', level.id, 'view' ]">{{level.id}}</a></td>
+                <td>{{level.name}}</td>
+                <td>
+                    <a *ngIf="level.picture" (click)="openFile(level.pictureContentType, level.picture)">
+                        <img [src]="'data:' + level.pictureContentType + ';base64,' + level.picture" style="max-height: 30px;" alt="level image"/>
+                    </a>
+                    <span *ngIf="level.picture">{{level.pictureContentType}}, {{byteSize(level.picture)}}</span>
+                </td>
+                <td>{{level.requiredScore}}</td>
+                <td>
+                    <div *ngIf="level.dimension">
+                        <a [routerLink]="['../dimension', level.dimension?.id, 'view' ]" >{{level.dimension?.name}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="level.dependsOn">
+                        <a [routerLink]="['../level', level.dependsOn?.id, 'view' ]" >{{level.dependsOn?.name}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/level', level.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/level', level.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'level/'+ level.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

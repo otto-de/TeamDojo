@@ -1,0 +1,69 @@
+<div>
+    <h2 id="page-heading">
+        <span>Badges</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-badge" [routerLink]="['/badge/new']">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Badge
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="badges">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="name"><span>Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="description"><span>Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="logo"><span>Logo</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="availableUntil"><span>Available Until</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="availableAmount"><span>Available Amount</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="requiredScore"><span>Required Score</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let badge of badges ;trackBy: trackId">
+                <td><a [routerLink]="['/badge', badge.id, 'view' ]">{{badge.id}}</a></td>
+                <td>{{badge.name}}</td>
+                <td>{{badge.description}}</td>
+                <td>
+                    <a *ngIf="badge.logo" (click)="openFile(badge.logoContentType, badge.logo)">
+                        <img [src]="'data:' + badge.logoContentType + ';base64,' + badge.logo" style="max-height: 30px;" alt="badge image"/>
+                    </a>
+                    <span *ngIf="badge.logo">{{badge.logoContentType}}, {{byteSize(badge.logo)}}</span>
+                </td>
+                <td>{{badge.availableUntil | date:'medium'}}</td>
+                <td>{{badge.availableAmount}}</td>
+                <td>{{badge.requiredScore}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/badge', badge.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/badge', badge.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'badge/'+ badge.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
