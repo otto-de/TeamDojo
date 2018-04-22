@@ -28,7 +28,7 @@ export const badgeRoute: Routes = [
         component: BadgeComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Badges'
+            pageTitle: 'dojoApp.badge.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -40,7 +40,7 @@ export const badgeRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Badges'
+            pageTitle: 'dojoApp.badge.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -52,7 +52,7 @@ export const badgeRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Badges'
+            pageTitle: 'dojoApp.badge.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -64,7 +64,7 @@ export const badgeRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Badges'
+            pageTitle: 'dojoApp.badge.home.title'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -79,7 +79,7 @@ export const badgePopupRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Badges'
+            pageTitle: 'dojoApp.badge.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface LevelSkillRepository extends JpaRepository<LevelSkill, Long> {
+public interface LevelSkillRepository extends JpaRepository<LevelSkill, Long>, JpaSpecificationExecutor<LevelSkill> {
 
 }

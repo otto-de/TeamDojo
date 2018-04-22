@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 
-import { DojoSharedLibsModule, JhiAlertComponent, JhiAlertErrorComponent } from './';
+import { DojoSharedLibsModule, FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent } from './';
 
 @NgModule({
     imports: [DojoSharedLibsModule],
-    declarations: [JhiAlertComponent, JhiAlertErrorComponent],
+    declarations: [FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent],
     providers: [],
-    exports: [DojoSharedLibsModule, JhiAlertComponent, JhiAlertErrorComponent]
+    exports: [DojoSharedLibsModule, FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent]
 })
 export class DojoSharedCommonModule {}

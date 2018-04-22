@@ -1,0 +1,24 @@
+
+{
+    "dojoApp": {
+        "dimension" : {
+            "home": {
+                "title": "Dimensions",
+                "createLabel": "Dimension erstellen",
+                "createOrEditLabel": "Dimension erstellen oder bearbeiten"
+            },
+            "created": "Dimension erstellt mit ID {{ param }}",
+            "updated": "Dimension aktualisiert mit ID {{ param }}",
+            "deleted": "Dimension gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Dimension {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Dimension"
+            },
+            "name": "Name",
+            "description": "Description",
+            "participants": "Participants"
+        }
+    }
+}

@@ -52,20 +52,20 @@ public class SkillResourceIntTest {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
+    private static final String DEFAULT_IMPLEMENTATION = "AAAAAAAAAA";
+    private static final String UPDATED_IMPLEMENTATION = "BBBBBBBBBB";
+
     private static final String DEFAULT_VALIDATION = "AAAAAAAAAA";
     private static final String UPDATED_VALIDATION = "BBBBBBBBBB";
 
-    private static final String DEFAULT_EXPIRY_PERIOD = "P4Y-6M-9W";
-    private static final String UPDATED_EXPIRY_PERIOD = "P+2M+72W";
-
-    private static final String DEFAULT_IMPLEMENTATION = "AAAAAAAAAA";
-    private static final String UPDATED_IMPLEMENTATION = "BBBBBBBBBB";
+    private static final String DEFAULT_EXPIRY_PERIOD = "P+5M+24D";
+    private static final String UPDATED_EXPIRY_PERIOD = "P78Y3W";
 
     @Autowired
     private SkillRepository skillRepository;
 
 
-
+    
 
     @Autowired
     private SkillService skillService;
@@ -193,11 +193,11 @@ public class SkillResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(skill.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].implementation").value(hasItem(DEFAULT_IMPLEMENTATION.toString())))
             .andExpect(jsonPath("$.[*].validation").value(hasItem(DEFAULT_VALIDATION.toString())))
-            .andExpect(jsonPath("$.[*].expiryPeriod").value(hasItem(DEFAULT_EXPIRY_PERIOD.toString())))
-            .andExpect(jsonPath("$.[*].implementation").value(hasItem(DEFAULT_IMPLEMENTATION.toString())));
+            .andExpect(jsonPath("$.[*].expiryPeriod").value(hasItem(DEFAULT_EXPIRY_PERIOD.toString())));
     }
-
+    
 
     @Test
     @Transactional
@@ -212,9 +212,9 @@ public class SkillResourceIntTest {
             .andExpect(jsonPath("$.id").value(skill.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.implementation").value(DEFAULT_IMPLEMENTATION.toString()))
             .andExpect(jsonPath("$.validation").value(DEFAULT_VALIDATION.toString()))
-            .andExpect(jsonPath("$.expiryPeriod").value(DEFAULT_EXPIRY_PERIOD.toString()))
-            .andExpect(jsonPath("$.implementation").value(DEFAULT_IMPLEMENTATION.toString()));
+            .andExpect(jsonPath("$.expiryPeriod").value(DEFAULT_EXPIRY_PERIOD.toString()));
     }
 
     @Test
@@ -297,6 +297,45 @@ public class SkillResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllSkillsByImplementationIsEqualToSomething() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where implementation equals to DEFAULT_IMPLEMENTATION
+        defaultSkillShouldBeFound("implementation.equals=" + DEFAULT_IMPLEMENTATION);
+
+        // Get all the skillList where implementation equals to UPDATED_IMPLEMENTATION
+        defaultSkillShouldNotBeFound("implementation.equals=" + UPDATED_IMPLEMENTATION);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSkillsByImplementationIsInShouldWork() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where implementation in DEFAULT_IMPLEMENTATION or UPDATED_IMPLEMENTATION
+        defaultSkillShouldBeFound("implementation.in=" + DEFAULT_IMPLEMENTATION + "," + UPDATED_IMPLEMENTATION);
+
+        // Get all the skillList where implementation equals to UPDATED_IMPLEMENTATION
+        defaultSkillShouldNotBeFound("implementation.in=" + UPDATED_IMPLEMENTATION);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSkillsByImplementationIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where implementation is not null
+        defaultSkillShouldBeFound("implementation.specified=true");
+
+        // Get all the skillList where implementation is null
+        defaultSkillShouldNotBeFound("implementation.specified=false");
+    }
+
+    @Test
+    @Transactional
     public void getAllSkillsByValidationIsEqualToSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
@@ -375,45 +414,6 @@ public class SkillResourceIntTest {
 
     @Test
     @Transactional
-    public void getAllSkillsByImplementationIsEqualToSomething() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
-
-        // Get all the skillList where implementation equals to DEFAULT_IMPLEMENTATION
-        defaultSkillShouldBeFound("implementation.equals=" + DEFAULT_IMPLEMENTATION);
-
-        // Get all the skillList where implementation equals to UPDATED_IMPLEMENTATION
-        defaultSkillShouldNotBeFound("implementation.equals=" + UPDATED_IMPLEMENTATION);
-    }
-
-    @Test
-    @Transactional
-    public void getAllSkillsByImplementationIsInShouldWork() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
-
-        // Get all the skillList where implementation in DEFAULT_IMPLEMENTATION or UPDATED_IMPLEMENTATION
-        defaultSkillShouldBeFound("implementation.in=" + DEFAULT_IMPLEMENTATION + "," + UPDATED_IMPLEMENTATION);
-
-        // Get all the skillList where implementation equals to UPDATED_IMPLEMENTATION
-        defaultSkillShouldNotBeFound("implementation.in=" + UPDATED_IMPLEMENTATION);
-    }
-
-    @Test
-    @Transactional
-    public void getAllSkillsByImplementationIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
-
-        // Get all the skillList where implementation is not null
-        defaultSkillShouldBeFound("implementation.specified=true");
-
-        // Get all the skillList where implementation is null
-        defaultSkillShouldNotBeFound("implementation.specified=false");
-    }
-
-    @Test
-    @Transactional
     public void getAllSkillsByTeamsIsEqualToSomething() throws Exception {
         // Initialize the database
         TeamSkill teams = TeamSkillResourceIntTest.createEntity(em);
@@ -478,9 +478,9 @@ public class SkillResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(skill.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].implementation").value(hasItem(DEFAULT_IMPLEMENTATION.toString())))
             .andExpect(jsonPath("$.[*].validation").value(hasItem(DEFAULT_VALIDATION.toString())))
-            .andExpect(jsonPath("$.[*].expiryPeriod").value(hasItem(DEFAULT_EXPIRY_PERIOD.toString())))
-            .andExpect(jsonPath("$.[*].implementation").value(hasItem(DEFAULT_IMPLEMENTATION.toString())));
+            .andExpect(jsonPath("$.[*].expiryPeriod").value(hasItem(DEFAULT_EXPIRY_PERIOD.toString())));
     }
 
     /**
@@ -518,9 +518,9 @@ public class SkillResourceIntTest {
         updatedSkill
             .title(UPDATED_TITLE)
             .description(UPDATED_DESCRIPTION)
+            .implementation(UPDATED_IMPLEMENTATION)
             .validation(UPDATED_VALIDATION)
-            .expiryPeriod(UPDATED_EXPIRY_PERIOD)
-            .implementation(UPDATED_IMPLEMENTATION);
+            .expiryPeriod(UPDATED_EXPIRY_PERIOD);
 
         restSkillMockMvc.perform(put("/api/skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -533,9 +533,9 @@ public class SkillResourceIntTest {
         Skill testSkill = skillList.get(skillList.size() - 1);
         assertThat(testSkill.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testSkill.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testSkill.getImplementation()).isEqualTo(UPDATED_IMPLEMENTATION);
         assertThat(testSkill.getValidation()).isEqualTo(UPDATED_VALIDATION);
         assertThat(testSkill.getExpiryPeriod()).isEqualTo(UPDATED_EXPIRY_PERIOD);
-        assertThat(testSkill.getImplementation()).isEqualTo(UPDATED_IMPLEMENTATION);
     }
 
     @Test

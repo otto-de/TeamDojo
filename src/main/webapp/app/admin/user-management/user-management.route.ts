@@ -53,7 +53,7 @@ export const userMgmtRoute: Routes = [
             pagingParams: UserResolvePagingParams
         },
         data: {
-            pageTitle: 'Users'
+            pageTitle: 'userManagement.home.title'
         }
     },
     {
@@ -63,7 +63,7 @@ export const userMgmtRoute: Routes = [
             user: UserMgmtResolve
         },
         data: {
-            pageTitle: 'Users'
+            pageTitle: 'userManagement.home.title'
         }
     },
     {

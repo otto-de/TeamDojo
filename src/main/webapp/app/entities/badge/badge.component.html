@@ -1,9 +1,9 @@
 <div>
     <h2 id="page-heading">
-        <span>Badges</span>
+        <span jhiTranslate="dojoApp.badge.home.title">Badges</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-badge" [routerLink]="['/badge/new']">
             <span class="fa fa-plus"></span>
-            <span >
+            <span  jhiTranslate="dojoApp.badge.home.createLabel">
             Create new Badge
             </span>
         </button>
@@ -14,13 +14,13 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="name"><span>Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="description"><span>Description</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="logo"><span>Logo</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="availableUntil"><span>Available Until</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="availableAmount"><span>Available Amount</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="requiredScore"><span>Required Score</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="name"><span jhiTranslate="dojoApp.badge.name">Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="description"><span jhiTranslate="dojoApp.badge.description">Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="logo"><span jhiTranslate="dojoApp.badge.logo">Logo</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="availableUntil"><span jhiTranslate="dojoApp.badge.availableUntil">Available Until</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="availableAmount"><span jhiTranslate="dojoApp.badge.availableAmount">Available Amount</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="requiredScore"><span jhiTranslate="dojoApp.badge.requiredScore">Required Score</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -44,13 +44,13 @@
                                 [routerLink]="['/badge', badge.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
-                            <span class="d-none d-md-inline">View</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/badge', badge.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <span class="fa fa-pencil"></span>
-                            <span class="d-none d-md-inline">Edit</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'badge/'+ badge.id + '/delete'} }]"
@@ -58,7 +58,7 @@
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
                             <span class="fa fa-remove"></span>
-                            <span class="d-none d-md-inline">Delete</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                     </div>
                 </td>

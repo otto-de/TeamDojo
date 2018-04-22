@@ -11,6 +11,8 @@ public final class HeaderUtil {
 
     private static final Logger log = LoggerFactory.getLogger(HeaderUtil.class);
 
+    private static final String APPLICATION_NAME = "dojoApp";
+
     private HeaderUtil() {
     }
 
@@ -22,21 +24,21 @@ public final class HeaderUtil {
     }
 
     public static HttpHeaders createEntityCreationAlert(String entityName, String param) {
-        return createAlert("A new " + entityName + " is created with identifier " + param, param);
+        return createAlert(APPLICATION_NAME + "." + entityName + ".created", param);
     }
 
     public static HttpHeaders createEntityUpdateAlert(String entityName, String param) {
-        return createAlert("A " + entityName + " is updated with identifier " + param, param);
+        return createAlert(APPLICATION_NAME + "." + entityName + ".updated", param);
     }
 
     public static HttpHeaders createEntityDeletionAlert(String entityName, String param) {
-        return createAlert("A " + entityName + " is deleted with identifier " + param, param);
+        return createAlert(APPLICATION_NAME + "." + entityName + ".deleted", param);
     }
 
     public static HttpHeaders createFailureAlert(String entityName, String errorKey, String defaultMessage) {
         log.error("Entity processing failed, {}", defaultMessage);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-dojoApp-error", defaultMessage);
+        headers.add("X-dojoApp-error", "error." + errorKey);
         headers.add("X-dojoApp-params", entityName);
         return headers;
     }

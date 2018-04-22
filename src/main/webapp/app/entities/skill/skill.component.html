@@ -1,9 +1,9 @@
 <div>
     <h2 id="page-heading">
-        <span>Skills</span>
+        <span jhiTranslate="dojoApp.skill.home.title">Skills</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-skill" [routerLink]="['/skill/new']">
             <span class="fa fa-plus"></span>
-            <span >
+            <span  jhiTranslate="dojoApp.skill.home.createLabel">
             Create new Skill
             </span>
         </button>
@@ -14,12 +14,12 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="title"><span>Title</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="description"><span>Description</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="implementation"><span>Implementation</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="validation"><span>Validation</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="expiryPeriod"><span>Expiry Period</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="title"><span jhiTranslate="dojoApp.skill.title">Title</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="description"><span jhiTranslate="dojoApp.skill.description">Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="implementation"><span jhiTranslate="dojoApp.skill.implementation">Implementation</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="validation"><span jhiTranslate="dojoApp.skill.validation">Validation</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="expiryPeriod"><span jhiTranslate="dojoApp.skill.expiryPeriod">Expiry Period</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -37,13 +37,13 @@
                                 [routerLink]="['/skill', skill.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
-                            <span class="d-none d-md-inline">View</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/skill', skill.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <span class="fa fa-pencil"></span>
-                            <span class="d-none d-md-inline">Edit</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'skill/'+ skill.id + '/delete'} }]"
@@ -51,7 +51,7 @@
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
                             <span class="fa fa-remove"></span>
-                            <span class="d-none d-md-inline">Delete</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                     </div>
                 </td>

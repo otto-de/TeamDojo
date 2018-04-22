@@ -8,6 +8,8 @@ import de.otto.dojo.domain.Level;
 import de.otto.dojo.repository.LevelSkillRepository;
 import de.otto.dojo.service.LevelSkillService;
 import de.otto.dojo.web.rest.errors.ExceptionTranslator;
+import de.otto.dojo.service.dto.LevelSkillCriteria;
+import de.otto.dojo.service.LevelSkillQueryService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -56,6 +58,9 @@ public class LevelSkillResourceIntTest {
     private LevelSkillService levelSkillService;
 
     @Autowired
+    private LevelSkillQueryService levelSkillQueryService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -74,7 +79,7 @@ public class LevelSkillResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final LevelSkillResource levelSkillResource = new LevelSkillResource(levelSkillService);
+        final LevelSkillResource levelSkillResource = new LevelSkillResource(levelSkillService, levelSkillQueryService);
         this.restLevelSkillMockMvc = MockMvcBuilders.standaloneSetup(levelSkillResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -192,6 +197,132 @@ public class LevelSkillResourceIntTest {
             .andExpect(jsonPath("$.id").value(levelSkill.getId().intValue()))
             .andExpect(jsonPath("$.score").value(DEFAULT_SCORE));
     }
+
+    @Test
+    @Transactional
+    public void getAllLevelSkillsByScoreIsEqualToSomething() throws Exception {
+        // Initialize the database
+        levelSkillRepository.saveAndFlush(levelSkill);
+
+        // Get all the levelSkillList where score equals to DEFAULT_SCORE
+        defaultLevelSkillShouldBeFound("score.equals=" + DEFAULT_SCORE);
+
+        // Get all the levelSkillList where score equals to UPDATED_SCORE
+        defaultLevelSkillShouldNotBeFound("score.equals=" + UPDATED_SCORE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelSkillsByScoreIsInShouldWork() throws Exception {
+        // Initialize the database
+        levelSkillRepository.saveAndFlush(levelSkill);
+
+        // Get all the levelSkillList where score in DEFAULT_SCORE or UPDATED_SCORE
+        defaultLevelSkillShouldBeFound("score.in=" + DEFAULT_SCORE + "," + UPDATED_SCORE);
+
+        // Get all the levelSkillList where score equals to UPDATED_SCORE
+        defaultLevelSkillShouldNotBeFound("score.in=" + UPDATED_SCORE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelSkillsByScoreIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        levelSkillRepository.saveAndFlush(levelSkill);
+
+        // Get all the levelSkillList where score is not null
+        defaultLevelSkillShouldBeFound("score.specified=true");
+
+        // Get all the levelSkillList where score is null
+        defaultLevelSkillShouldNotBeFound("score.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelSkillsByScoreIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        levelSkillRepository.saveAndFlush(levelSkill);
+
+        // Get all the levelSkillList where score greater than or equals to DEFAULT_SCORE
+        defaultLevelSkillShouldBeFound("score.greaterOrEqualThan=" + DEFAULT_SCORE);
+
+        // Get all the levelSkillList where score greater than or equals to UPDATED_SCORE
+        defaultLevelSkillShouldNotBeFound("score.greaterOrEqualThan=" + UPDATED_SCORE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelSkillsByScoreIsLessThanSomething() throws Exception {
+        // Initialize the database
+        levelSkillRepository.saveAndFlush(levelSkill);
+
+        // Get all the levelSkillList where score less than or equals to DEFAULT_SCORE
+        defaultLevelSkillShouldNotBeFound("score.lessThan=" + DEFAULT_SCORE);
+
+        // Get all the levelSkillList where score less than or equals to UPDATED_SCORE
+        defaultLevelSkillShouldBeFound("score.lessThan=" + UPDATED_SCORE);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllLevelSkillsBySkillIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Skill skill = SkillResourceIntTest.createEntity(em);
+        em.persist(skill);
+        em.flush();
+        levelSkill.setSkill(skill);
+        levelSkillRepository.saveAndFlush(levelSkill);
+        Long skillId = skill.getId();
+
+        // Get all the levelSkillList where skill equals to skillId
+        defaultLevelSkillShouldBeFound("skillId.equals=" + skillId);
+
+        // Get all the levelSkillList where skill equals to skillId + 1
+        defaultLevelSkillShouldNotBeFound("skillId.equals=" + (skillId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllLevelSkillsByLevelIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Level level = LevelResourceIntTest.createEntity(em);
+        em.persist(level);
+        em.flush();
+        levelSkill.setLevel(level);
+        levelSkillRepository.saveAndFlush(levelSkill);
+        Long levelId = level.getId();
+
+        // Get all the levelSkillList where level equals to levelId
+        defaultLevelSkillShouldBeFound("levelId.equals=" + levelId);
+
+        // Get all the levelSkillList where level equals to levelId + 1
+        defaultLevelSkillShouldNotBeFound("levelId.equals=" + (levelId + 1));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned
+     */
+    private void defaultLevelSkillShouldBeFound(String filter) throws Exception {
+        restLevelSkillMockMvc.perform(get("/api/level-skills?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(levelSkill.getId().intValue())))
+            .andExpect(jsonPath("$.[*].score").value(hasItem(DEFAULT_SCORE)));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned
+     */
+    private void defaultLevelSkillShouldNotBeFound(String filter) throws Exception {
+        restLevelSkillMockMvc.perform(get("/api/level-skills?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+    }
+
 
     @Test
     @Transactional

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
 
-import { Title } from '@angular/platform-browser';
+import { JhiLanguageHelper } from 'app/core';
 
 @Component({
     selector: 'jhi-main',
     templateUrl: './main.component.html'
 })
 export class JhiMainComponent implements OnInit {
-    constructor(private titleService: Title, private router: Router) {}
+    constructor(private jhiLanguageHelper: JhiLanguageHelper, private router: Router) {}
 
     private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {
         let title: string = routeSnapshot.data && routeSnapshot.data['pageTitle'] ? routeSnapshot.data['pageTitle'] : 'dojoApp';
@@ -21,7 +21,7 @@ export class JhiMainComponent implements OnInit {
     ngOnInit() {
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
-                this.titleService.setTitle(this.getPageTitle(this.router.routerState.snapshot.root));
+                this.jhiLanguageHelper.updateTitle(this.getPageTitle(this.router.routerState.snapshot.root));
             }
         });
     }

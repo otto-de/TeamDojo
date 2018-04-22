@@ -1,0 +1,29 @@
+
+{
+    "dojoApp": {
+        "skill" : {
+            "home": {
+                "title": "Skills",
+                "createLabel": "Skill erstellen",
+                "createOrEditLabel": "Skill erstellen oder bearbeiten"
+            },
+            "created": "Skill erstellt mit ID {{ param }}",
+            "updated": "Skill aktualisiert mit ID {{ param }}",
+            "deleted": "Skill gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Skill {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Skill"
+            },
+            "title": "Title",
+            "description": "Description",
+            "implementation": "Implementation",
+            "validation": "Validation",
+            "expiryPeriod": "Expiry Period",
+            "teams": "Teams",
+            "badges": "Badges",
+            "levels": "Levels"
+        }
+    }
+}

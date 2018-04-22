@@ -1,35 +1,35 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-team-heading">Create or edit a Team</h2>
+            <h2 id="jhi-team-heading" jhiTranslate="dojoApp.team.home.createOrEditLabel">Create or edit a Team</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!team.id">
-                    <label for="id">ID</label>
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="team.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_name">Name</label>
+                    <label class="form-control-label" jhiTranslate="dojoApp.team.name" for="field_name">Name</label>
                     <input type="text" class="form-control" name="name" id="field_name"
                         [(ngModel)]="team.name" required minlength="2" maxlength="20"/>
                     <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.name?.errors?.required">
+                        [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.name?.errors?.minlength">
+                        [hidden]="!editForm.controls.name?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 2 }">
                         This field is required to be at least 2 characters.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.name?.errors?.maxlength">
+                        [hidden]="!editForm.controls.name?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 20 }">
                         This field cannot be longer than 20 characters.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_picture">Picture</label>
+                    <label class="form-control-label" jhiTranslate="dojoApp.team.picture" for="field_picture">Picture</label>
                     <div>
                         <img [src]="'data:' + team.pictureContentType + ';base64,' + team.picture" style="max-height: 100px;" *ngIf="team.picture" alt="team image"/>
                         <div *ngIf="team.picture" class="form-text text-danger clearfix">
@@ -38,7 +38,7 @@
                                 <span class="fa fa-times"></span>
                             </button>
                         </div>
-                        <input type="file" id="file_picture" (change)="setFileData($event, team, 'picture', true)" accept="image/*"/>
+                        <input type="file" id="file_picture" (change)="setFileData($event, team, 'picture', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
                     </div>
                     <input type="hidden" class="form-control" name="picture" id="field_picture"
                         [(ngModel)]="team.picture" />
@@ -46,13 +46,13 @@
                         [(ngModel)]="team.pictureContentType" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_contactPerson">Contact Person</label>
+                    <label class="form-control-label" jhiTranslate="dojoApp.team.contactPerson" for="field_contactPerson">Contact Person</label>
                     <input type="text" class="form-control" name="contactPerson" id="field_contactPerson"
                         [(ngModel)]="team.contactPerson" />
                 </div>
 
                 <div class="form-group">
-                    <label for="field_participations">Participations</label>
+                    <label jhiTranslate="dojoApp.team.participations" for="field_participations">Participations</label>
                     <select class="form-control" id="field_participations" multiple name="participations" [(ngModel)]="team.participations">
                         <option [ngValue]="getSelected(team.participations, dimensionOption)" *ngFor="let dimensionOption of dimensions; trackBy: trackDimensionById">{{dimensionOption.name}}</option>
                     </select>
@@ -60,10 +60,10 @@
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                    <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+                    <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
                 <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                    <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+                    <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>
         </form>

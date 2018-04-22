@@ -26,6 +26,6 @@ export const auditsRoute: Route = {
         pagingParams: AuditResolvePagingParams
     },
     data: {
-        pageTitle: 'Audits'
+        pageTitle: 'audits.title'
     }
 };
