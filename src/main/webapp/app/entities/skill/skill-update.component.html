@@ -12,7 +12,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.skill.title" for="field_title">Title</label>
                     <input type="text" class="form-control" name="title" id="field_title"
-                        [(ngModel)]="skill.title" required minlength="5" maxlength="50"/>
+                        [(ngModel)]="skill.title" required minlength="5" maxlength="80"/>
                     <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.title?.errors?.required" jhiTranslate="entity.validation.required">
@@ -23,8 +23,8 @@
                         This field is required to be at least 5 characters.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.title?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
-                        This field cannot be longer than 50 characters.
+                        [hidden]="!editForm.controls.title?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 80 }">
+                        This field cannot be longer than 80 characters.
                         </small>
                     </div>
                 </div>
