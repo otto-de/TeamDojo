@@ -1,7 +1,7 @@
 package de.otto.teamdojo.service;
-import de.otto.teamdojo.config.Constants;
 
 import de.otto.teamdojo.TeamdojoApp;
+import de.otto.teamdojo.config.Constants;
 import de.otto.teamdojo.domain.User;
 import io.github.jhipster.config.JHipsterProperties;
 import org.junit.Before;

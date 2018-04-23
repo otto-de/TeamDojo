@@ -1,14 +1,10 @@
 package de.otto.teamdojo.service.dto;
 
-import java.io.Serializable;
-
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 
-
-
-
+import java.io.Serializable;
 
 
 /**
@@ -79,11 +75,11 @@ public class TeamCriteria implements Serializable {
     @Override
     public String toString() {
         return "TeamCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (name != null ? "name=" + name + ", " : "") +
-                (contactPerson != null ? "contactPerson=" + contactPerson + ", " : "") +
-                (participationsId != null ? "participationsId=" + participationsId + ", " : "") +
-                (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
+            (id != null ? "id=" + id + ", " : "") +
+            (name != null ? "name=" + name + ", " : "") +
+            (contactPerson != null ? "contactPerson=" + contactPerson + ", " : "") +
+            (participationsId != null ? "participationsId=" + participationsId + ", " : "") +
+            (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
             "}";
     }
 

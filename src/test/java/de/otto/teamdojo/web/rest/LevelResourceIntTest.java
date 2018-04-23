@@ -1,15 +1,13 @@
 package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
-
-import de.otto.teamdojo.domain.Level;
 import de.otto.teamdojo.domain.Dimension;
+import de.otto.teamdojo.domain.Level;
 import de.otto.teamdojo.domain.LevelSkill;
 import de.otto.teamdojo.repository.LevelRepository;
+import de.otto.teamdojo.service.LevelQueryService;
 import de.otto.teamdojo.service.LevelService;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
-import de.otto.teamdojo.service.LevelQueryService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,8 +56,6 @@ public class LevelResourceIntTest {
     private LevelRepository levelRepository;
 
 
-
-
     @Autowired
     private LevelService levelService;
 
@@ -95,7 +91,7 @@ public class LevelResourceIntTest {
 
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */

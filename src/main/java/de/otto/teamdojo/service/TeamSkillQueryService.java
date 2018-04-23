@@ -1,7 +1,12 @@
 package de.otto.teamdojo.service;
 
-import java.util.List;
-
+import de.otto.teamdojo.domain.Skill_;
+import de.otto.teamdojo.domain.TeamSkill;
+import de.otto.teamdojo.domain.TeamSkill_;
+import de.otto.teamdojo.domain.Team_;
+import de.otto.teamdojo.repository.TeamSkillRepository;
+import de.otto.teamdojo.service.dto.TeamSkillCriteria;
+import io.github.jhipster.service.QueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -10,12 +15,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.github.jhipster.service.QueryService;
-
-import de.otto.teamdojo.domain.TeamSkill;
-import de.otto.teamdojo.domain.*; // for static metamodels
-import de.otto.teamdojo.repository.TeamSkillRepository;
-import de.otto.teamdojo.service.dto.TeamSkillCriteria;
+import java.util.List;
 
 
 /**
@@ -38,6 +38,7 @@ public class TeamSkillQueryService extends QueryService<TeamSkill> {
 
     /**
      * Return a {@link List} of {@link TeamSkill} which matches the criteria from the database
+     *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching entities.
      */
@@ -50,8 +51,9 @@ public class TeamSkillQueryService extends QueryService<TeamSkill> {
 
     /**
      * Return a {@link Page} of {@link TeamSkill} which matches the criteria from the database
+     *
      * @param criteria The object which holds all the filters, which the entities should match.
-     * @param page The page, which should be returned.
+     * @param page     The page, which should be returned.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)

@@ -1,7 +1,6 @@
 package de.otto.teamdojo.web.rest.errors;
 
 import de.otto.teamdojo.web.rest.util.HeaderUtil;
-
 import org.springframework.dao.ConcurrencyFailureException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
