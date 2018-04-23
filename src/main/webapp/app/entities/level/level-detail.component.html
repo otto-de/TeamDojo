@@ -1,15 +1,15 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="level">
-            <h2><span>Level</span> {{level.id}}</h2>
+            <h2><span jhiTranslate="dojoApp.level.detail.title">Level</span> {{level.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>Name</span></dt>
+                <dt><span jhiTranslate="dojoApp.level.name">Name</span></dt>
                 <dd>
                     <span>{{level.name}}</span>
                 </dd>
-                <dt><span>Picture</span></dt>
+                <dt><span jhiTranslate="dojoApp.level.picture">Picture</span></dt>
                 <dd>
                     <div *ngIf="level.picture">
                         <a (click)="openFile(level.pictureContentType, level.picture)">
@@ -18,17 +18,17 @@
                         {{level.pictureContentType}}, {{byteSize(level.picture)}}
                     </div>
                 </dd>
-                <dt><span>Required Score</span></dt>
+                <dt><span jhiTranslate="dojoApp.level.requiredScore">Required Score</span></dt>
                 <dd>
                     <span>{{level.requiredScore}}</span>
                 </dd>
-                <dt><span>Dimension</span></dt>
+                <dt><span jhiTranslate="dojoApp.level.dimension">Dimension</span></dt>
                 <dd>
                     <div *ngIf="level.dimension">
                         <a [routerLink]="['/dimension', level.dimension?.id, 'view']">{{level.dimension?.name}}</a>
                     </div>
                 </dd>
-                <dt><span>Depends On</span></dt>
+                <dt><span jhiTranslate="dojoApp.level.dependsOn">Depends On</span></dt>
                 <dd>
                     <div *ngIf="level.dependsOn">
                         <a [routerLink]="['/level', level.dependsOn?.id, 'view']">{{level.dependsOn?.name}}</a>
@@ -39,13 +39,13 @@
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
-                <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+                <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/level', level.id, 'edit']"
                     class="btn btn-primary">
-                <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+                <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>
     </div>

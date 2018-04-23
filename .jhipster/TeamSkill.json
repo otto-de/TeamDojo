@@ -27,8 +27,8 @@
             "fieldType": "Instant"
         },
         {
-            "fieldName": "verified",
-            "fieldType": "Boolean"
+            "fieldName": "verifiedAt",
+            "fieldType": "Instant"
         },
         {
             "fieldName": "note",

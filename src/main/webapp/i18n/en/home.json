@@ -1,0 +1,9 @@
+{
+    "home": {
+        "title": "Welcome to Otto Team Dojo",
+        "subtitle": "This is the welcome page",
+        "logged": {
+            "message": "You are logged in as user \"{{username}}\"."
+        }
+    }
+}

@@ -1,15 +1,16 @@
 package de.otto.dojo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
 
 /**
  * A Team.
@@ -44,8 +45,8 @@ public class Team implements Serializable {
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "team_participations",
-        joinColumns = @JoinColumn(name = "teams_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "participations_id", referencedColumnName = "id"))
+               joinColumns = @JoinColumn(name="teams_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="participations_id", referencedColumnName="id"))
     private Set<Dimension> participations = new HashSet<>();
 
     @OneToMany(mappedBy = "team")

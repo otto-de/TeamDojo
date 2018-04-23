@@ -1,40 +1,40 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-badge-heading">Create or edit a Badge</h2>
+            <h2 id="jhi-badge-heading" jhiTranslate="dojoApp.badge.home.createOrEditLabel">Create or edit a Badge</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!badge.id">
-                    <label for="id">ID</label>
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="badge.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_name">Name</label>
+                    <label class="form-control-label" jhiTranslate="dojoApp.badge.name" for="field_name">Name</label>
                     <input type="text" class="form-control" name="name" id="field_name"
                         [(ngModel)]="badge.name" required minlength="2" maxlength="20"/>
                     <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.name?.errors?.required">
+                        [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.name?.errors?.minlength">
+                        [hidden]="!editForm.controls.name?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 2 }">
                         This field is required to be at least 2 characters.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.name?.errors?.maxlength">
+                        [hidden]="!editForm.controls.name?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 20 }">
                         This field cannot be longer than 20 characters.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_description">Description</label>
+                    <label class="form-control-label" jhiTranslate="dojoApp.badge.description" for="field_description">Description</label>
                     <input type="text" class="form-control" name="description" id="field_description"
                         [(ngModel)]="badge.description" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_logo">Logo</label>
+                    <label class="form-control-label" jhiTranslate="dojoApp.badge.logo" for="field_logo">Logo</label>
                     <div>
                         <img [src]="'data:' + badge.logoContentType + ';base64,' + badge.logo" style="max-height: 100px;" *ngIf="badge.logo" alt="badge image"/>
                         <div *ngIf="badge.logo" class="form-text text-danger clearfix">
@@ -43,7 +43,7 @@
                                 <span class="fa fa-times"></span>
                             </button>
                         </div>
-                        <input type="file" id="file_logo" (change)="setFileData($event, badge, 'logo', true)" accept="image/*"/>
+                        <input type="file" id="file_logo" (change)="setFileData($event, badge, 'logo', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
                     </div>
                     <input type="hidden" class="form-control" name="logo" id="field_logo"
                         [(ngModel)]="badge.logo" />
@@ -51,42 +51,42 @@
                         [(ngModel)]="badge.logoContentType" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_availableUntil">Available Until</label>
+                    <label class="form-control-label" jhiTranslate="dojoApp.badge.availableUntil" for="field_availableUntil">Available Until</label>
                     <div class="d-flex">
                         <input id="field_availableUntil" type="datetime-local" class="form-control" name="availableUntil" [(ngModel)]="availableUntil"
                         />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_availableAmount">Available Amount</label>
+                    <label class="form-control-label" jhiTranslate="dojoApp.badge.availableAmount" for="field_availableAmount">Available Amount</label>
                     <input type="number" class="form-control" name="availableAmount" id="field_availableAmount"
                         [(ngModel)]="badge.availableAmount" min="1"/>
                     <div [hidden]="!(editForm.controls.availableAmount?.dirty && editForm.controls.availableAmount?.invalid)">
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.availableAmount?.errors?.min">
+                            [hidden]="!editForm.controls.availableAmount?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 1 }">
                             This field should be at least 1.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.availableAmount?.errors?.number">
+                            [hidden]="!editForm.controls.availableAmount?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_requiredScore">Required Score</label>
+                    <label class="form-control-label" jhiTranslate="dojoApp.badge.requiredScore" for="field_requiredScore">Required Score</label>
                     <input type="number" class="form-control" name="requiredScore" id="field_requiredScore"
                         [(ngModel)]="badge.requiredScore" min="0" max="1"/>
                     <div [hidden]="!(editForm.controls.requiredScore?.dirty && editForm.controls.requiredScore?.invalid)">
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.requiredScore?.errors?.min">
+                            [hidden]="!editForm.controls.requiredScore?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
                             This field should be at least 0.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.requiredScore?.errors?.max">
+                            [hidden]="!editForm.controls.requiredScore?.errors?.max" jhiTranslate="entity.validation.max" translateValues="{ max: 1 }">
                             This field cannot be more than 1.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.requiredScore?.errors?.number">
+                            [hidden]="!editForm.controls.requiredScore?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>
@@ -95,10 +95,10 @@
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                    <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+                    <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
                 <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                    <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+                    <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>
         </form>

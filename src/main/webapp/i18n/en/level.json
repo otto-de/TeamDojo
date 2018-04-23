@@ -1,0 +1,27 @@
+
+{
+    "dojoApp": {
+        "level" : {
+            "home": {
+                "title": "Levels",
+                "createLabel": "Create a new Level",
+                "createOrEditLabel": "Create or edit a Level"
+            },
+            "created": "A new Level is created with identifier {{ param }}",
+            "updated": "A Level is updated with identifier {{ param }}",
+            "deleted": "A Level is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Level {{ id }}?"
+            },
+            "detail": {
+                "title": "Level"
+            },
+            "name": "Name",
+            "picture": "Picture",
+            "requiredScore": "Required Score",
+            "dimension": "Dimension",
+            "dependsOn": "Depends On",
+            "skills": "Skills"
+        }
+    }
+}

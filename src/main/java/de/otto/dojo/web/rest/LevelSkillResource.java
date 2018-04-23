@@ -5,6 +5,8 @@ import de.otto.dojo.domain.LevelSkill;
 import de.otto.dojo.service.LevelSkillService;
 import de.otto.dojo.web.rest.errors.BadRequestAlertException;
 import de.otto.dojo.web.rest.util.HeaderUtil;
+import de.otto.dojo.service.dto.LevelSkillCriteria;
+import de.otto.dojo.service.LevelSkillQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +33,11 @@ public class LevelSkillResource {
 
     private final LevelSkillService levelSkillService;
 
-    public LevelSkillResource(LevelSkillService levelSkillService) {
+    private final LevelSkillQueryService levelSkillQueryService;
+
+    public LevelSkillResource(LevelSkillService levelSkillService, LevelSkillQueryService levelSkillQueryService) {
         this.levelSkillService = levelSkillService;
+        this.levelSkillQueryService = levelSkillQueryService;
     }
 
     /**
@@ -80,13 +85,15 @@ public class LevelSkillResource {
     /**
      * GET  /level-skills : get all the levelSkills.
      *
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of levelSkills in body
      */
     @GetMapping("/level-skills")
     @Timed
-    public List<LevelSkill> getAllLevelSkills() {
-        log.debug("REST request to get all LevelSkills");
-        return levelSkillService.findAll();
+    public ResponseEntity<List<LevelSkill>> getAllLevelSkills(LevelSkillCriteria criteria) {
+        log.debug("REST request to get LevelSkills by criteria: {}", criteria);
+        List<LevelSkill> entityList = levelSkillQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
     }
 
     /**

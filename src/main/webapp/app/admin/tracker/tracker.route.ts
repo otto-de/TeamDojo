@@ -6,6 +6,6 @@ export const trackerRoute: Route = {
     path: 'jhi-tracker',
     component: JhiTrackerComponent,
     data: {
-        pageTitle: 'Real-time user activities'
+        pageTitle: 'tracker.title'
     }
 };

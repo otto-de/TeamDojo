@@ -8,6 +8,7 @@
         "outDir": "build/www/app",
         "assets": [
             "content",
+            "i18n",
             "favicon.ico"
         ],
         "index": "index.html",

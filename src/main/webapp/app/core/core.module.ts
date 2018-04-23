@@ -7,6 +7,7 @@ import locale from '@angular/common/locales/en';
 import {
     JhiTrackerService,
     WindowRef,
+    JhiLanguageHelper,
     LoginService,
     LoginModalService,
     AccountService,
@@ -32,6 +33,7 @@ import {
             provide: LOCALE_ID,
             useValue: 'en'
         },
+        JhiLanguageHelper,
         AccountService,
         StateStorageService,
         Principal,

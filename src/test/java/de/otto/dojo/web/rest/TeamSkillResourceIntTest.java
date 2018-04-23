@@ -50,8 +50,8 @@ public class TeamSkillResourceIntTest {
     private static final Instant DEFAULT_ACHIEVED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_ACHIEVED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Boolean DEFAULT_VERIFIED = false;
-    private static final Boolean UPDATED_VERIFIED = true;
+    private static final Instant DEFAULT_VERIFIED_AT = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_VERIFIED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final String DEFAULT_NOTE = "AAAAAAAAAA";
     private static final String UPDATED_NOTE = "BBBBBBBBBB";
@@ -104,7 +104,7 @@ public class TeamSkillResourceIntTest {
     public static TeamSkill createEntity(EntityManager em) {
         TeamSkill teamSkill = new TeamSkill()
             .achievedAt(DEFAULT_ACHIEVED_AT)
-            .verified(DEFAULT_VERIFIED)
+            .verifiedAt(DEFAULT_VERIFIED_AT)
             .note(DEFAULT_NOTE);
         // Add required entity
         Skill skill = SkillResourceIntTest.createEntity(em);
@@ -140,7 +140,7 @@ public class TeamSkillResourceIntTest {
         assertThat(teamSkillList).hasSize(databaseSizeBeforeCreate + 1);
         TeamSkill testTeamSkill = teamSkillList.get(teamSkillList.size() - 1);
         assertThat(testTeamSkill.getAchievedAt()).isEqualTo(DEFAULT_ACHIEVED_AT);
-        assertThat(testTeamSkill.isVerified()).isEqualTo(DEFAULT_VERIFIED);
+        assertThat(testTeamSkill.getVerifiedAt()).isEqualTo(DEFAULT_VERIFIED_AT);
         assertThat(testTeamSkill.getNote()).isEqualTo(DEFAULT_NOTE);
     }
 
@@ -175,7 +175,7 @@ public class TeamSkillResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(teamSkill.getId().intValue())))
             .andExpect(jsonPath("$.[*].achievedAt").value(hasItem(DEFAULT_ACHIEVED_AT.toString())))
-            .andExpect(jsonPath("$.[*].verified").value(hasItem(DEFAULT_VERIFIED.booleanValue())))
+            .andExpect(jsonPath("$.[*].verifiedAt").value(hasItem(DEFAULT_VERIFIED_AT.toString())))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE.toString())));
     }
     
@@ -192,7 +192,7 @@ public class TeamSkillResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(teamSkill.getId().intValue()))
             .andExpect(jsonPath("$.achievedAt").value(DEFAULT_ACHIEVED_AT.toString()))
-            .andExpect(jsonPath("$.verified").value(DEFAULT_VERIFIED.booleanValue()))
+            .andExpect(jsonPath("$.verifiedAt").value(DEFAULT_VERIFIED_AT.toString()))
             .andExpect(jsonPath("$.note").value(DEFAULT_NOTE.toString()));
     }
 
@@ -237,41 +237,41 @@ public class TeamSkillResourceIntTest {
 
     @Test
     @Transactional
-    public void getAllTeamSkillsByVerifiedIsEqualToSomething() throws Exception {
+    public void getAllTeamSkillsByVerifiedAtIsEqualToSomething() throws Exception {
         // Initialize the database
         teamSkillRepository.saveAndFlush(teamSkill);
 
-        // Get all the teamSkillList where verified equals to DEFAULT_VERIFIED
-        defaultTeamSkillShouldBeFound("verified.equals=" + DEFAULT_VERIFIED);
+        // Get all the teamSkillList where verifiedAt equals to DEFAULT_VERIFIED_AT
+        defaultTeamSkillShouldBeFound("verifiedAt.equals=" + DEFAULT_VERIFIED_AT);
 
-        // Get all the teamSkillList where verified equals to UPDATED_VERIFIED
-        defaultTeamSkillShouldNotBeFound("verified.equals=" + UPDATED_VERIFIED);
+        // Get all the teamSkillList where verifiedAt equals to UPDATED_VERIFIED_AT
+        defaultTeamSkillShouldNotBeFound("verifiedAt.equals=" + UPDATED_VERIFIED_AT);
     }
 
     @Test
     @Transactional
-    public void getAllTeamSkillsByVerifiedIsInShouldWork() throws Exception {
+    public void getAllTeamSkillsByVerifiedAtIsInShouldWork() throws Exception {
         // Initialize the database
         teamSkillRepository.saveAndFlush(teamSkill);
 
-        // Get all the teamSkillList where verified in DEFAULT_VERIFIED or UPDATED_VERIFIED
-        defaultTeamSkillShouldBeFound("verified.in=" + DEFAULT_VERIFIED + "," + UPDATED_VERIFIED);
+        // Get all the teamSkillList where verifiedAt in DEFAULT_VERIFIED_AT or UPDATED_VERIFIED_AT
+        defaultTeamSkillShouldBeFound("verifiedAt.in=" + DEFAULT_VERIFIED_AT + "," + UPDATED_VERIFIED_AT);
 
-        // Get all the teamSkillList where verified equals to UPDATED_VERIFIED
-        defaultTeamSkillShouldNotBeFound("verified.in=" + UPDATED_VERIFIED);
+        // Get all the teamSkillList where verifiedAt equals to UPDATED_VERIFIED_AT
+        defaultTeamSkillShouldNotBeFound("verifiedAt.in=" + UPDATED_VERIFIED_AT);
     }
 
     @Test
     @Transactional
-    public void getAllTeamSkillsByVerifiedIsNullOrNotNull() throws Exception {
+    public void getAllTeamSkillsByVerifiedAtIsNullOrNotNull() throws Exception {
         // Initialize the database
         teamSkillRepository.saveAndFlush(teamSkill);
 
-        // Get all the teamSkillList where verified is not null
-        defaultTeamSkillShouldBeFound("verified.specified=true");
+        // Get all the teamSkillList where verifiedAt is not null
+        defaultTeamSkillShouldBeFound("verifiedAt.specified=true");
 
-        // Get all the teamSkillList where verified is null
-        defaultTeamSkillShouldNotBeFound("verified.specified=false");
+        // Get all the teamSkillList where verifiedAt is null
+        defaultTeamSkillShouldNotBeFound("verifiedAt.specified=false");
     }
 
     @Test
@@ -359,7 +359,7 @@ public class TeamSkillResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(teamSkill.getId().intValue())))
             .andExpect(jsonPath("$.[*].achievedAt").value(hasItem(DEFAULT_ACHIEVED_AT.toString())))
-            .andExpect(jsonPath("$.[*].verified").value(hasItem(DEFAULT_VERIFIED.booleanValue())))
+            .andExpect(jsonPath("$.[*].verifiedAt").value(hasItem(DEFAULT_VERIFIED_AT.toString())))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE.toString())));
     }
 
@@ -397,7 +397,7 @@ public class TeamSkillResourceIntTest {
         em.detach(updatedTeamSkill);
         updatedTeamSkill
             .achievedAt(UPDATED_ACHIEVED_AT)
-            .verified(UPDATED_VERIFIED)
+            .verifiedAt(UPDATED_VERIFIED_AT)
             .note(UPDATED_NOTE);
 
         restTeamSkillMockMvc.perform(put("/api/team-skills")
@@ -410,7 +410,7 @@ public class TeamSkillResourceIntTest {
         assertThat(teamSkillList).hasSize(databaseSizeBeforeUpdate);
         TeamSkill testTeamSkill = teamSkillList.get(teamSkillList.size() - 1);
         assertThat(testTeamSkill.getAchievedAt()).isEqualTo(UPDATED_ACHIEVED_AT);
-        assertThat(testTeamSkill.isVerified()).isEqualTo(UPDATED_VERIFIED);
+        assertThat(testTeamSkill.getVerifiedAt()).isEqualTo(UPDATED_VERIFIED_AT);
         assertThat(testTeamSkill.getNote()).isEqualTo(UPDATED_NOTE);
     }
 

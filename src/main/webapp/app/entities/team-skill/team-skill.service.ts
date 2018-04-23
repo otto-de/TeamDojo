@@ -66,7 +66,8 @@ export class TeamSkillService {
      */
     private convertItemFromServer(teamSkill: ITeamSkill): ITeamSkill {
         const copy: ITeamSkill = Object.assign({}, teamSkill, {
-            achievedAt: teamSkill.achievedAt != null ? moment(teamSkill.achievedAt) : teamSkill.achievedAt
+            achievedAt: teamSkill.achievedAt != null ? moment(teamSkill.achievedAt) : teamSkill.achievedAt,
+            verifiedAt: teamSkill.verifiedAt != null ? moment(teamSkill.verifiedAt) : teamSkill.verifiedAt
         });
         return copy;
     }
@@ -76,7 +77,8 @@ export class TeamSkillService {
      */
     private convert(teamSkill: ITeamSkill): ITeamSkill {
         const copy: ITeamSkill = Object.assign({}, teamSkill, {
-            achievedAt: teamSkill.achievedAt != null && teamSkill.achievedAt.isValid() ? teamSkill.achievedAt.toJSON() : null
+            achievedAt: teamSkill.achievedAt != null && teamSkill.achievedAt.isValid() ? teamSkill.achievedAt.toJSON() : null,
+            verifiedAt: teamSkill.verifiedAt != null && teamSkill.verifiedAt.isValid() ? teamSkill.verifiedAt.toJSON() : null
         });
         return copy;
     }

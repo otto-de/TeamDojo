@@ -1,6 +1,6 @@
 <!-- Modal used to display the threads dump -->
 <div class="modal-header">
-    <h4 class="modal-title">Threads dump</h4>
+    <h4 class="modal-title" jhiTranslate="metrics.jvm.threads.dump.title">Threads dump</h4>
     <button type="button" class="close" (click)="activeModal.dismiss('closed')">&times;</button>
 </div>
 <div class="modal-body">
@@ -16,8 +16,8 @@
         <h6>
             <span class="badge" [ngClass]="getBadgeClass(entry.value.threadState)">{{entry.value.threadState}}</span>&nbsp;{{entry.value.threadName}} (ID {{entry.value.threadId}})
             <a (click)="entry.show = !entry.show" href="javascript:void(0);">
-               <span [hidden]="entry.show">Show StackTrace</span>
-               <span [hidden]="!entry.show">Hide StackTrace</span>
+               <span [hidden]="entry.show" jhiTranslate="metrics.jvm.threads.dump.show">Show StackTrace</span>
+               <span [hidden]="!entry.show" jhiTranslate="metrics.jvm.threads.dump.hide">Hide StackTrace</span>
             </a>
         </h6>
         <div class="card" [hidden]="!entry.show">
@@ -31,11 +31,11 @@
         <table class="table table-sm table-responsive">
             <thead>
                 <tr>
-                    <th>Blocked Time</th>
-                    <th>Blocked Count</th>
-                    <th>Waited Time</th>
-                    <th>Waited Count</th>
-                    <th>Lock Name</th>
+                    <th jhiTranslate="metrics.jvm.threads.dump.blockedtime">Blocked Time</th>
+                    <th jhiTranslate="metrics.jvm.threads.dump.blockedcount">Blocked Count</th>
+                    <th jhiTranslate="metrics.jvm.threads.dump.waitedtime">Waited Time</th>
+                    <th jhiTranslate="metrics.jvm.threads.dump.waitedcount">Waited Count</th>
+                    <th jhiTranslate="metrics.jvm.threads.dump.lockname">Lock Name</th>
                 </tr>
             </thead>
             <tbody>
