@@ -1,7 +1,7 @@
 {
-  "name": "dojo",
+  "name": "teamdojo",
   "version": "0.0.0",
-  "description": "Description for dojo",
+  "description": "Otto Team Dojo",
   "private": true,
   "license": "UNLICENSED",
   "cacheDirectories": [

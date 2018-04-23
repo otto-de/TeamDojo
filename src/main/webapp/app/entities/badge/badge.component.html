@@ -1,9 +1,9 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="dojoApp.badge.home.title">Badges</span>
+        <span jhiTranslate="teamdojoApp.badge.home.title">Badges</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-badge" [routerLink]="['/badge/new']">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="dojoApp.badge.home.createLabel">
+            <span  jhiTranslate="teamdojoApp.badge.home.createLabel">
             Create new Badge
             </span>
         </button>
@@ -15,12 +15,12 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="name"><span jhiTranslate="dojoApp.badge.name">Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="description"><span jhiTranslate="dojoApp.badge.description">Description</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="logo"><span jhiTranslate="dojoApp.badge.logo">Logo</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="availableUntil"><span jhiTranslate="dojoApp.badge.availableUntil">Available Until</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="availableAmount"><span jhiTranslate="dojoApp.badge.availableAmount">Available Amount</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="requiredScore"><span jhiTranslate="dojoApp.badge.requiredScore">Required Score</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="name"><span jhiTranslate="teamdojoApp.badge.name">Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="description"><span jhiTranslate="teamdojoApp.badge.description">Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="logo"><span jhiTranslate="teamdojoApp.badge.logo">Logo</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="availableUntil"><span jhiTranslate="teamdojoApp.badge.availableUntil">Available Until</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="availableAmount"><span jhiTranslate="teamdojoApp.badge.availableAmount">Available Amount</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="requiredScore"><span jhiTranslate="teamdojoApp.badge.requiredScore">Required Score</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>

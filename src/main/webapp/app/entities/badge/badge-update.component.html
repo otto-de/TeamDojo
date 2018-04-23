@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-badge-heading" jhiTranslate="dojoApp.badge.home.createOrEditLabel">Create or edit a Badge</h2>
+            <h2 id="jhi-badge-heading" jhiTranslate="teamdojoApp.badge.home.createOrEditLabel">Create or edit a Badge</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!badge.id">
@@ -10,7 +10,7 @@
                         [(ngModel)]="badge.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.badge.name" for="field_name">Name</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.badge.name" for="field_name">Name</label>
                     <input type="text" class="form-control" name="name" id="field_name"
                         [(ngModel)]="badge.name" required minlength="2" maxlength="20"/>
                     <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
@@ -29,12 +29,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.badge.description" for="field_description">Description</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.badge.description" for="field_description">Description</label>
                     <input type="text" class="form-control" name="description" id="field_description"
                         [(ngModel)]="badge.description" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.badge.logo" for="field_logo">Logo</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.badge.logo" for="field_logo">Logo</label>
                     <div>
                         <img [src]="'data:' + badge.logoContentType + ';base64,' + badge.logo" style="max-height: 100px;" *ngIf="badge.logo" alt="badge image"/>
                         <div *ngIf="badge.logo" class="form-text text-danger clearfix">
@@ -51,14 +51,14 @@
                         [(ngModel)]="badge.logoContentType" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.badge.availableUntil" for="field_availableUntil">Available Until</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.badge.availableUntil" for="field_availableUntil">Available Until</label>
                     <div class="d-flex">
                         <input id="field_availableUntil" type="datetime-local" class="form-control" name="availableUntil" [(ngModel)]="availableUntil"
                         />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.badge.availableAmount" for="field_availableAmount">Available Amount</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.badge.availableAmount" for="field_availableAmount">Available Amount</label>
                     <input type="number" class="form-control" name="availableAmount" id="field_availableAmount"
                         [(ngModel)]="badge.availableAmount" min="1"/>
                     <div [hidden]="!(editForm.controls.availableAmount?.dirty && editForm.controls.availableAmount?.invalid)">
@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.badge.requiredScore" for="field_requiredScore">Required Score</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.badge.requiredScore" for="field_requiredScore">Required Score</label>
                     <input type="number" class="form-control" name="requiredScore" id="field_requiredScore"
                         [(ngModel)]="badge.requiredScore" min="0" max="1"/>
                     <div [hidden]="!(editForm.controls.requiredScore?.dirty && editForm.controls.requiredScore?.invalid)">

@@ -17,7 +17,7 @@ logging:
     level:
         ROOT: DEBUG
         io.github.jhipster: DEBUG
-        de.otto.dojo: DEBUG
+        de.otto.teamdojo: DEBUG
 
 spring:
     profiles:
@@ -32,8 +32,8 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/dojo
-        username: dojo
+        url: jdbc:postgresql://localhost:5432/teamdojo
+        username: teamdojo
         password:
     jpa:
         database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
@@ -59,7 +59,7 @@ spring:
 
 # ===================================================================
 # To enable SSL, generate a certificate using:
-# keytool -genkey -alias dojo -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650
+# keytool -genkey -alias teamdojo -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650
 #
 # You can also use Let's Encrypt:
 # https://maximilian-boehm.com/hp2121/Create-a-Java-Keystore-JKS-from-Let-s-Encrypt-Certificates.htm
@@ -72,7 +72,7 @@ spring:
 #        key-store: keystore.p12
 #        key-store-password: <your-password>
 #        key-store-type: PKCS12
-#        key-alias: dojo
+#        key-alias: teamdojo
 # ===================================================================
 server:
     port: 8080
@@ -103,7 +103,7 @@ jhipster:
             # security key (this key should be unique for your application, and kept secret)
             key: 5b8847bc5e9d78667e24e8bf018319a5d6d9098c
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: dojo@localhost
+        from: teamdojo@localhost
         base-url: http://127.0.0.1:8080
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx:

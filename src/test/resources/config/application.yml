@@ -16,12 +16,12 @@
 
 spring:
     application:
-        name: dojo
+        name: teamdojo
     cache:
         type: simple
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:h2:mem:dojo;DB_CLOSE_DELAY=-1
+        url: jdbc:h2:mem:teamdojo;DB_CLOSE_DELAY=-1
         name:
         username:
         password:

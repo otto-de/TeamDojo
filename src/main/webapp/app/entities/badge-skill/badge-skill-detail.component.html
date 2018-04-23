@@ -1,21 +1,21 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="badgeSkill">
-            <h2><span jhiTranslate="dojoApp.badgeSkill.detail.title">Badge Skill</span> {{badgeSkill.id}}</h2>
+            <h2><span jhiTranslate="teamdojoApp.badgeSkill.detail.title">Badge Skill</span> {{badgeSkill.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="dojoApp.badgeSkill.score">Score</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.badgeSkill.score">Score</span></dt>
                 <dd>
                     <span>{{badgeSkill.score}}</span>
                 </dd>
-                <dt><span jhiTranslate="dojoApp.badgeSkill.badge">Badge</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.badgeSkill.badge">Badge</span></dt>
                 <dd>
                     <div *ngIf="badgeSkill.badge">
                         <a [routerLink]="['/badge', badgeSkill.badge?.id, 'view']">{{badgeSkill.badge?.name}}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="dojoApp.badgeSkill.skill">Skill</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.badgeSkill.skill">Skill</span></dt>
                 <dd>
                     <div *ngIf="badgeSkill.skill">
                         <a [routerLink]="['/skill', badgeSkill.skill?.id, 'view']">{{badgeSkill.skill?.title}}</a>

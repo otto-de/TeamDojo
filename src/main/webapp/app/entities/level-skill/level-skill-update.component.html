@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-level-skill-heading" jhiTranslate="dojoApp.levelSkill.home.createOrEditLabel">Create or edit a Level Skill</h2>
+            <h2 id="jhi-level-skill-heading" jhiTranslate="teamdojoApp.levelSkill.home.createOrEditLabel">Create or edit a Level Skill</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!levelSkill.id">
@@ -10,7 +10,7 @@
                         [(ngModel)]="levelSkill.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.levelSkill.score" for="field_score">Score</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.levelSkill.score" for="field_score">Score</label>
                     <input type="number" class="form-control" name="score" id="field_score"
                         [(ngModel)]="levelSkill.score" required min="0"/>
                     <div [hidden]="!(editForm.controls.score?.dirty && editForm.controls.score?.invalid)">
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.levelSkill.skill" for="field_skill">Skill</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.levelSkill.skill" for="field_skill">Skill</label>
                     <select class="form-control" id="field_skill" name="skill" [(ngModel)]="levelSkill.skill"  required>
                         <option *ngIf="!editForm.value.skill" [ngValue]="null" selected></option>
                         <option [ngValue]="skillOption.id === levelSkill.skill?.id ? levelSkill.skill : skillOption" *ngFor="let skillOption of skills; trackBy: trackSkillById">{{skillOption.title}}</option>
@@ -43,7 +43,7 @@
                     </small>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.levelSkill.level" for="field_level">Level</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.levelSkill.level" for="field_level">Level</label>
                     <select class="form-control" id="field_level" name="level" [(ngModel)]="levelSkill.level"  required>
                         <option *ngIf="!editForm.value.level" [ngValue]="null" selected></option>
                         <option [ngValue]="levelOption.id === levelSkill.level?.id ? levelSkill.level : levelOption" *ngFor="let levelOption of levels; trackBy: trackLevelById">{{levelOption.name}}</option>

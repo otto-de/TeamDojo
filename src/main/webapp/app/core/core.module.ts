@@ -44,7 +44,7 @@ import {
         UserRouteAccessService
     ]
 })
-export class DojoCoreModule {
+export class TeamdojoCoreModule {
     constructor() {
         registerLocaleData(locale);
     }

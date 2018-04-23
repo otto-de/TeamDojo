@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { DojoSharedModule } from 'app/shared';
+import { TeamdojoSharedModule } from 'app/shared';
 import {
     LevelService,
     LevelComponent,
@@ -17,10 +17,10 @@ import {
 const ENTITY_STATES = [...levelRoute, ...levelPopupRoute];
 
 @NgModule({
-    imports: [DojoSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [TeamdojoSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [LevelComponent, LevelDetailComponent, LevelUpdateComponent, LevelDeleteDialogComponent, LevelDeletePopupComponent],
     entryComponents: [LevelComponent, LevelUpdateComponent, LevelDeleteDialogComponent, LevelDeletePopupComponent],
     providers: [LevelService, LevelResolve],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class DojoLevelModule {}
+export class TeamdojoLevelModule {}

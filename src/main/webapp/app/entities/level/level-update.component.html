@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-level-heading" jhiTranslate="dojoApp.level.home.createOrEditLabel">Create or edit a Level</h2>
+            <h2 id="jhi-level-heading" jhiTranslate="teamdojoApp.level.home.createOrEditLabel">Create or edit a Level</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!level.id">
@@ -10,7 +10,7 @@
                         [(ngModel)]="level.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.level.name" for="field_name">Name</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.level.name" for="field_name">Name</label>
                     <input type="text" class="form-control" name="name" id="field_name"
                         [(ngModel)]="level.name" required maxlength="50"/>
                     <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.level.picture" for="field_picture">Picture</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.level.picture" for="field_picture">Picture</label>
                     <div>
                         <img [src]="'data:' + level.pictureContentType + ';base64,' + level.picture" style="max-height: 100px;" *ngIf="level.picture" alt="level image"/>
                         <div *ngIf="level.picture" class="form-text text-danger clearfix">
@@ -42,7 +42,7 @@
                         [(ngModel)]="level.pictureContentType" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.level.requiredScore" for="field_requiredScore">Required Score</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.level.requiredScore" for="field_requiredScore">Required Score</label>
                     <input type="number" class="form-control" name="requiredScore" id="field_requiredScore"
                         [(ngModel)]="level.requiredScore" required min="0" max="1"/>
                     <div [hidden]="!(editForm.controls.requiredScore?.dirty && editForm.controls.requiredScore?.invalid)">
@@ -66,7 +66,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.level.dimension" for="field_dimension">Dimension</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.level.dimension" for="field_dimension">Dimension</label>
                     <select class="form-control" id="field_dimension" name="dimension" [(ngModel)]="level.dimension"  required>
                         <option *ngIf="!editForm.value.dimension" [ngValue]="null" selected></option>
                         <option [ngValue]="dimensionOption.id === level.dimension?.id ? level.dimension : dimensionOption" *ngFor="let dimensionOption of dimensions; trackBy: trackDimensionById">{{dimensionOption.name}}</option>
@@ -79,7 +79,7 @@
                     </small>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.level.dependsOn" for="field_dependsOn">Depends On</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.level.dependsOn" for="field_dependsOn">Depends On</label>
                     <select class="form-control" id="field_dependsOn" name="dependsOn" [(ngModel)]="level.dependsOn">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="levelOption.id === level.dependsOn?.id ? level.dependsOn : levelOption" *ngFor="let levelOption of dependsons; trackBy: trackLevelById">{{levelOption.name}}</option>

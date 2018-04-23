@@ -1,6 +1,6 @@
 {
-  "name": "Dojo",
-  "short_name": "Dojo",
+  "name": "Teamdojo",
+  "short_name": "Teamdojo",
   "icons": [
       {
           "src": "./content/images/logo-jhipster.png",

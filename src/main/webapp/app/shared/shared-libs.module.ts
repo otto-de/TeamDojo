@@ -20,4 +20,4 @@ import { CookieModule } from 'ngx-cookie';
     ],
     exports: [FormsModule, CommonModule, NgbModule, NgJhipsterModule, InfiniteScrollModule]
 })
-export class DojoSharedLibsModule {}
+export class TeamdojoSharedLibsModule {}
