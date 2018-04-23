@@ -1,7 +1,6 @@
 package de.otto.teamdojo.service;
 
 import de.otto.teamdojo.domain.Skill;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -1,7 +1,7 @@
 package de.otto.teamdojo.web.rest;
 
-import de.otto.teamdojo.config.Constants;
 import de.otto.teamdojo.TeamdojoApp;
+import de.otto.teamdojo.config.Constants;
 import de.otto.teamdojo.domain.Authority;
 import de.otto.teamdojo.domain.PersistentToken;
 import de.otto.teamdojo.domain.User;
@@ -10,14 +10,13 @@ import de.otto.teamdojo.repository.PersistentTokenRepository;
 import de.otto.teamdojo.repository.UserRepository;
 import de.otto.teamdojo.security.AuthoritiesConstants;
 import de.otto.teamdojo.service.MailService;
-import de.otto.teamdojo.service.dto.UserDTO;
+import de.otto.teamdojo.service.UserService;
 import de.otto.teamdojo.service.dto.PasswordChangeDTO;
+import de.otto.teamdojo.service.dto.UserDTO;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
 import de.otto.teamdojo.web.rest.vm.KeyAndPasswordVM;
 import de.otto.teamdojo.web.rest.vm.ManagedUserVM;
-import de.otto.teamdojo.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,10 +32,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.Instant;
 import java.time.LocalDate;
-
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -611,7 +613,7 @@ public class AccountResourceIntTest {
         userRepository.saveAndFlush(user);
 
         restMvc.perform(post("/api/account/change-password").contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(new PasswordChangeDTO("1"+currentPassword,"new password"))))
+            .content(TestUtil.convertObjectToJsonBytes(new PasswordChangeDTO("1" + currentPassword, "new password"))))
             .andExpect(status().isBadRequest());
 
         User updatedUser = userRepository.findOneByLogin("change-password-wrong-existing-password").orElse(null);
@@ -631,8 +633,8 @@ public class AccountResourceIntTest {
         userRepository.saveAndFlush(user);
 
         restMvc.perform(post("/api/account/change-password").contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(new PasswordChangeDTO(currentPassword,"new password"))))
-                .andExpect(status().isOk());
+            .content(TestUtil.convertObjectToJsonBytes(new PasswordChangeDTO(currentPassword, "new password"))))
+            .andExpect(status().isOk());
 
         User updatedUser = userRepository.findOneByLogin("change-password").orElse(null);
         assertThat(passwordEncoder.matches("new password", updatedUser.getPassword())).isTrue();
@@ -650,8 +652,8 @@ public class AccountResourceIntTest {
         userRepository.saveAndFlush(user);
 
         restMvc.perform(post("/api/account/change-password").contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(new PasswordChangeDTO(currentPassword,"new"))))
-                .andExpect(status().isBadRequest());
+            .content(TestUtil.convertObjectToJsonBytes(new PasswordChangeDTO(currentPassword, "new"))))
+            .andExpect(status().isBadRequest());
 
         User updatedUser = userRepository.findOneByLogin("change-password-too-small").orElse(null);
         assertThat(updatedUser.getPassword()).isEqualTo(user.getPassword());
@@ -669,8 +671,8 @@ public class AccountResourceIntTest {
         userRepository.saveAndFlush(user);
 
         restMvc.perform(post("/api/account/change-password").contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(new PasswordChangeDTO(currentPassword,RandomStringUtils.random(101)))))
-                .andExpect(status().isBadRequest());
+            .content(TestUtil.convertObjectToJsonBytes(new PasswordChangeDTO(currentPassword, RandomStringUtils.random(101)))))
+            .andExpect(status().isBadRequest());
 
         User updatedUser = userRepository.findOneByLogin("change-password-too-long").orElse(null);
         assertThat(updatedUser.getPassword()).isEqualTo(user.getPassword());
@@ -696,7 +698,7 @@ public class AccountResourceIntTest {
     @Test
     @Transactional
     @WithMockUser("current-sessions")
-    public void testGetCurrentSessions()  throws Exception {
+    public void testGetCurrentSessions() throws Exception {
         User user = new User();
         user.setPassword(RandomStringUtils.random(60));
         user.setLogin("current-sessions");

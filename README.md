@@ -29,6 +29,20 @@ Add the `help` flag on any command to see how you can use it. For example, `yarn
 
 The `yarn run` command will list all of the scripts available to run for this project.
 
+### Code Formatting
+Install the IntelliJ IDE EditorConfig Plugin and enable EditorConfig support
+
+**Java**
+Format your Java code by using the IntelliJ IDE Default Code Style and organize imports before committing.
+
+**Type Script**
+Run prettier before committing (`npm run prettier:format` or `yarn prettier --write **/*.ts`)
+Install IntelliJ IDE Prettier Plugin and use the action `Reformat with Prettier` to format the code
+
+**Line Separators**
+Configure your IDE to use Unix LF (\n) line separators
+IntelliJ IDE: Line separator (for new files)
+
 ### Service workers
 
 Service workers are commented by default, to enable them please uncomment the following code.

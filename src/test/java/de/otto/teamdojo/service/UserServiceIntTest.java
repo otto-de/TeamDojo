@@ -8,7 +8,6 @@ import de.otto.teamdojo.repository.PersistentTokenRepository;
 import de.otto.teamdojo.repository.UserRepository;
 import de.otto.teamdojo.service.dto.UserDTO;
 import de.otto.teamdojo.service.util.RandomUtil;
-
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,8 +20,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 

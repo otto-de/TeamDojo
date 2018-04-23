@@ -1,15 +1,11 @@
 package de.otto.teamdojo.service.dto;
 
-import java.io.Serializable;
-
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.FloatFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 
-
-
-
+import java.io.Serializable;
 
 
 /**
@@ -90,12 +86,12 @@ public class LevelCriteria implements Serializable {
     @Override
     public String toString() {
         return "LevelCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (name != null ? "name=" + name + ", " : "") +
-                (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
-                (dimensionId != null ? "dimensionId=" + dimensionId + ", " : "") +
-                (dependsOnId != null ? "dependsOnId=" + dependsOnId + ", " : "") +
-                (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
+            (id != null ? "id=" + id + ", " : "") +
+            (name != null ? "name=" + name + ", " : "") +
+            (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
+            (dimensionId != null ? "dimensionId=" + dimensionId + ", " : "") +
+            (dependsOnId != null ? "dependsOnId=" + dependsOnId + ", " : "") +
+            (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
             "}";
     }
 

@@ -1,14 +1,12 @@
 package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
-
 import de.otto.teamdojo.domain.Dimension;
 import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.repository.DimensionRepository;
+import de.otto.teamdojo.service.DimensionQueryService;
 import de.otto.teamdojo.service.DimensionService;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
-import de.otto.teamdojo.service.DimensionQueryService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,8 +49,6 @@ public class DimensionResourceIntTest {
     private DimensionRepository dimensionRepository;
 
 
-
-
     @Autowired
     private DimensionService dimensionService;
 
@@ -88,7 +84,7 @@ public class DimensionResourceIntTest {
 
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */

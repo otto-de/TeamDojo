@@ -1,6 +1,7 @@
 package de.otto.teamdojo.web.rest.vm;
 
 import de.otto.teamdojo.service.dto.UserDTO;
+
 import javax.validation.constraints.Size;
 
 /**

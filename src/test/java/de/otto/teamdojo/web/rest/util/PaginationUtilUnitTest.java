@@ -1,17 +1,15 @@
 package de.otto.teamdojo.web.rest.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests based on parsing algorithm in app/components/util/pagination-util.service.js
@@ -32,9 +30,9 @@ public class PaginationUtilUnitTest {
         String headerData = strHeaders.get(0);
         assertTrue(headerData.split(",").length == 4);
         String expectedData = "</api/_search/example?page=7&size=50>; rel=\"next\","
-                + "</api/_search/example?page=5&size=50>; rel=\"prev\","
-                + "</api/_search/example?page=7&size=50>; rel=\"last\","
-                + "</api/_search/example?page=0&size=50>; rel=\"first\"";
+            + "</api/_search/example?page=5&size=50>; rel=\"prev\","
+            + "</api/_search/example?page=7&size=50>; rel=\"last\","
+            + "</api/_search/example?page=0&size=50>; rel=\"first\"";
         assertEquals(expectedData, headerData);
         List<String> xTotalCountHeaders = headers.get("X-Total-Count");
         assertTrue(xTotalCountHeaders.size() == 1);

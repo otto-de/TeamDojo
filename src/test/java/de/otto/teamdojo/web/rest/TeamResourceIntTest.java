@@ -1,15 +1,13 @@
 package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
-
-import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.domain.Dimension;
+import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.domain.TeamSkill;
 import de.otto.teamdojo.repository.TeamRepository;
+import de.otto.teamdojo.service.TeamQueryService;
 import de.otto.teamdojo.service.TeamService;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
-import de.otto.teamdojo.service.TeamQueryService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,8 +26,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -102,7 +100,7 @@ public class TeamResourceIntTest {
 
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -206,24 +204,24 @@ public class TeamResourceIntTest {
             .setMessageConverters(jacksonMessageConverter).build();
 
         restTeamMockMvc.perform(get("/api/teams?eagerload=true"))
-        .andExpect(status().isOk());
+            .andExpect(status().isOk());
 
         verify(teamServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     public void getAllTeamsWithEagerRelationshipsIsNotEnabled() throws Exception {
         TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService);
-            when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-            MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
+        when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+        MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter).build();
 
         restTeamMockMvc.perform(get("/api/teams?eagerload=true"))
-        .andExpect(status().isOk());
+            .andExpect(status().isOk());
 
-            verify(teamServiceMock, times(1)).findAllWithEagerRelationships(any());
+        verify(teamServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test

@@ -1,7 +1,6 @@
 package de.otto.teamdojo.repository;
 
 import de.otto.teamdojo.domain.Authority;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

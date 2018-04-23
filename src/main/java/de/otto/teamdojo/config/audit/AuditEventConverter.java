@@ -1,7 +1,6 @@
 package de.otto.teamdojo.config.audit;
 
 import de.otto.teamdojo.domain.PersistentAuditEvent;
-
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
