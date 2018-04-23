@@ -1,14 +1,10 @@
 package de.otto.teamdojo.service.dto;
 
-import java.io.Serializable;
-
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 
-
-
-
+import java.io.Serializable;
 
 
 /**
@@ -119,15 +115,15 @@ public class SkillCriteria implements Serializable {
     @Override
     public String toString() {
         return "SkillCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (title != null ? "title=" + title + ", " : "") +
-                (description != null ? "description=" + description + ", " : "") +
-                (implementation != null ? "implementation=" + implementation + ", " : "") +
-                (validation != null ? "validation=" + validation + ", " : "") +
-                (expiryPeriod != null ? "expiryPeriod=" + expiryPeriod + ", " : "") +
-                (teamsId != null ? "teamsId=" + teamsId + ", " : "") +
-                (badgesId != null ? "badgesId=" + badgesId + ", " : "") +
-                (levelsId != null ? "levelsId=" + levelsId + ", " : "") +
+            (id != null ? "id=" + id + ", " : "") +
+            (title != null ? "title=" + title + ", " : "") +
+            (description != null ? "description=" + description + ", " : "") +
+            (implementation != null ? "implementation=" + implementation + ", " : "") +
+            (validation != null ? "validation=" + validation + ", " : "") +
+            (expiryPeriod != null ? "expiryPeriod=" + expiryPeriod + ", " : "") +
+            (teamsId != null ? "teamsId=" + teamsId + ", " : "") +
+            (badgesId != null ? "badgesId=" + badgesId + ", " : "") +
+            (levelsId != null ? "levelsId=" + levelsId + ", " : "") +
             "}";
     }
 

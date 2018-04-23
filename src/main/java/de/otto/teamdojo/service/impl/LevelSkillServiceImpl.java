@@ -1,17 +1,16 @@
 package de.otto.teamdojo.service.impl;
 
-import de.otto.teamdojo.service.LevelSkillService;
 import de.otto.teamdojo.domain.LevelSkill;
 import de.otto.teamdojo.repository.LevelSkillRepository;
+import de.otto.teamdojo.service.LevelSkillService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
-import java.util.List;
 /**
  * Service Implementation for managing LevelSkill.
  */
