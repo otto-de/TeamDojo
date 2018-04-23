@@ -31,7 +31,7 @@
                 "maxlength"
             ],
             "fieldValidateRulesMinlength": "5",
-            "fieldValidateRulesMaxlength": "50"
+            "fieldValidateRulesMaxlength": "80"
         },
         {
             "fieldName": "description",
