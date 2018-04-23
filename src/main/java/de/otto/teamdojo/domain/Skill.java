@@ -27,8 +27,8 @@ public class Skill implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(min = 5, max = 50)
-    @Column(name = "title", length = 50, nullable = false)
+    @Size(min = 5, max = 80)
+    @Column(name = "title", length = 80, nullable = false)
     private String title;
 
     @Column(name = "description")
