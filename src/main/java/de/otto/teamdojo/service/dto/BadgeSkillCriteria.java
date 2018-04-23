@@ -1,10 +1,10 @@
 package de.otto.teamdojo.service.dto;
 
-import java.io.Serializable;
-
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
+
+import java.io.Serializable;
 
 
 /**
@@ -65,10 +65,10 @@ public class BadgeSkillCriteria implements Serializable {
     @Override
     public String toString() {
         return "BadgeSkillCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (score != null ? "score=" + score + ", " : "") +
-                (badgeId != null ? "badgeId=" + badgeId + ", " : "") +
-                (skillId != null ? "skillId=" + skillId + ", " : "") +
+            (id != null ? "id=" + id + ", " : "") +
+            (score != null ? "score=" + score + ", " : "") +
+            (badgeId != null ? "badgeId=" + badgeId + ", " : "") +
+            (skillId != null ? "skillId=" + skillId + ", " : "") +
             "}";
     }
 

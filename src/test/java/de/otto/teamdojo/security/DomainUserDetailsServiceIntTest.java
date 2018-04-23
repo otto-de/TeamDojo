@@ -3,7 +3,6 @@ package de.otto.teamdojo.security;
 import de.otto.teamdojo.TeamdojoApp;
 import de.otto.teamdojo.domain.User;
 import de.otto.teamdojo.repository.UserRepository;
-
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -107,7 +106,7 @@ public class DomainUserDetailsServiceIntTest {
     @Test(expected = UsernameNotFoundException.class)
     @Transactional
     public void assertThatUserCanNotBeFoundByEmailIgnoreCase() {
-    domainUserDetailsService.loadUserByUsername(USER_TWO_EMAIL.toUpperCase(Locale.ENGLISH));
+        domainUserDetailsService.loadUserByUsername(USER_TWO_EMAIL.toUpperCase(Locale.ENGLISH));
     }
 
     @Test

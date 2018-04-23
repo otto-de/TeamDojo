@@ -2,9 +2,9 @@ package de.otto.teamdojo.repository;
 
 import de.otto.teamdojo.domain.PersistentToken;
 import de.otto.teamdojo.domain.User;
-import java.time.LocalDate;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**

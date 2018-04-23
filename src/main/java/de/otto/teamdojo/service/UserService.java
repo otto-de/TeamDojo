@@ -1,16 +1,16 @@
 package de.otto.teamdojo.service;
 
+import de.otto.teamdojo.config.Constants;
 import de.otto.teamdojo.domain.Authority;
 import de.otto.teamdojo.domain.User;
 import de.otto.teamdojo.repository.AuthorityRepository;
 import de.otto.teamdojo.repository.PersistentTokenRepository;
-import de.otto.teamdojo.config.Constants;
 import de.otto.teamdojo.repository.UserRepository;
 import de.otto.teamdojo.security.AuthoritiesConstants;
 import de.otto.teamdojo.security.SecurityUtils;
-import de.otto.teamdojo.service.util.RandomUtil;
 import de.otto.teamdojo.service.dto.UserDTO;
-
+import de.otto.teamdojo.service.util.RandomUtil;
+import de.otto.teamdojo.web.rest.errors.InvalidPasswordException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
@@ -18,12 +18,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import de.otto.teamdojo.web.rest.errors.InvalidPasswordException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -69,17 +68,17 @@ public class UserService {
     }
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
-       log.debug("Reset user password for reset key {}", key);
+        log.debug("Reset user password for reset key {}", key);
 
-       return userRepository.findOneByResetKey(key)
-           .filter(user -> user.getResetDate().isAfter(Instant.now().minusSeconds(86400)))
-           .map(user -> {
+        return userRepository.findOneByResetKey(key)
+            .filter(user -> user.getResetDate().isAfter(Instant.now().minusSeconds(86400)))
+            .map(user -> {
                 user.setPassword(passwordEncoder.encode(newPassword));
                 user.setResetKey(null);
                 user.setResetDate(null);
                 this.clearUserCaches(user);
                 return user;
-           });
+            });
     }
 
     public Optional<User> requestPasswordReset(String mail) {
@@ -153,10 +152,10 @@ public class UserService {
      * Update basic information (first name, last name, email, language) for the current user.
      *
      * @param firstName first name of user
-     * @param lastName last name of user
-     * @param email email id of user
-     * @param langKey language key
-     * @param imageUrl image URL of user
+     * @param lastName  last name of user
+     * @param email     email id of user
+     * @param langKey   language key
+     * @param imageUrl  image URL of user
      */
     public void updateUser(String firstName, String lastName, String email, String langKey, String imageUrl) {
         SecurityUtils.getCurrentUserLogin()
@@ -226,11 +225,12 @@ public class UserService {
                 log.debug("Changed password for User: {}", user);
             });
     }
-        private void assertClearTextPasswordMatchesEncryptedPassword(String clearTextPassword, String encryptedPassword) {
-            if (!passwordEncoder.matches(clearTextPassword,encryptedPassword)){
-                throw new InvalidPasswordException();
-            }
+
+    private void assertClearTextPasswordMatchesEncryptedPassword(String clearTextPassword, String encryptedPassword) {
+        if (!passwordEncoder.matches(clearTextPassword, encryptedPassword)) {
+            throw new InvalidPasswordException();
         }
+    }
 
 
     @Transactional(readOnly = true)

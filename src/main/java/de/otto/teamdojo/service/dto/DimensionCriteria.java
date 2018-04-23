@@ -1,14 +1,10 @@
 package de.otto.teamdojo.service.dto;
 
-import java.io.Serializable;
-
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 
-
-
-
+import java.io.Serializable;
 
 
 /**
@@ -69,10 +65,10 @@ public class DimensionCriteria implements Serializable {
     @Override
     public String toString() {
         return "DimensionCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (name != null ? "name=" + name + ", " : "") +
-                (description != null ? "description=" + description + ", " : "") +
-                (participantsId != null ? "participantsId=" + participantsId + ", " : "") +
+            (id != null ? "id=" + id + ", " : "") +
+            (name != null ? "name=" + name + ", " : "") +
+            (description != null ? "description=" + description + ", " : "") +
+            (participantsId != null ? "participantsId=" + participantsId + ", " : "") +
             "}";
     }
 

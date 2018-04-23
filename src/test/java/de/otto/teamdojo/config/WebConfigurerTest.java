@@ -22,7 +22,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.xnio.OptionMap;
 
 import javax.servlet.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;

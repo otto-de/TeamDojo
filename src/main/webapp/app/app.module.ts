@@ -1,6 +1,6 @@
 import './vendor.ts';
 
-import { NgModule, Injector } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Ng2Webstorage } from 'ngx-webstorage';
@@ -19,13 +19,13 @@ import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import {
+    ActiveMenuDirective,
+    ErrorComponent,
+    FooterComponent,
     JhiMainComponent,
     NavbarComponent,
-    FooterComponent,
-    ProfileService,
     PageRibbonComponent,
-    ActiveMenuDirective,
-    ErrorComponent
+    ProfileService
 } from './layouts';
 
 @NgModule({

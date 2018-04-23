@@ -1,14 +1,12 @@
 package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
-
 import de.otto.teamdojo.domain.Badge;
 import de.otto.teamdojo.domain.BadgeSkill;
 import de.otto.teamdojo.repository.BadgeRepository;
+import de.otto.teamdojo.service.BadgeQueryService;
 import de.otto.teamdojo.service.BadgeService;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
-import de.otto.teamdojo.service.BadgeQueryService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -68,8 +66,6 @@ public class BadgeResourceIntTest {
     private BadgeRepository badgeRepository;
 
 
-
-
     @Autowired
     private BadgeService badgeService;
 
@@ -105,7 +101,7 @@ public class BadgeResourceIntTest {
 
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
