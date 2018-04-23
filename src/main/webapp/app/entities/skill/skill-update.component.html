@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-skill-heading" jhiTranslate="dojoApp.skill.home.createOrEditLabel">Create or edit a Skill</h2>
+            <h2 id="jhi-skill-heading" jhiTranslate="teamdojoApp.skill.home.createOrEditLabel">Create or edit a Skill</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!skill.id">
@@ -10,7 +10,7 @@
                         [(ngModel)]="skill.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.skill.title" for="field_title">Title</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.skill.title" for="field_title">Title</label>
                     <input type="text" class="form-control" name="title" id="field_title"
                         [(ngModel)]="skill.title" required minlength="5" maxlength="50"/>
                     <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
@@ -29,22 +29,22 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.skill.description" for="field_description">Description</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.skill.description" for="field_description">Description</label>
                     <input type="text" class="form-control" name="description" id="field_description"
                         [(ngModel)]="skill.description" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.skill.implementation" for="field_implementation">Implementation</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.skill.implementation" for="field_implementation">Implementation</label>
                     <input type="text" class="form-control" name="implementation" id="field_implementation"
                         [(ngModel)]="skill.implementation" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.skill.validation" for="field_validation">Validation</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.skill.validation" for="field_validation">Validation</label>
                     <input type="text" class="form-control" name="validation" id="field_validation"
                         [(ngModel)]="skill.validation" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.skill.expiryPeriod" for="field_expiryPeriod">Expiry Period</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.skill.expiryPeriod" for="field_expiryPeriod">Expiry Period</label>
                     <input type="text" class="form-control" name="expiryPeriod" id="field_expiryPeriod"
                         [(ngModel)]="skill.expiryPeriod" pattern="^P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?$"/>
                     <div [hidden]="!(editForm.controls.expiryPeriod?.dirty && editForm.controls.expiryPeriod?.invalid)">

@@ -1,9 +1,9 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="dojoApp.badgeSkill.home.title">Badge Skills</span>
+        <span jhiTranslate="teamdojoApp.badgeSkill.home.title">Badge Skills</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-badge-skill" [routerLink]="['/badge-skill/new']">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="dojoApp.badgeSkill.home.createLabel">
+            <span  jhiTranslate="teamdojoApp.badgeSkill.home.createLabel">
             Create new Badge Skill
             </span>
         </button>
@@ -15,9 +15,9 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="score"><span jhiTranslate="dojoApp.badgeSkill.score">Score</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="badge.name"><span jhiTranslate="dojoApp.badgeSkill.badge">Badge</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="skill.title"><span jhiTranslate="dojoApp.badgeSkill.skill">Skill</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="score"><span jhiTranslate="teamdojoApp.badgeSkill.score">Score</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="badge.name"><span jhiTranslate="teamdojoApp.badgeSkill.badge">Badge</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="skill.title"><span jhiTranslate="teamdojoApp.badgeSkill.skill">Skill</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>

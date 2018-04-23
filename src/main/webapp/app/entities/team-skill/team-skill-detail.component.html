@@ -1,29 +1,29 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="teamSkill">
-            <h2><span jhiTranslate="dojoApp.teamSkill.detail.title">Team Skill</span> {{teamSkill.id}}</h2>
+            <h2><span jhiTranslate="teamdojoApp.teamSkill.detail.title">Team Skill</span> {{teamSkill.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="dojoApp.teamSkill.achievedAt">Achieved At</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.teamSkill.achievedAt">Achieved At</span></dt>
                 <dd>
                     <span>{{teamSkill.achievedAt}}</span>
                 </dd>
-                <dt><span jhiTranslate="dojoApp.teamSkill.verifiedAt">Verified At</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.teamSkill.verifiedAt">Verified At</span></dt>
                 <dd>
                     <span>{{teamSkill.verifiedAt}}</span>
                 </dd>
-                <dt><span jhiTranslate="dojoApp.teamSkill.note">Note</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.teamSkill.note">Note</span></dt>
                 <dd>
                     <span>{{teamSkill.note}}</span>
                 </dd>
-                <dt><span jhiTranslate="dojoApp.teamSkill.skill">Skill</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.teamSkill.skill">Skill</span></dt>
                 <dd>
                     <div *ngIf="teamSkill.skill">
                         <a [routerLink]="['/skill', teamSkill.skill?.id, 'view']">{{teamSkill.skill?.title}}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="dojoApp.teamSkill.team">Team</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.teamSkill.team">Team</span></dt>
                 <dd>
                     <div *ngIf="teamSkill.team">
                         <a [routerLink]="['/team', teamSkill.team?.id, 'view']">{{teamSkill.team?.name}}</a>

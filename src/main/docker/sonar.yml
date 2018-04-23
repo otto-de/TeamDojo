@@ -1,6 +1,6 @@
 version: '2'
 services:
-    dojo-sonar:
+    teamdojo-sonar:
         image: sonarqube:7.0-alpine
         ports:
             - 9000:9000

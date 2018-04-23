@@ -1,21 +1,21 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="levelSkill">
-            <h2><span jhiTranslate="dojoApp.levelSkill.detail.title">Level Skill</span> {{levelSkill.id}}</h2>
+            <h2><span jhiTranslate="teamdojoApp.levelSkill.detail.title">Level Skill</span> {{levelSkill.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="dojoApp.levelSkill.score">Score</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.levelSkill.score">Score</span></dt>
                 <dd>
                     <span>{{levelSkill.score}}</span>
                 </dd>
-                <dt><span jhiTranslate="dojoApp.levelSkill.skill">Skill</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.levelSkill.skill">Skill</span></dt>
                 <dd>
                     <div *ngIf="levelSkill.skill">
                         <a [routerLink]="['/skill', levelSkill.skill?.id, 'view']">{{levelSkill.skill?.title}}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="dojoApp.levelSkill.level">Level</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.levelSkill.level">Level</span></dt>
                 <dd>
                     <div *ngIf="levelSkill.level">
                         <a [routerLink]="['/level', levelSkill.level?.id, 'view']">{{levelSkill.level?.name}}</a>

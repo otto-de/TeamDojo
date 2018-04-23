@@ -28,7 +28,7 @@ export const teamRoute: Routes = [
         component: TeamComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'dojoApp.team.home.title'
+            pageTitle: 'teamdojoApp.team.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -40,7 +40,7 @@ export const teamRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'dojoApp.team.home.title'
+            pageTitle: 'teamdojoApp.team.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -52,7 +52,7 @@ export const teamRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'dojoApp.team.home.title'
+            pageTitle: 'teamdojoApp.team.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -64,7 +64,7 @@ export const teamRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'dojoApp.team.home.title'
+            pageTitle: 'teamdojoApp.team.home.title'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -79,7 +79,7 @@ export const teamPopupRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'dojoApp.team.home.title'
+            pageTitle: 'teamdojoApp.team.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

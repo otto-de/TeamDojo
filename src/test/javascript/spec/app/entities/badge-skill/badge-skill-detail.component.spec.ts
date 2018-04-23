@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs/observable/of';
 
-import { DojoTestModule } from '../../../test.module';
+import { TeamdojoTestModule } from '../../../test.module';
 import { BadgeSkillDetailComponent } from 'app/entities/badge-skill/badge-skill-detail.component';
 import { BadgeSkill } from 'app/shared/model/badge-skill.model';
 
@@ -15,7 +15,7 @@ describe('Component Tests', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [DojoTestModule],
+                imports: [TeamdojoTestModule],
                 declarations: [BadgeSkillDetailComponent],
                 providers: [{ provide: ActivatedRoute, useValue: route }]
             })

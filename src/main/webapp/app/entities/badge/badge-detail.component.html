@@ -1,19 +1,19 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="badge">
-            <h2><span jhiTranslate="dojoApp.badge.detail.title">Badge</span> {{badge.id}}</h2>
+            <h2><span jhiTranslate="teamdojoApp.badge.detail.title">Badge</span> {{badge.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="dojoApp.badge.name">Name</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.badge.name">Name</span></dt>
                 <dd>
                     <span>{{badge.name}}</span>
                 </dd>
-                <dt><span jhiTranslate="dojoApp.badge.description">Description</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.badge.description">Description</span></dt>
                 <dd>
                     <span>{{badge.description}}</span>
                 </dd>
-                <dt><span jhiTranslate="dojoApp.badge.logo">Logo</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.badge.logo">Logo</span></dt>
                 <dd>
                     <div *ngIf="badge.logo">
                         <a (click)="openFile(badge.logoContentType, badge.logo)">
@@ -22,15 +22,15 @@
                         {{badge.logoContentType}}, {{byteSize(badge.logo)}}
                     </div>
                 </dd>
-                <dt><span jhiTranslate="dojoApp.badge.availableUntil">Available Until</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.badge.availableUntil">Available Until</span></dt>
                 <dd>
                     <span>{{badge.availableUntil}}</span>
                 </dd>
-                <dt><span jhiTranslate="dojoApp.badge.availableAmount">Available Amount</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.badge.availableAmount">Available Amount</span></dt>
                 <dd>
                     <span>{{badge.availableAmount}}</span>
                 </dd>
-                <dt><span jhiTranslate="dojoApp.badge.requiredScore">Required Score</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.badge.requiredScore">Required Score</span></dt>
                 <dd>
                     <span>{{badge.requiredScore}}</span>
                 </dd>

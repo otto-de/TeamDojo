@@ -1,13 +1,14 @@
 {
   "generator-jhipster": {
     "promptValues": {
-      "packageName": "de.otto.dojo"
+      "packageName": "de.otto.teamdojo",
+      "nativeLanguage": "en"
     },
     "jhipsterVersion": "5.0.0-beta.0",
-    "baseName": "dojo",
+    "baseName": "teamdojo",
     "reactive": true,
-    "packageName": "de.otto.dojo",
-    "packageFolder": "de/otto/dojo",
+    "packageName": "de.otto.teamdojo",
+    "packageFolder": "de/otto/teamdojo",
     "serverPort": "8080",
     "authenticationType": "session",
     "cacheProvider": "ehcache",
@@ -30,8 +31,8 @@
     "jhiPrefix": "jhi",
     "enableTranslation": true,
     "languages": [
-      "de",
-      "en"
+      "en",
+      "de"
     ]
   }
 }

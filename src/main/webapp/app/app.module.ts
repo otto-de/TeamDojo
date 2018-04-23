@@ -9,12 +9,12 @@ import { JhiEventManager } from 'ng-jhipster';
 import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interceptor';
 import { ErrorHandlerInterceptor } from './blocks/interceptor/errorhandler.interceptor';
 import { NotificationInterceptor } from './blocks/interceptor/notification.interceptor';
-import { DojoSharedModule } from 'app/shared';
-import { DojoCoreModule } from 'app/core';
-import { DojoAppRoutingModule } from './app-routing.module';
-import { DojoHomeModule } from './home/home.module';
-import { DojoAccountModule } from './account/account.module';
-import { DojoEntityModule } from './entities/entity.module';
+import { TeamdojoSharedModule } from 'app/shared';
+import { TeamdojoCoreModule } from 'app/core';
+import { TeamdojoAppRoutingModule } from './app-routing.module';
+import { TeamdojoHomeModule } from './home/home.module';
+import { TeamdojoAccountModule } from './account/account.module';
+import { TeamdojoEntityModule } from './entities/entity.module';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
@@ -31,13 +31,13 @@ import {
 @NgModule({
     imports: [
         BrowserModule,
-        DojoAppRoutingModule,
+        TeamdojoAppRoutingModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
-        DojoSharedModule,
-        DojoCoreModule,
-        DojoHomeModule,
-        DojoAccountModule,
-        DojoEntityModule
+        TeamdojoSharedModule,
+        TeamdojoCoreModule,
+        TeamdojoHomeModule,
+        TeamdojoAccountModule,
+        TeamdojoEntityModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
@@ -65,4 +65,4 @@ import {
     ],
     bootstrap: [JhiMainComponent]
 })
-export class DojoAppModule {}
+export class TeamdojoAppModule {}

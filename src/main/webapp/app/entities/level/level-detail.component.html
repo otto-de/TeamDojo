@@ -1,15 +1,15 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="level">
-            <h2><span jhiTranslate="dojoApp.level.detail.title">Level</span> {{level.id}}</h2>
+            <h2><span jhiTranslate="teamdojoApp.level.detail.title">Level</span> {{level.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="dojoApp.level.name">Name</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.level.name">Name</span></dt>
                 <dd>
                     <span>{{level.name}}</span>
                 </dd>
-                <dt><span jhiTranslate="dojoApp.level.picture">Picture</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.level.picture">Picture</span></dt>
                 <dd>
                     <div *ngIf="level.picture">
                         <a (click)="openFile(level.pictureContentType, level.picture)">
@@ -18,17 +18,17 @@
                         {{level.pictureContentType}}, {{byteSize(level.picture)}}
                     </div>
                 </dd>
-                <dt><span jhiTranslate="dojoApp.level.requiredScore">Required Score</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.level.requiredScore">Required Score</span></dt>
                 <dd>
                     <span>{{level.requiredScore}}</span>
                 </dd>
-                <dt><span jhiTranslate="dojoApp.level.dimension">Dimension</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.level.dimension">Dimension</span></dt>
                 <dd>
                     <div *ngIf="level.dimension">
                         <a [routerLink]="['/dimension', level.dimension?.id, 'view']">{{level.dimension?.name}}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="dojoApp.level.dependsOn">Depends On</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.level.dependsOn">Depends On</span></dt>
                 <dd>
                     <div *ngIf="level.dependsOn">
                         <a [routerLink]="['/level', level.dependsOn?.id, 'view']">{{level.dependsOn?.name}}</a>

@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-badge-skill-heading" jhiTranslate="dojoApp.badgeSkill.home.createOrEditLabel">Create or edit a Badge Skill</h2>
+            <h2 id="jhi-badge-skill-heading" jhiTranslate="teamdojoApp.badgeSkill.home.createOrEditLabel">Create or edit a Badge Skill</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!badgeSkill.id">
@@ -10,7 +10,7 @@
                         [(ngModel)]="badgeSkill.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.badgeSkill.score" for="field_score">Score</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.badgeSkill.score" for="field_score">Score</label>
                     <input type="number" class="form-control" name="score" id="field_score"
                         [(ngModel)]="badgeSkill.score" required min="0"/>
                     <div [hidden]="!(editForm.controls.score?.dirty && editForm.controls.score?.invalid)">
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.badgeSkill.badge" for="field_badge">Badge</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.badgeSkill.badge" for="field_badge">Badge</label>
                     <select class="form-control" id="field_badge" name="badge" [(ngModel)]="badgeSkill.badge"  required>
                         <option *ngIf="!editForm.value.badge" [ngValue]="null" selected></option>
                         <option [ngValue]="badgeOption.id === badgeSkill.badge?.id ? badgeSkill.badge : badgeOption" *ngFor="let badgeOption of badges; trackBy: trackBadgeById">{{badgeOption.name}}</option>
@@ -43,7 +43,7 @@
                     </small>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dojoApp.badgeSkill.skill" for="field_skill">Skill</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.badgeSkill.skill" for="field_skill">Skill</label>
                     <select class="form-control" id="field_skill" name="skill" [(ngModel)]="badgeSkill.skill"  required>
                         <option *ngIf="!editForm.value.skill" [ngValue]="null" selected></option>
                         <option [ngValue]="skillOption.id === badgeSkill.skill?.id ? badgeSkill.skill : skillOption" *ngFor="let skillOption of skills; trackBy: trackSkillById">{{skillOption.title}}</option>

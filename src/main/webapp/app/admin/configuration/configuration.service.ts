@@ -37,7 +37,7 @@ export class JhiConfigurationService {
             }
         }
         // by default, use the default ApplicationContext Id
-        return res['contexts']['dojo']['beans'];
+        return res['contexts']['teamdojo']['beans'];
     }
 
     getEnv(): Observable<any> {

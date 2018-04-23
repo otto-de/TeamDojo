@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Data } from '@angular/router';
 
-import { DojoTestModule } from '../../../test.module';
+import { TeamdojoTestModule } from '../../../test.module';
 import { TeamSkillComponent } from 'app/entities/team-skill/team-skill.component';
 import { TeamSkillService } from 'app/entities/team-skill/team-skill.service';
 import { TeamSkill } from 'app/shared/model/team-skill.model';
@@ -17,7 +17,7 @@ describe('Component Tests', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [DojoTestModule],
+                imports: [TeamdojoTestModule],
                 declarations: [TeamSkillComponent],
                 providers: [
                     TeamSkillService,
