@@ -23,6 +23,10 @@ public class TeamCriteria implements Serializable {
 
     private StringFilter name;
 
+    private StringFilter shortName;
+
+    private StringFilter slogan;
+
     private StringFilter contactPerson;
 
     private LongFilter participationsId;
@@ -46,6 +50,22 @@ public class TeamCriteria implements Serializable {
 
     public void setName(StringFilter name) {
         this.name = name;
+    }
+
+    public StringFilter getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(StringFilter shortName) {
+        this.shortName = shortName;
+    }
+
+    public StringFilter getSlogan() {
+        return slogan;
+    }
+
+    public void setSlogan(StringFilter slogan) {
+        this.slogan = slogan;
     }
 
     public StringFilter getContactPerson() {
@@ -77,6 +97,8 @@ public class TeamCriteria implements Serializable {
         return "TeamCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (name != null ? "name=" + name + ", " : "") +
+            (shortName != null ? "shortName=" + shortName + ", " : "") +
+            (slogan != null ? "slogan=" + slogan + ", " : "") +
             (contactPerson != null ? "contactPerson=" + contactPerson + ", " : "") +
             (participationsId != null ? "participationsId=" + participationsId + ", " : "") +
             (skillsId != null ? "skillsId=" + skillsId + ", " : "") +

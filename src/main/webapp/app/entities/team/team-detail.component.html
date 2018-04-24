@@ -9,6 +9,10 @@
                 <dd>
                     <span>{{team.name}}</span>
                 </dd>
+                <dt><span jhiTranslate="teamdojoApp.team.shortName">Short Name</span></dt>
+                <dd>
+                    <span>{{team.shortName}}</span>
+                </dd>
                 <dt><span jhiTranslate="teamdojoApp.team.picture">Picture</span></dt>
                 <dd>
                     <div *ngIf="team.picture">
@@ -17,6 +21,10 @@
                         </a>
                         {{team.pictureContentType}}, {{byteSize(team.picture)}}
                     </div>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.team.slogan">Slogan</span></dt>
+                <dd>
+                    <span>{{team.slogan}}</span>
                 </dd>
                 <dt><span jhiTranslate="teamdojoApp.team.contactPerson">Contact Person</span></dt>
                 <dd>

@@ -30,9 +30,26 @@
             "fieldValidateRulesMaxlength": 20
         },
         {
+            "fieldName": "shortName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength",
+                "pattern"
+            ],
+            "fieldValidateRulesMinlength": "2",
+            "fieldValidateRulesMaxlength": 6,
+            "fieldValidateRulesPattern": "^[a-zA-Z0-9_-]*$"
+        },
+        {
             "fieldName": "picture",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "slogan",
+            "fieldType": "String"
         },
         {
             "fieldName": "contactPerson",

@@ -75,6 +75,12 @@ public class TeamQueryService extends QueryService<Team> {
             if (criteria.getName() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getName(), Team_.name));
             }
+            if (criteria.getShortName() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getShortName(), Team_.shortName));
+            }
+            if (criteria.getSlogan() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getSlogan(), Team_.slogan));
+            }
             if (criteria.getContactPerson() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getContactPerson(), Team_.contactPerson));
             }

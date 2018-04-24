@@ -31,6 +31,9 @@ public class TeamSkill implements Serializable {
     @Column(name = "verified_at")
     private Instant verifiedAt;
 
+    @Column(name = "irrelevant")
+    private Boolean irrelevant;
+
     @Column(name = "note")
     private String note;
 
@@ -77,6 +80,19 @@ public class TeamSkill implements Serializable {
 
     public void setVerifiedAt(Instant verifiedAt) {
         this.verifiedAt = verifiedAt;
+    }
+
+    public Boolean isIrrelevant() {
+        return irrelevant;
+    }
+
+    public TeamSkill irrelevant(Boolean irrelevant) {
+        this.irrelevant = irrelevant;
+        return this;
+    }
+
+    public void setIrrelevant(Boolean irrelevant) {
+        this.irrelevant = irrelevant;
     }
 
     public String getNote() {
@@ -145,6 +161,7 @@ public class TeamSkill implements Serializable {
             "id=" + getId() +
             ", achievedAt='" + getAchievedAt() + "'" +
             ", verifiedAt='" + getVerifiedAt() + "'" +
+            ", irrelevant='" + isIrrelevant() + "'" +
             ", note='" + getNote() + "'" +
             "}";
     }

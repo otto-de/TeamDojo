@@ -24,6 +24,11 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.teamSkill.irrelevant" for="field_irrelevant">Irrelevant</label>
+                    <input type="checkbox" class="form-control" name="irrelevant" id="field_irrelevant"
+                        [(ngModel)]="teamSkill.irrelevant" />
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.teamSkill.note" for="field_note">Note</label>
                     <input type="text" class="form-control" name="note" id="field_note"
                         [(ngModel)]="teamSkill.note" />

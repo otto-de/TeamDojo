@@ -18,6 +18,7 @@
             },
             "achievedAt": "Achieved At",
             "verifiedAt": "Verified At",
+            "irrelevant": "Irrelevant",
             "note": "Note",
             "skill": "Skill",
             "team": "Team"
