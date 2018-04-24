@@ -1,3 +1,38 @@
-<p>
-  teams-skills works!
-</p>
+<div class="row">
+    <div class="col-12">
+        <form class="form-inline">
+            <div class="form-group mr-1 mb-2">
+                <input type="text" class="form-control" id="skills_searchTerm" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-secondary mb-2"><span class="fa fa-search"></span></button>
+            <div class="form-group m-2">
+                <div class="form-check form-check-inline mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="fooCheck">
+                    <label class="form-check-label" for="fooCheck">
+                        Foo
+                    </label>
+                </div>
+                <div class="form-check form-check-inline mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="barCheck">
+                    <label class="form-check-label" for="barCheck">
+                        Bar
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-12">
+        <div class="list-group">
+            <a href="" (click)="false"
+               class="list-group-item list-group-item-action flex-column align-items-start mb-2"
+               *ngFor='let skill of skills'>
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{skill.title}}</h5>
+                    <small>not confirmed</small>
+                </div>
+                <p class="mb-1"></p>
+                <small>{{skill.description}}</small>
+            </a>
+        </div>
+    </div>
+</div>

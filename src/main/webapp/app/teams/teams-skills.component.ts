@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ITeam } from 'app/shared/model/team.model';
+import { TeamsSkillsService } from './teams-skills.service';
+import { ISkill } from 'app/shared/model/skill.model';
 
 @Component({
     selector: 'jhi-teams-skills',
@@ -6,7 +9,14 @@ import { Component, OnInit } from '@angular/core';
     styles: []
 })
 export class TeamsSkillsComponent implements OnInit {
-    constructor() {}
+    @Input() team: ITeam;
+    skills: ISkill[];
 
-    ngOnInit() {}
+    constructor(private teamsSkillsService: TeamsSkillsService) {}
+
+    ngOnInit() {
+        this.teamsSkillsService.query().subscribe(response => {
+            this.skills = response.body;
+        });
+    }
 }
