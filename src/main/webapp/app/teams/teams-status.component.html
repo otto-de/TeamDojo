@@ -1,8 +1,9 @@
 <div class="teams-status">
     <div class="teams-status-avatar">
         <img class="avatar-image" [src]="teamImage"/>
-        <h1 class="avatar-slogan">{{team.slogan}}</h1>
-        <h4 class="avatar-title">{{team.name}}</h4>
+        <h1 *ngIf="team.slogan" class="avatar-slogan">{{team.slogan}}</h1>
+        <h4 *ngIf="team.slogan" class="avatar-title">{{team.name}}</h4>
+        <h1 *ngIf="!team.slogan" class="avatar-title">{{team.name}}</h1>
     </div>
     <div class="teams-status-activities">
         <h4>Activities</h4>
