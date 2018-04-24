@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ITeam } from 'app/shared/model/team.model';
 
 @Component({
     selector: 'jhi-teams-status',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['teams-status.scss']
 })
 export class TeamsStatusComponent implements OnInit {
+    @Input() team: ITeam;
+    private _teamImage;
+
     constructor() {}
 
     ngOnInit() {}
