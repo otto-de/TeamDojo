@@ -1,11 +1,11 @@
 <databaseChangeLog xmlns='http://www.liquibase.org/xml/ns/dbchangelog' xmlns:ext='http://www.liquibase.org/xml/ns/dbchangelog-ext' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog-ext&#10;http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd&#10;http://www.liquibase.org/xml/ns/dbchangelog&#10;http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd'>
-  <changeSet author='gradle' id='1524486376302-1'>
+  <changeSet author='gradle' context='!test' id='1524486376302-1'>
     <insert tableName='dimension'>
       <column name='id' valueNumeric='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='name' value='Security' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-2'>
+  <changeSet author='gradle' context='!test' id='1524486376302-2'>
     <insert tableName='level'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='name' value='green' />
@@ -13,7 +13,7 @@
       <column name='required_score' valueNumeric='0.0' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-3'>
+  <changeSet author='gradle' context='!test' id='1524486376302-3'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Alarming bei security Metriken' />
@@ -22,7 +22,7 @@
       <column name='jhi_validation' value='Es existiert, der SPOC findet es geil, das Team findet es auch geil' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-4'>
+  <changeSet author='gradle' context='!test' id='1524486376302-4'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Datensparsamkeit' />
@@ -31,7 +31,7 @@
       <column name='jhi_validation' value='Vergleich der Datenmengen. Hinterher sollte es weniger sein' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-5'>
+  <changeSet author='gradle' context='!test' id='1524486376302-5'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Statische Codeanalyse' />
@@ -40,7 +40,7 @@
       <column name='jhi_validation' value='geeignetes alarming' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-6'>
+  <changeSet author='gradle' context='!test' id='1524486376302-6'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Custom security tests als Build breaker' />
@@ -49,7 +49,7 @@
       <column name='jhi_validation' value='Test-Ausgabe in der Pipeline' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-7'>
+  <changeSet author='gradle' context='!test' id='1524486376302-7'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Aktive nutzung der security Champion Zeit (3h/Wo)' />
@@ -58,7 +58,7 @@
       <column name='jhi_validation' value='Zeiterfassung im Personalportal' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-8'>
+  <changeSet author='gradle' context='!test' id='1524486376302-8'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='3rd Party Libraries evaluieren' />
@@ -67,7 +67,7 @@
       <column name='jhi_validation' value='Sämtliche Libraries wurden überprüft; Im Team ist bekannt, dass neue Libraries vor dem Einsatz auf Security-Gesichtspunkte untersucht werden müssen' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-9'>
+  <changeSet author='gradle' context='!test' id='1524486376302-9'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Probleme mit Otto CA nicht umgehen' />
@@ -76,7 +76,7 @@
       <column name='jhi_validation' value='?' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-10'>
+  <changeSet author='gradle' context='!test' id='1524486376302-10'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Moeglichkeit Gegenmassnahmen einzuleiten' />
@@ -85,7 +85,7 @@
       <column name='jhi_validation' value='Kontaktperson gepflegt&amp;aktuell, Tests werden planmaessig 2x jaehrlich getestet (Emergency Toggles)' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-11'>
+  <changeSet author='gradle' context='!test' id='1524486376302-11'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Evil User Stories' />
@@ -94,7 +94,7 @@
       <column name='jhi_validation' value='Evil User Stories werden wie normale User Stories priorisiert und implementiert (inkl Tests)' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-12'>
+  <changeSet author='gradle' context='!test' id='1524486376302-12'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Automatische ueberpruefung von Abhaengigkeiten' />
@@ -103,7 +103,7 @@
       <column name='jhi_validation' value='alarming' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-13'>
+  <changeSet author='gradle' context='!test' id='1524486376302-13'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Notwendigkeit von Features evaluieren, Clean up API' />
@@ -112,7 +112,7 @@
       <column name='jhi_validation' value='Es existieren keine nicht mehr benoetigten Fatures/Code/API/Tokens/Toggles im system' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-14'>
+  <changeSet author='gradle' context='!test' id='1524486376302-14'>
     <insert tableName='level'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='name' value='blue' />
@@ -120,7 +120,7 @@
       <column name='required_score' valueNumeric='0.0' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-15'>
+  <changeSet author='gradle' context='!test' id='1524486376302-15'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Teilnahme Security Schulung. (alle)' />
@@ -129,7 +129,7 @@
       <column name='jhi_validation' value='Security Champion pflegt Liste' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-16'>
+  <changeSet author='gradle' context='!test' id='1524486376302-16'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Regelmaessige Aenderung von Credentials' />
@@ -138,7 +138,7 @@
       <column name='jhi_validation' value='Prozess funktioniert und wird regelmaessig durchgefuerhrt. Es gibt keine Passwoerter aelter als X Tage' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-17'>
+  <changeSet author='gradle' context='!test' id='1524486376302-17'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Incident Regelung' />
@@ -147,7 +147,7 @@
       <column name='jhi_validation' value='Es existiert ein Incident-Response-Plan' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-18'>
+  <changeSet author='gradle' context='!test' id='1524486376302-18'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Automatische Massnahmen wenn Richtlinien verletzt sind' />
@@ -156,7 +156,7 @@
       <column name='jhi_validation' value='Test ob Strafmassnahmen automaitsch eingeleitet werden.' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-19'>
+  <changeSet author='gradle' context='!test' id='1524486376302-19'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Daten werden verschluesselt gespeichert' />
@@ -165,7 +165,7 @@
       <column name='jhi_validation' value='Daten koennen von unbefugten nicht gelesen werden.' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-20'>
+  <changeSet author='gradle' context='!test' id='1524486376302-20'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Nachschulungen' />
@@ -174,7 +174,7 @@
       <column name='jhi_validation' value='Es finden regelmaessige Angebote zum Wissenstransfer statt' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-21'>
+  <changeSet author='gradle' context='!test' id='1524486376302-21'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Ende zu Ende Verschluesselung' />
@@ -183,7 +183,7 @@
       <column name='jhi_validation' value='Services sind nicht mehr per http erreichbar' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-22'>
+  <changeSet author='gradle' context='!test' id='1524486376302-22'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Offboarding' />
@@ -192,7 +192,7 @@
       <column name='jhi_validation' value='Alle Accounts geloescht &amp; alle PWs geaendert.' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-23'>
+  <changeSet author='gradle' context='!test' id='1524486376302-23'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Personenbezogene Daten verschluesselt uebertragen' />
@@ -201,7 +201,7 @@
       <column name='jhi_validation' value='Alle relevanten Daten werden nur verschluesselt uebertragen' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-24'>
+  <changeSet author='gradle' context='!test' id='1524486376302-24'>
     <insert tableName='level'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='name' value='black' />
@@ -209,7 +209,7 @@
       <column name='required_score' valueNumeric='0.0' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-25'>
+  <changeSet author='gradle' context='!test' id='1524486376302-25'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Automatischer Rollover von Credentials' />
@@ -218,7 +218,7 @@
       <column name='jhi_validation' value='alte Credentials sind nicht mehr nutzbar.Scripte zum Rollieren existieren' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-26'>
+  <changeSet author='gradle' context='!test' id='1524486376302-26'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Friendly competition (Andere Teams gehackt)' />
@@ -227,7 +227,7 @@
       <column name='jhi_validation' value='Hack wurde demonstriert' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-27'>
+  <changeSet author='gradle' context='!test' id='1524486376302-27'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Teams halten Vortraege/Mentoring fuer andere Teams' />
@@ -236,7 +236,7 @@
       <column name='jhi_validation' value='Team wird als Wissensverbreiter wahrgenommen' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-28'>
+  <changeSet author='gradle' context='!test' id='1524486376302-28'>
     <insert tableName='level'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='name' value='yellow' />
@@ -244,7 +244,7 @@
       <column name='required_score' valueNumeric='0.0' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-29'>
+  <changeSet author='gradle' context='!test' id='1524486376302-29'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Festplattenverschlüsselung für alle Devices' />
@@ -253,7 +253,7 @@
       <column name='jhi_validation' value='Team fragen' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-30'>
+  <changeSet author='gradle' context='!test' id='1524486376302-30'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Teilnahme an Securityschulung' />
@@ -262,7 +262,7 @@
       <column name='jhi_validation' value='Security Champion pflegt Liste mit Teilnehmern' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-31'>
+  <changeSet author='gradle' context='!test' id='1524486376302-31'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Sicherheitsrelevante E‑Learning Module' />
@@ -271,7 +271,7 @@
       <column name='jhi_validation' value='Alle internen Mitarbeiter haben Pflicht- und optionale Module absolviert (Führungskraft kann validieren)' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-32'>
+  <changeSet author='gradle' context='!test' id='1524486376302-32'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Sicherer Austausch von Credentials' />
@@ -280,7 +280,7 @@
       <column name='jhi_validation' value='Aufklärungsarbeit...' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-33'>
+  <changeSet author='gradle' context='!test' id='1524486376302-33'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Absicherung von internen Schnittstellen (Adminseiten &amp; Toggles)' />
@@ -289,7 +289,7 @@
       <column name='jhi_validation' value='Kein Aufruf ohne Authentifizierung. Alte geteilte Passwörter werden entfernt. Regelmäßig Passwörter tauschen' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-34'>
+  <changeSet author='gradle' context='!test' id='1524486376302-34'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Eingabevalidierung von Daten' />
@@ -298,7 +298,7 @@
       <column name='jhi_validation' value='Fachl. Vorgaben. (Plausibilität), Aktzeptanzkriterien.. API Doku ist aktuell. Automatisch testen.' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-35'>
+  <changeSet author='gradle' context='!test' id='1524486376302-35'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Persönlicher Passwort‑Manager' />
@@ -307,7 +307,7 @@
       <column name='jhi_validation' value='alle Otto-Relevanten Passwörter sind bei Teammitgliedern im Password-Manager' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-36'>
+  <changeSet author='gradle' context='!test' id='1524486376302-36'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Team hat einen aktiven Security Champion' />
@@ -316,7 +316,7 @@
       <column name='jhi_validation' value='Mindestens 6-malige Teilnahme in den letzten 12 Monaten' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-37'>
+  <changeSet author='gradle' context='!test' id='1524486376302-37'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Aktuelle Übersicht über das eigene System. Dokumentation aktuell halten' />
@@ -325,7 +325,7 @@
       <column name='jhi_validation' value='Zu jedem System existiert eine Dokumentation. Letztes Review ist nicht älter als 6 Monate' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-38'>
+  <changeSet author='gradle' context='!test' id='1524486376302-38'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Keine Credentials im Code oder in Artefakten' />
@@ -334,7 +334,7 @@
       <column name='jhi_validation' value='Quellcode nach Credentials durchsuchen' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-39'>
+  <changeSet author='gradle' context='!test' id='1524486376302-39'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Starke Passwörter' />
@@ -343,7 +343,7 @@
       <column name='jhi_validation' value='n/a' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-40'>
+  <changeSet author='gradle' context='!test' id='1524486376302-40'>
     <insert tableName='level'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='name' value='brown' />
@@ -351,7 +351,7 @@
       <column name='required_score' valueNumeric='0.0' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-41'>
+  <changeSet author='gradle' context='!test' id='1524486376302-41'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Automatischer Security Scanner in der Pipeline' />
@@ -360,7 +360,7 @@
       <column name='jhi_validation' value='geeignetes Alarming, Build breaker' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-42'>
+  <changeSet author='gradle' context='!test' id='1524486376302-42'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Regelmaessiger manueller Pentest' />
@@ -369,7 +369,7 @@
       <column name='jhi_validation' value='Anzahl der Pentests &gt; 0, Ergebnisse der Pentests sind umgesetzt.' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-43'>
+  <changeSet author='gradle' context='!test' id='1524486376302-43'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Nachhalten von Incidents &amp; in die Teams tragen' />
@@ -378,7 +378,7 @@
       <column name='jhi_validation' value='Tests fuer gefundene Fehler/Luecken' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-44'>
+  <changeSet author='gradle' context='!test' id='1524486376302-44'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='TLS ueberall' />
@@ -387,7 +387,7 @@
       <column name='jhi_validation' value='keine unverschluesselten Requests (in/out)' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-45'>
+  <changeSet author='gradle' context='!test' id='1524486376302-45'>
     <insert tableName='level'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='name' value='orange' />
@@ -395,7 +395,7 @@
       <column name='required_score' valueNumeric='0.0' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-46'>
+  <changeSet author='gradle' context='!test' id='1524486376302-46'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Basis-Kenntnisse der OWASP Top 10 und deren Mechanik' />
@@ -404,7 +404,7 @@
       <column name='jhi_validation' value='3 Leute im Team können die OWASP Top 10 aufzählen' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-47'>
+  <changeSet author='gradle' context='!test' id='1524486376302-47'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Regelmäßige Bedrohungsanalysen' />
@@ -413,7 +413,7 @@
       <column name='jhi_validation' value='Dokumentation, Regelmäßige Überprüfung auf Aktualität' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-48'>
+  <changeSet author='gradle' context='!test' id='1524486376302-48'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Definition von Gegenmaßnahmen' />
@@ -422,7 +422,7 @@
       <column name='jhi_validation' value='Automatisierte Tests' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-49'>
+  <changeSet author='gradle' context='!test' id='1524486376302-49'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Wissenstransfer im Team' />
@@ -431,7 +431,7 @@
       <column name='jhi_validation' value='Einschätzung durch Security Champion' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-50'>
+  <changeSet author='gradle' context='!test' id='1524486376302-50'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Sinnvolle &amp; minimale Rechtevergabe auf Servern und in Containern' />
@@ -440,7 +440,7 @@
       <column name='jhi_validation' value='Automatisierte Tests' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-51'>
+  <changeSet author='gradle' context='!test' id='1524486376302-51'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Dokumentation von Ergebnissen der Bedrohunganalysen' />
@@ -449,7 +449,7 @@
       <column name='jhi_validation' value='Seiten wurden angelegt und sind allen bekannt' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-52'>
+  <changeSet author='gradle' context='!test' id='1524486376302-52'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Die Pipeline ist abgesichert' />
@@ -458,7 +458,7 @@
       <column name='jhi_validation' value='Benutzung und Einsicht von Logs sowie der Konfiguration ohne Anmeldung nicht möglich.' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-53'>
+  <changeSet author='gradle' context='!test' id='1524486376302-53'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Vorsichtiger Umgang mit Code von außen (einbinden von externem HTML/ JS)' />
@@ -467,7 +467,7 @@
       <column name='jhi_validation' value='Tests oder bei Abnahme beachten' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-54'>
+  <changeSet author='gradle' context='!test' id='1524486376302-54'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Personenbezogene Daten werden verschlüsselt gespeichert' />
@@ -476,7 +476,7 @@
       <column name='jhi_validation' value='Überprüfung von Datenbanken und Dateisystemen' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-55'>
+  <changeSet author='gradle' context='!test' id='1524486376302-55'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Securityaspekte in Definition of Done' />
@@ -485,7 +485,7 @@
       <column name='jhi_validation' value='Stories beinhalten Securityaspkete und -anforderungen' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-56'>
+  <changeSet author='gradle' context='!test' id='1524486376302-56'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Linter einsetzen' />
@@ -494,7 +494,7 @@
       <column name='jhi_validation' value='Produktiv-Code wurde durch Linter überprüft' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-57'>
+  <changeSet author='gradle' context='!test' id='1524486376302-57'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Verwendung von aktueller Software sowie Libraries' />
@@ -503,7 +503,7 @@
       <column name='jhi_validation' value='Alle eingesetzten Abhängigkeiten werden regelmäßig überprüft' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-58'>
+  <changeSet author='gradle' context='!test' id='1524486376302-58'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Keine personenbezogenen Daten in Logging- und Trackingdaten' />
@@ -512,7 +512,7 @@
       <column name='jhi_validation' value='Teamintern, Automatisierte und manuelle Tests' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-59'>
+  <changeSet author='gradle' context='!test' id='1524486376302-59'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Logging / Monitoring von Security Metriken' />
@@ -521,7 +521,7 @@
       <column name='jhi_validation' value='Logging + Visualisierung / Alerting existiert für alle KPIs' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-60'>
+  <changeSet author='gradle' context='!test' id='1524486376302-60'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Authentifizierung für API Endpunkte' />
@@ -530,7 +530,7 @@
       <column name='jhi_validation' value='Zugriff auf interne Schnittstellen ohne Authentifizierung nicht möglich' />
     </insert>
   </changeSet>
-  <changeSet author='gradle' id='1524486376302-61'>
+  <changeSet author='gradle' context='!test' id='1524486376302-61'>
     <insert tableName='skill'>
       <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
       <column name='title' value='Authorisierung (LDAP) bei Adminseiten (z.B. Toggles)' />
