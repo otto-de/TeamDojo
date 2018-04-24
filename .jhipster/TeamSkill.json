@@ -31,6 +31,10 @@
             "fieldType": "Instant"
         },
         {
+            "fieldName": "irrelevant",
+            "fieldType": "Boolean"
+        },
+        {
             "fieldName": "note",
             "fieldType": "String"
         }

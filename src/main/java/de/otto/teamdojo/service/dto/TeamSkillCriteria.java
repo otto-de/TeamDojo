@@ -1,9 +1,6 @@
 package de.otto.teamdojo.service.dto;
 
-import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.InstantFilter;
-import io.github.jhipster.service.filter.LongFilter;
-import io.github.jhipster.service.filter.StringFilter;
+import io.github.jhipster.service.filter.*;
 
 import java.io.Serializable;
 
@@ -25,6 +22,8 @@ public class TeamSkillCriteria implements Serializable {
     private InstantFilter achievedAt;
 
     private InstantFilter verifiedAt;
+
+    private BooleanFilter irrelevant;
 
     private StringFilter note;
 
@@ -59,6 +58,14 @@ public class TeamSkillCriteria implements Serializable {
         this.verifiedAt = verifiedAt;
     }
 
+    public BooleanFilter getIrrelevant() {
+        return irrelevant;
+    }
+
+    public void setIrrelevant(BooleanFilter irrelevant) {
+        this.irrelevant = irrelevant;
+    }
+
     public StringFilter getNote() {
         return note;
     }
@@ -89,6 +96,7 @@ public class TeamSkillCriteria implements Serializable {
             (id != null ? "id=" + id + ", " : "") +
             (achievedAt != null ? "achievedAt=" + achievedAt + ", " : "") +
             (verifiedAt != null ? "verifiedAt=" + verifiedAt + ", " : "") +
+            (irrelevant != null ? "irrelevant=" + irrelevant + ", " : "") +
             (note != null ? "note=" + note + ", " : "") +
             (skillId != null ? "skillId=" + skillId + ", " : "") +
             (teamId != null ? "teamId=" + teamId + ", " : "") +

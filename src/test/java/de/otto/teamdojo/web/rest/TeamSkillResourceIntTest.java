@@ -48,6 +48,9 @@ public class TeamSkillResourceIntTest {
     private static final Instant DEFAULT_VERIFIED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_VERIFIED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    private static final Boolean DEFAULT_IRRELEVANT = false;
+    private static final Boolean UPDATED_IRRELEVANT = true;
+
     private static final String DEFAULT_NOTE = "AAAAAAAAAA";
     private static final String UPDATED_NOTE = "BBBBBBBBBB";
 
@@ -98,6 +101,7 @@ public class TeamSkillResourceIntTest {
         TeamSkill teamSkill = new TeamSkill()
             .achievedAt(DEFAULT_ACHIEVED_AT)
             .verifiedAt(DEFAULT_VERIFIED_AT)
+            .irrelevant(DEFAULT_IRRELEVANT)
             .note(DEFAULT_NOTE);
         // Add required entity
         Skill skill = SkillResourceIntTest.createEntity(em);
@@ -134,6 +138,7 @@ public class TeamSkillResourceIntTest {
         TeamSkill testTeamSkill = teamSkillList.get(teamSkillList.size() - 1);
         assertThat(testTeamSkill.getAchievedAt()).isEqualTo(DEFAULT_ACHIEVED_AT);
         assertThat(testTeamSkill.getVerifiedAt()).isEqualTo(DEFAULT_VERIFIED_AT);
+        assertThat(testTeamSkill.isIrrelevant()).isEqualTo(DEFAULT_IRRELEVANT);
         assertThat(testTeamSkill.getNote()).isEqualTo(DEFAULT_NOTE);
     }
 
@@ -169,6 +174,7 @@ public class TeamSkillResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(teamSkill.getId().intValue())))
             .andExpect(jsonPath("$.[*].achievedAt").value(hasItem(DEFAULT_ACHIEVED_AT.toString())))
             .andExpect(jsonPath("$.[*].verifiedAt").value(hasItem(DEFAULT_VERIFIED_AT.toString())))
+            .andExpect(jsonPath("$.[*].irrelevant").value(hasItem(DEFAULT_IRRELEVANT.booleanValue())))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE.toString())));
     }
 
@@ -186,6 +192,7 @@ public class TeamSkillResourceIntTest {
             .andExpect(jsonPath("$.id").value(teamSkill.getId().intValue()))
             .andExpect(jsonPath("$.achievedAt").value(DEFAULT_ACHIEVED_AT.toString()))
             .andExpect(jsonPath("$.verifiedAt").value(DEFAULT_VERIFIED_AT.toString()))
+            .andExpect(jsonPath("$.irrelevant").value(DEFAULT_IRRELEVANT.booleanValue()))
             .andExpect(jsonPath("$.note").value(DEFAULT_NOTE.toString()));
     }
 
@@ -265,6 +272,45 @@ public class TeamSkillResourceIntTest {
 
         // Get all the teamSkillList where verifiedAt is null
         defaultTeamSkillShouldNotBeFound("verifiedAt.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllTeamSkillsByIrrelevantIsEqualToSomething() throws Exception {
+        // Initialize the database
+        teamSkillRepository.saveAndFlush(teamSkill);
+
+        // Get all the teamSkillList where irrelevant equals to DEFAULT_IRRELEVANT
+        defaultTeamSkillShouldBeFound("irrelevant.equals=" + DEFAULT_IRRELEVANT);
+
+        // Get all the teamSkillList where irrelevant equals to UPDATED_IRRELEVANT
+        defaultTeamSkillShouldNotBeFound("irrelevant.equals=" + UPDATED_IRRELEVANT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTeamSkillsByIrrelevantIsInShouldWork() throws Exception {
+        // Initialize the database
+        teamSkillRepository.saveAndFlush(teamSkill);
+
+        // Get all the teamSkillList where irrelevant in DEFAULT_IRRELEVANT or UPDATED_IRRELEVANT
+        defaultTeamSkillShouldBeFound("irrelevant.in=" + DEFAULT_IRRELEVANT + "," + UPDATED_IRRELEVANT);
+
+        // Get all the teamSkillList where irrelevant equals to UPDATED_IRRELEVANT
+        defaultTeamSkillShouldNotBeFound("irrelevant.in=" + UPDATED_IRRELEVANT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTeamSkillsByIrrelevantIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        teamSkillRepository.saveAndFlush(teamSkill);
+
+        // Get all the teamSkillList where irrelevant is not null
+        defaultTeamSkillShouldBeFound("irrelevant.specified=true");
+
+        // Get all the teamSkillList where irrelevant is null
+        defaultTeamSkillShouldNotBeFound("irrelevant.specified=false");
     }
 
     @Test
@@ -353,6 +399,7 @@ public class TeamSkillResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(teamSkill.getId().intValue())))
             .andExpect(jsonPath("$.[*].achievedAt").value(hasItem(DEFAULT_ACHIEVED_AT.toString())))
             .andExpect(jsonPath("$.[*].verifiedAt").value(hasItem(DEFAULT_VERIFIED_AT.toString())))
+            .andExpect(jsonPath("$.[*].irrelevant").value(hasItem(DEFAULT_IRRELEVANT.booleanValue())))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE.toString())));
     }
 
@@ -391,6 +438,7 @@ public class TeamSkillResourceIntTest {
         updatedTeamSkill
             .achievedAt(UPDATED_ACHIEVED_AT)
             .verifiedAt(UPDATED_VERIFIED_AT)
+            .irrelevant(UPDATED_IRRELEVANT)
             .note(UPDATED_NOTE);
 
         restTeamSkillMockMvc.perform(put("/api/team-skills")
@@ -404,6 +452,7 @@ public class TeamSkillResourceIntTest {
         TeamSkill testTeamSkill = teamSkillList.get(teamSkillList.size() - 1);
         assertThat(testTeamSkill.getAchievedAt()).isEqualTo(UPDATED_ACHIEVED_AT);
         assertThat(testTeamSkill.getVerifiedAt()).isEqualTo(UPDATED_VERIFIED_AT);
+        assertThat(testTeamSkill.isIrrelevant()).isEqualTo(UPDATED_IRRELEVANT);
         assertThat(testTeamSkill.getNote()).isEqualTo(UPDATED_NOTE);
     }
 

@@ -17,7 +17,9 @@
                 "title": "Team"
             },
             "name": "Name",
+            "shortName": "Short Name",
             "picture": "Picture",
+            "slogan": "Slogan",
             "contactPerson": "Contact Person",
             "participations": "Participations",
             "skills": "Skills"

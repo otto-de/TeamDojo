@@ -5,6 +5,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -31,12 +32,21 @@ public class Team implements Serializable {
     @Column(name = "name", length = 20, nullable = false)
     private String name;
 
+    @NotNull
+    @Size(min = 2, max = 6)
+    @Pattern(regexp = "^[a-zA-Z0-9_-]*$")
+    @Column(name = "short_name", length = 6, nullable = false)
+    private String shortName;
+
     @Lob
     @Column(name = "picture")
     private byte[] picture;
 
     @Column(name = "picture_content_type")
     private String pictureContentType;
+
+    @Column(name = "slogan")
+    private String slogan;
 
     @Column(name = "contact_person")
     private String contactPerson;
@@ -74,6 +84,19 @@ public class Team implements Serializable {
         this.name = name;
     }
 
+    public String getShortName() {
+        return shortName;
+    }
+
+    public Team shortName(String shortName) {
+        this.shortName = shortName;
+        return this;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
     public byte[] getPicture() {
         return picture;
     }
@@ -98,6 +121,19 @@ public class Team implements Serializable {
 
     public void setPictureContentType(String pictureContentType) {
         this.pictureContentType = pictureContentType;
+    }
+
+    public String getSlogan() {
+        return slogan;
+    }
+
+    public Team slogan(String slogan) {
+        this.slogan = slogan;
+        return this;
+    }
+
+    public void setSlogan(String slogan) {
+        this.slogan = slogan;
     }
 
     public String getContactPerson() {
@@ -189,8 +225,10 @@ public class Team implements Serializable {
         return "Team{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", shortName='" + getShortName() + "'" +
             ", picture='" + getPicture() + "'" +
             ", pictureContentType='" + getPictureContentType() + "'" +
+            ", slogan='" + getSlogan() + "'" +
             ", contactPerson='" + getContactPerson() + "'" +
             "}";
     }

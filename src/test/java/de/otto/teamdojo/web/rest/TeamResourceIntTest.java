@@ -48,10 +48,16 @@ public class TeamResourceIntTest {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_SHORT_NAME = "AAAAAA";
+    private static final String UPDATED_SHORT_NAME = "BBBBBB";
+
     private static final byte[] DEFAULT_PICTURE = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_PICTURE = TestUtil.createByteArray(2, "1");
     private static final String DEFAULT_PICTURE_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_PICTURE_CONTENT_TYPE = "image/png";
+
+    private static final String DEFAULT_SLOGAN = "AAAAAAAAAA";
+    private static final String UPDATED_SLOGAN = "BBBBBBBBBB";
 
     private static final String DEFAULT_CONTACT_PERSON = "AAAAAAAAAA";
     private static final String UPDATED_CONTACT_PERSON = "BBBBBBBBBB";
@@ -107,8 +113,10 @@ public class TeamResourceIntTest {
     public static Team createEntity(EntityManager em) {
         Team team = new Team()
             .name(DEFAULT_NAME)
+            .shortName(DEFAULT_SHORT_NAME)
             .picture(DEFAULT_PICTURE)
             .pictureContentType(DEFAULT_PICTURE_CONTENT_TYPE)
+            .slogan(DEFAULT_SLOGAN)
             .contactPerson(DEFAULT_CONTACT_PERSON);
         return team;
     }
@@ -134,8 +142,10 @@ public class TeamResourceIntTest {
         assertThat(teamList).hasSize(databaseSizeBeforeCreate + 1);
         Team testTeam = teamList.get(teamList.size() - 1);
         assertThat(testTeam.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testTeam.getShortName()).isEqualTo(DEFAULT_SHORT_NAME);
         assertThat(testTeam.getPicture()).isEqualTo(DEFAULT_PICTURE);
         assertThat(testTeam.getPictureContentType()).isEqualTo(DEFAULT_PICTURE_CONTENT_TYPE);
+        assertThat(testTeam.getSlogan()).isEqualTo(DEFAULT_SLOGAN);
         assertThat(testTeam.getContactPerson()).isEqualTo(DEFAULT_CONTACT_PERSON);
     }
 
@@ -178,6 +188,24 @@ public class TeamResourceIntTest {
 
     @Test
     @Transactional
+    public void checkShortNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = teamRepository.findAll().size();
+        // set the field null
+        team.setShortName(null);
+
+        // Create the Team, which fails.
+
+        restTeamMockMvc.perform(post("/api/teams")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(team)))
+            .andExpect(status().isBadRequest());
+
+        List<Team> teamList = teamRepository.findAll();
+        assertThat(teamList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllTeams() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
@@ -188,8 +216,10 @@ public class TeamResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(team.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].shortName").value(hasItem(DEFAULT_SHORT_NAME.toString())))
             .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
+            .andExpect(jsonPath("$.[*].slogan").value(hasItem(DEFAULT_SLOGAN.toString())))
             .andExpect(jsonPath("$.[*].contactPerson").value(hasItem(DEFAULT_CONTACT_PERSON.toString())));
     }
 
@@ -236,8 +266,10 @@ public class TeamResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(team.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.shortName").value(DEFAULT_SHORT_NAME.toString()))
             .andExpect(jsonPath("$.pictureContentType").value(DEFAULT_PICTURE_CONTENT_TYPE))
             .andExpect(jsonPath("$.picture").value(Base64Utils.encodeToString(DEFAULT_PICTURE)))
+            .andExpect(jsonPath("$.slogan").value(DEFAULT_SLOGAN.toString()))
             .andExpect(jsonPath("$.contactPerson").value(DEFAULT_CONTACT_PERSON.toString()));
     }
 
@@ -278,6 +310,84 @@ public class TeamResourceIntTest {
 
         // Get all the teamList where name is null
         defaultTeamShouldNotBeFound("name.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllTeamsByShortNameIsEqualToSomething() throws Exception {
+        // Initialize the database
+        teamRepository.saveAndFlush(team);
+
+        // Get all the teamList where shortName equals to DEFAULT_SHORT_NAME
+        defaultTeamShouldBeFound("shortName.equals=" + DEFAULT_SHORT_NAME);
+
+        // Get all the teamList where shortName equals to UPDATED_SHORT_NAME
+        defaultTeamShouldNotBeFound("shortName.equals=" + UPDATED_SHORT_NAME);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTeamsByShortNameIsInShouldWork() throws Exception {
+        // Initialize the database
+        teamRepository.saveAndFlush(team);
+
+        // Get all the teamList where shortName in DEFAULT_SHORT_NAME or UPDATED_SHORT_NAME
+        defaultTeamShouldBeFound("shortName.in=" + DEFAULT_SHORT_NAME + "," + UPDATED_SHORT_NAME);
+
+        // Get all the teamList where shortName equals to UPDATED_SHORT_NAME
+        defaultTeamShouldNotBeFound("shortName.in=" + UPDATED_SHORT_NAME);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTeamsByShortNameIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        teamRepository.saveAndFlush(team);
+
+        // Get all the teamList where shortName is not null
+        defaultTeamShouldBeFound("shortName.specified=true");
+
+        // Get all the teamList where shortName is null
+        defaultTeamShouldNotBeFound("shortName.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllTeamsBySloganIsEqualToSomething() throws Exception {
+        // Initialize the database
+        teamRepository.saveAndFlush(team);
+
+        // Get all the teamList where slogan equals to DEFAULT_SLOGAN
+        defaultTeamShouldBeFound("slogan.equals=" + DEFAULT_SLOGAN);
+
+        // Get all the teamList where slogan equals to UPDATED_SLOGAN
+        defaultTeamShouldNotBeFound("slogan.equals=" + UPDATED_SLOGAN);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTeamsBySloganIsInShouldWork() throws Exception {
+        // Initialize the database
+        teamRepository.saveAndFlush(team);
+
+        // Get all the teamList where slogan in DEFAULT_SLOGAN or UPDATED_SLOGAN
+        defaultTeamShouldBeFound("slogan.in=" + DEFAULT_SLOGAN + "," + UPDATED_SLOGAN);
+
+        // Get all the teamList where slogan equals to UPDATED_SLOGAN
+        defaultTeamShouldNotBeFound("slogan.in=" + UPDATED_SLOGAN);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTeamsBySloganIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        teamRepository.saveAndFlush(team);
+
+        // Get all the teamList where slogan is not null
+        defaultTeamShouldBeFound("slogan.specified=true");
+
+        // Get all the teamList where slogan is null
+        defaultTeamShouldNotBeFound("slogan.specified=false");
     }
 
     @Test
@@ -365,8 +475,10 @@ public class TeamResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(team.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].shortName").value(hasItem(DEFAULT_SHORT_NAME.toString())))
             .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
+            .andExpect(jsonPath("$.[*].slogan").value(hasItem(DEFAULT_SLOGAN.toString())))
             .andExpect(jsonPath("$.[*].contactPerson").value(hasItem(DEFAULT_CONTACT_PERSON.toString())));
     }
 
@@ -404,8 +516,10 @@ public class TeamResourceIntTest {
         em.detach(updatedTeam);
         updatedTeam
             .name(UPDATED_NAME)
+            .shortName(UPDATED_SHORT_NAME)
             .picture(UPDATED_PICTURE)
             .pictureContentType(UPDATED_PICTURE_CONTENT_TYPE)
+            .slogan(UPDATED_SLOGAN)
             .contactPerson(UPDATED_CONTACT_PERSON);
 
         restTeamMockMvc.perform(put("/api/teams")
@@ -418,8 +532,10 @@ public class TeamResourceIntTest {
         assertThat(teamList).hasSize(databaseSizeBeforeUpdate);
         Team testTeam = teamList.get(teamList.size() - 1);
         assertThat(testTeam.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testTeam.getShortName()).isEqualTo(UPDATED_SHORT_NAME);
         assertThat(testTeam.getPicture()).isEqualTo(UPDATED_PICTURE);
         assertThat(testTeam.getPictureContentType()).isEqualTo(UPDATED_PICTURE_CONTENT_TYPE);
+        assertThat(testTeam.getSlogan()).isEqualTo(UPDATED_SLOGAN);
         assertThat(testTeam.getContactPerson()).isEqualTo(UPDATED_CONTACT_PERSON);
     }
 
