@@ -26,6 +26,22 @@
                     vertical-align: middle;
                 }
             }
+            .achievement-progress {
+                float: right;
+                svg {
+                    width: 3vh;
+                    height: 3vh;
+                    transform: rotate(-90deg);
+                    background: #655;
+                    border-radius: 50%;
+                }
+
+                circle {
+                    fill: #655;
+                    stroke: yellowgreen;
+                    stroke-width: 32;
+                }
+            }
         }
     }
 }
