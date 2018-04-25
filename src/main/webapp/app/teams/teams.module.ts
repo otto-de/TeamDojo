@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { TeamdojoSharedModule } from 'app/shared';
@@ -9,9 +9,10 @@ import { TeamsSkillsComponent } from './teams-skills.component';
 import { TeamsResolve } from './teams.route';
 import { TeamsService } from './teams.service';
 import { TeamsSkillsService } from './teams-skills.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-    imports: [TeamdojoSharedModule, RouterModule.forChild([TEAMS_ROUTE])],
+    imports: [TeamdojoSharedModule, RouterModule.forChild([TEAMS_ROUTE]), NgbModule],
     declarations: [TeamsComponent, TeamsStatusComponent, TeamsAchievementsComponent, TeamsSkillsComponent],
     entryComponents: [],
     providers: [TeamsService, TeamsSkillsService, TeamsResolve],

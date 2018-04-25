@@ -31,8 +31,15 @@
                    *ngFor='let skill of skills'>
                     <div class="d-flex w-100 justify-content-between">
                         <p class="mb-1">{{skill.title}}</p>
-                        <small *ngIf="!skill.achievedAt">not achieved</small>
-                        <small *ngIf="skill.achievedAt">achieved on {{skill.achievedAt | date: 'dd.MM.yyyy'}}</small>
+                        <small *ngIf="!skill.achievedAt" class="teams-skills-badge badge badge-pill badge-danger"
+                               ngbPopover="Not yet achieved" triggers="mouseenter:mouseleave"
+                               placement="left">!
+                        </small>
+                        <small *ngIf="skill.achievedAt" class="teams-skills-badge badge badge-pill badge-success"
+                               ngbPopover="achieved on {{skill.achievedAt | date: 'dd.MM.yyyy'}}"
+                               triggers="mouseenter:mouseleave"
+                               placement="left">✓
+                        </small>
                     </div>
                     <p class="mb-1"></p>
                     <small></small>
