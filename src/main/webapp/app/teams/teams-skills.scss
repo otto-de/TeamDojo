@@ -1,0 +1,8 @@
+.teams-skills {
+    overflow-y: hidden;
+    .teams-skills-list {
+        height: 80vh;
+        overflow-y: auto;
+        padding-right: 3px;
+    }
+}

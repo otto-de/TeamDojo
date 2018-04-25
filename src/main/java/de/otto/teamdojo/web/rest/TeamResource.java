@@ -2,8 +2,10 @@ package de.otto.teamdojo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import de.otto.teamdojo.domain.Team;
+import de.otto.teamdojo.service.AchievableSkillService;
 import de.otto.teamdojo.service.TeamQueryService;
 import de.otto.teamdojo.service.TeamService;
+import de.otto.teamdojo.service.dto.AchievableSkillDTO;
 import de.otto.teamdojo.service.dto.TeamCriteria;
 import de.otto.teamdojo.web.rest.errors.BadRequestAlertException;
 import de.otto.teamdojo.web.rest.util.HeaderUtil;
@@ -34,9 +36,12 @@ public class TeamResource {
 
     private final TeamQueryService teamQueryService;
 
-    public TeamResource(TeamService teamService, TeamQueryService teamQueryService) {
+    private final AchievableSkillService achievableSkillService;
+
+    public TeamResource(TeamService teamService, TeamQueryService teamQueryService, AchievableSkillService achievableSkillService) {
         this.teamService = teamService;
         this.teamQueryService = teamQueryService;
+        this.achievableSkillService = achievableSkillService;
     }
 
     /**
@@ -121,5 +126,13 @@ public class TeamResource {
         log.debug("REST request to delete Team : {}", id);
         teamService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/teams/{id}/achievable-skills")
+    @Timed
+    public ResponseEntity<List<AchievableSkillDTO>> getAchievableSkills(@PathVariable Long id) {
+        log.debug("REST request to get AchievableSkills for Team; {}", id);
+        List<AchievableSkillDTO> entityList = achievableSkillService.findAllByTeamId(id);
+        return ResponseEntity.ok().body(entityList);
     }
 }

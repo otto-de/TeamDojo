@@ -6,7 +6,7 @@ import { ISkill } from 'app/shared/model/skill.model';
 @Component({
     selector: 'jhi-teams-skills',
     templateUrl: './teams-skills.component.html',
-    styles: []
+    styleUrls: ['teams-skills.scss']
 })
 export class TeamsSkillsComponent implements OnInit {
     @Input() team: ITeam;
@@ -15,7 +15,7 @@ export class TeamsSkillsComponent implements OnInit {
     constructor(private teamsSkillsService: TeamsSkillsService) {}
 
     ngOnInit() {
-        this.teamsSkillsService.query().subscribe(response => {
+        this.teamsSkillsService.queryAchievableSkills(this.team.id).subscribe(response => {
             this.skills = response.body;
         });
     }
