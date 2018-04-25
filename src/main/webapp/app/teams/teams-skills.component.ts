@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSkillsService } from './teams-skills.service';
-import { ISkill } from 'app/shared/model/skill.model';
+import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
+import { ITEMS_PER_PAGE } from 'app/shared';
+import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
 
 @Component({
     selector: 'jhi-teams-skills',
@@ -10,13 +13,61 @@ import { ISkill } from 'app/shared/model/skill.model';
 })
 export class TeamsSkillsComponent implements OnInit {
     @Input() team: ITeam;
-    skills: ISkill[];
+    skills: IAchievableSkill[];
+    page: number;
+    links: any;
+    itemsPerPage: number;
+    totalItems: number;
 
-    constructor(private teamsSkillsService: TeamsSkillsService) {}
+    constructor(
+        private teamsSkillsService: TeamsSkillsService,
+        private jhiAlertService: JhiAlertService,
+        private parseLinks: JhiParseLinks
+    ) {
+        this.skills = [];
+        this.itemsPerPage = ITEMS_PER_PAGE;
+        this.page = 0;
+        this.links = {
+            last: 0
+        };
+    }
 
     ngOnInit() {
-        this.teamsSkillsService.queryAchievableSkills(this.team.id).subscribe(response => {
-            this.skills = response.body;
-        });
+        this.loadAll();
+    }
+
+    loadAll() {
+        this.teamsSkillsService
+            .queryAchievableSkills(this.team.id, {
+                page: this.page,
+                size: this.itemsPerPage
+            })
+            .subscribe(
+                (res: HttpResponse<IAchievableSkill[]>) => this.paginateAchievableSkills(res.body, res.headers),
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
+    reset() {
+        this.page = 0;
+        this.skills = [];
+        this.loadAll();
+    }
+
+    loadPage(page) {
+        this.page = page;
+        this.loadAll();
+    }
+
+    private paginateAchievableSkills(data: IAchievableSkill[], headers: HttpHeaders) {
+        this.links = this.parseLinks.parse(headers.get('link'));
+        this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
+        for (let i = 0; i < data.length; i++) {
+            this.skills.push(data[i]);
+        }
+    }
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
     }
 }
