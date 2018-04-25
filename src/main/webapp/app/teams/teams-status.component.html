@@ -1,5 +1,5 @@
 <div class="teams-status">
-    <div class="teams-status-avatar mb-md-4 mb-lg-5">
+    <div class="teams-status-avatar">
         <img class="avatar-image" [src]="teamImage"/>
         <div class="avatar-achievements mb-md-3">
             <div class="avatar-skill-levels mockup mb-1">
@@ -15,7 +15,7 @@
         <h4 *ngIf="team.slogan" class="avatar-title">{{team.name}}</h4>
         <h1 *ngIf="!team.slogan" class="avatar-title">{{team.name}}</h1>
     </div>
-    <div class="teams-status-activities mockup">
+    <div class="teams-status-activities mt-md-2 mt-lg-4 mockup">
         <h4>Aktivit&auml;ten</h4>
         <div class="activity-cards">
             <div class="card mb-1">
