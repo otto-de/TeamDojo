@@ -4,6 +4,7 @@ import { TeamsComponent } from './';
 import { TeamsService } from 'app/teams/teams.service';
 import { Team } from 'app/shared/model/team.model';
 import { Injectable } from '@angular/core';
+import { UserRouteAccessService } from 'app/core';
 
 @Injectable()
 export class TeamsResolve implements Resolve<any> {
@@ -27,5 +28,6 @@ export const TEAMS_ROUTE: Route = {
     data: {
         authorities: [],
         pageTitle: 'teams.name'
-    }
+    },
+    canActivate: [UserRouteAccessService]
 };
