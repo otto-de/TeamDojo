@@ -80,6 +80,19 @@ Generic styles
     border-top: 1px solid rgba(0,0,0,.125);
 }
 
+.mockup {
+    background: repeating-linear-gradient(
+            -45deg,
+            #f5f5f5,
+            #f5f5f5 10px,
+            transparent 10px,
+            transparent 20px
+    );
+    * {
+        background-color: transparent !important;
+    }
+}
+
 /* ==========================================================================
 make sure browsers use the pointer cursor for anchors, even with no href
 ========================================================================== */
