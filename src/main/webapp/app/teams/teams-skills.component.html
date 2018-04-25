@@ -1,8 +1,10 @@
 <div class="teams-skills row">
     <div class="col-12">
+        <h4>Skills</h4>
         <form class="form-inline">
             <div class="form-group mr-1 mb-2">
-                <input type="text" class="form-control" id="skills_searchTerm" placeholder="Search">
+                <input type="text" class="form-control" id="skills_searchTerm"
+                       [placeholder]="'teamdojoApp.teams.skills.searchPlaceholder' | translate">
             </div>
             <button type="submit" class="btn btn-secondary mb-2"><span class="fa fa-search"></span></button>
             <div class="form-group m-2">

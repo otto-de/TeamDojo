@@ -27,7 +27,7 @@ export const TEAMS_ROUTE: Route = {
     },
     data: {
         authorities: [],
-        pageTitle: 'teams.name'
+        pageTitle: 'teamdojoApp.teams.home.title'
     },
     canActivate: [UserRouteAccessService]
 };
