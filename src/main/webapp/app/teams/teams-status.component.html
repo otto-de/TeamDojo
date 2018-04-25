@@ -1,6 +1,11 @@
 <div class="teams-status">
     <div class="teams-status-avatar">
         <img class="avatar-image" [src]="teamImage"/>
+        <div class="avatar-achievements">
+            <div class="avatar-skill-levels mockup">
+                <div class="avatar-skill-level"><img title="Orange belt in Security" src="https://fujisports.eu/media/cache/ee/bc/eebc70f658bffbe07e0cf55cb01e0822.png"/></div>
+            </div>
+        </div>
         <h1 *ngIf="team.slogan" class="avatar-slogan">{{team.slogan}}</h1>
         <h4 *ngIf="team.slogan" class="avatar-title">{{team.name}}</h4>
         <h1 *ngIf="!team.slogan" class="avatar-title">{{team.name}}</h1>
