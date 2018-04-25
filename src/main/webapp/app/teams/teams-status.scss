@@ -19,19 +19,14 @@
                 height: 6vh;
             }
             .avatar-skill-level, .avatar-badge {
-                display: inline-block;
+                display: inline-flex;
+                align-items: center;
                 border-radius: 50%;
                 border: 3px solid gold;
                 background: white !important;
                 overflow: hidden;
                 img {
                     width: 100%;
-                }
-                &:before {
-                    content: "";
-                    display: inline-block;
-                    height: 100%;
-                    vertical-align: middle;
                 }
             }
         }

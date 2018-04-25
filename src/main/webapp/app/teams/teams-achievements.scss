@@ -10,20 +10,14 @@
             .skill-level-image, .badge-image {
                 width: 5vh;
                 height: 5vh;
-                display: inline-block;
+                display: flex;
+                align-items: center;
                 border-radius: 50%;
                 border: 2px solid gold;
                 background: white !important;
                 overflow: hidden;
-                vertical-align: middle;
                 img {
                     width: 100%;
-                }
-                &:before {
-                    content: "";
-                    display: inline-block;
-                    height: 100%;
-                    vertical-align: middle;
                 }
             }
             .achievement-progress {
