@@ -22,18 +22,22 @@
         </form>
     </div>
     <div class="col-12">
-        <div class="teams-skills-list list-group">
-            <a href="" (click)="false"
-               class="list-group-item list-group-item-action flex-column align-items-start mb-2"
-               *ngFor='let skill of skills'>
-                <div class="d-flex w-100 justify-content-between">
-                    <p class="mb-1">{{skill.title}}</p>
-                    <small *ngIf="!skill.achievedAt">not achieved</small>
-                    <small *ngIf="skill.achievedAt">achieved on {{skill.achievedAt | date: 'dd.MM.yyyy'}}</small>
-                </div>
-                <p class="mb-1"></p>
-                <small></small>
-            </a>
+        <div infinite-scroll (scrolled)="loadPage(page + 1)"
+             [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="1"
+             [infiniteScrollContainer]="'.teams-skills-list'">
+            <div class="teams-skills-list list-group">
+                <a href="" (click)="false"
+                   class="list-group-item list-group-item-action flex-column align-items-start mb-2"
+                   *ngFor='let skill of skills'>
+                    <div class="d-flex w-100 justify-content-between">
+                        <p class="mb-1">{{skill.title}}</p>
+                        <small *ngIf="!skill.achievedAt">not achieved</small>
+                        <small *ngIf="skill.achievedAt">achieved on {{skill.achievedAt | date: 'dd.MM.yyyy'}}</small>
+                    </div>
+                    <p class="mb-1"></p>
+                    <small></small>
+                </a>
+            </div>
         </div>
     </div>
 </div>
