@@ -35,11 +35,14 @@
                     background: #655;
                     border-radius: 50%;
                 }
-
                 circle {
                     fill: #655;
                     stroke: yellowgreen;
                     stroke-width: 32;
+                }
+                .fa-check {
+                    color: yellowgreen;
+                    font-size: 3vh;
                 }
             }
         }
