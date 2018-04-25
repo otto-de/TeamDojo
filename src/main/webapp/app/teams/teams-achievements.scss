@@ -1,0 +1,49 @@
+.teams-achievements {
+    .teams-achievements-dimensions {
+        ul.achievements-skill-levels {
+            list-style: none;
+        }
+        .achievements-skill-level {
+            .skill-level-name, .badge-name {
+                display: inline-block;
+            }
+            .skill-level-image, .badge-image {
+                width: 5vh;
+                height: 5vh;
+                display: inline-block;
+                border-radius: 50%;
+                border: 2px solid gold;
+                background: white !important;
+                overflow: hidden;
+                vertical-align: middle;
+                img {
+                    width: 100%;
+                }
+                &:before {
+                    content: "";
+                    display: inline-block;
+                    height: 100%;
+                    vertical-align: middle;
+                }
+            }
+            .achievement-progress {
+                svg {
+                    width: 3vh;
+                    height: 3vh;
+                    transform: rotate(-90deg);
+                    background: #655;
+                    border-radius: 50%;
+                }
+                circle {
+                    fill: #655;
+                    stroke: yellowgreen;
+                    stroke-width: 32;
+                }
+                .fa-check {
+                    color: yellowgreen;
+                    font-size: 3vh;
+                }
+            }
+        }
+    }
+}
