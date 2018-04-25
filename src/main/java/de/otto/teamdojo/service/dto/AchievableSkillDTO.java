@@ -10,16 +10,18 @@ public class AchievableSkillDTO {
     private Long teamSkillId;
     private Long skillId;
     private String title;
+    private String description;
     private Instant achievedAt;
 
     public AchievableSkillDTO() {
         // Empty constructor needed for Jackson.
     }
 
-    public AchievableSkillDTO(Long teamSkillId, Long skillId, String title, Instant achievedAt) {
+    public AchievableSkillDTO(Long teamSkillId, Long skillId, String title, String description, Instant achievedAt) {
         this.teamSkillId = teamSkillId;
         this.skillId = skillId;
         this.title = title;
+        this.description = description;
         this.achievedAt = achievedAt;
     }
 
@@ -45,6 +47,10 @@ public class AchievableSkillDTO {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public Instant getAchievedAt() {
