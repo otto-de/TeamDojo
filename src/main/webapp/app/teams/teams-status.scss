@@ -1,31 +1,27 @@
 .teams-status {
     .teams-status-avatar {
         text-align: center;
-        margin-bottom: 5rem;
         .avatar-image {
             border-radius: 50%;
             max-width: 80%;
-            max-height: 25rem;
+            max-height: 35vh;
         }
         .avatar-achievements {
-            > *:not(:last-of-type) {
-                margin-bottom: 0.4rem;
-            }
             .avatar-skill-levels {
-                margin-top: -4rem;
+                margin-top: -8vh;
             }
             .avatar-skill-level {
-                width: 5rem;
-                height: 5rem;
+                width: 10vh;
+                height: 10vh;
             }
             .avatar-badge {
-                width: 4rem;
-                height: 4rem;
+                width: 6vh;
+                height: 6vh;
             }
             .avatar-skill-level, .avatar-badge {
                 display: inline-block;
                 border-radius: 50%;
-                border: 0.2rem solid gold;
+                border: 3px solid gold;
                 background: white !important;
                 overflow: hidden;
                 img {
@@ -53,9 +49,6 @@
         .activity-date {
             float: right;
             font-size: 0.8rem;
-        }
-        .activity-cards .card:not(:last-of-type) {
-            margin-bottom: 0.2rem;
         }
     }
 }
