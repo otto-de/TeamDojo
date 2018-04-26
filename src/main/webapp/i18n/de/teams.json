@@ -5,7 +5,24 @@
                 "title": "Team"
             },
             "skills": {
-                "searchPlaceholder": "Suche"
+                "title": "Kompetenzen",
+                "notAchieved": "Noch nicht erreicht",
+                "achievedOn": "Erreicht am",
+                "search": {
+                    "placeholder": "Suche",
+                    "filter": {
+                        "achieved": "erreicht"
+                    }
+                }
+            },
+            "status": {
+                "activities": {
+                    "title": "Aktivitäten",
+                    "received": "erhalten"
+                }
+            },
+            "achievements": {
+                "title": "Errungenschaften"
             }
         }
     }
