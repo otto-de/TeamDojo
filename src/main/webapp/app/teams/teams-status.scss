@@ -1,15 +1,16 @@
 .teams-status {
+    height: calc(100vh - 185px);
+    overflow-y: auto;
+    padding-right: 10px;
     .teams-status-avatar {
         text-align: center;
         .avatar-image {
             border-radius: 50%;
             max-width: 80%;
             max-height: 35vh;
+            margin-bottom: -8vh;
         }
         .avatar-achievements {
-            .avatar-skill-levels {
-                margin-top: -8vh;
-            }
             .avatar-skill-level {
                 width: 10vh;
                 height: 10vh;

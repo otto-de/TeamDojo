@@ -1,14 +1,26 @@
 /* ==========================================================================
 Navbar
 ========================================================================== */
-.navbar-version {
-    font-size: 10px;
-    color: #ccc
-}
-
 .jh-navbar {
     background-color: #353d47;
     padding: .2em 1em;
+    .jh-logo-container {
+        nav {
+            display: inline-block;
+            padding: 5px 0px;
+            .breadcrumb {
+                background-color: transparent;
+                padding: 0.75rem 0.25rem;
+                .breadcrumb-item + .breadcrumb-item::before {
+                    font: normal normal normal 14px/1 FontAwesome;
+                    content: "\F054";
+                }
+                .breadcrumb-item.active, .breadcrumb-item::before {
+                    color: rgba(255, 255, 255, 0.5);
+                }
+            }
+        }
+    }
     .profile-image {
         margin: -10px 0px;
         height: 40px;
@@ -62,7 +74,7 @@ Logo styles
 ========================================================================== */
 .navbar-brand {
     &.logo {
-        padding: 5px 15px;
+        padding: 5px 0px;
         .logo-img {
             height: 45px;
             width: 70px;

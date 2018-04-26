@@ -15,7 +15,7 @@ export class TeamsStatusComponent implements OnInit {
     ngOnInit() {}
 
     get teamImage() {
-        if (!this._teamImage) {
+        if (!this._teamImage && this.team.picture && this.team.pictureContentType) {
             this._teamImage = `data:${this.team.pictureContentType};base64,${this.team.picture}`;
         }
         return this._teamImage;
