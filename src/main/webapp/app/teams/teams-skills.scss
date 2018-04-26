@@ -1,9 +1,9 @@
 .teams-skills {
-    overflow-y: hidden;
+    padding-right: 10px;
     .teams-skills-list {
-        height: 80vh;
+        height: calc(100vh - 259px);
         overflow-y: auto;
-        padding-right: 3px;
+        padding: 5px;
         .teams-skills-badge {
             padding: 6px;
             min-width: 40px;
