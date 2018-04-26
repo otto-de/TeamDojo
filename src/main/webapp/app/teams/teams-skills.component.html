@@ -1,15 +1,15 @@
 <div class="teams-skills row">
-    <div class="col-12">
+    <div class="col-12 mockup">
         <h4>{{'teamdojoApp.teams.skills.title' | translate}}</h4>
         <form class="form-inline">
             <div class="form-group mr-1 mb-2">
-                <input type="text" class="form-control" id="skills_searchTerm"
+                <input type="text" class="form-control" id="skills_searchTerm" disabled
                        [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate">
             </div>
-            <button type="submit" class="btn btn-secondary mb-2"><span class="fa fa-search"></span></button>
+            <button type="submit" class="btn btn-secondary mb-2" disabled><span class="fa fa-search"></span></button>
             <div class="form-group m-2">
                 <div class="form-check form-check-inline mb-2">
-                    <input class="form-check-input" type="checkbox" value="" id="fooCheck">
+                    <input class="form-check-input" type="checkbox" value="" id="fooCheck" disabled>
                     <label class="form-check-label" for="fooCheck">
                         {{'teamdojoApp.teams.skills.search.filter.achieved' | translate}}
                     </label>
