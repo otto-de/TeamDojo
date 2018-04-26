@@ -22,7 +22,10 @@
                 }
             },
             "achievements": {
-                "title": "Achievements"
+                "title": "Achievements",
+                "badges": {
+                    "title": "Badges"
+                }
             },
             "dateFormat": "yyyy-MM-dd"
         }

@@ -1,9 +1,9 @@
 .teams-achievements {
-    .teams-achievements-dimensions {
-        ul.achievements-skill-levels {
+    .teams-achievements-dimensions, .teams-achievements-badges {
+        ul.achievements-skill-levels, ul.achievements-badges {
             list-style: none;
         }
-        .achievements-skill-level {
+        .achievements-skill-level, .achievements-badge {
             .skill-level-name, .badge-name {
                 display: inline-block;
             }

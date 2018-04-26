@@ -22,7 +22,10 @@
                 }
             },
             "achievements": {
-                "title": "Errungenschaften"
+                "title": "Errungenschaften",
+                "badges": {
+                    "title": "Pokale"
+                }
             },
             "dateFormat": "dd.MM.yyyy"
         }
