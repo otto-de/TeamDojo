@@ -32,7 +32,7 @@
                                triggers="mouseenter:mouseleave" placement="left">!
                         </small>
                         <small *ngIf="skill.achievedAt" class="teams-skills-badge badge badge-pill badge-success"
-                               ngbPopover="{{'teamdojoApp.teams.skills.achievedOn' | translate}} {{skill.achievedAt | date: 'dd.MM.yyyy')}}"
+                               ngbPopover="{{'teamdojoApp.teams.skills.achievedOn' | translate}} {{skill.achievedAt | date: ('teamdojoApp.teams.dateFormat' | translate)}}"
                                triggers="mouseenter:mouseleave"
                                placement="left">✓
                         </small>
