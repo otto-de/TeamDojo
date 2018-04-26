@@ -1,0 +1,12 @@
+{
+    "teamdojoApp": {
+        "teams": {
+            "home": {
+                "title": "Team"
+            },
+            "skills": {
+                "searchPlaceholder": "Suche"
+            }
+        }
+    }
+}
