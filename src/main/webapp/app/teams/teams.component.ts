@@ -6,7 +6,7 @@ import { ITeam } from 'app/shared/model/team.model';
 @Component({
     selector: 'jhi-teams',
     templateUrl: './teams.component.html',
-    styles: []
+    styleUrls: ['./teams.scss']
 })
 export class TeamsComponent implements OnInit {
     team: ITeam;
@@ -26,6 +26,7 @@ export class TeamsComponent implements OnInit {
     openFile(contentType, field) {
         return this.dataUtils.openFile(contentType, field);
     }
+
     previousState() {
         window.history.back();
     }

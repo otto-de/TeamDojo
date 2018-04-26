@@ -1,4 +1,7 @@
 .teams-status {
+    height: calc(100vh - 185px);
+    overflow-y: auto;
+    padding-right: 10px;
     .teams-status-avatar {
         text-align: center;
         .avatar-image {

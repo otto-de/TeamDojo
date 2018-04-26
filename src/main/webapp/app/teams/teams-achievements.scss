@@ -1,4 +1,7 @@
 .teams-achievements {
+    height: calc(100vh - 175px);
+    overflow-y: auto;
+    padding-right: 10px;
     .teams-achievements-dimensions, .teams-achievements-badges {
         ul.achievements-skill-levels, ul.achievements-badges {
             list-style: none;
