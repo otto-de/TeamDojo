@@ -88,7 +88,7 @@ Generic styles
             transparent 10px,
             transparent 20px
     );
-    * {
+    *:not(button) {
         background-color: transparent !important;
     }
 }
