@@ -23,7 +23,8 @@
             },
             "achievements": {
                 "title": "Achievements"
-            }
+            },
+            "dateFormat": "yyyy-MM-dd"
         }
     }
 }
