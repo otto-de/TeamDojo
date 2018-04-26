@@ -1,5 +1,5 @@
-<div class="teams-skills row">
-    <div class="col-12 mockup">
+<div class="teams-skills">
+    <div class="mockup">
         <h4>{{'teamdojoApp.teams.skills.title' | translate}}</h4>
         <form class="form-inline">
             <div class="form-group mr-1 mb-2">
@@ -17,7 +17,7 @@
             </div>
         </form>
     </div>
-    <div class="col-12">
+    <div>
         <div infinite-scroll (scrolled)="loadPage(page + 1)"
              [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="1"
              [infiniteScrollContainer]="'.teams-skills-list'">
