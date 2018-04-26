@@ -16,14 +16,14 @@
         <h1 *ngIf="!team.slogan" class="avatar-title">{{team.name}}</h1>
     </div>
     <div class="teams-status-activities mt-md-2 mt-lg-4 mockup">
-        <h4>Aktivit&auml;ten</h4>
+        <h4>{{'teamdojoApp.teams.status.activities.title' | translate}}</h4>
         <div class="activity-cards">
             <div class="card mb-1">
                 <div class="card-body">
                     <span class="activity-date">22.02.2018</span>
                     <div>
                         <i class="fa fa-certificate belt-orange"></i>
-                        <span>Orange Belt in Security erhalten!</span>
+                        <span>Orange Belt in Security {{'teamdojoApp.teams.status.activities.received' | translate}}!</span>
                     </div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                     <span class="activity-date">05.02.2018</span>
                     <div>
                         <i class="fa fa-gift"></i>
-                        <span>AWS Ready Badge erhalten!</span>
+                        <span>AWS Ready Badge {{'teamdojoApp.teams.status.activities.received' | translate}}!</span>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                     <span class="activity-date">04.02.2018</span>
                     <div>
                         <i class="fa fa-certificate belt-yellow"></i>
-                        <span>Yellow Belt in Security erhalten!</span>
+                        <span>Yellow Belt in Security {{'teamdojoApp.teams.status.activities.received' | translate}}!</span>
                     </div>
                 </div>
             </div>
