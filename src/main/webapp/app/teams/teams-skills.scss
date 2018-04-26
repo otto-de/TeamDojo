@@ -1,0 +1,14 @@
+.teams-skills {
+    overflow-y: hidden;
+    .teams-skills-list {
+        height: 80vh;
+        overflow-y: auto;
+        padding-right: 3px;
+        .teams-skills-badge {
+            padding: 6px;
+            min-width: 40px;
+            max-height: 26px;
+            margin-bottom: 2px;
+        }
+    }
+}

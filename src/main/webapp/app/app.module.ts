@@ -15,6 +15,7 @@ import { TeamdojoAppRoutingModule } from './app-routing.module';
 import { TeamdojoHomeModule } from './home/home.module';
 import { TeamdojoAccountModule } from './account/account.module';
 import { TeamdojoEntityModule } from './entities/entity.module';
+import { TeamsModule } from './teams/teams.module';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
@@ -27,6 +28,7 @@ import {
     PageRibbonComponent,
     ProfileService
 } from './layouts';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     imports: [
@@ -37,8 +39,10 @@ import {
         TeamdojoCoreModule,
         TeamdojoHomeModule,
         TeamdojoAccountModule,
-        TeamdojoEntityModule
+        TeamdojoEntityModule,
+        TeamsModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
+        NgbModule.forRoot()
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
     providers: [
