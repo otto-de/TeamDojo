@@ -1,6 +1,6 @@
 package de.otto.teamdojo.service.impl;
 
-import de.otto.teamdojo.repository.LevelRepository;
+import de.otto.teamdojo.domain.Level;
 import de.otto.teamdojo.repository.SkillRepository;
 import de.otto.teamdojo.repository.TeamRepository;
 import de.otto.teamdojo.service.AchievableSkillService;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -24,21 +25,28 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
 
     private final TeamRepository teamRepository;
 
-    private final LevelRepository levelRepository;
 
-    public AchievableSkillServiceImpl(SkillRepository skillRepository, TeamRepository teamRepository, LevelRepository levelRepository) {
+    public AchievableSkillServiceImpl(SkillRepository skillRepository, TeamRepository teamRepository) {
         this.skillRepository = skillRepository;
         this.teamRepository = teamRepository;
-        this.levelRepository = levelRepository;
     }
 
     @Override
     public Page<AchievableSkillDTO> findAllByTeamId(Long teamId, List<Long> levelIds, Pageable pageable) {
         if (levelIds.isEmpty()) {
-            teamRepository.findById(teamId).ifPresent(team -> {
-
-            });
+            addTeamRelatedLevels(teamId, levelIds);
         }
         return skillRepository.findAchievableSkill(teamId, levelIds, pageable);
+    }
+
+    private void addTeamRelatedLevels(Long teamId, List<Long> levelIds) {
+        teamRepository.findById(teamId).ifPresent(team -> {
+            List<Long> relatedLevelIds = team.getParticipations()
+                .stream()
+                .flatMap(dimension ->
+                    dimension.getLevels().stream().map(Level::getId))
+                .collect(Collectors.toList());
+            levelIds.addAll(relatedLevelIds);
+        });
     }
 }

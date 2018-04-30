@@ -101,6 +101,7 @@ public class LevelTestDataProvider {
 
         public Level build() {
             Level level = new Level().name(name).dimension(dimension).dependsOn(dependsOn).requiredScore(requiredScore);
+            dimension.addLevels(level);
             skills.forEach(level::addSkills);
             return level;
         }
