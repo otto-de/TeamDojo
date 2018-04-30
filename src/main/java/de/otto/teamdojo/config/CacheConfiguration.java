@@ -45,6 +45,7 @@ public class CacheConfiguration {
             cm.createCache(de.otto.teamdojo.domain.User.class.getName() + ".persistentTokens", jcacheConfiguration);
             cm.createCache(de.otto.teamdojo.domain.Dimension.class.getName(), jcacheConfiguration);
             cm.createCache(de.otto.teamdojo.domain.Dimension.class.getName() + ".participants", jcacheConfiguration);
+            cm.createCache(de.otto.teamdojo.domain.Dimension.class.getName() + ".levels", jcacheConfiguration);
             cm.createCache(de.otto.teamdojo.domain.Skill.class.getName(), jcacheConfiguration);
             cm.createCache(de.otto.teamdojo.domain.Skill.class.getName() + ".teams", jcacheConfiguration);
             cm.createCache(de.otto.teamdojo.domain.Skill.class.getName() + ".badges", jcacheConfiguration);
