@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import static de.otto.teamdojo.test.util.BadgeTestDataProvider.*;
 import static de.otto.teamdojo.test.util.DimensionTestDataProvider.security;
 import static de.otto.teamdojo.test.util.LevelTestDataProvider.orange;
 import static de.otto.teamdojo.test.util.LevelTestDataProvider.yellow;
@@ -55,10 +56,13 @@ public class TeamAchievableSkillResourceTest {
     private Skill inputValidation;
     private Skill softwareUpdates;
     private Skill strongPasswords;
+    private Skill dockerized;
     private Level yellow;
     private Level orange;
     private Dimension security;
     private TeamSkill teamSkill;
+    private Badge awsReady;
+    private Badge alwaysUpToDate;
 
     @Before
     public void setup() {
@@ -81,15 +85,17 @@ public class TeamAchievableSkillResourceTest {
             // no level parameter is send
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.length()").value(3))
+            .andExpect(jsonPath("$.length()").value(4))
             .andExpect(jsonPath("$.[*].teamSkillId").value(containsInAnyOrder(
+                null,
                 null,
                 null,
                 teamSkill.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(containsInAnyOrder(
                 INPUT_VALIDATION_TITLE,
                 SOFTWARE_UPDATES_TITLE,
-                STRONG_PASSWORDS_TITLE)
+                STRONG_PASSWORDS_TITLE,
+                DOCKERIZED_TITLE)
             ));
     }
 
@@ -98,7 +104,6 @@ public class TeamAchievableSkillResourceTest {
     public void getAchievableSkillsByLevels() throws Exception {
         setupTestData();
         em.flush();
-
 
         restTeamMockMvc.perform(get("/api/teams/{id}/achievable-skills", team.getId())
             .param("levelId", yellow.getId().toString(), orange.getId().toString()))
@@ -112,8 +117,8 @@ public class TeamAchievableSkillResourceTest {
             .andExpect(jsonPath("$.[*].skillId").value(containsInAnyOrder(
                 inputValidation.getId().intValue(),
                 softwareUpdates.getId().intValue(),
-                strongPasswords.getId().intValue())
-            ));
+                strongPasswords.getId().intValue()
+            )));
     }
 
     @Test
@@ -136,16 +141,86 @@ public class TeamAchievableSkillResourceTest {
             ));
     }
 
+    @Test
+    @Transactional
+    public void getAchievableSkillsByBadges() throws Exception {
+        setupTestData();
+        em.flush();
+
+        restTeamMockMvc.perform(get("/api/teams/{id}/achievable-skills", team.getId())
+            .param("badgeId", awsReady.getId().toString(), alwaysUpToDate.getId().toString()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.length()").value(3))
+            .andExpect(jsonPath("$.[*].teamSkillId").value(containsInAnyOrder(
+                null,
+                null,
+                teamSkill.getId().intValue())))
+            .andExpect(jsonPath("$.[*].skillId").value(containsInAnyOrder(
+                inputValidation.getId().intValue(),
+                dockerized.getId().intValue(),
+                softwareUpdates.getId().intValue()
+            )));
+    }
+
+    @Test
+    @Transactional
+    public void getAchievableSkillsByBadge() throws Exception {
+        setupTestData();
+        em.flush();
+
+        restTeamMockMvc.perform(get("/api/teams/{id}/achievable-skills", team.getId())
+            .param("badgeId", awsReady.getId().toString()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.length()").value(2))
+            .andExpect(jsonPath("$.[*].teamSkillId").value(containsInAnyOrder(
+                null,
+                teamSkill.getId().intValue())))
+            .andExpect(jsonPath("$.[*].skillId").value(containsInAnyOrder(
+                inputValidation.getId().intValue(),
+                dockerized.getId().intValue()
+            )));
+    }
+
+    @Test
+    @Transactional
+    public void getAchievableSkillsByLevelAndBadge() throws Exception {
+        setupTestData();
+        em.flush();
+
+        restTeamMockMvc.perform(get("/api/teams/{id}/achievable-skills", team.getId())
+            .param("levelId", yellow.getId().toString())
+            .param("badgeId", awsReady.getId().toString()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.length()").value(3))
+            .andExpect(jsonPath("$.[*].teamSkillId").value(containsInAnyOrder(
+                null,
+                null,
+                teamSkill.getId().intValue())))
+            .andExpect(jsonPath("$.[*].skillId").value(containsInAnyOrder(
+                inputValidation.getId().intValue(),
+                softwareUpdates.getId().intValue(),
+                dockerized.getId().intValue()
+            )));
+    }
+
     private void setupTestData() {
         inputValidation = inputValidation(em);
         softwareUpdates = softwareUpdates(em);
         strongPasswords = strongPasswords(em);
+        dockerized = dockerized(em);
         Skill evilUserStories_notAchievable = evilUserStories(em);
 
         security = security(em);
 
         yellow = yellow(security).addSkill(inputValidation).addSkill(softwareUpdates).build(em);
         orange = orange(security).addSkill(strongPasswords).dependsOn(yellow).build(em);
+
+        awsReady = awsReady().addDimension(security).addSkill(inputValidation).addSkill(dockerized).build(em);
+        alwaysUpToDate = alwaysUpToDate().addSkill(softwareUpdates).build(em);
+        Badge bestTeam_noSkills = bestTeam().build(em);
 
         team = ft1().build(em);
         team.addParticipations(security);

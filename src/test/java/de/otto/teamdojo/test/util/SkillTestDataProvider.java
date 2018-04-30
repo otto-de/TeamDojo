@@ -35,6 +35,12 @@ public class SkillTestDataProvider {
     private static final String EVIL_USER_STORIES_VAL = EVIL_USER_STORIES + VALIDATION;
     private static final String EVIL_USER_STORIES_IMPL = EVIL_USER_STORIES + IMPLEMENTATION;
 
+    private static final String DOCKERIZED = "Dockerized";
+    public static final String DOCKERIZED_TITLE = DOCKERIZED;
+    public static final String DOCKERIZED_DESC = DOCKERIZED + DESCRIPTION;
+    public static final String DOCKERIZED_VAL = DOCKERIZED + IMPLEMENTATION;
+    public static final String DOCKERIZED_IMPL = DOCKERIZED + VALIDATION;
+
 
     public static Skill inputValidation(EntityManager em) {
         return persistSkill(inputValidation(), em);
@@ -82,6 +88,18 @@ public class SkillTestDataProvider {
             .description(EVIL_USER_STORIES_DESC)
             .validation(EVIL_USER_STORIES_VAL)
             .implementation(EVIL_USER_STORIES_IMPL);
+    }
+
+    public static Skill dockerized(EntityManager em) {
+        return persistSkill(dockerized(), em);
+    }
+
+    public static Skill dockerized() {
+        return new Skill()
+            .title(DOCKERIZED_TITLE)
+            .description(DOCKERIZED_DESC)
+            .validation(DOCKERIZED_VAL)
+            .implementation(DOCKERIZED_IMPL);
     }
 
     private static Skill persistSkill(Skill skill, EntityManager em) {

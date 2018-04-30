@@ -32,10 +32,11 @@ public class TeamAchievableSkillResource {
     public ResponseEntity<List<AchievableSkillDTO>> getAchievableSkills(
         @PathVariable Long id,
         @RequestParam(name = "levelId", required = false, defaultValue = "") List<Long> levelIds,
+        @RequestParam(name = "badgeId", required = false, defaultValue = "") List<Long> badgeIds,
         Pageable pageable) {
         log.debug("REST request to get AchievableSkills for Team; {}", id);
-        Page<AchievableSkillDTO> page = achievableSkillService.findAllByTeamId(id, levelIds, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/skills");
+        Page<AchievableSkillDTO> page = achievableSkillService.findAllByTeamId(id, levelIds, badgeIds, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/teams/" + id + "/achievable-skills");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 }
