@@ -29,4 +29,6 @@ public interface BadgeRepository extends JpaRepository<Badge, Long>, JpaSpecific
     @Query("select badge from Badge badge left join fetch badge.dimensions where badge.id =:id")
     Optional<Badge> findOneWithEagerRelationships(@Param("id") Long id);
 
+    List<Badge> findAllByDimensionsIsNull();
+
 }

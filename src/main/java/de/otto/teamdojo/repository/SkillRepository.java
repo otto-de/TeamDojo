@@ -23,8 +23,14 @@ public interface SkillRepository extends JpaRepository<Skill, Long>, JpaSpecific
         " new de.otto.teamdojo.service.dto.AchievableSkillDTO(t.id, s.id, s.title, s.description, t.achievedAt)" +
         " FROM Skill s" +
         " LEFT JOIN s.teams t ON t.team.id = :teamId" +
-        " JOIN s.levels l" +
-        " WHERE l.level.id IN :levelIds")
-    Page<AchievableSkillDTO> findAchievableSkill(@Param("teamId") Long teamId, @Param("levelIds") List<Long> levelIds, Pageable pageable);
+        " LEFT JOIN s.levels l" +
+        " LEFT JOIN s.badges b" +
+        " WHERE l.level.id IN :levelIds" +
+        " OR b.badge.id IN :badgeIds")
+    Page<AchievableSkillDTO> findAchievableSkill(
+        @Param("teamId") Long teamId,
+        @Param("levelIds") List<Long> levelIds,
+        @Param("badgeIds") List<Long> badgeIds,
+        Pageable pageable);
 
 }

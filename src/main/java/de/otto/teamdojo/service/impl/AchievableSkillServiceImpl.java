@@ -1,6 +1,9 @@
 package de.otto.teamdojo.service.impl;
 
+import de.otto.teamdojo.domain.Badge;
 import de.otto.teamdojo.domain.Level;
+import de.otto.teamdojo.domain.Team;
+import de.otto.teamdojo.repository.BadgeRepository;
 import de.otto.teamdojo.repository.SkillRepository;
 import de.otto.teamdojo.repository.TeamRepository;
 import de.otto.teamdojo.service.AchievableSkillService;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,28 +29,52 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
 
     private final TeamRepository teamRepository;
 
+    private final BadgeRepository badgeRepository;
 
-    public AchievableSkillServiceImpl(SkillRepository skillRepository, TeamRepository teamRepository) {
+
+    public AchievableSkillServiceImpl(SkillRepository skillRepository,
+                                      TeamRepository teamRepository,
+                                      BadgeRepository badgeRepository) {
         this.skillRepository = skillRepository;
         this.teamRepository = teamRepository;
+        this.badgeRepository = badgeRepository;
     }
 
     @Override
-    public Page<AchievableSkillDTO> findAllByTeamId(Long teamId, List<Long> levelIds, Pageable pageable) {
-        if (levelIds.isEmpty()) {
-            addTeamRelatedLevels(teamId, levelIds);
+    public Page<AchievableSkillDTO> findAllByTeamId(Long teamId, List<Long> levelIds, List<Long> badgeIds, Pageable pageable) {
+        if (levelIds.isEmpty() && badgeIds.isEmpty()) {
+            teamRepository.findById(teamId).ifPresent(team -> {
+                addTeamRelatedLevels(team, levelIds);
+                addTeamRelatedBadges(team, badgeIds);
+                addDimensionlessBadges(badgeIds);
+            });
         }
-        return skillRepository.findAchievableSkill(teamId, levelIds, pageable);
+        return skillRepository.findAchievableSkill(teamId, levelIds, badgeIds, pageable);
     }
 
-    private void addTeamRelatedLevels(Long teamId, List<Long> levelIds) {
-        teamRepository.findById(teamId).ifPresent(team -> {
-            List<Long> relatedLevelIds = team.getParticipations()
-                .stream()
-                .flatMap(dimension ->
-                    dimension.getLevels().stream().map(Level::getId))
-                .collect(Collectors.toList());
-            levelIds.addAll(relatedLevelIds);
-        });
+    private void addTeamRelatedLevels(Team team, List<Long> levelIds) {
+        Set<Long> relatedLevelIds = team.getParticipations()
+            .stream()
+            .flatMap(dimension ->
+                dimension.getLevels().stream().map(Level::getId))
+            .collect(Collectors.toSet());
+        levelIds.addAll(relatedLevelIds);
+    }
+
+    private void addTeamRelatedBadges(Team team, List<Long> badgeIds) {
+        Set<Long> relatedBadgeIds = team.getParticipations()
+            .stream()
+            .flatMap(dimension ->
+                dimension.getBadges().stream().map(Badge::getId))
+            .collect(Collectors.toSet());
+        badgeIds.addAll(relatedBadgeIds);
+    }
+
+    private void addDimensionlessBadges(List<Long> badgeIds) {
+        Set<Long> dimensionlessBadgeIds = badgeRepository.findAllByDimensionsIsNull()
+            .stream()
+            .map(Badge::getId)
+            .collect(Collectors.toSet());
+        badgeIds.addAll(dimensionlessBadgeIds);
     }
 }
