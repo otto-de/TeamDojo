@@ -34,8 +34,8 @@ import static de.otto.teamdojo.test.util.LevelTestDataProvider.yellow;
 import static de.otto.teamdojo.test.util.SkillTestDataProvider.*;
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.any;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -630,7 +630,7 @@ public class TeamResourceIntTest {
             .andExpect(jsonPath("$.[*].teamSkillId").value(containsInAnyOrder(
                 null,
                 null,
-                notNullValue())))
+                teamSkill.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(containsInAnyOrder(
                 INPUT_VALIDATION_TITLE,
                 SOFTWARE_UPDATES_TITLE,
