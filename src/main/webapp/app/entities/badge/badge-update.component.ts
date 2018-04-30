@@ -4,10 +4,12 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
-import { JhiDataUtils } from 'ng-jhipster';
+import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IBadge } from 'app/shared/model/badge.model';
 import { BadgeService } from './badge.service';
+import { IDimension } from 'app/shared/model/dimension.model';
+import { DimensionService } from 'app/entities/dimension';
 
 @Component({
     selector: 'jhi-badge-update',
@@ -16,11 +18,15 @@ import { BadgeService } from './badge.service';
 export class BadgeUpdateComponent implements OnInit {
     private _badge: IBadge;
     isSaving: boolean;
+
+    dimensions: IDimension[];
     availableUntil: string;
 
     constructor(
         private dataUtils: JhiDataUtils,
+        private jhiAlertService: JhiAlertService,
         private badgeService: BadgeService,
+        private dimensionService: DimensionService,
         private elementRef: ElementRef,
         private route: ActivatedRoute
     ) {}
@@ -30,6 +36,12 @@ export class BadgeUpdateComponent implements OnInit {
         this.route.data.subscribe(({ badge }) => {
             this.badge = badge.body ? badge.body : badge;
         });
+        this.dimensionService.query().subscribe(
+            (res: HttpResponse<IDimension[]>) => {
+                this.dimensions = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     byteSize(field) {
@@ -73,6 +85,25 @@ export class BadgeUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
+    }
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    trackDimensionById(index: number, item: IDimension) {
+        return item.id;
+    }
+
+    getSelected(selectedVals: Array<any>, option: any) {
+        if (selectedVals) {
+            for (let i = 0; i < selectedVals.length; i++) {
+                if (option.id === selectedVals[i].id) {
+                    return selectedVals[i];
+                }
+            }
+        }
+        return option;
     }
     get badge() {
         return this._badge;

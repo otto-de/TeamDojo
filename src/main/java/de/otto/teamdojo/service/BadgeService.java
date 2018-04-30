@@ -27,6 +27,12 @@ public interface BadgeService {
      */
     Page<Badge> findAll(Pageable pageable);
 
+    /**
+     * Get all the Badge with eager load of many-to-many relationships.
+     *
+     * @return the list of entities
+     */
+    Page<Badge> findAllWithEagerRelationships(Pageable pageable);
 
     /**
      * Get the "id" badge.

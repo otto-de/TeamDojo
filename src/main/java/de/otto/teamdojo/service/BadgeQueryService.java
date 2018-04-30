@@ -3,6 +3,7 @@ package de.otto.teamdojo.service;
 import de.otto.teamdojo.domain.Badge;
 import de.otto.teamdojo.domain.BadgeSkill_;
 import de.otto.teamdojo.domain.Badge_;
+import de.otto.teamdojo.domain.Dimension_;
 import de.otto.teamdojo.repository.BadgeRepository;
 import de.otto.teamdojo.service.dto.BadgeCriteria;
 import io.github.jhipster.service.QueryService;
@@ -88,6 +89,9 @@ public class BadgeQueryService extends QueryService<Badge> {
             }
             if (criteria.getSkillsId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getSkillsId(), Badge_.skills, BadgeSkill_.id));
+            }
+            if (criteria.getDimensionsId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getDimensionsId(), Badge_.dimensions, Dimension_.id));
             }
         }
         return specification;

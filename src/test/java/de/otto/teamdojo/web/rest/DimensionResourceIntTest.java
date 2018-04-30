@@ -1,6 +1,7 @@
 package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
+import de.otto.teamdojo.domain.Badge;
 import de.otto.teamdojo.domain.Dimension;
 import de.otto.teamdojo.domain.Level;
 import de.otto.teamdojo.domain.Team;
@@ -301,6 +302,25 @@ public class DimensionResourceIntTest {
 
         // Get all the dimensionList where levels equals to levelsId + 1
         defaultDimensionShouldNotBeFound("levelsId.equals=" + (levelsId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllDimensionsByBadgesIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Badge badges = BadgeResourceIntTest.createEntity(em);
+        em.persist(badges);
+        em.flush();
+        dimension.addBadges(badges);
+        dimensionRepository.saveAndFlush(dimension);
+        Long badgesId = badges.getId();
+
+        // Get all the dimensionList where badges equals to badgesId
+        defaultDimensionShouldBeFound("badgesId.equals=" + badgesId);
+
+        // Get all the dimensionList where badges equals to badgesId + 1
+        defaultDimensionShouldNotBeFound("badgesId.equals=" + (badgesId + 1));
     }
 
     /**

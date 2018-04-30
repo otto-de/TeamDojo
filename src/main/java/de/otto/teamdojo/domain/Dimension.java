@@ -45,6 +45,11 @@ public class Dimension implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Level> levels = new HashSet<>();
 
+    @ManyToMany(mappedBy = "dimensions")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Badge> badges = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -128,6 +133,31 @@ public class Dimension implements Serializable {
 
     public void setLevels(Set<Level> levels) {
         this.levels = levels;
+    }
+
+    public Set<Badge> getBadges() {
+        return badges;
+    }
+
+    public Dimension badges(Set<Badge> badges) {
+        this.badges = badges;
+        return this;
+    }
+
+    public Dimension addBadges(Badge badge) {
+        this.badges.add(badge);
+        badge.getDimensions().add(this);
+        return this;
+    }
+
+    public Dimension removeBadges(Badge badge) {
+        this.badges.remove(badge);
+        badge.getDimensions().remove(this);
+        return this;
+    }
+
+    public void setBadges(Set<Badge> badges) {
+        this.badges = badges;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
