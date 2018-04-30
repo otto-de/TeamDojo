@@ -2,6 +2,7 @@ package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
 import de.otto.teamdojo.domain.Dimension;
+import de.otto.teamdojo.domain.Level;
 import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.repository.DimensionRepository;
 import de.otto.teamdojo.service.DimensionQueryService;
@@ -281,6 +282,25 @@ public class DimensionResourceIntTest {
 
         // Get all the dimensionList where participants equals to participantsId + 1
         defaultDimensionShouldNotBeFound("participantsId.equals=" + (participantsId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllDimensionsByLevelsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Level levels = LevelResourceIntTest.createEntity(em);
+        em.persist(levels);
+        em.flush();
+        dimension.addLevels(levels);
+        dimensionRepository.saveAndFlush(dimension);
+        Long levelsId = levels.getId();
+
+        // Get all the dimensionList where levels equals to levelsId
+        defaultDimensionShouldBeFound("levelsId.equals=" + levelsId);
+
+        // Get all the dimensionList where levels equals to levelsId + 1
+        defaultDimensionShouldNotBeFound("levelsId.equals=" + (levelsId + 1));
     }
 
     /**
