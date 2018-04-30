@@ -19,7 +19,8 @@
             "name": "Name",
             "description": "Description",
             "participants": "Participants",
-            "levels": "Levels"
+            "levels": "Levels",
+            "badges": "Badges"
         }
     }
 }

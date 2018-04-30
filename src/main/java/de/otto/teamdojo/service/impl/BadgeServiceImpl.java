@@ -52,6 +52,15 @@ public class BadgeServiceImpl implements BadgeService {
         return badgeRepository.findAll(pageable);
     }
 
+    /**
+     * Get all the Badge with eager load of many-to-many relationships.
+     *
+     * @return the list of entities
+     */
+    public Page<Badge> findAllWithEagerRelationships(Pageable pageable) {
+        return badgeRepository.findAllWithEagerRelationships(pageable);
+    }
+
 
     /**
      * Get one badge by id.
@@ -63,7 +72,7 @@ public class BadgeServiceImpl implements BadgeService {
     @Transactional(readOnly = true)
     public Optional<Badge> findOne(Long id) {
         log.debug("Request to get Badge : {}", id);
-        return badgeRepository.findById(id);
+        return badgeRepository.findOneWithEagerRelationships(id);
     }
 
     /**

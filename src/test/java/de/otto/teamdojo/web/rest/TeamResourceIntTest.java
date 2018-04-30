@@ -1,7 +1,9 @@
 package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
-import de.otto.teamdojo.domain.*;
+import de.otto.teamdojo.domain.Dimension;
+import de.otto.teamdojo.domain.Team;
+import de.otto.teamdojo.domain.TeamSkill;
 import de.otto.teamdojo.repository.TeamRepository;
 import de.otto.teamdojo.service.TeamQueryService;
 import de.otto.teamdojo.service.TeamService;
@@ -27,13 +29,8 @@ import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import static de.otto.teamdojo.test.util.DimensionTestDataProvider.security;
-import static de.otto.teamdojo.test.util.LevelTestDataProvider.orange;
-import static de.otto.teamdojo.test.util.LevelTestDataProvider.yellow;
-import static de.otto.teamdojo.test.util.SkillTestDataProvider.*;
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

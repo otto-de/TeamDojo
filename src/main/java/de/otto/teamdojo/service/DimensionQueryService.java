@@ -1,9 +1,6 @@
 package de.otto.teamdojo.service;
 
-import de.otto.teamdojo.domain.Dimension;
-import de.otto.teamdojo.domain.Dimension_;
-import de.otto.teamdojo.domain.Level_;
-import de.otto.teamdojo.domain.Team_;
+import de.otto.teamdojo.domain.*;
 import de.otto.teamdojo.repository.DimensionRepository;
 import de.otto.teamdojo.service.dto.DimensionCriteria;
 import io.github.jhipster.service.QueryService;
@@ -83,6 +80,9 @@ public class DimensionQueryService extends QueryService<Dimension> {
             }
             if (criteria.getLevelsId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getLevelsId(), Dimension_.levels, Level_.id));
+            }
+            if (criteria.getBadgesId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getBadgesId(), Dimension_.badges, Badge_.id));
             }
         }
         return specification;
