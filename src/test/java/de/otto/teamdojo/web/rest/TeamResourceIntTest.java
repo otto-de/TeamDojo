@@ -3,7 +3,6 @@ package de.otto.teamdojo.web.rest;
 import de.otto.teamdojo.TeamdojoApp;
 import de.otto.teamdojo.domain.*;
 import de.otto.teamdojo.repository.TeamRepository;
-import de.otto.teamdojo.service.AchievableSkillService;
 import de.otto.teamdojo.service.TeamQueryService;
 import de.otto.teamdojo.service.TeamService;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
@@ -82,9 +81,6 @@ public class TeamResourceIntTest {
     private TeamQueryService teamQueryService;
 
     @Autowired
-    private AchievableSkillService achievableSkillService;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -103,7 +99,7 @@ public class TeamResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final TeamResource teamResource = new TeamResource(teamService, teamQueryService, achievableSkillService);
+        final TeamResource teamResource = new TeamResource(teamService, teamQueryService);
         this.restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -231,7 +227,7 @@ public class TeamResourceIntTest {
     }
 
     public void getAllTeamsWithEagerRelationshipsIsEnabled() throws Exception {
-        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService, achievableSkillService);
+        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService);
         when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
@@ -247,7 +243,7 @@ public class TeamResourceIntTest {
     }
 
     public void getAllTeamsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService, achievableSkillService);
+        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService);
         when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
         MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
@@ -596,125 +592,5 @@ public class TeamResourceIntTest {
         team1.setId(null);
         assertThat(team1).isNotEqualTo(team2);
     }
-
-
-    @Test
-    @Transactional
-    public void getAllAchievableSkills() throws Exception {
-
-        Skill inputValidation = inputValidation(em);
-        Skill softwareUpdates = softwareUpdates(em);
-        Skill strongPasswords = strongPasswords(em);
-        Skill evilUserStories_notAchievable = evilUserStories(em);
-
-        Dimension security = security(em);
-
-        Level yellow = yellow(security).addSkill(inputValidation).addSkill(softwareUpdates).build(em);
-        Level orange = orange(security).addSkill(strongPasswords).dependsOn(yellow).build(em);
-
-        team.addParticipations(security);
-        teamRepository.save(team);
-
-        TeamSkill teamSkill = new TeamSkill();
-        teamSkill.setTeam(team);
-        teamSkill.setSkill(inputValidation);
-        em.persist(teamSkill);
-        team.addSkills(teamSkill);
-        teamRepository.saveAndFlush(team);
-
-        restTeamMockMvc.perform(get("/api/teams/{id}/achievable-skills", team.getId()))
-            // no level parameter is send
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.length()").value(3))
-            .andExpect(jsonPath("$.[*].teamSkillId").value(containsInAnyOrder(
-                null,
-                null,
-                teamSkill.getId().intValue())))
-            .andExpect(jsonPath("$.[*].title").value(containsInAnyOrder(
-                INPUT_VALIDATION_TITLE,
-                SOFTWARE_UPDATES_TITLE,
-                STRONG_PASSWORDS_TITLE)
-            ));
-    }
-
-    @Test
-    @Transactional
-    public void getAchievableSkillsByLevels() throws Exception {
-
-        Skill inputValidation = inputValidation(em);
-        Skill softwareUpdates = softwareUpdates(em);
-        Skill strongPasswords = strongPasswords(em);
-        Skill evilUserStories_notAchievable = evilUserStories(em);
-
-        Dimension security = security(em);
-
-        Level yellow = yellow(security).addSkill(inputValidation).addSkill(softwareUpdates).build(em);
-        Level orange = orange(security).addSkill(strongPasswords).dependsOn(yellow).build(em);
-
-        team.addParticipations(security);
-        teamRepository.save(team);
-
-        TeamSkill teamSkill = new TeamSkill();
-        teamSkill.setTeam(team);
-        teamSkill.setSkill(inputValidation);
-        em.persist(teamSkill);
-        team.addSkills(teamSkill);
-        teamRepository.saveAndFlush(team);
-
-        restTeamMockMvc.perform(get("/api/teams/{id}/achievable-skills", team.getId())
-            .param("levelId", yellow.getId().toString(), orange.getId().toString()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.length()").value(3))
-            .andExpect(jsonPath("$.[*].teamSkillId").value(containsInAnyOrder(
-                null,
-                null,
-                teamSkill.getId().intValue())))
-            .andExpect(jsonPath("$.[*].skillId").value(containsInAnyOrder(
-                inputValidation.getId().intValue(),
-                softwareUpdates.getId().intValue(),
-                strongPasswords.getId().intValue())
-            ));
-    }
-
-    @Test
-    @Transactional
-    public void getAchievableSkillsByLevel() throws Exception {
-
-        Skill inputValidation = inputValidation(em);
-        Skill softwareUpdates = softwareUpdates(em);
-        Skill strongPasswords = strongPasswords(em);
-        Skill evilUserStories_notAchievable = evilUserStories(em);
-
-        Dimension security = security(em);
-
-        Level yellow = yellow(security).addSkill(inputValidation).addSkill(softwareUpdates).build(em);
-        Level orange = orange(security).addSkill(strongPasswords).dependsOn(yellow).build(em);
-
-        team.addParticipations(security);
-        teamRepository.save(team);
-
-        TeamSkill teamSkill = new TeamSkill();
-        teamSkill.setTeam(team);
-        teamSkill.setSkill(inputValidation);
-        em.persist(teamSkill);
-        team.addSkills(teamSkill);
-        teamRepository.saveAndFlush(team);
-
-        restTeamMockMvc.perform(get("/api/teams/{id}/achievable-skills", team.getId())
-            .param("levelId", yellow.getId().toString()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.length()").value(2))
-            .andExpect(jsonPath("$.[*].teamSkillId").value(containsInAnyOrder(
-                null,
-                teamSkill.getId().intValue())))
-            .andExpect(jsonPath("$.[*].skillId").value(containsInAnyOrder(
-                inputValidation.getId().intValue(),
-                softwareUpdates.getId().intValue())
-            ));
-    }
-
 
 }
