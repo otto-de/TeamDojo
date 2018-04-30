@@ -1,10 +1,7 @@
 package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
-import de.otto.teamdojo.domain.Dimension;
-import de.otto.teamdojo.domain.Skill;
-import de.otto.teamdojo.domain.Team;
-import de.otto.teamdojo.domain.TeamSkill;
+import de.otto.teamdojo.domain.*;
 import de.otto.teamdojo.repository.TeamRepository;
 import de.otto.teamdojo.service.AchievableSkillService;
 import de.otto.teamdojo.service.TeamQueryService;
@@ -31,10 +28,14 @@ import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import static de.otto.teamdojo.test.util.DimensionTestDataProvider.security;
+import static de.otto.teamdojo.test.util.LevelTestDataProvider.orange;
+import static de.otto.teamdojo.test.util.LevelTestDataProvider.yellow;
+import static de.otto.teamdojo.test.util.SkillTestDataProvider.*;
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -596,36 +597,124 @@ public class TeamResourceIntTest {
         assertThat(team1).isNotEqualTo(team2);
     }
 
+
     @Test
     @Transactional
-    public void getAchievableSkills() throws Exception {
-        // Initialize the database
-        Skill skill = SkillResourceIntTest.createEntity(em); //skill with no teamskill
-        em.persist(skill);
+    public void getAllAchievableSkills() throws Exception {
 
-        TeamSkill othersTeamSkill = TeamSkillResourceIntTest.createEntity(em); //creates skill AND teamskill
-        em.persist(othersTeamSkill);
+        Skill inputValidation = inputValidation(em);
+        Skill softwareUpdates = softwareUpdates(em);
+        Skill strongPasswords = strongPasswords(em);
+        Skill evilUserStories_notAchievable = evilUserStories(em);
 
-        TeamSkill teamSkill = TeamSkillResourceIntTest.createEntity(em);
+        Dimension security = security(em);
+
+        Level yellow = yellow(security).addSkill(inputValidation).addSkill(softwareUpdates).build(em);
+        Level orange = orange(security).addSkill(strongPasswords).dependsOn(yellow).build(em);
+
+        team.addParticipations(security);
+        teamRepository.save(team);
+
+        TeamSkill teamSkill = new TeamSkill();
+        teamSkill.setTeam(team);
+        teamSkill.setSkill(inputValidation);
         em.persist(teamSkill);
-        em.flush();
         team.addSkills(teamSkill);
         teamRepository.saveAndFlush(team);
-        Long skillsId = teamSkill.getId();
 
         restTeamMockMvc.perform(get("/api/teams/{id}/achievable-skills", team.getId()))
+            // no level parameter is send
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.length()").value(3))
             .andExpect(jsonPath("$.[*].teamSkillId").value(containsInAnyOrder(
                 null,
                 null,
-                teamSkill.getId().intValue())
-            ))
-            .andExpect(jsonPath("$.[*].skillId").value(containsInAnyOrder(
-                skill.getId().intValue(),
-                othersTeamSkill.getSkill().getId().intValue(),
-                teamSkill.getSkill().getId().intValue())
+                notNullValue())))
+            .andExpect(jsonPath("$.[*].title").value(containsInAnyOrder(
+                INPUT_VALIDATION_TITLE,
+                SOFTWARE_UPDATES_TITLE,
+                STRONG_PASSWORDS_TITLE)
             ));
     }
+
+    @Test
+    @Transactional
+    public void getAchievableSkillsByLevels() throws Exception {
+
+        Skill inputValidation = inputValidation(em);
+        Skill softwareUpdates = softwareUpdates(em);
+        Skill strongPasswords = strongPasswords(em);
+        Skill evilUserStories_notAchievable = evilUserStories(em);
+
+        Dimension security = security(em);
+
+        Level yellow = yellow(security).addSkill(inputValidation).addSkill(softwareUpdates).build(em);
+        Level orange = orange(security).addSkill(strongPasswords).dependsOn(yellow).build(em);
+
+        team.addParticipations(security);
+        teamRepository.save(team);
+
+        TeamSkill teamSkill = new TeamSkill();
+        teamSkill.setTeam(team);
+        teamSkill.setSkill(inputValidation);
+        em.persist(teamSkill);
+        team.addSkills(teamSkill);
+        teamRepository.saveAndFlush(team);
+
+        restTeamMockMvc.perform(get("/api/teams/{id}/achievable-skills", team.getId())
+            .param("levelId", yellow.getId().toString(), orange.getId().toString()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.length()").value(3))
+            .andExpect(jsonPath("$.[*].teamSkillId").value(containsInAnyOrder(
+                null,
+                null,
+                teamSkill.getId().intValue())))
+            .andExpect(jsonPath("$.[*].skillId").value(containsInAnyOrder(
+                inputValidation.getId().intValue(),
+                softwareUpdates.getId().intValue(),
+                strongPasswords.getId().intValue())
+            ));
+    }
+
+    @Test
+    @Transactional
+    public void getAchievableSkillsByLevel() throws Exception {
+
+        Skill inputValidation = inputValidation(em);
+        Skill softwareUpdates = softwareUpdates(em);
+        Skill strongPasswords = strongPasswords(em);
+        Skill evilUserStories_notAchievable = evilUserStories(em);
+
+        Dimension security = security(em);
+
+        Level yellow = yellow(security).addSkill(inputValidation).addSkill(softwareUpdates).build(em);
+        Level orange = orange(security).addSkill(strongPasswords).dependsOn(yellow).build(em);
+
+        team.addParticipations(security);
+        teamRepository.save(team);
+
+        TeamSkill teamSkill = new TeamSkill();
+        teamSkill.setTeam(team);
+        teamSkill.setSkill(inputValidation);
+        em.persist(teamSkill);
+        team.addSkills(teamSkill);
+        teamRepository.saveAndFlush(team);
+
+        restTeamMockMvc.perform(get("/api/teams/{id}/achievable-skills", team.getId())
+            .param("levelId", yellow.getId().toString()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.length()").value(2))
+            .andExpect(jsonPath("$.[*].teamSkillId").value(containsInAnyOrder(
+                null,
+                teamSkill.getId().intValue())))
+            .andExpect(jsonPath("$.[*].skillId").value(containsInAnyOrder(
+                inputValidation.getId().intValue(),
+                softwareUpdates.getId().intValue())
+            ));
+    }
+
+
 }
