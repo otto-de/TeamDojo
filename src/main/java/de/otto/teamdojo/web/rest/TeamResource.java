@@ -135,9 +135,12 @@ public class TeamResource {
 
     @GetMapping("/teams/{id}/achievable-skills")
     @Timed
-    public ResponseEntity<List<AchievableSkillDTO>> getAchievableSkills(@PathVariable Long id, Pageable pageable) {
+    public ResponseEntity<List<AchievableSkillDTO>> getAchievableSkills(
+        @PathVariable Long id,
+        @RequestParam(name = "levelId", required = false, defaultValue = "") List<Long> levelIds,
+        Pageable pageable) {
         log.debug("REST request to get AchievableSkills for Team; {}", id);
-        Page<AchievableSkillDTO> page = achievableSkillService.findAllByTeamId(id, pageable);
+        Page<AchievableSkillDTO> page = achievableSkillService.findAllByTeamId(id, levelIds, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/skills");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

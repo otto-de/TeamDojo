@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface AchievableSkillService {
 
-    Page<AchievableSkillDTO> findAllByTeamId(Long teamId, Pageable pageable);
+    /**
+     * Get the skills that are achievable for the given team and belong to one of the given levels
+     */
+    Page<AchievableSkillDTO> findAllByTeamId(Long teamId, List<Long> levelIds, Pageable pageable);
 
 }
