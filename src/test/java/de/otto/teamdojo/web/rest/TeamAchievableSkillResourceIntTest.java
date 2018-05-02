@@ -4,6 +4,7 @@ import de.otto.teamdojo.TeamdojoApp;
 import de.otto.teamdojo.domain.*;
 import de.otto.teamdojo.service.AchievableSkillService;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TeamdojoApp.class)
-public class TeamAchievableSkillResourceTest {
+public class TeamAchievableSkillResourceIntTest {
 
     @Autowired
     private AchievableSkillService achievableSkillService;
@@ -74,6 +75,21 @@ public class TeamAchievableSkillResourceTest {
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter).build();
+    }
+
+    @After
+    public void tearDown() {
+        team = null;
+        inputValidation = null;
+        softwareUpdates = null;
+        strongPasswords = null;
+        dockerized = null;
+        yellow = null;
+        orange = null;
+        security = null;
+        teamSkill = null;
+        awsReady = null;
+        alwaysUpToDate = null;
     }
 
     @Test
@@ -205,6 +221,14 @@ public class TeamAchievableSkillResourceTest {
                 softwareUpdates.getId().intValue(),
                 dockerized.getId().intValue()
             )));
+    }
+
+    @Test
+    @Transactional
+    public void getAchievableSkillsTeamNotFound() throws Exception {
+        Long unknownTeamId = 123L;
+        restTeamMockMvc.perform(get("/api/teams/{id}/achievable-skills", unknownTeamId))
+            .andExpect(status().isNotFound());
     }
 
     private void setupTestData() {
