@@ -16,24 +16,42 @@ public class DimensionTestDataProvider {
     public static final String OPERATIONS_DESC = OPERATIONS + DESCRIPTION;
 
 
-    public static Dimension security(EntityManager em) {
-        return persistDimension(security(), em);
+    public static DimensionBuilder dimension(String name) {
+        return new DimensionBuilder(name);
     }
 
-    public static Dimension security() {
-        return new Dimension().name(SECURITY_NAME).description(SECURITY_DESC);
+    public static DimensionBuilder security() {
+        return dimension(SECURITY_NAME).description(SECURITY_DESC);
     }
 
-    public static Dimension operations(EntityManager em) {
-        return persistDimension(operations(), em);
+
+    public static DimensionBuilder operations() {
+        return dimension(OPERATIONS_NAME).description(OPERATIONS_DESC);
     }
 
-    public static Dimension operations() {
-        return new Dimension().name(OPERATIONS_NAME).description(OPERATIONS_DESC);
-    }
 
-    private static Dimension persistDimension(Dimension dimension, EntityManager em) {
-        em.persist(dimension);
-        return dimension;
+    public static class DimensionBuilder {
+        private final String name;
+        private String description;
+
+
+        public DimensionBuilder(String name) {
+            this.name = name;
+        }
+
+        public DimensionBuilder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Dimension build(EntityManager em) {
+            Dimension dimension = build();
+            em.persist(dimension);
+            return dimension;
+        }
+
+        public Dimension build() {
+            return new Dimension().name(name).description(description);
+        }
     }
 }

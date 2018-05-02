@@ -20,7 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
-import static de.otto.teamdojo.test.util.BadgeTestDataProvider.*;
+import static de.otto.teamdojo.test.util.BadgeTestDataProvider.alwaysUpToDate;
+import static de.otto.teamdojo.test.util.BadgeTestDataProvider.awsReady;
 import static de.otto.teamdojo.test.util.DimensionTestDataProvider.security;
 import static de.otto.teamdojo.test.util.LevelTestDataProvider.orange;
 import static de.otto.teamdojo.test.util.LevelTestDataProvider.yellow;
@@ -207,20 +208,19 @@ public class TeamAchievableSkillResourceTest {
     }
 
     private void setupTestData() {
-        inputValidation = inputValidation(em);
-        softwareUpdates = softwareUpdates(em);
-        strongPasswords = strongPasswords(em);
-        dockerized = dockerized(em);
-        Skill evilUserStories_notAchievable = evilUserStories(em);
+        inputValidation = inputValidation().build(em);
+        softwareUpdates = softwareUpdates().build(em);
+        strongPasswords = strongPasswords().build(em);
+        dockerized = dockerized().build(em);
+        Skill evilUserStories_notAchievable = evilUserStories().build(em);
 
-        security = security(em);
+        security = security().build(em);
 
         yellow = yellow(security).addSkill(inputValidation).addSkill(softwareUpdates).build(em);
         orange = orange(security).addSkill(strongPasswords).dependsOn(yellow).build(em);
 
         awsReady = awsReady().addDimension(security).addSkill(inputValidation).addSkill(dockerized).build(em);
         alwaysUpToDate = alwaysUpToDate().addSkill(softwareUpdates).build(em);
-        Badge bestTeam_noSkills = bestTeam().build(em);
 
         team = ft1().build(em);
         team.addParticipations(security);

@@ -41,70 +41,86 @@ public class SkillTestDataProvider {
     public static final String DOCKERIZED_VAL = DOCKERIZED + IMPLEMENTATION;
     public static final String DOCKERIZED_IMPL = DOCKERIZED + VALIDATION;
 
-
-    public static Skill inputValidation(EntityManager em) {
-        return persistSkill(inputValidation(), em);
+    public static SkillBuilder skill(String title) {
+        return new SkillBuilder(title);
     }
 
-    public static Skill inputValidation() {
-        return new Skill()
-            .title(INPUT_VALIDATION_TITLE)
+    public static SkillBuilder inputValidation() {
+        return skill(INPUT_VALIDATION_TITLE)
             .description(INPUT_VALIDATION_DESC)
             .validation(INPUT_VALIDATION_VAL)
             .implementation(INPUT_VALIDATION_IMPL);
     }
 
-    public static Skill softwareUpdates(EntityManager em) {
-        return persistSkill(softwareUpdates(), em);
-    }
-
-    public static Skill softwareUpdates() {
-        return new Skill()
-            .title(SOFTWARE_UPDATES_TITLE)
+    public static SkillBuilder softwareUpdates() {
+        return skill(SOFTWARE_UPDATES_TITLE)
             .description(SOFTWARE_UPDATES_DESC)
             .validation(SOFTWARE_UPDATES_VAL)
             .implementation(SOFTWARE_UPDATES_IMPL);
     }
 
-    public static Skill strongPasswords(EntityManager em) {
-        return persistSkill(strongPasswords(), em);
-    }
 
-    public static Skill strongPasswords() {
-        return new Skill()
-            .title(STRONG_PASSWORDS_TITLE)
+    public static SkillBuilder strongPasswords() {
+        return skill(STRONG_PASSWORDS_TITLE)
             .description(STRONG_PASSWORDS_DESC)
             .validation(STRONG_PASSWORDS_VAL)
             .implementation(STRONG_PASSWORDS_IMPL);
     }
 
-    public static Skill evilUserStories(EntityManager em) {
-        return persistSkill(evilUserStories(), em);
-    }
-
-    public static Skill evilUserStories() {
-        return new Skill()
-            .title(EVIL_USER_STORIES_TITLE)
+    public static SkillBuilder evilUserStories() {
+        return skill(EVIL_USER_STORIES_TITLE)
             .description(EVIL_USER_STORIES_DESC)
             .validation(EVIL_USER_STORIES_VAL)
             .implementation(EVIL_USER_STORIES_IMPL);
     }
 
-    public static Skill dockerized(EntityManager em) {
-        return persistSkill(dockerized(), em);
-    }
 
-    public static Skill dockerized() {
-        return new Skill()
-            .title(DOCKERIZED_TITLE)
+    public static SkillBuilder dockerized() {
+        return skill(DOCKERIZED_TITLE)
             .description(DOCKERIZED_DESC)
             .validation(DOCKERIZED_VAL)
             .implementation(DOCKERIZED_IMPL);
     }
 
-    private static Skill persistSkill(Skill skill, EntityManager em) {
-        em.persist(skill);
-        return skill;
+    public static class SkillBuilder {
+
+        private final String title;
+        private String description;
+        private String validation;
+        private String implementation;
+
+        public SkillBuilder(String title) {
+            this.title = title;
+        }
+
+        public SkillBuilder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public SkillBuilder validation(String validation) {
+            this.validation = validation;
+            return this;
+        }
+
+        public SkillBuilder implementation(String implementation) {
+            this.implementation = implementation;
+            return this;
+        }
+
+        public Skill build(EntityManager em) {
+            Skill skill = build();
+            em.persist(skill);
+            return skill;
+        }
+
+        public Skill build() {
+            return new Skill()
+                .title(title)
+                .description(description)
+                .validation(validation)
+                .implementation(implementation);
+        }
     }
 
 }
