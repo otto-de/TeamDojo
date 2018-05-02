@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,40 +41,50 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
     }
 
     @Override
-    public Page<AchievableSkillDTO> findAllByTeamId(Long teamId, List<Long> levelIds, List<Long> badgeIds, Pageable pageable) {
-        if (levelIds.isEmpty() && badgeIds.isEmpty()) {
-            teamRepository.findById(teamId).ifPresent(team -> {
-                addTeamRelatedLevels(team, levelIds);
-                addTeamRelatedBadges(team, badgeIds);
-                addDimensionlessBadges(badgeIds);
-            });
-        }
+    public Page<AchievableSkillDTO> findAllByTeamAndLevelAndBadge(Long teamId, List<Long> levelIds, List<Long> badgeIds, Pageable pageable) {
+        return levelIds.isEmpty() && badgeIds.isEmpty()
+            ? findAllTeamRelated(teamId, pageable)
+            : queryRepository(teamId, levelIds, badgeIds, pageable);
+    }
+
+
+    private Page<AchievableSkillDTO> findAllTeamRelated(Long teamId, Pageable pageable) {
+        Team team = getTeam(teamId);
+        List<Long> relatedLevelIds = getTeamRelatedLevelIds(team);
+        List<Long> relatedBadgeIds = getTeamRelatedBadgeIds(team);
+        relatedBadgeIds.addAll(getDimensionlessBadgeIds());
+        return queryRepository(teamId, relatedLevelIds, relatedBadgeIds, pageable);
+    }
+
+    private Team getTeam(Long teamId) {
+        return teamRepository.findById(teamId).orElseThrow(NoSuchElementException::new);
+    }
+
+    private Page<AchievableSkillDTO> queryRepository(Long teamId, List<Long> levelIds, List<Long> badgeIds, Pageable pageable) {
         return skillRepository.findAchievableSkill(teamId, levelIds, badgeIds, pageable);
     }
 
-    private void addTeamRelatedLevels(Team team, List<Long> levelIds) {
-        Set<Long> relatedLevelIds = team.getParticipations()
+    private List<Long> getTeamRelatedLevelIds(Team team) {
+        return team.getParticipations()
             .stream()
             .flatMap(dimension ->
                 dimension.getLevels().stream().map(Level::getId))
-            .collect(Collectors.toSet());
-        levelIds.addAll(relatedLevelIds);
+            .collect(Collectors.toList());
     }
 
-    private void addTeamRelatedBadges(Team team, List<Long> badgeIds) {
-        Set<Long> relatedBadgeIds = team.getParticipations()
+    private List<Long> getTeamRelatedBadgeIds(Team team) {
+        return team.getParticipations()
             .stream()
             .flatMap(dimension ->
                 dimension.getBadges().stream().map(Badge::getId))
-            .collect(Collectors.toSet());
-        badgeIds.addAll(relatedBadgeIds);
+            .distinct()
+            .collect(Collectors.toList());
     }
 
-    private void addDimensionlessBadges(List<Long> badgeIds) {
-        Set<Long> dimensionlessBadgeIds = badgeRepository.findAllByDimensionsIsNull()
+    private List<Long> getDimensionlessBadgeIds() {
+        return badgeRepository.findAllByDimensionsIsNull()
             .stream()
             .map(Badge::getId)
-            .collect(Collectors.toSet());
-        badgeIds.addAll(dimensionlessBadgeIds);
+            .collect(Collectors.toList());
     }
 }
