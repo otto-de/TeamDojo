@@ -65,6 +65,12 @@ task liquibaseClearChecksums(dependsOn: initPaths) {
     }
 }
 
+task liquibaseDataDiffChangeLog(dependsOn: initPaths) {
+    doLast {
+        liquibaseCommand("generateChangeLog", ["--diffTypes=data"])
+    }
+}
+
 def buildTimestamp() {
     def date = new Date()
     def formattedDate = date.format('yyyyMMddHHmmss')
