@@ -14,8 +14,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import static de.otto.teamdojo.test.util.BadgeTestDataProvider.alwaysUpToDate;
 import static de.otto.teamdojo.test.util.BadgeTestDataProvider.awsReady;
@@ -76,7 +79,7 @@ public class SkillRepositoryIntTest {
 
     @Test
     @Transactional
-    public void getAllAchievableSkills() throws Exception {
+    public void getIncompleteSkills() throws Exception {
         setupTestData();
         em.flush();
 
@@ -90,36 +93,64 @@ public class SkillRepositoryIntTest {
         badgeIds.add(awsReady.getId());
 
         List<String> filter = new ArrayList<String>();
-        filter.add("INCOMPLETED");
+        filter.add("INCOMPLETE");
 
         Page<AchievableSkillDTO> results = skillRepository.findAchievableSkill(teamId, levelIds, badgeIds, filter, null);
-        System.out.println("Results: " + results.getTotalElements());
+        assertThat(results.getTotalElements()).isEqualTo(3);
+    }
 
-        //assertThat(results.getTotalElements().isEqualTo(null));
+    @Test
+    @Transactional
+    public void getCompleteSkills() throws Exception {
+        setupTestData();
 
+        Skill evilUserStories_notAchievable = evilUserStories().build(em);
+
+        em.flush();
+
+        Long teamId = team.getId();
+
+        List<Long> levelIds = new ArrayList<Long>();
+        levelIds.add(yellow.getId());
+        levelIds.add(orange.getId());
+
+        List<Long> badgeIds = new ArrayList<Long>();
+        badgeIds.add(awsReady.getId());
+
+        List<String> filter = new ArrayList<String>();
+        filter.add("COMPLETE");
+
+        Page<AchievableSkillDTO> results = skillRepository.findAchievableSkill(teamId, levelIds, badgeIds, filter, null);
+        assertThat(results.getTotalElements()).isEqualTo(1);
     }
 
 
     private void setupTestData() {
+        //Skills
         inputValidation = inputValidation().build(em);
         softwareUpdates = softwareUpdates().build(em);
         strongPasswords = strongPasswords().build(em);
         dockerized = dockerized().build(em);
         Skill evilUserStories_notAchievable = evilUserStories().build(em);
 
+        //Dimension
         security = security().build(em);
 
+        //Level
         yellow = yellow(security).addSkill(inputValidation).addSkill(softwareUpdates).build(em);
         orange = orange(security).addSkill(strongPasswords).dependsOn(yellow).build(em);
 
+        //Badges
         awsReady = awsReady().addDimension(security).addSkill(inputValidation).addSkill(dockerized).build(em);
         alwaysUpToDate = alwaysUpToDate().addSkill(softwareUpdates).build(em);
 
         team = ft1().build(em);
         team.addParticipations(security);
         em.persist(team);
+
         teamSkill = new TeamSkill();
         teamSkill.setTeam(team);
+        teamSkill.setCompletedAt((Instant.now()));
         teamSkill.setSkill(inputValidation);
         em.persist(teamSkill);
         team.addSkills(teamSkill);

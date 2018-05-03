@@ -25,8 +25,8 @@ public class TeamSkill implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "achieved_at")
-    private Instant achievedAt;
+    @Column(name = "completed_at")
+    private Instant completedAt;
 
     @Column(name = "verified_at")
     private Instant verifiedAt;
@@ -56,17 +56,17 @@ public class TeamSkill implements Serializable {
         this.id = id;
     }
 
-    public Instant getAchievedAt() {
-        return achievedAt;
+    public Instant getCompletedAt() {
+        return completedAt;
     }
 
-    public TeamSkill achievedAt(Instant achievedAt) {
-        this.achievedAt = achievedAt;
+    public TeamSkill completedAt(Instant completedAt) {
+        this.completedAt = completedAt;
         return this;
     }
 
-    public void setAchievedAt(Instant achievedAt) {
-        this.achievedAt = achievedAt;
+    public void setCompletedAt(Instant completedAt) {
+        this.completedAt = completedAt;
     }
 
     public Instant getVerifiedAt() {
@@ -159,7 +159,7 @@ public class TeamSkill implements Serializable {
     public String toString() {
         return "TeamSkill{" +
             "id=" + getId() +
-            ", achievedAt='" + getAchievedAt() + "'" +
+            ", completedAt='" + getCompletedAt() + "'" +
             ", verifiedAt='" + getVerifiedAt() + "'" +
             ", irrelevant='" + isIrrelevant() + "'" +
             ", note='" + getNote() + "'" +

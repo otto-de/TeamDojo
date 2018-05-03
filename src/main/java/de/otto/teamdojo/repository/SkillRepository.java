@@ -21,18 +21,19 @@ public interface SkillRepository extends JpaRepository<Skill, Long>, JpaSpecific
 
 
     @Query("SELECT" +
-        " new de.otto.teamdojo.service.dto.AchievableSkillDTO(t.id, s.id, s.title, s.description, t.achievedAt)" +
+        " new de.otto.teamdojo.service.dto.AchievableSkillDTO(t.id, s.id, s.title, s.description, t.completedAt)" +
         " FROM Skill s" +
         " LEFT JOIN s.teams t ON t.team.id = :teamId" +
         " LEFT JOIN s.levels l" +
         " LEFT JOIN s.badges b" +
-        " WHERE l.level.id IN :levelIds" +
+        " WHERE " +
+        " ( l.level.id IN :levelIds  " +
+        "   OR b.badge.id IN :badgeIds )" +
         " AND (" +
-        "      ( (:filter = 'COMPLETED') AND (:filter = 'INCOMPLETED') ) " +
-        "   OR ( (:filter = 'COMPLETED') AND (t.achievedAt is not Null) )" +
-        "   OR ( (:filter = 'INCOMPLETED') AND (t.achievedAt is Null) )" +
-        " )" +
-        " OR b.badge.id IN :badgeIds")
+        "  ( (:filter = 'COMPLETE') AND (t.completedAt is not null) )" +
+        "   OR ( (:filter = 'INCOMPLETE') AND (t.completedAt is null) )" +
+        " )"
+        )
     Page<AchievableSkillDTO> findAchievableSkill(
         @Param("teamId") Long teamId,
         @Param("levelIds") List<Long> levelIds,
@@ -41,7 +42,3 @@ public interface SkillRepository extends JpaRepository<Skill, Long>, JpaSpecific
         Pageable pageable);
 
 }
-
-//COMPLETED => t.achieved is not Null
-//INCOMPLETED => t.achieved is NULL
-//COMPLETED && INCOMPLETED => ALL

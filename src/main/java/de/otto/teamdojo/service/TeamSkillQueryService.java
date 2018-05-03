@@ -72,8 +72,8 @@ public class TeamSkillQueryService extends QueryService<TeamSkill> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildSpecification(criteria.getId(), TeamSkill_.id));
             }
-            if (criteria.getAchievedAt() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getAchievedAt(), TeamSkill_.achievedAt));
+            if (criteria.getCompletedAt() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getCompletedAt(), TeamSkill_.completedAt));
             }
             if (criteria.getVerifiedAt() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getVerifiedAt(), TeamSkill_.verifiedAt));
