@@ -27,7 +27,7 @@
                 "maxlength"
             ],
             "fieldValidateRulesMinlength": "2",
-            "fieldValidateRulesMaxlength": 20
+            "fieldValidateRulesMaxlength": 50
         },
         {
             "fieldName": "shortName",
