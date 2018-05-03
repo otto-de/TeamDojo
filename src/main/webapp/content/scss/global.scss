@@ -90,6 +90,23 @@ Generic styles
     *:not(button) {
         background-color: transparent !important;
     }
+    &.minor {
+        background: repeating-linear-gradient(
+                -45deg,
+                rgba(200,200,200,0.8),
+                5px,
+                transparent 5px,
+                transparent 10px);
+
+    }
+    &.pad-x {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    &.pad-y {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
 }
 
 /* ==========================================================================
