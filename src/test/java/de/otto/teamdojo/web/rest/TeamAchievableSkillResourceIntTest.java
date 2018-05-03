@@ -231,6 +231,15 @@ public class TeamAchievableSkillResourceIntTest {
             .andExpect(status().isNotFound());
     }
 
+    @Test
+    @Transactional
+    public void getAchievableSkillsWhenNoSkillsExist() throws Exception {
+        team = ft1().build(em);
+
+        restTeamMockMvc.perform(get("/api/teams/{id}/achievable-skills", team.getId()))
+            .andExpect(status().isOk());
+    }
+
     private void setupTestData() {
         inputValidation = inputValidation().build(em);
         softwareUpdates = softwareUpdates().build(em);
