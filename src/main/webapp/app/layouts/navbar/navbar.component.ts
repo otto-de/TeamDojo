@@ -5,6 +5,7 @@ import { JhiLanguageService } from 'ng-jhipster';
 
 import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from 'app/core';
 import { ProfileService } from '../profiles/profile.service';
+import { TeamsSelectionService } from '../../teams/teams-selection/teams-selection.service';
 
 @Component({
     selector: 'jhi-navbar',
@@ -24,6 +25,7 @@ export class NavbarComponent implements OnInit {
         private languageHelper: JhiLanguageHelper,
         private principal: Principal,
         private loginModalService: LoginModalService,
+        private teamsSelectionService: TeamsSelectionService,
         private profileService: ProfileService,
         private router: Router
     ) {
@@ -39,6 +41,9 @@ export class NavbarComponent implements OnInit {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
+
+        // TODO: delete this, just for testing
+        // this.teamsSelectionService.openModal();
     }
 
     changeLanguage(languageKey: string) {
@@ -55,6 +60,10 @@ export class NavbarComponent implements OnInit {
 
     login() {
         this.modalRef = this.loginModalService.open();
+    }
+
+    selectTeam() {
+        this.teamsSelectionService.openModal();
     }
 
     logout() {
