@@ -42,8 +42,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = TeamdojoApp.class)
 public class TeamSkillResourceIntTest {
 
-    private static final Instant DEFAULT_ACHIEVED_AT = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_ACHIEVED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final Instant DEFAULT_COMPLETED_AT = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_COMPLETED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final Instant DEFAULT_VERIFIED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_VERIFIED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
@@ -99,7 +99,7 @@ public class TeamSkillResourceIntTest {
      */
     public static TeamSkill createEntity(EntityManager em) {
         TeamSkill teamSkill = new TeamSkill()
-            .achievedAt(DEFAULT_ACHIEVED_AT)
+            .completedAt(DEFAULT_COMPLETED_AT)
             .verifiedAt(DEFAULT_VERIFIED_AT)
             .irrelevant(DEFAULT_IRRELEVANT)
             .note(DEFAULT_NOTE);
@@ -136,7 +136,7 @@ public class TeamSkillResourceIntTest {
         List<TeamSkill> teamSkillList = teamSkillRepository.findAll();
         assertThat(teamSkillList).hasSize(databaseSizeBeforeCreate + 1);
         TeamSkill testTeamSkill = teamSkillList.get(teamSkillList.size() - 1);
-        assertThat(testTeamSkill.getAchievedAt()).isEqualTo(DEFAULT_ACHIEVED_AT);
+        assertThat(testTeamSkill.getCompletedAt()).isEqualTo(DEFAULT_COMPLETED_AT);
         assertThat(testTeamSkill.getVerifiedAt()).isEqualTo(DEFAULT_VERIFIED_AT);
         assertThat(testTeamSkill.isIrrelevant()).isEqualTo(DEFAULT_IRRELEVANT);
         assertThat(testTeamSkill.getNote()).isEqualTo(DEFAULT_NOTE);
@@ -172,7 +172,7 @@ public class TeamSkillResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(teamSkill.getId().intValue())))
-            .andExpect(jsonPath("$.[*].achievedAt").value(hasItem(DEFAULT_ACHIEVED_AT.toString())))
+            .andExpect(jsonPath("$.[*].completedAt").value(hasItem(DEFAULT_COMPLETED_AT.toString())))
             .andExpect(jsonPath("$.[*].verifiedAt").value(hasItem(DEFAULT_VERIFIED_AT.toString())))
             .andExpect(jsonPath("$.[*].irrelevant").value(hasItem(DEFAULT_IRRELEVANT.booleanValue())))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE.toString())));
@@ -190,7 +190,7 @@ public class TeamSkillResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(teamSkill.getId().intValue()))
-            .andExpect(jsonPath("$.achievedAt").value(DEFAULT_ACHIEVED_AT.toString()))
+            .andExpect(jsonPath("$.completedAt").value(DEFAULT_COMPLETED_AT.toString()))
             .andExpect(jsonPath("$.verifiedAt").value(DEFAULT_VERIFIED_AT.toString()))
             .andExpect(jsonPath("$.irrelevant").value(DEFAULT_IRRELEVANT.booleanValue()))
             .andExpect(jsonPath("$.note").value(DEFAULT_NOTE.toString()));
@@ -198,41 +198,41 @@ public class TeamSkillResourceIntTest {
 
     @Test
     @Transactional
-    public void getAllTeamSkillsByAchievedAtIsEqualToSomething() throws Exception {
+    public void getAllTeamSkillsByCompletedAtIsEqualToSomething() throws Exception {
         // Initialize the database
         teamSkillRepository.saveAndFlush(teamSkill);
 
-        // Get all the teamSkillList where achievedAt equals to DEFAULT_ACHIEVED_AT
-        defaultTeamSkillShouldBeFound("achievedAt.equals=" + DEFAULT_ACHIEVED_AT);
+        // Get all the teamSkillList where completedAt equals to DEFAULT_COMPLETED_AT
+        defaultTeamSkillShouldBeFound("completedAt.equals=" + DEFAULT_COMPLETED_AT);
 
-        // Get all the teamSkillList where achievedAt equals to UPDATED_ACHIEVED_AT
-        defaultTeamSkillShouldNotBeFound("achievedAt.equals=" + UPDATED_ACHIEVED_AT);
+        // Get all the teamSkillList where completedAt equals to UPDATED_COMPLETED_AT
+        defaultTeamSkillShouldNotBeFound("completedAt.equals=" + UPDATED_COMPLETED_AT);
     }
 
     @Test
     @Transactional
-    public void getAllTeamSkillsByAchievedAtIsInShouldWork() throws Exception {
+    public void getAllTeamSkillsByCompletedAtIsInShouldWork() throws Exception {
         // Initialize the database
         teamSkillRepository.saveAndFlush(teamSkill);
 
-        // Get all the teamSkillList where achievedAt in DEFAULT_ACHIEVED_AT or UPDATED_ACHIEVED_AT
-        defaultTeamSkillShouldBeFound("achievedAt.in=" + DEFAULT_ACHIEVED_AT + "," + UPDATED_ACHIEVED_AT);
+        // Get all the teamSkillList where completedAt in DEFAULT_COMPLETED_AT or UPDATED_COMPLETED_AT
+        defaultTeamSkillShouldBeFound("completedAt.in=" + DEFAULT_COMPLETED_AT + "," + UPDATED_COMPLETED_AT);
 
-        // Get all the teamSkillList where achievedAt equals to UPDATED_ACHIEVED_AT
-        defaultTeamSkillShouldNotBeFound("achievedAt.in=" + UPDATED_ACHIEVED_AT);
+        // Get all the teamSkillList where completedAt equals to UPDATED_COMPLETED_AT
+        defaultTeamSkillShouldNotBeFound("completedAt.in=" + UPDATED_COMPLETED_AT);
     }
 
     @Test
     @Transactional
-    public void getAllTeamSkillsByAchievedAtIsNullOrNotNull() throws Exception {
+    public void getAllTeamSkillsByCompletedAtIsNullOrNotNull() throws Exception {
         // Initialize the database
         teamSkillRepository.saveAndFlush(teamSkill);
 
-        // Get all the teamSkillList where achievedAt is not null
-        defaultTeamSkillShouldBeFound("achievedAt.specified=true");
+        // Get all the teamSkillList where completedAt is not null
+        defaultTeamSkillShouldBeFound("completedAt.specified=true");
 
-        // Get all the teamSkillList where achievedAt is null
-        defaultTeamSkillShouldNotBeFound("achievedAt.specified=false");
+        // Get all the teamSkillList where completedAt is null
+        defaultTeamSkillShouldNotBeFound("completedAt.specified=false");
     }
 
     @Test
@@ -397,7 +397,7 @@ public class TeamSkillResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(teamSkill.getId().intValue())))
-            .andExpect(jsonPath("$.[*].achievedAt").value(hasItem(DEFAULT_ACHIEVED_AT.toString())))
+            .andExpect(jsonPath("$.[*].completedAt").value(hasItem(DEFAULT_COMPLETED_AT.toString())))
             .andExpect(jsonPath("$.[*].verifiedAt").value(hasItem(DEFAULT_VERIFIED_AT.toString())))
             .andExpect(jsonPath("$.[*].irrelevant").value(hasItem(DEFAULT_IRRELEVANT.booleanValue())))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE.toString())));
@@ -436,7 +436,7 @@ public class TeamSkillResourceIntTest {
         // Disconnect from session so that the updates on updatedTeamSkill are not directly saved in db
         em.detach(updatedTeamSkill);
         updatedTeamSkill
-            .achievedAt(UPDATED_ACHIEVED_AT)
+            .completedAt(UPDATED_COMPLETED_AT)
             .verifiedAt(UPDATED_VERIFIED_AT)
             .irrelevant(UPDATED_IRRELEVANT)
             .note(UPDATED_NOTE);
@@ -450,7 +450,7 @@ public class TeamSkillResourceIntTest {
         List<TeamSkill> teamSkillList = teamSkillRepository.findAll();
         assertThat(teamSkillList).hasSize(databaseSizeBeforeUpdate);
         TeamSkill testTeamSkill = teamSkillList.get(teamSkillList.size() - 1);
-        assertThat(testTeamSkill.getAchievedAt()).isEqualTo(UPDATED_ACHIEVED_AT);
+        assertThat(testTeamSkill.getCompletedAt()).isEqualTo(UPDATED_COMPLETED_AT);
         assertThat(testTeamSkill.getVerifiedAt()).isEqualTo(UPDATED_VERIFIED_AT);
         assertThat(testTeamSkill.isIrrelevant()).isEqualTo(UPDATED_IRRELEVANT);
         assertThat(testTeamSkill.getNote()).isEqualTo(UPDATED_NOTE);

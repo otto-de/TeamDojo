@@ -15,7 +15,7 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="achievedAt"><span jhiTranslate="teamdojoApp.teamSkill.achievedAt">Achieved At</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="completedAt"><span jhiTranslate="teamdojoApp.teamSkill.completedAt">Completed At</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="verifiedAt"><span jhiTranslate="teamdojoApp.teamSkill.verifiedAt">Verified At</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="irrelevant"><span jhiTranslate="teamdojoApp.teamSkill.irrelevant">Irrelevant</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="note"><span jhiTranslate="teamdojoApp.teamSkill.note">Note</span> <span class="fa fa-sort"></span></th>
@@ -27,7 +27,7 @@
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let teamSkill of teamSkills ;trackBy: trackId">
                 <td><a [routerLink]="['/team-skill', teamSkill.id, 'view' ]">{{teamSkill.id}}</a></td>
-                <td>{{teamSkill.achievedAt | date:'medium'}}</td>
+                <td>{{teamSkill.completedAt | date:'medium'}}</td>
                 <td>{{teamSkill.verifiedAt | date:'medium'}}</td>
                 <td>{{teamSkill.irrelevant}}</td>
                 <td>{{teamSkill.note}}</td>

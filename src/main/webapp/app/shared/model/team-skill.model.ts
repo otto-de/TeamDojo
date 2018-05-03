@@ -4,7 +4,7 @@ import { ITeam } from './team.model';
 
 export interface ITeamSkill {
     id?: number;
-    achievedAt?: Moment;
+    completedAt?: Moment;
     verifiedAt?: Moment;
     irrelevant?: boolean;
     note?: string;
@@ -15,7 +15,7 @@ export interface ITeamSkill {
 export class TeamSkill implements ITeamSkill {
     constructor(
         public id?: number,
-        public achievedAt?: Moment,
+        public completedAt?: Moment,
         public verifiedAt?: Moment,
         public irrelevant?: boolean,
         public note?: string,
