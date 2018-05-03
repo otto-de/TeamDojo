@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
@@ -41,10 +42,11 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
     }
 
     @Override
-    public Page<AchievableSkillDTO> findAllByTeamAndLevelAndBadge(Long teamId, List<Long> levelIds, List<Long> badgeIds, Pageable pageable) {
+    public Page<AchievableSkillDTO> findAllByTeamAndLevelAndBadge(Long teamId, List<Long> levelIds, List<Long> badgeIds, List<String> filterNames, Pageable pageable) {
+        List<String> filter = new ArrayList<String>();
         return levelIds.isEmpty() && badgeIds.isEmpty()
             ? findAllTeamRelated(teamId, pageable)
-            : queryRepository(teamId, levelIds, badgeIds, pageable);
+            : queryRepository(teamId, levelIds, badgeIds, filter, pageable);
     }
 
 
@@ -52,16 +54,17 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
         Team team = getTeam(teamId);
         List<Long> relatedLevelIds = getTeamRelatedLevelIds(team);
         List<Long> relatedBadgeIds = getTeamRelatedBadgeIds(team);
+        List<String> filter = new ArrayList<String>();
         relatedBadgeIds.addAll(getDimensionlessBadgeIds());
-        return queryRepository(teamId, relatedLevelIds, relatedBadgeIds, pageable);
+        return queryRepository(teamId, relatedLevelIds, relatedBadgeIds, filter, pageable);
     }
 
     private Team getTeam(Long teamId) {
         return teamRepository.findById(teamId).orElseThrow(NoSuchElementException::new);
     }
 
-    private Page<AchievableSkillDTO> queryRepository(Long teamId, List<Long> levelIds, List<Long> badgeIds, Pageable pageable) {
-        return skillRepository.findAchievableSkill(teamId, levelIds, badgeIds, pageable);
+    private Page<AchievableSkillDTO> queryRepository(Long teamId, List<Long> levelIds, List<Long> badgeIds, List<String> filter, Pageable pageable) {
+        return skillRepository.findAchievableSkill(teamId, levelIds, badgeIds, filter, pageable);
     }
 
     private List<Long> getTeamRelatedLevelIds(Team team) {

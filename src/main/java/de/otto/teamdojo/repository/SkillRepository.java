@@ -19,6 +19,7 @@ import java.util.List;
 @Repository
 public interface SkillRepository extends JpaRepository<Skill, Long>, JpaSpecificationExecutor<Skill> {
 
+
     @Query("SELECT" +
         " new de.otto.teamdojo.service.dto.AchievableSkillDTO(t.id, s.id, s.title, s.description, t.achievedAt)" +
         " FROM Skill s" +
@@ -26,11 +27,21 @@ public interface SkillRepository extends JpaRepository<Skill, Long>, JpaSpecific
         " LEFT JOIN s.levels l" +
         " LEFT JOIN s.badges b" +
         " WHERE l.level.id IN :levelIds" +
+        " AND (" +
+        "      ( (:filter = 'COMPLETED') AND (:filter = 'INCOMPLETED') ) " +
+        "   OR ( (:filter = 'COMPLETED') AND (t.achievedAt is not Null) )" +
+        "   OR ( (:filter = 'INCOMPLETED') AND (t.achievedAt is Null) )" +
+        " )" +
         " OR b.badge.id IN :badgeIds")
     Page<AchievableSkillDTO> findAchievableSkill(
         @Param("teamId") Long teamId,
         @Param("levelIds") List<Long> levelIds,
         @Param("badgeIds") List<Long> badgeIds,
+        @Param("filter") List<String> filter,
         Pageable pageable);
 
 }
+
+//COMPLETED => t.achieved is not Null
+//INCOMPLETED => t.achieved is NULL
+//COMPLETED && INCOMPLETED => ALL

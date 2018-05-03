@@ -33,9 +33,10 @@ public class TeamAchievableSkillResource {
         @PathVariable Long id,
         @RequestParam(name = "levelId", required = false, defaultValue = "") List<Long> levelIds,
         @RequestParam(name = "badgeId", required = false, defaultValue = "") List<Long> badgeIds,
+        @RequestParam(name = "filter", required = false, defaultValue = "") List<String> filterNames,
         Pageable pageable) {
         log.debug("REST request to get AchievableSkills for Team; {}", id);
-        Page<AchievableSkillDTO> page = achievableSkillService.findAllByTeamAndLevelAndBadge(id, levelIds, badgeIds, pageable);
+        Page<AchievableSkillDTO> page = achievableSkillService.findAllByTeamAndLevelAndBadge(id, levelIds, badgeIds, filterNames, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/teams/" + id + "/achievable-skills");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
