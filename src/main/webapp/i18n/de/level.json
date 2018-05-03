@@ -17,6 +17,7 @@
                 "title": "Level"
             },
             "name": "Name",
+            "description": "Description",
             "picture": "Picture",
             "requiredScore": "Required Score",
             "dimension": "Dimension",

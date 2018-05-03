@@ -37,6 +37,10 @@
             "fieldValidateRulesMaxlength": "50"
         },
         {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
             "fieldName": "picture",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"
