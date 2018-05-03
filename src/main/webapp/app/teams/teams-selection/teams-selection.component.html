@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <h4 class="modal-title">Team Selection</h4>
+    <button type="button" class="close" aria-label="Close" (click)="cancelTeamSelection()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body container">
+
+<div class="row">
+
+    <div class="col-md-2 col-xs-3 team-item"  *ngFor="let team of teams" (click)="selectTeam(team.id)" [ngClass]="{'selected': highlightedTeamId == team.id}">
+        <div class="team-item-row">
+            <div class="team-avatar">
+                <img *ngIf="getTeamImage(team)" [src]="getTeamImage(team)" [title]="team.name" />
+                <img *ngIf="!team.picture" class="avatar-image" src="http://via.placeholder.com/80x80" />
+            </div>
+        </div>
+        <div class="team-item-row">
+            <div class="team-shortname">{{team.shortName}}</div>
+        </div>
+    </div>
+
+</div>
+
+
+</div>
+<div class="modal-footer">
+    <!-- TODO: disabled only if a team is selected -->
+    <button type="button" class="btn btn-outline-primary" (click)="confirmTeam()">Select</button>
+</div>
