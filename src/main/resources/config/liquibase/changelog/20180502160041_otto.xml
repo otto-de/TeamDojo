@@ -98,6 +98,12 @@
         </insert>
     </changeSet>
     <changeSet author="sbe" context="!test" id="1525269642023-2">
+        <insert tableName="dimension">
+            <column name="id" valueNumeric="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="name" value="QS" />
+        </insert>
+    </changeSet>
+    <changeSet author="sbe" context="!test" id="1525269642023-3">
         <insert tableName="team_participations">
             <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
             <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Asset Team&apos; LIMIT 1)"/>
@@ -173,12 +179,6 @@
         <insert tableName="team_participations">
             <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
             <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Produktion &amp; Anreicherung von Produktdaten&apos; LIMIT 1)"/>
-        </insert>
-    </changeSet>
-    <changeSet author="sbe" context="!test" id="1525269642023-3">
-        <insert tableName="dimension">
-            <column name="id" valueNumeric="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="name" value="QS" />
         </insert>
     </changeSet>
     <changeSet author="sbe" context="!test" id="1525269642023-4">
