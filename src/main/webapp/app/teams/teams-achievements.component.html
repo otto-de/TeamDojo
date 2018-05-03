@@ -9,8 +9,8 @@
                 </ng-template>
                 <ng-template ngbPanelContent>
                     <div class="achievements-badges">
-                        <div class="d-flex align-items-center mb-3 achievements-badge"
-                             *ngFor="let badge of badges ;trackBy: trackId">
+                        <div class="d-flex align-items-center achievements-badge" [ngClass]="{'mb-3': !isLast}"
+                             *ngFor="let badge of badges; trackBy: trackId; last as isLast">
                             <div class="badge-image">
                                 <img [title]="badge.name" *ngIf="badge.logo && badge.logoContentType"
                                      [src]="badge.logo | imageDataUrl: badge.logoContentType"/>
