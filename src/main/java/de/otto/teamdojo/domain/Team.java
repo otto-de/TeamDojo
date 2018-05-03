@@ -28,8 +28,8 @@ public class Team implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(min = 2, max = 20)
-    @Column(name = "name", length = 20, nullable = false)
+    @Size(min = 2, max = 50)
+    @Column(name = "name", length = 50, nullable = false)
     private String name;
 
     @NotNull
