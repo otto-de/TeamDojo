@@ -24,6 +24,8 @@ public class LevelCriteria implements Serializable {
 
     private StringFilter name;
 
+    private StringFilter description;
+
     private FloatFilter requiredScore;
 
     private LongFilter dimensionId;
@@ -49,6 +51,14 @@ public class LevelCriteria implements Serializable {
 
     public void setName(StringFilter name) {
         this.name = name;
+    }
+
+    public StringFilter getDescription() {
+        return description;
+    }
+
+    public void setDescription(StringFilter description) {
+        this.description = description;
     }
 
     public FloatFilter getRequiredScore() {
@@ -88,6 +98,7 @@ public class LevelCriteria implements Serializable {
         return "LevelCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (name != null ? "name=" + name + ", " : "") +
+            (description != null ? "description=" + description + ", " : "") +
             (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
             (dimensionId != null ? "dimensionId=" + dimensionId + ", " : "") +
             (dependsOnId != null ? "dependsOnId=" + dependsOnId + ", " : "") +
