@@ -6,7 +6,7 @@
                 <ngb-panel id="achievements-badge-0">
                     <ng-template ngbPanelTitle>
                         <i class="fa fa-caret-right mr-2"></i><span>{{'teamdojoApp.teams.achievements.badges.title' | translate}}</span>
-                        <span class="float-right">0/{{badges.length}}</span>
+                        <span class="float-right"><span class="mockup minor pad-x">0</span>/{{badges.length}}</span>
                     </ng-template>
                     <ng-template ngbPanelContent>
                         <div class="achievements-badges">
@@ -17,7 +17,7 @@
                                          [src]="badge.logo | imageDataUrl: badge.logoContentType"/>
                                 </div>
                                 <div class="badge-name ml-2">{{badge.name}}</div>
-                                <div class="ml-auto achievement-progress">
+                                <div class="ml-auto achievement-progress mockup minor pad-x">
                                     <svg viewBox="0 0 32 32">
                                         <circle r="16" cx="16" cy="16" style="stroke-dasharray: 40 100;"/>
                                     </svg>
