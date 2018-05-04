@@ -3,6 +3,7 @@ package de.otto.teamdojo.web.rest;
 import de.otto.teamdojo.TeamdojoApp;
 import de.otto.teamdojo.domain.Badge;
 import de.otto.teamdojo.domain.BadgeSkill;
+import de.otto.teamdojo.domain.Dimension;
 import de.otto.teamdojo.repository.BadgeRepository;
 import de.otto.teamdojo.service.BadgeQueryService;
 import de.otto.teamdojo.service.BadgeService;
@@ -10,9 +11,11 @@ import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -25,11 +28,13 @@ import org.springframework.util.Base64Utils;
 import javax.persistence.EntityManager;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -65,6 +70,11 @@ public class BadgeResourceIntTest {
     @Autowired
     private BadgeRepository badgeRepository;
 
+    @Mock
+    private BadgeRepository badgeRepositoryMock;
+
+    @Mock
+    private BadgeService badgeServiceMock;
 
     @Autowired
     private BadgeService badgeService;
@@ -203,6 +213,36 @@ public class BadgeResourceIntTest {
             .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())));
     }
 
+    public void getAllBadgesWithEagerRelationshipsIsEnabled() throws Exception {
+        BadgeResource badgeResource = new BadgeResource(badgeServiceMock, badgeQueryService);
+        when(badgeServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        MockMvc restBadgeMockMvc = MockMvcBuilders.standaloneSetup(badgeResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restBadgeMockMvc.perform(get("/api/badges?eagerload=true"))
+            .andExpect(status().isOk());
+
+        verify(badgeServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    public void getAllBadgesWithEagerRelationshipsIsNotEnabled() throws Exception {
+        BadgeResource badgeResource = new BadgeResource(badgeServiceMock, badgeQueryService);
+        when(badgeServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+        MockMvc restBadgeMockMvc = MockMvcBuilders.standaloneSetup(badgeResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restBadgeMockMvc.perform(get("/api/badges?eagerload=true"))
+            .andExpect(status().isOk());
+
+        verify(badgeServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
 
     @Test
     @Transactional
@@ -462,6 +502,25 @@ public class BadgeResourceIntTest {
 
         // Get all the badgeList where skills equals to skillsId + 1
         defaultBadgeShouldNotBeFound("skillsId.equals=" + (skillsId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllBadgesByDimensionsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Dimension dimensions = DimensionResourceIntTest.createEntity(em);
+        em.persist(dimensions);
+        em.flush();
+        badge.addDimensions(dimensions);
+        badgeRepository.saveAndFlush(badge);
+        Long dimensionsId = dimensions.getId();
+
+        // Get all the badgeList where dimensions equals to dimensionsId
+        defaultBadgeShouldBeFound("dimensionsId.equals=" + dimensionsId);
+
+        // Get all the badgeList where dimensions equals to dimensionsId + 1
+        defaultBadgeShouldNotBeFound("dimensionsId.equals=" + (dimensionsId + 1));
     }
 
     /**
