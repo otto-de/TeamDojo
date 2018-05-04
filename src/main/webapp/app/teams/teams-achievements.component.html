@@ -33,9 +33,7 @@
                        *ngFor="let dimension of team.participations; trackBy: trackId; index as index">
                 <ng-template ngbPanelTitle>
                     <i class="fa fa-caret-right mr-2"></i><span>{{dimension.name}}</span>
-                    <span class="float-right">
-                        <span class="mockup minor pad-x">0</span>/{{(levels[dimension.id] || []).length}}
-                    </span>
+                    <span class="float-right">0/{{(levels[dimension.id] || []).length}}</span>
                 </ng-template>
                 <ng-template ngbPanelContent>
                     <div class="achievements-skill-levels">
