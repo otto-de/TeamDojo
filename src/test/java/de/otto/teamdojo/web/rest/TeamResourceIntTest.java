@@ -2,13 +2,13 @@ package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
 import de.otto.teamdojo.domain.Dimension;
-import de.otto.teamdojo.domain.Skill;
 import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.domain.TeamSkill;
 import de.otto.teamdojo.repository.TeamRepository;
-import de.otto.teamdojo.service.AchievableSkillService;
 import de.otto.teamdojo.service.TeamQueryService;
 import de.otto.teamdojo.service.TeamService;
+import de.otto.teamdojo.service.dto.TeamDTO;
+import de.otto.teamdojo.service.mapper.TeamMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +33,6 @@ import java.util.List;
 
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -71,6 +70,9 @@ public class TeamResourceIntTest {
     @Mock
     private TeamRepository teamRepositoryMock;
 
+    @Autowired
+    private TeamMapper teamMapper;
+
     @Mock
     private TeamService teamServiceMock;
 
@@ -79,9 +81,6 @@ public class TeamResourceIntTest {
 
     @Autowired
     private TeamQueryService teamQueryService;
-
-    @Autowired
-    private AchievableSkillService achievableSkillService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -102,7 +101,7 @@ public class TeamResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final TeamResource teamResource = new TeamResource(teamService, teamQueryService, achievableSkillService);
+        final TeamResource teamResource = new TeamResource(teamService, teamQueryService);
         this.restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -138,9 +137,10 @@ public class TeamResourceIntTest {
         int databaseSizeBeforeCreate = teamRepository.findAll().size();
 
         // Create the Team
+        TeamDTO teamDTO = teamMapper.toDto(team);
         restTeamMockMvc.perform(post("/api/teams")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(team)))
+            .content(TestUtil.convertObjectToJsonBytes(teamDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Team in the database
@@ -162,11 +162,12 @@ public class TeamResourceIntTest {
 
         // Create the Team with an existing ID
         team.setId(1L);
+        TeamDTO teamDTO = teamMapper.toDto(team);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restTeamMockMvc.perform(post("/api/teams")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(team)))
+            .content(TestUtil.convertObjectToJsonBytes(teamDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Team in the database
@@ -182,10 +183,11 @@ public class TeamResourceIntTest {
         team.setName(null);
 
         // Create the Team, which fails.
+        TeamDTO teamDTO = teamMapper.toDto(team);
 
         restTeamMockMvc.perform(post("/api/teams")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(team)))
+            .content(TestUtil.convertObjectToJsonBytes(teamDTO)))
             .andExpect(status().isBadRequest());
 
         List<Team> teamList = teamRepository.findAll();
@@ -200,10 +202,11 @@ public class TeamResourceIntTest {
         team.setShortName(null);
 
         // Create the Team, which fails.
+        TeamDTO teamDTO = teamMapper.toDto(team);
 
         restTeamMockMvc.perform(post("/api/teams")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(team)))
+            .content(TestUtil.convertObjectToJsonBytes(teamDTO)))
             .andExpect(status().isBadRequest());
 
         List<Team> teamList = teamRepository.findAll();
@@ -230,7 +233,7 @@ public class TeamResourceIntTest {
     }
 
     public void getAllTeamsWithEagerRelationshipsIsEnabled() throws Exception {
-        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService, achievableSkillService);
+        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService);
         when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
@@ -246,7 +249,7 @@ public class TeamResourceIntTest {
     }
 
     public void getAllTeamsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService, achievableSkillService);
+        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService);
         when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
         MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
@@ -512,7 +515,7 @@ public class TeamResourceIntTest {
     @Transactional
     public void updateTeam() throws Exception {
         // Initialize the database
-        teamService.save(team);
+        teamRepository.saveAndFlush(team);
 
         int databaseSizeBeforeUpdate = teamRepository.findAll().size();
 
@@ -527,10 +530,11 @@ public class TeamResourceIntTest {
             .pictureContentType(UPDATED_PICTURE_CONTENT_TYPE)
             .slogan(UPDATED_SLOGAN)
             .contactPerson(UPDATED_CONTACT_PERSON);
+        TeamDTO teamDTO = teamMapper.toDto(updatedTeam);
 
         restTeamMockMvc.perform(put("/api/teams")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedTeam)))
+            .content(TestUtil.convertObjectToJsonBytes(teamDTO)))
             .andExpect(status().isOk());
 
         // Validate the Team in the database
@@ -551,11 +555,12 @@ public class TeamResourceIntTest {
         int databaseSizeBeforeUpdate = teamRepository.findAll().size();
 
         // Create the Team
+        TeamDTO teamDTO = teamMapper.toDto(team);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restTeamMockMvc.perform(put("/api/teams")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(team)))
+            .content(TestUtil.convertObjectToJsonBytes(teamDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Team in the database
@@ -567,7 +572,7 @@ public class TeamResourceIntTest {
     @Transactional
     public void deleteTeam() throws Exception {
         // Initialize the database
-        teamService.save(team);
+        teamRepository.saveAndFlush(team);
 
         int databaseSizeBeforeDelete = teamRepository.findAll().size();
 
@@ -598,34 +603,24 @@ public class TeamResourceIntTest {
 
     @Test
     @Transactional
-    public void getAchievableSkills() throws Exception {
-        // Initialize the database
-        Skill skill = SkillResourceIntTest.createEntity(em); //skill with no teamskill
-        em.persist(skill);
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(TeamDTO.class);
+        TeamDTO teamDTO1 = new TeamDTO();
+        teamDTO1.setId(1L);
+        TeamDTO teamDTO2 = new TeamDTO();
+        assertThat(teamDTO1).isNotEqualTo(teamDTO2);
+        teamDTO2.setId(teamDTO1.getId());
+        assertThat(teamDTO1).isEqualTo(teamDTO2);
+        teamDTO2.setId(2L);
+        assertThat(teamDTO1).isNotEqualTo(teamDTO2);
+        teamDTO1.setId(null);
+        assertThat(teamDTO1).isNotEqualTo(teamDTO2);
+    }
 
-        TeamSkill othersTeamSkill = TeamSkillResourceIntTest.createEntity(em); //creates skill AND teamskill
-        em.persist(othersTeamSkill);
-
-        TeamSkill teamSkill = TeamSkillResourceIntTest.createEntity(em);
-        em.persist(teamSkill);
-        em.flush();
-        team.addSkills(teamSkill);
-        teamRepository.saveAndFlush(team);
-        Long skillsId = teamSkill.getId();
-
-        restTeamMockMvc.perform(get("/api/teams/{id}/achievable-skills", team.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.length()").value(3))
-            .andExpect(jsonPath("$.[*].teamSkillId").value(containsInAnyOrder(
-                null,
-                null,
-                teamSkill.getId().intValue())
-            ))
-            .andExpect(jsonPath("$.[*].skillId").value(containsInAnyOrder(
-                skill.getId().intValue(),
-                othersTeamSkill.getSkill().getId().intValue(),
-                teamSkill.getSkill().getId().intValue())
-            ));
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(teamMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(teamMapper.fromId(null)).isNull();
     }
 }

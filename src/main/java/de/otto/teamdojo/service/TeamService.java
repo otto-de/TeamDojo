@@ -1,6 +1,6 @@
 package de.otto.teamdojo.service;
 
-import de.otto.teamdojo.domain.Team;
+import de.otto.teamdojo.service.dto.TeamDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,24 +15,24 @@ public interface TeamService {
     /**
      * Save a team.
      *
-     * @param team the entity to save
+     * @param teamDTO the entity to save
      * @return the persisted entity
      */
-    Team save(Team team);
+    TeamDTO save(TeamDTO teamDTO);
 
     /**
      * Get all the teams.
      *
      * @return the list of entities
      */
-    List<Team> findAll();
+    List<TeamDTO> findAll();
 
     /**
      * Get all the Team with eager load of many-to-many relationships.
      *
      * @return the list of entities
      */
-    Page<Team> findAllWithEagerRelationships(Pageable pageable);
+    Page<TeamDTO> findAllWithEagerRelationships(Pageable pageable);
 
     /**
      * Get the "id" team.
@@ -40,7 +40,7 @@ public interface TeamService {
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<Team> findOne(Long id);
+    Optional<TeamDTO> findOne(Long id);
 
     /**
      * Delete the "id" team.

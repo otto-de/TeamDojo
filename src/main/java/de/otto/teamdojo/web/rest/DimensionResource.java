@@ -1,10 +1,10 @@
 package de.otto.teamdojo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import de.otto.teamdojo.domain.Dimension;
 import de.otto.teamdojo.service.DimensionQueryService;
 import de.otto.teamdojo.service.DimensionService;
 import de.otto.teamdojo.service.dto.DimensionCriteria;
+import de.otto.teamdojo.service.dto.DimensionDTO;
 import de.otto.teamdojo.web.rest.errors.BadRequestAlertException;
 import de.otto.teamdojo.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -42,18 +42,18 @@ public class DimensionResource {
     /**
      * POST  /dimensions : Create a new dimension.
      *
-     * @param dimension the dimension to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new dimension, or with status 400 (Bad Request) if the dimension has already an ID
+     * @param dimensionDTO the dimensionDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new dimensionDTO, or with status 400 (Bad Request) if the dimension has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/dimensions")
     @Timed
-    public ResponseEntity<Dimension> createDimension(@Valid @RequestBody Dimension dimension) throws URISyntaxException {
-        log.debug("REST request to save Dimension : {}", dimension);
-        if (dimension.getId() != null) {
+    public ResponseEntity<DimensionDTO> createDimension(@Valid @RequestBody DimensionDTO dimensionDTO) throws URISyntaxException {
+        log.debug("REST request to save Dimension : {}", dimensionDTO);
+        if (dimensionDTO.getId() != null) {
             throw new BadRequestAlertException("A new dimension cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Dimension result = dimensionService.save(dimension);
+        DimensionDTO result = dimensionService.save(dimensionDTO);
         return ResponseEntity.created(new URI("/api/dimensions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -62,22 +62,22 @@ public class DimensionResource {
     /**
      * PUT  /dimensions : Updates an existing dimension.
      *
-     * @param dimension the dimension to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated dimension,
-     * or with status 400 (Bad Request) if the dimension is not valid,
-     * or with status 500 (Internal Server Error) if the dimension couldn't be updated
+     * @param dimensionDTO the dimensionDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated dimensionDTO,
+     * or with status 400 (Bad Request) if the dimensionDTO is not valid,
+     * or with status 500 (Internal Server Error) if the dimensionDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/dimensions")
     @Timed
-    public ResponseEntity<Dimension> updateDimension(@Valid @RequestBody Dimension dimension) throws URISyntaxException {
-        log.debug("REST request to update Dimension : {}", dimension);
-        if (dimension.getId() == null) {
-            return createDimension(dimension);
+    public ResponseEntity<DimensionDTO> updateDimension(@Valid @RequestBody DimensionDTO dimensionDTO) throws URISyntaxException {
+        log.debug("REST request to update Dimension : {}", dimensionDTO);
+        if (dimensionDTO.getId() == null) {
+            return createDimension(dimensionDTO);
         }
-        Dimension result = dimensionService.save(dimension);
+        DimensionDTO result = dimensionService.save(dimensionDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, dimension.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, dimensionDTO.getId().toString()))
             .body(result);
     }
 
@@ -89,30 +89,30 @@ public class DimensionResource {
      */
     @GetMapping("/dimensions")
     @Timed
-    public ResponseEntity<List<Dimension>> getAllDimensions(DimensionCriteria criteria) {
+    public ResponseEntity<List<DimensionDTO>> getAllDimensions(DimensionCriteria criteria) {
         log.debug("REST request to get Dimensions by criteria: {}", criteria);
-        List<Dimension> entityList = dimensionQueryService.findByCriteria(criteria);
+        List<DimensionDTO> entityList = dimensionQueryService.findByCriteria(criteria);
         return ResponseEntity.ok().body(entityList);
     }
 
     /**
      * GET  /dimensions/:id : get the "id" dimension.
      *
-     * @param id the id of the dimension to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the dimension, or with status 404 (Not Found)
+     * @param id the id of the dimensionDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the dimensionDTO, or with status 404 (Not Found)
      */
     @GetMapping("/dimensions/{id}")
     @Timed
-    public ResponseEntity<Dimension> getDimension(@PathVariable Long id) {
+    public ResponseEntity<DimensionDTO> getDimension(@PathVariable Long id) {
         log.debug("REST request to get Dimension : {}", id);
-        Optional<Dimension> dimension = dimensionService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(dimension);
+        Optional<DimensionDTO> dimensionDTO = dimensionService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(dimensionDTO);
     }
 
     /**
      * DELETE  /dimensions/:id : delete the "id" dimension.
      *
-     * @param id the id of the dimension to delete
+     * @param id the id of the dimensionDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/dimensions/{id}")

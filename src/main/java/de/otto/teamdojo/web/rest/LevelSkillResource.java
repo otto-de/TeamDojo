@@ -1,10 +1,10 @@
 package de.otto.teamdojo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import de.otto.teamdojo.domain.LevelSkill;
 import de.otto.teamdojo.service.LevelSkillQueryService;
 import de.otto.teamdojo.service.LevelSkillService;
 import de.otto.teamdojo.service.dto.LevelSkillCriteria;
+import de.otto.teamdojo.service.dto.LevelSkillDTO;
 import de.otto.teamdojo.web.rest.errors.BadRequestAlertException;
 import de.otto.teamdojo.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -42,18 +42,18 @@ public class LevelSkillResource {
     /**
      * POST  /level-skills : Create a new levelSkill.
      *
-     * @param levelSkill the levelSkill to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new levelSkill, or with status 400 (Bad Request) if the levelSkill has already an ID
+     * @param levelSkillDTO the levelSkillDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new levelSkillDTO, or with status 400 (Bad Request) if the levelSkill has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/level-skills")
     @Timed
-    public ResponseEntity<LevelSkill> createLevelSkill(@Valid @RequestBody LevelSkill levelSkill) throws URISyntaxException {
-        log.debug("REST request to save LevelSkill : {}", levelSkill);
-        if (levelSkill.getId() != null) {
+    public ResponseEntity<LevelSkillDTO> createLevelSkill(@Valid @RequestBody LevelSkillDTO levelSkillDTO) throws URISyntaxException {
+        log.debug("REST request to save LevelSkill : {}", levelSkillDTO);
+        if (levelSkillDTO.getId() != null) {
             throw new BadRequestAlertException("A new levelSkill cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        LevelSkill result = levelSkillService.save(levelSkill);
+        LevelSkillDTO result = levelSkillService.save(levelSkillDTO);
         return ResponseEntity.created(new URI("/api/level-skills/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -62,22 +62,22 @@ public class LevelSkillResource {
     /**
      * PUT  /level-skills : Updates an existing levelSkill.
      *
-     * @param levelSkill the levelSkill to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated levelSkill,
-     * or with status 400 (Bad Request) if the levelSkill is not valid,
-     * or with status 500 (Internal Server Error) if the levelSkill couldn't be updated
+     * @param levelSkillDTO the levelSkillDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated levelSkillDTO,
+     * or with status 400 (Bad Request) if the levelSkillDTO is not valid,
+     * or with status 500 (Internal Server Error) if the levelSkillDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/level-skills")
     @Timed
-    public ResponseEntity<LevelSkill> updateLevelSkill(@Valid @RequestBody LevelSkill levelSkill) throws URISyntaxException {
-        log.debug("REST request to update LevelSkill : {}", levelSkill);
-        if (levelSkill.getId() == null) {
-            return createLevelSkill(levelSkill);
+    public ResponseEntity<LevelSkillDTO> updateLevelSkill(@Valid @RequestBody LevelSkillDTO levelSkillDTO) throws URISyntaxException {
+        log.debug("REST request to update LevelSkill : {}", levelSkillDTO);
+        if (levelSkillDTO.getId() == null) {
+            return createLevelSkill(levelSkillDTO);
         }
-        LevelSkill result = levelSkillService.save(levelSkill);
+        LevelSkillDTO result = levelSkillService.save(levelSkillDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, levelSkill.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, levelSkillDTO.getId().toString()))
             .body(result);
     }
 
@@ -89,30 +89,30 @@ public class LevelSkillResource {
      */
     @GetMapping("/level-skills")
     @Timed
-    public ResponseEntity<List<LevelSkill>> getAllLevelSkills(LevelSkillCriteria criteria) {
+    public ResponseEntity<List<LevelSkillDTO>> getAllLevelSkills(LevelSkillCriteria criteria) {
         log.debug("REST request to get LevelSkills by criteria: {}", criteria);
-        List<LevelSkill> entityList = levelSkillQueryService.findByCriteria(criteria);
+        List<LevelSkillDTO> entityList = levelSkillQueryService.findByCriteria(criteria);
         return ResponseEntity.ok().body(entityList);
     }
 
     /**
      * GET  /level-skills/:id : get the "id" levelSkill.
      *
-     * @param id the id of the levelSkill to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the levelSkill, or with status 404 (Not Found)
+     * @param id the id of the levelSkillDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the levelSkillDTO, or with status 404 (Not Found)
      */
     @GetMapping("/level-skills/{id}")
     @Timed
-    public ResponseEntity<LevelSkill> getLevelSkill(@PathVariable Long id) {
+    public ResponseEntity<LevelSkillDTO> getLevelSkill(@PathVariable Long id) {
         log.debug("REST request to get LevelSkill : {}", id);
-        Optional<LevelSkill> levelSkill = levelSkillService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(levelSkill);
+        Optional<LevelSkillDTO> levelSkillDTO = levelSkillService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(levelSkillDTO);
     }
 
     /**
      * DELETE  /level-skills/:id : delete the "id" levelSkill.
      *
-     * @param id the id of the levelSkill to delete
+     * @param id the id of the levelSkillDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/level-skills/{id}")

@@ -3,6 +3,8 @@ package de.otto.teamdojo.service.impl;
 import de.otto.teamdojo.domain.BadgeSkill;
 import de.otto.teamdojo.repository.BadgeSkillRepository;
 import de.otto.teamdojo.service.BadgeSkillService;
+import de.otto.teamdojo.service.dto.BadgeSkillDTO;
+import de.otto.teamdojo.service.mapper.BadgeSkillMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -23,20 +25,25 @@ public class BadgeSkillServiceImpl implements BadgeSkillService {
 
     private final BadgeSkillRepository badgeSkillRepository;
 
-    public BadgeSkillServiceImpl(BadgeSkillRepository badgeSkillRepository) {
+    private final BadgeSkillMapper badgeSkillMapper;
+
+    public BadgeSkillServiceImpl(BadgeSkillRepository badgeSkillRepository, BadgeSkillMapper badgeSkillMapper) {
         this.badgeSkillRepository = badgeSkillRepository;
+        this.badgeSkillMapper = badgeSkillMapper;
     }
 
     /**
      * Save a badgeSkill.
      *
-     * @param badgeSkill the entity to save
+     * @param badgeSkillDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public BadgeSkill save(BadgeSkill badgeSkill) {
-        log.debug("Request to save BadgeSkill : {}", badgeSkill);
-        return badgeSkillRepository.save(badgeSkill);
+    public BadgeSkillDTO save(BadgeSkillDTO badgeSkillDTO) {
+        log.debug("Request to save BadgeSkill : {}", badgeSkillDTO);
+        BadgeSkill badgeSkill = badgeSkillMapper.toEntity(badgeSkillDTO);
+        badgeSkill = badgeSkillRepository.save(badgeSkill);
+        return badgeSkillMapper.toDto(badgeSkill);
     }
 
     /**
@@ -47,9 +54,10 @@ public class BadgeSkillServiceImpl implements BadgeSkillService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<BadgeSkill> findAll(Pageable pageable) {
+    public Page<BadgeSkillDTO> findAll(Pageable pageable) {
         log.debug("Request to get all BadgeSkills");
-        return badgeSkillRepository.findAll(pageable);
+        return badgeSkillRepository.findAll(pageable)
+            .map(badgeSkillMapper::toDto);
     }
 
 
@@ -61,9 +69,10 @@ public class BadgeSkillServiceImpl implements BadgeSkillService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<BadgeSkill> findOne(Long id) {
+    public Optional<BadgeSkillDTO> findOne(Long id) {
         log.debug("Request to get BadgeSkill : {}", id);
-        return badgeSkillRepository.findById(id);
+        return badgeSkillRepository.findById(id)
+            .map(badgeSkillMapper::toDto);
     }
 
     /**

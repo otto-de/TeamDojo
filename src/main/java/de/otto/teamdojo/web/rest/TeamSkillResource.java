@@ -1,10 +1,10 @@
 package de.otto.teamdojo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import de.otto.teamdojo.domain.TeamSkill;
 import de.otto.teamdojo.service.TeamSkillQueryService;
 import de.otto.teamdojo.service.TeamSkillService;
 import de.otto.teamdojo.service.dto.TeamSkillCriteria;
+import de.otto.teamdojo.service.dto.TeamSkillDTO;
 import de.otto.teamdojo.web.rest.errors.BadRequestAlertException;
 import de.otto.teamdojo.web.rest.util.HeaderUtil;
 import de.otto.teamdojo.web.rest.util.PaginationUtil;
@@ -47,18 +47,18 @@ public class TeamSkillResource {
     /**
      * POST  /team-skills : Create a new teamSkill.
      *
-     * @param teamSkill the teamSkill to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new teamSkill, or with status 400 (Bad Request) if the teamSkill has already an ID
+     * @param teamSkillDTO the teamSkillDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new teamSkillDTO, or with status 400 (Bad Request) if the teamSkill has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/team-skills")
     @Timed
-    public ResponseEntity<TeamSkill> createTeamSkill(@Valid @RequestBody TeamSkill teamSkill) throws URISyntaxException {
-        log.debug("REST request to save TeamSkill : {}", teamSkill);
-        if (teamSkill.getId() != null) {
+    public ResponseEntity<TeamSkillDTO> createTeamSkill(@Valid @RequestBody TeamSkillDTO teamSkillDTO) throws URISyntaxException {
+        log.debug("REST request to save TeamSkill : {}", teamSkillDTO);
+        if (teamSkillDTO.getId() != null) {
             throw new BadRequestAlertException("A new teamSkill cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        TeamSkill result = teamSkillService.save(teamSkill);
+        TeamSkillDTO result = teamSkillService.save(teamSkillDTO);
         return ResponseEntity.created(new URI("/api/team-skills/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -67,22 +67,22 @@ public class TeamSkillResource {
     /**
      * PUT  /team-skills : Updates an existing teamSkill.
      *
-     * @param teamSkill the teamSkill to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated teamSkill,
-     * or with status 400 (Bad Request) if the teamSkill is not valid,
-     * or with status 500 (Internal Server Error) if the teamSkill couldn't be updated
+     * @param teamSkillDTO the teamSkillDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated teamSkillDTO,
+     * or with status 400 (Bad Request) if the teamSkillDTO is not valid,
+     * or with status 500 (Internal Server Error) if the teamSkillDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/team-skills")
     @Timed
-    public ResponseEntity<TeamSkill> updateTeamSkill(@Valid @RequestBody TeamSkill teamSkill) throws URISyntaxException {
-        log.debug("REST request to update TeamSkill : {}", teamSkill);
-        if (teamSkill.getId() == null) {
-            return createTeamSkill(teamSkill);
+    public ResponseEntity<TeamSkillDTO> updateTeamSkill(@Valid @RequestBody TeamSkillDTO teamSkillDTO) throws URISyntaxException {
+        log.debug("REST request to update TeamSkill : {}", teamSkillDTO);
+        if (teamSkillDTO.getId() == null) {
+            return createTeamSkill(teamSkillDTO);
         }
-        TeamSkill result = teamSkillService.save(teamSkill);
+        TeamSkillDTO result = teamSkillService.save(teamSkillDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, teamSkill.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, teamSkillDTO.getId().toString()))
             .body(result);
     }
 
@@ -95,9 +95,9 @@ public class TeamSkillResource {
      */
     @GetMapping("/team-skills")
     @Timed
-    public ResponseEntity<List<TeamSkill>> getAllTeamSkills(TeamSkillCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<TeamSkillDTO>> getAllTeamSkills(TeamSkillCriteria criteria, Pageable pageable) {
         log.debug("REST request to get TeamSkills by criteria: {}", criteria);
-        Page<TeamSkill> page = teamSkillQueryService.findByCriteria(criteria, pageable);
+        Page<TeamSkillDTO> page = teamSkillQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/team-skills");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -105,21 +105,21 @@ public class TeamSkillResource {
     /**
      * GET  /team-skills/:id : get the "id" teamSkill.
      *
-     * @param id the id of the teamSkill to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the teamSkill, or with status 404 (Not Found)
+     * @param id the id of the teamSkillDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the teamSkillDTO, or with status 404 (Not Found)
      */
     @GetMapping("/team-skills/{id}")
     @Timed
-    public ResponseEntity<TeamSkill> getTeamSkill(@PathVariable Long id) {
+    public ResponseEntity<TeamSkillDTO> getTeamSkill(@PathVariable Long id) {
         log.debug("REST request to get TeamSkill : {}", id);
-        Optional<TeamSkill> teamSkill = teamSkillService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(teamSkill);
+        Optional<TeamSkillDTO> teamSkillDTO = teamSkillService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(teamSkillDTO);
     }
 
     /**
      * DELETE  /team-skills/:id : delete the "id" teamSkill.
      *
-     * @param id the id of the teamSkill to delete
+     * @param id the id of the teamSkillDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/team-skills/{id}")
