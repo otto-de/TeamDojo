@@ -1,10 +1,10 @@
 package de.otto.teamdojo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import de.otto.teamdojo.domain.Badge;
 import de.otto.teamdojo.service.BadgeQueryService;
 import de.otto.teamdojo.service.BadgeService;
 import de.otto.teamdojo.service.dto.BadgeCriteria;
+import de.otto.teamdojo.service.dto.BadgeDTO;
 import de.otto.teamdojo.web.rest.errors.BadRequestAlertException;
 import de.otto.teamdojo.web.rest.util.HeaderUtil;
 import de.otto.teamdojo.web.rest.util.PaginationUtil;
@@ -47,18 +47,18 @@ public class BadgeResource {
     /**
      * POST  /badges : Create a new badge.
      *
-     * @param badge the badge to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new badge, or with status 400 (Bad Request) if the badge has already an ID
+     * @param badgeDTO the badgeDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new badgeDTO, or with status 400 (Bad Request) if the badge has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/badges")
     @Timed
-    public ResponseEntity<Badge> createBadge(@Valid @RequestBody Badge badge) throws URISyntaxException {
-        log.debug("REST request to save Badge : {}", badge);
-        if (badge.getId() != null) {
+    public ResponseEntity<BadgeDTO> createBadge(@Valid @RequestBody BadgeDTO badgeDTO) throws URISyntaxException {
+        log.debug("REST request to save Badge : {}", badgeDTO);
+        if (badgeDTO.getId() != null) {
             throw new BadRequestAlertException("A new badge cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Badge result = badgeService.save(badge);
+        BadgeDTO result = badgeService.save(badgeDTO);
         return ResponseEntity.created(new URI("/api/badges/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -67,22 +67,22 @@ public class BadgeResource {
     /**
      * PUT  /badges : Updates an existing badge.
      *
-     * @param badge the badge to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated badge,
-     * or with status 400 (Bad Request) if the badge is not valid,
-     * or with status 500 (Internal Server Error) if the badge couldn't be updated
+     * @param badgeDTO the badgeDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated badgeDTO,
+     * or with status 400 (Bad Request) if the badgeDTO is not valid,
+     * or with status 500 (Internal Server Error) if the badgeDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/badges")
     @Timed
-    public ResponseEntity<Badge> updateBadge(@Valid @RequestBody Badge badge) throws URISyntaxException {
-        log.debug("REST request to update Badge : {}", badge);
-        if (badge.getId() == null) {
-            return createBadge(badge);
+    public ResponseEntity<BadgeDTO> updateBadge(@Valid @RequestBody BadgeDTO badgeDTO) throws URISyntaxException {
+        log.debug("REST request to update Badge : {}", badgeDTO);
+        if (badgeDTO.getId() == null) {
+            return createBadge(badgeDTO);
         }
-        Badge result = badgeService.save(badge);
+        BadgeDTO result = badgeService.save(badgeDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, badge.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, badgeDTO.getId().toString()))
             .body(result);
     }
 
@@ -95,9 +95,9 @@ public class BadgeResource {
      */
     @GetMapping("/badges")
     @Timed
-    public ResponseEntity<List<Badge>> getAllBadges(BadgeCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<BadgeDTO>> getAllBadges(BadgeCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Badges by criteria: {}", criteria);
-        Page<Badge> page = badgeQueryService.findByCriteria(criteria, pageable);
+        Page<BadgeDTO> page = badgeQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/badges");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -105,21 +105,21 @@ public class BadgeResource {
     /**
      * GET  /badges/:id : get the "id" badge.
      *
-     * @param id the id of the badge to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the badge, or with status 404 (Not Found)
+     * @param id the id of the badgeDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the badgeDTO, or with status 404 (Not Found)
      */
     @GetMapping("/badges/{id}")
     @Timed
-    public ResponseEntity<Badge> getBadge(@PathVariable Long id) {
+    public ResponseEntity<BadgeDTO> getBadge(@PathVariable Long id) {
         log.debug("REST request to get Badge : {}", id);
-        Optional<Badge> badge = badgeService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(badge);
+        Optional<BadgeDTO> badgeDTO = badgeService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(badgeDTO);
     }
 
     /**
      * DELETE  /badges/:id : delete the "id" badge.
      *
-     * @param id the id of the badge to delete
+     * @param id the id of the badgeDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/badges/{id}")

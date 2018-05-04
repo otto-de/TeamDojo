@@ -3,13 +3,17 @@ package de.otto.teamdojo.service.impl;
 import de.otto.teamdojo.domain.Level;
 import de.otto.teamdojo.repository.LevelRepository;
 import de.otto.teamdojo.service.LevelService;
+import de.otto.teamdojo.service.dto.LevelDTO;
+import de.otto.teamdojo.service.mapper.LevelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing Level.
@@ -22,20 +26,25 @@ public class LevelServiceImpl implements LevelService {
 
     private final LevelRepository levelRepository;
 
-    public LevelServiceImpl(LevelRepository levelRepository) {
+    private final LevelMapper levelMapper;
+
+    public LevelServiceImpl(LevelRepository levelRepository, LevelMapper levelMapper) {
         this.levelRepository = levelRepository;
+        this.levelMapper = levelMapper;
     }
 
     /**
      * Save a level.
      *
-     * @param level the entity to save
+     * @param levelDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public Level save(Level level) {
-        log.debug("Request to save Level : {}", level);
-        return levelRepository.save(level);
+    public LevelDTO save(LevelDTO levelDTO) {
+        log.debug("Request to save Level : {}", levelDTO);
+        Level level = levelMapper.toEntity(levelDTO);
+        level = levelRepository.save(level);
+        return levelMapper.toDto(level);
     }
 
     /**
@@ -45,9 +54,11 @@ public class LevelServiceImpl implements LevelService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<Level> findAll() {
+    public List<LevelDTO> findAll() {
         log.debug("Request to get all Levels");
-        return levelRepository.findAll();
+        return levelRepository.findAll().stream()
+            .map(levelMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
 
@@ -59,9 +70,10 @@ public class LevelServiceImpl implements LevelService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<Level> findOne(Long id) {
+    public Optional<LevelDTO> findOne(Long id) {
         log.debug("Request to get Level : {}", id);
-        return levelRepository.findById(id);
+        return levelRepository.findById(id)
+            .map(levelMapper::toDto);
     }
 
     /**
