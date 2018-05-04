@@ -44,6 +44,9 @@ public class LevelResourceIntTest {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
     private static final byte[] DEFAULT_PICTURE = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_PICTURE = TestUtil.createByteArray(2, "1");
     private static final String DEFAULT_PICTURE_CONTENT_TYPE = "image/jpg";
@@ -98,6 +101,7 @@ public class LevelResourceIntTest {
     public static Level createEntity(EntityManager em) {
         Level level = new Level()
             .name(DEFAULT_NAME)
+            .description(DEFAULT_DESCRIPTION)
             .picture(DEFAULT_PICTURE)
             .pictureContentType(DEFAULT_PICTURE_CONTENT_TYPE)
             .requiredScore(DEFAULT_REQUIRED_SCORE);
@@ -130,6 +134,7 @@ public class LevelResourceIntTest {
         assertThat(levelList).hasSize(databaseSizeBeforeCreate + 1);
         Level testLevel = levelList.get(levelList.size() - 1);
         assertThat(testLevel.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testLevel.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testLevel.getPicture()).isEqualTo(DEFAULT_PICTURE);
         assertThat(testLevel.getPictureContentType()).isEqualTo(DEFAULT_PICTURE_CONTENT_TYPE);
         assertThat(testLevel.getRequiredScore()).isEqualTo(DEFAULT_REQUIRED_SCORE);
@@ -202,6 +207,7 @@ public class LevelResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(level.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
             .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())));
@@ -220,6 +226,7 @@ public class LevelResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(level.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.pictureContentType").value(DEFAULT_PICTURE_CONTENT_TYPE))
             .andExpect(jsonPath("$.picture").value(Base64Utils.encodeToString(DEFAULT_PICTURE)))
             .andExpect(jsonPath("$.requiredScore").value(DEFAULT_REQUIRED_SCORE.doubleValue()));
@@ -262,6 +269,45 @@ public class LevelResourceIntTest {
 
         // Get all the levelList where name is null
         defaultLevelShouldNotBeFound("name.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelsByDescriptionIsEqualToSomething() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where description equals to DEFAULT_DESCRIPTION
+        defaultLevelShouldBeFound("description.equals=" + DEFAULT_DESCRIPTION);
+
+        // Get all the levelList where description equals to UPDATED_DESCRIPTION
+        defaultLevelShouldNotBeFound("description.equals=" + UPDATED_DESCRIPTION);
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelsByDescriptionIsInShouldWork() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where description in DEFAULT_DESCRIPTION or UPDATED_DESCRIPTION
+        defaultLevelShouldBeFound("description.in=" + DEFAULT_DESCRIPTION + "," + UPDATED_DESCRIPTION);
+
+        // Get all the levelList where description equals to UPDATED_DESCRIPTION
+        defaultLevelShouldNotBeFound("description.in=" + UPDATED_DESCRIPTION);
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelsByDescriptionIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where description is not null
+        defaultLevelShouldBeFound("description.specified=true");
+
+        // Get all the levelList where description is null
+        defaultLevelShouldNotBeFound("description.specified=false");
     }
 
     @Test
@@ -368,6 +414,7 @@ public class LevelResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(level.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
             .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())));
@@ -407,6 +454,7 @@ public class LevelResourceIntTest {
         em.detach(updatedLevel);
         updatedLevel
             .name(UPDATED_NAME)
+            .description(UPDATED_DESCRIPTION)
             .picture(UPDATED_PICTURE)
             .pictureContentType(UPDATED_PICTURE_CONTENT_TYPE)
             .requiredScore(UPDATED_REQUIRED_SCORE);
@@ -421,6 +469,7 @@ public class LevelResourceIntTest {
         assertThat(levelList).hasSize(databaseSizeBeforeUpdate);
         Level testLevel = levelList.get(levelList.size() - 1);
         assertThat(testLevel.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testLevel.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testLevel.getPicture()).isEqualTo(UPDATED_PICTURE);
         assertThat(testLevel.getPictureContentType()).isEqualTo(UPDATED_PICTURE_CONTENT_TYPE);
         assertThat(testLevel.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
