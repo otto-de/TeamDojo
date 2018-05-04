@@ -27,13 +27,15 @@
             </ngb-panel>
         </ngb-accordion>
     </div>
-    <div class="mt-1 teams-achievements-dimensions mockup">
+    <div class="mt-1 teams-achievements-dimensions">
         <ngb-accordion activeIds="achievements-dimension-0">
             <ngb-panel id="achievements-dimension-{{index}}"
                        *ngFor="let dimension of team.participations; trackBy: trackId; index as index">
                 <ng-template ngbPanelTitle>
                     <i class="fa fa-caret-right mr-2"></i><span>{{dimension.name}}</span>
-                    <span class="float-right">0/{{(levels[dimension.id] || []).length}}</span>
+                    <span class="float-right">
+                        <span class="mockup minor pad-x">0</span>/{{(levels[dimension.id] || []).length}}
+                    </span>
                 </ng-template>
                 <ng-template ngbPanelContent>
                     <div class="achievements-skill-levels">
@@ -44,7 +46,7 @@
                                      [src]="level.picture | imageDataUrl: level.pictureContentType"/>
                             </div>
                             <div class="skill-level-name ml-2">{{level.name}}</div>
-                            <div class="ml-auto achievement-progress">
+                            <div class="ml-auto achievement-progress mockup minor pad-x">
                                 <svg viewBox="0 0 32 32">
                                     <circle r="16" cx="16" cy="16" style="stroke-dasharray: 12 100;"/>
                                 </svg>
