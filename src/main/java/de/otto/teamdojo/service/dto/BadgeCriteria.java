@@ -31,6 +31,8 @@ public class BadgeCriteria implements Serializable {
 
     private LongFilter skillsId;
 
+    private LongFilter dimensionsId;
+
     public BadgeCriteria() {
     }
 
@@ -90,6 +92,14 @@ public class BadgeCriteria implements Serializable {
         this.skillsId = skillsId;
     }
 
+    public LongFilter getDimensionsId() {
+        return dimensionsId;
+    }
+
+    public void setDimensionsId(LongFilter dimensionsId) {
+        this.dimensionsId = dimensionsId;
+    }
+
     @Override
     public String toString() {
         return "BadgeCriteria{" +
@@ -100,6 +110,7 @@ public class BadgeCriteria implements Serializable {
             (availableAmount != null ? "availableAmount=" + availableAmount + ", " : "") +
             (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
             (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
+            (dimensionsId != null ? "dimensionsId=" + dimensionsId + ", " : "") +
             "}";
     }
 

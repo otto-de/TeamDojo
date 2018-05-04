@@ -2,11 +2,9 @@ package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
 import de.otto.teamdojo.domain.Dimension;
-import de.otto.teamdojo.domain.Skill;
 import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.domain.TeamSkill;
 import de.otto.teamdojo.repository.TeamRepository;
-import de.otto.teamdojo.service.AchievableSkillService;
 import de.otto.teamdojo.service.TeamQueryService;
 import de.otto.teamdojo.service.TeamService;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
@@ -33,7 +31,6 @@ import java.util.List;
 
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -81,9 +78,6 @@ public class TeamResourceIntTest {
     private TeamQueryService teamQueryService;
 
     @Autowired
-    private AchievableSkillService achievableSkillService;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -102,7 +96,7 @@ public class TeamResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final TeamResource teamResource = new TeamResource(teamService, teamQueryService, achievableSkillService);
+        final TeamResource teamResource = new TeamResource(teamService, teamQueryService);
         this.restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -230,7 +224,7 @@ public class TeamResourceIntTest {
     }
 
     public void getAllTeamsWithEagerRelationshipsIsEnabled() throws Exception {
-        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService, achievableSkillService);
+        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService);
         when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
@@ -246,7 +240,7 @@ public class TeamResourceIntTest {
     }
 
     public void getAllTeamsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService, achievableSkillService);
+        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService);
         when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
         MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
@@ -596,36 +590,4 @@ public class TeamResourceIntTest {
         assertThat(team1).isNotEqualTo(team2);
     }
 
-    @Test
-    @Transactional
-    public void getAchievableSkills() throws Exception {
-        // Initialize the database
-        Skill skill = SkillResourceIntTest.createEntity(em); //skill with no teamskill
-        em.persist(skill);
-
-        TeamSkill othersTeamSkill = TeamSkillResourceIntTest.createEntity(em); //creates skill AND teamskill
-        em.persist(othersTeamSkill);
-
-        TeamSkill teamSkill = TeamSkillResourceIntTest.createEntity(em);
-        em.persist(teamSkill);
-        em.flush();
-        team.addSkills(teamSkill);
-        teamRepository.saveAndFlush(team);
-        Long skillsId = teamSkill.getId();
-
-        restTeamMockMvc.perform(get("/api/teams/{id}/achievable-skills", team.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.length()").value(3))
-            .andExpect(jsonPath("$.[*].teamSkillId").value(containsInAnyOrder(
-                null,
-                null,
-                teamSkill.getId().intValue())
-            ))
-            .andExpect(jsonPath("$.[*].skillId").value(containsInAnyOrder(
-                skill.getId().intValue(),
-                othersTeamSkill.getSkill().getId().intValue(),
-                teamSkill.getSkill().getId().intValue())
-            ));
-    }
 }

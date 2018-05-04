@@ -8,6 +8,8 @@ import { BadgeUpdateComponent } from 'app/entities/badge/badge-update.component'
 import { BadgeService } from 'app/entities/badge/badge.service';
 import { Badge } from 'app/shared/model/badge.model';
 
+import { DimensionService } from 'app/entities/dimension';
+
 describe('Component Tests', () => {
     describe('Badge Management Update Component', () => {
         let comp: BadgeUpdateComponent;
@@ -18,7 +20,7 @@ describe('Component Tests', () => {
             TestBed.configureTestingModule({
                 imports: [TeamdojoTestModule],
                 declarations: [BadgeUpdateComponent],
-                providers: [BadgeService]
+                providers: [DimensionService, BadgeService]
             })
                 .overrideTemplate(BadgeUpdateComponent, '')
                 .compileComponents();

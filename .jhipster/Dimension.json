@@ -8,6 +8,19 @@
             "relationshipType": "many-to-many",
             "ownerSide": false,
             "otherEntityRelationshipName": "participations"
+        },
+        {
+            "relationshipName": "levels",
+            "otherEntityName": "level",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "dimension"
+        },
+        {
+            "relationshipName": "badges",
+            "otherEntityName": "badge",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "dimensions"
         }
     ],
     "fields": [

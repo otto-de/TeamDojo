@@ -57,6 +57,13 @@ public class Badge implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<BadgeSkill> skills = new HashSet<>();
 
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "badge_dimensions",
+        joinColumns = @JoinColumn(name = "badges_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "dimensions_id", referencedColumnName = "id"))
+    private Set<Dimension> dimensions = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -180,6 +187,31 @@ public class Badge implements Serializable {
 
     public void setSkills(Set<BadgeSkill> badgeSkills) {
         this.skills = badgeSkills;
+    }
+
+    public Set<Dimension> getDimensions() {
+        return dimensions;
+    }
+
+    public Badge dimensions(Set<Dimension> dimensions) {
+        this.dimensions = dimensions;
+        return this;
+    }
+
+    public Badge addDimensions(Dimension dimension) {
+        this.dimensions.add(dimension);
+        dimension.getBadges().add(this);
+        return this;
+    }
+
+    public Badge removeDimensions(Dimension dimension) {
+        this.dimensions.remove(dimension);
+        dimension.getBadges().remove(this);
+        return this;
+    }
+
+    public void setDimensions(Set<Dimension> dimensions) {
+        this.dimensions = dimensions;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
