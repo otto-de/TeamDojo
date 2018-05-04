@@ -37,6 +37,7 @@ Navbar
         padding: 0.5em;
         .nav-item {
             margin-left: 1.5rem;
+            white-space: nowrap;
         }
     }
     a.nav-link {

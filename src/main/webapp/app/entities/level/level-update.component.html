@@ -25,6 +25,11 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.level.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                        [(ngModel)]="level.description" />
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.level.picture" for="field_picture">Picture</label>
                     <div>
                         <img [src]="'data:' + level.pictureContentType + ';base64,' + level.picture" style="max-height: 100px;" *ngIf="level.picture" alt="level image"/>
@@ -67,9 +72,9 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.level.dimension" for="field_dimension">Dimension</label>
-                    <select class="form-control" id="field_dimension" name="dimension" [(ngModel)]="level.dimension"  required>
+                    <select class="form-control" id="field_dimension" name="dimension" [(ngModel)]="level.dimensionId"  required>
                         <option *ngIf="!editForm.value.dimension" [ngValue]="null" selected></option>
-                        <option [ngValue]="dimensionOption.id === level.dimension?.id ? level.dimension : dimensionOption" *ngFor="let dimensionOption of dimensions; trackBy: trackDimensionById">{{dimensionOption.name}}</option>
+                        <option [ngValue]="dimensionOption.id" *ngFor="let dimensionOption of dimensions; trackBy: trackDimensionById">{{dimensionOption.name}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.dimension?.dirty && editForm.controls.dimension?.invalid)">
@@ -80,9 +85,9 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.level.dependsOn" for="field_dependsOn">Depends On</label>
-                    <select class="form-control" id="field_dependsOn" name="dependsOn" [(ngModel)]="level.dependsOn">
+                    <select class="form-control" id="field_dependsOn" name="dependsOn" [(ngModel)]="level.dependsOnId">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="levelOption.id === level.dependsOn?.id ? level.dependsOn : levelOption" *ngFor="let levelOption of dependsons; trackBy: trackLevelById">{{levelOption.name}}</option>
+                        <option [ngValue]="levelOption.id" *ngFor="let levelOption of dependsons; trackBy: trackLevelById">{{levelOption.name}}</option>
                     </select>
                 </div>
             </div>

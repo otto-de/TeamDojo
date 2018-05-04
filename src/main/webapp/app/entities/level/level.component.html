@@ -16,6 +16,7 @@
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="teamdojoApp.level.name">Name</span></th>
+            <th><span jhiTranslate="teamdojoApp.level.description">Description</span></th>
             <th><span jhiTranslate="teamdojoApp.level.picture">Picture</span></th>
             <th><span jhiTranslate="teamdojoApp.level.requiredScore">Required Score</span></th>
             <th><span jhiTranslate="teamdojoApp.level.dimension">Dimension</span></th>
@@ -27,6 +28,7 @@
             <tr *ngFor="let level of levels ;trackBy: trackId">
                 <td><a [routerLink]="['/level', level.id, 'view' ]">{{level.id}}</a></td>
                 <td>{{level.name}}</td>
+                <td>{{level.description}}</td>
                 <td>
                     <a *ngIf="level.picture" (click)="openFile(level.pictureContentType, level.picture)">
                         <img [src]="'data:' + level.pictureContentType + ';base64,' + level.picture" style="max-height: 30px;" alt="level image"/>
@@ -35,13 +37,13 @@
                 </td>
                 <td>{{level.requiredScore}}</td>
                 <td>
-                    <div *ngIf="level.dimension">
-                        <a [routerLink]="['../dimension', level.dimension?.id, 'view' ]" >{{level.dimension?.name}}</a>
+                    <div *ngIf="level.dimensionId">
+                        <a [routerLink]="['../dimension', level.dimensionId , 'view' ]" >{{level.dimensionName}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="level.dependsOn">
-                        <a [routerLink]="['../level', level.dependsOn?.id, 'view' ]" >{{level.dependsOn?.name}}</a>
+                    <div *ngIf="level.dependsOnId">
+                        <a [routerLink]="['../level', level.dependsOnId , 'view' ]" >{{level.dependsOnName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

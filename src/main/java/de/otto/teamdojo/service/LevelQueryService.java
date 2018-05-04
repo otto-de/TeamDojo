@@ -6,6 +6,8 @@ import de.otto.teamdojo.domain.LevelSkill_;
 import de.otto.teamdojo.domain.Level_;
 import de.otto.teamdojo.repository.LevelRepository;
 import de.otto.teamdojo.service.dto.LevelCriteria;
+import de.otto.teamdojo.service.dto.LevelDTO;
+import de.otto.teamdojo.service.mapper.LevelMapper;
 import io.github.jhipster.service.QueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 /**
  * Service for executing complex queries for Level entities in the database.
  * The main input is a {@link LevelCriteria} which gets converted to {@link Specification},
  * in a way that all the filters must apply.
- * It returns a {@link List} of {@link Level} or a {@link Page} of {@link Level} which fulfills the criteria.
+ * It returns a {@link List} of {@link LevelDTO} or a {@link Page} of {@link LevelDTO} which fulfills the criteria.
  */
 @Service
 @Transactional(readOnly = true)
@@ -32,35 +33,39 @@ public class LevelQueryService extends QueryService<Level> {
 
     private final LevelRepository levelRepository;
 
-    public LevelQueryService(LevelRepository levelRepository) {
+    private final LevelMapper levelMapper;
+
+    public LevelQueryService(LevelRepository levelRepository, LevelMapper levelMapper) {
         this.levelRepository = levelRepository;
+        this.levelMapper = levelMapper;
     }
 
     /**
-     * Return a {@link List} of {@link Level} which matches the criteria from the database
+     * Return a {@link List} of {@link LevelDTO} which matches the criteria from the database
      *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public List<Level> findByCriteria(LevelCriteria criteria) {
+    public List<LevelDTO> findByCriteria(LevelCriteria criteria) {
         log.debug("find by criteria : {}", criteria);
         final Specification<Level> specification = createSpecification(criteria);
-        return levelRepository.findAll(specification);
+        return levelMapper.toDto(levelRepository.findAll(specification));
     }
 
     /**
-     * Return a {@link Page} of {@link Level} which matches the criteria from the database
+     * Return a {@link Page} of {@link LevelDTO} which matches the criteria from the database
      *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @param page     The page, which should be returned.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public Page<Level> findByCriteria(LevelCriteria criteria, Pageable page) {
+    public Page<LevelDTO> findByCriteria(LevelCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<Level> specification = createSpecification(criteria);
-        return levelRepository.findAll(specification, page);
+        return levelRepository.findAll(specification, page)
+            .map(levelMapper::toDto);
     }
 
     /**
@@ -74,6 +79,9 @@ public class LevelQueryService extends QueryService<Level> {
             }
             if (criteria.getName() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getName(), Level_.name));
+            }
+            if (criteria.getDescription() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getDescription(), Level_.description));
             }
             if (criteria.getRequiredScore() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getRequiredScore(), Level_.requiredScore));

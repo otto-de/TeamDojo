@@ -3,13 +3,17 @@ package de.otto.teamdojo.service.impl;
 import de.otto.teamdojo.domain.Dimension;
 import de.otto.teamdojo.repository.DimensionRepository;
 import de.otto.teamdojo.service.DimensionService;
+import de.otto.teamdojo.service.dto.DimensionDTO;
+import de.otto.teamdojo.service.mapper.DimensionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing Dimension.
@@ -22,20 +26,25 @@ public class DimensionServiceImpl implements DimensionService {
 
     private final DimensionRepository dimensionRepository;
 
-    public DimensionServiceImpl(DimensionRepository dimensionRepository) {
+    private final DimensionMapper dimensionMapper;
+
+    public DimensionServiceImpl(DimensionRepository dimensionRepository, DimensionMapper dimensionMapper) {
         this.dimensionRepository = dimensionRepository;
+        this.dimensionMapper = dimensionMapper;
     }
 
     /**
      * Save a dimension.
      *
-     * @param dimension the entity to save
+     * @param dimensionDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public Dimension save(Dimension dimension) {
-        log.debug("Request to save Dimension : {}", dimension);
-        return dimensionRepository.save(dimension);
+    public DimensionDTO save(DimensionDTO dimensionDTO) {
+        log.debug("Request to save Dimension : {}", dimensionDTO);
+        Dimension dimension = dimensionMapper.toEntity(dimensionDTO);
+        dimension = dimensionRepository.save(dimension);
+        return dimensionMapper.toDto(dimension);
     }
 
     /**
@@ -45,9 +54,11 @@ public class DimensionServiceImpl implements DimensionService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<Dimension> findAll() {
+    public List<DimensionDTO> findAll() {
         log.debug("Request to get all Dimensions");
-        return dimensionRepository.findAll();
+        return dimensionRepository.findAll().stream()
+            .map(dimensionMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
 
@@ -59,9 +70,10 @@ public class DimensionServiceImpl implements DimensionService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<Dimension> findOne(Long id) {
+    public Optional<DimensionDTO> findOne(Long id) {
         log.debug("Request to get Dimension : {}", id);
-        return dimensionRepository.findById(id);
+        return dimensionRepository.findById(id)
+            .map(dimensionMapper::toDto);
     }
 
     /**

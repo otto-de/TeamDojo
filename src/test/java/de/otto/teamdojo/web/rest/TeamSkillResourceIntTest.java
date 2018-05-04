@@ -7,6 +7,8 @@ import de.otto.teamdojo.domain.TeamSkill;
 import de.otto.teamdojo.repository.TeamSkillRepository;
 import de.otto.teamdojo.service.TeamSkillQueryService;
 import de.otto.teamdojo.service.TeamSkillService;
+import de.otto.teamdojo.service.dto.TeamSkillDTO;
+import de.otto.teamdojo.service.mapper.TeamSkillMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,6 +58,10 @@ public class TeamSkillResourceIntTest {
 
     @Autowired
     private TeamSkillRepository teamSkillRepository;
+
+
+    @Autowired
+    private TeamSkillMapper teamSkillMapper;
 
 
     @Autowired
@@ -127,9 +133,10 @@ public class TeamSkillResourceIntTest {
         int databaseSizeBeforeCreate = teamSkillRepository.findAll().size();
 
         // Create the TeamSkill
+        TeamSkillDTO teamSkillDTO = teamSkillMapper.toDto(teamSkill);
         restTeamSkillMockMvc.perform(post("/api/team-skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(teamSkill)))
+            .content(TestUtil.convertObjectToJsonBytes(teamSkillDTO)))
             .andExpect(status().isCreated());
 
         // Validate the TeamSkill in the database
@@ -149,11 +156,12 @@ public class TeamSkillResourceIntTest {
 
         // Create the TeamSkill with an existing ID
         teamSkill.setId(1L);
+        TeamSkillDTO teamSkillDTO = teamSkillMapper.toDto(teamSkill);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restTeamSkillMockMvc.perform(post("/api/team-skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(teamSkill)))
+            .content(TestUtil.convertObjectToJsonBytes(teamSkillDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the TeamSkill in the database
@@ -427,7 +435,7 @@ public class TeamSkillResourceIntTest {
     @Transactional
     public void updateTeamSkill() throws Exception {
         // Initialize the database
-        teamSkillService.save(teamSkill);
+        teamSkillRepository.saveAndFlush(teamSkill);
 
         int databaseSizeBeforeUpdate = teamSkillRepository.findAll().size();
 
@@ -440,10 +448,11 @@ public class TeamSkillResourceIntTest {
             .verifiedAt(UPDATED_VERIFIED_AT)
             .irrelevant(UPDATED_IRRELEVANT)
             .note(UPDATED_NOTE);
+        TeamSkillDTO teamSkillDTO = teamSkillMapper.toDto(updatedTeamSkill);
 
         restTeamSkillMockMvc.perform(put("/api/team-skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedTeamSkill)))
+            .content(TestUtil.convertObjectToJsonBytes(teamSkillDTO)))
             .andExpect(status().isOk());
 
         // Validate the TeamSkill in the database
@@ -462,11 +471,12 @@ public class TeamSkillResourceIntTest {
         int databaseSizeBeforeUpdate = teamSkillRepository.findAll().size();
 
         // Create the TeamSkill
+        TeamSkillDTO teamSkillDTO = teamSkillMapper.toDto(teamSkill);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restTeamSkillMockMvc.perform(put("/api/team-skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(teamSkill)))
+            .content(TestUtil.convertObjectToJsonBytes(teamSkillDTO)))
             .andExpect(status().isCreated());
 
         // Validate the TeamSkill in the database
@@ -478,7 +488,7 @@ public class TeamSkillResourceIntTest {
     @Transactional
     public void deleteTeamSkill() throws Exception {
         // Initialize the database
-        teamSkillService.save(teamSkill);
+        teamSkillRepository.saveAndFlush(teamSkill);
 
         int databaseSizeBeforeDelete = teamSkillRepository.findAll().size();
 
@@ -505,5 +515,28 @@ public class TeamSkillResourceIntTest {
         assertThat(teamSkill1).isNotEqualTo(teamSkill2);
         teamSkill1.setId(null);
         assertThat(teamSkill1).isNotEqualTo(teamSkill2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(TeamSkillDTO.class);
+        TeamSkillDTO teamSkillDTO1 = new TeamSkillDTO();
+        teamSkillDTO1.setId(1L);
+        TeamSkillDTO teamSkillDTO2 = new TeamSkillDTO();
+        assertThat(teamSkillDTO1).isNotEqualTo(teamSkillDTO2);
+        teamSkillDTO2.setId(teamSkillDTO1.getId());
+        assertThat(teamSkillDTO1).isEqualTo(teamSkillDTO2);
+        teamSkillDTO2.setId(2L);
+        assertThat(teamSkillDTO1).isNotEqualTo(teamSkillDTO2);
+        teamSkillDTO1.setId(null);
+        assertThat(teamSkillDTO1).isNotEqualTo(teamSkillDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(teamSkillMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(teamSkillMapper.fromId(null)).isNull();
     }
 }

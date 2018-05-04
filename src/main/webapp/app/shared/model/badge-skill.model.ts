@@ -1,13 +1,19 @@
-import { IBadge } from './badge.model';
-import { ISkill } from './skill.model';
-
 export interface IBadgeSkill {
     id?: number;
     score?: number;
-    badge?: IBadge;
-    skill?: ISkill;
+    badgeName?: string;
+    badgeId?: number;
+    skillTitle?: string;
+    skillId?: number;
 }
 
 export class BadgeSkill implements IBadgeSkill {
-    constructor(public id?: number, public score?: number, public badge?: IBadge, public skill?: ISkill) {}
+    constructor(
+        public id?: number,
+        public score?: number,
+        public badgeName?: string,
+        public badgeId?: number,
+        public skillTitle?: string,
+        public skillId?: number
+    ) {}
 }

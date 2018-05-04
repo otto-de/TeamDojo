@@ -27,7 +27,7 @@
                 "maxlength"
             ],
             "fieldValidateRulesMinlength": "2",
-            "fieldValidateRulesMaxlength": 20
+            "fieldValidateRulesMaxlength": 50
         },
         {
             "fieldName": "shortName",
@@ -57,7 +57,7 @@
         }
     ],
     "changelogDate": "20180419083624",
-    "dto": "no",
+    "dto": "mapstruct",
     "service": "serviceImpl",
     "entityTableName": "team",
     "jpaMetamodelFiltering": true,

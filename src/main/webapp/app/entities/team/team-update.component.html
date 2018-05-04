@@ -12,7 +12,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.team.name" for="field_name">Name</label>
                     <input type="text" class="form-control" name="name" id="field_name"
-                        [(ngModel)]="team.name" required minlength="2" maxlength="20"/>
+                        [(ngModel)]="team.name" required minlength="2" maxlength="50"/>
                     <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
@@ -23,8 +23,8 @@
                         This field is required to be at least 2 characters.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.name?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 20 }">
-                        This field cannot be longer than 20 characters.
+                        [hidden]="!editForm.controls.name?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
                         </small>
                     </div>
                 </div>

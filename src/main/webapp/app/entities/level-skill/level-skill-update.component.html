@@ -31,9 +31,9 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.levelSkill.skill" for="field_skill">Skill</label>
-                    <select class="form-control" id="field_skill" name="skill" [(ngModel)]="levelSkill.skill"  required>
+                    <select class="form-control" id="field_skill" name="skill" [(ngModel)]="levelSkill.skillId"  required>
                         <option *ngIf="!editForm.value.skill" [ngValue]="null" selected></option>
-                        <option [ngValue]="skillOption.id === levelSkill.skill?.id ? levelSkill.skill : skillOption" *ngFor="let skillOption of skills; trackBy: trackSkillById">{{skillOption.title}}</option>
+                        <option [ngValue]="skillOption.id" *ngFor="let skillOption of skills; trackBy: trackSkillById">{{skillOption.title}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.skill?.dirty && editForm.controls.skill?.invalid)">
@@ -44,9 +44,9 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.levelSkill.level" for="field_level">Level</label>
-                    <select class="form-control" id="field_level" name="level" [(ngModel)]="levelSkill.level"  required>
+                    <select class="form-control" id="field_level" name="level" [(ngModel)]="levelSkill.levelId"  required>
                         <option *ngIf="!editForm.value.level" [ngValue]="null" selected></option>
-                        <option [ngValue]="levelOption.id === levelSkill.level?.id ? levelSkill.level : levelOption" *ngFor="let levelOption of levels; trackBy: trackLevelById">{{levelOption.name}}</option>
+                        <option [ngValue]="levelOption.id" *ngFor="let levelOption of levels; trackBy: trackLevelById">{{levelOption.name}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.level?.dirty && editForm.controls.level?.invalid)">
