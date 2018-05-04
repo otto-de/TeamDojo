@@ -1,10 +1,10 @@
 package de.otto.teamdojo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import de.otto.teamdojo.domain.BadgeSkill;
 import de.otto.teamdojo.service.BadgeSkillQueryService;
 import de.otto.teamdojo.service.BadgeSkillService;
 import de.otto.teamdojo.service.dto.BadgeSkillCriteria;
+import de.otto.teamdojo.service.dto.BadgeSkillDTO;
 import de.otto.teamdojo.web.rest.errors.BadRequestAlertException;
 import de.otto.teamdojo.web.rest.util.HeaderUtil;
 import de.otto.teamdojo.web.rest.util.PaginationUtil;
@@ -47,18 +47,18 @@ public class BadgeSkillResource {
     /**
      * POST  /badge-skills : Create a new badgeSkill.
      *
-     * @param badgeSkill the badgeSkill to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new badgeSkill, or with status 400 (Bad Request) if the badgeSkill has already an ID
+     * @param badgeSkillDTO the badgeSkillDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new badgeSkillDTO, or with status 400 (Bad Request) if the badgeSkill has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/badge-skills")
     @Timed
-    public ResponseEntity<BadgeSkill> createBadgeSkill(@Valid @RequestBody BadgeSkill badgeSkill) throws URISyntaxException {
-        log.debug("REST request to save BadgeSkill : {}", badgeSkill);
-        if (badgeSkill.getId() != null) {
+    public ResponseEntity<BadgeSkillDTO> createBadgeSkill(@Valid @RequestBody BadgeSkillDTO badgeSkillDTO) throws URISyntaxException {
+        log.debug("REST request to save BadgeSkill : {}", badgeSkillDTO);
+        if (badgeSkillDTO.getId() != null) {
             throw new BadRequestAlertException("A new badgeSkill cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        BadgeSkill result = badgeSkillService.save(badgeSkill);
+        BadgeSkillDTO result = badgeSkillService.save(badgeSkillDTO);
         return ResponseEntity.created(new URI("/api/badge-skills/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -67,22 +67,22 @@ public class BadgeSkillResource {
     /**
      * PUT  /badge-skills : Updates an existing badgeSkill.
      *
-     * @param badgeSkill the badgeSkill to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated badgeSkill,
-     * or with status 400 (Bad Request) if the badgeSkill is not valid,
-     * or with status 500 (Internal Server Error) if the badgeSkill couldn't be updated
+     * @param badgeSkillDTO the badgeSkillDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated badgeSkillDTO,
+     * or with status 400 (Bad Request) if the badgeSkillDTO is not valid,
+     * or with status 500 (Internal Server Error) if the badgeSkillDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/badge-skills")
     @Timed
-    public ResponseEntity<BadgeSkill> updateBadgeSkill(@Valid @RequestBody BadgeSkill badgeSkill) throws URISyntaxException {
-        log.debug("REST request to update BadgeSkill : {}", badgeSkill);
-        if (badgeSkill.getId() == null) {
-            return createBadgeSkill(badgeSkill);
+    public ResponseEntity<BadgeSkillDTO> updateBadgeSkill(@Valid @RequestBody BadgeSkillDTO badgeSkillDTO) throws URISyntaxException {
+        log.debug("REST request to update BadgeSkill : {}", badgeSkillDTO);
+        if (badgeSkillDTO.getId() == null) {
+            return createBadgeSkill(badgeSkillDTO);
         }
-        BadgeSkill result = badgeSkillService.save(badgeSkill);
+        BadgeSkillDTO result = badgeSkillService.save(badgeSkillDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, badgeSkill.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, badgeSkillDTO.getId().toString()))
             .body(result);
     }
 
@@ -95,9 +95,9 @@ public class BadgeSkillResource {
      */
     @GetMapping("/badge-skills")
     @Timed
-    public ResponseEntity<List<BadgeSkill>> getAllBadgeSkills(BadgeSkillCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<BadgeSkillDTO>> getAllBadgeSkills(BadgeSkillCriteria criteria, Pageable pageable) {
         log.debug("REST request to get BadgeSkills by criteria: {}", criteria);
-        Page<BadgeSkill> page = badgeSkillQueryService.findByCriteria(criteria, pageable);
+        Page<BadgeSkillDTO> page = badgeSkillQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/badge-skills");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -105,21 +105,21 @@ public class BadgeSkillResource {
     /**
      * GET  /badge-skills/:id : get the "id" badgeSkill.
      *
-     * @param id the id of the badgeSkill to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the badgeSkill, or with status 404 (Not Found)
+     * @param id the id of the badgeSkillDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the badgeSkillDTO, or with status 404 (Not Found)
      */
     @GetMapping("/badge-skills/{id}")
     @Timed
-    public ResponseEntity<BadgeSkill> getBadgeSkill(@PathVariable Long id) {
+    public ResponseEntity<BadgeSkillDTO> getBadgeSkill(@PathVariable Long id) {
         log.debug("REST request to get BadgeSkill : {}", id);
-        Optional<BadgeSkill> badgeSkill = badgeSkillService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(badgeSkill);
+        Optional<BadgeSkillDTO> badgeSkillDTO = badgeSkillService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(badgeSkillDTO);
     }
 
     /**
      * DELETE  /badge-skills/:id : delete the "id" badgeSkill.
      *
-     * @param id the id of the badgeSkill to delete
+     * @param id the id of the badgeSkillDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/badge-skills/{id}")

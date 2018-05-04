@@ -1,6 +1,4 @@
 import { Moment } from 'moment';
-import { ISkill } from './skill.model';
-import { ITeam } from './team.model';
 
 export interface ITeamSkill {
     id?: number;
@@ -8,8 +6,10 @@ export interface ITeamSkill {
     verifiedAt?: Moment;
     irrelevant?: boolean;
     note?: string;
-    skill?: ISkill;
-    team?: ITeam;
+    skillTitle?: string;
+    skillId?: number;
+    teamName?: string;
+    teamId?: number;
 }
 
 export class TeamSkill implements ITeamSkill {
@@ -19,8 +19,10 @@ export class TeamSkill implements ITeamSkill {
         public verifiedAt?: Moment,
         public irrelevant?: boolean,
         public note?: string,
-        public skill?: ISkill,
-        public team?: ITeam
+        public skillTitle?: string,
+        public skillId?: number,
+        public teamName?: string,
+        public teamId?: number
     ) {
         this.irrelevant = false;
     }
