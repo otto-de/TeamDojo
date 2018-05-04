@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { IBadge } from 'app/shared/model/badge.model';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { IBadge } from 'app/shared/model/badge.model';
+import { ITeam } from 'app/shared/model/team.model';
+import { ILevel } from 'app/shared/model/level.model';
+import { IDimension } from 'app/shared/model/dimension.model';
 import { JhiAlertService } from 'ng-jhipster';
 import { TeamsAchievementsService } from './teams-achievements.service';
 
@@ -10,9 +13,13 @@ import { TeamsAchievementsService } from './teams-achievements.service';
     styleUrls: ['teams-achievements.scss']
 })
 export class TeamsAchievementsComponent implements OnInit {
+    @Input() team: ITeam;
     badges: IBadge[];
+    levels: { [key: number]: ILevel[] };
+
     constructor(private teamsAchievementsService: TeamsAchievementsService, private jhiAlertService: JhiAlertService) {
         this.badges = [];
+        this.levels = {};
     }
 
     ngOnInit() {
@@ -26,9 +33,23 @@ export class TeamsAchievementsComponent implements OnInit {
                 (res: HttpResponse<IBadge[]>) => res.body.forEach((badge: IBadge) => this.badges.push(badge)),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
+        if (this.team.participations) {
+            this.teamsAchievementsService
+                .queryLevels({ 'dimensionId.in': this.team.participations.map((dimension: IDimension) => dimension.id) })
+                .subscribe(
+                    (res: HttpResponse<ILevel[]>) =>
+                        res.body.forEach(
+                            (level: ILevel) =>
+                                this.levels[level.dimensionId]
+                                    ? this.levels[level.dimensionId].push(level)
+                                    : (this.levels[level.dimensionId] = [level])
+                        ),
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
+        }
     }
 
-    trackId(index: number, item: IBadge) {
+    trackId(index: number, item) {
         return item.id;
     }
 
