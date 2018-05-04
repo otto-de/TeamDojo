@@ -7,6 +7,8 @@ import de.otto.teamdojo.domain.Skill;
 import de.otto.teamdojo.repository.BadgeSkillRepository;
 import de.otto.teamdojo.service.BadgeSkillQueryService;
 import de.otto.teamdojo.service.BadgeSkillService;
+import de.otto.teamdojo.service.dto.BadgeSkillDTO;
+import de.otto.teamdojo.service.mapper.BadgeSkillMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,6 +47,10 @@ public class BadgeSkillResourceIntTest {
 
     @Autowired
     private BadgeSkillRepository badgeSkillRepository;
+
+
+    @Autowired
+    private BadgeSkillMapper badgeSkillMapper;
 
 
     @Autowired
@@ -113,9 +119,10 @@ public class BadgeSkillResourceIntTest {
         int databaseSizeBeforeCreate = badgeSkillRepository.findAll().size();
 
         // Create the BadgeSkill
+        BadgeSkillDTO badgeSkillDTO = badgeSkillMapper.toDto(badgeSkill);
         restBadgeSkillMockMvc.perform(post("/api/badge-skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(badgeSkill)))
+            .content(TestUtil.convertObjectToJsonBytes(badgeSkillDTO)))
             .andExpect(status().isCreated());
 
         // Validate the BadgeSkill in the database
@@ -132,11 +139,12 @@ public class BadgeSkillResourceIntTest {
 
         // Create the BadgeSkill with an existing ID
         badgeSkill.setId(1L);
+        BadgeSkillDTO badgeSkillDTO = badgeSkillMapper.toDto(badgeSkill);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restBadgeSkillMockMvc.perform(post("/api/badge-skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(badgeSkill)))
+            .content(TestUtil.convertObjectToJsonBytes(badgeSkillDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the BadgeSkill in the database
@@ -152,10 +160,11 @@ public class BadgeSkillResourceIntTest {
         badgeSkill.setScore(null);
 
         // Create the BadgeSkill, which fails.
+        BadgeSkillDTO badgeSkillDTO = badgeSkillMapper.toDto(badgeSkill);
 
         restBadgeSkillMockMvc.perform(post("/api/badge-skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(badgeSkill)))
+            .content(TestUtil.convertObjectToJsonBytes(badgeSkillDTO)))
             .andExpect(status().isBadRequest());
 
         List<BadgeSkill> badgeSkillList = badgeSkillRepository.findAll();
@@ -329,7 +338,7 @@ public class BadgeSkillResourceIntTest {
     @Transactional
     public void updateBadgeSkill() throws Exception {
         // Initialize the database
-        badgeSkillService.save(badgeSkill);
+        badgeSkillRepository.saveAndFlush(badgeSkill);
 
         int databaseSizeBeforeUpdate = badgeSkillRepository.findAll().size();
 
@@ -339,10 +348,11 @@ public class BadgeSkillResourceIntTest {
         em.detach(updatedBadgeSkill);
         updatedBadgeSkill
             .score(UPDATED_SCORE);
+        BadgeSkillDTO badgeSkillDTO = badgeSkillMapper.toDto(updatedBadgeSkill);
 
         restBadgeSkillMockMvc.perform(put("/api/badge-skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedBadgeSkill)))
+            .content(TestUtil.convertObjectToJsonBytes(badgeSkillDTO)))
             .andExpect(status().isOk());
 
         // Validate the BadgeSkill in the database
@@ -358,11 +368,12 @@ public class BadgeSkillResourceIntTest {
         int databaseSizeBeforeUpdate = badgeSkillRepository.findAll().size();
 
         // Create the BadgeSkill
+        BadgeSkillDTO badgeSkillDTO = badgeSkillMapper.toDto(badgeSkill);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restBadgeSkillMockMvc.perform(put("/api/badge-skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(badgeSkill)))
+            .content(TestUtil.convertObjectToJsonBytes(badgeSkillDTO)))
             .andExpect(status().isCreated());
 
         // Validate the BadgeSkill in the database
@@ -374,7 +385,7 @@ public class BadgeSkillResourceIntTest {
     @Transactional
     public void deleteBadgeSkill() throws Exception {
         // Initialize the database
-        badgeSkillService.save(badgeSkill);
+        badgeSkillRepository.saveAndFlush(badgeSkill);
 
         int databaseSizeBeforeDelete = badgeSkillRepository.findAll().size();
 
@@ -401,5 +412,28 @@ public class BadgeSkillResourceIntTest {
         assertThat(badgeSkill1).isNotEqualTo(badgeSkill2);
         badgeSkill1.setId(null);
         assertThat(badgeSkill1).isNotEqualTo(badgeSkill2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(BadgeSkillDTO.class);
+        BadgeSkillDTO badgeSkillDTO1 = new BadgeSkillDTO();
+        badgeSkillDTO1.setId(1L);
+        BadgeSkillDTO badgeSkillDTO2 = new BadgeSkillDTO();
+        assertThat(badgeSkillDTO1).isNotEqualTo(badgeSkillDTO2);
+        badgeSkillDTO2.setId(badgeSkillDTO1.getId());
+        assertThat(badgeSkillDTO1).isEqualTo(badgeSkillDTO2);
+        badgeSkillDTO2.setId(2L);
+        assertThat(badgeSkillDTO1).isNotEqualTo(badgeSkillDTO2);
+        badgeSkillDTO1.setId(null);
+        assertThat(badgeSkillDTO1).isNotEqualTo(badgeSkillDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(badgeSkillMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(badgeSkillMapper.fromId(null)).isNull();
     }
 }

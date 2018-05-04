@@ -43,10 +43,10 @@ export class LevelUpdateComponent implements OnInit {
         );
         this.levelService.query({ filter: 'level-is-null' }).subscribe(
             (res: HttpResponse<ILevel[]>) => {
-                if (!this.level.dependsOn || !this.level.dependsOn.id) {
+                if (!this.level.dependsOnId) {
                     this.dependsons = res.body;
                 } else {
-                    this.levelService.find(this.level.dependsOn.id).subscribe(
+                    this.levelService.find(this.level.dependsOnId).subscribe(
                         (subRes: HttpResponse<ILevel>) => {
                             this.dependsons = [subRes.body].concat(res.body);
                         },

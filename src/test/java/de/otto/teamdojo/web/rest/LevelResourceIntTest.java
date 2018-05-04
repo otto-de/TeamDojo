@@ -7,6 +7,8 @@ import de.otto.teamdojo.domain.LevelSkill;
 import de.otto.teamdojo.repository.LevelRepository;
 import de.otto.teamdojo.service.LevelQueryService;
 import de.otto.teamdojo.service.LevelService;
+import de.otto.teamdojo.service.dto.LevelDTO;
+import de.otto.teamdojo.service.mapper.LevelMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,6 +59,10 @@ public class LevelResourceIntTest {
 
     @Autowired
     private LevelRepository levelRepository;
+
+
+    @Autowired
+    private LevelMapper levelMapper;
 
 
     @Autowired
@@ -124,9 +130,10 @@ public class LevelResourceIntTest {
         int databaseSizeBeforeCreate = levelRepository.findAll().size();
 
         // Create the Level
+        LevelDTO levelDTO = levelMapper.toDto(level);
         restLevelMockMvc.perform(post("/api/levels")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(level)))
+            .content(TestUtil.convertObjectToJsonBytes(levelDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Level in the database
@@ -147,11 +154,12 @@ public class LevelResourceIntTest {
 
         // Create the Level with an existing ID
         level.setId(1L);
+        LevelDTO levelDTO = levelMapper.toDto(level);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restLevelMockMvc.perform(post("/api/levels")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(level)))
+            .content(TestUtil.convertObjectToJsonBytes(levelDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Level in the database
@@ -167,10 +175,11 @@ public class LevelResourceIntTest {
         level.setName(null);
 
         // Create the Level, which fails.
+        LevelDTO levelDTO = levelMapper.toDto(level);
 
         restLevelMockMvc.perform(post("/api/levels")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(level)))
+            .content(TestUtil.convertObjectToJsonBytes(levelDTO)))
             .andExpect(status().isBadRequest());
 
         List<Level> levelList = levelRepository.findAll();
@@ -185,10 +194,11 @@ public class LevelResourceIntTest {
         level.setRequiredScore(null);
 
         // Create the Level, which fails.
+        LevelDTO levelDTO = levelMapper.toDto(level);
 
         restLevelMockMvc.perform(post("/api/levels")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(level)))
+            .content(TestUtil.convertObjectToJsonBytes(levelDTO)))
             .andExpect(status().isBadRequest());
 
         List<Level> levelList = levelRepository.findAll();
@@ -444,7 +454,7 @@ public class LevelResourceIntTest {
     @Transactional
     public void updateLevel() throws Exception {
         // Initialize the database
-        levelService.save(level);
+        levelRepository.saveAndFlush(level);
 
         int databaseSizeBeforeUpdate = levelRepository.findAll().size();
 
@@ -458,10 +468,11 @@ public class LevelResourceIntTest {
             .picture(UPDATED_PICTURE)
             .pictureContentType(UPDATED_PICTURE_CONTENT_TYPE)
             .requiredScore(UPDATED_REQUIRED_SCORE);
+        LevelDTO levelDTO = levelMapper.toDto(updatedLevel);
 
         restLevelMockMvc.perform(put("/api/levels")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedLevel)))
+            .content(TestUtil.convertObjectToJsonBytes(levelDTO)))
             .andExpect(status().isOk());
 
         // Validate the Level in the database
@@ -481,11 +492,12 @@ public class LevelResourceIntTest {
         int databaseSizeBeforeUpdate = levelRepository.findAll().size();
 
         // Create the Level
+        LevelDTO levelDTO = levelMapper.toDto(level);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restLevelMockMvc.perform(put("/api/levels")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(level)))
+            .content(TestUtil.convertObjectToJsonBytes(levelDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Level in the database
@@ -497,7 +509,7 @@ public class LevelResourceIntTest {
     @Transactional
     public void deleteLevel() throws Exception {
         // Initialize the database
-        levelService.save(level);
+        levelRepository.saveAndFlush(level);
 
         int databaseSizeBeforeDelete = levelRepository.findAll().size();
 
@@ -524,5 +536,28 @@ public class LevelResourceIntTest {
         assertThat(level1).isNotEqualTo(level2);
         level1.setId(null);
         assertThat(level1).isNotEqualTo(level2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(LevelDTO.class);
+        LevelDTO levelDTO1 = new LevelDTO();
+        levelDTO1.setId(1L);
+        LevelDTO levelDTO2 = new LevelDTO();
+        assertThat(levelDTO1).isNotEqualTo(levelDTO2);
+        levelDTO2.setId(levelDTO1.getId());
+        assertThat(levelDTO1).isEqualTo(levelDTO2);
+        levelDTO2.setId(2L);
+        assertThat(levelDTO1).isNotEqualTo(levelDTO2);
+        levelDTO1.setId(null);
+        assertThat(levelDTO1).isNotEqualTo(levelDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(levelMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(levelMapper.fromId(null)).isNull();
     }
 }

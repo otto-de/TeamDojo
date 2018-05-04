@@ -1,6 +1,6 @@
 package de.otto.teamdojo.service;
 
-import de.otto.teamdojo.domain.Skill;
+import de.otto.teamdojo.service.dto.SkillDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,10 +14,10 @@ public interface SkillService {
     /**
      * Save a skill.
      *
-     * @param skill the entity to save
+     * @param skillDTO the entity to save
      * @return the persisted entity
      */
-    Skill save(Skill skill);
+    SkillDTO save(SkillDTO skillDTO);
 
     /**
      * Get all the skills.
@@ -25,7 +25,7 @@ public interface SkillService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<Skill> findAll(Pageable pageable);
+    Page<SkillDTO> findAll(Pageable pageable);
 
 
     /**
@@ -34,7 +34,7 @@ public interface SkillService {
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<Skill> findOne(Long id);
+    Optional<SkillDTO> findOne(Long id);
 
     /**
      * Delete the "id" skill.

@@ -1,10 +1,10 @@
 package de.otto.teamdojo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import de.otto.teamdojo.domain.Level;
 import de.otto.teamdojo.service.LevelQueryService;
 import de.otto.teamdojo.service.LevelService;
 import de.otto.teamdojo.service.dto.LevelCriteria;
+import de.otto.teamdojo.service.dto.LevelDTO;
 import de.otto.teamdojo.web.rest.errors.BadRequestAlertException;
 import de.otto.teamdojo.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -42,18 +42,18 @@ public class LevelResource {
     /**
      * POST  /levels : Create a new level.
      *
-     * @param level the level to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new level, or with status 400 (Bad Request) if the level has already an ID
+     * @param levelDTO the levelDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new levelDTO, or with status 400 (Bad Request) if the level has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/levels")
     @Timed
-    public ResponseEntity<Level> createLevel(@Valid @RequestBody Level level) throws URISyntaxException {
-        log.debug("REST request to save Level : {}", level);
-        if (level.getId() != null) {
+    public ResponseEntity<LevelDTO> createLevel(@Valid @RequestBody LevelDTO levelDTO) throws URISyntaxException {
+        log.debug("REST request to save Level : {}", levelDTO);
+        if (levelDTO.getId() != null) {
             throw new BadRequestAlertException("A new level cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Level result = levelService.save(level);
+        LevelDTO result = levelService.save(levelDTO);
         return ResponseEntity.created(new URI("/api/levels/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -62,22 +62,22 @@ public class LevelResource {
     /**
      * PUT  /levels : Updates an existing level.
      *
-     * @param level the level to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated level,
-     * or with status 400 (Bad Request) if the level is not valid,
-     * or with status 500 (Internal Server Error) if the level couldn't be updated
+     * @param levelDTO the levelDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated levelDTO,
+     * or with status 400 (Bad Request) if the levelDTO is not valid,
+     * or with status 500 (Internal Server Error) if the levelDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/levels")
     @Timed
-    public ResponseEntity<Level> updateLevel(@Valid @RequestBody Level level) throws URISyntaxException {
-        log.debug("REST request to update Level : {}", level);
-        if (level.getId() == null) {
-            return createLevel(level);
+    public ResponseEntity<LevelDTO> updateLevel(@Valid @RequestBody LevelDTO levelDTO) throws URISyntaxException {
+        log.debug("REST request to update Level : {}", levelDTO);
+        if (levelDTO.getId() == null) {
+            return createLevel(levelDTO);
         }
-        Level result = levelService.save(level);
+        LevelDTO result = levelService.save(levelDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, level.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, levelDTO.getId().toString()))
             .body(result);
     }
 
@@ -89,30 +89,30 @@ public class LevelResource {
      */
     @GetMapping("/levels")
     @Timed
-    public ResponseEntity<List<Level>> getAllLevels(LevelCriteria criteria) {
+    public ResponseEntity<List<LevelDTO>> getAllLevels(LevelCriteria criteria) {
         log.debug("REST request to get Levels by criteria: {}", criteria);
-        List<Level> entityList = levelQueryService.findByCriteria(criteria);
+        List<LevelDTO> entityList = levelQueryService.findByCriteria(criteria);
         return ResponseEntity.ok().body(entityList);
     }
 
     /**
      * GET  /levels/:id : get the "id" level.
      *
-     * @param id the id of the level to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the level, or with status 404 (Not Found)
+     * @param id the id of the levelDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the levelDTO, or with status 404 (Not Found)
      */
     @GetMapping("/levels/{id}")
     @Timed
-    public ResponseEntity<Level> getLevel(@PathVariable Long id) {
+    public ResponseEntity<LevelDTO> getLevel(@PathVariable Long id) {
         log.debug("REST request to get Level : {}", id);
-        Optional<Level> level = levelService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(level);
+        Optional<LevelDTO> levelDTO = levelService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(levelDTO);
     }
 
     /**
      * DELETE  /levels/:id : delete the "id" level.
      *
-     * @param id the id of the level to delete
+     * @param id the id of the levelDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/levels/{id}")

@@ -26,13 +26,13 @@
                 <td><a [routerLink]="['/level-skill', levelSkill.id, 'view' ]">{{levelSkill.id}}</a></td>
                 <td>{{levelSkill.score}}</td>
                 <td>
-                    <div *ngIf="levelSkill.skill">
-                        <a [routerLink]="['../skill', levelSkill.skill?.id, 'view' ]" >{{levelSkill.skill?.title}}</a>
+                    <div *ngIf="levelSkill.skillId">
+                        <a [routerLink]="['../skill', levelSkill.skillId , 'view' ]" >{{levelSkill.skillTitle}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="levelSkill.level">
-                        <a [routerLink]="['../level', levelSkill.level?.id, 'view' ]" >{{levelSkill.level?.name}}</a>
+                    <div *ngIf="levelSkill.levelId">
+                        <a [routerLink]="['../level', levelSkill.levelId , 'view' ]" >{{levelSkill.levelName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

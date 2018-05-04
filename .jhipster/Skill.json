@@ -55,7 +55,7 @@
         }
     ],
     "changelogDate": "20180418141117",
-    "dto": "no",
+    "dto": "mapstruct",
     "service": "serviceImpl",
     "entityTableName": "skill",
     "jpaMetamodelFiltering": true,

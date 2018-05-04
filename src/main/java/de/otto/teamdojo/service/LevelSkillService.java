@@ -1,6 +1,6 @@
 package de.otto.teamdojo.service;
 
-import de.otto.teamdojo.domain.LevelSkill;
+import de.otto.teamdojo.service.dto.LevelSkillDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,17 +13,17 @@ public interface LevelSkillService {
     /**
      * Save a levelSkill.
      *
-     * @param levelSkill the entity to save
+     * @param levelSkillDTO the entity to save
      * @return the persisted entity
      */
-    LevelSkill save(LevelSkill levelSkill);
+    LevelSkillDTO save(LevelSkillDTO levelSkillDTO);
 
     /**
      * Get all the levelSkills.
      *
      * @return the list of entities
      */
-    List<LevelSkill> findAll();
+    List<LevelSkillDTO> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface LevelSkillService {
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<LevelSkill> findOne(Long id);
+    Optional<LevelSkillDTO> findOne(Long id);
 
     /**
      * Delete the "id" levelSkill.
