@@ -3,6 +3,7 @@ package de.otto.teamdojo.web.rest;
 import de.otto.teamdojo.TeamdojoApp;
 import de.otto.teamdojo.domain.*;
 import de.otto.teamdojo.service.AchievableSkillService;
+import de.otto.teamdojo.service.dto.AchievableSkillDTO;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
 import org.junit.After;
 import org.junit.Before;
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
 
 import static de.otto.teamdojo.test.util.BadgeTestDataProvider.alwaysUpToDate;
 import static de.otto.teamdojo.test.util.BadgeTestDataProvider.awsReady;
@@ -31,6 +33,7 @@ import static de.otto.teamdojo.test.util.TeamTestDataProvider.ft1;
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -237,6 +240,23 @@ public class TeamAchievableSkillResourceIntTest {
         team = ft1().build(em);
 
         restTeamMockMvc.perform(get("/api/teams/{id}/achievable-skills", team.getId()))
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    @Transactional
+    public void updateAchievableSkill() throws Exception {
+        softwareUpdates = softwareUpdates().build(em);
+        team = ft1().build(em);
+        em.flush();
+
+        AchievableSkillDTO achievableSkill = new AchievableSkillDTO();
+        achievableSkill.setAchievedAt(Instant.now());
+        achievableSkill.setSkillId(softwareUpdates.getId());
+
+        restTeamMockMvc.perform(put("/api/teams/{id}/achievable-skills", team.getId())
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(achievableSkill)))
             .andExpect(status().isOk());
     }
 
