@@ -1,34 +1,36 @@
 import { Injectable } from '@angular/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Team } from 'app/shared/model/team.model';
+import { TeamsService } from 'app/teams/teams.service';
 
-import { TeamsSelectionComponent } from 'app/teams/teams-selection/teams-selection.component';
+const TEAM_STORAGE_KEY = 'selectedTeamId';
 
 @Injectable()
 export class TeamsSelectionService {
-    private isOpen = false;
+    private _selectedTeam: Team = null;
 
-    private teamId = -1;
-
-    constructor(private modalService: NgbModal) {}
-
-    setTeamId(teamId: number) {
-        this.teamId = teamId;
+    constructor(private teamsService: TeamsService) {
+        // fetch all teams and filter out the selected team
+        this.teamsService.query().subscribe(result => {
+            const teams = result.body;
+            const teamIdStr = localStorage.getItem(TEAM_STORAGE_KEY);
+            if (teamIdStr !== null && !isNaN(Number(teamIdStr))) {
+                const teamId = Number(teamIdStr);
+                const team = teams.find(t => t.id === Number(teamId));
+                this._selectedTeam = team ? team : null;
+            }
+        });
     }
 
-    openModal(): NgbModalRef {
-        if (this.isOpen) {
-            return;
+    set selectedTeam(team: Team) {
+        this._selectedTeam = team;
+        if (team !== null) {
+            localStorage.setItem(TEAM_STORAGE_KEY, this._selectedTeam.id.toString());
+        } else {
+            localStorage.removeItem(TEAM_STORAGE_KEY);
         }
-        this.isOpen = true;
-        const modalRef = this.modalService.open(TeamsSelectionComponent, { size: 'lg' });
-        modalRef.result.then(
-            result => {
-                this.isOpen = false;
-            },
-            reason => {
-                this.isOpen = false;
-            }
-        );
-        return modalRef;
+    }
+
+    get selectedTeam() {
+        return this._selectedTeam;
     }
 }

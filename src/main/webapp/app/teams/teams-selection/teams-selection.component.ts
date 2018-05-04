@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-// import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import { TeamsService } from 'app/teams/teams.service';
 import { Team } from 'app/shared/model/team.model';
 
@@ -10,30 +10,36 @@ import { Team } from 'app/shared/model/team.model';
     styleUrls: ['./teams-selection.scss']
 })
 export class TeamsSelectionComponent implements OnInit {
-    private highlightedTeamId = -1;
+    private highlightedTeam: Team = null;
 
     private teams: Team[] = [];
 
     constructor(
         private activeModal: NgbActiveModal,
-        // private teamsSelectionService: TeamsSelectionService,
+        private teamsSelectionService: TeamsSelectionService,
         private teamsService: TeamsService
     ) {}
 
     ngOnInit(): void {
         this.teamsService.query().subscribe(teams => {
             this.teams = teams.body;
-            console.log(this.teams);
         });
+        this.highlightedTeam = this.teamsSelectionService.selectedTeam;
     }
 
-    selectTeam(teamId: number) {
-        this.highlightedTeamId = teamId;
+    selectTeam(team: Team) {
+        this.highlightedTeam = team;
     }
 
     confirmTeam() {
-        // this.teamsSelectionService.setTeamId(this.highlightedTeamId);
+        this.teamsSelectionService.selectedTeam = this.highlightedTeam;
         this.activeModal.close('Team selected');
+    }
+
+    deselectTeam() {
+        this.highlightedTeam = null;
+        this.teamsSelectionService.selectedTeam = null;
+        this.activeModal.close('No team selected');
     }
 
     cancelTeamSelection() {
