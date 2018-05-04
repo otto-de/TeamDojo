@@ -23,6 +23,16 @@ export class TeamsSkillsService {
             .map((res: EntityArrayResponseType) => this.convertArrayResponse(res));
     }
 
+    addTeamSkill(teamId: number, skillId: number) {
+        console.log('completing skill ', skillId, ' for team ', teamId);
+        return;
+    }
+
+    removeTeamSkill(teamId: number, skillId: number) {
+        console.log('completing skill ', skillId, ' for team ', teamId);
+        return;
+    }
+
     private convertArrayResponse(res: EntityArrayResponseType): EntityArrayResponseType {
         const jsonResponse: IAchievableSkill[] = res.body;
         const body: IAchievableSkill[] = [];
