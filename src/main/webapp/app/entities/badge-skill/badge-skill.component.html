@@ -16,8 +16,8 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="score"><span jhiTranslate="teamdojoApp.badgeSkill.score">Score</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="badge.name"><span jhiTranslate="teamdojoApp.badgeSkill.badge">Badge</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="skill.title"><span jhiTranslate="teamdojoApp.badgeSkill.skill">Skill</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="badgeName"><span jhiTranslate="teamdojoApp.badgeSkill.badge">Badge</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="skillTitle"><span jhiTranslate="teamdojoApp.badgeSkill.skill">Skill</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -26,13 +26,13 @@
                 <td><a [routerLink]="['/badge-skill', badgeSkill.id, 'view' ]">{{badgeSkill.id}}</a></td>
                 <td>{{badgeSkill.score}}</td>
                 <td>
-                    <div *ngIf="badgeSkill.badge">
-                        <a [routerLink]="['../badge', badgeSkill.badge?.id, 'view' ]" >{{badgeSkill.badge?.name}}</a>
+                    <div *ngIf="badgeSkill.badgeId">
+                        <a [routerLink]="['../badge', badgeSkill.badgeId , 'view' ]" >{{badgeSkill.badgeName}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="badgeSkill.skill">
-                        <a [routerLink]="['../skill', badgeSkill.skill?.id, 'view' ]" >{{badgeSkill.skill?.title}}</a>
+                    <div *ngIf="badgeSkill.skillId">
+                        <a [routerLink]="['../skill', badgeSkill.skillId , 'view' ]" >{{badgeSkill.skillTitle}}</a>
                     </div>
                 </td>
                 <td class="text-right">

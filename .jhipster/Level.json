@@ -58,7 +58,7 @@
         }
     ],
     "changelogDate": "20180419133250",
-    "dto": "no",
+    "dto": "mapstruct",
     "service": "serviceImpl",
     "entityTableName": "level",
     "jpaMetamodelFiltering": true,

@@ -1,13 +1,19 @@
-import { ISkill } from './skill.model';
-import { ILevel } from './level.model';
-
 export interface ILevelSkill {
     id?: number;
     score?: number;
-    skill?: ISkill;
-    level?: ILevel;
+    skillTitle?: string;
+    skillId?: number;
+    levelName?: string;
+    levelId?: number;
 }
 
 export class LevelSkill implements ILevelSkill {
-    constructor(public id?: number, public score?: number, public skill?: ISkill, public level?: ILevel) {}
+    constructor(
+        public id?: number,
+        public score?: number,
+        public skillTitle?: string,
+        public skillId?: number,
+        public levelName?: string,
+        public levelId?: number
+    ) {}
 }
