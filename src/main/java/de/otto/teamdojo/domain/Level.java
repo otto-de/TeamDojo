@@ -34,6 +34,9 @@ public class Level implements Serializable {
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
+    @Column(name = "description")
+    private String description;
+
     @Lob
     @Column(name = "picture")
     private byte[] picture;
@@ -80,6 +83,19 @@ public class Level implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Level description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public byte[] getPicture() {
@@ -198,6 +214,7 @@ public class Level implements Serializable {
         return "Level{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", description='" + getDescription() + "'" +
             ", picture='" + getPicture() + "'" +
             ", pictureContentType='" + getPictureContentType() + "'" +
             ", requiredScore=" + getRequiredScore() +

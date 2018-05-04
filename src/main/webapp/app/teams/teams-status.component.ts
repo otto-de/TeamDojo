@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ITeam } from 'app/shared/model/team.model';
 
 @Component({
@@ -6,18 +6,14 @@ import { ITeam } from 'app/shared/model/team.model';
     templateUrl: './teams-status.component.html',
     styleUrls: ['teams-status.scss']
 })
-export class TeamsStatusComponent implements OnInit {
+export class TeamsStatusComponent {
     @Input() team: ITeam;
-    private _teamImage;
 
     constructor() {}
 
-    ngOnInit() {}
-
     get teamImage() {
-        if (!this._teamImage && this.team.picture && this.team.pictureContentType) {
-            this._teamImage = `data:${this.team.pictureContentType};base64,${this.team.picture}`;
-        }
-        return this._teamImage;
+        return this.team.picture && this.team.pictureContentType
+            ? `data:${this.team.pictureContentType};base64,${this.team.picture}`
+            : null;
     }
 }

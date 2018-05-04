@@ -25,6 +25,10 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="description" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <column name="picture" type="longblob">
                 <constraints nullable="true" />
             </column>
