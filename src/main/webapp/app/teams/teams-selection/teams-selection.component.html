@@ -8,7 +8,7 @@
 
 <div class="row">
 
-    <div class="col-md-2 col-xs-3 team-item"  *ngFor="let team of teams" (click)="selectTeam(team.id)" [ngClass]="{'selected': highlightedTeamId == team.id}">
+    <div class="col-md-2 col-xs-3 team-item"  *ngFor="let team of teams" (click)="selectTeam(team)" [ngClass]="{'selected': highlightedTeam !== null && highlightedTeam.id === team.id}">
         <div class="team-item-row">
             <div class="team-avatar">
                 <img *ngIf="getTeamImage(team)" [src]="getTeamImage(team)" [title]="team.name" />
@@ -25,6 +25,6 @@
 
 </div>
 <div class="modal-footer">
-    <!-- TODO: disabled only if a team is selected -->
-    <button type="button" class="btn btn-outline-primary" (click)="confirmTeam()">Select</button>
+    <button type="button" class="btn btn-outline-dark" (click)="deselectTeam()">No Team</button>
+    <button type="button" class="btn btn-outline-primary" [ngClass]="{'disabled':highlightedTeam === null}" (click)="highlightedTeam !== null && confirmTeam()">Select Team</button>
 </div>
