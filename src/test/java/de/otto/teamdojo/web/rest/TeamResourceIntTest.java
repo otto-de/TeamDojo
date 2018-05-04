@@ -5,6 +5,7 @@ import de.otto.teamdojo.domain.Dimension;
 import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.domain.TeamSkill;
 import de.otto.teamdojo.repository.TeamRepository;
+import de.otto.teamdojo.service.AchievableSkillService;
 import de.otto.teamdojo.service.TeamQueryService;
 import de.otto.teamdojo.service.TeamService;
 import de.otto.teamdojo.service.dto.TeamDTO;
@@ -83,6 +84,9 @@ public class TeamResourceIntTest {
     private TeamQueryService teamQueryService;
 
     @Autowired
+    private AchievableSkillService achievableSkillService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -101,7 +105,7 @@ public class TeamResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final TeamResource teamResource = new TeamResource(teamService, teamQueryService);
+        final TeamResource teamResource = new TeamResource(teamService, teamQueryService, achievableSkillService);
         this.restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -233,7 +237,7 @@ public class TeamResourceIntTest {
     }
 
     public void getAllTeamsWithEagerRelationshipsIsEnabled() throws Exception {
-        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService);
+        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService, achievableSkillService);
         when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
@@ -249,7 +253,7 @@ public class TeamResourceIntTest {
     }
 
     public void getAllTeamsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService);
+        TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService, achievableSkillService);
         when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
         MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
