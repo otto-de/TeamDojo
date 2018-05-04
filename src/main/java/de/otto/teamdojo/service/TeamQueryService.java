@@ -6,6 +6,8 @@ import de.otto.teamdojo.domain.TeamSkill_;
 import de.otto.teamdojo.domain.Team_;
 import de.otto.teamdojo.repository.TeamRepository;
 import de.otto.teamdojo.service.dto.TeamCriteria;
+import de.otto.teamdojo.service.dto.TeamDTO;
+import de.otto.teamdojo.service.mapper.TeamMapper;
 import io.github.jhipster.service.QueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 /**
  * Service for executing complex queries for Team entities in the database.
  * The main input is a {@link TeamCriteria} which gets converted to {@link Specification},
  * in a way that all the filters must apply.
- * It returns a {@link List} of {@link Team} or a {@link Page} of {@link Team} which fulfills the criteria.
+ * It returns a {@link List} of {@link TeamDTO} or a {@link Page} of {@link TeamDTO} which fulfills the criteria.
  */
 @Service
 @Transactional(readOnly = true)
@@ -32,35 +33,39 @@ public class TeamQueryService extends QueryService<Team> {
 
     private final TeamRepository teamRepository;
 
-    public TeamQueryService(TeamRepository teamRepository) {
+    private final TeamMapper teamMapper;
+
+    public TeamQueryService(TeamRepository teamRepository, TeamMapper teamMapper) {
         this.teamRepository = teamRepository;
+        this.teamMapper = teamMapper;
     }
 
     /**
-     * Return a {@link List} of {@link Team} which matches the criteria from the database
+     * Return a {@link List} of {@link TeamDTO} which matches the criteria from the database
      *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public List<Team> findByCriteria(TeamCriteria criteria) {
+    public List<TeamDTO> findByCriteria(TeamCriteria criteria) {
         log.debug("find by criteria : {}", criteria);
         final Specification<Team> specification = createSpecification(criteria);
-        return teamRepository.findAll(specification);
+        return teamMapper.toDto(teamRepository.findAll(specification));
     }
 
     /**
-     * Return a {@link Page} of {@link Team} which matches the criteria from the database
+     * Return a {@link Page} of {@link TeamDTO} which matches the criteria from the database
      *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @param page     The page, which should be returned.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public Page<Team> findByCriteria(TeamCriteria criteria, Pageable page) {
+    public Page<TeamDTO> findByCriteria(TeamCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<Team> specification = createSpecification(criteria);
-        return teamRepository.findAll(specification, page);
+        return teamRepository.findAll(specification, page)
+            .map(teamMapper::toDto);
     }
 
     /**

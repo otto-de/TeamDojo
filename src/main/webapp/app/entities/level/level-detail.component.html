@@ -9,6 +9,10 @@
                 <dd>
                     <span>{{level.name}}</span>
                 </dd>
+                <dt><span jhiTranslate="teamdojoApp.level.description">Description</span></dt>
+                <dd>
+                    <span>{{level.description}}</span>
+                </dd>
                 <dt><span jhiTranslate="teamdojoApp.level.picture">Picture</span></dt>
                 <dd>
                     <div *ngIf="level.picture">
@@ -24,14 +28,14 @@
                 </dd>
                 <dt><span jhiTranslate="teamdojoApp.level.dimension">Dimension</span></dt>
                 <dd>
-                    <div *ngIf="level.dimension">
-                        <a [routerLink]="['/dimension', level.dimension?.id, 'view']">{{level.dimension?.name}}</a>
+                    <div *ngIf="level.dimensionId">
+                        <a [routerLink]="['/dimension', level.dimensionId, 'view']">{{level.dimensionName}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="teamdojoApp.level.dependsOn">Depends On</span></dt>
                 <dd>
-                    <div *ngIf="level.dependsOn">
-                        <a [routerLink]="['/level', level.dependsOn?.id, 'view']">{{level.dependsOn?.name}}</a>
+                    <div *ngIf="level.dependsOnId">
+                        <a [routerLink]="['/level', level.dependsOnId, 'view']">{{level.dependsOnName}}</a>
                     </div>
                 </dd>
             </dl>

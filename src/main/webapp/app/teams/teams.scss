@@ -1,4 +1,13 @@
-.teams {
-    height: calc(100vh - 175px);
-    overflow: hidden;
+@import '~bootstrap/scss/bootstrap';
+@media only screen and (min-width: map-get($grid-breakpoints, md)){
+    .teams {
+        height: calc(100vh - 151px);
+        overflow: hidden;
+        > * {
+            height: 100%;
+            > * {
+                height: inherit;
+            }
+        }
+    }
 }

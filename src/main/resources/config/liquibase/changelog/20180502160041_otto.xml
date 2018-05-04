@@ -1,0 +1,440 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="sbe" context="!test" id="1525269642023-1">
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Asset Team"/>
+            <column name="short_name" value="assets"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Datenversorgung"/>
+            <column name="short_name" value="dv"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Functional Team 1"/>
+            <column name="short_name" value="ft1"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Functional Team 2"/>
+            <column name="short_name" value="ft2"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Functional Team 3"/>
+            <column name="short_name" value="ft3"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Functional Team 4"/>
+            <column name="short_name" value="ft4"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Functional Team 5"/>
+            <column name="short_name" value="ft5"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Functional Team 6"/>
+            <column name="short_name" value="ft6"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Functional Team 7"/>
+            <column name="short_name" value="ft7"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Functional Team Navigation"/>
+            <column name="short_name" value="ft-nav"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Functional Team Apps"/>
+            <column name="short_name" value="ftapps"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Operations"/>
+            <column name="short_name" value="ops"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Quality Services Methods &amp; Processes"/>
+            <column name="short_name" value="qsmp"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Shop-Office-Team"/>
+            <column name="short_name" value="so"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Scale-Team"/>
+            <column name="short_name" value="scale"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Social-Media-Team"/>
+            <column name="short_name" value="social"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Tesla-Team"/>
+            <column name="short_name" value="tesla"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Tracking"/>
+            <column name="short_name" value="tr"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
+            <column name="name" value="Produktion &amp; Anreicherung von Produktdaten"/>
+            <column name="short_name" value="prada"/>
+        </insert>
+    </changeSet>
+    <changeSet author="sbe" context="!test" id="1525269642023-2">
+        <insert tableName="dimension">
+            <column name="id" valueNumeric="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="name" value="QS" />
+        </insert>
+    </changeSet>
+    <changeSet author="sbe" context="!test" id="1525269642023-3">
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Asset Team&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Datenversorgung&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Functional Team 1&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Functional Team 2&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Functional Team 3&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Functional Team 4&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Functional Team 5&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Functional Team 6&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Functional Team 7&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Functional Team Navigation&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Functional Team Apps&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Operations&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;QS&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Quality Services Methods &amp; Processes&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Shop-Office-Team&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Scale-Team&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Social-Media-Team&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Tesla-Team&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Tracking&apos; LIMIT 1)"/>
+        </insert>
+        <insert tableName="team_participations">
+            <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)"/>
+            <column name="teams_id" valueComputed="(SELECT id FROM team WHERE name = &apos;Produktion &amp; Anreicherung von Produktdaten&apos; LIMIT 1)"/>
+        </insert>
+    </changeSet>
+    <changeSet author="sbe" context="!test" id="1525269642023-4">
+        <insert tableName="level">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="name" value="Level 1" />
+            <column name="dimension_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;QS&apos; LIMIT 1)" />
+            <column name="description" value="Ein grundlegender Prozess existiert" />
+            <column name="required_score" valueNumeric="0.0" />
+        </insert>
+        <insert tableName="level">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="name" value="Level 2" />
+            <column name="dimension_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;QS&apos; LIMIT 1)" />
+            <column name="required_score" valueNumeric="0.0" />
+            <column name="description" value="Ein definierter Prozess existiert" />
+            <column name="depends_on_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 1&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="name" value="Level 3" />
+            <column name="dimension_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;QS&apos; LIMIT 1)" />
+            <column name="required_score" valueNumeric="0.0" />
+            <column name="description" value="Ein definierter Prozess mit quantifizierbaren Zielen existiert" />
+            <column name="depends_on_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 2&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="name" value="Level 4" />
+            <column name="dimension_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;QS&apos; LIMIT 1)" />
+            <column name="required_score" valueNumeric="0.0" />
+            <column name="description" value="Ein definierter Prozess mit quantifizierbaren Zielen wird permanent optimiert" />
+            <column name="depends_on_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 3&apos; LIMIT 1)" />
+        </insert>
+    </changeSet>
+    <changeSet author="sbe" context="!test" id="1525269642023-5">
+        <insert tableName="skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="title" value="Funktionale Qualität" />
+            <column name="description" value="Wir prüfen unsere funktionale Qualität" />
+        </insert>
+        <insert tableName="skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="title" value="Regressionstests" />
+            <column name="description" value="Wir haben Regressionstests, die wir ab und zu durchführen" />
+        </insert>
+        <insert tableName="skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="title" value="Nicht-funktionale Qualität" />
+            <column name="description" value="Wir prüfen unsere nicht-funktionale Qualität" />
+        </insert>
+        <insert tableName="skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="title" value="Bugfixingprozess" />
+            <column name="description" value="Unser Bugfixingprozess ist noch nicht ausformuliert, aber wir haben einen" />
+        </insert>
+        <insert tableName="skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="title" value="Regelmäßige Regressionstests" />
+            <column name="description" value="Wir haben Regressionstests, die wir regelmäßig durchführen" />
+        </insert>
+        <insert tableName="skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="title" value="Permanenter Bugfixingprozess" />
+            <column name="description" value="Unser Bugfixingprozess wird permanent gelebt" />
+        </insert>
+        <insert tableName="skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="title" value="Überdeckungsgrade" />
+            <column name="description" value="Wir haben uns Überdeckungsgrade für Überdeckungsarten überlegt" />
+        </insert>
+        <insert tableName="skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="title" value="Qualitätsleitplanken" />
+            <column name="description" value="Wir haben Qualitätsleitplanken im Team festgelegt" />
+        </insert>
+        <insert tableName="skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="title" value="Sinnvolle Tools" />
+            <column name="description" value="Wir haben für uns sinnvolle Tools eingeführt" />
+        </insert>
+        <insert tableName="skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="title" value="Automatisierung kritischer Regressionstests" />
+            <column name="description" value="Wir haben die kritischen Regressionstests automatisiert" />
+        </insert>
+        <insert tableName="skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="title" value="Monitoring unserer Ziele" />
+            <column name="description" value="über unser Monitoring sehen wir, wenn unsere gesetzten Ziele nicht erreicht werden" />
+        </insert>
+        <insert tableName="skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="title" value="Time to Production" />
+            <column name="description" value="Wir haben uns selbst ein Zeitziel gesetzt, wie lange es maximal dauern darf von push zu Livegang inkl. aller sinnvollen Tests" />
+        </insert>
+        <insert tableName="skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="title" value="Quantifizierbare Qualitätsleitplanken" />
+            <column name="description" value="Unsere Qualitätsleitplanken sind quantifizierbar" />
+        </insert>
+        <insert tableName="skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="title" value="Automatisierung wirtschaftlich sinnvoller Regressionstests" />
+            <column name="description" value="Wir haben alle wirtschaftlich sinnvollen Regressionstests automatisiert" />
+        </insert>
+        <insert tableName="skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="title" value="Richtige Teststufe automatisierter Regressionstests" />
+            <column name="description" value="Für die automatisierten Regressionstests ist die richtige Teststufe gewählt" />
+        </insert>
+        <insert tableName="skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="title" value="Einschätzbarkeit von Automatisierung, Pflege und Wartung von Testfällen" />
+            <column name="description" value="Wir können genau sagen, wie teuer es ist einen Testfall zu automatisieren, zu pflegen und zu warten" />
+        </insert>
+        <insert tableName="skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="title" value="Prozessuale Gegenmaßnahmen dank Monitoring" />
+            <column name="description" value="Wir ergreifen prozessuelle Maßnahmen, wenn unser Monitoring eine systematische Schwäche aufdeckt" />
+        </insert>
+    </changeSet>
+    <changeSet author="sbe" context="!test" id="1525269642023-6">
+        <insert tableName="level_skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="score" valueNumeric="0.0" />
+            <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 1&apos; LIMIT 1)" />
+            <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Funktionale Qualität&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="score" valueNumeric="0.0" />
+            <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 1&apos; LIMIT 1)" />
+            <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Regressionstests&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="score" valueNumeric="0.0" />
+            <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 1&apos; LIMIT 1)" />
+            <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Nicht-funktionale Qualität&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="score" valueNumeric="0.0" />
+            <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 1&apos; LIMIT 1)" />
+            <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Bugfixingprozess&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="score" valueNumeric="0.0" />
+            <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 2&apos; LIMIT 1)" />
+            <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Regelmäßige Regressionstests&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="score" valueNumeric="0.0" />
+            <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 2&apos; LIMIT 1)" />
+            <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Permanenter Bugfixingprozess&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="score" valueNumeric="0.0" />
+            <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 2&apos; LIMIT 1)" />
+            <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Überdeckungsgrade&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="score" valueNumeric="0.0" />
+            <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 2&apos; LIMIT 1)" />
+            <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Qualitätsleitplanken&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="score" valueNumeric="0.0" />
+            <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 2&apos; LIMIT 1)" />
+            <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Sinnvolle Tools&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="score" valueNumeric="0.0" />
+            <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 3&apos; LIMIT 1)" />
+            <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Automatisierung kritischer Regressionstests&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="score" valueNumeric="0.0" />
+            <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 3&apos; LIMIT 1)" />
+            <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Monitoring unserer Ziele&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="score" valueNumeric="0.0" />
+            <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 3&apos; LIMIT 1)" />
+            <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Time to Production&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="score" valueNumeric="0.0" />
+            <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 3&apos; LIMIT 1)" />
+            <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Quantifizierbare Qualitätsleitplanken&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="score" valueNumeric="0.0" />
+            <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 4&apos; LIMIT 1)" />
+            <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Automatisierung wirtschaftlich sinnvoller Regressionstests&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="score" valueNumeric="0.0" />
+            <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 4&apos; LIMIT 1)" />
+            <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Richtige Teststufe automatisierter Regressionstests&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="score" valueNumeric="0.0" />
+            <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 4&apos; LIMIT 1)" />
+            <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Einschätzbarkeit von Automatisierung, Pflege und Wartung von Testfällen&apos; LIMIT 1)" />
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="score" valueNumeric="0.0" />
+            <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 4&apos; LIMIT 1)" />
+            <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Prozessuale Gegenmaßnahmen dank Monitoring&apos; LIMIT 1)" />
+        </insert>
+    </changeSet>
+    <changeSet author="sbe" context="!test" id="1525269642023-7">
+        <insert tableName="badge">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="name" value="SSL Comfort" />
+            <column name="description" value="SSL/CA Probleme werden nicht ignoriert, sondern Otto CA wird systemspezifisch eingebunden" />
+        </insert>
+        <insert tableName="badge">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="name" value="AWS Ready" />
+            <column name="description" value="Skills die notwendig sind um in die AWS live zu gehen. Sie beschreiben best practices die von jedem Team erwartet werden um in einer public cloud einen angemessenen Sicherheitsstandard zu erreichen" />
+        </insert>
+        <insert tableName="badge">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="name" value="The Trophy" />
+            <column name="description" value="Badge für das Team, was als erstes alle Services in der AWS hat" />
+        </insert>
+        <insert tableName="badge">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="name" value="Security Badge" />
+            <column name="description" value="Badge für Teams die einen aktiven security champion haben" />
+        </insert>
+        <insert tableName="badge">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="name" value="QS Badge" />
+            <column name="description" value="Badge für Teams mit einem aktiven quality specialist" />
+        </insert>
+        <insert tableName="badge">
+            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
+            <column name="name" value="The Shield" />
+            <column name="description" value="Badge für Teams, die Ihre Schnittstellen nach außen authentifizieren" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>

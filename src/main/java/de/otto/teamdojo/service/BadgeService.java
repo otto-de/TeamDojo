@@ -1,6 +1,7 @@
 package de.otto.teamdojo.service;
 
 import de.otto.teamdojo.domain.Badge;
+import de.otto.teamdojo.service.dto.BadgeDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,10 +15,10 @@ public interface BadgeService {
     /**
      * Save a badge.
      *
-     * @param badge the entity to save
+     * @param badgeDTO the entity to save
      * @return the persisted entity
      */
-    Badge save(Badge badge);
+    BadgeDTO save(BadgeDTO badgeDTO);
 
     /**
      * Get all the badges.
@@ -25,7 +26,7 @@ public interface BadgeService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<Badge> findAll(Pageable pageable);
+    Page<BadgeDTO> findAll(Pageable pageable);
 
     /**
      * Get all the Badge with eager load of many-to-many relationships.
@@ -40,7 +41,7 @@ public interface BadgeService {
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<Badge> findOne(Long id);
+    Optional<BadgeDTO> findOne(Long id);
 
     /**
      * Delete the "id" badge.
