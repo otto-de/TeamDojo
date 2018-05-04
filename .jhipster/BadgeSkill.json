@@ -33,7 +33,7 @@
         }
     ],
     "changelogDate": "20180419141143",
-    "dto": "no",
+    "dto": "mapstruct",
     "service": "serviceImpl",
     "entityTableName": "badge_skill",
     "jpaMetamodelFiltering": true,

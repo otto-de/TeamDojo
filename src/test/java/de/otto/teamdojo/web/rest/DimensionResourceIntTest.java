@@ -6,6 +6,8 @@ import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.repository.DimensionRepository;
 import de.otto.teamdojo.service.DimensionQueryService;
 import de.otto.teamdojo.service.DimensionService;
+import de.otto.teamdojo.service.dto.DimensionDTO;
+import de.otto.teamdojo.service.mapper.DimensionMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,6 +49,10 @@ public class DimensionResourceIntTest {
 
     @Autowired
     private DimensionRepository dimensionRepository;
+
+
+    @Autowired
+    private DimensionMapper dimensionMapper;
 
 
     @Autowired
@@ -106,9 +112,10 @@ public class DimensionResourceIntTest {
         int databaseSizeBeforeCreate = dimensionRepository.findAll().size();
 
         // Create the Dimension
+        DimensionDTO dimensionDTO = dimensionMapper.toDto(dimension);
         restDimensionMockMvc.perform(post("/api/dimensions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dimension)))
+            .content(TestUtil.convertObjectToJsonBytes(dimensionDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Dimension in the database
@@ -126,11 +133,12 @@ public class DimensionResourceIntTest {
 
         // Create the Dimension with an existing ID
         dimension.setId(1L);
+        DimensionDTO dimensionDTO = dimensionMapper.toDto(dimension);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restDimensionMockMvc.perform(post("/api/dimensions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dimension)))
+            .content(TestUtil.convertObjectToJsonBytes(dimensionDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Dimension in the database
@@ -146,10 +154,11 @@ public class DimensionResourceIntTest {
         dimension.setName(null);
 
         // Create the Dimension, which fails.
+        DimensionDTO dimensionDTO = dimensionMapper.toDto(dimension);
 
         restDimensionMockMvc.perform(post("/api/dimensions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dimension)))
+            .content(TestUtil.convertObjectToJsonBytes(dimensionDTO)))
             .andExpect(status().isBadRequest());
 
         List<Dimension> dimensionList = dimensionRepository.findAll();
@@ -319,7 +328,7 @@ public class DimensionResourceIntTest {
     @Transactional
     public void updateDimension() throws Exception {
         // Initialize the database
-        dimensionService.save(dimension);
+        dimensionRepository.saveAndFlush(dimension);
 
         int databaseSizeBeforeUpdate = dimensionRepository.findAll().size();
 
@@ -330,10 +339,11 @@ public class DimensionResourceIntTest {
         updatedDimension
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION);
+        DimensionDTO dimensionDTO = dimensionMapper.toDto(updatedDimension);
 
         restDimensionMockMvc.perform(put("/api/dimensions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedDimension)))
+            .content(TestUtil.convertObjectToJsonBytes(dimensionDTO)))
             .andExpect(status().isOk());
 
         // Validate the Dimension in the database
@@ -350,11 +360,12 @@ public class DimensionResourceIntTest {
         int databaseSizeBeforeUpdate = dimensionRepository.findAll().size();
 
         // Create the Dimension
+        DimensionDTO dimensionDTO = dimensionMapper.toDto(dimension);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restDimensionMockMvc.perform(put("/api/dimensions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dimension)))
+            .content(TestUtil.convertObjectToJsonBytes(dimensionDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Dimension in the database
@@ -366,7 +377,7 @@ public class DimensionResourceIntTest {
     @Transactional
     public void deleteDimension() throws Exception {
         // Initialize the database
-        dimensionService.save(dimension);
+        dimensionRepository.saveAndFlush(dimension);
 
         int databaseSizeBeforeDelete = dimensionRepository.findAll().size();
 
@@ -393,5 +404,28 @@ public class DimensionResourceIntTest {
         assertThat(dimension1).isNotEqualTo(dimension2);
         dimension1.setId(null);
         assertThat(dimension1).isNotEqualTo(dimension2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(DimensionDTO.class);
+        DimensionDTO dimensionDTO1 = new DimensionDTO();
+        dimensionDTO1.setId(1L);
+        DimensionDTO dimensionDTO2 = new DimensionDTO();
+        assertThat(dimensionDTO1).isNotEqualTo(dimensionDTO2);
+        dimensionDTO2.setId(dimensionDTO1.getId());
+        assertThat(dimensionDTO1).isEqualTo(dimensionDTO2);
+        dimensionDTO2.setId(2L);
+        assertThat(dimensionDTO1).isNotEqualTo(dimensionDTO2);
+        dimensionDTO1.setId(null);
+        assertThat(dimensionDTO1).isNotEqualTo(dimensionDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(dimensionMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(dimensionMapper.fromId(null)).isNull();
     }
 }
