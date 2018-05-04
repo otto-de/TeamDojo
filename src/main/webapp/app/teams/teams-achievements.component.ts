@@ -37,16 +37,35 @@ export class TeamsAchievementsComponent implements OnInit {
             this.teamsAchievementsService
                 .queryLevels({ 'dimensionId.in': this.team.participations.map((dimension: IDimension) => dimension.id) })
                 .subscribe(
-                    (res: HttpResponse<ILevel[]>) =>
+                    (res: HttpResponse<ILevel[]>) => {
+                        const levels: { [key: number]: ILevel[] } = {};
                         res.body.forEach(
                             (level: ILevel) =>
-                                this.levels[level.dimensionId]
-                                    ? this.levels[level.dimensionId].push(level)
-                                    : (this.levels[level.dimensionId] = [level])
-                        ),
+                                levels[level.dimensionId] ? levels[level.dimensionId].push(level) : (levels[level.dimensionId] = [level])
+                        );
+                        for (const dimensionId in levels) {
+                            if (levels.hasOwnProperty(dimensionId)) {
+                                this.levels[dimensionId] = this.sortLevels(levels[dimensionId]);
+                            }
+                        }
+                    },
                     (res: HttpErrorResponse) => this.onError(res.message)
                 );
         }
+    }
+
+    sortLevels(levels: ILevel[], reverse = false) {
+        const sortedLevels = [];
+        if (levels.length) {
+            const lowestLevelIndex = levels.findIndex(level => level.dependsOnId === null);
+            sortedLevels.push(lowestLevelIndex !== -1 ? levels.splice(lowestLevelIndex, 1)[0] : levels.shift());
+            for (let i = 0; i < levels.length; i++) {
+                const nextLevel = levels[i];
+                const nextLevelIndex = sortedLevels.findIndex((level: ILevel) => level.id === nextLevel.dependsOnId);
+                sortedLevels.splice(nextLevelIndex !== -1 ? nextLevelIndex + (reverse ? 1 : 0) : sortedLevels.length, 0, nextLevel);
+            }
+        }
+        return sortedLevels;
     }
 
     trackId(index: number, item) {
