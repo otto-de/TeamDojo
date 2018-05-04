@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiLanguageService } from 'ng-jhipster';
 
 import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from 'app/core';
 import { ProfileService } from '../profiles/profile.service';
 import { TeamsSelectionService } from '../../teams/teams-selection/teams-selection.service';
+import { TeamsSelectionComponent } from 'app/teams/teams-selection/teams-selection.component';
+import { Team } from 'app/shared/model/team.model';
 
 @Component({
     selector: 'jhi-navbar',
@@ -18,6 +20,7 @@ export class NavbarComponent implements OnInit {
     languages: any[];
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;
+    isTeamSelectionOpen = false;
 
     constructor(
         private loginService: LoginService,
@@ -27,6 +30,7 @@ export class NavbarComponent implements OnInit {
         private loginModalService: LoginModalService,
         private teamsSelectionService: TeamsSelectionService,
         private profileService: ProfileService,
+        private modalService: NgbModal,
         private router: Router
     ) {
         this.isNavbarCollapsed = true;
@@ -41,9 +45,6 @@ export class NavbarComponent implements OnInit {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
-
-        // TODO: delete this, just for testing
-        // this.teamsSelectionService.openModal();
     }
 
     changeLanguage(languageKey: string) {
@@ -62,10 +63,6 @@ export class NavbarComponent implements OnInit {
         this.modalRef = this.loginModalService.open();
     }
 
-    selectTeam() {
-        this.teamsSelectionService.openModal();
-    }
-
     logout() {
         this.collapseNavbar();
         this.loginService.logout();
@@ -78,5 +75,26 @@ export class NavbarComponent implements OnInit {
 
     getImageUrl() {
         return this.isAuthenticated() ? this.principal.getImageUrl() : null;
+    }
+
+    selectTeam(): NgbModalRef {
+        if (this.isTeamSelectionOpen) {
+            return;
+        }
+        this.isTeamSelectionOpen = true;
+        const modalRef = this.modalService.open(TeamsSelectionComponent, { size: 'lg' });
+        modalRef.result.then(
+            result => {
+                this.isTeamSelectionOpen = false;
+            },
+            reason => {
+                this.isTeamSelectionOpen = false;
+            }
+        );
+        return modalRef;
+    }
+
+    getTeamImage(team: Team) {
+        return team.picture && team.pictureContentType ? `data:${team.pictureContentType};base64,${team.picture}` : null;
     }
 }
