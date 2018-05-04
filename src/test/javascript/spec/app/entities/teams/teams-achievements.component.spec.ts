@@ -62,7 +62,7 @@ describe('Component Tests', () => {
             spyOn(service, 'queryLevels').and.returnValue(
                 Observable.of(
                     new HttpResponse({
-                        body: [new Level(123)],
+                        body: [new Level(123, undefined, undefined, undefined, undefined, undefined, undefined, 122)],
                         headers
                     })
                 )
