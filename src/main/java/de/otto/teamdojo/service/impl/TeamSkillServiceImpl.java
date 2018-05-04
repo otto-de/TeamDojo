@@ -3,6 +3,8 @@ package de.otto.teamdojo.service.impl;
 import de.otto.teamdojo.domain.TeamSkill;
 import de.otto.teamdojo.repository.TeamSkillRepository;
 import de.otto.teamdojo.service.TeamSkillService;
+import de.otto.teamdojo.service.dto.TeamSkillDTO;
+import de.otto.teamdojo.service.mapper.TeamSkillMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -23,20 +25,25 @@ public class TeamSkillServiceImpl implements TeamSkillService {
 
     private final TeamSkillRepository teamSkillRepository;
 
-    public TeamSkillServiceImpl(TeamSkillRepository teamSkillRepository) {
+    private final TeamSkillMapper teamSkillMapper;
+
+    public TeamSkillServiceImpl(TeamSkillRepository teamSkillRepository, TeamSkillMapper teamSkillMapper) {
         this.teamSkillRepository = teamSkillRepository;
+        this.teamSkillMapper = teamSkillMapper;
     }
 
     /**
      * Save a teamSkill.
      *
-     * @param teamSkill the entity to save
+     * @param teamSkillDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public TeamSkill save(TeamSkill teamSkill) {
-        log.debug("Request to save TeamSkill : {}", teamSkill);
-        return teamSkillRepository.save(teamSkill);
+    public TeamSkillDTO save(TeamSkillDTO teamSkillDTO) {
+        log.debug("Request to save TeamSkill : {}", teamSkillDTO);
+        TeamSkill teamSkill = teamSkillMapper.toEntity(teamSkillDTO);
+        teamSkill = teamSkillRepository.save(teamSkill);
+        return teamSkillMapper.toDto(teamSkill);
     }
 
     /**
@@ -47,9 +54,10 @@ public class TeamSkillServiceImpl implements TeamSkillService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<TeamSkill> findAll(Pageable pageable) {
+    public Page<TeamSkillDTO> findAll(Pageable pageable) {
         log.debug("Request to get all TeamSkills");
-        return teamSkillRepository.findAll(pageable);
+        return teamSkillRepository.findAll(pageable)
+            .map(teamSkillMapper::toDto);
     }
 
 
@@ -61,9 +69,10 @@ public class TeamSkillServiceImpl implements TeamSkillService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<TeamSkill> findOne(Long id) {
+    public Optional<TeamSkillDTO> findOne(Long id) {
         log.debug("Request to get TeamSkill : {}", id);
-        return teamSkillRepository.findById(id);
+        return teamSkillRepository.findById(id)
+            .map(teamSkillMapper::toDto);
     }
 
     /**

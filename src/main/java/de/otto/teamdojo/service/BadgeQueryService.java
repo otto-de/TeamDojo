@@ -6,6 +6,8 @@ import de.otto.teamdojo.domain.Badge_;
 import de.otto.teamdojo.domain.Dimension_;
 import de.otto.teamdojo.repository.BadgeRepository;
 import de.otto.teamdojo.service.dto.BadgeCriteria;
+import de.otto.teamdojo.service.dto.BadgeDTO;
+import de.otto.teamdojo.service.mapper.BadgeMapper;
 import io.github.jhipster.service.QueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 /**
  * Service for executing complex queries for Badge entities in the database.
  * The main input is a {@link BadgeCriteria} which gets converted to {@link Specification},
  * in a way that all the filters must apply.
- * It returns a {@link List} of {@link Badge} or a {@link Page} of {@link Badge} which fulfills the criteria.
+ * It returns a {@link List} of {@link BadgeDTO} or a {@link Page} of {@link BadgeDTO} which fulfills the criteria.
  */
 @Service
 @Transactional(readOnly = true)
@@ -32,35 +33,39 @@ public class BadgeQueryService extends QueryService<Badge> {
 
     private final BadgeRepository badgeRepository;
 
-    public BadgeQueryService(BadgeRepository badgeRepository) {
+    private final BadgeMapper badgeMapper;
+
+    public BadgeQueryService(BadgeRepository badgeRepository, BadgeMapper badgeMapper) {
         this.badgeRepository = badgeRepository;
+        this.badgeMapper = badgeMapper;
     }
 
     /**
-     * Return a {@link List} of {@link Badge} which matches the criteria from the database
+     * Return a {@link List} of {@link BadgeDTO} which matches the criteria from the database
      *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public List<Badge> findByCriteria(BadgeCriteria criteria) {
+    public List<BadgeDTO> findByCriteria(BadgeCriteria criteria) {
         log.debug("find by criteria : {}", criteria);
         final Specification<Badge> specification = createSpecification(criteria);
-        return badgeRepository.findAll(specification);
+        return badgeMapper.toDto(badgeRepository.findAll(specification));
     }
 
     /**
-     * Return a {@link Page} of {@link Badge} which matches the criteria from the database
+     * Return a {@link Page} of {@link BadgeDTO} which matches the criteria from the database
      *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @param page     The page, which should be returned.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public Page<Badge> findByCriteria(BadgeCriteria criteria, Pageable page) {
+    public Page<BadgeDTO> findByCriteria(BadgeCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<Badge> specification = createSpecification(criteria);
-        return badgeRepository.findAll(specification, page);
+        return badgeRepository.findAll(specification, page)
+            .map(badgeMapper::toDto);
     }
 
     /**

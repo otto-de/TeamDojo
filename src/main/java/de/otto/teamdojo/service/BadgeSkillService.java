@@ -1,6 +1,6 @@
 package de.otto.teamdojo.service;
 
-import de.otto.teamdojo.domain.BadgeSkill;
+import de.otto.teamdojo.service.dto.BadgeSkillDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,10 +14,10 @@ public interface BadgeSkillService {
     /**
      * Save a badgeSkill.
      *
-     * @param badgeSkill the entity to save
+     * @param badgeSkillDTO the entity to save
      * @return the persisted entity
      */
-    BadgeSkill save(BadgeSkill badgeSkill);
+    BadgeSkillDTO save(BadgeSkillDTO badgeSkillDTO);
 
     /**
      * Get all the badgeSkills.
@@ -25,7 +25,7 @@ public interface BadgeSkillService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<BadgeSkill> findAll(Pageable pageable);
+    Page<BadgeSkillDTO> findAll(Pageable pageable);
 
 
     /**
@@ -34,7 +34,7 @@ public interface BadgeSkillService {
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<BadgeSkill> findOne(Long id);
+    Optional<BadgeSkillDTO> findOne(Long id);
 
     /**
      * Delete the "id" badgeSkill.
