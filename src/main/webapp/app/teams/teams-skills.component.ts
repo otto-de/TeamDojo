@@ -63,11 +63,15 @@ export class TeamsSkillsComponent implements OnInit {
     onToggled(checked: boolean, skill: IAchievableSkill) {
         if (checked) {
             skill.achievedAt = moment();
-            this.teamsSkillsService.addTeamSkill(this.team.id, skill.skillId);
         } else {
             skill.achievedAt = null;
-            this.teamsSkillsService.removeTeamSkill(this.team.id, skill.skillId);
         }
+        this.teamsSkillsService.updateAchievableSkill(this.team.id, skill).subscribe(
+            (res: HttpResponse<IAchievableSkill>) => (skill = res.body),
+            (res: HttpErrorResponse) => {
+                console.log(res);
+            }
+        );
     }
 
     private paginateAchievableSkills(data: IAchievableSkill[], headers: HttpHeaders) {
