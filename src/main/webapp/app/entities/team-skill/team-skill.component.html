@@ -19,8 +19,8 @@
             <th jhiSortBy="verifiedAt"><span jhiTranslate="teamdojoApp.teamSkill.verifiedAt">Verified At</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="irrelevant"><span jhiTranslate="teamdojoApp.teamSkill.irrelevant">Irrelevant</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="note"><span jhiTranslate="teamdojoApp.teamSkill.note">Note</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="skill.title"><span jhiTranslate="teamdojoApp.teamSkill.skill">Skill</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="team.name"><span jhiTranslate="teamdojoApp.teamSkill.team">Team</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="skillTitle"><span jhiTranslate="teamdojoApp.teamSkill.skill">Skill</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="teamName"><span jhiTranslate="teamdojoApp.teamSkill.team">Team</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -32,13 +32,13 @@
                 <td>{{teamSkill.irrelevant}}</td>
                 <td>{{teamSkill.note}}</td>
                 <td>
-                    <div *ngIf="teamSkill.skill">
-                        <a [routerLink]="['../skill', teamSkill.skill?.id, 'view' ]" >{{teamSkill.skill?.title}}</a>
+                    <div *ngIf="teamSkill.skillId">
+                        <a [routerLink]="['../skill', teamSkill.skillId , 'view' ]" >{{teamSkill.skillTitle}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="teamSkill.team">
-                        <a [routerLink]="['../team', teamSkill.team?.id, 'view' ]" >{{teamSkill.team?.name}}</a>
+                    <div *ngIf="teamSkill.teamId">
+                        <a [routerLink]="['../team', teamSkill.teamId , 'view' ]" >{{teamSkill.teamName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

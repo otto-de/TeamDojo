@@ -7,6 +7,8 @@ import de.otto.teamdojo.domain.Skill;
 import de.otto.teamdojo.repository.LevelSkillRepository;
 import de.otto.teamdojo.service.LevelSkillQueryService;
 import de.otto.teamdojo.service.LevelSkillService;
+import de.otto.teamdojo.service.dto.LevelSkillDTO;
+import de.otto.teamdojo.service.mapper.LevelSkillMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,6 +47,10 @@ public class LevelSkillResourceIntTest {
 
     @Autowired
     private LevelSkillRepository levelSkillRepository;
+
+
+    @Autowired
+    private LevelSkillMapper levelSkillMapper;
 
 
     @Autowired
@@ -113,9 +119,10 @@ public class LevelSkillResourceIntTest {
         int databaseSizeBeforeCreate = levelSkillRepository.findAll().size();
 
         // Create the LevelSkill
+        LevelSkillDTO levelSkillDTO = levelSkillMapper.toDto(levelSkill);
         restLevelSkillMockMvc.perform(post("/api/level-skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(levelSkill)))
+            .content(TestUtil.convertObjectToJsonBytes(levelSkillDTO)))
             .andExpect(status().isCreated());
 
         // Validate the LevelSkill in the database
@@ -132,11 +139,12 @@ public class LevelSkillResourceIntTest {
 
         // Create the LevelSkill with an existing ID
         levelSkill.setId(1L);
+        LevelSkillDTO levelSkillDTO = levelSkillMapper.toDto(levelSkill);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restLevelSkillMockMvc.perform(post("/api/level-skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(levelSkill)))
+            .content(TestUtil.convertObjectToJsonBytes(levelSkillDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the LevelSkill in the database
@@ -152,10 +160,11 @@ public class LevelSkillResourceIntTest {
         levelSkill.setScore(null);
 
         // Create the LevelSkill, which fails.
+        LevelSkillDTO levelSkillDTO = levelSkillMapper.toDto(levelSkill);
 
         restLevelSkillMockMvc.perform(post("/api/level-skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(levelSkill)))
+            .content(TestUtil.convertObjectToJsonBytes(levelSkillDTO)))
             .andExpect(status().isBadRequest());
 
         List<LevelSkill> levelSkillList = levelSkillRepository.findAll();
@@ -329,7 +338,7 @@ public class LevelSkillResourceIntTest {
     @Transactional
     public void updateLevelSkill() throws Exception {
         // Initialize the database
-        levelSkillService.save(levelSkill);
+        levelSkillRepository.saveAndFlush(levelSkill);
 
         int databaseSizeBeforeUpdate = levelSkillRepository.findAll().size();
 
@@ -339,10 +348,11 @@ public class LevelSkillResourceIntTest {
         em.detach(updatedLevelSkill);
         updatedLevelSkill
             .score(UPDATED_SCORE);
+        LevelSkillDTO levelSkillDTO = levelSkillMapper.toDto(updatedLevelSkill);
 
         restLevelSkillMockMvc.perform(put("/api/level-skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedLevelSkill)))
+            .content(TestUtil.convertObjectToJsonBytes(levelSkillDTO)))
             .andExpect(status().isOk());
 
         // Validate the LevelSkill in the database
@@ -358,11 +368,12 @@ public class LevelSkillResourceIntTest {
         int databaseSizeBeforeUpdate = levelSkillRepository.findAll().size();
 
         // Create the LevelSkill
+        LevelSkillDTO levelSkillDTO = levelSkillMapper.toDto(levelSkill);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restLevelSkillMockMvc.perform(put("/api/level-skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(levelSkill)))
+            .content(TestUtil.convertObjectToJsonBytes(levelSkillDTO)))
             .andExpect(status().isCreated());
 
         // Validate the LevelSkill in the database
@@ -374,7 +385,7 @@ public class LevelSkillResourceIntTest {
     @Transactional
     public void deleteLevelSkill() throws Exception {
         // Initialize the database
-        levelSkillService.save(levelSkill);
+        levelSkillRepository.saveAndFlush(levelSkill);
 
         int databaseSizeBeforeDelete = levelSkillRepository.findAll().size();
 
@@ -401,5 +412,28 @@ public class LevelSkillResourceIntTest {
         assertThat(levelSkill1).isNotEqualTo(levelSkill2);
         levelSkill1.setId(null);
         assertThat(levelSkill1).isNotEqualTo(levelSkill2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(LevelSkillDTO.class);
+        LevelSkillDTO levelSkillDTO1 = new LevelSkillDTO();
+        levelSkillDTO1.setId(1L);
+        LevelSkillDTO levelSkillDTO2 = new LevelSkillDTO();
+        assertThat(levelSkillDTO1).isNotEqualTo(levelSkillDTO2);
+        levelSkillDTO2.setId(levelSkillDTO1.getId());
+        assertThat(levelSkillDTO1).isEqualTo(levelSkillDTO2);
+        levelSkillDTO2.setId(2L);
+        assertThat(levelSkillDTO1).isNotEqualTo(levelSkillDTO2);
+        levelSkillDTO1.setId(null);
+        assertThat(levelSkillDTO1).isNotEqualTo(levelSkillDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(levelSkillMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(levelSkillMapper.fromId(null)).isNull();
     }
 }

@@ -1,6 +1,6 @@
 package de.otto.teamdojo.service;
 
-import de.otto.teamdojo.domain.Dimension;
+import de.otto.teamdojo.service.dto.DimensionDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,17 +13,17 @@ public interface DimensionService {
     /**
      * Save a dimension.
      *
-     * @param dimension the entity to save
+     * @param dimensionDTO the entity to save
      * @return the persisted entity
      */
-    Dimension save(Dimension dimension);
+    DimensionDTO save(DimensionDTO dimensionDTO);
 
     /**
      * Get all the dimensions.
      *
      * @return the list of entities
      */
-    List<Dimension> findAll();
+    List<DimensionDTO> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface DimensionService {
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<Dimension> findOne(Long id);
+    Optional<DimensionDTO> findOne(Long id);
 
     /**
      * Delete the "id" dimension.
