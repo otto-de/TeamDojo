@@ -1,5 +1,6 @@
 package de.otto.teamdojo.repository;
 
+import com.google.common.collect.Lists;
 import de.otto.teamdojo.TeamdojoApp;
 import de.otto.teamdojo.domain.*;
 import de.otto.teamdojo.service.dto.AchievableSkillDTO;
@@ -10,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -79,6 +81,27 @@ public class SkillRepositoryIntTest {
 
     @Test
     @Transactional
+    public void getCompleteAndIncompleteSkills() throws Exception {
+        setupTestData();
+
+        Skill evilUserStories_notAchievable = evilUserStories().build(em);
+
+        em.flush();
+
+        Long teamId = team.getId();
+
+        List<Long> levelIds = Lists.newArrayList(yellow.getId(), orange.getId());
+
+        List<Long> badgeIds = Lists.newArrayList(awsReady.getId());
+
+        List<String> filter = Lists.newArrayList("COMPLETE", "INCOMPLETE");
+
+        Page<AchievableSkillDTO> results = skillRepository.findAchievableSkillsByLevelsAndBadges(teamId, levelIds, badgeIds, filter, Pageable.unpaged());
+        assertThat(results.getTotalElements()).isEqualTo(4);
+    }
+
+    @Test
+    @Transactional
     public void getIncompleteSkills() throws Exception {
         setupTestData();
         em.flush();
@@ -95,7 +118,7 @@ public class SkillRepositoryIntTest {
         List<String> filter = new ArrayList<String>();
         filter.add("INCOMPLETE");
 
-        Page<AchievableSkillDTO> results = skillRepository.findAchievableSkill(teamId, levelIds, badgeIds, filter, null);
+        Page<AchievableSkillDTO> results = skillRepository.findAchievableSkillsByLevelsAndBadges(teamId, levelIds, badgeIds, filter, Pageable.unpaged());
         assertThat(results.getTotalElements()).isEqualTo(3);
     }
 
@@ -120,7 +143,7 @@ public class SkillRepositoryIntTest {
         List<String> filter = new ArrayList<String>();
         filter.add("COMPLETE");
 
-        Page<AchievableSkillDTO> results = skillRepository.findAchievableSkill(teamId, levelIds, badgeIds, filter, null);
+        Page<AchievableSkillDTO> results = skillRepository.findAchievableSkillsByLevelsAndBadges(teamId, levelIds, badgeIds, filter, Pageable.unpaged());
         assertThat(results.getTotalElements()).isEqualTo(1);
     }
 
