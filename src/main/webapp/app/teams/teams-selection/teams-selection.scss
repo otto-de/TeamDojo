@@ -1,9 +1,14 @@
-.modal-body {
-    padding: 1rem
+.team-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.team-item-wrapper {
+    flex: 1 1 20%;
+    padding: 10px;
 }
 .team-item {
     border: 1px solid #ddd;
-    margin: 10px;
     border-radius: 0.15rem;
     user-select: none;
     -moz-user-select: none;
