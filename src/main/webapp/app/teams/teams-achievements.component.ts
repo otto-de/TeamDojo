@@ -34,23 +34,26 @@ export class TeamsAchievementsComponent implements OnInit {
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
         if (this.team.participations) {
-            this.teamsAchievementsService
-                .queryLevels({ 'dimensionId.in': this.team.participations.map((dimension: IDimension) => dimension.id) })
-                .subscribe(
-                    (res: HttpResponse<ILevel[]>) => {
-                        const levels: { [key: number]: ILevel[] } = {};
+            const dimensionIds: number[] = this.team.participations.map((dimension: IDimension) => dimension.id);
+            this.teamsAchievementsService.queryLevels({ 'dimensionId.in': dimensionIds }).subscribe(
+                (res: HttpResponse<ILevel[]>) => {
+                    const levels: { [key: number]: ILevel[] } = {};
+                    if (res.body && res.body.length) {
                         res.body.forEach(
                             (level: ILevel) =>
                                 levels[level.dimensionId] ? levels[level.dimensionId].push(level) : (levels[level.dimensionId] = [level])
                         );
-                        for (const dimensionId in levels) {
-                            if (levels.hasOwnProperty(dimensionId)) {
-                                this.levels[dimensionId] = this.sortLevels(levels[dimensionId]);
-                            }
+                    } else {
+                        dimensionIds.forEach((dimensionId: number) => (levels[dimensionId] = []));
+                    }
+                    for (const dimensionId in levels) {
+                        if (levels.hasOwnProperty(dimensionId)) {
+                            this.levels[dimensionId] = this.sortLevels(levels[dimensionId]);
                         }
-                    },
-                    (res: HttpErrorResponse) => this.onError(res.message)
-                );
+                    }
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
         }
     }
 
