@@ -26,15 +26,6 @@
                     *ngFor='let skill of skills'>
                     <div class="d-flex w-100 justify-content-between">
                         <a href="#" (click)="onClicked($event)" class="text-dark mb-1">{{skill.title}}</a>
-                        <!--<small *ngIf="" class="teams-skills-badge badge badge-pill badge-danger"-->
-                        <!--ngbPopover="{{'teamdojoApp.teams.skills.notAchieved' | translate}}"-->
-                        <!--triggers="mouseenter:mouseleave" placement="left">!-->
-                        <!--</small>-->
-                        <!--<small *ngIf="skill.achievedAt" class="teams-skills-badge badge badge-pill badge-success"-->
-                        <!--ngbPopover="{{'teamdojoApp.teams.skills.achievedOn' | translate}} {{skill.achievedAt | date: ('teamdojoApp.teams.dateFormat' | translate)}}"-->
-                        <!--triggers="mouseenter:mouseleave"-->
-                        <!--placement="left">✓-->
-                        <!--</small>-->
                         <toggle-switch [checked]="!!skill.achievedAt"
                                        popoverText="{{!skill.achievedAt ? ('teamdojoApp.teams.skills.notAchieved' | translate)
                                         : ('teamdojoApp.teams.skills.achievedOn' | translate) +' ' + (skill.achievedAt | date: ('teamdojoApp.teams.dateFormat' | translate))}}"
