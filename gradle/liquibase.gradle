@@ -133,6 +133,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd''') {
 }
 
 ext.loadYaml = { file ->
+    System.out.println(file.name);
     org.yaml.snakeyaml.Yaml yaml = new org.yaml.snakeyaml.Yaml()
     yaml.load(file.text)
 }
@@ -144,7 +145,7 @@ ext.getDependsOn = { name, order ->
 
 task liquibaseDataImportFromYaml {
     doLast {
-        def order = ['yellow', 'orange', 'green', 'blue', 'red', 'brown', 'black'];
+        def order = ['yellow', 'orange', 'green', 'blue', 'brown', 'black'];
         List levelPaths = []
         new File('skills/').eachFile {
             levelPaths << it.name
