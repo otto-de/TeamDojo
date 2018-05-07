@@ -62,7 +62,10 @@ describe('Component Tests', () => {
             spyOn(service, 'queryLevels').and.returnValue(
                 Observable.of(
                     new HttpResponse({
-                        body: [new Level(123, undefined, undefined, undefined, undefined, undefined, undefined, 122)],
+                        body: [
+                            new Level(123, undefined, undefined, undefined, undefined, undefined, undefined, 122),
+                            new Level(124, undefined, undefined, undefined, undefined, undefined, undefined, 122)
+                        ],
                         headers
                     })
                 )
@@ -74,8 +77,9 @@ describe('Component Tests', () => {
             // THEN
             expect(service.queryLevels).toHaveBeenCalled();
             expect(comp.levels).toEqual(jasmine.objectContaining({ 122: jasmine.anything() }));
-            expect(comp.levels[122]).toBeDefined();
+            expect(comp.levels[122].length).toEqual(2);
             expect(comp.levels[122][0]).toEqual(jasmine.objectContaining({ id: 123 }));
+            expect(comp.levels[122][1]).toEqual(jasmine.objectContaining({ id: 124 }));
         });
     });
 });
