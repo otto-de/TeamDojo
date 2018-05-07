@@ -5,6 +5,7 @@ import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/ht
 import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
+import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import moment = require('moment');
 
 @Component({
@@ -23,7 +24,8 @@ export class TeamsSkillsComponent implements OnInit {
     constructor(
         private teamsSkillsService: TeamsSkillsService,
         private jhiAlertService: JhiAlertService,
-        private parseLinks: JhiParseLinks
+        private parseLinks: JhiParseLinks,
+        private teamsSelectionService: TeamsSelectionService
     ) {
         this.skills = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -84,5 +86,11 @@ export class TeamsSkillsComponent implements OnInit {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    isSameTeamSelected() {
+        if (this.team.id != this.teamsSelectionService.selectedTeam.id) {
+            return true;
+        }
     }
 }
