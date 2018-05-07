@@ -57,6 +57,7 @@ public interface SkillRepository extends JpaRepository<Skill, Long>, JpaSpecific
         @Param("badgeIds") List<Long> badgeIds,
         Pageable pageable);
 
+
     @Query("SELECT" +
         " new de.otto.teamdojo.service.dto.AchievableSkillDTO(t.id, s.id, s.title, s.description, t.achievedAt)" +
         " FROM Skill s" +
