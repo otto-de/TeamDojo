@@ -19,24 +19,41 @@ import java.util.List;
 @Repository
 public interface SkillRepository extends JpaRepository<Skill, Long>, JpaSpecificationExecutor<Skill> {
 
-
-    @Query("SELECT" +
-        " new de.otto.teamdojo.service.dto.AchievableSkillDTO(t.id, s.id, s.title, s.description, t.completedAt)" +
+    @Query("SELECT DISTINCT" +
+        " new de.otto.teamdojo.service.dto.AchievableSkillDTO(t.id, s.id, s.title, s.description, t.achievedAt)" +
         " FROM Skill s" +
         " LEFT JOIN s.teams t ON t.team.id = :teamId" +
         " LEFT JOIN s.levels l" +
         " LEFT JOIN s.badges b" +
-        " WHERE " +
-        " ( l.level.id IN :levelIds  " +
-        "   OR b.badge.id IN :badgeIds )" +
-        " AND (" +
-        "  ( (:filter = 'COMPLETE') AND (t.completedAt is not null) )" +
-        "   OR ( (:filter = 'INCOMPLETE') AND (t.completedAt is null) )" +
-        " )"
-        )
-    Page<AchievableSkillDTO> findAchievableSkill(
+        " WHERE l.level.id IN :levelIds" +
+        " OR b.badge.id IN :badgeIds ORDER BY s.title")
+    Page<AchievableSkillDTO> findAchievableSkillsByLevelsAndBadges(
         @Param("teamId") Long teamId,
         @Param("levelIds") List<Long> levelIds,
+        @Param("badgeIds") List<Long> badgeIds,
+        Pageable pageable);
+
+
+    @Query("SELECT DISTINCT" +
+        " new de.otto.teamdojo.service.dto.AchievableSkillDTO(t.id, s.id, s.title, s.description, t.achievedAt)" +
+        " FROM Skill s" +
+        " LEFT JOIN s.teams t ON t.team.id = :teamId" +
+        " LEFT JOIN s.levels l" +
+        " WHERE l.level.id IN :levelIds" +
+        " ORDER BY s.title")
+    Page<AchievableSkillDTO> findAchievableSkillsByLevels(
+        @Param("teamId") Long teamId,
+        @Param("levelIds") List<Long> levelIds,
+        Pageable pageable);
+
+    @Query("SELECT DISTINCT" +
+        " new de.otto.teamdojo.service.dto.AchievableSkillDTO(t.id, s.id, s.title, s.description, t.achievedAt)" +
+        " FROM Skill s" +
+        " LEFT JOIN s.teams t ON t.team.id = :teamId" +
+        " LEFT JOIN s.badges b" +
+        " WHERE b.badge.id IN :badgeIds ORDER BY s.title")
+    Page<AchievableSkillDTO> findAchievableSkillsByBadges(
+        @Param("teamId") Long teamId,
         @Param("badgeIds") List<Long> badgeIds,
         @Param("filter") List<String> filter,
         Pageable pageable);
