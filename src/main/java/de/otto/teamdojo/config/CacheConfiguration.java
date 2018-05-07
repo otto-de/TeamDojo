@@ -45,6 +45,8 @@ public class CacheConfiguration {
             cm.createCache(de.otto.teamdojo.domain.User.class.getName() + ".persistentTokens", jcacheConfiguration);
             cm.createCache(de.otto.teamdojo.domain.Dimension.class.getName(), jcacheConfiguration);
             cm.createCache(de.otto.teamdojo.domain.Dimension.class.getName() + ".participants", jcacheConfiguration);
+            cm.createCache(de.otto.teamdojo.domain.Dimension.class.getName() + ".levels", jcacheConfiguration);
+            cm.createCache(de.otto.teamdojo.domain.Dimension.class.getName() + ".badges", jcacheConfiguration);
             cm.createCache(de.otto.teamdojo.domain.Skill.class.getName(), jcacheConfiguration);
             cm.createCache(de.otto.teamdojo.domain.Skill.class.getName() + ".teams", jcacheConfiguration);
             cm.createCache(de.otto.teamdojo.domain.Skill.class.getName() + ".badges", jcacheConfiguration);
@@ -57,6 +59,7 @@ public class CacheConfiguration {
             cm.createCache(de.otto.teamdojo.domain.Level.class.getName() + ".skills", jcacheConfiguration);
             cm.createCache(de.otto.teamdojo.domain.Badge.class.getName(), jcacheConfiguration);
             cm.createCache(de.otto.teamdojo.domain.Badge.class.getName() + ".skills", jcacheConfiguration);
+            cm.createCache(de.otto.teamdojo.domain.Badge.class.getName() + ".dimensions", jcacheConfiguration);
             cm.createCache(de.otto.teamdojo.domain.BadgeSkill.class.getName(), jcacheConfiguration);
             cm.createCache(de.otto.teamdojo.domain.LevelSkill.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry

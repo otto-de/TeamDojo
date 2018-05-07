@@ -8,6 +8,8 @@ import { IDimension } from 'app/shared/model/dimension.model';
 import { DimensionService } from './dimension.service';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamService } from 'app/entities/team';
+import { IBadge } from 'app/shared/model/badge.model';
+import { BadgeService } from 'app/entities/badge';
 
 @Component({
     selector: 'jhi-dimension-update',
@@ -19,10 +21,13 @@ export class DimensionUpdateComponent implements OnInit {
 
     teams: ITeam[];
 
+    badges: IBadge[];
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private dimensionService: DimensionService,
         private teamService: TeamService,
+        private badgeService: BadgeService,
         private route: ActivatedRoute
     ) {}
 
@@ -34,6 +39,12 @@ export class DimensionUpdateComponent implements OnInit {
         this.teamService.query().subscribe(
             (res: HttpResponse<ITeam[]>) => {
                 this.teams = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.badgeService.query().subscribe(
+            (res: HttpResponse<IBadge[]>) => {
+                this.badges = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -70,6 +81,10 @@ export class DimensionUpdateComponent implements OnInit {
     }
 
     trackTeamById(index: number, item: ITeam) {
+        return item.id;
+    }
+
+    trackBadgeById(index: number, item: IBadge) {
         return item.id;
     }
 

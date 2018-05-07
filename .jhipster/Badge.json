@@ -7,6 +7,14 @@
             "otherEntityName": "badgeSkill",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "badge"
+        },
+        {
+            "relationshipName": "dimensions",
+            "otherEntityName": "dimension",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "badges"
         }
     ],
     "fields": [

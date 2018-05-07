@@ -92,6 +92,12 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label jhiTranslate="teamdojoApp.badge.dimensions" for="field_dimensions">Dimensions</label>
+                    <select class="form-control" id="field_dimensions" multiple name="dimensions" [(ngModel)]="badge.dimensions">
+                        <option [ngValue]="getSelected(badge.dimensions, dimensionOption)" *ngFor="let dimensionOption of dimensions; trackBy: trackDimensionById">{{dimensionOption.name}}</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

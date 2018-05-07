@@ -27,6 +27,10 @@ public class DimensionCriteria implements Serializable {
 
     private LongFilter participantsId;
 
+    private LongFilter levelsId;
+
+    private LongFilter badgesId;
+
     public DimensionCriteria() {
     }
 
@@ -62,6 +66,22 @@ public class DimensionCriteria implements Serializable {
         this.participantsId = participantsId;
     }
 
+    public LongFilter getLevelsId() {
+        return levelsId;
+    }
+
+    public void setLevelsId(LongFilter levelsId) {
+        this.levelsId = levelsId;
+    }
+
+    public LongFilter getBadgesId() {
+        return badgesId;
+    }
+
+    public void setBadgesId(LongFilter badgesId) {
+        this.badgesId = badgesId;
+    }
+
     @Override
     public String toString() {
         return "DimensionCriteria{" +
@@ -69,6 +89,8 @@ public class DimensionCriteria implements Serializable {
             (name != null ? "name=" + name + ", " : "") +
             (description != null ? "description=" + description + ", " : "") +
             (participantsId != null ? "participantsId=" + participantsId + ", " : "") +
+            (levelsId != null ? "levelsId=" + levelsId + ", " : "") +
+            (badgesId != null ? "badgesId=" + badgesId + ", " : "") +
             "}";
     }
 
