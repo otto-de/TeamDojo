@@ -31,10 +31,14 @@
                 "maxlength"
             ],
             "fieldValidateRulesMinlength": "5",
-            "fieldValidateRulesMaxlength": "50"
+            "fieldValidateRulesMaxlength": "80"
         },
         {
             "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "implementation",
             "fieldType": "String"
         },
         {
@@ -48,14 +52,10 @@
                 "pattern"
             ],
             "fieldValidateRulesPattern": "^P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?$"
-        },
-        {
-            "fieldName": "implementation",
-            "fieldType": "String"
         }
     ],
     "changelogDate": "20180418141117",
-    "dto": "no",
+    "dto": "mapstruct",
     "service": "serviceImpl",
     "entityTableName": "skill",
     "jpaMetamodelFiltering": true,

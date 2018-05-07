@@ -28,7 +28,7 @@ export const levelSkillRoute: Routes = [
         component: LevelSkillComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'LevelSkills'
+            pageTitle: 'teamdojoApp.levelSkill.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -40,7 +40,7 @@ export const levelSkillRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'LevelSkills'
+            pageTitle: 'teamdojoApp.levelSkill.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -52,7 +52,7 @@ export const levelSkillRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'LevelSkills'
+            pageTitle: 'teamdojoApp.levelSkill.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -64,7 +64,7 @@ export const levelSkillRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'LevelSkills'
+            pageTitle: 'teamdojoApp.levelSkill.home.title'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -79,7 +79,7 @@ export const levelSkillPopupRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'LevelSkills'
+            pageTitle: 'teamdojoApp.levelSkill.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

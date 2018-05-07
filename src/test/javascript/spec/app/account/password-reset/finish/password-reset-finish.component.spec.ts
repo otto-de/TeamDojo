@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Renderer, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { DojoTestModule } from '../../../../test.module';
+import { TeamdojoTestModule } from '../../../../test.module';
 import { PasswordResetFinishComponent } from 'app/account/password-reset/finish/password-reset-finish.component';
 import { PasswordResetFinishService } from 'app/account/password-reset/finish/password-reset-finish.service';
 import { MockActivatedRoute } from '../../../../helpers/mock-route.service';
@@ -15,7 +15,7 @@ describe('Component Tests', () => {
 
         beforeEach(() => {
             fixture = TestBed.configureTestingModule({
-                imports: [DojoTestModule],
+                imports: [TeamdojoTestModule],
                 declarations: [PasswordResetFinishComponent],
                 providers: [
                     PasswordResetFinishService,

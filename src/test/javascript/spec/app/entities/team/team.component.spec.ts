@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 
-import { DojoTestModule } from '../../../test.module';
+import { TeamdojoTestModule } from '../../../test.module';
 import { TeamComponent } from 'app/entities/team/team.component';
 import { TeamService } from 'app/entities/team/team.service';
 import { Team } from 'app/shared/model/team.model';
@@ -16,7 +16,7 @@ describe('Component Tests', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [DojoTestModule],
+                imports: [TeamdojoTestModule],
                 declarations: [TeamComponent],
                 providers: [TeamService]
             })

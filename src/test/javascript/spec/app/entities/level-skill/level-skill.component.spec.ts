@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 
-import { DojoTestModule } from '../../../test.module';
+import { TeamdojoTestModule } from '../../../test.module';
 import { LevelSkillComponent } from 'app/entities/level-skill/level-skill.component';
 import { LevelSkillService } from 'app/entities/level-skill/level-skill.service';
 import { LevelSkill } from 'app/shared/model/level-skill.model';
@@ -16,7 +16,7 @@ describe('Component Tests', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [DojoTestModule],
+                imports: [TeamdojoTestModule],
                 declarations: [LevelSkillComponent],
                 providers: [LevelSkillService]
             })

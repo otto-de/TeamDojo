@@ -4,15 +4,16 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-import { DojoTestModule } from '../../../test.module';
+import { TeamdojoTestModule } from '../../../test.module';
 import { UserMgmtUpdateComponent } from 'app/admin/user-management/user-management-update.component';
-import { UserService, User } from 'app/core';
+import { UserService, User, JhiLanguageHelper } from 'app/core';
 
 describe('Component Tests', () => {
     describe('User Management Update Component', () => {
         let comp: UserMgmtUpdateComponent;
         let fixture: ComponentFixture<UserMgmtUpdateComponent>;
         let service: UserService;
+        let mockLanguageHelper: any;
         const route = ({
             data: of({ user: new User(1, 'user', 'first', 'last', 'first@last.com', true, 'en', ['ROLE_USER'], 'admin', null, null, null) })
         } as any) as ActivatedRoute;
@@ -20,7 +21,7 @@ describe('Component Tests', () => {
         beforeEach(
             async(() => {
                 TestBed.configureTestingModule({
-                    imports: [DojoTestModule],
+                    imports: [TeamdojoTestModule],
                     declarations: [UserMgmtUpdateComponent],
                     providers: [
                         UserService,
@@ -39,6 +40,7 @@ describe('Component Tests', () => {
             fixture = TestBed.createComponent(UserMgmtUpdateComponent);
             comp = fixture.componentInstance;
             service = fixture.debugElement.injector.get(UserService);
+            mockLanguageHelper = fixture.debugElement.injector.get(JhiLanguageHelper);
         });
 
         describe('OnInit', () => {
@@ -56,6 +58,7 @@ describe('Component Tests', () => {
                         // THEN
                         expect(service.authorities).toHaveBeenCalled();
                         expect(comp.authorities).toEqual(['USER']);
+                        expect(mockLanguageHelper.getAllSpy).toHaveBeenCalled();
                     })
                 )
             );

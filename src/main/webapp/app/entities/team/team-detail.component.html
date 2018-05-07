@@ -1,15 +1,19 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="team">
-            <h2><span>Team</span> {{team.id}}</h2>
+            <h2><span jhiTranslate="teamdojoApp.team.detail.title">Team</span> {{team.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>Name</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.team.name">Name</span></dt>
                 <dd>
                     <span>{{team.name}}</span>
                 </dd>
-                <dt><span>Picture</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.team.shortName">Short Name</span></dt>
+                <dd>
+                    <span>{{team.shortName}}</span>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.team.picture">Picture</span></dt>
                 <dd>
                     <div *ngIf="team.picture">
                         <a (click)="openFile(team.pictureContentType, team.picture)">
@@ -18,11 +22,15 @@
                         {{team.pictureContentType}}, {{byteSize(team.picture)}}
                     </div>
                 </dd>
-                <dt><span>Contact Person</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.team.slogan">Slogan</span></dt>
+                <dd>
+                    <span>{{team.slogan}}</span>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.team.contactPerson">Contact Person</span></dt>
                 <dd>
                     <span>{{team.contactPerson}}</span>
                 </dd>
-                <dt><span>Participations</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.team.participations">Participations</span></dt>
                 <dd>
                     <span *ngFor="let participations of team.participations; let last = last">
                         <a [routerLink]="['/dimension', participations?.id, 'view' ]">{{participations.name}}</a>{{last ? '' : ', '}}
@@ -33,13 +41,13 @@
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
-                <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+                <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/team', team.id, 'edit']"
                     class="btn btn-primary">
-                <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+                <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>
     </div>

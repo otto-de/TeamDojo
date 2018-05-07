@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { DojoSharedModule } from 'app/shared';
+import { TeamdojoSharedModule } from 'app/shared';
 import {
     TeamSkillService,
     TeamSkillComponent,
@@ -17,7 +17,7 @@ import {
 const ENTITY_STATES = [...teamSkillRoute, ...teamSkillPopupRoute];
 
 @NgModule({
-    imports: [DojoSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [TeamdojoSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         TeamSkillComponent,
         TeamSkillDetailComponent,
@@ -29,4 +29,4 @@ const ENTITY_STATES = [...teamSkillRoute, ...teamSkillPopupRoute];
     providers: [TeamSkillService, TeamSkillResolve],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class DojoTeamSkillModule {}
+export class TeamdojoTeamSkillModule {}

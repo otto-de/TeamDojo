@@ -1,0 +1,71 @@
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
+// reading git.properties from file system. remove when gradle-git-properties 1.4.22 is available
+Properties gitProps = new Properties()
+File gitPropsFile = file("$buildDir/resources//main/git.properties");
+if (gitPropsFile.isFile()) {
+    gitPropsFile.withInputStream { gitProps.load(it) }
+}
+def gitInfo = new GitInfo(project.version, gitProps);
+project.version = new ProjectVersion(project.version, gitInfo.getQualifier()).toString()
+
+class ProjectVersion {
+    String version
+    String qualifier
+
+    ProjectVersion(String version, String qualifier) {
+        this.version = version;
+        this.qualifier = qualifier;
+    }
+
+    @Override
+    String toString() {
+        "$version$qualifier"
+    }
+}
+
+class GitInfo {
+    Properties gitProps;
+    String version;
+    String branch;
+    String qualifier = "-SNAPSHOT";
+    Pattern SUFFIXES_PATTERN = Pattern.compile("\\d+\\.\\d+\\.\\d+-.+-(\\d)-[a-z0-9]+");
+
+    GitInfo(String version, Properties gitProps) {
+        this.gitProps = gitProps;
+        this.version = version.toString();
+        this.buildQualifier();
+    }
+
+    private void buildQualifier() {
+        this.branch = gitProps.hasProperty('git.branch') ? gitProps.getProperty('git.branch') : 'unknown';
+        if (branch.equals("master") || branch.contains("origin/master")) {
+            this.getTag();
+            this.qualifier = "-RELEASE";
+        } else if (branch.startsWith("release/") || branch.contains("origin/release/")) {
+            String tag = this.getTag();
+            Matcher matcher = SUFFIXES_PATTERN.matcher(tag);
+            if (matcher.find()) {
+                String distance = matcher.group(1);
+                this.qualifier = tag.substring(version.length(), matcher.start(1) - 1);
+            } else {
+                this.qualifier = tag.substring(version.length());
+            }
+        } else if (!branch.equals("develop") && !branch.contains("origin/develop")) {
+            this.qualifier += "-" + branch.replaceAll("/", "-").replaceFirst("origin", "");
+        }
+    }
+
+    private String getTag() {
+        String tag = gitProps.getProperty('git.closest.tag.name');
+        if (tag == null || !tag.contains(version)) {
+            throw new Exception("Unable to get version from tag (" + tag + ") from branch (" + this.branch + ")");
+        }
+        return tag;
+    }
+
+    String getQualifier() {
+        return qualifier;
+    }
+}

@@ -21,7 +21,11 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(20)">
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="short_name" type="varchar(6)">
                 <constraints nullable="false" />
             </column>
 
@@ -29,6 +33,10 @@
                 <constraints nullable="true" />
             </column>
             <column name="picture_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="slogan" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 

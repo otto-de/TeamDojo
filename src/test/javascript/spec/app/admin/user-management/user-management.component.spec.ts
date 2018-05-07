@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, async, inject, fakeAsync, tick } from '@angu
 import { Observable } from 'rxjs/Observable';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 
-import { DojoTestModule } from '../../../test.module';
+import { TeamdojoTestModule } from '../../../test.module';
 import { UserMgmtComponent } from 'app/admin/user-management/user-management.component';
 import { UserService, User } from 'app/core';
 
@@ -15,7 +15,7 @@ describe('Component Tests', () => {
         beforeEach(
             async(() => {
                 TestBed.configureTestingModule({
-                    imports: [DojoTestModule],
+                    imports: [TeamdojoTestModule],
                     declarations: [UserMgmtComponent],
                     providers: [UserService]
                 })

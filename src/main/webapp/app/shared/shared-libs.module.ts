@@ -11,11 +11,13 @@ import { CookieModule } from 'ngx-cookie';
         NgbModule.forRoot(),
         NgJhipsterModule.forRoot({
             // set below to true to make alerts look like toast
-            alertAsToast: false
+            alertAsToast: false,
+            i18nEnabled: true,
+            defaultI18nLang: 'en'
         }),
         InfiniteScrollModule,
         CookieModule.forRoot()
     ],
     exports: [FormsModule, CommonModule, NgbModule, NgJhipsterModule, InfiniteScrollModule]
 })
-export class DojoSharedLibsModule {}
+export class TeamdojoSharedLibsModule {}

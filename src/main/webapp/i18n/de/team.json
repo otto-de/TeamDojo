@@ -1,0 +1,28 @@
+
+{
+    "teamdojoApp": {
+        "team" : {
+            "home": {
+                "title": "Teams",
+                "createLabel": "Team erstellen",
+                "createOrEditLabel": "Team erstellen oder bearbeiten"
+            },
+            "created": "Team erstellt mit ID {{ param }}",
+            "updated": "Team aktualisiert mit ID {{ param }}",
+            "deleted": "Team gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Team {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Team"
+            },
+            "name": "Name",
+            "shortName": "Short Name",
+            "picture": "Picture",
+            "slogan": "Slogan",
+            "contactPerson": "Contact Person",
+            "participations": "Participations",
+            "skills": "Skills"
+        }
+    }
+}

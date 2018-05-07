@@ -1,0 +1,21 @@
+@import '~bootstrap/scss/bootstrap';
+.teams-skills {
+    padding-right: 10px;
+    .teams-skills-list {
+        .teams-skills-badge {
+            padding: 6px;
+            min-width: 40px;
+            max-height: 26px;
+            margin-bottom: 2px;
+        }
+    }
+}
+@media only screen and (min-width: map-get($grid-breakpoints, md)){
+    .teams-skills {
+        .teams-skills-list {
+            height: calc(100vh - 236px);
+            overflow-y: auto;
+            padding: 5px;
+        }
+    }
+}

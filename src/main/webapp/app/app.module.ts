@@ -1,6 +1,6 @@
 import './vendor.ts';
 
-import { NgModule, Injector } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Ng2Webstorage } from 'ngx-webstorage';
@@ -9,30 +9,42 @@ import { JhiEventManager } from 'ng-jhipster';
 import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interceptor';
 import { ErrorHandlerInterceptor } from './blocks/interceptor/errorhandler.interceptor';
 import { NotificationInterceptor } from './blocks/interceptor/notification.interceptor';
-import { DojoSharedModule } from 'app/shared';
-import { DojoCoreModule } from 'app/core';
-import { DojoAppRoutingModule } from './app-routing.module';
-import { DojoHomeModule } from './home/home.module';
-import { DojoAccountModule } from './account/account.module';
-import { DojoEntityModule } from './entities/entity.module';
+import { TeamdojoSharedModule } from 'app/shared';
+import { TeamdojoCoreModule } from 'app/core';
+import { TeamdojoAppRoutingModule } from './app-routing.module';
+import { TeamdojoHomeModule } from './home/home.module';
+import { TeamdojoAccountModule } from './account/account.module';
+import { TeamdojoEntityModule } from './entities/entity.module';
+import { TeamsModule } from './teams/teams.module';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
-import { JhiMainComponent, NavbarComponent, FooterComponent, ProfileService, PageRibbonComponent, ErrorComponent } from './layouts';
+import {
+    ActiveMenuDirective,
+    ErrorComponent,
+    FooterComponent,
+    JhiMainComponent,
+    NavbarComponent,
+    PageRibbonComponent,
+    ProfileService
+} from './layouts';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     imports: [
         BrowserModule,
-        DojoAppRoutingModule,
+        TeamdojoAppRoutingModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
-        DojoSharedModule,
-        DojoCoreModule,
-        DojoHomeModule,
-        DojoAccountModule,
-        DojoEntityModule
+        TeamdojoSharedModule,
+        TeamdojoCoreModule,
+        TeamdojoHomeModule,
+        TeamdojoAccountModule,
+        TeamdojoEntityModule,
+        TeamsModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
+        NgbModule.forRoot()
     ],
-    declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
+    declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
     providers: [
         ProfileService,
         PaginationConfig,
@@ -57,4 +69,4 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, ProfileService, Pag
     ],
     bootstrap: [JhiMainComponent]
 })
-export class DojoAppModule {}
+export class TeamdojoAppModule {}

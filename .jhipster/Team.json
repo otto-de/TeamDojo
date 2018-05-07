@@ -27,7 +27,20 @@
                 "maxlength"
             ],
             "fieldValidateRulesMinlength": "2",
-            "fieldValidateRulesMaxlength": 20
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "shortName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength",
+                "pattern"
+            ],
+            "fieldValidateRulesMinlength": "2",
+            "fieldValidateRulesMaxlength": 6,
+            "fieldValidateRulesPattern": "^[a-zA-Z0-9_-]*$"
         },
         {
             "fieldName": "picture",
@@ -35,12 +48,16 @@
             "fieldTypeBlobContent": "image"
         },
         {
+            "fieldName": "slogan",
+            "fieldType": "String"
+        },
+        {
             "fieldName": "contactPerson",
             "fieldType": "String"
         }
     ],
     "changelogDate": "20180419083624",
-    "dto": "no",
+    "dto": "mapstruct",
     "service": "serviceImpl",
     "entityTableName": "team",
     "jpaMetamodelFiltering": true,

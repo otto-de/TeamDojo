@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-import { DojoTestModule } from '../../../test.module';
+import { TeamdojoTestModule } from '../../../test.module';
 import { BadgeSkillUpdateComponent } from 'app/entities/badge-skill/badge-skill-update.component';
 import { BadgeSkillService } from 'app/entities/badge-skill/badge-skill.service';
 import { BadgeSkill } from 'app/shared/model/badge-skill.model';
@@ -19,7 +19,7 @@ describe('Component Tests', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [DojoTestModule],
+                imports: [TeamdojoTestModule],
                 declarations: [BadgeSkillUpdateComponent],
                 providers: [BadgeService, SkillService, BadgeSkillService]
             })

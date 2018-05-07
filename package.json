@@ -1,7 +1,7 @@
 {
-  "name": "dojo",
+  "name": "teamdojo",
   "version": "0.0.0",
-  "description": "Description for dojo",
+  "description": "Otto Team Dojo",
   "private": true,
   "license": "UNLICENSED",
   "cacheDirectories": [
@@ -67,6 +67,7 @@
     "karma-sourcemap-loader": "0.3.7",
     "karma-webpack": "2.0.13",
     "lint-staged": "7.0.0",
+    "merge-jsons-webpack-plugin": "1.0.14",
     "prettier": "1.11.1",
     "puppeteer": "1.1.1",
     "proxy-middleware": "0.15.0",
