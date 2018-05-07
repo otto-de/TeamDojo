@@ -14,7 +14,6 @@ buildscript {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}"
         classpath "io.spring.gradle:propdeps-plugin:0.0.9.RELEASE"
         classpath "gradle.plugin.org.detoeuf:swagger-codegen-plugin:1.7.4"
-        classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.21"
         //jhipster-needle-gradle-buildscript-dependency - JHipster will add additional gradle build script plugins here
     }
 }
@@ -27,6 +26,7 @@ plugins {
     id "io.spring.dependency-management" version "1.0.3.RELEASE"
     id "com.moowork.node" version "1.2.0"
     //jhipster-needle-gradle-plugins - JHipster will add additional gradle plugins here
+    id "com.gorylenko.gradle-git-properties" version "1.4.21"
 }
 
 apply plugin: 'java'
@@ -53,7 +53,6 @@ dependencyManagement {
 defaultTasks 'bootRun'
 
 group = 'de.otto.teamdojo'
-version = '0.0.1-SNAPSHOT'
 
 description = ''
 
@@ -68,6 +67,16 @@ war {
 springBoot {
     mainClassName = 'de.otto.teamdojo.TeamdojoApp'
     buildInfo()
+}
+
+generateGitProperties {
+    onlyIf {
+        !source.isEmpty()
+    }
+}
+
+gitProperties {
+    keys = ['git.branch', 'git.commit.id.abbrev', 'git.closest.tag.name']
 }
 
 if (OperatingSystem.current().isWindows()) {
@@ -107,7 +116,7 @@ task testReport(type: TestReport) {
     reportOn test
 }
 
-
+apply from: 'gradle/version.gradle'
 apply from: 'gradle/docker.gradle'
 apply from: 'gradle/sonar.gradle'
 apply from: 'gradle/liquibase.gradle'
