@@ -1,0 +1,27 @@
+
+{
+    "teamdojoApp": {
+        "teamSkill" : {
+            "home": {
+                "title": "Team Skills",
+                "createLabel": "Team Skill erstellen",
+                "createOrEditLabel": "Team Skill erstellen oder bearbeiten"
+            },
+            "created": "Team Skill erstellt mit ID {{ param }}",
+            "updated": "Team Skill aktualisiert mit ID {{ param }}",
+            "deleted": "Team Skill gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Team Skill {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Team Skill"
+            },
+            "achievedAt": "Achieved At",
+            "verifiedAt": "Verified At",
+            "irrelevant": "Irrelevant",
+            "note": "Note",
+            "skill": "Skill",
+            "team": "Team"
+        }
+    }
+}

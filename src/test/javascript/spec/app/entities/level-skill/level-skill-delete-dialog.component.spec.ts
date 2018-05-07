@@ -4,7 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/Observable';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { DojoTestModule } from '../../../test.module';
+import { TeamdojoTestModule } from '../../../test.module';
 import { LevelSkillDeleteDialogComponent } from 'app/entities/level-skill/level-skill-delete-dialog.component';
 import { LevelSkillService } from 'app/entities/level-skill/level-skill.service';
 
@@ -18,7 +18,7 @@ describe('Component Tests', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [DojoTestModule],
+                imports: [TeamdojoTestModule],
                 declarations: [LevelSkillDeleteDialogComponent],
                 providers: [LevelSkillService]
             })

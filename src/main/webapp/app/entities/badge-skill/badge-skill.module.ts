@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { DojoSharedModule } from 'app/shared';
+import { TeamdojoSharedModule } from 'app/shared';
 import {
     BadgeSkillService,
     BadgeSkillComponent,
@@ -17,7 +17,7 @@ import {
 const ENTITY_STATES = [...badgeSkillRoute, ...badgeSkillPopupRoute];
 
 @NgModule({
-    imports: [DojoSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [TeamdojoSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         BadgeSkillComponent,
         BadgeSkillDetailComponent,
@@ -29,4 +29,4 @@ const ENTITY_STATES = [...badgeSkillRoute, ...badgeSkillPopupRoute];
     providers: [BadgeSkillService, BadgeSkillResolve],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class DojoBadgeSkillModule {}
+export class TeamdojoBadgeSkillModule {}

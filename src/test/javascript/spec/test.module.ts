@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgModule, ElementRef, Renderer } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiDataUtils, JhiDateUtils, JhiEventManager, JhiAlertService, JhiParseLinks } from 'ng-jhipster';
+import { JhiLanguageService, JhiDataUtils, JhiDateUtils, JhiEventManager, JhiAlertService, JhiParseLinks } from 'ng-jhipster';
 
-import { Principal, AccountService, LoginModalService, JhiTrackerService } from 'app/core';
+import { MockLanguageService, MockLanguageHelper } from './helpers/mock-language.service';
+import { JhiLanguageHelper, Principal, AccountService, LoginModalService, JhiTrackerService } from 'app/core';
 import { MockPrincipal } from './helpers/mock-principal.service';
 import { MockAccountService } from './helpers/mock-account.service';
 import { MockActivatedRoute, MockRouter } from './helpers/mock-route.service';
@@ -18,6 +19,14 @@ import { MockEventManager } from './helpers/mock-event-manager.service';
         JhiDataUtils,
         JhiDateUtils,
         JhiParseLinks,
+        {
+            provide: JhiLanguageService,
+            useClass: MockLanguageService
+        },
+        {
+            provide: JhiLanguageHelper,
+            useClass: MockLanguageHelper
+        },
         {
             provide: JhiTrackerService,
             useValue: null
@@ -69,4 +78,4 @@ import { MockEventManager } from './helpers/mock-event-manager.service';
     ],
     imports: [HttpClientTestingModule]
 })
-export class DojoTestModule {}
+export class TeamdojoTestModule {}

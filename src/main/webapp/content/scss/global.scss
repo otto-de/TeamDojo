@@ -44,7 +44,7 @@ Generic styles
 /* other generic styles */
 
 .jh-card {
-    padding: 1.5%;
+    padding: 20px;
     margin-top: 20px;
     border: none;
 }
@@ -78,6 +78,18 @@ Generic styles
 
 .footer {
     border-top: 1px solid rgba(0,0,0,.125);
+}
+
+.mockup {
+    background: repeating-linear-gradient(
+            -45deg,
+            rgba(200,200,200,0.2),
+            10px,
+            transparent 10px,
+            transparent 20px);
+    *:not(button) {
+        background-color: transparent !important;
+    }
 }
 
 /* ==========================================================================

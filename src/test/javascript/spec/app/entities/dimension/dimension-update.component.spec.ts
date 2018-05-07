@@ -3,12 +3,13 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-import { DojoTestModule } from '../../../test.module';
+import { TeamdojoTestModule } from '../../../test.module';
 import { DimensionUpdateComponent } from 'app/entities/dimension/dimension-update.component';
 import { DimensionService } from 'app/entities/dimension/dimension.service';
 import { Dimension } from 'app/shared/model/dimension.model';
 
 import { TeamService } from 'app/entities/team';
+import { BadgeService } from 'app/entities/badge';
 
 describe('Component Tests', () => {
     describe('Dimension Management Update Component', () => {
@@ -18,9 +19,9 @@ describe('Component Tests', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [DojoTestModule],
+                imports: [TeamdojoTestModule],
                 declarations: [DimensionUpdateComponent],
-                providers: [TeamService, DimensionService]
+                providers: [TeamService, BadgeService, DimensionService]
             })
                 .overrideTemplate(DimensionUpdateComponent, '')
                 .compileComponents();

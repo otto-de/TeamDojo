@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 
-import { DojoTestModule } from '../../../test.module';
+import { TeamdojoTestModule } from '../../../test.module';
 import { PaginationConfig } from 'app/blocks/config/uib-pagination.config';
 import { AuditsComponent } from 'app/admin/audits/audits.component';
 import { AuditsService } from 'app/admin/audits/audits.service';
@@ -41,7 +41,7 @@ describe('Component Tests', () => {
         beforeEach(
             async(() => {
                 TestBed.configureTestingModule({
-                    imports: [DojoTestModule],
+                    imports: [TeamdojoTestModule],
                     declarations: [AuditsComponent],
                     providers: [AuditsService, NgbPaginationConfig, PaginationConfig]
                 })

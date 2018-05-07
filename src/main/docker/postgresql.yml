@@ -1,11 +1,11 @@
 version: '2'
 services:
-    dojo-postgresql:
+    teamdojo-postgresql:
         image: postgres:9.6.5
         # volumes:
-        #     - ~/volumes/jhipster/dojo/postgresql/:/var/lib/postgresql/data/
+        #     - ~/volumes/jhipster/teamdojo/postgresql/:/var/lib/postgresql/data/
         environment:
-            - POSTGRES_USER=dojo
+            - POSTGRES_USER=teamdojo
             - POSTGRES_PASSWORD=
         ports:
             - 5432:5432

@@ -1,4 +1,4 @@
-# dojo
+# teamdojo
 This application was generated using JHipster 5.0.0-beta.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v5.0.0-beta.0](https://www.jhipster.tech/documentation-archive/v5.0.0-beta.0).
 
 ## Development
@@ -28,6 +28,20 @@ specifying a newer version in [package.json](package.json). You can also run `ya
 Add the `help` flag on any command to see how you can use it. For example, `yarn help update`.
 
 The `yarn run` command will list all of the scripts available to run for this project.
+
+### Code Formatting
+Install the IntelliJ IDE EditorConfig Plugin and enable EditorConfig support
+
+**Java**
+Format your Java code by using the IntelliJ IDE Default Code Style and organize imports before committing.
+
+**Type Script**
+Run prettier before committing (`npm run prettier:format` or `yarn prettier --write **/*.ts`)
+Install IntelliJ IDE Prettier Plugin and use the action `Reformat with Prettier` to format the code
+
+**Line Separators**
+Configure your IDE to use Unix LF (\n) line separators
+IntelliJ IDE: Line separator (for new files)
 
 ### Service workers
 
@@ -99,7 +113,7 @@ Refer to [Doing API-First development][] for more details.
 
 ## Building for production
 
-To optimize the dojo application for production, run:
+To optimize the teamdojo application for production, run:
 
     ./gradlew -Pprod clean bootWar
 

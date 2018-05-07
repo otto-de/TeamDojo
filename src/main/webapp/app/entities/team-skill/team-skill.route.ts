@@ -28,7 +28,7 @@ export const teamSkillRoute: Routes = [
         component: TeamSkillComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'TeamSkills'
+            pageTitle: 'teamdojoApp.teamSkill.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -40,7 +40,7 @@ export const teamSkillRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'TeamSkills'
+            pageTitle: 'teamdojoApp.teamSkill.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -52,7 +52,7 @@ export const teamSkillRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'TeamSkills'
+            pageTitle: 'teamdojoApp.teamSkill.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -64,7 +64,7 @@ export const teamSkillRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'TeamSkills'
+            pageTitle: 'teamdojoApp.teamSkill.home.title'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -79,7 +79,7 @@ export const teamSkillPopupRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'TeamSkills'
+            pageTitle: 'teamdojoApp.teamSkill.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

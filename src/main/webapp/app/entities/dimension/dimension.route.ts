@@ -28,7 +28,7 @@ export const dimensionRoute: Routes = [
         component: DimensionComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Dimensions'
+            pageTitle: 'teamdojoApp.dimension.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -40,7 +40,7 @@ export const dimensionRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Dimensions'
+            pageTitle: 'teamdojoApp.dimension.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -52,7 +52,7 @@ export const dimensionRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Dimensions'
+            pageTitle: 'teamdojoApp.dimension.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -64,7 +64,7 @@ export const dimensionRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Dimensions'
+            pageTitle: 'teamdojoApp.dimension.home.title'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -79,7 +79,7 @@ export const dimensionPopupRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Dimensions'
+            pageTitle: 'teamdojoApp.dimension.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

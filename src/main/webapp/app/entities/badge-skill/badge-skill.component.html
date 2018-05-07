@@ -1,9 +1,9 @@
 <div>
     <h2 id="page-heading">
-        <span>Badge Skills</span>
+        <span jhiTranslate="teamdojoApp.badgeSkill.home.title">Badge Skills</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-badge-skill" [routerLink]="['/badge-skill/new']">
             <span class="fa fa-plus"></span>
-            <span >
+            <span  jhiTranslate="teamdojoApp.badgeSkill.home.createLabel">
             Create new Badge Skill
             </span>
         </button>
@@ -14,10 +14,10 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="score"><span>Score</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="badge.name"><span>Badge</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="skill.title"><span>Skill</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="score"><span jhiTranslate="teamdojoApp.badgeSkill.score">Score</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="badgeName"><span jhiTranslate="teamdojoApp.badgeSkill.badge">Badge</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="skillTitle"><span jhiTranslate="teamdojoApp.badgeSkill.skill">Skill</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -26,13 +26,13 @@
                 <td><a [routerLink]="['/badge-skill', badgeSkill.id, 'view' ]">{{badgeSkill.id}}</a></td>
                 <td>{{badgeSkill.score}}</td>
                 <td>
-                    <div *ngIf="badgeSkill.badge">
-                        <a [routerLink]="['../badge', badgeSkill.badge?.id, 'view' ]" >{{badgeSkill.badge?.name}}</a>
+                    <div *ngIf="badgeSkill.badgeId">
+                        <a [routerLink]="['../badge', badgeSkill.badgeId , 'view' ]" >{{badgeSkill.badgeName}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="badgeSkill.skill">
-                        <a [routerLink]="['../skill', badgeSkill.skill?.id, 'view' ]" >{{badgeSkill.skill?.title}}</a>
+                    <div *ngIf="badgeSkill.skillId">
+                        <a [routerLink]="['../skill', badgeSkill.skillId , 'view' ]" >{{badgeSkill.skillTitle}}</a>
                     </div>
                 </td>
                 <td class="text-right">
@@ -41,13 +41,13 @@
                                 [routerLink]="['/badge-skill', badgeSkill.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
-                            <span class="d-none d-md-inline">View</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/badge-skill', badgeSkill.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <span class="fa fa-pencil"></span>
-                            <span class="d-none d-md-inline">Edit</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'badge-skill/'+ badgeSkill.id + '/delete'} }]"
@@ -55,7 +55,7 @@
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
                             <span class="fa fa-remove"></span>
-                            <span class="d-none d-md-inline">Delete</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                     </div>
                 </td>

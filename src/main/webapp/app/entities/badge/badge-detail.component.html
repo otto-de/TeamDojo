@@ -1,19 +1,19 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="badge">
-            <h2><span>Badge</span> {{badge.id}}</h2>
+            <h2><span jhiTranslate="teamdojoApp.badge.detail.title">Badge</span> {{badge.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>Name</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.badge.name">Name</span></dt>
                 <dd>
                     <span>{{badge.name}}</span>
                 </dd>
-                <dt><span>Description</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.badge.description">Description</span></dt>
                 <dd>
                     <span>{{badge.description}}</span>
                 </dd>
-                <dt><span>Logo</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.badge.logo">Logo</span></dt>
                 <dd>
                     <div *ngIf="badge.logo">
                         <a (click)="openFile(badge.logoContentType, badge.logo)">
@@ -22,30 +22,36 @@
                         {{badge.logoContentType}}, {{byteSize(badge.logo)}}
                     </div>
                 </dd>
-                <dt><span>Available Until</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.badge.availableUntil">Available Until</span></dt>
                 <dd>
                     <span>{{badge.availableUntil}}</span>
                 </dd>
-                <dt><span>Available Amount</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.badge.availableAmount">Available Amount</span></dt>
                 <dd>
                     <span>{{badge.availableAmount}}</span>
                 </dd>
-                <dt><span>Required Score</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.badge.requiredScore">Required Score</span></dt>
                 <dd>
                     <span>{{badge.requiredScore}}</span>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.badge.dimensions">Dimensions</span></dt>
+                <dd>
+                    <span *ngFor="let dimensions of badge.dimensions; let last = last">
+                        <a [routerLink]="['/dimension', dimensions?.id, 'view' ]">{{dimensions.name}}</a>{{last ? '' : ', '}}
+                    </span>
                 </dd>
             </dl>
 
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
-                <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+                <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/badge', badge.id, 'edit']"
                     class="btn btn-primary">
-                <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+                <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>
     </div>

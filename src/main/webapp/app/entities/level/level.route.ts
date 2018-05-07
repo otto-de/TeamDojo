@@ -28,7 +28,7 @@ export const levelRoute: Routes = [
         component: LevelComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Levels'
+            pageTitle: 'teamdojoApp.level.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -40,7 +40,7 @@ export const levelRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Levels'
+            pageTitle: 'teamdojoApp.level.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -52,7 +52,7 @@ export const levelRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Levels'
+            pageTitle: 'teamdojoApp.level.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -64,7 +64,7 @@ export const levelRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Levels'
+            pageTitle: 'teamdojoApp.level.home.title'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -79,7 +79,7 @@ export const levelPopupRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Levels'
+            pageTitle: 'teamdojoApp.level.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

@@ -27,7 +27,11 @@
             "fieldType": "Instant"
         },
         {
-            "fieldName": "verified",
+            "fieldName": "verifiedAt",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "irrelevant",
             "fieldType": "Boolean"
         },
         {
@@ -36,7 +40,7 @@
         }
     ],
     "changelogDate": "20180419092355",
-    "dto": "no",
+    "dto": "mapstruct",
     "service": "serviceImpl",
     "entityTableName": "team_skill",
     "jpaMetamodelFiltering": true,

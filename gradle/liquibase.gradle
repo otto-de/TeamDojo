@@ -1,5 +1,14 @@
 import org.gradle.internal.os.OperatingSystem
 
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.yaml:snakeyaml:1.21"
+    }
+}
 configurations {
     liquibase
 }
@@ -32,7 +41,7 @@ task initPaths(dependsOn: compileJava) {
 	}
 }
 
-def liquibaseCommand(command) {
+def liquibaseCommand(command, moreArgs = []) {
     javaexec {
         if (OperatingSystem.current().isWindows()) {
             classpath files(pathingLiquibaseJar.archivePath)
@@ -43,11 +52,12 @@ def liquibaseCommand(command) {
         main = "liquibase.integration.commandline.Main"
 
         args "--changeLogFile=src/main/resources/config/liquibase/changelog/" + buildTimestamp() +"_changelog.xml"
-        args "--referenceUrl=hibernate:spring:de.otto.dojo.domain?dialect=org.hibernate.dialect.PostgreSQL82Dialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
-        args "--username=dojo"
+        args "--referenceUrl=hibernate:spring:de.otto.teamdojo.domain?dialect=org.hibernate.dialect.PostgreSQL82Dialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
+        args "--username=teamdojo"
         args "--password="
-        args "--url=jdbc:postgresql://localhost:5432/dojo"
+        args "--url=jdbc:postgresql://localhost:5432/teamdojo"
         args "--driver=org.postgresql.Driver"
+        moreArgs?.each { args it }
         args command
     }
 }
@@ -61,6 +71,79 @@ task liquibaseDiffChangeLog(dependsOn: initPaths) {
 task liquibaseClearChecksums(dependsOn: initPaths) {
     doLast {
         liquibaseCommand("clearChecksums")
+    }
+}
+
+task liquibaseDataDiffChangeLog(dependsOn: initPaths) {
+    doLast {
+        liquibaseCommand("generateChangeLog", ["--diffTypes=data"])
+    }
+}
+
+ext.getLiquibaseXml = { dimension, levels ->
+    def timestamp = new Date().getTime()
+    def setCount = 1
+    def getSetId = { "${timestamp}-${setCount++}" }
+    def writer = new StringWriter()
+    def xml = new groovy.xml.MarkupBuilder(writer)
+    xml.databaseChangeLog(xmlns: 'http://www.liquibase.org/xml/ns/dbchangelog',
+        'xmlns:ext': 'http://www.liquibase.org/xml/ns/dbchangelog-ext',
+        'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+        'xsi:schemaLocation': '''http://www.liquibase.org/xml/ns/dbchangelog-ext
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd''') {
+        changeSet(author: 'gradle', id: getSetId()) {
+            insert(tableName: 'dimension') {
+                column(name: 'id', valueNumeric: 'nextval(\'hibernate_sequence\')')
+                column(name: 'name', value: dimension.name)
+            }
+        }
+        levels.each { level ->
+            changeSet(author: 'gradle', id: getSetId()) {
+                insert(tableName: 'level') {
+                    column(name: 'id', valueComputed: 'nextval(\'hibernate_sequence\')')
+                    column(name: 'name', value: level.name)
+                    column(name: 'dimension_id', valueComputed: "(SELECT id FROM dimension WHERE name = '${dimension.name}' LIMIT 1)")
+                    column(name: 'required_score', valueNumeric: 0.0)
+                }
+            }
+            level.fileTree.getFiles().collect { loadYaml(it) }.each { skill ->
+                changeSet(author: 'gradle', id: getSetId()) {
+                    insert(tableName: 'skill') {
+                        column(name: 'id', valueComputed: 'nextval(\'hibernate_sequence\')')
+                        column(name: 'title', value: skill.title.trim())
+                        column(name: 'description', value: skill.why.trim())
+                        column(name: 'implementation', value: skill.how.trim())
+                        column(name: 'jhi_validation', value: skill.validation.trim())
+                    }
+                }
+            }
+        }
+    }
+    writer.toString()
+}
+
+ext.loadYaml = { file ->
+    org.yaml.snakeyaml.Yaml yaml = new org.yaml.snakeyaml.Yaml()
+    yaml.load(file.text)
+}
+
+task liquibaseDataImportFromYaml {
+    doLast {
+        List levelPaths = []
+        new File('skills/').eachFile {
+            levelPaths << it.name
+        }
+        List levels = levelPaths.collect {
+            [
+                name: it,
+                fileTree: fileTree(dir: "skills/${it}")
+            ]
+        }
+        def xmlString = getLiquibaseXml([ name: 'Security' ], levels)
+        def outputFilename = new Date().format('yyyyMMddHHmmss') + '_changelog.xml'
+        new File("src/main/resources/config/liquibase/changelog/${outputFilename}").write(xmlString)
     }
 }
 

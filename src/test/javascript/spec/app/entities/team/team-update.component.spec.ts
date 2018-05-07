@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-import { DojoTestModule } from '../../../test.module';
+import { TeamdojoTestModule } from '../../../test.module';
 import { TeamUpdateComponent } from 'app/entities/team/team-update.component';
 import { TeamService } from 'app/entities/team/team.service';
 import { Team } from 'app/shared/model/team.model';
@@ -18,7 +18,7 @@ describe('Component Tests', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [DojoTestModule],
+                imports: [TeamdojoTestModule],
                 declarations: [TeamUpdateComponent],
                 providers: [DimensionService, TeamService]
             })

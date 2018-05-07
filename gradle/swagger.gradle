@@ -14,8 +14,8 @@ swagger {
     addDynamicProperty 'java8', true
 
     additionalProperties = [
-        'modelPackage' : 'de.otto.dojo.web.api.model',
-        'apiPackage'   : 'de.otto.dojo.web.api'
+        'modelPackage' : 'de.otto.teamdojo.web.api.model',
+        'apiPackage'   : 'de.otto.teamdojo.web.api'
     ]
 
     systemProperties = [

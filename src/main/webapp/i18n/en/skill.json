@@ -1,0 +1,29 @@
+
+{
+    "teamdojoApp": {
+        "skill" : {
+            "home": {
+                "title": "Skills",
+                "createLabel": "Create a new Skill",
+                "createOrEditLabel": "Create or edit a Skill"
+            },
+            "created": "A new Skill is created with identifier {{ param }}",
+            "updated": "A Skill is updated with identifier {{ param }}",
+            "deleted": "A Skill is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Skill {{ id }}?"
+            },
+            "detail": {
+                "title": "Skill"
+            },
+            "title": "Title",
+            "description": "Description",
+            "implementation": "Implementation",
+            "validation": "Validation",
+            "expiryPeriod": "Expiry Period",
+            "teams": "Teams",
+            "badges": "Badges",
+            "levels": "Levels"
+        }
+    }
+}

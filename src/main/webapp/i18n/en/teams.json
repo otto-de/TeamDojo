@@ -1,0 +1,33 @@
+{
+    "teamdojoApp": {
+        "teams": {
+            "home": {
+                "title": "Team"
+            },
+            "skills": {
+                "title": "Skills",
+                "notAchieved": "Not yet achieved",
+                "achievedOn": "Achieved on",
+                "search": {
+                    "placeholder": "Search",
+                    "filter": {
+                        "achieved": "achieved"
+                    }
+                }
+            },
+            "status": {
+                "activities": {
+                    "title": "Activities",
+                    "received": "received"
+                }
+            },
+            "achievements": {
+                "title": "Achievements",
+                "badges": {
+                    "title": "Badges"
+                }
+            },
+            "dateFormat": "yyyy-MM-dd"
+        }
+    }
+}

@@ -1,0 +1,24 @@
+
+{
+    "teamdojoApp": {
+        "levelSkill" : {
+            "home": {
+                "title": "Level Skills",
+                "createLabel": "Create a new Level Skill",
+                "createOrEditLabel": "Create or edit a Level Skill"
+            },
+            "created": "A new Level Skill is created with identifier {{ param }}",
+            "updated": "A Level Skill is updated with identifier {{ param }}",
+            "deleted": "A Level Skill is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Level Skill {{ id }}?"
+            },
+            "detail": {
+                "title": "Level Skill"
+            },
+            "score": "Score",
+            "skill": "Skill",
+            "level": "Level"
+        }
+    }
+}
