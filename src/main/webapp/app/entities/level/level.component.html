@@ -37,13 +37,13 @@
                 </td>
                 <td>{{level.requiredScore}}</td>
                 <td>
-                    <div *ngIf="level.dimension">
-                        <a [routerLink]="['../dimension', level.dimension?.id, 'view' ]" >{{level.dimension?.name}}</a>
+                    <div *ngIf="level.dimensionId">
+                        <a [routerLink]="['../dimension', level.dimensionId , 'view' ]" >{{level.dimensionName}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="level.dependsOn">
-                        <a [routerLink]="['../level', level.dependsOn?.id, 'view' ]" >{{level.dependsOn?.name}}</a>
+                    <div *ngIf="level.dependsOnId">
+                        <a [routerLink]="['../level', level.dependsOnId , 'view' ]" >{{level.dependsOnName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

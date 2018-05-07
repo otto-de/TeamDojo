@@ -1,5 +1,14 @@
 import org.gradle.internal.os.OperatingSystem
 
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.yaml:snakeyaml:1.21"
+    }
+}
 configurations {
     liquibase
 }
@@ -32,7 +41,7 @@ task initPaths(dependsOn: compileJava) {
     }
 }
 
-def liquibaseCommand(command) {
+def liquibaseCommand(command, moreArgs = []) {
     javaexec {
         if (OperatingSystem.current().isWindows()) {
             classpath files(pathingLiquibaseJar.archivePath)
@@ -48,6 +57,7 @@ def liquibaseCommand(command) {
         args "--password="
         args "--url=jdbc:postgresql://localhost:5432/teamdojo"
         args "--driver=org.postgresql.Driver"
+        moreArgs?.each { args it }
         args command
     }
 }

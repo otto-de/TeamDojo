@@ -8,6 +8,8 @@ import de.otto.teamdojo.domain.TeamSkill;
 import de.otto.teamdojo.repository.SkillRepository;
 import de.otto.teamdojo.service.SkillQueryService;
 import de.otto.teamdojo.service.SkillService;
+import de.otto.teamdojo.service.dto.SkillDTO;
+import de.otto.teamdojo.service.mapper.SkillMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,6 +60,10 @@ public class SkillResourceIntTest {
 
     @Autowired
     private SkillRepository skillRepository;
+
+
+    @Autowired
+    private SkillMapper skillMapper;
 
 
     @Autowired
@@ -120,9 +126,10 @@ public class SkillResourceIntTest {
         int databaseSizeBeforeCreate = skillRepository.findAll().size();
 
         // Create the Skill
+        SkillDTO skillDTO = skillMapper.toDto(skill);
         restSkillMockMvc.perform(post("/api/skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(skill)))
+            .content(TestUtil.convertObjectToJsonBytes(skillDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Skill in the database
@@ -143,11 +150,12 @@ public class SkillResourceIntTest {
 
         // Create the Skill with an existing ID
         skill.setId(1L);
+        SkillDTO skillDTO = skillMapper.toDto(skill);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restSkillMockMvc.perform(post("/api/skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(skill)))
+            .content(TestUtil.convertObjectToJsonBytes(skillDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Skill in the database
@@ -163,10 +171,11 @@ public class SkillResourceIntTest {
         skill.setTitle(null);
 
         // Create the Skill, which fails.
+        SkillDTO skillDTO = skillMapper.toDto(skill);
 
         restSkillMockMvc.perform(post("/api/skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(skill)))
+            .content(TestUtil.convertObjectToJsonBytes(skillDTO)))
             .andExpect(status().isBadRequest());
 
         List<Skill> skillList = skillRepository.findAll();
@@ -500,7 +509,7 @@ public class SkillResourceIntTest {
     @Transactional
     public void updateSkill() throws Exception {
         // Initialize the database
-        skillService.save(skill);
+        skillRepository.saveAndFlush(skill);
 
         int databaseSizeBeforeUpdate = skillRepository.findAll().size();
 
@@ -514,10 +523,11 @@ public class SkillResourceIntTest {
             .implementation(UPDATED_IMPLEMENTATION)
             .validation(UPDATED_VALIDATION)
             .expiryPeriod(UPDATED_EXPIRY_PERIOD);
+        SkillDTO skillDTO = skillMapper.toDto(updatedSkill);
 
         restSkillMockMvc.perform(put("/api/skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedSkill)))
+            .content(TestUtil.convertObjectToJsonBytes(skillDTO)))
             .andExpect(status().isOk());
 
         // Validate the Skill in the database
@@ -537,11 +547,12 @@ public class SkillResourceIntTest {
         int databaseSizeBeforeUpdate = skillRepository.findAll().size();
 
         // Create the Skill
+        SkillDTO skillDTO = skillMapper.toDto(skill);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restSkillMockMvc.perform(put("/api/skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(skill)))
+            .content(TestUtil.convertObjectToJsonBytes(skillDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Skill in the database
@@ -553,7 +564,7 @@ public class SkillResourceIntTest {
     @Transactional
     public void deleteSkill() throws Exception {
         // Initialize the database
-        skillService.save(skill);
+        skillRepository.saveAndFlush(skill);
 
         int databaseSizeBeforeDelete = skillRepository.findAll().size();
 
@@ -580,5 +591,28 @@ public class SkillResourceIntTest {
         assertThat(skill1).isNotEqualTo(skill2);
         skill1.setId(null);
         assertThat(skill1).isNotEqualTo(skill2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(SkillDTO.class);
+        SkillDTO skillDTO1 = new SkillDTO();
+        skillDTO1.setId(1L);
+        SkillDTO skillDTO2 = new SkillDTO();
+        assertThat(skillDTO1).isNotEqualTo(skillDTO2);
+        skillDTO2.setId(skillDTO1.getId());
+        assertThat(skillDTO1).isEqualTo(skillDTO2);
+        skillDTO2.setId(2L);
+        assertThat(skillDTO1).isNotEqualTo(skillDTO2);
+        skillDTO1.setId(null);
+        assertThat(skillDTO1).isNotEqualTo(skillDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(skillMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(skillMapper.fromId(null)).isNull();
     }
 }
