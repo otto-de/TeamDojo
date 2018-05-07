@@ -25,12 +25,8 @@
             </li>
             <li ngbDropdown class="nav-item dropdown pointer" *ngIf="teamsSelectionService.selectedTeam !== null">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="teamDropdown">
-                    <div class="team-avatar">
-                        <img *ngIf="getTeamImage(teamsSelectionService.selectedTeam)" class="avatar-image"
-                             [src]="getTeamImage(teamsSelectionService.selectedTeam)"
-                             [title]="teamsSelectionService.selectedTeam.name"/>
-                        <img *ngIf="!teamsSelectionService.selectedTeam.picture" class="avatar-image"
-                             src="http://via.placeholder.com/80x80"/>
+                    <div class="team-avatar" *ngIf="getTeamImage(teamsSelectionService.selectedTeam)">
+                        <img class="avatar-image" [src]="getTeamImage(teamsSelectionService.selectedTeam)" [title]="teamsSelectionService.selectedTeam.name"/>
                     </div>
                     <span>Team {{teamsSelectionService.selectedTeam.name}}</span>
                 </a>
