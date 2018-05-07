@@ -7,6 +7,10 @@
     height: 27px;
 }
 
+.switch:disabled{
+    opacity: 0.5;
+}
+
 .switch input {
     display: none;
 }
