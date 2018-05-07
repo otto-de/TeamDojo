@@ -7,7 +7,9 @@ import de.otto.teamdojo.repository.BadgeRepository;
 import de.otto.teamdojo.repository.SkillRepository;
 import de.otto.teamdojo.repository.TeamRepository;
 import de.otto.teamdojo.service.AchievableSkillService;
+import de.otto.teamdojo.service.TeamSkillService;
 import de.otto.teamdojo.service.dto.AchievableSkillDTO;
+import de.otto.teamdojo.service.dto.TeamSkillDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -31,13 +33,16 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
 
     private final BadgeRepository badgeRepository;
 
+    private final TeamSkillService teamSkillService;
+
 
     public AchievableSkillServiceImpl(SkillRepository skillRepository,
                                       TeamRepository teamRepository,
-                                      BadgeRepository badgeRepository) {
+                                      BadgeRepository badgeRepository, TeamSkillService teamSkillService) {
         this.skillRepository = skillRepository;
         this.teamRepository = teamRepository;
         this.badgeRepository = badgeRepository;
+        this.teamSkillService = teamSkillService;
     }
 
     @Override
@@ -45,6 +50,17 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
         return levelIds.isEmpty() && badgeIds.isEmpty()
             ? findAllTeamRelated(teamId, pageable)
             : queryRepository(teamId, levelIds, badgeIds, pageable);
+    }
+
+    @Override
+    public AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill) {
+        TeamSkillDTO teamSkill = new TeamSkillDTO();
+        teamSkill.setId(achievableSkill.getTeamSkillId());
+        teamSkill.setTeamId(teamId);
+        teamSkill.setSkillId(achievableSkill.getSkillId());
+        teamSkill.setAchievedAt(achievableSkill.getAchievedAt());
+        teamSkillService.save(teamSkill);
+        return skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId());
     }
 
 
