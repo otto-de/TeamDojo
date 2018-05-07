@@ -1,7 +1,7 @@
 <div class="teams-skills">
     <div class="mockup">
         <h4>{{'teamdojoApp.teams.skills.title' | translate}}</h4>
-        <!--<form class="form-inline">-->
+        <form class="form-inline">
             <div class="form-group mr-1 mb-2">
                 <input type="text" class="form-control" id="skills_searchTerm" disabled
                        [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate">
@@ -9,9 +9,15 @@
             <button type="submit" class="btn btn-secondary mb-2" disabled><span class="fa fa-search"></span></button>
             <div class="form-group m-2">
                 <div class="form-check form-check-inline mb-2">
-                    <input class="form-check-input" type="checkbox" value="" id="fooCheck" disabled>
-                    <label class="form-check-label" for="fooCheck">
-                        {{'teamdojoApp.teams.skills.search.filter.achieved' | translate}}
+                    <input class="form-check-input" type="checkbox" value="" id="checkComplete" [checked]="filters.indexOf('COMPLETE') > -1" (click)="onFilterClicked('COMPLETE')">
+                    <label class="form-check-label" for="checkComplete" jhiTranslate="teamdojoApp.teams.skills.search.filter.completed">
+                        COMPLETE
+                    </label>
+                </div>
+                <div class="form-check form-check-inline mb-2" >
+                    <input class="form-check-input" type="checkbox" value="" id="checkIncomplete" [checked]="filters.indexOf('INCOMPLETE') > -1" (click)="onFilterClicked('INCOMPLETE')">
+                    <label class="form-check-label" for="checkIncomplete" jhiTranslate="teamdojoApp.teams.skills.search.filter.incompleted">
+                        INCOMPLETE
                     </label>
                 </div>
             </div>

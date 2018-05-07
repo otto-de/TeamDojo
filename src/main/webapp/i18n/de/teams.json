@@ -11,7 +11,8 @@
                 "search": {
                     "placeholder": "Suche",
                     "filter": {
-                        "achieved": "erreicht"
+                        "completed": "Erfüllt",
+                        "incompleted": "nicht erfüllt"
                     }
                 }
             },

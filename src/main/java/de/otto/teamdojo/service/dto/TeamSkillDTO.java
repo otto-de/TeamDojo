@@ -11,7 +11,7 @@ public class TeamSkillDTO implements Serializable {
 
     private Long id;
 
-    private Instant achievedAt;
+    private Instant completedAt;
 
     private Instant verifiedAt;
 
@@ -35,12 +35,12 @@ public class TeamSkillDTO implements Serializable {
         this.id = id;
     }
 
-    public Instant getAchievedAt() {
-        return achievedAt;
+    public Instant getCompletedAt() {
+        return completedAt;
     }
 
-    public void setAchievedAt(Instant achievedAt) {
-        this.achievedAt = achievedAt;
+    public void setCompletedAt(Instant completedAt) {
+        this.completedAt = completedAt;
     }
 
     public Instant getVerifiedAt() {
@@ -124,7 +124,7 @@ public class TeamSkillDTO implements Serializable {
     public String toString() {
         return "TeamSkillDTO{" +
             "id=" + getId() +
-            ", achievedAt='" + getAchievedAt() + "'" +
+            ", completedAt='" + getCompletedAt() + "'" +
             ", verifiedAt='" + getVerifiedAt() + "'" +
             ", irrelevant='" + isIrrelevant() + "'" +
             ", note='" + getNote() + "'" +

@@ -120,6 +120,7 @@ public class SkillRepositoryIntTest {
 
         Page<AchievableSkillDTO> results = skillRepository.findAchievableSkillsByLevelsAndBadges(teamId, levelIds, badgeIds, filter, Pageable.unpaged());
         assertThat(results.getTotalElements()).isEqualTo(3);
+        System.out.println("Meine INCoMPLETED: " + results.getTotalElements());
     }
 
     @Test
@@ -145,8 +146,8 @@ public class SkillRepositoryIntTest {
 
         Page<AchievableSkillDTO> results = skillRepository.findAchievableSkillsByLevelsAndBadges(teamId, levelIds, badgeIds, filter, Pageable.unpaged());
         assertThat(results.getTotalElements()).isEqualTo(1);
+        System.out.println("MEINE COMPLETED: " + results.getTotalElements());
     }
-
 
     private void setupTestData() {
         //Skills
@@ -179,5 +180,4 @@ public class SkillRepositoryIntTest {
         team.addSkills(teamSkill);
         em.persist(team);
     }
-
 }
