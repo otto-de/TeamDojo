@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title">Team Selection</h4>
+    <h4 class="modal-title" jhiTranslate="teamdojoApp.teams.selection.title">Team Selection</h4>
     <button type="button" class="close" aria-label="Close" (click)="cancelTeamSelection()">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -25,6 +25,7 @@
 
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="deselectTeam()">No Team</button>
-    <button type="button" class="btn btn-outline-primary" [ngClass]="{'disabled':highlightedTeam === null}" (click)="highlightedTeam !== null && confirmTeam()">Select Team</button>
+    <button type="button" class="btn btn-outline-dark" (click)="deselectTeam()" jhiTranslate="teamdojoApp.teams.selection.deselect">No Team</button>
+    <button type="button" class="btn btn-outline-primary" [ngClass]="{'disabled':highlightedTeam === null}"
+            (click)="highlightedTeam !== null && confirmTeam()" jhiTranslate="teamdojoApp.teams.selection.select">Select Team</button>
 </div>
