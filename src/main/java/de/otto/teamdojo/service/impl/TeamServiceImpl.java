@@ -3,6 +3,8 @@ package de.otto.teamdojo.service.impl;
 import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.repository.TeamRepository;
 import de.otto.teamdojo.service.TeamService;
+import de.otto.teamdojo.service.dto.TeamDTO;
+import de.otto.teamdojo.service.mapper.TeamMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -10,8 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing Team.
@@ -24,20 +28,25 @@ public class TeamServiceImpl implements TeamService {
 
     private final TeamRepository teamRepository;
 
-    public TeamServiceImpl(TeamRepository teamRepository) {
+    private final TeamMapper teamMapper;
+
+    public TeamServiceImpl(TeamRepository teamRepository, TeamMapper teamMapper) {
         this.teamRepository = teamRepository;
+        this.teamMapper = teamMapper;
     }
 
     /**
      * Save a team.
      *
-     * @param team the entity to save
+     * @param teamDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public Team save(Team team) {
-        log.debug("Request to save Team : {}", team);
-        return teamRepository.save(team);
+    public TeamDTO save(TeamDTO teamDTO) {
+        log.debug("Request to save Team : {}", teamDTO);
+        Team team = teamMapper.toEntity(teamDTO);
+        team = teamRepository.save(team);
+        return teamMapper.toDto(team);
     }
 
     /**
@@ -47,9 +56,11 @@ public class TeamServiceImpl implements TeamService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<Team> findAll() {
+    public List<TeamDTO> findAll() {
         log.debug("Request to get all Teams");
-        return teamRepository.findAllWithEagerRelationships();
+        return teamRepository.findAllWithEagerRelationships().stream()
+            .map(teamMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -57,8 +68,8 @@ public class TeamServiceImpl implements TeamService {
      *
      * @return the list of entities
      */
-    public Page<Team> findAllWithEagerRelationships(Pageable pageable) {
-        return teamRepository.findAllWithEagerRelationships(pageable);
+    public Page<TeamDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return teamRepository.findAllWithEagerRelationships(pageable).map(teamMapper::toDto);
     }
 
 
@@ -70,9 +81,10 @@ public class TeamServiceImpl implements TeamService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<Team> findOne(Long id) {
+    public Optional<TeamDTO> findOne(Long id) {
         log.debug("Request to get Team : {}", id);
-        return teamRepository.findOneWithEagerRelationships(id);
+        return teamRepository.findOneWithEagerRelationships(id)
+            .map(teamMapper::toDto);
     }
 
     /**

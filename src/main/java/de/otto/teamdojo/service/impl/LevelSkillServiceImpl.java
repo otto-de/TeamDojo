@@ -3,13 +3,17 @@ package de.otto.teamdojo.service.impl;
 import de.otto.teamdojo.domain.LevelSkill;
 import de.otto.teamdojo.repository.LevelSkillRepository;
 import de.otto.teamdojo.service.LevelSkillService;
+import de.otto.teamdojo.service.dto.LevelSkillDTO;
+import de.otto.teamdojo.service.mapper.LevelSkillMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing LevelSkill.
@@ -22,20 +26,25 @@ public class LevelSkillServiceImpl implements LevelSkillService {
 
     private final LevelSkillRepository levelSkillRepository;
 
-    public LevelSkillServiceImpl(LevelSkillRepository levelSkillRepository) {
+    private final LevelSkillMapper levelSkillMapper;
+
+    public LevelSkillServiceImpl(LevelSkillRepository levelSkillRepository, LevelSkillMapper levelSkillMapper) {
         this.levelSkillRepository = levelSkillRepository;
+        this.levelSkillMapper = levelSkillMapper;
     }
 
     /**
      * Save a levelSkill.
      *
-     * @param levelSkill the entity to save
+     * @param levelSkillDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public LevelSkill save(LevelSkill levelSkill) {
-        log.debug("Request to save LevelSkill : {}", levelSkill);
-        return levelSkillRepository.save(levelSkill);
+    public LevelSkillDTO save(LevelSkillDTO levelSkillDTO) {
+        log.debug("Request to save LevelSkill : {}", levelSkillDTO);
+        LevelSkill levelSkill = levelSkillMapper.toEntity(levelSkillDTO);
+        levelSkill = levelSkillRepository.save(levelSkill);
+        return levelSkillMapper.toDto(levelSkill);
     }
 
     /**
@@ -45,9 +54,11 @@ public class LevelSkillServiceImpl implements LevelSkillService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<LevelSkill> findAll() {
+    public List<LevelSkillDTO> findAll() {
         log.debug("Request to get all LevelSkills");
-        return levelSkillRepository.findAll();
+        return levelSkillRepository.findAll().stream()
+            .map(levelSkillMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
 
@@ -59,9 +70,10 @@ public class LevelSkillServiceImpl implements LevelSkillService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<LevelSkill> findOne(Long id) {
+    public Optional<LevelSkillDTO> findOne(Long id) {
         log.debug("Request to get LevelSkill : {}", id);
-        return levelSkillRepository.findById(id);
+        return levelSkillRepository.findById(id)
+            .map(levelSkillMapper::toDto);
     }
 
     /**

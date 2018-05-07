@@ -54,7 +54,7 @@
         }
     ],
     "changelogDate": "20180419135514",
-    "dto": "no",
+    "dto": "mapstruct",
     "service": "serviceImpl",
     "entityTableName": "badge",
     "jpaMetamodelFiltering": true,

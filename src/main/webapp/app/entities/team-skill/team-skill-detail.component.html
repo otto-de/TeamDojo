@@ -23,14 +23,14 @@
                 </dd>
                 <dt><span jhiTranslate="teamdojoApp.teamSkill.skill">Skill</span></dt>
                 <dd>
-                    <div *ngIf="teamSkill.skill">
-                        <a [routerLink]="['/skill', teamSkill.skill?.id, 'view']">{{teamSkill.skill?.title}}</a>
+                    <div *ngIf="teamSkill.skillId">
+                        <a [routerLink]="['/skill', teamSkill.skillId, 'view']">{{teamSkill.skillTitle}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="teamdojoApp.teamSkill.team">Team</span></dt>
                 <dd>
-                    <div *ngIf="teamSkill.team">
-                        <a [routerLink]="['/team', teamSkill.team?.id, 'view']">{{teamSkill.team?.name}}</a>
+                    <div *ngIf="teamSkill.teamId">
+                        <a [routerLink]="['/team', teamSkill.teamId, 'view']">{{teamSkill.teamName}}</a>
                     </div>
                 </dd>
             </dl>

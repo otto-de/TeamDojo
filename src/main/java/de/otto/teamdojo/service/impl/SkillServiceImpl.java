@@ -3,6 +3,8 @@ package de.otto.teamdojo.service.impl;
 import de.otto.teamdojo.domain.Skill;
 import de.otto.teamdojo.repository.SkillRepository;
 import de.otto.teamdojo.service.SkillService;
+import de.otto.teamdojo.service.dto.SkillDTO;
+import de.otto.teamdojo.service.mapper.SkillMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -23,20 +25,25 @@ public class SkillServiceImpl implements SkillService {
 
     private final SkillRepository skillRepository;
 
-    public SkillServiceImpl(SkillRepository skillRepository) {
+    private final SkillMapper skillMapper;
+
+    public SkillServiceImpl(SkillRepository skillRepository, SkillMapper skillMapper) {
         this.skillRepository = skillRepository;
+        this.skillMapper = skillMapper;
     }
 
     /**
      * Save a skill.
      *
-     * @param skill the entity to save
+     * @param skillDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public Skill save(Skill skill) {
-        log.debug("Request to save Skill : {}", skill);
-        return skillRepository.save(skill);
+    public SkillDTO save(SkillDTO skillDTO) {
+        log.debug("Request to save Skill : {}", skillDTO);
+        Skill skill = skillMapper.toEntity(skillDTO);
+        skill = skillRepository.save(skill);
+        return skillMapper.toDto(skill);
     }
 
     /**
@@ -47,9 +54,10 @@ public class SkillServiceImpl implements SkillService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<Skill> findAll(Pageable pageable) {
+    public Page<SkillDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Skills");
-        return skillRepository.findAll(pageable);
+        return skillRepository.findAll(pageable)
+            .map(skillMapper::toDto);
     }
 
 
@@ -61,9 +69,10 @@ public class SkillServiceImpl implements SkillService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<Skill> findOne(Long id) {
+    public Optional<SkillDTO> findOne(Long id) {
         log.debug("Request to get Skill : {}", id);
-        return skillRepository.findById(id);
+        return skillRepository.findById(id)
+            .map(skillMapper::toDto);
     }
 
     /**

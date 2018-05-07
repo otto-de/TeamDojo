@@ -1,6 +1,6 @@
 package de.otto.teamdojo.service;
 
-import de.otto.teamdojo.domain.TeamSkill;
+import de.otto.teamdojo.service.dto.TeamSkillDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,10 +14,10 @@ public interface TeamSkillService {
     /**
      * Save a teamSkill.
      *
-     * @param teamSkill the entity to save
+     * @param teamSkillDTO the entity to save
      * @return the persisted entity
      */
-    TeamSkill save(TeamSkill teamSkill);
+    TeamSkillDTO save(TeamSkillDTO teamSkillDTO);
 
     /**
      * Get all the teamSkills.
@@ -25,7 +25,7 @@ public interface TeamSkillService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<TeamSkill> findAll(Pageable pageable);
+    Page<TeamSkillDTO> findAll(Pageable pageable);
 
 
     /**
@@ -34,7 +34,7 @@ public interface TeamSkillService {
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<TeamSkill> findOne(Long id);
+    Optional<TeamSkillDTO> findOne(Long id);
 
     /**
      * Delete the "id" teamSkill.
