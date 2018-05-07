@@ -80,5 +80,36 @@ describe('Component Tests', () => {
             expect(comp.levels[122][0]).toEqual(jasmine.objectContaining({ id: 123 }));
             expect(comp.levels[122][1]).toEqual(jasmine.objectContaining({ id: 124 }));
         });
+
+        it('Should sort multiple levels descendingly', () => {
+            // GIVEN
+            const headers = new HttpHeaders().append('link', 'link;link');
+            const entity = new Team(121);
+            entity.participations = [new Dimension(122)];
+            comp.team = entity;
+            spyOn(service, 'queryLevels').and.returnValue(
+                Observable.of(
+                    new HttpResponse({
+                        body: [
+                            buildEntity(new Level(124), { dimensionId: 122, dependsOnId: 123 }),
+                            buildEntity(new Level(125), { dimensionId: 122, dependsOnId: 124 }),
+                            buildEntity(new Level(123), { dimensionId: 122, dependsOnId: undefined })
+                        ],
+                        headers
+                    })
+                )
+            );
+
+            // WHEN
+            comp.ngOnInit();
+
+            // THEN
+            expect(service.queryLevels).toHaveBeenCalled();
+            expect(comp.levels).toEqual(jasmine.objectContaining({ 122: jasmine.anything() }));
+            expect(comp.levels[122].length).toEqual(3);
+            expect(comp.levels[122][0]).toEqual(jasmine.objectContaining({ id: 125 }));
+            expect(comp.levels[122][1]).toEqual(jasmine.objectContaining({ id: 124 }));
+            expect(comp.levels[122][2]).toEqual(jasmine.objectContaining({ id: 123 }));
+        });
     });
 });
