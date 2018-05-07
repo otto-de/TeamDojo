@@ -19,6 +19,32 @@
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed"
          [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item" *ngIf="teamsSelectionService.selectedTeam === null">
+                <a class="nav-link" (click)="selectTeam()" jhiTranslate="global.menu.teams.select">Select My Team</a>
+            </li>
+            <li ngbDropdown class="nav-item dropdown pointer" *ngIf="teamsSelectionService.selectedTeam !== null">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="teamDropdown">
+                    <div class="team-avatar" *ngIf="getTeamImage(teamsSelectionService.selectedTeam)">
+                        <img class="avatar-image" [src]="getTeamImage(teamsSelectionService.selectedTeam)" [title]="teamsSelectionService.selectedTeam.name"/>
+                    </div>
+                    <span>Team {{teamsSelectionService.selectedTeam.name}}</span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li>
+                        <a class="dropdown-item"
+                           [routerLink]="['/teams', teamsSelectionService.selectedTeam.shortName]">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.teams.home">Living Room</span>
+                        </a>
+                        <a class="dropdown-item" href="javascript:void(0);" (click)="selectTeam()">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.teams.change">Change Team</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
             <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}">
