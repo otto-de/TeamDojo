@@ -10,12 +10,14 @@ import { Badge } from 'app/shared/model/badge.model';
 import { Level } from 'app/shared/model/level.model';
 import { Team } from 'app/shared/model/team.model';
 import { Dimension } from 'app/shared/model/dimension.model';
+import Util from '../../../helpers/Util.service';
 
 describe('Component Tests', () => {
     describe('Team Achievements Component', () => {
         let comp: TeamsAchievementsComponent;
         let fixture: ComponentFixture<TeamsAchievementsComponent>;
         let service: TeamsAchievementsService;
+        const buildEntity = Util.wrap;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -62,10 +64,7 @@ describe('Component Tests', () => {
             spyOn(service, 'queryLevels').and.returnValue(
                 Observable.of(
                     new HttpResponse({
-                        body: [
-                            new Level(123, undefined, undefined, undefined, undefined, undefined, undefined, 122),
-                            new Level(124, undefined, undefined, undefined, undefined, undefined, undefined, 122)
-                        ],
+                        body: [buildEntity(new Level(123), { dimensionId: 122 }), buildEntity(new Level(124), { dimensionId: 122 })],
                         headers
                     })
                 )
