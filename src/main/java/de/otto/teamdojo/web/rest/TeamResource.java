@@ -1,22 +1,15 @@
 package de.otto.teamdojo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import de.otto.teamdojo.service.AchievableSkillService;
 import de.otto.teamdojo.service.TeamQueryService;
 import de.otto.teamdojo.service.TeamService;
-import de.otto.teamdojo.service.dto.AchievableSkillDTO;
 import de.otto.teamdojo.service.dto.TeamCriteria;
 import de.otto.teamdojo.service.dto.TeamDTO;
 import de.otto.teamdojo.web.rest.errors.BadRequestAlertException;
 import de.otto.teamdojo.web.rest.util.HeaderUtil;
-import de.otto.teamdojo.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,12 +34,9 @@ public class TeamResource {
 
     private final TeamQueryService teamQueryService;
 
-    private final AchievableSkillService achievableSkillService;
-
-    public TeamResource(TeamService teamService, TeamQueryService teamQueryService, AchievableSkillService achievableSkillService) {
+    public TeamResource(TeamService teamService, TeamQueryService teamQueryService) {
         this.teamService = teamService;
         this.teamQueryService = teamQueryService;
-        this.achievableSkillService = achievableSkillService;
     }
 
     /**
@@ -131,14 +121,5 @@ public class TeamResource {
         log.debug("REST request to delete Team : {}", id);
         teamService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
-
-    @GetMapping("/teams/{id}/achievable-skills")
-    @Timed
-    public ResponseEntity<List<AchievableSkillDTO>> getAchievableSkills(@PathVariable Long id, Pageable pageable) {
-        log.debug("REST request to get AchievableSkills for Team; {}", id);
-        Page<AchievableSkillDTO> page = achievableSkillService.findAllByTeamId(id, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/skills");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 }
