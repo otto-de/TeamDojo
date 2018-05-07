@@ -21,7 +21,7 @@
         <ul class="navbar-nav ml-auto">
 
             <li class="nav-item" *ngIf="teamsSelectionService.selectedTeam === null">
-                <a class="nav-link" (click)="selectTeam()">Select My Team</a>
+                <a class="nav-link" (click)="selectTeam()" jhiTranslate="global.menu.teams.select">Select My Team</a>
             </li>
 
             <li ngbDropdown class="nav-item dropdown pointer" *ngIf="teamsSelectionService.selectedTeam !== null">
@@ -37,11 +37,11 @@
                     <li>
                         <a class="dropdown-item" [routerLink]="['/teams', teamsSelectionService.selectedTeam.shortName]">
                             <i class="fa fa-home" aria-hidden="true"></i>
-                            Team Living Room
+                            <span jhiTranslate="global.menu.teams.home">Living Room</span>
                         </a>
                         <a class="dropdown-item" href="javascript:void(0);" (click)="selectTeam()">
                             <i class="fa fa-users" aria-hidden="true"></i>
-                            Change Team
+                            <span jhiTranslate="global.menu.teams.change">Change Team</span>
                         </a>
                     </li>
                 </ul>
