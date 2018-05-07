@@ -61,7 +61,14 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
     }
 
     private Page<AchievableSkillDTO> queryRepository(Long teamId, List<Long> levelIds, List<Long> badgeIds, Pageable pageable) {
-        return skillRepository.findAchievableSkill(teamId, levelIds, badgeIds, pageable);
+        if (!levelIds.isEmpty() && !badgeIds.isEmpty()) {
+            return skillRepository.findAchievableSkillsByLevelsAndBadges(teamId, levelIds, badgeIds, pageable);
+        } else if (!levelIds.isEmpty()) {
+            return skillRepository.findAchievableSkillsByLevels(teamId, levelIds, pageable);
+        } else if (!badgeIds.isEmpty()) {
+            return skillRepository.findAchievableSkillsByBadges(teamId, badgeIds, pageable);
+        }
+        return Page.empty();
     }
 
     private List<Long> getTeamRelatedLevelIds(Team team) {
