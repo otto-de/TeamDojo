@@ -28,7 +28,6 @@ import {
     PageRibbonComponent,
     ProfileService
 } from './layouts';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     imports: [
@@ -40,9 +39,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         TeamdojoHomeModule,
         TeamdojoAccountModule,
         TeamdojoEntityModule,
-        TeamsModule,
+        TeamsModule
         // jhipster-needle-angular-add-module JHipster will add new module here
-        NgbModule.forRoot()
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
     providers: [

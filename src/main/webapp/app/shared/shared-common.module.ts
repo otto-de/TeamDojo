@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 
-import { TeamdojoSharedLibsModule, FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent } from './';
+import { FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent, TeamdojoSharedLibsModule } from './';
+import { ToggleSwitchComponent } from './toogleswitch/toggle-switch.component';
 
 @NgModule({
     imports: [TeamdojoSharedLibsModule],
-    declarations: [FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent],
+    declarations: [FindLanguageFromKeyPipe, ToggleSwitchComponent, JhiAlertComponent, JhiAlertErrorComponent],
     providers: [],
-    exports: [TeamdojoSharedLibsModule, FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent]
+    exports: [TeamdojoSharedLibsModule, FindLanguageFromKeyPipe, ToggleSwitchComponent, JhiAlertComponent, JhiAlertErrorComponent]
 })
 export class TeamdojoSharedCommonModule {}

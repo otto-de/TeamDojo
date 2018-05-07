@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 
 export type EntityArrayResponseType = HttpResponse<IAchievableSkill[]>;
+export type EntityResponseType = HttpResponse<IAchievableSkill>;
 
 @Injectable()
 export class TeamsSkillsService {
@@ -21,6 +22,18 @@ export class TeamsSkillsService {
                 observe: 'response'
             })
             .map((res: EntityArrayResponseType) => this.convertArrayResponse(res));
+    }
+
+    updateAchievableSkill(teamId: number, skill: IAchievableSkill): Observable<EntityResponseType> {
+        const copy = this.convert(skill);
+        return this.http
+            .put<IAchievableSkill>(`${this.resourceUrl}/${teamId}/achievable-skills`, copy, { observe: 'response' })
+            .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+
+    private convertResponse(res: EntityResponseType): EntityResponseType {
+        const body: IAchievableSkill = this.convertItemFromServer(res.body);
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: EntityArrayResponseType): EntityArrayResponseType {
