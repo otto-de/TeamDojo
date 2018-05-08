@@ -7,7 +7,8 @@
     height: 27px;
 }
 
-.switch:disabled{
+input:disabled + .slider{
+    background-color: gray;
     opacity: 0.5;
 }
 
