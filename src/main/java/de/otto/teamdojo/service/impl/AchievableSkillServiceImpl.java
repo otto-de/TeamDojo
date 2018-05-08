@@ -1,5 +1,6 @@
 package de.otto.teamdojo.service.impl;
 
+import com.google.common.collect.Lists;
 import de.otto.teamdojo.domain.Badge;
 import de.otto.teamdojo.domain.Level;
 import de.otto.teamdojo.domain.Team;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -26,6 +28,8 @@ import java.util.stream.Collectors;
 public class AchievableSkillServiceImpl implements AchievableSkillService {
 
     private final Logger log = LoggerFactory.getLogger(AchievableSkillServiceImpl.class);
+
+    private static final List<String> ALL_FILTER = Lists.newArrayList("COMPLETE", "INCOMPLETE");
 
     private final SkillRepository skillRepository;
 
@@ -46,43 +50,54 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
     }
 
     @Override
-    public Page<AchievableSkillDTO> findAllByTeamAndLevelAndBadge(Long teamId, List<Long> levelIds, List<Long> badgeIds, Pageable pageable) {
+    public Page<AchievableSkillDTO> findAllByTeamAndLevelAndBadge(Long teamId, List<Long> levelIds, List<Long> badgeIds, List<String> filter, Pageable pageable) {
+        List<String> queryFilter = getQueryFilter(filter);
         return levelIds.isEmpty() && badgeIds.isEmpty()
-            ? findAllTeamRelated(teamId, pageable)
-            : queryRepository(teamId, levelIds, badgeIds, pageable);
+            ? findAllTeamRelated(teamId, queryFilter, pageable)
+            : queryRepository(teamId, levelIds, badgeIds, queryFilter, pageable);
     }
 
+    private List<String> getQueryFilter(List<String> filter) {
+        List<String> queryFilter = new ArrayList<>();
+        if (filter.isEmpty()) {
+            queryFilter.addAll(ALL_FILTER);
+        } else {
+            queryFilter.addAll(filter);
+        }
+        return queryFilter;
+    }
     @Override
     public AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill) {
         TeamSkillDTO teamSkill = new TeamSkillDTO();
         teamSkill.setId(achievableSkill.getTeamSkillId());
         teamSkill.setTeamId(teamId);
         teamSkill.setSkillId(achievableSkill.getSkillId());
-        teamSkill.setAchievedAt(achievableSkill.getAchievedAt());
+        teamSkill.setCompletedAt(achievableSkill.getAchievedAt());
         teamSkillService.save(teamSkill);
         return skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId());
     }
 
 
-    private Page<AchievableSkillDTO> findAllTeamRelated(Long teamId, Pageable pageable) {
+    private Page<AchievableSkillDTO> findAllTeamRelated(Long teamId, List<String> filter, Pageable pageable) {
         Team team = getTeam(teamId);
         List<Long> relatedLevelIds = getTeamRelatedLevelIds(team);
         List<Long> relatedBadgeIds = getTeamRelatedBadgeIds(team);
         relatedBadgeIds.addAll(getDimensionlessBadgeIds());
-        return queryRepository(teamId, relatedLevelIds, relatedBadgeIds, pageable);
+        return queryRepository(teamId, relatedLevelIds, relatedBadgeIds, filter, pageable);
     }
 
     private Team getTeam(Long teamId) {
         return teamRepository.findById(teamId).orElseThrow(NoSuchElementException::new);
     }
 
-    private Page<AchievableSkillDTO> queryRepository(Long teamId, List<Long> levelIds, List<Long> badgeIds, Pageable pageable) {
+    private Page<AchievableSkillDTO> queryRepository(Long teamId, List<Long> levelIds, List<Long> badgeIds, List<String> filter, Pageable pageable) {
+
         if (!levelIds.isEmpty() && !badgeIds.isEmpty()) {
-            return skillRepository.findAchievableSkillsByLevelsAndBadges(teamId, levelIds, badgeIds, pageable);
+            return skillRepository.findAchievableSkillsByLevelsAndBadges(teamId, levelIds, badgeIds, filter, pageable);
         } else if (!levelIds.isEmpty()) {
-            return skillRepository.findAchievableSkillsByLevels(teamId, levelIds, pageable);
+            return skillRepository.findAchievableSkillsByLevels(teamId, levelIds, filter, pageable);
         } else if (!badgeIds.isEmpty()) {
-            return skillRepository.findAchievableSkillsByBadges(teamId, badgeIds, pageable);
+            return skillRepository.findAchievableSkillsByBadges(teamId, badgeIds, filter, pageable);
         }
         return Page.empty();
     }
