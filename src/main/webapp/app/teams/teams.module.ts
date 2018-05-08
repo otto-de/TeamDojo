@@ -16,7 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
     imports: [TeamdojoSharedModule, RouterModule.forChild([TEAMS_ROUTE]), NgbModule],
     declarations: [TeamsComponent, TeamsStatusComponent, TeamsAchievementsComponent, TeamsSkillsComponent, TeamsSelectionComponent],
-    entryComponents: [TeamsSelectionComponent, TeamsSelectionComponent],
+    entryComponents: [TeamsSelectionComponent],
     providers: [TeamsService, TeamsSkillsService, TeamsResolve, TeamsSelectionService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
