@@ -1,6 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { LocalStorage, Ng2Webstorage } from 'ngx-webstorage';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSkillsService } from './teams-skills.service';
@@ -9,7 +7,7 @@ import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
-import moment = require('moment');
+import * as moment from 'moment';
 
 @Component({
     selector: 'jhi-teams-skills',
@@ -97,18 +95,6 @@ export class TeamsSkillsComponent implements OnInit {
         );
     }
 
-    private paginateAchievableSkills(data: IAchievableSkill[], headers: HttpHeaders) {
-        this.links = this.parseLinks.parse(headers.get('link'));
-        this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-        for (let i = 0; i < data.length; i++) {
-            this.skills.push(data[i]);
-        }
-    }
-
-    private onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
-    }
-
     onFilterClicked(filterName: string) {
         const index = this.filters.indexOf(filterName);
         if (index > -1) {
@@ -124,5 +110,21 @@ export class TeamsSkillsComponent implements OnInit {
         if (this.team.id !== this.teamsSelectionService.selectedTeam.id) {
             return true;
         }
+    }
+
+    onSkillClicked(skill: IAchievableSkill) {
+        console.log('clicked on', skill.title);
+    }
+
+    private paginateAchievableSkills(data: IAchievableSkill[], headers: HttpHeaders) {
+        this.links = this.parseLinks.parse(headers.get('link'));
+        this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
+        for (let i = 0; i < data.length; i++) {
+            this.skills.push(data[i]);
+        }
+    }
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
     }
 }
