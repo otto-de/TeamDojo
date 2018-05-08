@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSkillsService } from './teams-skills.service';
@@ -14,7 +14,7 @@ import * as moment from 'moment';
     templateUrl: './teams-skills.component.html',
     styleUrls: ['teams-skills.scss']
 })
-export class TeamsSkillsComponent implements OnInit {
+export class TeamsSkillsComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
     skills: IAchievableSkill[];
     filters: string[];
@@ -38,6 +38,13 @@ export class TeamsSkillsComponent implements OnInit {
         this.links = {
             last: 0
         };
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.team && changes.team.previousValue) {
+            this.reloadAll();
+            this.ngOnInit();
+        }
     }
 
     ngOnInit() {
@@ -107,9 +114,8 @@ export class TeamsSkillsComponent implements OnInit {
     }
 
     isSameTeamSelected() {
-        if (this.team.id !== this.teamsSelectionService.selectedTeam.id) {
-            return true;
-        }
+        const selectedTeam = this.teamsSelectionService.selectedTeam;
+        return selectedTeam && selectedTeam.id === this.team.id;
     }
 
     onSkillClicked(skill: IAchievableSkill) {
