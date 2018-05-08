@@ -4,6 +4,7 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { Observable } from 'rxjs/Observable';
 import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
+import moment = require('moment');
 
 export type EntityArrayResponseType = HttpResponse<IAchievableSkill[]>;
 
@@ -36,7 +37,9 @@ export class TeamsSkillsService {
      * Convert a returned JSON object to Skill.
      */
     private convertItemFromServer(achievableSkill: IAchievableSkill): IAchievableSkill {
-        const copy: IAchievableSkill = Object.assign({}, achievableSkill, {});
+        const copy: IAchievableSkill = Object.assign({}, achievableSkill, {
+            achievedAt: achievableSkill.achievedAt != null ? moment(achievableSkill.achievedAt) : achievableSkill.achievedAt
+        });
         return copy;
     }
 
@@ -44,7 +47,10 @@ export class TeamsSkillsService {
      * Convert a Skill to a JSON which can be sent to the server.
      */
     private convert(achievableSkill: IAchievableSkill): IAchievableSkill {
-        const copy: IAchievableSkill = Object.assign({}, achievableSkill, {});
+        const copy: IAchievableSkill = Object.assign({}, achievableSkill, {
+            completedAt:
+                achievableSkill.achievedAt != null && achievableSkill.achievedAt.isValid() ? achievableSkill.achievedAt.toJSON() : null
+        });
         return copy;
     }
 }
