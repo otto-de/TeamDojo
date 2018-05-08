@@ -2,16 +2,16 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 
-task setProjectVersion(dependsOn: 'generateGitProperties') {
+task dojoProjectVersion(dependsOn: 'generateGitProperties') {
     doLast {
         String branch = project.ext.gitProps['git.branch'];
         String tag = project.ext.gitProps['git.closest.tag.name'];
         GitInfo gitInfo = new GitInfo(project.version, branch, tag);
         project.version = new ProjectVersion(project.version, gitInfo.getQualifier()).toString()
-        System.setProperty("VERSION", project.version);
+        println("Team Dojo Project Version is $project.version")
     }
 }
-bootBuildInfo.dependsOn(setProjectVersion);
+bootBuildInfo.dependsOn(dojoProjectVersion);
 
 
 class ProjectVersion {
