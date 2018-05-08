@@ -108,7 +108,7 @@ export class TeamsSkillsComponent implements OnInit {
 
     isSameTeamSelected() {
         const selectedTeam = this.teamsSelectionService.selectedTeam;
-        return selectedTeam && selectedTeam === this.team.id;
+        return selectedTeam && selectedTeam.id === this.team.id;
     }
 
     onSkillClicked(skill: IAchievableSkill) {
