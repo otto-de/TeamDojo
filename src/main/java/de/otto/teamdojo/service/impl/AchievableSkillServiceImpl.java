@@ -72,7 +72,7 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
         teamSkill.setId(achievableSkill.getTeamSkillId());
         teamSkill.setTeamId(teamId);
         teamSkill.setSkillId(achievableSkill.getSkillId());
-        teamSkill.setAchievedAt(achievableSkill.getAchievedAt());
+        teamSkill.setCompletedAt(achievableSkill.getAchievedAt());
         teamSkillService.save(teamSkill);
         return skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId());
     }
