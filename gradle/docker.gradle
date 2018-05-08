@@ -29,8 +29,8 @@ task copyDockerFiles(type: Copy) {
     include "*"
     exclude "**/*.yml"
 }
+def dockerImageName = "docker.iteratec.io/otto/teamdojo";
 ext.getDockerTags = {
-    def dockerImageName = "docker.iteratec.io/otto/teamdojo";
     def dockerTags = ["$dockerImageName:${version}".toString()]
     if (version.contains('SNAPSHOT')) {
         dockerTags.push("$dockerImageName:next".toString());
@@ -51,12 +51,14 @@ task buildDocker(type: DockerBuildImage, dependsOn: 'copyDockerFiles') {
 buildDocker.dependsOn(dojoProjectVersion)
 
 task pushDockerVersion(type: DockerPushImage, dependsOn: 'buildDocker') {
+    imageName = dockerImageName;
     doFirst {
         imageName = getDockerTags()[0];
     }
 }
 
 task pushDocker(type: DockerPushImage, dependsOn: 'pushDockerVersion') {
+    imageName = dockerImageName;
     doFirst {
         imageName = getDockerTags()[1];
     }
