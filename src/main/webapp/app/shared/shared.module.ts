@@ -1,8 +1,8 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 
 import { NgbDateMomentAdapter } from './util/datepicker-adapter';
-import { TeamdojoSharedLibsModule, TeamdojoSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective } from './';
+import { HasAnyAuthorityDirective, JhiLoginModalComponent, TeamdojoSharedCommonModule, TeamdojoSharedLibsModule } from './';
 
 @NgModule({
     imports: [TeamdojoSharedLibsModule, TeamdojoSharedCommonModule],

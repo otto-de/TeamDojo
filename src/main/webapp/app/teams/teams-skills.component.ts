@@ -8,6 +8,7 @@ import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/ht
 import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
+import moment = require('moment');
 
 @Component({
     selector: 'jhi-teams-skills',
@@ -78,6 +79,20 @@ export class TeamsSkillsComponent implements OnInit {
     loadPage(page) {
         this.page = page;
         this.loadAll();
+    }
+
+    onToggled(checked: boolean, skill: IAchievableSkill) {
+        if (checked) {
+            skill.achievedAt = moment();
+        } else {
+            skill.achievedAt = null;
+        }
+        this.teamsSkillsService.updateAchievableSkill(this.team.id, skill).subscribe(
+            (res: HttpResponse<IAchievableSkill>) => (skill = res.body),
+            (res: HttpErrorResponse) => {
+                console.log(res);
+            }
+        );
     }
 
     private paginateAchievableSkills(data: IAchievableSkill[], headers: HttpHeaders) {

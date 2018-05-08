@@ -4,6 +4,11 @@
             "home": {
                 "title": "Team"
             },
+            "selection": {
+                "title": "Team Selection",
+                "deselect": "No Team",
+                "select": "Select Team"
+            },
             "skills": {
                 "title": "Skills",
                 "notAchieved": "Not yet achieved",
