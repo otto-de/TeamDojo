@@ -32,11 +32,11 @@
                     *ngFor='let skill of skills'>
                     <div class="d-flex w-100 justify-content-between">
                         <a href="#" (click)="onClicked($event)" class="text-dark mb-1">{{skill.title}}</a>
-                        <toggle-switch [checked]="!!skill.achievedAt"
+                        <jhi-toggle-switch [checked]="!!skill.achievedAt"
                                        [disabled]="isSameTeamSelected()"
                                        popoverText="{{!skill.achievedAt ? ('teamdojoApp.teams.skills.notAchieved' | translate)
                                         : ('teamdojoApp.teams.skills.achievedOn' | translate) +' ' + (skill.achievedAt | date: ('teamdojoApp.teams.dateFormat' | translate))}}"
-                                       (onToggled)="onToggled($event, skill)"></toggle-switch>
+                                       (onToggled)="onToggled($event, skill)"></jhi-toggle-switch>
                     </div>
                     <p class="mb-1"></p>
                     <small>{{skill.description}}</small>
