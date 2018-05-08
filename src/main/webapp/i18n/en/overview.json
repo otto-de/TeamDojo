@@ -1,0 +1,15 @@
+{
+    "teamdojoApp": {
+        "overview": {
+            "teams": {
+                "title": "Teams"
+            },
+            "achievements": {
+                "title": "Achievements"
+            },
+            "skills": {
+                "title": "Skills"
+            }
+        }
+    }
+}
