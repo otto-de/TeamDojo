@@ -16,7 +16,7 @@
             "detail": {
                 "title": "Team Skill"
             },
-            "achievedAt": "Achieved At",
+            "completedAt": "Completed At",
             "verifiedAt": "Verified At",
             "irrelevant": "Irrelevant",
             "note": "Note",

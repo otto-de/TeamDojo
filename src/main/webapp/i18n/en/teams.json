@@ -16,7 +16,8 @@
                 "search": {
                     "placeholder": "Search",
                     "filter": {
-                        "achieved": "achieved"
+                        "completed": "Completed",
+                        "incompleted": "Incompleted"
                     }
                 }
             },

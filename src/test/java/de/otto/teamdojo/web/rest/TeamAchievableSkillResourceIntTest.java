@@ -270,7 +270,7 @@ public class TeamAchievableSkillResourceIntTest {
         TeamSkill completedSkill = teamSkills.get(0);
         assertThat(completedSkill.getSkill().getId(), is(softwareUpdates.getId()));
         assertThat(completedSkill.getTeam().getId(), is(team.getId()));
-        assertThat(completedSkill.getAchievedAt(), notNullValue());
+        assertThat(completedSkill.getCompletedAt(), notNullValue());
     }
 
 
@@ -302,7 +302,7 @@ public class TeamAchievableSkillResourceIntTest {
         TeamSkill completedSkill = teamSkills.get(0);
         assertThat(completedSkill.getSkill().getId(), is(softwareUpdates.getId()));
         assertThat(completedSkill.getTeam().getId(), is(team.getId()));
-        assertThat(completedSkill.getAchievedAt(), nullValue());
+        assertThat(completedSkill.getCompletedAt(), nullValue());
     }
 
     private void setupTestData() {
