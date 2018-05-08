@@ -209,7 +209,6 @@ public class TeamAchievableSkillResourceIntTest {
         restTeamMockMvc.perform(get("/api/teams/{id}/achievable-skills", team.getId())
             .param("levelId", yellow.getId().toString())
             .param("badgeId", awsReady.getId().toString()))
-            //.param("filter", "INCOMPLETE"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.length()").value(3))
