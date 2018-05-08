@@ -58,7 +58,7 @@ export class TeamsAchievementsComponent implements OnInit {
     }
 
     private _sortLevels(lowerLevel, upperLevel) {
-        let compareValue: number = 0;
+        let compareValue = 0;
         if (lowerLevel.dependsOnId !== undefined && lowerLevel.dependsOnId === upperLevel.id) {
             compareValue = -1;
         } else if (upperLevel.dependsOnId !== undefined && lowerLevel.id === upperLevel.dependsOnId) {
