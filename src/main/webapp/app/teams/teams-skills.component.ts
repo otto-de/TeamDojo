@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LocalStorage, Ng2Webstorage } from 'ngx-webstorage';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -16,7 +16,7 @@ import moment = require('moment');
     templateUrl: './teams-skills.component.html',
     styleUrls: ['teams-skills.scss']
 })
-export class TeamsSkillsComponent implements OnInit {
+export class TeamsSkillsComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
     skills: IAchievableSkill[];
     filters: string[];
@@ -40,6 +40,13 @@ export class TeamsSkillsComponent implements OnInit {
         this.links = {
             last: 0
         };
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.team && changes.team.previousValue) {
+            this.reloadAll();
+            this.ngOnInit();
+        }
     }
 
     ngOnInit() {
