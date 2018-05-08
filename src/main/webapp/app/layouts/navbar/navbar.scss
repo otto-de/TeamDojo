@@ -27,6 +27,20 @@ Navbar
         width: 40px;
         border-radius: 50%;
     }
+    .team-avatar {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+        background: white !important;
+        overflow: hidden;
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+        img {
+            width: 100%;
+        }
+    }
     .dropdown-item.active, .dropdown-item.active:focus, .dropdown-item.active:hover {
         background-color: #353d47;
     }
@@ -42,6 +56,13 @@ Navbar
     }
     a.nav-link {
         font-weight: 400;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 0;
+    }
+    a.nav-link.dropdown-toggle > span {
+        margin-right: 5px;
     }
     .jh-navbar-toggler {
         color: #ccc;

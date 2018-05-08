@@ -2,7 +2,9 @@ package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
 import de.otto.teamdojo.domain.*;
+import de.otto.teamdojo.repository.TeamSkillRepository;
 import de.otto.teamdojo.service.AchievableSkillService;
+import de.otto.teamdojo.service.dto.AchievableSkillDTO;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
 import org.junit.After;
 import org.junit.Before;
@@ -20,6 +22,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.util.List;
 
 import static de.otto.teamdojo.test.util.BadgeTestDataProvider.alwaysUpToDate;
 import static de.otto.teamdojo.test.util.BadgeTestDataProvider.awsReady;
@@ -29,8 +33,10 @@ import static de.otto.teamdojo.test.util.LevelTestDataProvider.yellow;
 import static de.otto.teamdojo.test.util.SkillTestDataProvider.*;
 import static de.otto.teamdojo.test.util.TeamTestDataProvider.ft1;
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -51,6 +57,9 @@ public class TeamAchievableSkillResourceIntTest {
 
     @Autowired
     private EntityManager em;
+
+    @Autowired
+    private TeamSkillRepository teamSkillRepository;
 
     private MockMvc restTeamMockMvc;
 
@@ -238,6 +247,62 @@ public class TeamAchievableSkillResourceIntTest {
 
         restTeamMockMvc.perform(get("/api/teams/{id}/achievable-skills", team.getId()))
             .andExpect(status().isOk());
+    }
+
+    @Test
+    @Transactional
+    public void updateAchievableSkillToCompleted() throws Exception {
+        softwareUpdates = softwareUpdates().build(em);
+        team = ft1().build(em);
+        em.flush();
+
+        AchievableSkillDTO achievableSkill = new AchievableSkillDTO();
+        achievableSkill.setAchievedAt(Instant.now());
+        achievableSkill.setSkillId(softwareUpdates.getId());
+
+        restTeamMockMvc.perform(put("/api/teams/{id}/achievable-skills", team.getId())
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(achievableSkill)))
+            .andExpect(status().isOk());
+
+        List<TeamSkill> teamSkills = teamSkillRepository.findAll();
+        assertThat(teamSkills, hasSize(1));
+        TeamSkill completedSkill = teamSkills.get(0);
+        assertThat(completedSkill.getSkill().getId(), is(softwareUpdates.getId()));
+        assertThat(completedSkill.getTeam().getId(), is(team.getId()));
+        assertThat(completedSkill.getAchievedAt(), notNullValue());
+    }
+
+
+    @Test
+    @Transactional
+    public void updateAchievableSkillToInCompleted() throws Exception {
+        softwareUpdates = softwareUpdates().build(em);
+        team = ft1().build(em);
+        teamSkill = new TeamSkill();
+        teamSkill.setTeam(team);
+        teamSkill.setSkill(softwareUpdates);
+        em.persist(teamSkill);
+        team.addSkills(teamSkill);
+        em.persist(team);
+        em.flush();
+
+        AchievableSkillDTO achievableSkill = new AchievableSkillDTO();
+        achievableSkill.setAchievedAt(null);
+        achievableSkill.setTeamSkillId(teamSkill.getId());
+        achievableSkill.setSkillId(softwareUpdates.getId());
+
+        restTeamMockMvc.perform(put("/api/teams/{id}/achievable-skills", team.getId())
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(achievableSkill)))
+            .andExpect(status().isOk());
+
+        List<TeamSkill> teamSkills = teamSkillRepository.findAll();
+        assertThat(teamSkills, hasSize(1));
+        TeamSkill completedSkill = teamSkills.get(0);
+        assertThat(completedSkill.getSkill().getId(), is(softwareUpdates.getId()));
+        assertThat(completedSkill.getTeam().getId(), is(team.getId()));
+        assertThat(completedSkill.getAchievedAt(), nullValue());
     }
 
     private void setupTestData() {
