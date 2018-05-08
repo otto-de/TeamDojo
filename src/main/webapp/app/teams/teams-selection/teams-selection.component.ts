@@ -10,9 +10,9 @@ import { Team } from 'app/shared/model/team.model';
     styleUrls: ['./teams-selection.scss']
 })
 export class TeamsSelectionComponent implements OnInit {
-    private highlightedTeam: Team = null;
+    highlightedTeam: Team = null;
 
-    private teams: Team[] = [];
+    teams: Team[] = [];
 
     constructor(
         private activeModal: NgbActiveModal,

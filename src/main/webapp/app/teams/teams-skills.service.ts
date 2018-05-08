@@ -4,7 +4,7 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { Observable } from 'rxjs/Observable';
 import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
-import moment = require('moment');
+import * as moment from 'moment';
 
 export type EntityArrayResponseType = HttpResponse<IAchievableSkill[]>;
 export type EntityResponseType = HttpResponse<IAchievableSkill>;

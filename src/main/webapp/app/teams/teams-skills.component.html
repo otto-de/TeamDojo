@@ -31,7 +31,7 @@
                 <li class="list-group-item list-group-item-action flex-column align-items-start mb-2"
                     *ngFor='let skill of skills'>
                     <div class="d-flex w-100 justify-content-between">
-                        <a href="#" (click)="onClicked($event)" class="text-dark mb-1">{{skill.title}}</a>
+                        <a href="#" (click)="onSkillClicked(skill)" class="text-dark mb-1">{{skill.title}}</a>
                         <jhi-toggle-switch [checked]="!!skill.achievedAt"
                                        [disabled]="isSameTeamSelected()"
                                        popoverText="{{!skill.achievedAt ? ('teamdojoApp.teams.skills.notAchieved' | translate)
