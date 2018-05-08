@@ -7,6 +7,11 @@
     height: 27px;
 }
 
+input:disabled + .slider{
+    background-color: gray;
+    opacity: 0.5;
+}
+
 .switch input {
     display: none;
 }

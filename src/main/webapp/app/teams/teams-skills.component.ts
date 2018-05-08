@@ -8,6 +8,7 @@ import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/ht
 import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
+import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import moment = require('moment');
 
 @Component({
@@ -29,6 +30,7 @@ export class TeamsSkillsComponent implements OnInit {
         private teamsSkillsService: TeamsSkillsService,
         private jhiAlertService: JhiAlertService,
         private parseLinks: JhiParseLinks,
+        private teamsSelectionService: TeamsSelectionService,
         private storage: LocalStorageService
     ) {
         this.skills = [];
@@ -116,5 +118,11 @@ export class TeamsSkillsComponent implements OnInit {
         }
         this.storage.store(this.team.id.toString(), this.filters);
         this.reloadAll();
+    }
+
+    isSameTeamSelected() {
+        if (this.team.id != this.teamsSelectionService.selectedTeam.id) {
+            return true;
+        }
     }
 }
