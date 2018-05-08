@@ -48,7 +48,7 @@ export class TeamsAchievementsComponent implements OnInit {
                     }
                     for (const dimensionId in levels) {
                         if (levels.hasOwnProperty(dimensionId)) {
-                            this.levels[dimensionId] = this.sortLevels(levels[dimensionId]);
+                            this.levels[dimensionId] = levels[dimensionId].sort(this._sortLevels);
                         }
                     }
                 },
@@ -57,18 +57,14 @@ export class TeamsAchievementsComponent implements OnInit {
         }
     }
 
-    sortLevels(levels: ILevel[], reverse = false) {
-        const sortedLevels = [];
-        if (levels.length) {
-            const lowestLevelIndex = levels.findIndex(level => level.dependsOnId === null);
-            sortedLevels.push(lowestLevelIndex !== -1 ? levels.splice(lowestLevelIndex, 1)[0] : levels.shift());
-            for (let i = 0; i < levels.length; i++) {
-                const nextLevel = levels[i];
-                const nextLevelIndex = sortedLevels.findIndex((level: ILevel) => level.id === nextLevel.dependsOnId);
-                sortedLevels.splice(nextLevelIndex !== -1 ? nextLevelIndex + (reverse ? 1 : 0) : sortedLevels.length, 0, nextLevel);
-            }
+    private _sortLevels(lowerLevel, upperLevel) {
+        let compareValue: number = 0;
+        if (lowerLevel.dependsOnId !== undefined && lowerLevel.dependsOnId === upperLevel.id) {
+            compareValue = -1;
+        } else if (upperLevel.dependsOnId !== undefined && lowerLevel.id === upperLevel.dependsOnId) {
+            compareValue = 1;
         }
-        return sortedLevels;
+        return compareValue;
     }
 
     trackId(index: number, item) {
