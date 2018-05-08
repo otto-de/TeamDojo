@@ -1,10 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { LocalStorageService } from 'ngx-webstorage';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSkillsService } from './teams-skills.service';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
+import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import * as moment from 'moment';
 
 @Component({
     selector: 'jhi-teams-skills',
@@ -14,17 +17,22 @@ import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
 export class TeamsSkillsComponent implements OnInit {
     @Input() team: ITeam;
     skills: IAchievableSkill[];
+    filters: string[];
     page: number;
     links: any;
     itemsPerPage: number;
     totalItems: number;
+    checkComplete: boolean;
 
     constructor(
         private teamsSkillsService: TeamsSkillsService,
         private jhiAlertService: JhiAlertService,
-        private parseLinks: JhiParseLinks
+        private parseLinks: JhiParseLinks,
+        private teamsSelectionService: TeamsSelectionService,
+        private storage: LocalStorageService
     ) {
         this.skills = [];
+        this.filters = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.page = 0;
         this.links = {
@@ -33,6 +41,19 @@ export class TeamsSkillsComponent implements OnInit {
     }
 
     ngOnInit() {
+        const storedFilters = this.storage.retrieve(this.team.id.toString());
+        if (storedFilters) {
+            this.filters = storedFilters;
+        }
+        this.loadAll();
+    }
+
+    reloadAll() {
+        this.skills = [];
+        this.page = 0;
+        this.links = {
+            last: 0
+        };
         this.loadAll();
     }
 
@@ -40,7 +61,8 @@ export class TeamsSkillsComponent implements OnInit {
         this.teamsSkillsService
             .queryAchievableSkills(this.team.id, {
                 page: this.page,
-                size: this.itemsPerPage
+                size: this.itemsPerPage,
+                filter: this.filters
             })
             .subscribe(
                 (res: HttpResponse<IAchievableSkill[]>) => this.paginateAchievableSkills(res.body, res.headers),
@@ -57,6 +79,41 @@ export class TeamsSkillsComponent implements OnInit {
     loadPage(page) {
         this.page = page;
         this.loadAll();
+    }
+
+    onToggled(checked: boolean, skill: IAchievableSkill) {
+        if (checked) {
+            skill.achievedAt = moment();
+        } else {
+            skill.achievedAt = null;
+        }
+        this.teamsSkillsService.updateAchievableSkill(this.team.id, skill).subscribe(
+            (res: HttpResponse<IAchievableSkill>) => (skill = res.body),
+            (res: HttpErrorResponse) => {
+                console.log(res);
+            }
+        );
+    }
+
+    onFilterClicked(filterName: string) {
+        const index = this.filters.indexOf(filterName);
+        if (index > -1) {
+            this.filters.splice(index, 1);
+        } else {
+            this.filters.push(filterName);
+        }
+        this.storage.store(this.team.id.toString(), this.filters);
+        this.reloadAll();
+    }
+
+    isSameTeamSelected() {
+        if (this.team.id !== this.teamsSelectionService.selectedTeam.id) {
+            return true;
+        }
+    }
+
+    onSkillClicked(skill: IAchievableSkill) {
+        console.log('clicked on', skill.title);
     }
 
     private paginateAchievableSkills(data: IAchievableSkill[], headers: HttpHeaders) {

@@ -26,7 +26,7 @@ if (OperatingSystem.current().isWindows()) {
             manifest {
                 attributes 'Class-Path':
                     sourceSets.main.runtimeClasspath.plus(configurations.liquibase)
-                    .collect {
+                        .collect {
                         it.toURI().toURL().toString().replaceFirst(/file:\/+/, '/')
                     }.join(' ')
             }
@@ -38,7 +38,7 @@ task initPaths(dependsOn: compileJava) {
     group = "liquibase"
     if (OperatingSystem.current().isWindows()) {
         dependsOn pathingLiquibaseJar
-	}
+    }
 }
 
 def liquibaseCommand(command, moreArgs = []) {
@@ -51,7 +51,7 @@ def liquibaseCommand(command, moreArgs = []) {
         }
         main = "liquibase.integration.commandline.Main"
 
-        args "--changeLogFile=src/main/resources/config/liquibase/changelog/" + buildTimestamp() +"_changelog.xml"
+        args "--changeLogFile=src/main/resources/config/liquibase/changelog/" + buildTimestamp() + "_changelog.xml"
         args "--referenceUrl=hibernate:spring:de.otto.teamdojo.domain?dialect=org.hibernate.dialect.PostgreSQL82Dialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
         args "--username=teamdojo"
         args "--password="
@@ -80,7 +80,7 @@ task liquibaseDataDiffChangeLog(dependsOn: initPaths) {
     }
 }
 
-ext.getLiquibaseXml = { dimension, levels ->
+ext.getLiquibaseXml = { dimension, levels, order ->
     def timestamp = new Date().getTime()
     def setCount = 1
     def getSetId = { "${timestamp}-${setCount++}" }
@@ -93,29 +93,37 @@ ext.getLiquibaseXml = { dimension, levels ->
 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 http://www.liquibase.org/xml/ns/dbchangelog
 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd''') {
-        changeSet(author: 'gradle', id: getSetId()) {
+        changeSet(author: 'gradle', context: '!test', id: getSetId()) {
             insert(tableName: 'dimension') {
                 column(name: 'id', valueNumeric: 'nextval(\'hibernate_sequence\')')
                 column(name: 'name', value: dimension.name)
             }
         }
+        levels.sort { level -> order.indexOf(level.name) }
         levels.each { level ->
-            changeSet(author: 'gradle', id: getSetId()) {
+            changeSet(author: 'gradle', context: '!test', id: getSetId()) {
                 insert(tableName: 'level') {
                     column(name: 'id', valueComputed: 'nextval(\'hibernate_sequence\')')
                     column(name: 'name', value: level.name)
                     column(name: 'dimension_id', valueComputed: "(SELECT id FROM dimension WHERE name = '${dimension.name}' LIMIT 1)")
-                    column(name: 'required_score', valueNumeric: 0.0)
+                    column(name: 'depends_on_id', valueComputed: "(SELECT id FROM level WHERE name = '${level.dependsOn}' LIMIT 1)")
+                    column(name: 'required_score', valueNumeric: 1.0)
                 }
             }
             level.fileTree.getFiles().collect { loadYaml(it) }.each { skill ->
-                changeSet(author: 'gradle', id: getSetId()) {
+                changeSet(author: 'gradle', context: '!test', id: getSetId()) {
                     insert(tableName: 'skill') {
                         column(name: 'id', valueComputed: 'nextval(\'hibernate_sequence\')')
                         column(name: 'title', value: skill.title.trim())
                         column(name: 'description', value: skill.why.trim())
                         column(name: 'implementation', value: skill.how.trim())
                         column(name: 'jhi_validation', value: skill.validation.trim())
+                    }
+                    insert(tableName: 'level_skill') {
+                        column(name: 'id', valueComputed: 'nextval(\'hibernate_sequence\')')
+                        column(name: 'score', value: 50)
+                        column(name: 'level_id', valueComputed: "(SELECT id FROM level WHERE name ='${level.name}' LIMIT 1)")
+                        column(name: 'skill_id', valueComputed: "(SELECT id FROM skill WHERE title = '${skill.title.trim()}' LIMIT 1)")
                     }
                 }
             }
@@ -125,23 +133,31 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd''') {
 }
 
 ext.loadYaml = { file ->
+    System.out.println(file.name);
     org.yaml.snakeyaml.Yaml yaml = new org.yaml.snakeyaml.Yaml()
     yaml.load(file.text)
 }
 
+ext.getDependsOn = { name, order ->
+    def index = order.indexOf(name);
+    return index > 0 ? order[index - 1] : null;
+}
+
 task liquibaseDataImportFromYaml {
     doLast {
+        def order = ['yellow', 'orange', 'green', 'blue', 'brown', 'black'];
         List levelPaths = []
         new File('skills/').eachFile {
             levelPaths << it.name
         }
         List levels = levelPaths.collect {
             [
-                name: it,
-                fileTree: fileTree(dir: "skills/${it}")
+                name     : it,
+                fileTree : fileTree(dir: "skills/${it}"),
+                dependsOn: getDependsOn(it, order)
             ]
         }
-        def xmlString = getLiquibaseXml([ name: 'Security' ], levels)
+        def xmlString = getLiquibaseXml([name: 'Security'], levels, order)
         def outputFilename = new Date().format('yyyyMMddHHmmss') + '_changelog.xml'
         new File("src/main/resources/config/liquibase/changelog/${outputFilename}").write(xmlString)
     }

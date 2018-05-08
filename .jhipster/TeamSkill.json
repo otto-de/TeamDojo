@@ -23,7 +23,7 @@
     ],
     "fields": [
         {
-            "fieldName": "achievedAt",
+            "fieldName": "completedAt",
             "fieldType": "Instant"
         },
         {

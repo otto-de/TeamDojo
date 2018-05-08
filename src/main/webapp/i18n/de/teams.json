@@ -4,6 +4,11 @@
             "home": {
                 "title": "Team"
             },
+            "selection": {
+                "title": "Team Auswahl",
+                "deselect": "Kein Team",
+                "select": "Team auswählen"
+            },
             "skills": {
                 "title": "Kompetenzen",
                 "notAchieved": "Noch nicht erreicht",
@@ -11,7 +16,8 @@
                 "search": {
                     "placeholder": "Suche",
                     "filter": {
-                        "achieved": "erreicht"
+                        "completed": "Erfüllt",
+                        "incompleted": "nicht erfüllt"
                     }
                 }
             },
