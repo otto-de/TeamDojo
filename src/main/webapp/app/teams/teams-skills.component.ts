@@ -43,7 +43,7 @@ export class TeamsSkillsComponent implements OnInit {
     }
 
     ngOnInit() {
-        let storedFilters = this.storage.retrieve(this.team.id.toString());
+        const storedFilters = this.storage.retrieve(this.team.id.toString());
         if (storedFilters) {
             this.filters = storedFilters;
         }
@@ -110,7 +110,7 @@ export class TeamsSkillsComponent implements OnInit {
     }
 
     onFilterClicked(filterName: string) {
-        let index = this.filters.indexOf(filterName);
+        const index = this.filters.indexOf(filterName);
         if (index > -1) {
             this.filters.splice(index, 1);
         } else {
@@ -121,7 +121,7 @@ export class TeamsSkillsComponent implements OnInit {
     }
 
     isSameTeamSelected() {
-        if (this.team.id != this.teamsSelectionService.selectedTeam.id) {
+        if (this.team.id !== this.teamsSelectionService.selectedTeam.id) {
             return true;
         }
     }
