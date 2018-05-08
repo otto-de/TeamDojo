@@ -19,7 +19,7 @@ public class TeamSkillCriteria implements Serializable {
 
     private LongFilter id;
 
-    private InstantFilter achievedAt;
+    private InstantFilter completedAt;
 
     private InstantFilter verifiedAt;
 
@@ -42,12 +42,12 @@ public class TeamSkillCriteria implements Serializable {
         this.id = id;
     }
 
-    public InstantFilter getAchievedAt() {
-        return achievedAt;
+    public InstantFilter getCompletedAt() {
+        return completedAt;
     }
 
-    public void setAchievedAt(InstantFilter achievedAt) {
-        this.achievedAt = achievedAt;
+    public void setCompletedAt(InstantFilter completedAt) {
+        this.completedAt = completedAt;
     }
 
     public InstantFilter getVerifiedAt() {
@@ -94,7 +94,7 @@ public class TeamSkillCriteria implements Serializable {
     public String toString() {
         return "TeamSkillCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
-            (achievedAt != null ? "achievedAt=" + achievedAt + ", " : "") +
+            (completedAt != null ? "completedAt=" + completedAt + ", " : "") +
             (verifiedAt != null ? "verifiedAt=" + verifiedAt + ", " : "") +
             (irrelevant != null ? "irrelevant=" + irrelevant + ", " : "") +
             (note != null ? "note=" + note + ", " : "") +

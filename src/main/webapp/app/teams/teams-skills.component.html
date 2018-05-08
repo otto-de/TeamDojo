@@ -9,9 +9,15 @@
             <button type="submit" class="btn btn-secondary mb-2" disabled><span class="fa fa-search"></span></button>
             <div class="form-group m-2">
                 <div class="form-check form-check-inline mb-2">
-                    <input class="form-check-input" type="checkbox" value="" id="fooCheck" disabled>
-                    <label class="form-check-label" for="fooCheck">
-                        {{'teamdojoApp.teams.skills.search.filter.achieved' | translate}}
+                    <input class="form-check-input" type="checkbox" value="" id="checkComplete" [checked]="filters.indexOf('COMPLETE') > -1" (click)="onFilterClicked('COMPLETE')">
+                    <label class="form-check-label" for="checkComplete" jhiTranslate="teamdojoApp.teams.skills.search.filter.completed">
+                        COMPLETE
+                    </label>
+                </div>
+                <div class="form-check form-check-inline mb-2" >
+                    <input class="form-check-input" type="checkbox" value="" id="checkIncomplete" [checked]="filters.indexOf('INCOMPLETE') > -1" (click)="onFilterClicked('INCOMPLETE')">
+                    <label class="form-check-label" for="checkIncomplete" jhiTranslate="teamdojoApp.teams.skills.search.filter.incompleted">
+                        INCOMPLETE
                     </label>
                 </div>
             </div>
@@ -22,24 +28,19 @@
              [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="1"
              [infiniteScrollContainer]="'.teams-skills-list'">
             <div class="teams-skills-list list-group">
-                <a href="" (click)="false"
-                   class="list-group-item list-group-item-action flex-column align-items-start mb-2"
-                   *ngFor='let skill of skills'>
+                <li class="list-group-item list-group-item-action flex-column align-items-start mb-2"
+                    *ngFor='let skill of skills'>
                     <div class="d-flex w-100 justify-content-between">
-                        <p class="mb-1">{{skill.title}}</p>
-                        <small *ngIf="!skill.achievedAt" class="teams-skills-badge badge badge-pill badge-danger"
-                               ngbPopover="{{'teamdojoApp.teams.skills.notAchieved' | translate}}"
-                               triggers="mouseenter:mouseleave" placement="left">!
-                        </small>
-                        <small *ngIf="skill.achievedAt" class="teams-skills-badge badge badge-pill badge-success"
-                               ngbPopover="{{'teamdojoApp.teams.skills.achievedOn' | translate}} {{skill.achievedAt | date: ('teamdojoApp.teams.dateFormat' | translate)}}"
-                               triggers="mouseenter:mouseleave"
-                               placement="left">✓
-                        </small>
+                        <a href="#" (click)="onSkillClicked(skill)" class="text-dark mb-1">{{skill.title}}</a>
+                        <jhi-toggle-switch [checked]="!!skill.achievedAt"
+                                       [disabled]="isSameTeamSelected()"
+                                       popoverText="{{!skill.achievedAt ? ('teamdojoApp.teams.skills.notAchieved' | translate)
+                                        : ('teamdojoApp.teams.skills.achievedOn' | translate) +' ' + (skill.achievedAt | date: ('teamdojoApp.teams.dateFormat' | translate))}}"
+                                       (onToggled)="onToggled($event, skill)"></jhi-toggle-switch>
                     </div>
                     <p class="mb-1"></p>
                     <small>{{skill.description}}</small>
-                </a>
+                </li>
             </div>
         </div>
     </div>

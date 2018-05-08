@@ -24,7 +24,7 @@ export class TeamSkillUpdateComponent implements OnInit {
     skills: ISkill[];
 
     teams: ITeam[];
-    achievedAt: string;
+    completedAt: string;
     verifiedAt: string;
 
     constructor(
@@ -60,7 +60,7 @@ export class TeamSkillUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.teamSkill.achievedAt = moment(this.achievedAt, DATE_TIME_FORMAT);
+        this.teamSkill.completedAt = moment(this.completedAt, DATE_TIME_FORMAT);
         this.teamSkill.verifiedAt = moment(this.verifiedAt, DATE_TIME_FORMAT);
         if (this.teamSkill.id !== undefined) {
             this.subscribeToSaveResponse(this.teamSkillService.update(this.teamSkill));
@@ -99,7 +99,7 @@ export class TeamSkillUpdateComponent implements OnInit {
 
     set teamSkill(teamSkill: ITeamSkill) {
         this._teamSkill = teamSkill;
-        this.achievedAt = moment(teamSkill.achievedAt).format();
+        this.completedAt = moment(teamSkill.completedAt).format();
         this.verifiedAt = moment(teamSkill.verifiedAt).format();
     }
 }
