@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { ITeam } from 'app/shared/model/team.model';
 
 @Component({
     selector: 'toggle-switch',
@@ -9,10 +11,11 @@ export class ToggleSwitchComponent implements OnInit {
     @Output() onToggled = new EventEmitter<boolean>();
     @Input() private checked: boolean;
     @Input() private popoverText;
+    @Input() private disabled: boolean;
 
     constructor() {}
 
-    ngOnInit(): void {}
+    ngOnInit() {}
 
     toggle(popover) {
         this.checked = !this.checked;
