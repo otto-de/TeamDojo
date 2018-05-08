@@ -76,7 +76,7 @@ public interface SkillRepository extends JpaRepository<Skill, Long>, JpaSpecific
 
 
     @Query("SELECT" +
-        " new de.otto.teamdojo.service.dto.AchievableSkillDTO(t.id, s.id, s.title, s.description, t.achievedAt)" +
+        " new de.otto.teamdojo.service.dto.AchievableSkillDTO(t.id, s.id, s.title, s.description, t.completedAt)" +
         " FROM Skill s" +
         " LEFT JOIN s.teams t ON t.team.id = :teamId" +
         " WHERE s.id = :skillId")
