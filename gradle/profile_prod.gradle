@@ -22,8 +22,19 @@ task webpack_test(type: YarnTask, dependsOn: 'yarn_install') {
     args = ["run", "webpack:test"]
 }
 
-task webpack(type: YarnTask, dependsOn: 'yarn_install') {
-    args = ["run", "webpack:prod"]
+task cleanup(type: YarnTask, dependsOn: 'yarn_install') {
+    args = ["run", "cleanup"]
+}
+
+task webpack(type: YarnTask, dependsOn: 'cleanup') {
+    args = ["run", "webpack:prod:main"]
+    doFirst {
+        getArgs().add("--version=$version")
+    }
+}
+
+task cleanwww(type: YarnTask, dependsOn: 'webpack') {
+    args = ["run", "clean-www"]
 }
 
 war {
@@ -42,4 +53,4 @@ processResources {
 }
 
 test.dependsOn webpack_test
-processResources.dependsOn webpack
+processResources.dependsOn cleanwww

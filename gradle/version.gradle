@@ -1,14 +1,18 @@
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-// reading git.properties from file system. remove when gradle-git-properties 1.4.22 is available
-Properties gitProps = new Properties()
-File gitPropsFile = file("$buildDir/resources//main/git.properties");
-if (gitPropsFile.isFile()) {
-    gitPropsFile.withInputStream { gitProps.load(it) }
+
+task dojoProjectVersion(dependsOn: 'generateGitProperties') {
+    doLast {
+        String branch = project.ext.gitProps['git.branch'];
+        String tag = project.ext.gitProps['git.closest.tag.name'];
+        GitInfo gitInfo = new GitInfo(project.version, branch, tag);
+        project.version = new ProjectVersion(project.version, gitInfo.getQualifier()).toString()
+        println("Team Dojo Project Version is $project.version")
+    }
 }
-def gitInfo = new GitInfo(project.version, gitProps);
-project.version = new ProjectVersion(project.version, gitInfo.getQualifier()).toString()
+bootBuildInfo.dependsOn(dojoProjectVersion);
+
 
 class ProjectVersion {
     String version
@@ -26,20 +30,21 @@ class ProjectVersion {
 }
 
 class GitInfo {
-    Properties gitProps;
     String version;
     String branch;
+    String tag;
     String qualifier = "-SNAPSHOT";
     Pattern SUFFIXES_PATTERN = Pattern.compile("\\d+\\.\\d+\\.\\d+-.+-(\\d)-[a-z0-9]+");
 
-    GitInfo(String version, Properties gitProps) {
-        this.gitProps = gitProps;
+    GitInfo(String version, String branch, String tag) {
         this.version = version.toString();
+        this.branch = branch;
+        this.tag = tag;
         this.buildQualifier();
     }
 
     private void buildQualifier() {
-        this.branch = gitProps.hasProperty('git.branch') ? gitProps.getProperty('git.branch') : 'unknown';
+        this.branch = this.branch != null ? this.branch : 'unknown';
         if (branch.equals("master") || branch.contains("origin/master")) {
             this.getTag();
             this.qualifier = "-RELEASE";
@@ -58,11 +63,10 @@ class GitInfo {
     }
 
     private String getTag() {
-        String tag = gitProps.getProperty('git.closest.tag.name');
-        if (tag == null || !tag.contains(version)) {
-            throw new Exception("Unable to get version from tag (" + tag + ") from branch (" + this.branch + ")");
+        if (this.tag == null || !this.tag.contains(version)) {
+            throw new Exception("Unable to get version from tag (" + this.tag + ") from branch (" + this.branch + ")");
         }
-        return tag;
+        return this.tag;
     }
 
     String getQualifier() {
