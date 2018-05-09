@@ -1,0 +1,15 @@
+{
+    "teamdojoApp": {
+        "overview": {
+            "teams": {
+                "title": "Teams"
+            },
+            "achievements": {
+                "title": "Errungenschaften"
+            },
+            "skills": {
+                "title": "Kompetenzen"
+            }
+        }
+    }
+}

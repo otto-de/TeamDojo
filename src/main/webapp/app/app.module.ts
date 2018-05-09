@@ -12,9 +12,9 @@ import { NotificationInterceptor } from './blocks/interceptor/notification.inter
 import { TeamdojoSharedModule } from 'app/shared';
 import { TeamdojoCoreModule } from 'app/core';
 import { TeamdojoAppRoutingModule } from './app-routing.module';
-import { TeamdojoHomeModule } from './home/home.module';
 import { TeamdojoAccountModule } from './account/account.module';
 import { TeamdojoEntityModule } from './entities/entity.module';
+import { OverviewModule } from 'app/overview';
 import { TeamsModule } from './teams/teams.module';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
@@ -36,7 +36,7 @@ import {
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
         TeamdojoSharedModule,
         TeamdojoCoreModule,
-        TeamdojoHomeModule,
+        OverviewModule,
         TeamdojoAccountModule,
         TeamdojoEntityModule,
         TeamsModule

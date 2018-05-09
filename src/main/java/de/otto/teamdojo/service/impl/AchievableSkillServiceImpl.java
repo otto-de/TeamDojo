@@ -68,8 +68,10 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
     }
     @Override
     public AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill) {
+        AchievableSkillDTO originSkill =  skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId());
+
         TeamSkillDTO teamSkill = new TeamSkillDTO();
-        teamSkill.setId(achievableSkill.getTeamSkillId());
+        teamSkill.setId((achievableSkill.getTeamSkillId() != null)?achievableSkill.getTeamSkillId():originSkill.getTeamSkillId());
         teamSkill.setTeamId(teamId);
         teamSkill.setSkillId(achievableSkill.getSkillId());
         teamSkill.setCompletedAt(achievableSkill.getAchievedAt());
