@@ -6,7 +6,7 @@
         ul.achievements-skill-levels, ul.achievements-badges {
             list-style: none;
         }
-        .achievements-skill-level, .achievements-badge {
+        .achievements-dimension, .achievements-skill-level, .achievements-badge {
             .skill-level-name, .badge-name {
                 display: inline-block;
             }
@@ -24,6 +24,7 @@
                 }
             }
             .achievement-progress {
+                display: inline-flex;
                 svg {
                     width: 3vh;
                     height: 3vh;

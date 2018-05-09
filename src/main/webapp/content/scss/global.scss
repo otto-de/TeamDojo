@@ -90,6 +90,15 @@ Generic styles
     *:not(button) {
         background-color: transparent !important;
     }
+    &.minor {
+        background: repeating-linear-gradient(
+                -45deg,
+                rgba(200,200,200,0.8),
+                5px,
+                transparent 5px,
+                transparent 10px);
+
+    }
 }
 
 /* ==========================================================================

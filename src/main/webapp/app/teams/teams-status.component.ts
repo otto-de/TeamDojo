@@ -10,10 +10,4 @@ export class TeamsStatusComponent {
     @Input() team: ITeam;
 
     constructor() {}
-
-    get teamImage() {
-        return this.team.picture && this.team.pictureContentType
-            ? `data:${this.team.pictureContentType};base64,${this.team.picture}`
-            : null;
-    }
 }
