@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit {
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;
     isTeamSelectionOpen = false;
+    teamsSelectionService: TeamsSelectionService;
 
     constructor(
         private loginService: LoginService,
@@ -28,11 +29,12 @@ export class NavbarComponent implements OnInit {
         private languageHelper: JhiLanguageHelper,
         private principal: Principal,
         private loginModalService: LoginModalService,
-        private teamsSelectionService: TeamsSelectionService,
+        teamsSelectionService: TeamsSelectionService,
         private profileService: ProfileService,
         private modalService: NgbModal,
         private router: Router
     ) {
+        this.teamsSelectionService = teamsSelectionService;
         this.isNavbarCollapsed = true;
     }
 

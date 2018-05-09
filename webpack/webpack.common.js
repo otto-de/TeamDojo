@@ -11,10 +11,7 @@ const getVersion = () => {
     let version = process.argv.find((e) => {
         return e.startsWith(VERSION_ARG_NAME);
     });
-    if (version) {
-        version = version.substring(VERSION_ARG_NAME.length);
-    }
-    return version | "_DEV";
+    return version ?  version.substring(VERSION_ARG_NAME.length) : "_DEV";
 };
 
 module.exports = (options) => ({
@@ -61,7 +58,7 @@ module.exports = (options) => ({
             'process.env': {
                 NODE_ENV: `'${options.env}'`,
                 BUILD_TIMESTAMP: `'${new Date().getTime()}'`,
-                VERSION: getVersion(),
+                VERSION: `'${getVersion()}'`,
                 DEBUG_INFO_ENABLED: options.env === 'development',
                 // The root URL for API calls, ending with a '/' - for example: `"https://www.jhipster.tech:8081/myservice/"`.
                 // If this URL is left empty (""), then it will be relative to the current context.

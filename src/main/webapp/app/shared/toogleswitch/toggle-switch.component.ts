@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
-import { ITeam } from 'app/shared/model/team.model';
 
 @Component({
     selector: 'jhi-toggle-switch',
@@ -9,9 +7,9 @@ import { ITeam } from 'app/shared/model/team.model';
 })
 export class ToggleSwitchComponent implements OnInit {
     @Output() onToggled = new EventEmitter<boolean>();
-    @Input() private checked: boolean;
-    @Input() private popoverText;
-    @Input() private disabled: boolean;
+    @Input() checked: boolean;
+    @Input() popoverText;
+    @Input() disabled: boolean;
 
     constructor() {}
 
