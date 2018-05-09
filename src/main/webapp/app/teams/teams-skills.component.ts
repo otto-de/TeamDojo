@@ -10,6 +10,7 @@ import { ITEMS_PER_PAGE } from 'app/shared';
 import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import * as moment from 'moment';
+import { ISkill } from 'app/shared/model/skill.model';
 
 @Component({
     selector: 'jhi-teams-skills',
@@ -18,6 +19,7 @@ import * as moment from 'moment';
 })
 export class TeamsSkillsComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
+    @Input() skill: ISkill;
     skills: IAchievableSkill[];
     filters: string[];
     page: number;
@@ -134,5 +136,11 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    isActiveSkill(s: IAchievableSkill) {
+        let val = typeof this.skill !== 'undefined' && this.skill !== null && this.skill.id === s.skillId;
+        console.log(this.skill.id, s.skillId, val);
+        return val;
     }
 }

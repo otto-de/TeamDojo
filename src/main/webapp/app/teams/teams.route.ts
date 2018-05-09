@@ -34,6 +34,7 @@ export class SkillResolve implements Resolve<any> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const id = route.params['skillId'] ? route.params['skillId'] : null;
         if (id) {
+            console.log('HELLo', id);
             return this.service.find(id);
         }
         return new Skill();

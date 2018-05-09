@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ITeam } from 'app/shared/model/team.model';
+import { ISkill } from 'app/shared/model/skill.model';
 
 @Component({
     selector: 'jhi-skill-details',
@@ -9,12 +10,15 @@ import { ITeam } from 'app/shared/model/team.model';
 })
 export class SkillDetailsComponent implements OnInit {
     private team: ITeam;
+    private skill: ISkill;
 
     constructor(private route: ActivatedRoute) {}
 
     ngOnInit(): void {
-        this.route.data.subscribe(({ team }) => {
+        console.log('Hello in SkillDetails');
+        this.route.data.subscribe(({ team, skill }) => {
             this.team = team.body[0] ? team.body[0] : team;
+            this.skill = skill.body[0] ? skill.body[0] : skill;
         });
     }
 }
