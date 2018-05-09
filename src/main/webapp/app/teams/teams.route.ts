@@ -14,12 +14,11 @@ export class TeamsResolve implements Resolve<any> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const shortName = route.params['shortName'] ? route.params['shortName'] : null;
         if (shortName) {
-            console.log('CHECKING...');
-            return this.service.query({ 'shortName.equals': shortName }).subscribe(value => {
+            return this.service.query({ 'shortName.equals': shortName }).map(value => {
                 if (value.body.length === 0) {
                     this.router.navigate(['/error']);
-                    return Observable.empty();
                 }
+                return value;
             });
         }
         return new Team();
