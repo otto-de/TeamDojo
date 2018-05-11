@@ -33,18 +33,14 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         private teamsSelectionService: TeamsSelectionService,
         private storage: LocalStorageService
     ) {
-        this.skills = [];
         this.filters = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.page = 0;
-        this.links = {
-            last: 0
-        };
+        this.reset();
     }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.team && changes.team.previousValue) {
-            this.reloadAll();
+            this.reset();
             this.ngOnInit();
         }
     }
@@ -57,13 +53,15 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         this.loadAll();
     }
 
-    reloadAll() {
+    reset(loadAll = false) {
         this.skills = [];
         this.page = 0;
         this.links = {
             last: 0
         };
-        this.loadAll();
+        if (loadAll) {
+            this.loadAll();
+        }
     }
 
     loadAll() {
@@ -77,12 +75,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
                 (res: HttpResponse<IAchievableSkill[]>) => this.paginateAchievableSkills(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
-    }
-
-    reset() {
-        this.page = 0;
-        this.skills = [];
-        this.loadAll();
     }
 
     loadPage(page) {
@@ -112,7 +104,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
             this.filters.push(filterName);
         }
         this.storage.store(this.team.id.toString(), this.filters);
-        this.reloadAll();
+        this.reset(true);
     }
 
     isSameTeamSelected() {
