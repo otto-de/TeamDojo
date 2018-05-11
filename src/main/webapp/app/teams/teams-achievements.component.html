@@ -28,7 +28,7 @@
         </ngb-accordion>
     </div>
     <div class="mt-1 teams-achievements-dimensions">
-        <ngb-accordion [activeIds]="activeDimensionCssId">
+        <ngb-accordion [destroyOnHide]="false" [activeIds]="activeDimensionCssId" (panelChange)="onDimensionChange($event.panelId)">
             <ngb-panel id="achievements-dimension-{{dimension.id}}"
                        *ngFor="let dimension of team.participations; trackBy: trackId">
                 <ng-template ngbPanelTitle>
@@ -49,8 +49,10 @@
                 </ng-template>
                 <ng-template ngbPanelContent>
                     <div class="achievements-skill-levels">
-                        <div class="d-flex align-items-center achievements-skill-level" [ngClass]="{'mb-3': !isLast}"
-                             *ngFor="let level of levels[dimension.id]; trackBy: trackId; last as isLast">
+                        <div class="d-flex align-items-center achievements-skill-level"
+                             [ngClass]="{'mb-3': !isLast}"
+                             *ngFor="let level of levels[dimension.id]; trackBy: trackId; last as isLast"
+                             id="achievements-level-{{level.id}}">
                             <div class="skill-level-image">
                                 <img [title]="level.name" *ngIf="level.picture && level.pictureContentType"
                                      [src]="level.picture | imageDataUrl: level.pictureContentType"/>
