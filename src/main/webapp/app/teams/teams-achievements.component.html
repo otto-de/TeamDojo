@@ -50,7 +50,7 @@
                 <ng-template ngbPanelContent>
                     <div class="achievements-skill-levels">
                         <div class="d-flex align-items-center achievements-skill-level"
-                             [ngClass]="{'mb-3': !isLast}"
+                             [ngClass]="{'active': levelCssId === 'achievements-level-' + level.id, 'mb-3': !isLast}"
                              *ngFor="let level of levels[dimension.id]; trackBy: trackId; last as isLast"
                              id="achievements-level-{{level.id}}">
                             <div class="skill-level-image">
