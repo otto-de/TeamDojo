@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { IBadge } from 'app/shared/model/badge.model';
 import { ITeam } from 'app/shared/model/team.model';
@@ -7,6 +7,7 @@ import { IDimension } from 'app/shared/model/dimension.model';
 import { JhiAlertService } from 'ng-jhipster';
 import { TeamsAchievementsService } from './teams-achievements.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 import { sortLevels } from 'app/shared';
 
 @Component({
@@ -14,13 +15,14 @@ import { sortLevels } from 'app/shared';
     templateUrl: './teams-achievements.component.html',
     styleUrls: ['teams-achievements.scss']
 })
-export class TeamsAchievementsComponent implements OnInit {
+export class TeamsAchievementsComponent implements OnInit, OnDestroy {
     @Input() team: ITeam;
     badges: IBadge[];
     levels: { [key: number]: ILevel[] };
     activeDimensionCssId: string;
     private defaultDimensionCssId: string;
     levelCssId: string;
+    subscriptions: Subscription[];
 
     constructor(
         private route: ActivatedRoute,
@@ -30,6 +32,7 @@ export class TeamsAchievementsComponent implements OnInit {
         this.badges = [];
         this.levels = {};
         this.defaultDimensionCssId = '';
+        this.subscriptions = [];
     }
 
     ngOnInit() {
@@ -37,18 +40,23 @@ export class TeamsAchievementsComponent implements OnInit {
             this.defaultDimensionCssId = `achievements-dimension-${this.team.participations[0].id}`;
         }
         this.activeDimensionCssId = this.defaultDimensionCssId;
-        this.route.paramMap.subscribe((params: ParamMap) => {
-            const dimensionCssId = params.get('dimension');
-            this.levelCssId = params.get('level');
-            console.log('test', dimensionCssId, this.levelCssId);
-            if (dimensionCssId) {
-                this.activeDimensionCssId = dimensionCssId;
-            } else {
-                this.activeDimensionCssId = this.defaultDimensionCssId;
-            }
-            this.onDimensionChange(this.activeDimensionCssId);
-        });
+        this.subscriptions.push(
+            this.route.paramMap.subscribe((params: ParamMap) => {
+                const dimensionCssId = params.get('dimension');
+                this.levelCssId = params.get('level');
+                if (dimensionCssId) {
+                    this.activeDimensionCssId = dimensionCssId;
+                } else {
+                    this.activeDimensionCssId = this.defaultDimensionCssId;
+                }
+                this.onDimensionChange(this.activeDimensionCssId);
+            })
+        );
         this.loadAll();
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(subscription => subscription.unsubscribe());
     }
 
     onDimensionChange(panelId: string) {
@@ -58,32 +66,38 @@ export class TeamsAchievementsComponent implements OnInit {
     }
 
     loadAll() {
-        this.teamsAchievementsService
-            .queryBadges()
-            .subscribe(
-                (res: HttpResponse<IBadge[]>) => res.body.forEach((badge: IBadge) => this.badges.push(badge)),
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        this.subscriptions.push(
+            this.teamsAchievementsService
+                .queryBadges()
+                .subscribe(
+                    (res: HttpResponse<IBadge[]>) => res.body.forEach((badge: IBadge) => this.badges.push(badge)),
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                )
+        );
         if (this.team.participations) {
             const dimensionIds: number[] = this.team.participations.map((dimension: IDimension) => dimension.id);
-            this.teamsAchievementsService.queryLevels({ 'dimensionId.in': dimensionIds }).subscribe(
-                (res: HttpResponse<ILevel[]>) => {
-                    const levels: { [key: number]: ILevel[] } = {};
-                    if (res.body && res.body.length) {
-                        res.body.forEach(
-                            (level: ILevel) =>
-                                levels[level.dimensionId] ? levels[level.dimensionId].push(level) : (levels[level.dimensionId] = [level])
-                        );
-                    } else {
-                        dimensionIds.forEach((dimensionId: number) => (levels[dimensionId] = []));
-                    }
-                    for (const dimensionId in levels) {
-                        if (levels.hasOwnProperty(dimensionId)) {
-                            this.levels[dimensionId] = sortLevels(levels[dimensionId]);
+            this.subscriptions.push(
+                this.teamsAchievementsService.queryLevels({ 'dimensionId.in': dimensionIds }).subscribe(
+                    (res: HttpResponse<ILevel[]>) => {
+                        const levels: { [key: number]: ILevel[] } = {};
+                        if (res.body && res.body.length) {
+                            res.body.forEach(
+                                (level: ILevel) =>
+                                    levels[level.dimensionId]
+                                        ? levels[level.dimensionId].push(level)
+                                        : (levels[level.dimensionId] = [level])
+                            );
+                        } else {
+                            dimensionIds.forEach((dimensionId: number) => (levels[dimensionId] = []));
                         }
-                    }
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
+                        for (const dimensionId in levels) {
+                            if (levels.hasOwnProperty(dimensionId)) {
+                                this.levels[dimensionId] = sortLevels(levels[dimensionId]);
+                            }
+                        }
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                )
             );
         }
     }
