@@ -56,9 +56,9 @@ export class OverviewComponent implements OnInit {
             }
 
             const groupedBadgeSkills = {};
-            this.badgeSkills.forEach(badgeSkill => {
-                groupedBadgeSkills[badgeSkills.badgeId] = groupedBadgeSkills[badgeSkill.badgeId] || [];
-                groupedBadgeSkills[badgeSkills.badgeId].push(Object.assign(badgeSkill));
+            this.badgeSkills.forEach((badgeSkill: IBadgeSkill) => {
+                groupedBadgeSkills[badgeSkill.badgeId] = groupedBadgeSkills[badgeSkill.badgeId] || [];
+                groupedBadgeSkills[badgeSkill.badgeId].push(Object.assign(badgeSkill));
             });
 
             this.badges.forEach(badge => {
