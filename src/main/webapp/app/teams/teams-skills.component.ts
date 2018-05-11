@@ -1,6 +1,4 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { LocalStorage, Ng2Webstorage } from 'ngx-webstorage';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSkillsService } from './teams-skills.service';
