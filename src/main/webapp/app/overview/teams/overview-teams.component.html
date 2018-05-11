@@ -1,5 +1,34 @@
 <div class="overviews-teams">
     <div class="mockup">
-        <h4>{{'teamdojoApp.overview.teams.title' | translate}}</h4>
+        <h4 jhiTranslate="teamdojoApp.overview.teams.title">Teams</h4>
+        <form class="form-inline">
+            <div class="form-group mr-1 mb-2">
+                <input type="text" class="form-control" id="teams_searchTerm" disabled
+                       [placeholder]="'teamdojoApp.overview.teams.search.placeholder' | translate">
+            </div>
+            <button type="submit" class="btn btn-secondary mb-2" disabled><span class="fa fa-search"></span></button>
+        </form>
+    </div>
+    <div class="team-list list-group">
+        <li class="list-group-item list-group-item-action flex-column align-items-start mb-2  team-item"
+            *ngFor='let team of teams'>
+            <div class="d-flex align-items-center w-100">
+                <div class="team-image">
+                    <img [title]="team.name" *ngIf="team.picture && team.pictureContentType"
+                         [src]="team.picture | imageDataUrl: team.pictureContentType"/>
+                </div>
+                <a href="#" [routerLink]="['/teams', team.shortName]" class="team-name ml-2">{{team.name}}</a>
+                <div class="count-container minor ml-auto px-2">
+                    <div class="count-item">
+                        <div class="count-item-header">Levels</div>
+                        <div class="count-item-value">{{calcCompletedLevel(team)}}/{{calcLevelBase(team)}}</div>
+                    </div>
+                    <div class="count-item">
+                        <div class="count-item-header">Badges</div>
+                        <div class="count-item-value">{{calcCompletedBadges(team)}}</div>
+                    </div>
+                </div>
+            </div>
+        </li>
     </div>
 </div>

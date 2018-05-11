@@ -35,6 +35,11 @@ management:
 spring:
     application:
         name: teamdojo
+    data:
+        web:
+            pageable:
+              default-page-size: 100000
+              max-page-size: 100000
     profiles:
         # The commented value for `active` can be replaced with valid Spring profiles to load.
         # Otherwise, it will be filled in by gradle when building the WAR file
@@ -87,6 +92,9 @@ jhipster:
         #exposed-headers: "Link,X-Total-Count"
         #allow-credentials: true
         #max-age: 1800
+    cache:
+     ehcache:
+        max-entries: 10000
     mail:
         from: teamdojo@localhost
     swagger:
