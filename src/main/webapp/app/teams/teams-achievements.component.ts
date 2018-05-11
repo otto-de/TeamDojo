@@ -19,6 +19,7 @@ export class TeamsAchievementsComponent implements OnInit {
     badges: IBadge[];
     levels: { [key: number]: ILevel[] };
     activeDimensionCssId: string;
+    private defaultDimensionCssId: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -27,17 +28,21 @@ export class TeamsAchievementsComponent implements OnInit {
     ) {
         this.badges = [];
         this.levels = {};
-        this.activeDimensionCssId = '';
+        this.defaultDimensionCssId = '';
     }
 
     ngOnInit() {
+        if (this.team.participations && this.team.participations[0]) {
+            this.defaultDimensionCssId = `achievements-dimension-${this.team.participations[0].id}`;
+        }
+        this.activeDimensionCssId = this.defaultDimensionCssId;
         this.route.fragment.subscribe((hash: string) => {
             if (hash) {
                 if (hash.startsWith('achievements-dimension')) {
                     this.activeDimensionCssId = hash;
                 }
             } else {
-                this.activeDimensionCssId = '';
+                this.activeDimensionCssId = this.defaultDimensionCssId;
             }
         });
         this.loadAll();
