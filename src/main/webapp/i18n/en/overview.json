@@ -2,10 +2,7 @@
     "teamdojoApp": {
         "overview": {
             "teams": {
-                "title": "Teams",
-                "search": {
-                    "placeholder:": "Search"
-                }
+                "title": "Teams"
             },
             "achievements": {
                 "title": "Achievements"
