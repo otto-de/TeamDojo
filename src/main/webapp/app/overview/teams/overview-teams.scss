@@ -1,0 +1,39 @@
+.overviews-teams {
+    .team-list {
+        display: inline-block;
+        .team-item {
+            display: inline-block;
+            .team-image {
+                width: 5vh;
+                height: 5vh;
+                display: flex;
+                align-items: center;
+                border-radius: 50%;
+                border: 2px solid gold;
+                background: white !important;
+                overflow: hidden;
+                img {
+                    width: 100%;
+                }
+            }
+            .team-name {
+                display: inline-block;
+                color: black;
+            }
+            .count-container {
+                display: inline-flex;
+                .count-item {
+                    display: block;
+                    margin-left: 5px;
+                    .count-item-header {
+
+                    }
+                    .count-item-value {
+                        float: right;
+                        font-size: 1.5em;
+                    }
+                }
+            }
+        }
+    }
+}
