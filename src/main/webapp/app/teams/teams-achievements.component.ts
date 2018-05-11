@@ -6,7 +6,7 @@ import { ILevel } from 'app/shared/model/level.model';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { JhiAlertService } from 'ng-jhipster';
 import { TeamsAchievementsService } from './teams-achievements.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { sortLevels } from 'app/shared';
 
 @Component({
@@ -20,6 +20,7 @@ export class TeamsAchievementsComponent implements OnInit {
     levels: { [key: number]: ILevel[] };
     activeDimensionCssId: string;
     private defaultDimensionCssId: string;
+    levelCssId: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -36,16 +37,24 @@ export class TeamsAchievementsComponent implements OnInit {
             this.defaultDimensionCssId = `achievements-dimension-${this.team.participations[0].id}`;
         }
         this.activeDimensionCssId = this.defaultDimensionCssId;
-        this.route.fragment.subscribe((hash: string) => {
-            if (hash) {
-                if (hash.startsWith('achievements-dimension')) {
-                    this.activeDimensionCssId = hash;
-                }
+        this.route.paramMap.subscribe((params: ParamMap) => {
+            const dimensionCssId = params.get('dimension');
+            this.levelCssId = params.get('level');
+            console.log('test', dimensionCssId, this.levelCssId);
+            if (dimensionCssId) {
+                this.activeDimensionCssId = dimensionCssId;
             } else {
                 this.activeDimensionCssId = this.defaultDimensionCssId;
             }
+            this.onDimensionChange(this.activeDimensionCssId);
         });
         this.loadAll();
+    }
+
+    onDimensionChange(panelId: string) {
+        if (panelId === this.activeDimensionCssId && this.levelCssId && document.getElementById(this.levelCssId)) {
+            document.getElementById(this.levelCssId).scrollIntoView({ block: 'end', behavior: 'smooth' });
+        }
     }
 
     loadAll() {
