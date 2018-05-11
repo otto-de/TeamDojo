@@ -28,9 +28,9 @@
         </ngb-accordion>
     </div>
     <div class="mt-1 teams-achievements-dimensions">
-        <ngb-accordion activeIds="achievements-dimension-0">
-            <ngb-panel id="achievements-dimension-{{index}}"
-                       *ngFor="let dimension of team.participations; trackBy: trackId; index as index">
+        <ngb-accordion [activeIds]="activeDimensionCssId">
+            <ngb-panel id="achievements-dimension-{{dimension.id}}"
+                       *ngFor="let dimension of team.participations; trackBy: trackId">
                 <ng-template ngbPanelTitle>
                     <div class="d-flex align-items-center achievements-dimension">
                         <div class="d-flex align-items-center">

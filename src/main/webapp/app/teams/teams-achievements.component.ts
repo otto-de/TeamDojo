@@ -6,6 +6,7 @@ import { ILevel } from 'app/shared/model/level.model';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { JhiAlertService } from 'ng-jhipster';
 import { TeamsAchievementsService } from './teams-achievements.service';
+import { ActivatedRoute } from '@angular/router';
 import { sortLevels } from 'app/shared';
 
 @Component({
@@ -17,13 +18,28 @@ export class TeamsAchievementsComponent implements OnInit {
     @Input() team: ITeam;
     badges: IBadge[];
     levels: { [key: number]: ILevel[] };
+    activeDimensionCssId: string;
 
-    constructor(private teamsAchievementsService: TeamsAchievementsService, private jhiAlertService: JhiAlertService) {
+    constructor(
+        private route: ActivatedRoute,
+        private teamsAchievementsService: TeamsAchievementsService,
+        private jhiAlertService: JhiAlertService
+    ) {
         this.badges = [];
         this.levels = {};
+        this.activeDimensionCssId = '';
     }
 
     ngOnInit() {
+        this.route.fragment.subscribe((hash: string) => {
+            if (hash) {
+                if (hash.startsWith('achievements-dimension')) {
+                    this.activeDimensionCssId = hash;
+                }
+            } else {
+                this.activeDimensionCssId = '';
+            }
+        });
         this.loadAll();
     }
 
