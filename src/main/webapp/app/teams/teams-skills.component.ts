@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LocalStorage, Ng2Webstorage } from 'ngx-webstorage';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -10,13 +10,14 @@ import { ITEMS_PER_PAGE } from 'app/shared';
 import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'jhi-teams-skills',
     templateUrl: './teams-skills.component.html',
     styleUrls: ['teams-skills.scss']
 })
-export class TeamsSkillsComponent implements OnInit, OnChanges {
+export class TeamsSkillsComponent implements OnInit, OnChanges, OnDestroy {
     @Input() team: ITeam;
     skills: IAchievableSkill[];
     filters: string[];
@@ -54,6 +55,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     }
 
     reset(loadAll = false) {
+        this.subscriptions = [];
         this.skills = [];
         this.page = 0;
         this.links = {
@@ -65,16 +67,19 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     }
 
     loadAll() {
-        this.teamsSkillsService
-            .queryAchievableSkills(this.team.id, {
-                page: this.page,
-                size: this.itemsPerPage,
-                filter: this.filters
-            })
-            .subscribe(
-                (res: HttpResponse<IAchievableSkill[]>) => this.paginateAchievableSkills(res.body, res.headers),
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        this.subscriptions.push(
+            this.teamsSkillsService
+                .queryAchievableSkills(this.team.id, {
+                    page: this.page,
+                    size: this.itemsPerPage,
+                    filter: this.filters,
+                    levelId: this.levelIds || []
+                })
+                .subscribe(
+                    (res: HttpResponse<IAchievableSkill[]>) => this.paginateAchievableSkills(res.body, res.headers),
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                )
+        );
     }
 
     loadPage(page) {
