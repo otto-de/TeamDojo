@@ -1,6 +1,4 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { LocalStorage, Ng2Webstorage } from 'ngx-webstorage';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSkillsService } from './teams-skills.service';
@@ -10,6 +8,7 @@ import { ITEMS_PER_PAGE } from 'app/shared';
 import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import * as moment from 'moment';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -26,13 +25,16 @@ export class TeamsSkillsComponent implements OnInit, OnChanges, OnDestroy {
     itemsPerPage: number;
     totalItems: number;
     checkComplete: boolean;
+    levelIds: number[];
+    subscriptions: Subscription[];
 
     constructor(
         private teamsSkillsService: TeamsSkillsService,
         private jhiAlertService: JhiAlertService,
         private parseLinks: JhiParseLinks,
         private teamsSelectionService: TeamsSelectionService,
-        private storage: LocalStorageService
+        private storage: LocalStorageService,
+        private route: ActivatedRoute
     ) {
         this.filters = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -51,10 +53,26 @@ export class TeamsSkillsComponent implements OnInit, OnChanges, OnDestroy {
         if (storedFilters) {
             this.filters = storedFilters;
         }
+        this.subscriptions.push(
+            this.route.paramMap.subscribe((params: ParamMap) => {
+                const levelId: string = '6400' || params.get('level');
+                if (levelId && Number.parseInt(levelId)) {
+                    this.levelIds = [Number.parseInt(levelId)];
+                } else {
+                    this.levelIds = [];
+                }
+                this.loadAll();
+            })
+        );
         this.loadAll();
     }
 
+    ngOnDestroy() {
+        this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    }
+
     reset(loadAll = false) {
+        this.levelIds = [];
         this.subscriptions = [];
         this.skills = [];
         this.page = 0;
