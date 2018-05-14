@@ -11,6 +11,7 @@ import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection
 import * as moment from 'moment';
 import { ISkill } from 'app/shared/model/skill.model';
 import { SkillService } from 'app/entities/skill';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-teams-skills',
@@ -35,7 +36,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         private parseLinks: JhiParseLinks,
         private teamsSelectionService: TeamsSelectionService,
         private storage: LocalStorageService,
-        private location: Location
+        private location: Location,
+        private router: Router
     ) {
         this.skills = [];
         this.filters = [];
@@ -141,8 +143,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     }
 
     onSkillClicked(s: IAchievableSkill) {
-        // TODO construct link with routerLink ....
-        this.location.replaceState('/teams/' + this.team.shortName + '/skills/' + s.skillId);
+        const url = this.router.createUrlTree(['teams', this.team.shortName, 'skills', s.skillId]).toString();
+        this.location.replaceState(url);
 
         this.skillService.find(s.skillId).subscribe(value => {
             this.skill = value.body;
