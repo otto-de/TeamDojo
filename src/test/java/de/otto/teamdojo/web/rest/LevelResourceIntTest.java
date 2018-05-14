@@ -7,6 +7,7 @@ import de.otto.teamdojo.domain.LevelSkill;
 import de.otto.teamdojo.repository.LevelRepository;
 import de.otto.teamdojo.service.LevelQueryService;
 import de.otto.teamdojo.service.LevelService;
+import de.otto.teamdojo.service.LevelSkillService;
 import de.otto.teamdojo.service.dto.LevelDTO;
 import de.otto.teamdojo.service.mapper.LevelMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
@@ -72,6 +73,9 @@ public class LevelResourceIntTest {
     private LevelQueryService levelQueryService;
 
     @Autowired
+    private LevelSkillService levelSkillService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -90,7 +94,7 @@ public class LevelResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final LevelResource levelResource = new LevelResource(levelService, levelQueryService);
+        final LevelResource levelResource = new LevelResource(levelService, levelQueryService, levelSkillService);
         this.restLevelMockMvc = MockMvcBuilders.standaloneSetup(levelResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -400,6 +404,24 @@ public class LevelResourceIntTest {
     @Test
     @Transactional
     public void getAllLevelsBySkillsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        LevelSkill skills = LevelSkillResourceIntTest.createEntity(em);
+        em.persist(skills);
+        em.flush();
+        level.addSkills(skills);
+        levelRepository.saveAndFlush(level);
+        Long skillsId = skills.getId();
+
+        // Get all the levelList where skills equals to skillsId
+        defaultLevelShouldBeFound("skillsId.equals=" + skillsId);
+
+        // Get all the levelList where skills equals to skillsId + 1
+        defaultLevelShouldNotBeFound("skillsId.equals=" + (skillsId + 1));
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelsByRealSkillIdIsEqualToSomething() throws Exception {
         // Initialize the database
         LevelSkill skills = LevelSkillResourceIntTest.createEntity(em);
         em.persist(skills);
