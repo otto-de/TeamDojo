@@ -2,6 +2,25 @@
     height: inherit;
     overflow-y: auto;
     padding-right: 10px;
+    .achievements-level-active {
+        .skill-level-image {
+            width: 10vh;
+            height: 10vh;
+        }
+    }
+    .skill-level-image, .badge-image {
+        width: 5vh;
+        height: 5vh;
+        display: flex;
+        align-items: center;
+        border-radius: 50%;
+        border: 2px solid gold;
+        background: white !important;
+        overflow: hidden;
+        img {
+            width: 100%;
+        }
+    }
     .teams-achievements-dimensions, .teams-achievements-badges {
         ul.achievements-skill-levels, ul.achievements-badges {
             list-style: none;
@@ -16,19 +35,6 @@
         .achievements-dimension, .achievements-skill-level, .achievements-badge {
             .skill-level-name, .badge-name {
                 display: inline-block;
-            }
-            .skill-level-image, .badge-image {
-                width: 5vh;
-                height: 5vh;
-                display: flex;
-                align-items: center;
-                border-radius: 50%;
-                border: 2px solid gold;
-                background: white !important;
-                overflow: hidden;
-                img {
-                    width: 100%;
-                }
             }
             .achievement-progress {
                 display: inline-flex;
