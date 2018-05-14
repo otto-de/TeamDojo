@@ -5,7 +5,18 @@
                 "title": "Teams"
             },
             "achievements": {
-                "title": "Achievements"
+                "title": "Achievements",
+                "generalBadges": {
+                    "title": "General Badges"
+                },
+                "dimensions": {
+                    "badges": {
+                        "title": "Badges"
+                    },
+                    "levels": {
+                        "title": "Levels"
+                    }
+                }
             },
             "skills": {
                 "title": "Skills"
