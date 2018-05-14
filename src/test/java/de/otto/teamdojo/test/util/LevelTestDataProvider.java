@@ -19,6 +19,10 @@ public class LevelTestDataProvider {
     public static String BROWN_NAME = "Brown Belt";
     public static String BLACK_NAME = "Black Belt";
 
+    public static String OS_1_NAME = "Operations Level 1";
+    public static String OS_2_NAME = "Operations Level 2";
+    public static String OS_3_NAME = "Operations Level 3";
+
 
     public static LevelBuilder level(String name, Dimension dimension) {
         return new LevelBuilder(name, dimension);
@@ -31,6 +35,8 @@ public class LevelTestDataProvider {
     public static LevelBuilder orange(Dimension dimension) {
         return level(ORANGE_NAME, dimension).requiredScore(0.8f);
     }
+
+
 
 
     public static LevelBuilder green(Dimension dimension) {
@@ -54,6 +60,16 @@ public class LevelTestDataProvider {
 
     public static LevelBuilder black(Dimension dimension) {
         return level(BLACK_NAME, dimension).requiredScore(0.8f);
+    }
+
+    public static LevelBuilder os1(Dimension dimension) {
+        return level(OS_1_NAME, dimension).requiredScore(0.8f);
+    }
+    public static LevelBuilder os2(Dimension dimension) {
+        return level(OS_2_NAME, dimension).requiredScore(0.8f);
+    }
+    public static LevelBuilder os3(Dimension dimension) {
+        return level(OS_3_NAME, dimension).requiredScore(0.8f);
     }
 
 
