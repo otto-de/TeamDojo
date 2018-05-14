@@ -2,13 +2,12 @@
 .overviews-teams {
     padding-right: 10px;
     .team-list {
-        display: inline-block;
         .team-item {
-            display: inline-block;
             .team-image {
                 width: 5vh;
+                min-width: 46px;
                 height: 5vh;
-                display: flex;
+                min-height: 46px;
                 align-items: center;
                 border-radius: 50%;
                 border: 2px solid gold;
@@ -19,11 +18,10 @@
                 }
             }
             .team-name {
-                display: inline-block;
                 color: black;
+                overflow: hidden
             }
             .count-container {
-                display: inline-flex;
                 .count-item {
                     display: block;
                     margin-left: 5px;
