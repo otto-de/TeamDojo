@@ -14,14 +14,12 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
     styleUrls: ['teams-achievements.scss']
 })
 export class TeamsAchievementsComponent implements OnInit {
-    CSS_ID_DIMENSION_PREFIX = 'achievements-dimension';
-    CSS_ID_LEVEL_PREFIX = 'achievements-level';
     @Input() team: ITeam;
     badges: IBadge[];
     levels: { [key: number]: ILevel[] };
-    activeDimensionCssId: string;
-    private defaultDimensionCssId: string;
-    levelCssId: string;
+    activeDimensionId: number;
+    private defaultCssId: number;
+    activeLevelId: number;
 
     constructor(
         private route: ActivatedRoute,
@@ -30,27 +28,17 @@ export class TeamsAchievementsComponent implements OnInit {
     ) {
         this.badges = [];
         this.levels = {};
-        this.defaultDimensionCssId = '';
+        this.defaultCssId = 0;
     }
 
     ngOnInit() {
-        if (this.team.participations && this.team.participations[0]) {
-            this.defaultDimensionCssId = `${this.CSS_ID_DIMENSION_PREFIX}-${this.team.participations[0].id}`;
-        }
-        this.activeDimensionCssId = this.defaultDimensionCssId;
+        this.activeDimensionId =
+            this.team.participations && this.team.participations[0] ? this.team.participations[0].id : this.defaultCssId;
         this.route.paramMap.subscribe((params: ParamMap) => {
-            const dimensionId = params.get('dimension');
-            this.levelCssId = params.get('level') ? `${this.CSS_ID_LEVEL_PREFIX}-${params.get('level')}` : '';
-            this.activeDimensionCssId = dimensionId ? `${this.CSS_ID_DIMENSION_PREFIX}-${dimensionId}` : this.defaultDimensionCssId;
-            this.onDimensionChange(this.activeDimensionCssId);
+            this.activeLevelId = Number.parseInt(params.get('level')) || this.defaultCssId;
+            this.activeDimensionId = Number.parseInt(params.get('dimension')) || this.defaultCssId;
         });
         this.loadAll();
-    }
-
-    onDimensionChange(panelId: string) {
-        if (panelId === this.activeDimensionCssId && this.levelCssId && document.getElementById(this.levelCssId)) {
-            document.getElementById(this.levelCssId).scrollIntoView({ block: 'end', behavior: 'smooth' });
-        }
     }
 
     loadAll() {
@@ -95,6 +83,10 @@ export class TeamsAchievementsComponent implements OnInit {
             }
         }
         return sortedLevels;
+    }
+
+    levelRouteParameters(dimension: IDimension, level: ILevel): Object {
+        return this.activeLevelId === level.id ? { dimension: dimension.id } : { dimension: dimension.id, level: level.id };
     }
 
     trackId(index: number, item) {
