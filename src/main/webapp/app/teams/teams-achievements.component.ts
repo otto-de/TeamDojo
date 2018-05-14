@@ -15,14 +15,15 @@ import { sortLevels } from 'app/shared';
     templateUrl: './teams-achievements.component.html',
     styleUrls: ['teams-achievements.scss']
 })
-export class TeamsAchievementsComponent implements OnInit, OnDestroy {
+export class TeamsAchievementsComponent implements OnInit {
+    CSS_ID_DIMENSION_PREFIX = 'achievements-dimension';
+    CSS_ID_LEVEL_PREFIX = 'achievements-level';
     @Input() team: ITeam;
     badges: IBadge[];
     levels: { [key: number]: ILevel[] };
     activeDimensionCssId: string;
     private defaultDimensionCssId: string;
     levelCssId: string;
-    subscriptions: Subscription[];
 
     constructor(
         private route: ActivatedRoute,
@@ -32,31 +33,20 @@ export class TeamsAchievementsComponent implements OnInit, OnDestroy {
         this.badges = [];
         this.levels = {};
         this.defaultDimensionCssId = '';
-        this.subscriptions = [];
     }
 
     ngOnInit() {
         if (this.team.participations && this.team.participations[0]) {
-            this.defaultDimensionCssId = `achievements-dimension-${this.team.participations[0].id}`;
+            this.defaultDimensionCssId = `${this.CSS_ID_DIMENSION_PREFIX}-${this.team.participations[0].id}`;
         }
         this.activeDimensionCssId = this.defaultDimensionCssId;
-        this.subscriptions.push(
-            this.route.paramMap.subscribe((params: ParamMap) => {
-                const dimensionCssId = params.get('dimension');
-                this.levelCssId = params.get('level');
-                if (dimensionCssId) {
-                    this.activeDimensionCssId = dimensionCssId;
-                } else {
-                    this.activeDimensionCssId = this.defaultDimensionCssId;
-                }
-                this.onDimensionChange(this.activeDimensionCssId);
-            })
-        );
+        this.route.paramMap.subscribe((params: ParamMap) => {
+            const dimensionId = params.get('dimension');
+            this.levelCssId = params.get('level') ? `${this.CSS_ID_LEVEL_PREFIX}-${params.get('level')}` : '';
+            this.activeDimensionCssId = dimensionId ? `${this.CSS_ID_DIMENSION_PREFIX}-${dimensionId}` : this.defaultDimensionCssId;
+            this.onDimensionChange(this.activeDimensionCssId);
+        });
         this.loadAll();
-    }
-
-    ngOnDestroy() {
-        this.subscriptions.forEach(subscription => subscription.unsubscribe());
     }
 
     onDimensionChange(panelId: string) {
@@ -66,38 +56,32 @@ export class TeamsAchievementsComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        this.subscriptions.push(
-            this.teamsAchievementsService
-                .queryBadges()
-                .subscribe(
-                    (res: HttpResponse<IBadge[]>) => res.body.forEach((badge: IBadge) => this.badges.push(badge)),
-                    (res: HttpErrorResponse) => this.onError(res.message)
-                )
-        );
+        this.teamsAchievementsService
+            .queryBadges()
+            .subscribe(
+                (res: HttpResponse<IBadge[]>) => res.body.forEach((badge: IBadge) => this.badges.push(badge)),
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
         if (this.team.participations) {
             const dimensionIds: number[] = this.team.participations.map((dimension: IDimension) => dimension.id);
-            this.subscriptions.push(
-                this.teamsAchievementsService.queryLevels({ 'dimensionId.in': dimensionIds }).subscribe(
-                    (res: HttpResponse<ILevel[]>) => {
-                        const levels: { [key: number]: ILevel[] } = {};
-                        if (res.body && res.body.length) {
-                            res.body.forEach(
-                                (level: ILevel) =>
-                                    levels[level.dimensionId]
-                                        ? levels[level.dimensionId].push(level)
-                                        : (levels[level.dimensionId] = [level])
-                            );
-                        } else {
-                            dimensionIds.forEach((dimensionId: number) => (levels[dimensionId] = []));
+            this.teamsAchievementsService.queryLevels({ 'dimensionId.in': dimensionIds }).subscribe(
+                (res: HttpResponse<ILevel[]>) => {
+                    const levels: { [key: number]: ILevel[] } = {};
+                    if (res.body && res.body.length) {
+                        res.body.forEach(
+                            (level: ILevel) =>
+                                levels[level.dimensionId] ? levels[level.dimensionId].push(level) : (levels[level.dimensionId] = [level])
+                        );
+                    } else {
+                        dimensionIds.forEach((dimensionId: number) => (levels[dimensionId] = []));
+                    }
+                    for (const dimensionId in levels) {
+                        if (levels.hasOwnProperty(dimensionId)) {
+                            this.levels[dimensionId] = sortLevels(levels[dimensionId]);
                         }
-                        for (const dimensionId in levels) {
-                            if (levels.hasOwnProperty(dimensionId)) {
-                                this.levels[dimensionId] = sortLevels(levels[dimensionId]);
-                            }
-                        }
-                    },
-                    (res: HttpErrorResponse) => this.onError(res.message)
-                )
+                    }
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
             );
         }
     }
