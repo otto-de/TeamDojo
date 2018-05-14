@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSkillsService } from './teams-skills.service';
@@ -9,14 +9,13 @@ import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import * as moment from 'moment';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'jhi-teams-skills',
     templateUrl: './teams-skills.component.html',
     styleUrls: ['teams-skills.scss']
 })
-export class TeamsSkillsComponent implements OnInit, OnChanges, OnDestroy {
+export class TeamsSkillsComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
     skills: IAchievableSkill[];
     filters: string[];
@@ -26,7 +25,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges, OnDestroy {
     totalItems: number;
     checkComplete: boolean;
     levelIds: number[];
-    subscriptions: Subscription[];
 
     constructor(
         private teamsSkillsService: TeamsSkillsService,
@@ -38,66 +36,54 @@ export class TeamsSkillsComponent implements OnInit, OnChanges, OnDestroy {
     ) {
         this.filters = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.reset();
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.team && changes.team.previousValue) {
+        if (changes.team && changes.team.previousValue && changes.team.previousValue.id !== changes.team.currentValue.id) {
             this.reset();
-            this.ngOnInit();
+            this.loadAll();
         }
     }
 
     ngOnInit() {
-        const storedFilters = this.storage.retrieve(this.team.id.toString());
-        if (storedFilters) {
-            this.filters = storedFilters;
-        }
-        this.subscriptions.push(
-            this.route.paramMap.subscribe((params: ParamMap) => {
-                const levelId: string = '6400' || params.get('level');
-                if (levelId && Number.parseInt(levelId)) {
-                    this.levelIds = [Number.parseInt(levelId)];
-                } else {
-                    this.levelIds = [];
-                }
-                this.loadAll();
-            })
-        );
-        this.loadAll();
+        this.route.paramMap.subscribe((params: ParamMap) => {
+            const levelId: string = params.get('level');
+            if (levelId && Number.parseInt(levelId)) {
+                this.levelIds = [Number.parseInt(levelId)];
+            } else {
+                this.levelIds = [];
+            }
+            this.skills = [];
+            this.loadAll();
+        });
+        this.reset();
     }
 
-    ngOnDestroy() {
-        this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    getFiltersFromStorage(): string[] {
+        return this.storage.retrieve(this.team.id.toString()) || [];
     }
 
-    reset(loadAll = false) {
-        this.levelIds = [];
-        this.subscriptions = [];
+    reset() {
+        this.filters = this.getFiltersFromStorage();
         this.skills = [];
         this.page = 0;
         this.links = {
             last: 0
         };
-        if (loadAll) {
-            this.loadAll();
-        }
     }
 
     loadAll() {
-        this.subscriptions.push(
-            this.teamsSkillsService
-                .queryAchievableSkills(this.team.id, {
-                    page: this.page,
-                    size: this.itemsPerPage,
-                    filter: this.filters,
-                    levelId: this.levelIds || []
-                })
-                .subscribe(
-                    (res: HttpResponse<IAchievableSkill[]>) => this.paginateAchievableSkills(res.body, res.headers),
-                    (res: HttpErrorResponse) => this.onError(res.message)
-                )
-        );
+        this.teamsSkillsService
+            .queryAchievableSkills(this.team.id, {
+                page: this.page,
+                size: this.itemsPerPage,
+                filter: this.filters,
+                levelId: this.levelIds || []
+            })
+            .subscribe(
+                (res: HttpResponse<IAchievableSkill[]>) => this.paginateAchievableSkills(res.body, res.headers),
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     loadPage(page) {
@@ -127,7 +113,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges, OnDestroy {
             this.filters.push(filterName);
         }
         this.storage.store(this.team.id.toString(), this.filters);
-        this.reset(true);
+        this.reset();
     }
 
     isSameTeamSelected() {
