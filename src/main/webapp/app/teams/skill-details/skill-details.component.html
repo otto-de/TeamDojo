@@ -3,6 +3,64 @@
         <jhi-teams-skills [team]="team" [skill]="skill" (onSkillChanged)="handleSkillChange($event)"></jhi-teams-skills>
     </div>
     <div class="col-md-8">
-        <h1>{{skill.title}}</h1>
+        <h2 class="skill-title">{{skill.title}}</h2>
+
+        <div class="row skill-deactivate">
+            <div class="col-md-12">
+                <button class="btn btn-danger">Deactivate Skill</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="skill-desc desc-block">
+                    <h3>Description</h3>
+                    <p>{{skill.description}}</p>
+                </div>
+                <div class="skill-impl desc-block">
+                    <h3>Implementation</h3>
+                    <p>{{skill.implementation}}</p>
+                </div>
+                <div class="skill-validation desc-block">
+                    <h3>Validation</h3>
+                    <p>{{skill.validation}}</p>
+                </div>
+
+                <div class="achieved-by desc-block">
+                    <h3>Achieved by</h3>
+                    <div class="achieved-by-teams">
+                        <div *ngFor="let t of achievedByTeams" class="avatar-team" placement="top" [ngbTooltip]="t.name">
+                            <img [src]="getTeamImage(t)" />
+                        </div>
+                        <p *ngIf="achievedByTeams.length === 0">No teams have achieved this skill yet!</p>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                <div class="irrlevant-control desc-block">
+                    <input type="checkbox" id="irrelevantCheckbox">
+                    <label for="irrelevantCheckbox">Not relevant for my team</label>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+               <h3>Needed for</h3>
+
+                <div class="needed-for">
+                    <div class="needed-for-levels">
+                        <div *ngFor="let l of neededForLevels" class="avatar-level" placement="top" [ngbTooltip]="l.name">
+                            <img [src]="getLevelImage(l)" />
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="needed-for-badges">
+                        <div *ngFor="let b of neededForBadges" class="avatar-badge" placement="top" [ngbTooltip]="b.name">
+                            <img [src]="getLevelImage(b)" />
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
