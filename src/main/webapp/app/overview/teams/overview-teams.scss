@@ -17,6 +17,7 @@
             }
             .team-name {
                 color: black;
+                word-break: break-word;
             }
             .count-container {
                 .count-item {
@@ -38,7 +39,7 @@
 @media only screen and (min-width: map-get($grid-breakpoints, md)){
     .overviews-teams {
         .team-list {
-            height: calc(100vh - 233px);
+            height: calc(100vh - 242px);
             overflow-y: auto;
             padding: 5px;
         }
