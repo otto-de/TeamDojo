@@ -4,7 +4,9 @@ import javax.persistence.Lob;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A DTO for the Badge entity.
@@ -31,6 +33,8 @@ public class BadgeDTO implements Serializable {
     @DecimalMin(value = "0")
     @DecimalMax(value = "1")
     private Double requiredScore;
+
+    private Set<DimensionDTO> dimensions = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -94,6 +98,14 @@ public class BadgeDTO implements Serializable {
 
     public void setRequiredScore(Double requiredScore) {
         this.requiredScore = requiredScore;
+    }
+
+    public Set<DimensionDTO> getDimensions() {
+        return dimensions;
+    }
+
+    public void setDimensions(Set<DimensionDTO> dimensions) {
+        this.dimensions = dimensions;
     }
 
     @Override
