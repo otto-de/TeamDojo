@@ -1,5 +1,94 @@
 <div class="overviews-achievements">
-    <div class="mockup">
+    <div>
         <h4>{{'teamdojoApp.overview.achievements.title' | translate}}</h4>
+    </div>
+    <div class="mt-1">
+        <ngb-accordion>
+            <ngb-panel>
+                <ng-template ngbPanelTitle>
+                    <div class="d-flex align-items-center">
+                        <div class="d-inline-block minor px-2">
+                            <div class="">
+                                <img/>
+                            </div>
+                        </div>
+                        <i class="fa fa-caret-right mr-2"></i>
+                        <span jhiTranslate="teamdojoApp.overview.achievements.generalBadges.title">General Badges</span>
+                    </div>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    <div class="item-list-body">
+                        <div class="d-flex flex-wrap">
+                            <div class="" *ngFor="let badge of generalBadges; trackBy: trackId">
+                                <div class="item">
+                                    <div class="item-image">
+                                        <img [title]="badge.name" *ngIf="badge.picture && badge.pictureContentType"
+                                             [src]="badge.picture | imageDataUrl: badge.pictureContentType"/>
+                                    </div>
+                                    <p class="item-progress">
+                                        <ngb-progressbar type="success" [value]="25"></ngb-progressbar>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+    </div>
+    <div class="mt-1">
+        <ngb-accordion>
+            <ngb-panel *ngFor="let dimension of dimensions; trackBy: trackId">
+                <ng-template ngbPanelTitle>
+                    <div class="d-flex align-items-center">
+                        <div class="d-inline-block minor px-2">
+                            <div class="">
+                                <img/>
+                            </div>
+                        </div>
+                        <i class="fa fa-caret-right mr-2"></i>
+                        <span>{{dimension.name}}</span>
+                    </div>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    <div class="item-list-body">
+                        <div *ngIf="dimension.badges.length" class="item-list-title"
+                             jhiTranslate="teamdojoApp.overview.achievements.dimensions.badges.title">Badges
+                        </div>
+                        <div class="d-flex flex-wrap">
+                            <div *ngFor="let badge of dimension.badges; trackBy: trackId">
+                                <div class="item">
+                                    <div class="item-image">
+                                        <img [title]="badge.name" *ngIf="badge.picture && badge.pictureContentType"
+                                             [src]="badge.picture | imageDataUrl: badge.pictureContentType"/>
+                                    </div>
+                                    <p class="item-progress">
+                                        <ngb-progressbar type="success" [value]="25"></ngb-progressbar>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-list-body">
+                            <div *ngIf="dimension.levels.length" class="item-list-title"
+                                 jhiTranslate="teamdojoApp.overview.achievements.dimensions.levels.title">Levels
+                            </div>
+                            <div class="d-flex flex-wrap">
+                                <div *ngFor="let level of dimension.levels; trackBy: trackId">
+                                    <div class="item">
+                                        <div class="item-image">
+                                            <img [title]="level.name" *ngIf="level.picture && level.pictureContentType"
+                                                 [src]="level.picture | imageDataUrl: level.pictureContentType"/>
+                                        </div>
+                                        <p class="item-progress">
+                                            <ngb-progressbar type="success" [value]="25"></ngb-progressbar>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
     </div>
 </div>
