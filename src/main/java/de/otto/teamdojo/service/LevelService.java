@@ -1,6 +1,7 @@
 package de.otto.teamdojo.service;
 
 import de.otto.teamdojo.service.dto.LevelDTO;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,8 @@ public interface LevelService {
      * @return the list of entities
      */
     List<LevelDTO> findAll();
+
+    List<LevelDTO> findByIdIn(List<Long> levelIds, Pageable pageable);
 
 
     /**
