@@ -1,6 +1,5 @@
 @import '~bootstrap/scss/bootstrap';
 .overviews-teams {
-    padding-right: 10px;
     .team-list {
         .team-item {
             .team-image {
@@ -10,16 +9,14 @@
                 min-height: 46px;
                 align-items: center;
                 border-radius: 50%;
-                border: 2px solid gold;
+                border: 1px solid $gray-400;
                 background: white !important;
-                overflow: hidden;
                 img {
                     width: 100%;
                 }
             }
             .team-name {
                 color: black;
-                overflow: hidden
             }
             .count-container {
                 .count-item {
