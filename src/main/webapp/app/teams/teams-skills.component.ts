@@ -26,7 +26,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     links: any;
     itemsPerPage: number;
     totalItems: number;
-    checkComplete: boolean;
 
     constructor(
         private teamsSkillsService: TeamsSkillsService,
@@ -122,10 +121,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         return selectedTeam && selectedTeam.id === this.team.id;
     }
 
-    onSkillClicked(skill: IAchievableSkill) {
-        console.log('clicked on', skill.title);
-    }
-
     private paginateAchievableSkills(data: IAchievableSkill[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
@@ -139,8 +134,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     }
 
     isActiveSkill(s: IAchievableSkill) {
-        let val = typeof this.skill !== 'undefined' && this.skill !== null && this.skill.id === s.skillId;
-        console.log(this.skill.id, s.skillId, val);
-        return val;
+        return typeof this.skill !== 'undefined' && this.skill !== null && this.skill.id === s.skillId;
     }
 }

@@ -10,15 +10,15 @@ import { ISkill } from 'app/shared/model/skill.model';
 })
 export class SkillDetailsComponent implements OnInit {
     private team: ITeam;
+
     private skill: ISkill;
 
     constructor(private route: ActivatedRoute) {}
 
     ngOnInit(): void {
-        console.log('Hello in SkillDetails');
         this.route.data.subscribe(({ team, skill }) => {
             this.team = team.body[0] ? team.body[0] : team;
-            this.skill = skill.body[0] ? skill.body[0] : skill;
+            this.skill = skill;
         });
     }
 }

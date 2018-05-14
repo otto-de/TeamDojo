@@ -29,13 +29,27 @@ export class TeamsResolve implements Resolve<any> {
 
 @Injectable()
 export class SkillResolve implements Resolve<any> {
-    constructor(private service: SkillService) {}
+    constructor(private skillService: SkillService, private teamsService: TeamsService, private router: Router) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        const id = route.params['skillId'] ? route.params['skillId'] : null;
-        if (id) {
-            console.log('HELLo', id);
-            return this.service.find(id);
+        const shortName = route.params['shortName'] ? route.params['shortName'] : null;
+        if (shortName) {
+            return this.teamsService.query({ 'shortName.equals': shortName }).switchMap(value => {
+                if (value.body.length === 0) {
+                    this.router.navigate(['/error']);
+                } else {
+                    const team = value.body[0];
+                    const skillId = route.params['skillId'] ? route.params['skillId'] : null;
+                    if (skillId) {
+                        return this.skillService.query({ 'id.equals': skillId }).map(res => {
+                            if (res.body.length === 0) {
+                                this.router.navigate(['/error']);
+                            }
+                            return res.body[0];
+                        });
+                    }
+                }
+            });
         }
         return new Skill();
     }
