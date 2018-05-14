@@ -7,6 +7,7 @@ import de.otto.teamdojo.domain.Dimension;
 import de.otto.teamdojo.repository.BadgeRepository;
 import de.otto.teamdojo.service.BadgeQueryService;
 import de.otto.teamdojo.service.BadgeService;
+import de.otto.teamdojo.service.BadgeSkillService;
 import de.otto.teamdojo.service.dto.BadgeDTO;
 import de.otto.teamdojo.service.mapper.BadgeMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
@@ -89,6 +90,9 @@ public class BadgeResourceIntTest {
     private BadgeQueryService badgeQueryService;
 
     @Autowired
+    private BadgeSkillService badgeSkillService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -107,7 +111,7 @@ public class BadgeResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final BadgeResource badgeResource = new BadgeResource(badgeService, badgeQueryService);
+        final BadgeResource badgeResource = new BadgeResource(badgeService, badgeQueryService, badgeSkillService);
         this.restBadgeMockMvc = MockMvcBuilders.standaloneSetup(badgeResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -223,7 +227,7 @@ public class BadgeResourceIntTest {
     }
 
     public void getAllBadgesWithEagerRelationshipsIsEnabled() throws Exception {
-        BadgeResource badgeResource = new BadgeResource(badgeServiceMock, badgeQueryService);
+        BadgeResource badgeResource = new BadgeResource(badgeServiceMock, badgeQueryService, badgeSkillService);
         when(badgeServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         MockMvc restBadgeMockMvc = MockMvcBuilders.standaloneSetup(badgeResource)
@@ -239,7 +243,7 @@ public class BadgeResourceIntTest {
     }
 
     public void getAllBadgesWithEagerRelationshipsIsNotEnabled() throws Exception {
-        BadgeResource badgeResource = new BadgeResource(badgeServiceMock, badgeQueryService);
+        BadgeResource badgeResource = new BadgeResource(badgeServiceMock, badgeQueryService, badgeSkillService);
         when(badgeServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
         MockMvc restBadgeMockMvc = MockMvcBuilders.standaloneSetup(badgeResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)

@@ -102,6 +102,10 @@ public class BadgeResource {
     @Timed
     public ResponseEntity<List<BadgeDTO>> getAllBadges(BadgeCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Badges by criteria: {}", criteria);
+
+        if(criteria.getSkillsId().getIn() != null)
+            return getAllBadgesBySkills(criteria.getSkillsId().getIn(), pageable);
+
         Page<BadgeDTO> page = badgeQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/badges");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
@@ -111,24 +115,22 @@ public class BadgeResource {
      * GET  /badges : get all the badges.
      *
      * @param pageable the pagination information
-     * @param skillIds the skillIds to search for
+     * @param skillsId the skillIds to search for
      * @return the ResponseEntity with status 200 (OK) and the list of badges in body
      */
-    @GetMapping("/badges2")
-    @Timed
     public ResponseEntity<List<BadgeDTO>> getAllBadgesBySkills(
-        @RequestParam(name = "skillIds", required = true, defaultValue = "") List<Long> skillIds,
+        List<Long> skillsId,
         Pageable pageable) {
-        log.debug("REST request to get Badges for Skills: {}", skillIds);
+        log.debug("REST request to get Badges for Skills: {}", skillsId);
 
-        List<BadgeSkillDTO> badgeSkills = badgeSkillService.findBySkillIdIn(skillIds, pageable);
+        List<BadgeSkillDTO> badgeSkills = badgeSkillService.findBySkillIdIn(skillsId, pageable);
         List<Long> badgeIds = new ArrayList<>();
         for (BadgeSkillDTO badgeSkill : badgeSkills){
             badgeIds.add(badgeSkill.getBadgeId());
         }
 
         Page<BadgeDTO> page = badgeService.findByIdIn(badgeIds, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/badges2");
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/badges");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 

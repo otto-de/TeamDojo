@@ -103,8 +103,12 @@ public class LevelResource {
      */
     @GetMapping("/levels")
     @Timed
-    public ResponseEntity<List<LevelDTO>> getAllLevels(LevelCriteria criteria) {
+    public ResponseEntity<List<LevelDTO>> getAllLevels(LevelCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Levels by criteria: {}", criteria);
+
+        if(criteria.getSkillsId().getIn() != null)
+            return getAllLevelsBySkills(criteria.getSkillsId().getIn(), pageable);
+
         List<LevelDTO> entityList = levelQueryService.findByCriteria(criteria);
         return ResponseEntity.ok().body(entityList);
     }
@@ -113,24 +117,22 @@ public class LevelResource {
     /**
      * GET  /levels : get all the levels.
      *
-     * @param skillIds the skillIds to search for
+     * @param skillsId the skillsId to search for
      * @return the ResponseEntity with status 200 (OK) and the list of levels in body
      */
-    @GetMapping("/levels2")
-    @Timed
-    public ResponseEntity<List<LevelDTO>> getAlLevelsBySkills(
-        @RequestParam(name = "skillIds", required = true, defaultValue = "") List<Long> skillIds,
+    public ResponseEntity<List<LevelDTO>> getAllLevelsBySkills(
+        List<Long> skillsId,
         Pageable pageable) {
-        log.debug("REST request to get Levels for Skills; {}", skillIds);
+        log.debug("REST request to get Levels for Skills; {}", skillsId);
 
-        List<LevelSkillDTO> levelSkills = levelSkillService.findBySkillIdIn(skillIds, pageable);
+        List<LevelSkillDTO> levelSkills = levelSkillService.findBySkillIdIn(skillsId, pageable);
         List<Long> levelIds = new ArrayList<>();
         for(LevelSkillDTO levelSkill : levelSkills){
             levelIds.add(levelSkill.getLevelId());
         }
 
         Page<LevelDTO> page = levelService.findByIdIn(levelIds, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/levels2");
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/levels");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
