@@ -5,6 +5,7 @@ import de.otto.teamdojo.service.dto.BadgeDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,6 +28,8 @@ public interface BadgeService {
      * @return the list of entities
      */
     Page<BadgeDTO> findAll(Pageable pageable);
+
+    Page<BadgeDTO> findByIdIn(List<Long> badgeIds, Pageable pageable);
 
     /**
      * Get all the Badge with eager load of many-to-many relationships.
