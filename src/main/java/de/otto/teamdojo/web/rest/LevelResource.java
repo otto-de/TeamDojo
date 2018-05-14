@@ -11,10 +11,14 @@ import de.otto.teamdojo.service.dto.LevelSkillCriteria;
 import de.otto.teamdojo.service.dto.LevelSkillDTO;
 import de.otto.teamdojo.web.rest.errors.BadRequestAlertException;
 import de.otto.teamdojo.web.rest.util.HeaderUtil;
+import de.otto.teamdojo.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -106,6 +110,12 @@ public class LevelResource {
     }
 
 
+    /**
+     * GET  /levels : get all the levels.
+     *
+     * @param skillIds the skillIds to search for
+     * @return the ResponseEntity with status 200 (OK) and the list of levels in body
+     */
     @GetMapping("/levels2")
     @Timed
     public ResponseEntity<List<LevelDTO>> getAlLevelsBySkills(
@@ -119,8 +129,9 @@ public class LevelResource {
             levelIds.add(levelSkill.getLevelId());
         }
 
-        List<LevelDTO> levels = levelService.findByIdIn(levelIds, pageable);
-        return ResponseEntity.ok().body(levels);
+        Page<LevelDTO> page = levelService.findByIdIn(levelIds, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/levels2");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
 

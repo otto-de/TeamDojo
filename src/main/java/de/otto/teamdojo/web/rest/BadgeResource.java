@@ -3,8 +3,10 @@ package de.otto.teamdojo.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import de.otto.teamdojo.service.BadgeQueryService;
 import de.otto.teamdojo.service.BadgeService;
+import de.otto.teamdojo.service.BadgeSkillService;
 import de.otto.teamdojo.service.dto.BadgeCriteria;
 import de.otto.teamdojo.service.dto.BadgeDTO;
+import de.otto.teamdojo.service.dto.BadgeSkillDTO;
 import de.otto.teamdojo.web.rest.errors.BadRequestAlertException;
 import de.otto.teamdojo.web.rest.util.HeaderUtil;
 import de.otto.teamdojo.web.rest.util.PaginationUtil;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,12 +39,14 @@ public class BadgeResource {
     private static final String ENTITY_NAME = "badge";
 
     private final BadgeService badgeService;
+    private final BadgeSkillService badgeSkillService;
 
     private final BadgeQueryService badgeQueryService;
 
-    public BadgeResource(BadgeService badgeService, BadgeQueryService badgeQueryService) {
+    public BadgeResource(BadgeService badgeService, BadgeQueryService badgeQueryService, BadgeSkillService badgeSkillService) {
         this.badgeService = badgeService;
         this.badgeQueryService = badgeQueryService;
+        this.badgeSkillService = badgeSkillService;
     }
 
     /**
@@ -99,6 +104,31 @@ public class BadgeResource {
         log.debug("REST request to get Badges by criteria: {}", criteria);
         Page<BadgeDTO> page = badgeQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/badges");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /badges : get all the badges.
+     *
+     * @param pageable the pagination information
+     * @param skillIds the skillIds to search for
+     * @return the ResponseEntity with status 200 (OK) and the list of badges in body
+     */
+    @GetMapping("/badges2")
+    @Timed
+    public ResponseEntity<List<BadgeDTO>> getAllBadgesBySkills(
+        @RequestParam(name = "skillIds", required = true, defaultValue = "") List<Long> skillIds,
+        Pageable pageable) {
+        log.debug("REST request to get Badges for Skills: {}", skillIds);
+
+        List<BadgeSkillDTO> badgeSkills = badgeSkillService.findBySkillIdIn(skillIds, pageable);
+        List<Long> badgeIds = new ArrayList<>();
+        for (BadgeSkillDTO badgeSkill : badgeSkills){
+            badgeIds.add(badgeSkill.getBadgeId());
+        }
+
+        Page<BadgeDTO> page = badgeService.findByIdIn(badgeIds, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/badges2");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
