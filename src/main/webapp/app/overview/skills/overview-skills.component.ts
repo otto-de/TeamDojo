@@ -3,17 +3,14 @@ import { SkillService } from 'app/entities/skill';
 import { ISkill } from 'app/shared/model/skill.model';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
-import { createRequestOption } from 'app/shared';
-import { EntityArrayResponseType } from 'app/entities/team-skill/team-skill.service';
-import { Observable } from 'rxjs/Observable';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
-//import { TeamSkillService } from 'app/entities/team-skill';
-import { Team } from 'app/shared/model/team.model';
 import { TeamService } from 'app/entities/team';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
-import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { ILevel } from 'app/shared/model/level.model';
+import { IBadge } from 'app/shared/model/badge.model';
+import { IDimension } from 'app/shared/model/dimension.model';
+import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
 
 @Component({
     selector: 'jhi-overview-skills',
@@ -23,8 +20,11 @@ import { ILevel } from 'app/shared/model/level.model';
 export class OverviewSkillsComponent {
     @Input() teams: ITeam[];
     @Input() levels: ILevel[];
+    @Input() badges: IBadge[];
     skills: ISkill[];
+    dimensions: IDimension[];
     dimensionsBySkillId: any;
+    generalSkillsId: number[];
 
     constructor(
         private skillService: SkillService,
@@ -40,7 +40,8 @@ export class OverviewSkillsComponent {
             },
             (res: HttpErrorResponse) => this.onError(res.error)
         );
-        this.dimensionsBySkillId = {}; //da sollen die BAdges rein
+        this.generalSkillsId = [];
+        this.dimensionsBySkillId = {}; //da sollen die Badges ebenfalls rein
         this.levels.forEach(level => {
             level.skills.forEach(skill => {
                 let skillId = skill.skillId;
@@ -50,7 +51,25 @@ export class OverviewSkillsComponent {
                 }
             });
         });
-        //TODO badges und Badges die an keiner Dimension hängen, sind für alle relevant
+
+        this.badges.forEach(badge => {
+            if (badge.dimensions.length === 0) {
+                this.generalSkillsId = this.generalSkillsId.concat(badge.skills.map(bs => bs.skillId));
+            }
+
+            badge.dimensions.forEach(dimension => {
+                badge.skills.forEach((badgeSkill: IBadgeSkill) => {
+                    let skillId = badgeSkill.skillId;
+                    this.dimensionsBySkillId[skillId] = this.dimensionsBySkillId[skillId] || [];
+
+                    this.dimensionsBySkillId[skillId].forEach(entry => {
+                        if (entry.indexOf(skillId) === -1) {
+                            this.dimensionsBySkillId[skillId].push(dimension.id);
+                        }
+                    });
+                });
+            });
+        });
     }
 
     private onError(errorMessage: string) {
@@ -65,6 +84,8 @@ export class OverviewSkillsComponent {
             const relevant = team.participations.some(dimension => {
                 return skillDimensionIds.indexOf(dimension.id) !== -1;
             });
+            // relevantCount = relevantCount + this.badgesWithoutDimensionId.length(); //das ist ein bisschen gecheatet
+            // console.log('RELEVANT COUNT: ' + relevantCount);
             if (relevant) {
                 relevantCount++;
                 const completed = this.isSkillCompleted(team, skill);
@@ -73,13 +94,21 @@ export class OverviewSkillsComponent {
                 }
             }
         }
+
+        if (this.generalSkillsId.indexOf(skill.id) !== -1) {
+            relevantCount = this.teams.length;
+        }
+
         return `${completedCount}  / ${relevantCount}`;
     }
 
+    //TODO Badges mit Dimension mitberücksichtigen
+    //TODO Badges ohne Dimension mitberücksichtigen
+    //TODO checken ob die Badges in SkillCompleted schon berücksichtigt wird
     private isSkillCompleted(team: ITeam, skill: ISkill): boolean {
         return team.skills.some((teamSkill: ITeamSkill) => {
             if (skill.id === teamSkill.skillId) {
-                return !!teamSkill.completedAt;
+                return !!teamSkill.completedAt; //Warum hier doppelte Negation?
             }
             return false;
         });
