@@ -21,4 +21,8 @@ export class SkillDetailsComponent implements OnInit {
             this.skill = skill;
         });
     }
+
+    handleSkillChange(skill: ISkill) {
+        this.skill = skill;
+    }
 }

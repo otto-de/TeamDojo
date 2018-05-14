@@ -1,16 +1,16 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { LocalStorage, Ng2Webstorage } from 'ngx-webstorage';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSkillsService } from './teams-skills.service';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Location } from '@angular/common';
 import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import * as moment from 'moment';
 import { ISkill } from 'app/shared/model/skill.model';
+import { SkillService } from 'app/entities/skill';
 
 @Component({
     selector: 'jhi-teams-skills',
@@ -20,6 +20,7 @@ import { ISkill } from 'app/shared/model/skill.model';
 export class TeamsSkillsComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
     @Input() skill: ISkill;
+    @Output() onSkillChanged = new EventEmitter<ISkill>();
     skills: IAchievableSkill[];
     filters: string[];
     page: number;
@@ -29,10 +30,12 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
 
     constructor(
         private teamsSkillsService: TeamsSkillsService,
+        private skillService: SkillService,
         private jhiAlertService: JhiAlertService,
         private parseLinks: JhiParseLinks,
         private teamsSelectionService: TeamsSelectionService,
-        private storage: LocalStorageService
+        private storage: LocalStorageService,
+        private location: Location
     ) {
         this.skills = [];
         this.filters = [];
@@ -131,6 +134,20 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    isInSkillDetails() {
+        return typeof this.skill !== 'undefined' && this.skill !== null;
+    }
+
+    onSkillClicked(s: IAchievableSkill) {
+        // TODO construct link with routerLink ....
+        this.location.replaceState('/teams/' + this.team.shortName + '/skills/' + s.skillId);
+
+        this.skillService.find(s.skillId).subscribe(value => {
+            this.skill = value.body;
+            this.onSkillChanged.emit(this.skill);
+        });
     }
 
     isActiveSkill(s: IAchievableSkill) {
