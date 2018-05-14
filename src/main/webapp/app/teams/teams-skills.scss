@@ -1,7 +1,8 @@
 @import '~bootstrap/scss/bootstrap';
 
-.active-skill {
-   background: #eee;
+.active-skill,
+.active-skill:hover {
+   background: #f0f0f0;
 }
 
 .teams-skills {
