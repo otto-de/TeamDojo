@@ -7,6 +7,7 @@ import de.otto.teamdojo.service.dto.LevelDTO;
 import de.otto.teamdojo.service.mapper.LevelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -85,5 +86,15 @@ public class LevelServiceImpl implements LevelService {
     public void delete(Long id) {
         log.debug("Request to delete Level : {}", id);
         levelRepository.deleteById(id);
+    }
+
+    public List<LevelDTO> findByIdIn(List<Long> levelIds, Pageable pageable){
+        {
+            log.debug("Request to get Levels by level Ids: {}", levelIds);
+            return levelRepository.findByIdIn(levelIds, pageable)
+                .stream()
+                .map(levelMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
+        }
     }
 }
