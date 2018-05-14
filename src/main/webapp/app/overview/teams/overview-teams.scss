@@ -1,13 +1,12 @@
 @import '~bootstrap/scss/bootstrap';
 .overviews-teams {
     .team-list {
-        display: inline-block;
         .team-item {
-            display: inline-block;
             .team-image {
                 width: 5vh;
+                min-width: 46px;
                 height: 5vh;
-                display: flex;
+                min-height: 46px;
                 align-items: center;
                 border-radius: 50%;
                 border: 1px solid $gray-400;
@@ -17,11 +16,9 @@
                 }
             }
             .team-name {
-                display: inline-block;
                 color: black;
             }
             .count-container {
-                display: inline-flex;
                 .count-item {
                     display: block;
                     margin-left: 5px;
@@ -47,4 +44,3 @@
         }
     }
 }
-
