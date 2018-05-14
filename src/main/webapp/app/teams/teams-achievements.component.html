@@ -1,9 +1,16 @@
 <div class="teams-achievements">
     <h4>{{'teamdojoApp.teams.achievements.title' | translate}}</h4>
-    <div class="achievements-level-active mb-2" *ngIf="activeLevel">
+    <div class="achievements-level-active mockup mb-2" *ngIf="activeLevel">
         <div class="skill-level-image mx-auto">
             <img [title]="activeLevel.name" [src]="activeLevel.picture | imageDataUrl: activeLevel.pictureContentType"
-                 *ngIf="'progress' === '100%' && activeLevel.picture && activeLevel.pictureContentType"/>
+                 *ngIf="'progress' === '100%' && activeLevel.picture && activeLevel.pictureContentType; else progressPicture"/>
+            <ng-template #progressPicture>
+                <div class="ml-auto achievement-progress px-2">
+                    <svg viewBox="0 0 32 32">
+                        <circle r="16" cx="16" cy="16" style="stroke-dasharray: 40 100;"/>
+                    </svg>
+                </div>
+            </ng-template>
         </div>
     </div>
     <div class="teams-achievements-badges">
