@@ -7,6 +7,10 @@
             width: 10vh;
             height: 10vh;
         }
+        .achievement-progress svg {
+            width: 8vh;
+            height: 8vh;
+        }
     }
     .skill-level-image, .badge-image {
         width: 5vh;
@@ -19,6 +23,25 @@
         overflow: hidden;
         img {
             width: 100%;
+        }
+    }
+    .achievement-progress {
+        display: inline-flex;
+        svg {
+            width: 3vh;
+            height: 3vh;
+            transform: rotate(-90deg);
+            background: #655;
+            border-radius: 50%;
+        }
+        circle {
+            fill: #655;
+            stroke: yellowgreen;
+            stroke-width: 32;
+        }
+        .fa-check {
+            color: yellowgreen;
+            font-size: 3vh;
         }
     }
     .teams-achievements-dimensions, .teams-achievements-badges {
@@ -35,25 +58,6 @@
         .achievements-dimension, .achievements-skill-level, .achievements-badge {
             .skill-level-name, .badge-name {
                 display: inline-block;
-            }
-            .achievement-progress {
-                display: inline-flex;
-                svg {
-                    width: 3vh;
-                    height: 3vh;
-                    transform: rotate(-90deg);
-                    background: #655;
-                    border-radius: 50%;
-                }
-                circle {
-                    fill: #655;
-                    stroke: yellowgreen;
-                    stroke-width: 32;
-                }
-                .fa-check {
-                    color: yellowgreen;
-                    font-size: 3vh;
-                }
             }
         }
     }
