@@ -20,8 +20,7 @@ export class TeamsAchievementsComponent implements OnInit {
     badges: IBadge[];
     levels: { [key: number]: ILevel[] };
     activeDimensionId: number;
-    private defaultCssId: number;
-    activeLevelId: number;
+    activeLevel: ILevel;
 
     constructor(
         private route: ActivatedRoute,
@@ -30,15 +29,19 @@ export class TeamsAchievementsComponent implements OnInit {
     ) {
         this.badges = [];
         this.levels = {};
-        this.defaultCssId = 0;
     }
 
     ngOnInit() {
-        this.activeDimensionId =
-            this.team.participations && this.team.participations[0] ? this.team.participations[0].id : this.defaultCssId;
         this.route.paramMap.subscribe((params: ParamMap) => {
-            this.activeLevelId = Number.parseInt(params.get('level')) || this.defaultCssId;
-            this.activeDimensionId = Number.parseInt(params.get('dimension')) || this.defaultCssId;
+            const dimensionId = Number.parseInt(params.get('dimension'));
+            if (Number.isInteger(dimensionId)) {
+                this.activeDimensionId = dimensionId;
+                if (this.levels[this.activeDimensionId]) {
+                    this.activeLevel = this.levels[this.activeDimensionId].find(
+                        (level: ILevel) => level.id === Number.parseInt(params.get('level'))
+                    );
+                }
+            }
         });
         this.loadAll();
     }
@@ -51,6 +54,7 @@ export class TeamsAchievementsComponent implements OnInit {
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
         if (this.team.participations) {
+            this.activeDimensionId = this.team.participations[0] ? this.team.participations[0].id : 0;
             const dimensionIds: number[] = this.team.participations.map((dimension: IDimension) => dimension.id);
             this.teamsAchievementsService.queryLevels({ 'dimensionId.in': dimensionIds }).subscribe(
                 (res: HttpResponse<ILevel[]>) => {
@@ -75,7 +79,9 @@ export class TeamsAchievementsComponent implements OnInit {
     }
 
     levelRouteParameters(dimension: IDimension, level: ILevel): Object {
-        return this.activeLevelId === level.id ? { dimension: dimension.id } : { dimension: dimension.id, level: level.id };
+        return this.activeLevel && this.activeLevel.id === level.id
+            ? { dimension: dimension.id }
+            : { dimension: dimension.id, level: level.id };
     }
 
     trackId(index: number, item) {
