@@ -7,8 +7,8 @@
 
         <div class="row skill-deactivate">
             <div class="col-md-12">
-                <button *ngIf="!skill.achievedAt" class="btn btn-danger" jhiTranslate="teamdojoApp.teams.skills.details.deactivate">Deactivate Skill</button>
-                <button *ngIf="!!skill.achievedAt" class="btn btn-success" jhiTranslate="teamdojoApp.teams.skills.details.activate">Activate Skill</button>
+                <button *ngIf="skillAchieved" class="btn btn-danger" jhiTranslate="teamdojoApp.teams.skills.details.deactivate">Deactivate Skill</button>
+                <button *ngIf="!skillAchieved" class="btn btn-success" jhiTranslate="teamdojoApp.teams.skills.details.activate">Activate Skill</button>
             </div>
         </div>
         <div class="row">

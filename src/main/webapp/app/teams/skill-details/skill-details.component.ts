@@ -19,6 +19,8 @@ export class SkillDetailsComponent implements OnInit {
 
     private skill: ISkill;
 
+    private skillAchieved = false;
+
     private achievedByTeams: ITeam[] = [];
 
     private neededForLevels: ILevel[] = [];
@@ -52,6 +54,14 @@ export class SkillDetailsComponent implements OnInit {
                 this.teamsService.query({ 'id.in': teamsId }).subscribe(teamsRes => {
                     this.achievedByTeams = teamsRes.body;
                 });
+            }
+        });
+
+        this.teamSkillService.query({ 'skillId.equals': this.skill.id, 'teamId.equals': this.team.id }).subscribe(res => {
+            if (res.body.length !== 0) {
+                this.skillAchieved = !!res.body[0].completedAt;
+            } else {
+                this.skillAchieved = false;
             }
         });
 
