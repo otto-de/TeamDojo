@@ -28,7 +28,7 @@
         </ngb-accordion>
     </div>
     <div class="mt-1 teams-achievements-dimensions">
-        <ngb-accordion [destroyOnHide]="false" [activeIds]="activeDimensionCssId" (panelChange)="onDimensionChange($event.panelId)">
+        <ngb-accordion [destroyOnHide]="false" activeIds="achievements-dimension-{{activeDimensionId}}">
             <ngb-panel id="achievements-dimension-{{dimension.id}}"
                        *ngFor="let dimension of team.participations; trackBy: trackId">
                 <ng-template ngbPanelTitle>
@@ -51,19 +51,21 @@
                     <div class="achievements-skill-levels">
                         <div [ngClass]="{'pb-3': !isLast}" id="achievements-level-{{level.id}}"
                              *ngFor="let level of levels[dimension.id]; trackBy: trackId; last as isLast">
-                            <div class="d-flex align-items-center achievements-skill-level"
-                                 [ngClass]="{'active': levelCssId === 'achievements-level-' + level.id}">
-                                <div class="skill-level-image">
-                                    <img [title]="level.name" *ngIf="level.picture && level.pictureContentType"
-                                         [src]="level.picture | imageDataUrl: level.pictureContentType"/>
+                            <a [routerLink]="['.', levelRouteParameters(dimension, level)]">
+                                <div class="d-flex align-items-center achievements-skill-level"
+                                     [ngClass]="{'active': activeLevelId === level.id}">
+                                    <div class="skill-level-image">
+                                        <img [title]="level.name" *ngIf="level.picture && level.pictureContentType"
+                                             [src]="level.picture | imageDataUrl: level.pictureContentType"/>
+                                    </div>
+                                    <div class="skill-level-name ml-2">{{level.name}}</div>
+                                    <div class="ml-auto achievement-progress mockup minor px-2">
+                                        <svg viewBox="0 0 32 32">
+                                            <circle r="16" cx="16" cy="16" style="stroke-dasharray: 12 100;"/>
+                                        </svg>
+                                    </div>
                                 </div>
-                                <div class="skill-level-name ml-2">{{level.name}}</div>
-                                <div class="ml-auto achievement-progress mockup minor px-2">
-                                    <svg viewBox="0 0 32 32">
-                                        <circle r="16" cx="16" cy="16" style="stroke-dasharray: 12 100;"/>
-                                    </svg>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </ng-template>
