@@ -106,7 +106,7 @@ public class LevelResource {
     public ResponseEntity<List<LevelDTO>> getAllLevels(LevelCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Levels by criteria: {}", criteria);
 
-        if(criteria.getSkillsId().getIn() != null)
+        if(criteria != null && criteria.getSkillsId() != null && criteria.getSkillsId().getIn() != null)
             return getAllLevelsBySkills(criteria.getSkillsId().getIn(), pageable);
 
         List<LevelDTO> entityList = levelQueryService.findByCriteria(criteria);

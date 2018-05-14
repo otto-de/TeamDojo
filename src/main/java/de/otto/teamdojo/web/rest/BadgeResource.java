@@ -103,7 +103,7 @@ public class BadgeResource {
     public ResponseEntity<List<BadgeDTO>> getAllBadges(BadgeCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Badges by criteria: {}", criteria);
 
-        if(criteria.getSkillsId().getIn() != null)
+        if(criteria != null && criteria.getSkillsId() != null && criteria.getSkillsId().getIn() != null)
             return getAllBadgesBySkills(criteria.getSkillsId().getIn(), pageable);
 
         Page<BadgeDTO> page = badgeQueryService.findByCriteria(criteria, pageable);
