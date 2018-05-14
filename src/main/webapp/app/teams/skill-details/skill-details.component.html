@@ -7,26 +7,27 @@
 
         <div class="row skill-deactivate">
             <div class="col-md-12">
-                <button class="btn btn-danger">Deactivate Skill</button>
+                <button *ngIf="!skill.achievedAt" class="btn btn-danger" jhiTranslate="teamdojoApp.teams.skills.details.deactivate">Deactivate Skill</button>
+                <button *ngIf="!!skill.achievedAt" class="btn btn-success" jhiTranslate="teamdojoApp.teams.skills.details.activate">Activate Skill</button>
             </div>
         </div>
         <div class="row">
             <div class="col-md-8">
                 <div class="skill-desc desc-block">
-                    <h3>Description</h3>
+                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.desc">Description</h3>
                     <p>{{skill.description}}</p>
                 </div>
                 <div class="skill-impl desc-block">
-                    <h3>Implementation</h3>
+                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.implementation">Implementation</h3>
                     <p>{{skill.implementation}}</p>
                 </div>
                 <div class="skill-validation desc-block">
-                    <h3>Validation</h3>
+                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.validation">Validation</h3>
                     <p>{{skill.validation}}</p>
                 </div>
 
                 <div class="achieved-by desc-block">
-                    <h3>Achieved by</h3>
+                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.achievedBy">Achieved by</h3>
                     <div class="achieved-by-teams">
                         <div *ngFor="let t of achievedByTeams" class="avatar-team" placement="top" [ngbTooltip]="t.name">
                             <img [src]="getTeamImage(t)" />
@@ -38,13 +39,13 @@
 
                 <div class="irrlevant-control desc-block">
                     <input type="checkbox" id="irrelevantCheckbox">
-                    <label for="irrelevantCheckbox">Not relevant for my team</label>
+                    <label for="irrelevantCheckbox" jhiTranslate="teamdojoApp.teams.skills.details.notRelevant">Not relevant for my team</label>
                 </div>
             </div>
 
             <div class="col-md-4">
 
-               <h3>Needed for</h3>
+               <h3 jhiTranslate="teamdojoApp.teams.skills.details.neededFor">Needed for</h3>
 
                 <div class="needed-for">
                     <div class="needed-for-levels">
