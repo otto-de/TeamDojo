@@ -1,6 +1,5 @@
 @import '~bootstrap/scss/bootstrap';
 .overviews-teams {
-    padding-right: 10px;
     .team-list {
         display: inline-block;
         .team-item {
@@ -11,9 +10,8 @@
                 display: flex;
                 align-items: center;
                 border-radius: 50%;
-                border: 2px solid gold;
+                border: 1px solid $gray-400;
                 background: white !important;
-                overflow: hidden;
                 img {
                     width: 100%;
                 }
