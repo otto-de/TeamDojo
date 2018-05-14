@@ -1,5 +1,11 @@
 <div class="teams-achievements">
     <h4>{{'teamdojoApp.teams.achievements.title' | translate}}</h4>
+    <div class="achievements-level-active mb-2" *ngIf="activeLevel">
+        <div class="skill-level-image mx-auto">
+            <img [title]="activeLevel.name" [src]="activeLevel.picture | imageDataUrl: activeLevel.pictureContentType"
+                 *ngIf="'progress' === '100%' && activeLevel.picture && activeLevel.pictureContentType"/>
+        </div>
+    </div>
     <div class="teams-achievements-badges">
         <ngb-accordion activeIds="achievements-badge-0">
             <ngb-panel id="achievements-badge-0">
