@@ -7,6 +7,8 @@ import de.otto.teamdojo.service.dto.LevelSkillDTO;
 import de.otto.teamdojo.service.mapper.LevelSkillMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,6 +77,23 @@ public class LevelSkillServiceImpl implements LevelSkillService {
         return levelSkillRepository.findById(id)
             .map(levelSkillMapper::toDto);
     }
+
+    /**
+     * Get levelSkills by skill id.
+     *
+     * @param skillIds the ids of the skills
+     * @return the entity
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<LevelSkillDTO> findBySkillIdIn(List<Long> skillIds, Pageable pageable) {
+        log.debug("Request to get LevelSkill by skill Ids: {}", skillIds);
+        return levelSkillRepository.findBySkillIdIn(skillIds, pageable)
+            .stream()
+            .map(levelSkillMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
 
     /**
      * Delete the levelSkill by id.

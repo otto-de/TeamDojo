@@ -77,8 +77,8 @@ describe('Component Tests', () => {
             expect(service.queryLevels).toHaveBeenCalled();
             expect(comp.levels).toEqual(jasmine.objectContaining({ 122: jasmine.anything() }));
             expect(comp.levels[122].length).toEqual(2);
-            expect(comp.levels[122][0]).toEqual(jasmine.objectContaining({ id: 123 }));
-            expect(comp.levels[122][1]).toEqual(jasmine.objectContaining({ id: 124 }));
+            expect(comp.levels[122][0]).toEqual(jasmine.objectContaining({ id: 124 }));
+            expect(comp.levels[122][1]).toEqual(jasmine.objectContaining({ id: 123 }));
         });
 
         it('Should sort multiple levels descendingly', () => {
@@ -141,8 +141,8 @@ describe('Component Tests', () => {
             expect(comp.levels).toEqual(jasmine.objectContaining({ 122: jasmine.anything() }));
             expect(comp.levels[122].length).toEqual(3);
             // use incoming order if dependency is the same
-            expect(comp.levels[122][0]).toEqual(jasmine.objectContaining({ id: 124 }));
-            expect(comp.levels[122][1]).toEqual(jasmine.objectContaining({ id: 125 }));
+            expect(comp.levels[122][0]).toEqual(jasmine.objectContaining({ id: 125 }));
+            expect(comp.levels[122][1]).toEqual(jasmine.objectContaining({ id: 124 }));
             expect(comp.levels[122][2]).toEqual(jasmine.objectContaining({ id: 123 }));
         });
 
