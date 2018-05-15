@@ -100,10 +100,6 @@ export class OverviewSkillsComponent {
         return `${completedCount}  / ${relevantCount}`;
     }
 
-    //TODO Badges mit Dimension mitberücksichtigen
-    //TODO Badges ohne Dimension mitberücksichtigen
-    //TODO checken ob die Badges in SkillCompleted schon berücksichtigt wird
-
     private isSkillCompleted(team: ITeam, skill: ISkill): boolean {
         return team.skills.some((teamSkill: ITeamSkill) => {
             if (skill.id === teamSkill.skillId) {
