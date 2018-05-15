@@ -50,10 +50,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        const storedFilters = this.storage.retrieve(this.team.id.toString());
-        if (storedFilters) {
-            this.filters = storedFilters;
-        }
+        this.filters = this.storage.retrieve(this.team.id.toString()) || [];
         this.loadAll();
     }
 
