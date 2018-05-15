@@ -1,29 +1,25 @@
 @import '~bootstrap/scss/bootstrap';
 .overviews-teams {
-    padding-right: 10px;
     .team-list {
-        display: inline-block;
         .team-item {
-            display: inline-block;
             .team-image {
                 width: 5vh;
+                min-width: 46px;
                 height: 5vh;
-                display: flex;
+                min-height: 46px;
                 align-items: center;
                 border-radius: 50%;
-                border: 2px solid gold;
+                border: 1px solid $gray-400;
                 background: white !important;
-                overflow: hidden;
                 img {
                     width: 100%;
                 }
             }
             .team-name {
-                display: inline-block;
                 color: black;
+                word-break: break-word;
             }
             .count-container {
-                display: inline-flex;
                 .count-item {
                     display: block;
                     margin-left: 5px;
@@ -43,7 +39,7 @@
 @media only screen and (min-width: map-get($grid-breakpoints, md)){
     .overviews-teams {
         .team-list {
-            height: calc(100vh - 233px);
+            height: calc(100vh - 242px);
             overflow-y: auto;
             padding: 5px;
         }
