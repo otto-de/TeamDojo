@@ -3,7 +3,7 @@
     <div class="achievements-level-active mockup mb-2" *ngIf="activeLevel">
         <div class="skill-level-image mx-auto">
             <img [title]="activeLevel.name" [src]="activeLevel.picture | imageDataUrl: activeLevel.pictureContentType"
-                 *ngIf="'progress' === '100%' && activeLevel.picture && activeLevel.pictureContentType; else progressPicture"/>
+                 [alt]="activeLevel.name" *ngIf="'progress' === '100%'; else progressPicture"/>
             <ng-template #progressPicture>
                 <div class="ml-auto achievement-progress px-2">
                     <svg viewBox="0 0 32 32">
@@ -25,7 +25,7 @@
                         <div class="d-flex align-items-center achievements-badge" [ngClass]="{'mb-3': !isLast}"
                              *ngFor="let badge of badges; trackBy: trackId; last as isLast">
                             <div class="badge-image">
-                                <img [title]="badge.name" *ngIf="badge.logo && badge.logoContentType"
+                                <img [title]="badge.name" [alt]="badge.name"
                                      [src]="badge.logo | imageDataUrl: badge.logoContentType"/>
                             </div>
                             <div class="badge-name ml-2">{{badge.name}}</div>
@@ -50,7 +50,7 @@
                             <i class="fa fa-caret-right mr-2"></i>
                             <div class="d-inline-block mockup minor px-2">
                                 <div class="skill-level-image">
-                                    <img title="Current skill level"/>
+                                    <img title="Current skill level" alt="Current skill level"/>
                                 </div>
                             </div>
                             <span>{{dimension.name}}</span>
@@ -68,7 +68,7 @@
                                 <div class="d-flex align-items-center achievements-skill-level"
                                      [ngClass]="{'active': activeLevel && activeLevel.id === level.id}">
                                     <div class="skill-level-image">
-                                        <img [title]="level.name" *ngIf="level.picture && level.pictureContentType"
+                                        <img [title]="level.name" [alt]="level.name"
                                              [src]="level.picture | imageDataUrl: level.pictureContentType"/>
                                     </div>
                                     <div class="skill-level-name ml-2">{{level.name}}</div>
