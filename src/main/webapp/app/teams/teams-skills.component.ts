@@ -1,6 +1,4 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { LocalStorage, Ng2Webstorage } from 'ngx-webstorage';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSkillsService } from './teams-skills.service';
@@ -10,6 +8,7 @@ import { ITEMS_PER_PAGE } from 'app/shared';
 import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import * as moment from 'moment';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
     selector: 'jhi-teams-skills',
@@ -25,42 +24,52 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     itemsPerPage: number;
     totalItems: number;
     checkComplete: boolean;
+    levelIds: number[];
 
     constructor(
         private teamsSkillsService: TeamsSkillsService,
         private jhiAlertService: JhiAlertService,
         private parseLinks: JhiParseLinks,
         private teamsSelectionService: TeamsSelectionService,
-        private storage: LocalStorageService
+        private storage: LocalStorageService,
+        private route: ActivatedRoute
     ) {
-        this.skills = [];
         this.filters = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.page = 0;
-        this.links = {
-            last: 0
-        };
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.team && changes.team.previousValue) {
-            this.reloadAll();
-            this.ngOnInit();
+        if (changes.team && changes.team.previousValue && changes.team.previousValue.id !== changes.team.currentValue.id) {
+            this.reset();
+            this.loadAll();
         }
     }
 
     ngOnInit() {
-        this.filters = this.storage.retrieve(this.team.id.toString()) || [];
-        this.loadAll();
+        this.route.paramMap.subscribe((params: ParamMap) => {
+            const levelId: string = params.get('level');
+            if (levelId && Number.parseInt(levelId)) {
+                this.levelIds = [Number.parseInt(levelId)];
+            } else {
+                this.levelIds = [];
+            }
+            this.skills = [];
+            this.loadAll();
+        });
+        this.reset();
     }
 
-    reloadAll() {
+    getFiltersFromStorage(): string[] {
+        return this.storage.retrieve(this.team.id.toString()) || [];
+    }
+
+    reset() {
+        this.filters = this.getFiltersFromStorage();
         this.skills = [];
         this.page = 0;
         this.links = {
             last: 0
         };
-        this.loadAll();
     }
 
     loadAll() {
@@ -68,18 +77,13 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
             .queryAchievableSkills(this.team.id, {
                 page: this.page,
                 size: this.itemsPerPage,
-                filter: this.filters
+                filter: this.filters,
+                levelId: this.levelIds || []
             })
             .subscribe(
                 (res: HttpResponse<IAchievableSkill[]>) => this.paginateAchievableSkills(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
-    }
-
-    reset() {
-        this.page = 0;
-        this.skills = [];
-        this.loadAll();
     }
 
     loadPage(page) {
@@ -94,7 +98,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
             skill.achievedAt = null;
         }
         this.teamsSkillsService.updateAchievableSkill(this.team.id, skill).subscribe(
-            (res: HttpResponse<IAchievableSkill>) => (skill = res.body),
+            (res: HttpResponse<IAchievableSkill>) => this.reset(),
             (res: HttpErrorResponse) => {
                 console.log(res);
             }
@@ -109,7 +113,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
             this.filters.push(filterName);
         }
         this.storage.store(this.team.id.toString(), this.filters);
-        this.reloadAll();
+        this.reset();
     }
 
     isSameTeamSelected() {
