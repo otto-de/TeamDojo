@@ -7,7 +7,6 @@ import { IDimension } from 'app/shared/model/dimension.model';
 import { JhiAlertService } from 'ng-jhipster';
 import { TeamsAchievementsService } from './teams-achievements.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
 import { sortLevels } from 'app/shared';
 
 @Component({
