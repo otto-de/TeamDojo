@@ -65,11 +65,11 @@ export class SkillDetailsComponent implements OnInit {
             }
         });
 
-        this.levelService.query({ 'skillId.in': this.skill.id }).subscribe(res => {
+        this.levelService.query({ 'skillsId.in': this.skill.id }).subscribe(res => {
             this.neededForLevels = res.body;
         });
 
-        this.badgeService.query({ 'skillId.in': this.skill.id }).subscribe(res => {
+        this.badgeService.query({ 'skillsId.in': this.skill.id }).subscribe(res => {
             this.neededForBadges = res.body;
         });
     }
