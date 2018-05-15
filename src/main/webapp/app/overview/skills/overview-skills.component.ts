@@ -40,6 +40,7 @@ export class OverviewSkillsComponent {
             },
             (res: HttpErrorResponse) => this.onError(res.error)
         );
+
         this.generalSkillsId = [];
         this.dimensionsBySkillId = {}; //da sollen die Badges ebenfalls rein
         this.levels.forEach(level => {
@@ -84,8 +85,6 @@ export class OverviewSkillsComponent {
             const relevant = team.participations.some(dimension => {
                 return skillDimensionIds.indexOf(dimension.id) !== -1;
             });
-            // relevantCount = relevantCount + this.badgesWithoutDimensionId.length(); //das ist ein bisschen gecheatet
-            // console.log('RELEVANT COUNT: ' + relevantCount);
             if (relevant) {
                 relevantCount++;
                 const completed = this.isSkillCompleted(team, skill);
@@ -94,7 +93,6 @@ export class OverviewSkillsComponent {
                 }
             }
         }
-
         if (this.generalSkillsId.indexOf(skill.id) !== -1) {
             relevantCount = this.teams.length;
         }
@@ -105,10 +103,11 @@ export class OverviewSkillsComponent {
     //TODO Badges mit Dimension mitberücksichtigen
     //TODO Badges ohne Dimension mitberücksichtigen
     //TODO checken ob die Badges in SkillCompleted schon berücksichtigt wird
+
     private isSkillCompleted(team: ITeam, skill: ISkill): boolean {
         return team.skills.some((teamSkill: ITeamSkill) => {
             if (skill.id === teamSkill.skillId) {
-                return !!teamSkill.completedAt; //Warum hier doppelte Negation?
+                return !!teamSkill.completedAt;
             }
             return false;
         });
