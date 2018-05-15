@@ -19,7 +19,7 @@ export class TeamsAchievementsComponent implements OnInit {
     badges: IBadge[];
     levels: { [key: number]: ILevel[] };
     activeDimensionId: number;
-    activeLevel: ILevel;
+    activeAchievement: ILevel | IBadge;
 
     constructor(
         private route: ActivatedRoute,
@@ -35,11 +35,17 @@ export class TeamsAchievementsComponent implements OnInit {
             const dimensionId = Number.parseInt(params.get('dimension'));
             if (Number.isInteger(dimensionId)) {
                 this.activeDimensionId = dimensionId;
-                if (this.levels[this.activeDimensionId]) {
-                    this.activeLevel = this.levels[this.activeDimensionId].find(
+                if (this.levels[this.activeDimensionId] && params.get('level')) {
+                    this.activeAchievement = this.levels[this.activeDimensionId].find(
                         (level: ILevel) => level.id === Number.parseInt(params.get('level'))
                     );
+                } else {
+                    this.activeAchievement = null;
                 }
+            } else if (params.get('badge')) {
+                this.activeAchievement = this.badges.find((badge: IBadge) => badge.id === Number.parseInt(params.get('badge')));
+            } else {
+                this.activeAchievement = null;
             }
         });
         this.loadAll();
@@ -78,9 +84,13 @@ export class TeamsAchievementsComponent implements OnInit {
     }
 
     levelRouteParameters(dimension: IDimension, level: ILevel): Object {
-        return this.activeLevel && this.activeLevel.id === level.id
+        return this.activeAchievement && this.activeAchievement.id === level.id
             ? { dimension: dimension.id }
             : { dimension: dimension.id, level: level.id };
+    }
+
+    badgeRouteParameters(badge: IBadge): Object {
+        return this.activeAchievement && this.activeAchievement.id === badge.id ? {} : { badge: badge.id };
     }
 
     trackId(index: number, item) {
