@@ -97,7 +97,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
             skill.achievedAt = null;
         }
         this.teamsSkillsService.updateAchievableSkill(this.team.id, skill).subscribe(
-            (res: HttpResponse<IAchievableSkill>) => (skill = res.body),
+            (res: HttpResponse<IAchievableSkill>) => this.reset(),
             (res: HttpErrorResponse) => {
                 console.log(res);
             }
