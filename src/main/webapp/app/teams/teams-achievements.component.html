@@ -1,5 +1,18 @@
 <div class="teams-achievements">
     <h4>{{'teamdojoApp.teams.achievements.title' | translate}}</h4>
+    <div class="achievements-level-active mockup mb-2" *ngIf="activeLevel">
+        <div class="skill-level-image mx-auto">
+            <img [title]="activeLevel.name" [src]="activeLevel.picture | imageDataUrl: activeLevel.pictureContentType"
+                 *ngIf="'progress' === '100%' && activeLevel.picture && activeLevel.pictureContentType; else progressPicture"/>
+            <ng-template #progressPicture>
+                <div class="ml-auto achievement-progress px-2">
+                    <svg viewBox="0 0 32 32">
+                        <circle r="16" cx="16" cy="16" style="stroke-dasharray: 40 100;"/>
+                    </svg>
+                </div>
+            </ng-template>
+        </div>
+    </div>
     <div class="teams-achievements-badges">
         <ngb-accordion activeIds="achievements-badge-0">
             <ngb-panel id="achievements-badge-0">
@@ -28,9 +41,9 @@
         </ngb-accordion>
     </div>
     <div class="mt-1 teams-achievements-dimensions">
-        <ngb-accordion activeIds="achievements-dimension-0">
-            <ngb-panel id="achievements-dimension-{{index}}"
-                       *ngFor="let dimension of team.participations; trackBy: trackId; index as index">
+        <ngb-accordion [destroyOnHide]="false" activeIds="achievements-dimension-{{activeDimensionId}}">
+            <ngb-panel id="achievements-dimension-{{dimension.id}}"
+                       *ngFor="let dimension of team.participations; trackBy: trackId">
                 <ng-template ngbPanelTitle>
                     <div class="d-flex align-items-center achievements-dimension">
                         <div class="d-flex align-items-center">
@@ -49,18 +62,23 @@
                 </ng-template>
                 <ng-template ngbPanelContent>
                     <div class="achievements-skill-levels">
-                        <div class="d-flex align-items-center achievements-skill-level" [ngClass]="{'mb-3': !isLast}"
+                        <div [ngClass]="{'pb-3': !isLast}" id="achievements-level-{{level.id}}"
                              *ngFor="let level of levels[dimension.id]; trackBy: trackId; last as isLast">
-                            <div class="skill-level-image">
-                                <img [title]="level.name" *ngIf="level.picture && level.pictureContentType"
-                                     [src]="level.picture | imageDataUrl: level.pictureContentType"/>
-                            </div>
-                            <div class="skill-level-name ml-2">{{level.name}}</div>
-                            <div class="ml-auto achievement-progress mockup minor px-2">
-                                <svg viewBox="0 0 32 32">
-                                    <circle r="16" cx="16" cy="16" style="stroke-dasharray: 12 100;"/>
-                                </svg>
-                            </div>
+                            <a [routerLink]="['.', levelRouteParameters(dimension, level)]" (click)="activeLevel = level">
+                                <div class="d-flex align-items-center achievements-skill-level"
+                                     [ngClass]="{'active': activeLevel && activeLevel.id === level.id}">
+                                    <div class="skill-level-image">
+                                        <img [title]="level.name" *ngIf="level.picture && level.pictureContentType"
+                                             [src]="level.picture | imageDataUrl: level.pictureContentType"/>
+                                    </div>
+                                    <div class="skill-level-name ml-2">{{level.name}}</div>
+                                    <div class="ml-auto achievement-progress mockup minor px-2">
+                                        <svg viewBox="0 0 32 32">
+                                            <circle r="16" cx="16" cy="16" style="stroke-dasharray: 12 100;"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </ng-template>
