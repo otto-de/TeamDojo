@@ -12,17 +12,19 @@ public class AchievableSkillDTO {
     private String title;
     private String description;
     private Instant achievedAt;
+    private Boolean irrelevant;
 
     public AchievableSkillDTO() {
         // Empty constructor needed for Jackson.
     }
 
-    public AchievableSkillDTO(Long teamSkillId, Long skillId, String title, String description, Instant achievedAt) {
+    public AchievableSkillDTO(Long teamSkillId, Long skillId, String title, String description, Instant achievedAt, Boolean irrelevant) {
         this.teamSkillId = teamSkillId;
         this.skillId = skillId;
         this.title = title;
         this.description = description;
         this.achievedAt = achievedAt;
+        this.irrelevant = irrelevant;
     }
 
     public Long getTeamSkillId() {
@@ -59,5 +61,11 @@ public class AchievableSkillDTO {
 
     public void setAchievedAt(Instant achievedAt) {
         this.achievedAt = achievedAt;
+    }
+
+    public Boolean isIrrelevant() { return irrelevant; }
+
+    public void setIrrelevant(Boolean irrelevant){
+        this.irrelevant = irrelevant;
     }
 }
