@@ -5,7 +5,18 @@
                 "title": "Teams"
             },
             "achievements": {
-                "title": "Errungenschaften"
+                "title": "Errungenschaften",
+                "generalBadges": {
+                    "title": "Allgemeine Pokale"
+                },
+                "dimensions": {
+                    "badges": {
+                        "title": "Pokale"
+                    },
+                    "levels": {
+                        "title": "Stufen"
+                    }
+                }
             },
             "skills": {
                 "title": "Kompetenzen"

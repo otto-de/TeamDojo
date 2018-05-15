@@ -1,0 +1,34 @@
+.overviews-achievements {
+    height: inherit;
+    overflow-y: auto;
+    padding-right: 10px;
+    .item-list-body {
+        .item-list-title {
+            margin-top: 5px;
+        }
+        .item {
+            width: 5vh;
+            height: 7vh;
+            margin: 5px;
+
+            .item-image {
+                width: 5vh;
+                height: 5vh;
+                display: flex;
+                align-items: center;
+                border-radius: 50%;
+                border: 2px solid gold;
+                background: white !important;
+                overflow: hidden;
+                img {
+                    width: 100%;
+                }
+            }
+
+            .item-progress {
+                height: 1vh;
+                padding: 5px;
+            }
+        }
+    }
+}
