@@ -1,3 +1,4 @@
+@import '~bootstrap/scss/bootstrap';
 .overviews-achievements {
     height: inherit;
     overflow-y: auto;
@@ -7,9 +8,11 @@
             margin-top: 5px;
         }
         .item {
-            width: 5vh;
-            height: 7vh;
+            width: 7vh;
+            height: 8vh;
             margin: 5px;
+            border: 1px solid transparent;
+            border-radius: 1vh;
 
             .item-image {
                 width: 5vh;
@@ -29,6 +32,13 @@
                 height: 1vh;
                 padding: 5px;
             }
+
+            &.active {
+                border-color: $gray-400;
+            }
         }
+    }
+    /deep/ .card {
+        margin-top: 8px;
     }
 }
