@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import { TeamsService } from 'app/teams/teams.service';
 import { Team } from 'app/shared/model/team.model';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-teams-selection',
@@ -17,7 +18,8 @@ export class TeamsSelectionComponent implements OnInit {
     constructor(
         private activeModal: NgbActiveModal,
         private teamsSelectionService: TeamsSelectionService,
-        private teamsService: TeamsService
+        private teamsService: TeamsService,
+        private router: Router
     ) {}
 
     ngOnInit(): void {
@@ -34,6 +36,7 @@ export class TeamsSelectionComponent implements OnInit {
     confirmTeam() {
         this.teamsSelectionService.selectedTeam = this.highlightedTeam;
         this.activeModal.close('Team selected');
+        this.router.navigate(['teams', this.highlightedTeam.shortName]);
     }
 
     deselectTeam() {
