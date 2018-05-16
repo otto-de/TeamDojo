@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ITeam } from 'app/shared/model/team.model';
 import { ISkill } from 'app/shared/model/skill.model';
@@ -8,6 +8,11 @@ import { IBadge } from 'app/shared/model/badge.model';
 import { ILevel } from 'app/shared/model/level.model';
 import { LevelService } from 'app/entities/level';
 import { BadgeService } from 'app/entities/badge';
+import moment = require('moment');
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
+import { TeamsSkillsService } from 'app/teams/teams-skills.service';
+import { ITeamSkill } from 'app/shared/model/team-skill.model';
 
 @Component({
     selector: 'jhi-skill-details',
@@ -19,17 +24,25 @@ export class SkillDetailsComponent implements OnInit {
 
     private skill: ISkill;
 
-    private skillAchieved = false;
-
     private achievedByTeams: ITeam[] = [];
 
     private neededForLevels: ILevel[] = [];
 
     private neededForBadges: IBadge[] = [];
 
+    private achievableSkill: IAchievableSkill;
+
+    private teamSkill: ITeamSkill;
+
+    // private irrelevanceCheckbox: boolean;
+
+    // Event for skill (de)activation and irrelevance setting
+    @Output() onSkillChanged = new EventEmitter<IAchievableSkill>();
+
     constructor(
         private route: ActivatedRoute,
         private teamSkillService: TeamSkillService,
+        private teamsSkillsService: TeamsSkillsService,
         private teamsService: TeamsService,
         private levelService: LevelService,
         private badgeService: BadgeService
@@ -47,6 +60,7 @@ export class SkillDetailsComponent implements OnInit {
         this.achievedByTeams = [];
         this.neededForLevels = [];
         this.neededForBadges = [];
+        this.achievableSkill = new AchievableSkill();
 
         this.teamSkillService.query({ 'skillId.equals': this.skill.id, 'completedAt.specified': true }).subscribe(res => {
             const teamsId = res.body.map(ts => ts.teamId);
@@ -57,12 +71,8 @@ export class SkillDetailsComponent implements OnInit {
             }
         });
 
-        this.teamSkillService.query({ 'skillId.equals': this.skill.id, 'teamId.equals': this.team.id }).subscribe(res => {
-            if (res.body.length !== 0) {
-                this.skillAchieved = !!res.body[0].completedAt;
-            } else {
-                this.skillAchieved = false;
-            }
+        this.teamsSkillsService.findAchievableSkill(this.team.id, this.skill.id).subscribe(skill => {
+            this.achievableSkill = skill;
         });
 
         this.levelService.query({ 'skillsId.in': this.skill.id }).subscribe(res => {
@@ -89,5 +99,27 @@ export class SkillDetailsComponent implements OnInit {
 
     getBadgeImage(badge: IBadge) {
         return badge.logo && badge.logoContentType ? `data:${badge.logoContentType};base64,${badge.logo}` : '';
+    }
+
+    skillAchieved() {
+        return this.achievableSkill && !!this.achievableSkill.achievedAt;
+    }
+
+    onToggleSkill(isActivated: boolean) {
+        this.achievableSkill.achievedAt = isActivated ? moment() : null;
+        this.updateSkill();
+    }
+
+    updateSkill() {
+        console.log(this.achievableSkill);
+        this.teamsSkillsService.updateAchievableSkill(this.team.id, this.achievableSkill).subscribe(
+            (res: HttpResponse<IAchievableSkill>) => {
+                this.achievableSkill = res.body;
+                this.onSkillChanged.emit(this.achievableSkill);
+            },
+            (res: HttpErrorResponse) => {
+                console.log(res);
+            }
+        );
     }
 }
