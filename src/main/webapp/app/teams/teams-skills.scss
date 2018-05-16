@@ -5,11 +5,15 @@
    background: #f0f0f0;
 }
 
-irrerelvant-skill,
-.irrerelvant-skill > * {
-    color : #FFFFFF;
+.irrelevant-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+    background: white;
 }
-
 
 .teams-skills {
     padding-right: 10px;
@@ -19,6 +23,12 @@ irrerelvant-skill,
             min-width: 40px;
             max-height: 26px;
             margin-bottom: 2px;
+        }
+
+        .irrelevant-icon {
+            z-index:100;
+            font-size: 35px;
+            margin-right: 5px;
         }
     }
 }
