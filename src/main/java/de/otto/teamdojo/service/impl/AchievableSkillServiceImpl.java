@@ -66,19 +66,24 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
         }
         return queryFilter;
     }
+
     @Override
     public AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill) {
-        AchievableSkillDTO originSkill =  skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId());
+        AchievableSkillDTO originSkill = skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId());
 
         TeamSkillDTO teamSkill = new TeamSkillDTO();
-        teamSkill.setId((achievableSkill.getTeamSkillId() != null)?achievableSkill.getTeamSkillId():originSkill.getTeamSkillId());
+        teamSkill.setId((achievableSkill.getTeamSkillId() != null) ? achievableSkill.getTeamSkillId() : originSkill.getTeamSkillId());
         teamSkill.setTeamId(teamId);
         teamSkill.setSkillId(achievableSkill.getSkillId());
         teamSkill.setCompletedAt(achievableSkill.getAchievedAt());
+        teamSkill.setIrrelevant(achievableSkill.isIrrelevant());
         teamSkillService.save(teamSkill);
         return skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId());
     }
 
+    public AchievableSkillDTO findAchievableSkill(Long teamId, Long skillId) {
+        return skillRepository.findAchievableSkill(teamId, skillId);
+    }
 
     private Page<AchievableSkillDTO> findAllTeamRelated(Long teamId, List<String> filter, Pageable pageable) {
         Team team = getTeam(teamId);
