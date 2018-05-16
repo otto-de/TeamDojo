@@ -19,6 +19,16 @@
                         "completed": "Erfüllt",
                         "incompleted": "nicht erfüllt"
                     }
+                },
+                "details": {
+                    "activate": "Kompetenz aktivieren",
+                    "deactivate": "Kompetenz deaktivieren",
+                    "desc": "Beschreibung",
+                    "implementation": "Implementation",
+                    "validation": "Validation",
+                    "achievedBy": "Erfüllt von",
+                    "neededFor": "Benötigt für",
+                    "notRelevant": "Für mein Team nicht relevant"
                 }
             },
             "status": {

@@ -17,4 +17,9 @@ public interface AchievableSkillService {
      * Updates an achievable skill
      */
     AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill);
+
+    /**
+     * Finds AchievableSkill by teamId and skillId
+     */
+    AchievableSkillDTO findAchievableSkill(Long teamId, Long skillId);
 }
