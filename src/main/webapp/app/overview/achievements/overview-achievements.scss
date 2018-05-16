@@ -1,0 +1,13 @@
+.overviews-achievements {
+    height: inherit;
+    overflow-y: auto;
+    padding-right: 10px;
+    .item-list-body {
+        .item-list-title {
+            margin-top: 5px;
+        }
+    }
+    /deep/ .card {
+        margin-top: 8px;
+    }
+}
