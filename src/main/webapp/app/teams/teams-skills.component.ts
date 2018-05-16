@@ -58,6 +58,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
+        this.reset();
         this.route.paramMap.subscribe((params: ParamMap) => {
             const levelId: string = params.get('level');
             const badgeId: string = params.get('badge');
@@ -66,7 +67,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
             this.skills = [];
             this.loadAll();
         });
-        this.reset();
     }
 
     getFiltersFromStorage(): string[] {
