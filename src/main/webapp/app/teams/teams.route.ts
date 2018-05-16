@@ -20,7 +20,7 @@ export class TeamsResolve implements Resolve<any> {
                 if (value.body.length === 0) {
                     this.router.navigate(['/error']);
                 }
-                return value;
+                return value.body[0];
             });
         }
         return new Team();
@@ -63,6 +63,17 @@ export const TEAMS_ROUTES: Route[] = [
         component: SkillDetailsComponent,
         resolve: {
             team: TeamsResolve,
+            skill: SkillResolve
+        },
+        data: {
+            authorities: [],
+            pageTitle: 'teamdojoApp.teams.skills.title'
+        }
+    },
+    {
+        path: 'skills/:skillId',
+        component: SkillDetailsComponent,
+        resolve: {
             skill: SkillResolve
         },
         data: {
