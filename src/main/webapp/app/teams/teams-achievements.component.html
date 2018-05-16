@@ -23,7 +23,8 @@
                 <ng-template ngbPanelContent>
                     <div class="achievements-badges">
                         <div [ngClass]="{'mb-3': !isLast}" *ngFor="let badge of badges; trackBy: trackId; last as isLast">
-                            <a [routerLink]="['.', badgeRouteParameters(badge)]" (click)="activeAchievement = badge">
+                            <a [routerLink]="['.']" [queryParams]="badgeRouteParameters(badge)"
+                               (click)="activeAchievement = badge">
                                 <div class="d-flex align-items-center achievements-badge"
                                      [ngClass]="{'active': activeAchievement && activeAchievement.id === badge.id}">
                                     <div class="badge-image">
@@ -49,7 +50,8 @@
             <ngb-panel id="achievements-dimension-{{dimension.id}}"
                        *ngFor="let dimension of team.participations; trackBy: trackId">
                 <ng-template ngbPanelTitle>
-                    <div class="d-flex align-items-center achievements-dimension">
+                    <div class="d-flex align-items-center achievements-dimension"
+                         [routerLink]="['.']" [queryParams]="{'dimension': dimension.id}">
                         <div class="d-flex align-items-center">
                             <i class="fa fa-caret-right mr-2"></i>
                             <div class="d-inline-block mockup minor px-2">
@@ -68,7 +70,8 @@
                     <div class="achievements-skill-levels">
                         <div [ngClass]="{'pb-3': !isLast}" id="achievements-level-{{level.id}}"
                              *ngFor="let level of levels[dimension.id]; trackBy: trackId; last as isLast">
-                            <a [routerLink]="['.', levelRouteParameters(dimension, level)]" (click)="activeAchievement = level">
+                            <a [routerLink]="['.']"  [queryParams]="levelRouteParameters(dimension, level)"
+                               (click)="activeAchievement = level">
                                 <div class="d-flex align-items-center achievements-skill-level"
                                      [ngClass]="{'active': activeAchievement && activeAchievement.id === level.id}">
                                     <div class="skill-level-image">
