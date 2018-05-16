@@ -32,10 +32,6 @@ export class SkillDetailsComponent implements OnInit {
 
     private achievableSkill: IAchievableSkill;
 
-    private teamSkill: ITeamSkill;
-
-    // private irrelevanceCheckbox: boolean;
-
     // Event for skill (de)activation and irrelevance setting
     @Output() onSkillChanged = new EventEmitter<IAchievableSkill>();
 
@@ -84,7 +80,12 @@ export class SkillDetailsComponent implements OnInit {
         });
     }
 
-    handleSkillChange(skill: ISkill) {
+    handleSkillChange(skillObjs) {
+        this.achievableSkill = skillObjs.aSkill;
+        this.skill = skillObjs.iSkill;
+    }
+
+    handleSkillClick(skill: ISkill) {
         this.skill = skill;
         this.loadData();
     }
