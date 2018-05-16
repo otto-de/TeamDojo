@@ -111,18 +111,6 @@ export class SkillDetailsComponent implements OnInit {
         );
     }
 
-    getTeamImage(team: ITeam) {
-        return team.picture && team.pictureContentType ? `data:${team.pictureContentType};base64,${team.picture}` : '';
-    }
-
-    getLevelImage(level: ILevel) {
-        return level.picture && level.pictureContentType ? `data:${level.pictureContentType};base64,${level.picture}` : '';
-    }
-
-    getBadgeImage(badge: IBadge) {
-        return badge.logo && badge.logoContentType ? `data:${badge.logoContentType};base64,${badge.logo}` : '';
-    }
-
     skillAchieved() {
         return this.achievableSkill && !!this.achievableSkill.achievedAt;
     }

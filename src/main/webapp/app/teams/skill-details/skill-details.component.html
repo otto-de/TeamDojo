@@ -31,7 +31,7 @@
                     <h3 jhiTranslate="teamdojoApp.teams.skills.details.achievedBy">Achieved by</h3>
                     <div class="achieved-by-teams">
                         <div *ngFor="let t of achievedByTeams" class="avatar-team" placement="top" [ngbTooltip]="t.name">
-                            <img [src]="getTeamImage(t)" />
+                            <img [src]="t.picture | imageDataUrl: t.pictureContentType" />
                         </div>
                         <p *ngIf="achievedByTeams.length === 0">No teams have achieved this skill yet!</p>
                         <div class="clearfix"></div>
@@ -51,13 +51,13 @@
                 <div class="needed-for">
                     <div class="needed-for-levels">
                         <div *ngFor="let l of neededForLevels" class="avatar-level" placement="top" [ngbTooltip]="l.name">
-                            <img [src]="getLevelImage(l)" />
+                            <img [src]="l.picture | imageDataUrl: l.pictureContentType" />
                         </div>
                         <div class="clearfix"></div>
                     </div>
                     <div class="needed-for-badges">
                         <div *ngFor="let b of neededForBadges" class="avatar-badge" placement="top" [ngbTooltip]="b.name">
-                            <img [src]="getLevelImage(b)" />
+                            <img [src]="b.logo | imageDataUrl: b.logoContentType" />
                         </div>
                         <div class="clearfix"></div>
                     </div>
