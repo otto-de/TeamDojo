@@ -20,8 +20,8 @@ import { Router } from '@angular/router';
 })
 export class TeamsSkillsComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
-    @Input() skill: ISkill;
-    @Output() onSkillClicked = new EventEmitter<ISkill>();
+    @Input() skill: IAchievableSkill;
+    @Output() onSkillClicked = new EventEmitter<{ iSkill: ISkill; aSkill: AchievableSkill }>();
     @Output() onSkillChanged = new EventEmitter<{ iSkill: ISkill; aSkill: AchievableSkill }>();
     skills: IAchievableSkill[];
     filters: string[];
@@ -156,13 +156,21 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         const url = this.router.createUrlTree(['teams', this.team.shortName, 'skills', s.skillId]).toString();
         this.location.replaceState(url);
 
-        this.skillService.find(s.skillId).subscribe(value => {
-            this.skill = value.body;
-            this.onSkillClicked.emit(this.skill);
+        this.skillService.find(s.skillId).subscribe(res => {
+            this.onSkillClicked.emit({
+                iSkill: res.body,
+                aSkill: s
+            });
+        });
+    }
+
+    handleSkillChanged(s: IAchievableSkill) {
+        this.skills = this.skills.map(skill => {
+            return skill.skillId === s.skillId ? s : skill;
         });
     }
 
     isActiveSkill(s: IAchievableSkill) {
-        return typeof this.skill !== 'undefined' && this.skill !== null && this.skill.id === s.skillId;
+        return typeof this.skill !== 'undefined' && this.skill !== null && this.skill.skillId === s.skillId;
     }
 }

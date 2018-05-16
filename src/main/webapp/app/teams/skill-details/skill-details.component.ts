@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ITeam } from 'app/shared/model/team.model';
 import { ISkill } from 'app/shared/model/skill.model';
@@ -12,7 +12,7 @@ import moment = require('moment');
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
-import { ITeamSkill } from 'app/shared/model/team-skill.model';
+import { TeamsSkillsComponent } from 'app/teams/teams-skills.component';
 
 @Component({
     selector: 'jhi-skill-details',
@@ -24,16 +24,18 @@ export class SkillDetailsComponent implements OnInit {
 
     private skill: ISkill;
 
+    private achievableSkill: IAchievableSkill;
+
     private achievedByTeams: ITeam[] = [];
 
     private neededForLevels: ILevel[] = [];
 
     private neededForBadges: IBadge[] = [];
 
-    private achievableSkill: IAchievableSkill;
-
     // Event for skill (de)activation and irrelevance setting
     @Output() onSkillChanged = new EventEmitter<IAchievableSkill>();
+
+    @ViewChild(TeamsSkillsComponent) skillList;
 
     constructor(
         private route: ActivatedRoute,
@@ -85,9 +87,9 @@ export class SkillDetailsComponent implements OnInit {
         this.skill = skillObjs.iSkill;
     }
 
-    handleSkillClick(skill: ISkill) {
-        this.skill = skill;
-        this.loadData();
+    handleSkillClick(skillObjs) {
+        this.achievableSkill = skillObjs.aSkill;
+        this.skill = skillObjs.iSkill;
     }
 
     getTeamImage(team: ITeam) {
@@ -112,11 +114,11 @@ export class SkillDetailsComponent implements OnInit {
     }
 
     updateSkill() {
-        console.log(this.achievableSkill);
         this.teamsSkillsService.updateAchievableSkill(this.team.id, this.achievableSkill).subscribe(
             (res: HttpResponse<IAchievableSkill>) => {
                 this.achievableSkill = res.body;
                 this.onSkillChanged.emit(this.achievableSkill);
+                this.skillList.handleSkillChanged(this.achievableSkill);
             },
             (res: HttpErrorResponse) => {
                 console.log(res);
