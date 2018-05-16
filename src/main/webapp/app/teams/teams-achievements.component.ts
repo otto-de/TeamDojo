@@ -19,7 +19,7 @@ export class TeamsAchievementsComponent implements OnInit {
     badges: IBadge[];
     levels: { [key: number]: ILevel[] };
     activeDimensionId: number;
-    activeAchievement: ILevel | IBadge;
+    activeAchievement: any;
 
     constructor(
         private route: ActivatedRoute,

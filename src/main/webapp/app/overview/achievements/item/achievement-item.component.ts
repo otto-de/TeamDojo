@@ -8,7 +8,7 @@ import { ILevel } from 'app/shared/model/level.model';
     styleUrls: ['./achievement-item.scss']
 })
 export class AchievementItemComponent {
-    @Input() item: ILevel | IBadge;
+    @Input() item: any;
     @Input() progress: number;
     @Input() active: boolean;
     @Output() onItemSelected = new EventEmitter<ILevel | IBadge>();
