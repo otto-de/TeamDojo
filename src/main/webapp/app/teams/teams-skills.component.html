@@ -30,12 +30,13 @@
             <div class="teams-skills-list list-group">
 
                 <li class="list-group-item list-group-item-action flex-column align-items-start mb-2 skill-list-item"
-                    *ngFor='let skill of skills' [ngClass]="{'active-skill':isActiveSkill(skill)}"
+                    *ngFor='let skill of skills' [ngClass]="{'active-skill':isActiveSkill(skill), 'irrelevant-skill': skill.irrelevant}"
                     (click)="handleSkillClicked(skill)">
 
                     <div class="d-flex w-100 justify-content-between">
-                        <a *ngIf="isInSkillDetails()" class="text-dark mb-1">{{skill.title}}</a>
-                        <a *ngIf="!isInSkillDetails()" [routerLink]="['/teams', team.shortName,'skills', skill.skillId]" class="text-dark mb-1">{{skill.title}}</a>
+                        <a *ngIf="isInSkillDetails()" class="text-dark mb-1 skill-title">{{skill.title}}</a>
+                        <a *ngIf="!isInSkillDetails()" [routerLink]="['/teams', team.shortName,'skills', skill.skillId]"
+                           class="text-dark mb-1 skill-title">{{skill.title}}</a>
                         <jhi-toggle-switch
                             *ngIf="!skill.irrelevant"
                             [checked]="!!skill.achievedAt"
@@ -49,7 +50,8 @@
                     </div>
                     <p class="mb-1"></p>
                     <small>{{skill.description}}</small>
-                    <div *ngIf="skill.irrelevant" class="irrelevant-overlay"></div>
+                    <a *ngIf="skill.irrelevant && !isInSkillDetails()" [routerLink]="['/teams', team.shortName,'skills', skill.skillId]" class="irrelevant-overlay"></a>
+                    <a *ngIf="skill.irrelevant && isInSkillDetails()" class="irrelevant-overlay"></a>
                 </li>
             </div>
         </div>
