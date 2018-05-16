@@ -114,6 +114,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         }
         this.storage.store(this.team.id.toString(), this.filters);
         this.reset();
+        this.loadAll();
     }
 
     isSameTeamSelected() {
