@@ -29,7 +29,8 @@
              [infiniteScrollContainer]="'.teams-skills-list'">
             <div class="teams-skills-list list-group">
                 <li class="list-group-item list-group-item-action flex-column align-items-start mb-2"
-                    *ngFor='let skill of skills' [ngClass]="{'active-skill':isActiveSkill(skill)}">
+                    *ngFor='let skill of skills' [ngClass]="{'active-skill':isActiveSkill(skill)}" [ngClass]="{'irrelevant-skill':isIrrelevantSkill(skill)}"
+                    (click)="handleSkillClicked(skill)">
                     <div class="d-flex w-100 justify-content-between">
 
                         <a *ngIf="!isInSkillDetails()" [routerLink]="['/teams', team.shortName,'skills', skill.skillId]" class="text-dark mb-1">{{skill.title}}</a>
@@ -42,6 +43,7 @@
                     </div>
                     <p class="mb-1"></p>
                     <small>{{skill.description}}</small>
+                    <small *ngIf="isIrrelevantSkill(skill)">(not relevant)</small>
                 </li>
             </div>
         </div>
