@@ -13,6 +13,8 @@ import { ISkill } from 'app/shared/model/skill.model';
 import { SkillService } from 'app/entities/skill';
 import { Router } from '@angular/router';
 
+const MAX_ITEMS_PER_PAGE = 1000;
+
 @Component({
     selector: 'jhi-teams-skills',
     templateUrl: './teams-skills.component.html',
@@ -77,7 +79,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         this.teamsSkillsService
             .queryAchievableSkills(this.team.id, {
                 page: this.page,
-                size: this.itemsPerPage,
+                size: this.isInSkillDetails() ? MAX_ITEMS_PER_PAGE : this.itemsPerPage,
                 filter: this.filters
             })
             .subscribe(
