@@ -75,8 +75,8 @@ public class BadgeServiceImpl implements BadgeService {
      *
      * @return the list of entities
      */
-    public Page<Badge> findAllWithEagerRelationships(Pageable pageable) {
-        return badgeRepository.findAllWithEagerRelationships(pageable);
+    public Page<BadgeDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return badgeRepository.findAllWithEagerRelationships(pageable).map(badgeMapper::toDto);
     }
 
 

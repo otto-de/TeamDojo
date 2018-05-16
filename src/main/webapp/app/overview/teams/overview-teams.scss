@@ -1,0 +1,48 @@
+@import '~bootstrap/scss/bootstrap';
+.overviews-teams {
+    .team-list {
+        .team-item {
+            .team-image {
+                width: 5vh;
+                min-width: 46px;
+                height: 5vh;
+                min-height: 46px;
+                align-items: center;
+                border-radius: 50%;
+                border: 1px solid $gray-400;
+                background: white !important;
+                img {
+                    width: 100%;
+                }
+            }
+            .team-name {
+                color: black;
+                word-break: break-word;
+            }
+            .count-container {
+                .count-item {
+                    display: block;
+                    margin-left: 5px;
+                    .count-item-header {
+
+                    }
+                    .count-item-value {
+                        float: right;
+                        font-size: 1.5em;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: map-get($grid-breakpoints, md)){
+    .overviews-teams {
+        .team-list {
+            height: calc(100vh - 242px);
+            overflow-y: auto;
+            padding: 5px;
+        }
+    }
+}
+

@@ -90,12 +90,11 @@ public class BadgeResourceIntTest {
     @Mock
     private BadgeRepository badgeRepositoryMock;
 
-    @Mock
-    private BadgeService badgeServiceMock;
-
     @Autowired
     private BadgeMapper badgeMapper;
 
+    @Mock
+    private BadgeService badgeServiceMock;
 
     @Autowired
     private BadgeService badgeService;

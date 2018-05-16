@@ -305,6 +305,69 @@ public class TeamAchievableSkillResourceIntTest {
         assertThat(completedSkill.getCompletedAt(), nullValue());
     }
 
+    @Test
+    @Transactional
+    public void updateAchievableSkillToIrrelevant() throws Exception {
+        softwareUpdates = softwareUpdates().build(em);
+        team = ft1().build(em);
+        teamSkill = new TeamSkill();
+        teamSkill.setTeam(team);
+        teamSkill.setSkill(softwareUpdates);
+        em.persist(teamSkill);
+        team.addSkills(teamSkill);
+        em.persist(team);
+        em.flush();
+
+        AchievableSkillDTO achievableSkill = new AchievableSkillDTO();
+        achievableSkill.setIrrelevant(Boolean.TRUE);
+        achievableSkill.setTeamSkillId(teamSkill.getId());
+        achievableSkill.setSkillId(softwareUpdates.getId());
+
+        restTeamMockMvc.perform(put("/api/teams/{id}/achievable-skills", team.getId())
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(achievableSkill)))
+            .andExpect(status().isOk());
+
+        List<TeamSkill> teamSkills = teamSkillRepository.findAll();
+        assertThat(teamSkills, hasSize(1));
+        TeamSkill irelevantSkill = teamSkills.get(0);
+        assertThat(irelevantSkill.getSkill().getId(), is(softwareUpdates.getId()));
+        assertThat(irelevantSkill.getTeam().getId(), is(team.getId()));
+        assertThat(irelevantSkill.isIrrelevant(), is(Boolean.TRUE));
+    }
+
+    @Test
+    @Transactional
+    public void updateAchievableSkillToRelevant() throws Exception {
+        softwareUpdates = softwareUpdates().build(em);
+        team = ft1().build(em);
+        teamSkill = new TeamSkill();
+        teamSkill.setTeam(team);
+        teamSkill.setIrrelevant(Boolean.TRUE);
+        teamSkill.setSkill(softwareUpdates);
+        em.persist(teamSkill);
+        team.addSkills(teamSkill);
+        em.persist(team);
+        em.flush();
+
+        AchievableSkillDTO achievableSkill = new AchievableSkillDTO();
+        achievableSkill.setIrrelevant(Boolean.FALSE);
+        achievableSkill.setTeamSkillId(teamSkill.getId());
+        achievableSkill.setSkillId(softwareUpdates.getId());
+
+        restTeamMockMvc.perform(put("/api/teams/{id}/achievable-skills", team.getId())
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(achievableSkill)))
+            .andExpect(status().isOk());
+
+        List<TeamSkill> teamSkills = teamSkillRepository.findAll();
+        assertThat(teamSkills, hasSize(1));
+        TeamSkill irelevantSkill = teamSkills.get(0);
+        assertThat(irelevantSkill.getSkill().getId(), is(softwareUpdates.getId()));
+        assertThat(irelevantSkill.getTeam().getId(), is(team.getId()));
+        assertThat(irelevantSkill.isIrrelevant(), is(Boolean.FALSE));
+    }
+
     private void setupTestData() {
         inputValidation = inputValidation().build(em);
         softwareUpdates = softwareUpdates().build(em);
