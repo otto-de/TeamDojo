@@ -8,7 +8,7 @@ import { ISkill } from 'app/shared/model/skill.model';
     styleUrls: ['./achievement-item.scss']
 })
 export class AchievementItemComponent implements OnInit {
-    @Input() item: IBadge | ISkill;
+    @Input() item: any;
     @Input() progress: number;
     @Input() active: boolean;
     @Output() onItemSelected = new EventEmitter<IBadge | ISkill>();
