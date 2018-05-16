@@ -28,4 +28,7 @@
     &.active {
         border-color: $gray-400;
     }
+    &:hover {
+        cursor: pointer;
+    }
 }

@@ -27,10 +27,10 @@ export class OverviewAchievementsComponent implements OnInit {
         this.generalBadges = [];
         this.dimensionService.query().subscribe((res: HttpResponse<IDimension[]>) => {
             this.dimensions = res.body;
-            const levelsByDimension = {};
+            const levelsByDimensionId = {};
             this.levels.forEach((level: ILevel) => {
-                levelsByDimension[level.dimensionId] = levelsByDimension[level.dimensionId] || [];
-                levelsByDimension[level.dimensionId].push(Object.assign(level));
+                levelsByDimensionId[level.dimensionId] = levelsByDimensionId[level.dimensionId] || [];
+                levelsByDimensionId[level.dimensionId].push(Object.assign(level));
             });
 
             const badgesByDimensionId = {};
@@ -46,13 +46,13 @@ export class OverviewAchievementsComponent implements OnInit {
             });
 
             this.dimensions.forEach((dimension: IDimension) => {
-                dimension.levels = levelsByDimension[dimension.id] || [];
+                dimension.levels = levelsByDimensionId[dimension.id] || [];
                 dimension.badges = badgesByDimensionId[dimension.id] || [];
             });
         });
     }
 
-    getProgress(item: ILevel | IBadge) {
+    getAchievementProgress(item: ILevel | IBadge) {
         let baseCount = 0;
         let completedCount = 0;
         this.teams.forEach((team: ITeam) => {
@@ -95,21 +95,13 @@ export class OverviewAchievementsComponent implements OnInit {
         return team.participations.some((dimension: IDimension) => badgeDimensionIds.indexOf(dimension.id) !== -1);
     }
 
-    badgeSelected(badge: IBadge) {
+    selectBadge(badge: IBadge) {
         this.activeLevelId = null;
-        if (this.activeBadgeId === badge.id) {
-            this.activeBadgeId = null;
-        } else {
-            this.activeBadgeId = badge.id;
-        }
+        this.activeBadgeId = this.activeBadgeId === badge.id ? null : badge.id;
     }
 
-    levelSelected(level: ILevel) {
+    selectLevel(level: ILevel) {
         this.activeBadgeId = null;
-        if (this.activeLevelId === level.id) {
-            this.activeLevelId = null;
-        } else {
-            this.activeLevelId = level.id;
-        }
+        this.activeLevelId = this.activeLevelId === level.id ? null : level.id;
     }
 }
