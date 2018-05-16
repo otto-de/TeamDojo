@@ -13,6 +13,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 import { TeamsSkillsComponent } from 'app/teams/teams-skills.component';
+import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 
 @Component({
     selector: 'jhi-skill-details',
@@ -41,6 +42,7 @@ export class SkillDetailsComponent implements OnInit {
         private route: ActivatedRoute,
         private teamSkillService: TeamSkillService,
         private teamsSkillsService: TeamsSkillsService,
+        private teamsSelectionService: TeamsSelectionService,
         private teamsService: TeamsService,
         private levelService: LevelService,
         private badgeService: BadgeService
@@ -106,6 +108,11 @@ export class SkillDetailsComponent implements OnInit {
 
     skillAchieved() {
         return this.achievableSkill && !!this.achievableSkill.achievedAt;
+    }
+
+    isSameTeamSelected() {
+        const selectedTeam = this.teamsSelectionService.selectedTeam;
+        return selectedTeam && selectedTeam.id === this.team.id;
     }
 
     onToggleSkill(isActivated: boolean) {

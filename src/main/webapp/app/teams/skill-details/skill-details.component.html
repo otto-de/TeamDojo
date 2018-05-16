@@ -6,7 +6,7 @@
     <div class="col-md-8">
         <h2 class="skill-title">{{skill.title}}</h2>
 
-        <div class="row skill-deactivate">
+        <div  *ngIf="isSameTeamSelected()" class="row skill-deactivate">
             <div class="col-md-12">
                 <button *ngIf="skillAchieved()" class="btn btn-danger" jhiTranslate="teamdojoApp.teams.skills.details.deactivate" (click)="onToggleSkill(false)">Deactivate Skill</button>
                 <button *ngIf="!skillAchieved()" class="btn btn-success" jhiTranslate="teamdojoApp.teams.skills.details.activate" (click)="onToggleSkill(true)">Activate Skill</button>
@@ -38,7 +38,7 @@
                     </div>
                 </div>
 
-                <div class="irrlevant-control desc-block">
+                <div *ngIf="isSameTeamSelected()" class="irrlevant-control desc-block">
                     <input type="checkbox" id="irrelevantCheckbox" [(ngModel)]="achievableSkill.irrelevant" (change)="updateSkill()">
                     <label for="irrelevantCheckbox" jhiTranslate="teamdojoApp.teams.skills.details.notRelevant">Not relevant for my team</label>
                 </div>
