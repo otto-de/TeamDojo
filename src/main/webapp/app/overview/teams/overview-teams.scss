@@ -2,6 +2,10 @@
 .overviews-teams {
     .team-list {
         .team-item {
+            &.inactive {
+                border-color: $danger;
+                opacity: 0.5;
+            }
             .team-image {
                 width: 5vh;
                 min-width: 46px;
@@ -13,6 +17,9 @@
                 background: white !important;
                 img {
                     width: 100%;
+                }
+                &.active{
+                    border-color: $success;
                 }
             }
             .team-name {

@@ -6,6 +6,7 @@ import { HttpResponse } from '@angular/common/http';
 import { IBadge } from 'app/shared/model/badge.model';
 import { ITeam } from 'app/shared/model/team.model';
 import { CompletionCheck } from 'app/shared/util/completion-check';
+import { RelevanceCheck } from 'app/shared';
 
 @Component({
     selector: 'jhi-overview-achievements',
@@ -70,29 +71,8 @@ export class OverviewAchievementsComponent implements OnInit {
         return new CompletionCheck(team, item).isCompleted();
     }
 
-    private isRelevant(team: ITeam, item: ILevel | IBadge) {
-        if ((<ILevel>item).dimensionId) {
-            return this.isLevelRelevant(team, item);
-        }
-        return this.isBadgeRelevant(team, item);
-    }
-
-    private isLevelRelevant(team: ITeam, level: ILevel) {
-        if (!team.participations.length) {
-            return false;
-        }
-        return team.participations.some((dimension: IDimension) => dimension.id === level.dimensionId);
-    }
-
-    private isBadgeRelevant(team: ITeam, badge: IBadge) {
-        if (!badge.dimensions || !badge.dimensions.length) {
-            return true;
-        }
-        if (!team.participations.length) {
-            return false;
-        }
-        const badgeDimensionIds = badge.dimensions.map((badgeDim: IDimension) => badgeDim.id);
-        return team.participations.some((dimension: IDimension) => badgeDimensionIds.indexOf(dimension.id) !== -1);
+    private isRelevant(team: ITeam, item: ILevel | IBadge): boolean {
+        return new RelevanceCheck(team).isRelevantLevelOrBadge(item);
     }
 
     selectBadge(badge: IBadge) {
