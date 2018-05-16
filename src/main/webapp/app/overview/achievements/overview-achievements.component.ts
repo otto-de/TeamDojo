@@ -110,7 +110,7 @@ export class OverviewAchievementsComponent implements OnInit {
         if (!team.participations.length) {
             return false;
         }
-        let badgeDimensionIds = badge.dimensions.map((badgeDim: IDimension) => badgeDim.id);
+        const badgeDimensionIds = badge.dimensions.map((badgeDim: IDimension) => badgeDim.id);
         return team.participations.some((dimension: IDimension) => badgeDimensionIds.indexOf(dimension.id) !== -1);
     }
 
