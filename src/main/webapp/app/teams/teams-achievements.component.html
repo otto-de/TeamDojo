@@ -3,7 +3,7 @@
     <div class="achievements-level-active mockup mb-2" *ngIf="activeLevel">
         <div class="skill-level-image mx-auto">
             <img [title]="activeLevel.name" [src]="activeLevel.picture | imageDataUrl: activeLevel.pictureContentType"
-                 [alt]="activeLevel.name" *ngIf="'progress' === '100%'; else progressPicture"/>
+                 [alt]="activeLevel.name" *ngIf="false; else progressPicture"/>
             <ng-template #progressPicture>
                 <div class="ml-auto achievement-progress px-2">
                     <svg viewBox="0 0 32 32">
