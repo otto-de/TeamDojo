@@ -5,8 +5,7 @@ import { IDimension } from 'app/shared/model/dimension.model';
 import { HttpResponse } from '@angular/common/http';
 import { IBadge } from 'app/shared/model/badge.model';
 import { ITeam } from 'app/shared/model/team.model';
-import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
-import { ILevelSkill } from 'app/shared/model/level-skill.model';
+import { CompletionCheck } from 'app/shared/util/completion-check';
 
 @Component({
     selector: 'jhi-overview-achievements',
@@ -68,25 +67,7 @@ export class OverviewAchievementsComponent implements OnInit {
     }
 
     private isLevelOrBadgeCompleted(team: ITeam, item: ILevel | IBadge): boolean {
-        let score = 0;
-        let totalScore = 0;
-        for (const itemSkill of item.skills) {
-            totalScore += itemSkill.score;
-            if (this.isSkillCompleted(team, itemSkill)) {
-                score += itemSkill.score;
-            }
-        }
-        const requiredScore = totalScore * item.requiredScore;
-        return score >= requiredScore;
-    }
-
-    private isSkillCompleted(team: ITeam, itemSkill: ILevelSkill | IBadgeSkill): boolean {
-        return team.skills.some(teamSkill => {
-            if (teamSkill.skillId === itemSkill.skillId) {
-                return !!teamSkill.completedAt;
-            }
-            return false;
-        });
+        return new CompletionCheck(team, item).isCompleted();
     }
 
     private isRelevant(team: ITeam, item: ILevel | IBadge) {
