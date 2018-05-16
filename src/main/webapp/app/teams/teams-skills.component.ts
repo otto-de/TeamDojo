@@ -173,4 +173,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     isActiveSkill(s: IAchievableSkill) {
         return typeof this.skill !== 'undefined' && this.skill !== null && this.skill.skillId === s.skillId;
     }
+
+    isIrrelevantSkill(s: IAchievableSkill) {
+        return s.irrelevant;
+    }
 }
