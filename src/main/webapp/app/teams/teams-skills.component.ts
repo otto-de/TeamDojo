@@ -25,6 +25,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     totalItems: number;
     checkComplete: boolean;
     levelIds: number[];
+    badgeIds: number[];
 
     constructor(
         private teamsSkillsService: TeamsSkillsService,
@@ -48,11 +49,9 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.route.paramMap.subscribe((params: ParamMap) => {
             const levelId: string = params.get('level');
-            if (levelId && Number.parseInt(levelId)) {
-                this.levelIds = [Number.parseInt(levelId)];
-            } else {
-                this.levelIds = [];
-            }
+            const badgeId: string = params.get('badge');
+            this.levelIds = levelId && Number.parseInt(levelId) ? [Number.parseInt(levelId)] : [];
+            this.badgeIds = badgeId && Number.parseInt(badgeId) ? [Number.parseInt(badgeId)] : [];
             this.skills = [];
             this.loadAll();
         });
@@ -78,7 +77,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
                 page: this.page,
                 size: this.itemsPerPage,
                 filter: this.filters,
-                levelId: this.levelIds || []
+                levelId: this.levelIds || [],
+                badgeId: this.badgeIds || []
             })
             .subscribe(
                 (res: HttpResponse<IAchievableSkill[]>) => this.paginateAchievableSkills(res.body, res.headers),
