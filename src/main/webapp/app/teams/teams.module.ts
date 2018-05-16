@@ -13,7 +13,6 @@ import { TeamsSkillsService } from './teams-skills.service';
 import { TeamsSelectionService } from './teams-selection/teams-selection.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TeamsAchievementsService } from 'app/teams/teams-achievements.service';
-import { ImageDataUrlPipe } from 'app/shared/pipe/image-data-url.pipe';
 import { SkillDetailsComponent } from 'app/teams/skill-details/skill-details.component';
 
 @NgModule({
@@ -24,7 +23,6 @@ import { SkillDetailsComponent } from 'app/teams/skill-details/skill-details.com
         TeamsAchievementsComponent,
         TeamsSkillsComponent,
         TeamsSelectionComponent,
-        ImageDataUrlPipe,
         SkillDetailsComponent
     ],
     entryComponents: [TeamsSelectionComponent],
