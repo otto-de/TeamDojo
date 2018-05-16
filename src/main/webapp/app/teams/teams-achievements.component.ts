@@ -33,19 +33,16 @@ export class TeamsAchievementsComponent implements OnInit {
     ngOnInit() {
         this.route.paramMap.subscribe((params: ParamMap) => {
             const dimensionId = Number.parseInt(params.get('dimension'));
+            this.activeAchievement = null;
             if (Number.isInteger(dimensionId)) {
                 this.activeDimensionId = dimensionId;
                 if (this.levels[this.activeDimensionId] && params.get('level')) {
                     this.activeAchievement = this.levels[this.activeDimensionId].find(
                         (level: ILevel) => level.id === Number.parseInt(params.get('level'))
                     );
-                } else {
-                    this.activeAchievement = null;
                 }
             } else if (params.get('badge')) {
                 this.activeAchievement = this.badges.find((badge: IBadge) => badge.id === Number.parseInt(params.get('badge')));
-            } else {
-                this.activeAchievement = null;
             }
         });
         this.loadAll();
