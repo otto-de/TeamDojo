@@ -8,7 +8,7 @@ import { IBadge } from 'app/shared/model/badge.model';
 import { ILevel } from 'app/shared/model/level.model';
 import { LevelService } from 'app/entities/level';
 import { BadgeService } from 'app/entities/badge';
-import moment = require('moment');
+import * as moment from 'moment';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
@@ -21,17 +21,17 @@ import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection
     styleUrls: ['./skill-details.scss']
 })
 export class SkillDetailsComponent implements OnInit {
-    private team: ITeam;
+    team: ITeam;
 
-    private skill: ISkill;
+    skill: ISkill;
 
-    private achievableSkill: IAchievableSkill;
+    achievableSkill: IAchievableSkill;
 
-    private achievedByTeams: ITeam[] = [];
+    achievedByTeams: ITeam[] = [];
 
-    private neededForLevels: ILevel[] = [];
+    neededForLevels: ILevel[] = [];
 
-    private neededForBadges: IBadge[] = [];
+    neededForBadges: IBadge[] = [];
 
     @Output() onSkillChanged = new EventEmitter<IAchievableSkill>();
 
