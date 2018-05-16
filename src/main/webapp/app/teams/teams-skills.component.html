@@ -28,13 +28,14 @@
              [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="1"
              [infiniteScrollContainer]="'.teams-skills-list'">
             <div class="teams-skills-list list-group">
-                <li class="list-group-item list-group-item-action flex-column align-items-start mb-2"
-                    *ngFor='let skill of skills' [ngClass]="{'active-skill':isActiveSkill(skill)}" [ngClass]="{'irrelevant-skill':isIrrelevantSkill(skill)}"
-                    (click)="handleSkillClicked(skill)">
-                    <div class="d-flex w-100 justify-content-between">
 
+                <li class="list-group-item list-group-item-action flex-column align-items-start mb-2 skill-list-item"
+                    *ngFor='let skill of skills' [ngClass]="{'active-skill':isActiveSkill(skill)}"
+                    [ngClass]="{'irrelevant-skill':isIrrelevantSkill(skill)}" (click)="handleSkillClicked(skill)">
+
+                    <div class="d-flex w-100 justify-content-between">
+                        <a *ngIf="isInSkillDetails()" class="text-dark mb-1">{{skill.title}}</a>
                         <a *ngIf="!isInSkillDetails()" [routerLink]="['/teams', team.shortName,'skills', skill.skillId]" class="text-dark mb-1">{{skill.title}}</a>
-                        <a *ngIf="isInSkillDetails()" (click)="handleSkillClicked(skill)" class="text-dark mb-1">{{skill.title}}</a>
                         <jhi-toggle-switch [checked]="!!skill.achievedAt"
                                        [disabled]="!isSameTeamSelected()"
                                        popoverText="{{!skill.achievedAt ? ('teamdojoApp.teams.skills.notAchieved' | translate)

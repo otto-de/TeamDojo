@@ -153,15 +153,16 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     }
 
     handleSkillClicked(s: IAchievableSkill) {
-        const url = this.router.createUrlTree(['teams', this.team.shortName, 'skills', s.skillId]).toString();
-        this.location.replaceState(url);
-
-        this.skillService.find(s.skillId).subscribe(res => {
-            this.onSkillClicked.emit({
-                iSkill: res.body,
-                aSkill: s
+        if (this.isInSkillDetails()) {
+            const url = this.router.createUrlTree(['/teams', this.team.shortName, 'skills', s.skillId]).toString();
+            this.location.replaceState(url);
+            this.skillService.find(s.skillId).subscribe(res => {
+                this.onSkillClicked.emit({
+                    iSkill: res.body,
+                    aSkill: s
+                });
             });
-        });
+        }
     }
 
     handleSkillChanged(s: IAchievableSkill) {
