@@ -19,7 +19,8 @@ export class OverviewAchievementsComponent implements OnInit {
     @Input() badges: IBadge[];
     dimensions: IDimension[];
     generalBadges: IBadge[];
-    activeItem: ILevel | IBadge;
+    activeBadgeId: number;
+    activeLevelId: number;
 
     constructor(private dimensionService: DimensionService) {}
 
@@ -113,13 +114,21 @@ export class OverviewAchievementsComponent implements OnInit {
         return team.participations.some((dimension: IDimension) => badgeDimensionIds.indexOf(dimension.id) !== -1);
     }
 
-    itemSelected(event, item: ILevel | IBadge) {
-        event.preventDefault();
-        if (this.activeItem && this.activeItem.id == item.id) {
-            this.activeItem = null;
+    badgeSelected(badge: IBadge) {
+        this.activeLevelId = null;
+        if (this.activeBadgeId === badge.id) {
+            this.activeBadgeId = null;
         } else {
-            this.activeItem = item;
+            this.activeBadgeId = badge.id;
         }
-        console.log('Item', item.name, 'selected');
+    }
+
+    levelSelected(level: ILevel) {
+        this.activeBadgeId = null;
+        if (this.activeLevelId === level.id) {
+            this.activeLevelId = null;
+        } else {
+            this.activeLevelId = level.id;
+        }
     }
 }

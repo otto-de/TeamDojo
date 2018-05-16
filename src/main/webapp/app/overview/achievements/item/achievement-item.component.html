@@ -1,0 +1,18 @@
+<ng-template #popoverContent>
+    <div class="d-flex flex-column align-items-center">
+        <div>{{item.name}}</div>
+        <small>({{progress}}%)</small>
+    </div>
+</ng-template>
+<div class="achievement-item" [ngClass]="{'active': active}"
+     [ngbPopover]="popoverContent" triggers="mouseenter:mouseleave" placement="top">
+    <div class="d-flex justify-content-center pt-1">
+        <a href="#" (click)="itemSelected($event)" class="item-image">
+            <img [title]="item.name" *ngIf="item.picture && item.pictureContentType"
+                 [src]="item.picture | imageDataUrl: item.pictureContentType"/>
+        </a>
+    </div>
+    <p class="item-progress">
+        <ngb-progressbar type="success" striped="true" height="8px" [value]="progress"></ngb-progressbar>
+    </p>
+</div>
