@@ -1,9 +1,9 @@
 <div class="teams-achievements">
     <h4>{{'teamdojoApp.teams.achievements.title' | translate}}</h4>
-    <div class="achievements-level-active mockup mb-2" *ngIf="activeLevel">
+    <div class="achievements-level-active mockup mb-2" *ngIf="activeAchievement">
         <div class="skill-level-image mx-auto">
-            <img [title]="activeLevel.name" [src]="activeLevel.picture | imageDataUrl: activeLevel.pictureContentType"
-                 [alt]="activeLevel.name" *ngIf="'progress' === '100%'; else progressPicture"/>
+            <img [title]="activeAchievement.name" [src]="activeAchievement.picture | imageDataUrl: activeAchievement.pictureContentType"
+                 [alt]="activeAchievement.name" *ngIf="false; else progressPicture"/>
             <ng-template #progressPicture>
                 <div class="ml-auto achievement-progress px-2">
                     <svg viewBox="0 0 32 32">
@@ -22,18 +22,22 @@
                 </ng-template>
                 <ng-template ngbPanelContent>
                     <div class="achievements-badges">
-                        <div class="d-flex align-items-center achievements-badge" [ngClass]="{'mb-3': !isLast}"
-                             *ngFor="let badge of badges; trackBy: trackId; last as isLast">
-                            <div class="badge-image">
-                                <img [title]="badge.name" [alt]="badge.name"
-                                     [src]="badge.logo | imageDataUrl: badge.logoContentType"/>
-                            </div>
-                            <div class="badge-name ml-2">{{badge.name}}</div>
-                            <div class="ml-auto achievement-progress mockup minor px-2">
-                                <svg viewBox="0 0 32 32">
-                                    <circle r="16" cx="16" cy="16" style="stroke-dasharray: 40 100;"/>
-                                </svg>
-                            </div>
+                        <div [ngClass]="{'mb-3': !isLast}" *ngFor="let badge of badges; trackBy: trackId; last as isLast">
+                            <a [routerLink]="['.', badgeRouteParameters(badge)]" (click)="activeAchievement = badge">
+                                <div class="d-flex align-items-center achievements-badge"
+                                     [ngClass]="{'active': activeAchievement && activeAchievement.id === badge.id}">
+                                    <div class="badge-image">
+                                        <img [title]="badge.name" [alt]="badge.name"
+                                             [src]="badge.logo | imageDataUrl: badge.logoContentType"/>
+                                    </div>
+                                    <div class="badge-name ml-2">{{badge.name}}</div>
+                                    <div class="ml-auto achievement-progress mockup minor px-2">
+                                        <svg viewBox="0 0 32 32">
+                                            <circle r="16" cx="16" cy="16" style="stroke-dasharray: 40 100;"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </ng-template>
@@ -64,9 +68,9 @@
                     <div class="achievements-skill-levels">
                         <div [ngClass]="{'pb-3': !isLast}" id="achievements-level-{{level.id}}"
                              *ngFor="let level of levels[dimension.id]; trackBy: trackId; last as isLast">
-                            <a [routerLink]="['.', levelRouteParameters(dimension, level)]" (click)="activeLevel = level">
+                            <a [routerLink]="['.', levelRouteParameters(dimension, level)]" (click)="activeAchievement = level">
                                 <div class="d-flex align-items-center achievements-skill-level"
-                                     [ngClass]="{'active': activeLevel && activeLevel.id === level.id}">
+                                     [ngClass]="{'active': activeAchievement && activeAchievement.id === level.id}">
                                     <div class="skill-level-image">
                                         <img [title]="level.name" [alt]="level.name"
                                              [src]="level.picture | imageDataUrl: level.pictureContentType"/>
