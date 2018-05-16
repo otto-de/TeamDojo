@@ -31,20 +31,25 @@
 
                 <li class="list-group-item list-group-item-action flex-column align-items-start mb-2 skill-list-item"
                     *ngFor='let skill of skills' [ngClass]="{'active-skill':isActiveSkill(skill)}"
-                    [ngClass]="{'irrelevant-skill':isIrrelevantSkill(skill)}" (click)="handleSkillClicked(skill)">
+                    (click)="handleSkillClicked(skill)">
 
                     <div class="d-flex w-100 justify-content-between">
                         <a *ngIf="isInSkillDetails()" class="text-dark mb-1">{{skill.title}}</a>
                         <a *ngIf="!isInSkillDetails()" [routerLink]="['/teams', team.shortName,'skills', skill.skillId]" class="text-dark mb-1">{{skill.title}}</a>
-                        <jhi-toggle-switch [checked]="!!skill.achievedAt"
-                                       [disabled]="!isSameTeamSelected()"
-                                       popoverText="{{!skill.achievedAt ? ('teamdojoApp.teams.skills.notAchieved' | translate)
+                        <jhi-toggle-switch
+                            *ngIf="!skill.irrelevant"
+                            [checked]="!!skill.achievedAt"
+                            [disabled]="!isSameTeamSelected()"
+                            popoverText="{{!skill.achievedAt ? ('teamdojoApp.teams.skills.notAchieved' | translate)
                                         : ('teamdojoApp.teams.skills.achievedOn' | translate) +' ' + (skill.achievedAt | date: ('teamdojoApp.teams.dateFormat' | translate))}}"
-                                       (onToggled)="onToggled($event, skill)"></jhi-toggle-switch>
+                            (onToggled)="onToggled($event, skill)"></jhi-toggle-switch>
+                        <span *ngIf="skill.irrelevant" class="fa fa-thumbs-o-down irrelevant-icon"
+                              triggers="mouseenter:mouseleave" placement="left"
+                              [ngbPopover]="'teamdojoApp.teams.skills.details.notRelevant' | translate"></span>
                     </div>
                     <p class="mb-1"></p>
                     <small>{{skill.description}}</small>
-                    <small *ngIf="isIrrelevantSkill(skill)">(not relevant)</small>
+                    <div *ngIf="skill.irrelevant" class="irrelevant-overlay"></div>
                 </li>
             </div>
         </div>
