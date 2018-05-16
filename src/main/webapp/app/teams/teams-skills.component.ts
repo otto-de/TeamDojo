@@ -4,7 +4,7 @@ import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSkillsService } from './teams-skills.service';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
-import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
+import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
@@ -21,7 +21,8 @@ import { Router } from '@angular/router';
 export class TeamsSkillsComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
     @Input() skill: ISkill;
-    @Output() onSkillChanged = new EventEmitter<ISkill>();
+    @Output() onSkillClicked = new EventEmitter<ISkill>();
+    @Output() onSkillChanged = new EventEmitter<{ iSkill: ISkill; aSkill: AchievableSkill }>();
     skills: IAchievableSkill[];
     filters: string[];
     page: number;
@@ -103,7 +104,16 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
             skill.achievedAt = null;
         }
         this.teamsSkillsService.updateAchievableSkill(this.team.id, skill).subscribe(
-            (res: HttpResponse<IAchievableSkill>) => (skill = res.body),
+            (res: HttpResponse<IAchievableSkill>) => {
+                skill = res.body;
+
+                this.skillService.find(skill.skillId).subscribe(skillRes => {
+                    this.onSkillChanged.emit({
+                        iSkill: skillRes.body,
+                        aSkill: skill
+                    });
+                });
+            },
             (res: HttpErrorResponse) => {
                 console.log(res);
             }
@@ -142,13 +152,13 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         return typeof this.skill !== 'undefined' && this.skill !== null;
     }
 
-    onSkillClicked(s: IAchievableSkill) {
+    handleSkillClicked(s: IAchievableSkill) {
         const url = this.router.createUrlTree(['teams', this.team.shortName, 'skills', s.skillId]).toString();
         this.location.replaceState(url);
 
         this.skillService.find(s.skillId).subscribe(value => {
             this.skill = value.body;
-            this.onSkillChanged.emit(this.skill);
+            this.onSkillClicked.emit(this.skill);
         });
     }
 

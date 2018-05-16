@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-4">
-        <jhi-teams-skills [team]="team" [skill]="skill" (onSkillChanged)="handleSkillChange($event)"></jhi-teams-skills>
+        <jhi-teams-skills [team]="team" [skill]="skill" (onSkillClicked)="handleSkillClick($event)"
+                          (onSkillChanged)="handleSkillChange($event)"></jhi-teams-skills>
     </div>
     <div class="col-md-8">
         <h2 class="skill-title">{{skill.title}}</h2>

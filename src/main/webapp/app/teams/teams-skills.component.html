@@ -33,7 +33,7 @@
                     <div class="d-flex w-100 justify-content-between">
 
                         <a *ngIf="!isInSkillDetails()" [routerLink]="['/teams', team.shortName,'skills', skill.skillId]" class="text-dark mb-1">{{skill.title}}</a>
-                        <a *ngIf="isInSkillDetails()" (click)="onSkillClicked(skill)" class="text-dark mb-1">{{skill.title}}</a>
+                        <a *ngIf="isInSkillDetails()" (click)="handleSkillClicked(skill)" class="text-dark mb-1">{{skill.title}}</a>
                         <jhi-toggle-switch [checked]="!!skill.achievedAt"
                                        [disabled]="!isSameTeamSelected()"
                                        popoverText="{{!skill.achievedAt ? ('teamdojoApp.teams.skills.notAchieved' | translate)
