@@ -48,7 +48,7 @@
         ul.achievements-skill-levels, ul.achievements-badges {
             list-style: none;
         }
-        .achievements-skill-level {
+        .achievements-skill-level, .achievements-badge {
             border: 1px solid transparent;
             border-radius: 5vh;
             &.active {

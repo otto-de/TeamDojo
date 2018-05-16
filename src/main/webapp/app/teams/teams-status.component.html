@@ -11,9 +11,21 @@
                 </a>
             </div>
             <div class="avatar-badges mockup mb-0">
-                <div class="avatar-badge"><img title="AWS Ready badge" alt="AWS Ready badge"/></div>
-                <div class="avatar-badge"><img title="ISO 27001 badge" alt="ISO 27001 badge"/></div>
-                <div class="avatar-badge"><img title="Best team badge" alt="Best team badge"/></div>
+                <a [routerLink]="['.', {'badge': '9700'}]">
+                    <div class="avatar-badge">
+                        <img title="AWS Ready badge" alt="AWS Ready badge"/>
+                    </div>
+                </a>
+                <a [routerLink]="['.', {'badge': '9750'}]">
+                    <div class="avatar-badge">
+                        <img title="The Trophy badge" alt="The Trophy badge"/>
+                    </div>
+                </a>
+                <a [routerLink]="['.', {'badge': '9800'}]">
+                    <div class="avatar-badge">
+                        <img title="Security badge" alt="Security badge"/>
+                    </div>
+                </a>
             </div>
         </div>
         <h1 *ngIf="team.slogan" class="avatar-slogan">{{team.slogan}}</h1>

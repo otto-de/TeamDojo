@@ -5,8 +5,7 @@ import { IDimension } from 'app/shared/model/dimension.model';
 import { HttpResponse } from '@angular/common/http';
 import { IBadge } from 'app/shared/model/badge.model';
 import { ITeam } from 'app/shared/model/team.model';
-import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
-import { ILevelSkill } from 'app/shared/model/level-skill.model';
+import { CompletionCheck } from 'app/shared/util/completion-check';
 
 @Component({
     selector: 'jhi-overview-achievements',
@@ -19,7 +18,8 @@ export class OverviewAchievementsComponent implements OnInit {
     @Input() badges: IBadge[];
     dimensions: IDimension[];
     generalBadges: IBadge[];
-    activeItem: ILevel | IBadge;
+    activeBadgeId: number;
+    activeLevelId: number;
 
     constructor(private dimensionService: DimensionService) {}
 
@@ -27,10 +27,10 @@ export class OverviewAchievementsComponent implements OnInit {
         this.generalBadges = [];
         this.dimensionService.query().subscribe((res: HttpResponse<IDimension[]>) => {
             this.dimensions = res.body;
-            const levelsByDimension = {};
+            const levelsByDimensionId = {};
             this.levels.forEach((level: ILevel) => {
-                levelsByDimension[level.dimensionId] = levelsByDimension[level.dimensionId] || [];
-                levelsByDimension[level.dimensionId].push(Object.assign(level));
+                levelsByDimensionId[level.dimensionId] = levelsByDimensionId[level.dimensionId] || [];
+                levelsByDimensionId[level.dimensionId].push(Object.assign(level));
             });
 
             const badgesByDimensionId = {};
@@ -46,13 +46,13 @@ export class OverviewAchievementsComponent implements OnInit {
             });
 
             this.dimensions.forEach((dimension: IDimension) => {
-                dimension.levels = levelsByDimension[dimension.id] || [];
+                dimension.levels = levelsByDimensionId[dimension.id] || [];
                 dimension.badges = badgesByDimensionId[dimension.id] || [];
             });
         });
     }
 
-    getProgress(item: ILevel | IBadge) {
+    getAchievementProgress(item: ILevel | IBadge) {
         let baseCount = 0;
         let completedCount = 0;
         this.teams.forEach((team: ITeam) => {
@@ -67,25 +67,7 @@ export class OverviewAchievementsComponent implements OnInit {
     }
 
     private isLevelOrBadgeCompleted(team: ITeam, item: ILevel | IBadge): boolean {
-        let score = 0;
-        let totalScore = 0;
-        for (const itemSkill of item.skills) {
-            totalScore += itemSkill.score;
-            if (this.isSkillCompleted(team, itemSkill)) {
-                score += itemSkill.score;
-            }
-        }
-        const requiredScore = totalScore * item.requiredScore;
-        return score >= requiredScore;
-    }
-
-    private isSkillCompleted(team: ITeam, itemSkill: ILevelSkill | IBadgeSkill): boolean {
-        return team.skills.some(teamSkill => {
-            if (teamSkill.skillId === itemSkill.skillId) {
-                return !!teamSkill.completedAt;
-            }
-            return false;
-        });
+        return new CompletionCheck(team, item).isCompleted();
     }
 
     private isRelevant(team: ITeam, item: ILevel | IBadge) {
@@ -109,17 +91,17 @@ export class OverviewAchievementsComponent implements OnInit {
         if (!team.participations.length) {
             return false;
         }
-        let badgeDimensionIds = badge.dimensions.map((badgeDim: IDimension) => badgeDim.id);
+        const badgeDimensionIds = badge.dimensions.map((badgeDim: IDimension) => badgeDim.id);
         return team.participations.some((dimension: IDimension) => badgeDimensionIds.indexOf(dimension.id) !== -1);
     }
 
-    itemSelected(event, item: ILevel | IBadge) {
-        event.preventDefault();
-        if (this.activeItem && this.activeItem.id == item.id) {
-            this.activeItem = null;
-        } else {
-            this.activeItem = item;
-        }
-        console.log('Item', item.name, 'selected');
+    selectBadge(badge: IBadge) {
+        this.activeLevelId = null;
+        this.activeBadgeId = this.activeBadgeId === badge.id ? null : badge.id;
+    }
+
+    selectLevel(level: ILevel) {
+        this.activeBadgeId = null;
+        this.activeLevelId = this.activeLevelId === level.id ? null : level.id;
     }
 }
