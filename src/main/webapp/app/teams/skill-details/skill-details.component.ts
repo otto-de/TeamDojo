@@ -49,7 +49,7 @@ export class SkillDetailsComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.data.subscribe(({ team, skill }) => {
-            this.team = team.body[0] ? team.body[0] : team;
+            this.team = team;
             this.skill = skill;
         });
         this.loadData();
