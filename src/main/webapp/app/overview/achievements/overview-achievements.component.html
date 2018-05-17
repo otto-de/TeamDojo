@@ -21,7 +21,9 @@
                         <div class="" *ngFor="let badge of generalBadges">
                             <jhi-achievement-item [item]="badge" [progress]="getAchievementProgress(badge)"
                                                   [active]="activeBadgeId === badge.id"
-                                                  (onItemSelected)="selectBadge(badge)"></jhi-achievement-item>
+                                                  (onItemSelected)="selectBadge(badge)"
+                                                  [routerLink]="['.']" [queryParams]="{'badge': badge.id}">
+                            </jhi-achievement-item>
                         </div>
                     </div>
                 </div>
@@ -49,7 +51,9 @@
                         <div *ngFor="let badge of dimension.badges">
                             <jhi-achievement-item [item]="badge" [progress]="getAchievementProgress(badge)"
                                                   [active]="activeBadgeId === badge.id"
-                                                  (onItemSelected)="selectBadge(badge)"></jhi-achievement-item>
+                                                  (onItemSelected)="selectBadge(badge)"
+                                                  [routerLink]="['.']" [queryParams]="{'badge': badge.id}">
+                            </jhi-achievement-item>
                         </div>
                     </div>
                     <div class="item-list-body">
@@ -59,7 +63,9 @@
                             <div *ngFor="let level of dimension.levels">
                                 <jhi-achievement-item [item]="level" [progress]="getAchievementProgress(level)"
                                                       [active]="activeLevelId === level.id"
-                                                      (onItemSelected)="selectLevel(level)"></jhi-achievement-item>
+                                                      (onItemSelected)="selectLevel(level)"
+                                                      [routerLink]="['.']" [queryParams]="{'level': level.id}">
+                                </jhi-achievement-item>
                             </div>
                         </div>
                     </div>
