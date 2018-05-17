@@ -101,9 +101,13 @@ Generic styles
     }
 }
 
-img {
+.img-placeholder {
+    width: 80%;
+    color: grey;
     font-size: 10px;
     text-align: center;
+    font-weight: normal;
+    margin: 0px auto;
 }
 
 /* ==========================================================================
