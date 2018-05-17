@@ -2,8 +2,8 @@
     <div>
         <h4>{{'teamdojoApp.overview.achievements.title' | translate}}</h4>
     </div>
-    <ngb-accordion>
-        <ngb-panel>
+    <ngb-accordion activeIds="achievements-general-badges">
+        <ngb-panel id="achievements-general-badges">
             <ng-template ngbPanelTitle>
                 <div class="d-flex align-items-center">
                     <div class="d-inline-block minor px-2">
@@ -20,16 +20,17 @@
                     <div class="d-flex flex-wrap">
                         <div class="" *ngFor="let badge of generalBadges">
                             <jhi-achievement-item [item]="badge" [progress]="getAchievementProgress(badge)"
-                                                  [active]="activeBadgeId === badge.id"
-                                                  (onItemSelected)="selectBadge(badge)"></jhi-achievement-item>
+                                                  [active]="activeItemIds.badge === badge.id"
+                                                  (onItemSelected)="selectItem('badge', badge.id)">
+                            </jhi-achievement-item>
                         </div>
                     </div>
                 </div>
             </ng-template>
         </ngb-panel>
     </ngb-accordion>
-    <ngb-accordion>
-        <ngb-panel class="mt-1" *ngFor="let dimension of dimensions">
+    <ngb-accordion [activeIds]="expandedDimensions">
+        <ngb-panel class="mt-1" *ngFor="let dimension of dimensions" id="achievements-dimension-{{dimension.id}}">
             <ng-template ngbPanelTitle>
                 <div class="d-flex align-items-center">
                     <div class="d-inline-block minor px-2">
@@ -48,8 +49,9 @@
                     <div class="d-flex flex-wrap">
                         <div *ngFor="let badge of dimension.badges">
                             <jhi-achievement-item [item]="badge" [progress]="getAchievementProgress(badge)"
-                                                  [active]="activeBadgeId === badge.id"
-                                                  (onItemSelected)="selectBadge(badge)"></jhi-achievement-item>
+                                                  [active]="activeItemIds.badge === badge.id"
+                                                  (onItemSelected)="selectItem('badge', badge.id)">
+                            </jhi-achievement-item>
                         </div>
                     </div>
                     <div class="item-list-body">
@@ -58,8 +60,9 @@
                         <div class="d-flex flex-wrap">
                             <div *ngFor="let level of dimension.levels">
                                 <jhi-achievement-item [item]="level" [progress]="getAchievementProgress(level)"
-                                                      [active]="activeLevelId === level.id"
-                                                      (onItemSelected)="selectLevel(level)"></jhi-achievement-item>
+                                                      [active]="activeItemIds.level === level.id"
+                                                      (onItemSelected)="selectItem('level', level.id)">
+                                </jhi-achievement-item>
                             </div>
                         </div>
                     </div>
