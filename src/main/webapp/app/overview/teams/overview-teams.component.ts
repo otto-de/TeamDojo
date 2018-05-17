@@ -20,7 +20,7 @@ export class OverviewTeamsComponent implements OnInit {
     constructor(private route: ActivatedRoute) {}
 
     ngOnInit(): void {
-        this.route.paramMap.subscribe((params: ParamMap) => {
+        this.route.queryParamMap.subscribe((params: ParamMap) => {
             const badgeId: number = this.getParamAsNumber('badge', params);
             const levelId: number = this.getParamAsNumber('level', params);
             const dimensionId: number = this.getParamAsNumber('dimension', params);
