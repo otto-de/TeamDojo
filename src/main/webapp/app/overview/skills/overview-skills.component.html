@@ -1,5 +1,16 @@
 <div class="overviews-skills">
-    <div class="mockup">
+    <div class="">
         <h4>{{'teamdojoApp.overview.skills.title' | translate}}</h4>
+    </div>
+    <div class="teams-skills-list list-group">
+        <li class="list-group-item list-group-item-action flex-column align-items-start mb-2"
+        *ngFor="let skill of activeSkills">
+            <div class="d-flex justify-content-between">
+                    <a class="#" (click)="skillClicked($event, skill)" class="text-dark mb-1">{{ skill.skillTitle }}</a>
+                <div class="d-flex align-items-end ml-auto">
+                    <span class="noWrap">{{getRelevantTeams(skill)}}</span>
+                </div>
+            </div>
+        </li>
     </div>
 </div>

@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 /**
  * Mapper for the entity Badge and its DTO BadgeDTO.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {DimensionMapper.class})
 public interface BadgeMapper extends EntityMapper<BadgeDTO, Badge> {
 
 

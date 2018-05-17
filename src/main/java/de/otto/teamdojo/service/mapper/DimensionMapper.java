@@ -13,6 +13,8 @@ public interface DimensionMapper extends EntityMapper<DimensionDTO, Dimension> {
 
 
     @Mapping(target = "participants", ignore = true)
+    @Mapping(target = "levels", ignore = true)
+    @Mapping(target = "badges", ignore = true)
     Dimension toEntity(DimensionDTO dimensionDTO);
 
     default Dimension fromId(Long id) {

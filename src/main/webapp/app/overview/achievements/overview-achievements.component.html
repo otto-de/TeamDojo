@@ -1,5 +1,73 @@
 <div class="overviews-achievements">
-    <div class="mockup">
+    <div>
         <h4>{{'teamdojoApp.overview.achievements.title' | translate}}</h4>
     </div>
+    <ngb-accordion activeIds="achievements-general-badges">
+        <ngb-panel id="achievements-general-badges">
+            <ng-template ngbPanelTitle>
+                <div class="d-flex align-items-center">
+                    <div class="d-inline-block minor px-2">
+                        <div class="">
+                            <img/>
+                        </div>
+                    </div>
+                    <i class="fa fa-caret-right mr-2"></i>
+                    <span jhiTranslate="teamdojoApp.overview.achievements.generalBadges.title"></span>
+                </div>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="item-list-body">
+                    <div class="d-flex flex-wrap">
+                        <div class="" *ngFor="let badge of generalBadges">
+                            <jhi-achievement-item [item]="badge" [progress]="getAchievementProgress(badge)"
+                                                  [active]="activeItemIds.badge === badge.id"
+                                                  (onItemSelected)="selectItem('badge', badge.id)">
+                            </jhi-achievement-item>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-panel>
+    </ngb-accordion>
+    <ngb-accordion [activeIds]="expandedDimensions">
+        <ngb-panel class="mt-1" *ngFor="let dimension of dimensions" id="achievements-dimension-{{dimension.id}}">
+            <ng-template ngbPanelTitle>
+                <div class="d-flex align-items-center">
+                    <div class="d-inline-block minor px-2">
+                        <div class="">
+                            <img/>
+                        </div>
+                    </div>
+                    <i class="fa fa-caret-right mr-2"></i>
+                    <span>{{dimension.name}}</span>
+                </div>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="item-list-body">
+                    <div *ngIf="dimension.badges.length" class="item-list-title"
+                         jhiTranslate="teamdojoApp.overview.achievements.dimensions.badges.title"></div>
+                    <div class="d-flex flex-wrap">
+                        <div *ngFor="let badge of dimension.badges">
+                            <jhi-achievement-item [item]="badge" [progress]="getAchievementProgress(badge)"
+                                                  [active]="activeItemIds.badge === badge.id"
+                                                  (onItemSelected)="selectItem('badge', badge.id)">
+                            </jhi-achievement-item>
+                        </div>
+                    </div>
+                    <div class="item-list-body">
+                        <div *ngIf="dimension.levels.length" class="item-list-title"
+                             jhiTranslate="teamdojoApp.overview.achievements.dimensions.levels.title"></div>
+                        <div class="d-flex flex-wrap">
+                            <div *ngFor="let level of dimension.levels">
+                                <jhi-achievement-item [item]="level" [progress]="getAchievementProgress(level)"
+                                                      [active]="activeItemIds.level === level.id"
+                                                      (onItemSelected)="selectItem('level', level.id)">
+                                </jhi-achievement-item>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-panel>
+    </ngb-accordion>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { IBadge } from 'app/shared/model/badge.model';
 import { ITeam } from 'app/shared/model/team.model';
@@ -6,6 +6,8 @@ import { ILevel } from 'app/shared/model/level.model';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { JhiAlertService } from 'ng-jhipster';
 import { TeamsAchievementsService } from './teams-achievements.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { sortLevels } from 'app/shared';
 
 @Component({
     selector: 'jhi-teams-achievements',
@@ -16,13 +18,33 @@ export class TeamsAchievementsComponent implements OnInit {
     @Input() team: ITeam;
     badges: IBadge[];
     levels: { [key: number]: ILevel[] };
+    activeDimensionId: number;
+    activeAchievement: any;
 
-    constructor(private teamsAchievementsService: TeamsAchievementsService, private jhiAlertService: JhiAlertService) {
+    constructor(
+        private route: ActivatedRoute,
+        private teamsAchievementsService: TeamsAchievementsService,
+        private jhiAlertService: JhiAlertService
+    ) {
         this.badges = [];
         this.levels = {};
     }
 
     ngOnInit() {
+        this.route.queryParamMap.subscribe((params: ParamMap) => {
+            const dimensionId = Number.parseInt(params.get('dimension'));
+            this.activeAchievement = null;
+            if (Number.isInteger(dimensionId)) {
+                this.activeDimensionId = dimensionId;
+                if (this.levels[this.activeDimensionId] && params.get('level')) {
+                    this.activeAchievement = this.levels[this.activeDimensionId].find(
+                        (level: ILevel) => level.id === Number.parseInt(params.get('level'))
+                    );
+                }
+            } else if (params.get('badge')) {
+                this.activeAchievement = this.badges.find((badge: IBadge) => badge.id === Number.parseInt(params.get('badge')));
+            }
+        });
         this.loadAll();
     }
 
@@ -34,6 +56,7 @@ export class TeamsAchievementsComponent implements OnInit {
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
         if (this.team.participations) {
+            this.activeDimensionId = this.team.participations[0] ? this.team.participations[0].id : 0;
             const dimensionIds: number[] = this.team.participations.map((dimension: IDimension) => dimension.id);
             this.teamsAchievementsService.queryLevels({ 'dimensionId.in': dimensionIds }).subscribe(
                 (res: HttpResponse<ILevel[]>) => {
@@ -48,7 +71,7 @@ export class TeamsAchievementsComponent implements OnInit {
                     }
                     for (const dimensionId in levels) {
                         if (levels.hasOwnProperty(dimensionId)) {
-                            this.levels[dimensionId] = levels[dimensionId].sort(this._sortLevels);
+                            this.levels[dimensionId] = sortLevels(levels[dimensionId]);
                         }
                     }
                 },
@@ -57,14 +80,14 @@ export class TeamsAchievementsComponent implements OnInit {
         }
     }
 
-    private _sortLevels(lowerLevel, upperLevel) {
-        let compareValue = 0;
-        if (lowerLevel.dependsOnId !== undefined && lowerLevel.dependsOnId === upperLevel.id) {
-            compareValue = -1;
-        } else if (upperLevel.dependsOnId !== undefined && lowerLevel.id === upperLevel.dependsOnId) {
-            compareValue = 1;
-        }
-        return compareValue;
+    levelRouteParameters(dimension: IDimension, level: ILevel): Object {
+        return this.activeAchievement && this.activeAchievement.id === level.id
+            ? { dimension: dimension.id }
+            : { dimension: dimension.id, level: level.id };
+    }
+
+    badgeRouteParameters(badge: IBadge): Object {
+        return this.activeAchievement && this.activeAchievement.id === badge.id ? {} : { badge: badge.id };
     }
 
     trackId(index: number, item) {
