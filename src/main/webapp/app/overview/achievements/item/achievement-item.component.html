@@ -8,7 +8,9 @@
      [ngbPopover]="popoverContent" triggers="mouseenter:mouseleave" placement="top">
     <div class="d-flex justify-content-center pt-1">
         <span class="item-image">
-            <img [title]="item.name" [alt]="item.name" [src]="item.picture | imageDataUrl: item.pictureContentType"/>
+            <object class="image" [data]="item.picture | imageDataUrl: item.pictureContentType">
+                {{item.name | truncateString}}
+            </object>
         </span>
     </div>
     <p class="item-progress">
