@@ -2,8 +2,8 @@
     <div>
         <h4>{{'teamdojoApp.overview.achievements.title' | translate}}</h4>
     </div>
-    <ngb-accordion>
-        <ngb-panel>
+    <ngb-accordion activeIds="achievements-general-badges">
+        <ngb-panel id="achievements-general-badges">
             <ng-template ngbPanelTitle>
                 <div class="d-flex align-items-center">
                     <div class="d-inline-block minor px-2">
@@ -29,8 +29,8 @@
             </ng-template>
         </ngb-panel>
     </ngb-accordion>
-    <ngb-accordion>
-        <ngb-panel class="mt-1" *ngFor="let dimension of dimensions">
+    <ngb-accordion [activeIds]="expandedDimensions">
+        <ngb-panel class="mt-1" *ngFor="let dimension of dimensions" id="achievements-dimension-{{dimension.id}}">
             <ng-template ngbPanelTitle>
                 <div class="d-flex align-items-center">
                     <div class="d-inline-block minor px-2">
