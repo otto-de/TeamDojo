@@ -63,13 +63,14 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
             const badgeId: string = params.get('badge');
             this.levelIds = levelId && Number.parseInt(levelId) ? [Number.parseInt(levelId)] : [];
             this.badgeIds = badgeId && Number.parseInt(badgeId) ? [Number.parseInt(badgeId)] : [];
-            this.skills = [];
-            this.loadAll();
+            this.skills = this.skills || [];
+            this.reset();
         });
-        this.reset();
+        this.loadAll();
     }
 
     getFiltersFromStorage(): string[] {
+        console.log('getFiltersFromStorage: ' + this.storage.retrieve(this.team.id.toString()));
         return this.storage.retrieve(this.team.id.toString()) || [];
     }
 
@@ -117,8 +118,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
                         aSkill: skill
                     });
                 });
-                this.reset();
                 this.loadAll();
+                this.reset();
             },
             (res: HttpErrorResponse) => {
                 console.log(res);
