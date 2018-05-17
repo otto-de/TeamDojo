@@ -65,12 +65,11 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
             this.badgeIds = badgeId && Number.parseInt(badgeId) ? [Number.parseInt(badgeId)] : [];
             this.skills = this.skills || [];
             this.reset();
+            this.loadAll();
         });
-        this.loadAll();
     }
 
     getFiltersFromStorage(): string[] {
-        console.log('getFiltersFromStorage: ' + this.storage.retrieve(this.team.id.toString()));
         return this.storage.retrieve(this.team.id.toString()) || [];
     }
 
