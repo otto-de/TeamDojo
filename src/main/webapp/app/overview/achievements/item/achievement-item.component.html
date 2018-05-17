@@ -8,7 +8,11 @@
      [ngbPopover]="popoverContent" triggers="mouseenter:mouseleave" placement="top">
     <div class="d-flex justify-content-center pt-1">
         <span class="item-image">
-            <img [title]="item.name" [alt]="item.name" [src]="item.picture | imageDataUrl: item.pictureContentType"/>
+            <img *ngIf="item.picture && item.pictureContentType; else picturePlaceholder" [title]="item.name"
+                 [src]="item.picture | imageDataUrl: item.pictureContentType"/>
+            <ng-template #picturePlaceholder>
+                <span class="img-placeholder">{{item.name | truncateString}}</span>
+            </ng-template>
         </span>
     </div>
     <p class="item-progress">
