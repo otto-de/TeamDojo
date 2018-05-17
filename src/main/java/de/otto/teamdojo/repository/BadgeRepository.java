@@ -31,4 +31,6 @@ public interface BadgeRepository extends JpaRepository<Badge, Long>, JpaSpecific
 
     List<Badge> findAllByDimensionsIsNull();
 
+    Page<Badge> findByIdIn(List<Long> badgeIds, Pageable pageable);
+
 }

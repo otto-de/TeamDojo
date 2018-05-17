@@ -15,6 +15,16 @@ export class TeamsSkillsService {
 
     constructor(private http: HttpClient) {}
 
+    findAchievableSkill(teamId: number, skillId: number, req?: any): Observable<IAchievableSkill> {
+        const options = createRequestOption(req);
+        return this.http
+            .get<IAchievableSkill>(`${this.resourceUrl}/${teamId}/achievable-skills/${skillId}`, {
+                params: options,
+                observe: 'response'
+            })
+            .map(res => this.convertItemFromServer(res.body));
+    }
+
     queryAchievableSkills(teamId: number, req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http

@@ -43,6 +43,20 @@ public class TeamAchievableSkillResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    @GetMapping("/teams/{teamId}/achievable-skills/{skillId}")
+    @Timed
+    public ResponseEntity<AchievableSkillDTO> getAchievableSkills(
+        @PathVariable Long teamId,
+        @PathVariable Long skillId) {
+        log.debug("REST request to get AchievableSkills for Team {} - Skill {}", teamId, skillId);
+        AchievableSkillDTO skill = achievableSkillService.findAchievableSkill(teamId, skillId);
+        if (skill == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(skill, HttpStatus.OK);
+        }
+    }
+
     @PutMapping("/teams/{id}/achievable-skills")
     @Timed
     public ResponseEntity<AchievableSkillDTO> updateAchievableSkill(@PathVariable Long id, @RequestBody AchievableSkillDTO achievableSkill) throws URISyntaxException {

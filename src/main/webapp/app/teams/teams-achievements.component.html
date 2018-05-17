@@ -1,5 +1,18 @@
 <div class="teams-achievements">
     <h4>{{'teamdojoApp.teams.achievements.title' | translate}}</h4>
+    <div class="achievements-level-active mockup mb-2" *ngIf="activeAchievement">
+        <div class="skill-level-image mx-auto">
+            <img [title]="activeAchievement.name" *ngIf="false; else progressPicture"
+                 [src]="activeAchievement.picture | imageDataUrl: activeAchievement.pictureContentType"/>
+            <ng-template #progressPicture>
+                <div class="ml-auto achievement-progress px-2">
+                    <svg viewBox="0 0 32 32">
+                        <circle r="16" cx="16" cy="16" style="stroke-dasharray: 40 100;"/>
+                    </svg>
+                </div>
+            </ng-template>
+        </div>
+    </div>
     <div class="teams-achievements-badges">
         <ngb-accordion activeIds="achievements-badge-0">
             <ngb-panel id="achievements-badge-0">
@@ -9,18 +22,26 @@
                 </ng-template>
                 <ng-template ngbPanelContent>
                     <div class="achievements-badges">
-                        <div class="d-flex align-items-center achievements-badge" [ngClass]="{'mb-3': !isLast}"
-                             *ngFor="let badge of badges; trackBy: trackId; last as isLast">
-                            <div class="badge-image">
-                                <img [title]="badge.name" *ngIf="badge.logo && badge.logoContentType"
-                                     [src]="badge.logo | imageDataUrl: badge.logoContentType"/>
-                            </div>
-                            <div class="badge-name ml-2">{{badge.name}}</div>
-                            <div class="ml-auto achievement-progress mockup minor px-2">
-                                <svg viewBox="0 0 32 32">
-                                    <circle r="16" cx="16" cy="16" style="stroke-dasharray: 40 100;"/>
-                                </svg>
-                            </div>
+                        <div [ngClass]="{'mb-3': !isLast}" *ngFor="let badge of badges; trackBy: trackId; last as isLast">
+                            <a [routerLink]="['.']" [queryParams]="badgeRouteParameters(badge)"
+                               (click)="activeAchievement = badge">
+                                <div class="d-flex align-items-center achievements-badge"
+                                     [ngClass]="{'active': activeAchievement && activeAchievement.id === badge.id}">
+                                    <div class="badge-image">
+                                        <img [title]="badge.name" *ngIf="badge.logo && badge.logoContentType; else logoPlaceholder"
+                                             [src]="badge.logo | imageDataUrl: badge.logoContentType"/>
+                                        <ng-template #logoPlaceholder>
+                                            <span class="img-placeholder">{{badge.name | truncateString}}</span>
+                                        </ng-template>
+                                    </div>
+                                    <div class="badge-name ml-2">{{badge.name}}</div>
+                                    <div class="ml-auto achievement-progress mockup minor px-2">
+                                        <svg viewBox="0 0 32 32">
+                                            <circle r="16" cx="16" cy="16" style="stroke-dasharray: 40 100;"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </ng-template>
@@ -28,16 +49,17 @@
         </ngb-accordion>
     </div>
     <div class="mt-1 teams-achievements-dimensions">
-        <ngb-accordion activeIds="achievements-dimension-0">
-            <ngb-panel id="achievements-dimension-{{index}}"
-                       *ngFor="let dimension of team.participations; trackBy: trackId; index as index">
+        <ngb-accordion [destroyOnHide]="false" activeIds="achievements-dimension-{{activeDimensionId}}">
+            <ngb-panel id="achievements-dimension-{{dimension.id}}"
+                       *ngFor="let dimension of team.participations; trackBy: trackId">
                 <ng-template ngbPanelTitle>
-                    <div class="d-flex align-items-center achievements-dimension">
+                    <div class="d-flex align-items-center achievements-dimension"
+                         [routerLink]="['.']" [queryParams]="{'dimension': dimension.id}">
                         <div class="d-flex align-items-center">
                             <i class="fa fa-caret-right mr-2"></i>
                             <div class="d-inline-block mockup minor px-2">
                                 <div class="skill-level-image">
-                                    <img title="Current skill level"/>
+                                    <span class="img-placeholder">{{'Current skill level' | truncateString}}</span>
                                 </div>
                             </div>
                             <span>{{dimension.name}}</span>
@@ -49,18 +71,28 @@
                 </ng-template>
                 <ng-template ngbPanelContent>
                     <div class="achievements-skill-levels">
-                        <div class="d-flex align-items-center achievements-skill-level" [ngClass]="{'mb-3': !isLast}"
+                        <div [ngClass]="{'pb-3': !isLast}" id="achievements-level-{{level.id}}"
                              *ngFor="let level of levels[dimension.id]; trackBy: trackId; last as isLast">
-                            <div class="skill-level-image">
-                                <img [title]="level.name" *ngIf="level.picture && level.pictureContentType"
-                                     [src]="level.picture | imageDataUrl: level.pictureContentType"/>
-                            </div>
-                            <div class="skill-level-name ml-2">{{level.name}}</div>
-                            <div class="ml-auto achievement-progress mockup minor px-2">
-                                <svg viewBox="0 0 32 32">
-                                    <circle r="16" cx="16" cy="16" style="stroke-dasharray: 12 100;"/>
-                                </svg>
-                            </div>
+                            <a [routerLink]="['.']"  [queryParams]="levelRouteParameters(dimension, level)"
+                               (click)="activeAchievement = level">
+                                <div class="d-flex align-items-center achievements-skill-level"
+                                     [ngClass]="{'active': activeAchievement && activeAchievement.id === level.id}">
+                                    <div class="skill-level-image">
+                                        <img [title]="level.name"
+                                             *ngIf="level.picture && level.pictureContentType; else picturePlaceholder"
+                                             [src]="level.picture | imageDataUrl: level.pictureContentType"/>
+                                        <ng-template #picturePlaceholder>
+                                            <span class="img-placeholder">{{level.name | truncateString}}</span>
+                                        </ng-template>
+                                    </div>
+                                    <div class="skill-level-name ml-2">{{level.name}}</div>
+                                    <div class="ml-auto achievement-progress mockup minor px-2">
+                                        <svg viewBox="0 0 32 32">
+                                            <circle r="16" cx="16" cy="16" style="stroke-dasharray: 12 100;"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </ng-template>

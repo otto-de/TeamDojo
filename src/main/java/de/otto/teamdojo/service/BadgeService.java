@@ -1,10 +1,10 @@
 package de.otto.teamdojo.service;
 
-import de.otto.teamdojo.domain.Badge;
 import de.otto.teamdojo.service.dto.BadgeDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -28,12 +28,14 @@ public interface BadgeService {
      */
     Page<BadgeDTO> findAll(Pageable pageable);
 
+    Page<BadgeDTO> findByIdIn(List<Long> badgeIds, Pageable pageable);
+
     /**
      * Get all the Badge with eager load of many-to-many relationships.
      *
      * @return the list of entities
      */
-    Page<Badge> findAllWithEagerRelationships(Pageable pageable);
+    Page<BadgeDTO> findAllWithEagerRelationships(Pageable pageable);
 
     /**
      * Get the "id" badge.
