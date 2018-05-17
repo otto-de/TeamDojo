@@ -12,7 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing BadgeSkill.
@@ -73,6 +76,23 @@ public class BadgeSkillServiceImpl implements BadgeSkillService {
         log.debug("Request to get BadgeSkill : {}", id);
         return badgeSkillRepository.findById(id)
             .map(badgeSkillMapper::toDto);
+    }
+
+    /**
+     * Get one badgeSkill by skill id.
+     *
+     * @param skillIds the id of the skills
+     * @return the entity
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<BadgeSkillDTO> findBySkillIdIn(List<Long> skillIds, Pageable pageable){
+        log.debug("Request to get BadgeSkill by skill Ids: {}", skillIds);
+
+        return badgeSkillRepository.findBySkillIdIn(skillIds, pageable)
+            .stream()
+            .map(badgeSkillMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**

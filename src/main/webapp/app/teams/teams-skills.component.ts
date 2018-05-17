@@ -1,13 +1,19 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSkillsService } from './teams-skills.service';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
+import { Location } from '@angular/common';
+import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import * as moment from 'moment';
+import { ISkill } from 'app/shared/model/skill.model';
+import { SkillService } from 'app/entities/skill';
+import { Router } from '@angular/router';
+
+const MAX_ITEMS_PER_PAGE = 1000;
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
@@ -17,23 +23,28 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class TeamsSkillsComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
+    @Input() skill: IAchievableSkill;
+    @Output() onSkillClicked = new EventEmitter<{ iSkill: ISkill; aSkill: AchievableSkill }>();
+    @Output() onSkillChanged = new EventEmitter<{ iSkill: ISkill; aSkill: AchievableSkill }>();
     skills: IAchievableSkill[];
     filters: string[];
     page: number;
     links: any;
     itemsPerPage: number;
     totalItems: number;
-    checkComplete: boolean;
     levelIds: number[];
     badgeIds: number[];
 
     constructor(
         private teamsSkillsService: TeamsSkillsService,
+        private skillService: SkillService,
         private jhiAlertService: JhiAlertService,
         private parseLinks: JhiParseLinks,
         private teamsSelectionService: TeamsSelectionService,
         private storage: LocalStorageService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private location: Location,
+        private router: Router
     ) {
         this.filters = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -75,7 +86,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         this.teamsSkillsService
             .queryAchievableSkills(this.team.id, {
                 page: this.page,
-                size: this.itemsPerPage,
+                size: this.isInSkillDetails() ? MAX_ITEMS_PER_PAGE : this.itemsPerPage,
                 filter: this.filters,
                 levelId: this.levelIds || [],
                 badgeId: this.badgeIds || []
@@ -98,7 +109,17 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
             skill.achievedAt = null;
         }
         this.teamsSkillsService.updateAchievableSkill(this.team.id, skill).subscribe(
-            (res: HttpResponse<IAchievableSkill>) => this.reset(),
+            (res: HttpResponse<IAchievableSkill>) => {
+                skill = res.body;
+                this.skillService.find(skill.skillId).subscribe(skillRes => {
+                    this.onSkillChanged.emit({
+                        iSkill: skillRes.body,
+                        aSkill: skill
+                    });
+                });
+                this.reset();
+                this.loadAll();
+            },
             (res: HttpErrorResponse) => {
                 console.log(res);
             }
@@ -122,10 +143,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         return selectedTeam && selectedTeam.id === this.team.id;
     }
 
-    onSkillClicked(skill: IAchievableSkill) {
-        console.log('clicked on', skill.title);
-    }
-
     private paginateAchievableSkills(data: IAchievableSkill[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
@@ -136,5 +153,32 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    isInSkillDetails() {
+        return typeof this.skill !== 'undefined' && this.skill !== null;
+    }
+
+    handleSkillClicked(s: IAchievableSkill) {
+        if (this.isInSkillDetails()) {
+            const url = this.router.createUrlTree(['/teams', this.team.shortName, 'skills', s.skillId]).toString();
+            this.location.replaceState(url);
+            this.skillService.find(s.skillId).subscribe(res => {
+                this.onSkillClicked.emit({
+                    iSkill: res.body,
+                    aSkill: s
+                });
+            });
+        }
+    }
+
+    handleSkillChanged(s: IAchievableSkill) {
+        this.skills = this.skills.map(skill => {
+            return skill.skillId === s.skillId ? s : skill;
+        });
+    }
+
+    isActiveSkill(s: IAchievableSkill) {
+        return typeof this.skill !== 'undefined' && this.skill !== null && this.skill.skillId === s.skillId;
     }
 }
