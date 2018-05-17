@@ -58,7 +58,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        this.route.paramMap.subscribe((params: ParamMap) => {
+        this.route.queryParamMap.subscribe((params: ParamMap) => {
             const levelId: string = params.get('level');
             const badgeId: string = params.get('badge');
             this.levelIds = levelId && Number.parseInt(levelId) ? [Number.parseInt(levelId)] : [];
