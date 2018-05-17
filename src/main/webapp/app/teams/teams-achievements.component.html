@@ -2,10 +2,8 @@
     <h4>{{'teamdojoApp.teams.achievements.title' | translate}}</h4>
     <div class="achievements-level-active mockup mb-2" *ngIf="activeAchievement">
         <div class="skill-level-image mx-auto">
-            <object class="image" *ngIf="false; else progressPicture"
-                    [data]="activeAchievement.picture | imageDataUrl: activeAchievement.pictureContentType">
-                {{activeAchievement.name | truncateString}}
-            </object>
+            <img [title]="activeAchievement.name" [src]="activeAchievement.picture | imageDataUrl: activeAchievement.pictureContentType"
+                 [alt]="activeAchievement.name" *ngIf="false; else progressPicture"/>
             <ng-template #progressPicture>
                 <div class="ml-auto achievement-progress px-2">
                     <svg viewBox="0 0 32 32">
@@ -30,9 +28,8 @@
                                 <div class="d-flex align-items-center achievements-badge"
                                      [ngClass]="{'active': activeAchievement && activeAchievement.id === badge.id}">
                                     <div class="badge-image">
-                                        <object class="image" [data]="badge.logo | imageDataUrl: badge.logoContentType">
-                                            {{badge.name | truncateString}}
-                                        </object>
+                                        <img [title]="badge.name" [alt]="badge.name"
+                                             [src]="badge.logo | imageDataUrl: badge.logoContentType"/>
                                     </div>
                                     <div class="badge-name ml-2">{{badge.name}}</div>
                                     <div class="ml-auto achievement-progress mockup minor px-2">
@@ -59,9 +56,7 @@
                             <i class="fa fa-caret-right mr-2"></i>
                             <div class="d-inline-block mockup minor px-2">
                                 <div class="skill-level-image">
-                                    <object class="image" [data]="'' | imageDataUrl: ''">
-                                        {{'Current skill level' | truncateString}}
-                                    </object>
+                                    <img title="Current skill level" alt="Current skill level" [src]="'' | imageDataUrl: ''" />
                                 </div>
                             </div>
                             <span>{{dimension.name}}</span>
@@ -80,9 +75,8 @@
                                 <div class="d-flex align-items-center achievements-skill-level"
                                      [ngClass]="{'active': activeAchievement && activeAchievement.id === level.id}">
                                     <div class="skill-level-image">
-                                        <object class="image" [data]="level.picture | imageDataUrl: level.pictureContentType">
-                                            {{level.name | truncateString}}
-                                        </object>
+                                        <img [title]="level.name" [alt]="level.name"
+                                             [src]="level.picture | imageDataUrl: level.pictureContentType"/>
                                     </div>
                                     <div class="skill-level-name ml-2">{{level.name}}</div>
                                     <div class="ml-auto achievement-progress mockup minor px-2">

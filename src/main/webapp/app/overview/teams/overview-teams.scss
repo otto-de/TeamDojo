@@ -10,12 +10,11 @@
                 min-width: 46px;
                 height: 5vh;
                 min-height: 46px;
-                display: flex;
                 align-items: center;
                 border-radius: 50%;
                 border: 1px solid $gray-400;
                 background: white !important;
-                img, object {
+                img {
                     width: 100%;
                 }
                 &.complete{
