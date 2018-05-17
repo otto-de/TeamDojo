@@ -7,7 +7,7 @@ import { IBadge } from 'app/shared/model/badge.model';
 import { ITeam } from 'app/shared/model/team.model';
 import { CompletionCheck } from 'app/shared/util/completion-check';
 import { Router } from '@angular/router';
-import { RelevanceCheck } from 'app/shared';
+import { RelevanceCheck, sortLevels } from 'app/shared';
 
 @Component({
     selector: 'jhi-overview-achievements',
@@ -54,7 +54,7 @@ export class OverviewAchievementsComponent implements OnInit {
             });
 
             this.dimensions.forEach((dimension: IDimension) => {
-                dimension.levels = levelsByDimensionId[dimension.id] || [];
+                dimension.levels = (sortLevels(levelsByDimensionId[dimension.id]) || []).reverse();
                 dimension.badges = badgesByDimensionId[dimension.id] || [];
             });
 
