@@ -31,7 +31,7 @@ export class TeamsAchievementsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.paramMap.subscribe((params: ParamMap) => {
+        this.route.queryParamMap.subscribe((params: ParamMap) => {
             const dimensionId = Number.parseInt(params.get('dimension'));
             this.activeAchievement = null;
             if (Number.isInteger(dimensionId)) {
