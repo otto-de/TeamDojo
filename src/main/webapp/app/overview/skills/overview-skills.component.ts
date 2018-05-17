@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
@@ -18,7 +18,7 @@ import { ILevelSkill } from 'app/shared/model/level-skill.model';
     templateUrl: './overview-skills.component.html',
     styleUrls: ['./overview-skills.scss']
 })
-export class OverviewSkillsComponent {
+export class OverviewSkillsComponent implements OnInit {
     @Input() teams: ITeam[];
     @Input() levels: ILevel[];
     @Input() badges: IBadge[];
@@ -89,10 +89,10 @@ export class OverviewSkillsComponent {
     }
 
     getRelevantTeams(levelSkill: ILevelSkill): string {
-        let relevantCount: number = 0;
-        let completedCount: number = 0;
-        for (let team of this.teams) {
-            let skillDimensionIds = this.dimensionsBySkillId[levelSkill.skillId] || [];
+        let relevantCount = 0;
+        let completedCount = 0;
+        for (const team of this.teams) {
+            const skillDimensionIds = this.dimensionsBySkillId[levelSkill.skillId] || [];
             const relevant = team.participations.some(dimension => {
                 return skillDimensionIds.indexOf(dimension.id) !== -1;
             });
