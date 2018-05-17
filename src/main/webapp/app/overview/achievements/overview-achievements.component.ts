@@ -19,15 +19,16 @@ export class OverviewAchievementsComponent implements OnInit {
     @Input() badges: IBadge[];
     dimensions: IDimension[];
     generalBadges: IBadge[];
-    activeBadgeId: number;
-    activeLevelId: number;
-    activeDimensionId: number;
-
-    //activeDimensionId: number;
+    activeItemIds: { [key: string]: number };
 
     constructor(private dimensionService: DimensionService, private router: Router) {}
 
     ngOnInit(): void {
+        this.activeItemIds = {
+            badge: null,
+            level: null,
+            dimension: null
+        };
         this.generalBadges = [];
         this.dimensionService.query().subscribe((res: HttpResponse<IDimension[]>) => {
             this.dimensions = res.body;
@@ -100,38 +101,38 @@ export class OverviewAchievementsComponent implements OnInit {
     }
 
     selectBadge(badge: IBadge) {
-        this.activeLevelId = null;
-        this.activeDimensionId = null;
-        if (this.activeBadgeId === badge.id) {
-            this.activeBadgeId = null;
+        this.activeItemIds.level = null;
+        this.activeItemIds.dimension = null;
+        if (this.activeItemIds.badge === badge.id) {
+            this.activeItemIds.badge = null;
             this.router.navigate(['.']);
         } else {
-            this.activeBadgeId = badge.id;
-            this.router.navigate(['.'], { queryParams: { badge: this.activeBadgeId } });
+            this.activeItemIds.badge = badge.id;
+            this.router.navigate(['.'], { queryParams: { badge: this.activeItemIds.badge } });
         }
     }
 
     selectLevel(level: ILevel) {
-        this.activeBadgeId = null;
-        this.activeDimensionId = null;
-        if (this.activeLevelId === level.id) {
-            this.activeLevelId = null;
+        this.activeItemIds.badge = null;
+        this.activeItemIds.dimension = null;
+        if (this.activeItemIds.level === level.id) {
+            this.activeItemIds.level = null;
             this.router.navigate(['.']);
         } else {
-            this.activeLevelId = level.id;
-            this.router.navigate(['.'], { queryParams: { level: this.activeLevelId } });
+            this.activeItemIds.level = level.id;
+            this.router.navigate(['.'], { queryParams: { level: this.activeItemIds.level } });
         }
     }
 
     selectDimension(dimension: IDimension) {
-        this.activeBadgeId = null;
-        this.activeLevelId = null;
-        if (this.activeDimensionId === dimension.id) {
-            this.activeDimensionId = null;
+        this.activeItemIds.badge = null;
+        this.activeItemIds.level = null;
+        if (this.activeItemIds.dimension === dimension.id) {
+            this.activeItemIds.dimension = null;
             this.router.navigate(['.']);
         } else {
-            this.activeDimensionId = dimension.id;
-            this.router.navigate(['.'], { queryParams: { dimension: this.activeDimensionId } });
+            this.activeItemIds.dimension = dimension.id;
+            this.router.navigate(['.'], { queryParams: { dimension: this.activeItemIds.dimension } });
         }
     }
 }
