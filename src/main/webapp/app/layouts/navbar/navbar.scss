@@ -1,9 +1,10 @@
+@import '../../../content/scss/colors';
 /* ==========================================================================
 Navbar
 ========================================================================== */
 .jh-navbar {
-    background-color: #353d47;
-    padding: .2em 1em;
+    background-color: $dojo-nav-primary;
+    padding: 0 4em 0 1em;
     .jh-logo-container {
         nav {
             display: inline-block;
@@ -86,23 +87,18 @@ Navbar
     }
 }
 
-.navbar-title {
-    display: inline-block;
-    vertical-align: middle;
-}
-
 /* ==========================================================================
 Logo styles
 ========================================================================== */
 .navbar-brand {
+    padding:0px;
     &.logo {
-        padding: 5px 0px;
         .logo-img {
-            height: 45px;
-            width: 70px;
+            height: 82px;
+            width: 190px;
             display: inline-block;
             vertical-align: middle;
-            background: url("../../../content/images/security-belt.svg") no-repeat center center;
+            background: url("../../../content/images/team-dojo.png") no-repeat center center;
             background-size: contain;
         }
     }
