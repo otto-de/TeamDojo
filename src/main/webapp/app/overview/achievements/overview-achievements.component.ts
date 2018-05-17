@@ -21,6 +21,8 @@ export class OverviewAchievementsComponent implements OnInit {
     activeBadgeId: number;
     activeLevelId: number;
 
+    //activeDimensionId: number;
+
     constructor(private dimensionService: DimensionService) {}
 
     ngOnInit(): void {
@@ -97,11 +99,31 @@ export class OverviewAchievementsComponent implements OnInit {
 
     selectBadge(badge: IBadge) {
         this.activeLevelId = null;
-        this.activeBadgeId = this.activeBadgeId === badge.id ? null : badge.id;
+        // this.activeDimensionId = null;
+        if (this.activeBadgeId === badge.id) {
+            this.activeBadgeId = null;
+        } else {
+            this.activeBadgeId = badge.id;
+        }
     }
 
     selectLevel(level: ILevel) {
         this.activeBadgeId = null;
-        this.activeLevelId = this.activeLevelId === level.id ? null : level.id;
+        // this.activeDimensionId = null;
+        if (this.activeLevelId === level.id) {
+            this.activeLevelId = null;
+        } else {
+            this.activeLevelId = level.id;
+        }
     }
+
+    /*selectDimension(dimension: IDimension) {
+        this.activeBadgeId = null;
+        this.activeLevelId = null;
+        if (this.activeDimensionId === dimension.id) {
+            this.activeLevelId = null;
+        } else {
+            this.activeDimensionId = dimension.id;
+        }
+    }*/
 }

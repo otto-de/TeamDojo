@@ -4,9 +4,9 @@
     </div>
     <div class="teams-skills-list list-group">
         <li class="list-group-item list-group-item-action flex-column align-items-start mb-2"
-        *ngFor="let skill of skills">
+        *ngFor="let skill of levelSkills">
             <div class="d-flex w-100 justify-content-between">
-                    <a class="#" (click)="skillClicked($event, skill)" class="text-dark mb-1">{{ skill.title }}</a>
+                    <a class="#" (click)="skillClicked($event, skill)" class="text-dark mb-1">{{ skill.skillTitle }}</a>
                 <span class="noWrap">{{getRelevantTeams(skill)}}</span>
             </div>
         </li>

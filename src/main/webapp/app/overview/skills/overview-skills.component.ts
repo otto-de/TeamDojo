@@ -1,6 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { SkillService } from 'app/entities/skill';
-import { ISkill } from 'app/shared/model/skill.model';
+import { Component, Input } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
@@ -11,6 +9,9 @@ import { ILevel } from 'app/shared/model/level.model';
 import { IBadge } from 'app/shared/model/badge.model';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { LevelSkillService } from 'app/entities/level-skill';
+import { ILevelSkill } from 'app/shared/model/level-skill.model';
 
 @Component({
     selector: 'jhi-overview-skills',
@@ -21,31 +22,41 @@ export class OverviewSkillsComponent {
     @Input() teams: ITeam[];
     @Input() levels: ILevel[];
     @Input() badges: IBadge[];
-    skills: ISkill[];
+    levelSkills: ILevelSkill[];
     dimensions: IDimension[];
     dimensionsBySkillId: any;
     generalSkillsId: number[];
 
     constructor(
-        private skillService: SkillService,
+        private levelSkillService: LevelSkillService,
         private jhiAlertService: JhiAlertService,
         private teamService: TeamService,
-        private teamsSkillService: TeamsSkillsService
+        private teamsSkillService: TeamsSkillsService,
+        private route: ActivatedRoute
     ) {}
 
     ngOnInit() {
-        this.skillService.query().subscribe(
-            (res: HttpResponse<ISkill[]>) => {
-                this.skills = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.error)
-        );
-
+        this.route.queryParamMap.subscribe((params: ParamMap) => {
+            if (params.get('level')) {
+                const activeLevel = this.levels.find((level: ILevel) => level.id === Number.parseInt(params.get('level')));
+                this.levelSkills = activeLevel ? activeLevel.skills : [];
+            } else if (params.get('badge')) {
+                const activeBadge = this.badges.find((badge: IBadge) => badge.id === Number.parseInt(params.get('badge')));
+                this.levelSkills = activeBadge ? activeBadge.skills : [];
+            } else {
+                this.levelSkillService.query().subscribe(
+                    (res: HttpResponse<ILevelSkill[]>) => {
+                        this.levelSkills = res.body;
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.error)
+                );
+            }
+        });
         this.generalSkillsId = [];
-        this.dimensionsBySkillId = {}; //da sollen die Badges ebenfalls rein
+        this.dimensionsBySkillId = {};
         this.levels.forEach(level => {
-            level.skills.forEach(skill => {
-                let skillId = skill.skillId;
+            level.skills.forEach((levelSkill: ILevelSkill) => {
+                const skillId = levelSkill.skillId;
                 this.dimensionsBySkillId[skillId] = this.dimensionsBySkillId[skillId] || [];
                 if (this.dimensionsBySkillId[skillId].indexOf(level.dimensionId) === -1) {
                     this.dimensionsBySkillId[skillId].push(level.dimensionId);
@@ -60,7 +71,7 @@ export class OverviewSkillsComponent {
 
             badge.dimensions.forEach(dimension => {
                 badge.skills.forEach((badgeSkill: IBadgeSkill) => {
-                    let skillId = badgeSkill.skillId;
+                    const skillId = badgeSkill.skillId;
                     this.dimensionsBySkillId[skillId] = this.dimensionsBySkillId[skillId] || [];
 
                     this.dimensionsBySkillId[skillId].forEach(entry => {
@@ -77,39 +88,39 @@ export class OverviewSkillsComponent {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    getRelevantTeams(skill): string {
+    getRelevantTeams(levelSkill: ILevelSkill): string {
         let relevantCount: number = 0;
         let completedCount: number = 0;
         for (let team of this.teams) {
-            let skillDimensionIds = this.dimensionsBySkillId[skill.id] || [];
+            let skillDimensionIds = this.dimensionsBySkillId[levelSkill.skillId] || [];
             const relevant = team.participations.some(dimension => {
                 return skillDimensionIds.indexOf(dimension.id) !== -1;
             });
             if (relevant) {
                 relevantCount++;
-                const completed = this.isSkillCompleted(team, skill);
+                const completed = this.isSkillCompleted(team, levelSkill);
                 if (completed) {
                     completedCount++;
                 }
             }
         }
-        if (this.generalSkillsId.indexOf(skill.id) !== -1) {
+        if (this.generalSkillsId.indexOf(levelSkill.id) !== -1) {
             relevantCount = this.teams.length;
         }
 
         return `${completedCount}  / ${relevantCount}`;
     }
 
-    private isSkillCompleted(team: ITeam, skill: ISkill): boolean {
+    private isSkillCompleted(team: ITeam, levelSkill: ILevelSkill): boolean {
         return team.skills.some((teamSkill: ITeamSkill) => {
-            if (skill.id === teamSkill.skillId) {
+            if (levelSkill.skillId === teamSkill.skillId) {
                 return !!teamSkill.completedAt;
             }
             return false;
         });
     }
 
-    skillClicked(event, skill: ISkill) {
+    skillClicked(event, skill: ILevelSkill) {
         event.preventDefault();
     }
 }
