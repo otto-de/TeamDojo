@@ -21,6 +21,7 @@ export class OverviewAchievementsComponent implements OnInit {
     generalBadges: IBadge[];
     activeBadgeId: number;
     activeLevelId: number;
+    activeDimensionId: number;
 
     //activeDimensionId: number;
 
@@ -100,7 +101,7 @@ export class OverviewAchievementsComponent implements OnInit {
 
     selectBadge(badge: IBadge) {
         this.activeLevelId = null;
-        // this.activeDimensionId = null;
+        this.activeDimensionId = null;
         if (this.activeBadgeId === badge.id) {
             this.activeBadgeId = null;
             this.router.navigate(['.']);
@@ -112,7 +113,7 @@ export class OverviewAchievementsComponent implements OnInit {
 
     selectLevel(level: ILevel) {
         this.activeBadgeId = null;
-        // this.activeDimensionId = null;
+        this.activeDimensionId = null;
         if (this.activeLevelId === level.id) {
             this.activeLevelId = null;
             this.router.navigate(['.']);
@@ -122,13 +123,15 @@ export class OverviewAchievementsComponent implements OnInit {
         }
     }
 
-    /*selectDimension(dimension: IDimension) {
+    selectDimension(dimension: IDimension) {
         this.activeBadgeId = null;
         this.activeLevelId = null;
         if (this.activeDimensionId === dimension.id) {
-            this.activeLevelId = null;
+            this.activeDimensionId = null;
+            this.router.navigate(['.']);
         } else {
             this.activeDimensionId = dimension.id;
+            this.router.navigate(['.'], { queryParams: { dimension: this.activeDimensionId } });
         }
-    }*/
+    }
 }
