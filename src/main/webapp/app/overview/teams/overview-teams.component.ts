@@ -29,10 +29,10 @@ export class OverviewTeamsComponent implements OnInit {
                 .filter((team: ITeam) => {
                     const relevanceCheck = new RelevanceCheck(team);
                     if (badgeId) {
-                        const badge = this.badges.find((badge: IBadge) => badge.id === badgeId);
+                        const badge = this.badges.find((b: IBadge) => b.id === badgeId);
                         return relevanceCheck.isRelevantBadge(badge);
                     } else if (levelId) {
-                        const level = this.levels.find((level: ILevel) => level.id === levelId);
+                        const level = this.levels.find((l: ILevel) => l.id === levelId);
                         return relevanceCheck.isRelevantLevel(level);
                     } else if (dimensionId) {
                         return relevanceCheck.isRelevantDimensionId(dimensionId);
