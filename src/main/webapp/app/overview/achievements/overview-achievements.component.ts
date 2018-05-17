@@ -100,39 +100,22 @@ export class OverviewAchievementsComponent implements OnInit {
         return team.participations.some((dimension: IDimension) => badgeDimensionIds.indexOf(dimension.id) !== -1);
     }
 
-    selectBadge(badge: IBadge) {
-        this.activeItemIds.level = null;
-        this.activeItemIds.dimension = null;
-        if (this.activeItemIds.badge === badge.id) {
-            this.activeItemIds.badge = null;
-            this.router.navigate(['.']);
-        } else {
-            this.activeItemIds.badge = badge.id;
-            this.router.navigate(['.'], { queryParams: { badge: this.activeItemIds.badge } });
-        }
-    }
-
-    selectLevel(level: ILevel) {
-        this.activeItemIds.badge = null;
-        this.activeItemIds.dimension = null;
-        if (this.activeItemIds.level === level.id) {
-            this.activeItemIds.level = null;
-            this.router.navigate(['.']);
-        } else {
-            this.activeItemIds.level = level.id;
-            this.router.navigate(['.'], { queryParams: { level: this.activeItemIds.level } });
-        }
-    }
-
-    selectDimension(dimension: IDimension) {
-        this.activeItemIds.badge = null;
-        this.activeItemIds.level = null;
-        if (this.activeItemIds.dimension === dimension.id) {
-            this.activeItemIds.dimension = null;
-            this.router.navigate(['.']);
-        } else {
-            this.activeItemIds.dimension = dimension.id;
-            this.router.navigate(['.'], { queryParams: { dimension: this.activeItemIds.dimension } });
+    selectItem(itemType: string, itemId: number) {
+        if (itemType && itemId >= 0) {
+            for (const availableItemType in this.activeItemIds) {
+                if (this.activeItemIds.hasOwnProperty(availableItemType) && availableItemType !== itemType) {
+                    this.activeItemIds[availableItemType] = null;
+                }
+            }
+            if (this.activeItemIds[itemType] === itemId) {
+                this.activeItemIds[itemType] = null;
+                this.router.navigate(['.']);
+            } else {
+                this.activeItemIds[itemType] = itemId;
+                this.router.navigate(['.'], {
+                    queryParams: { [itemType]: this.activeItemIds[itemType] }
+                });
+            }
         }
     }
 }

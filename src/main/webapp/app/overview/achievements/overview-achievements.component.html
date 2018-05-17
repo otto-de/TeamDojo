@@ -21,7 +21,7 @@
                         <div class="" *ngFor="let badge of generalBadges">
                             <jhi-achievement-item [item]="badge" [progress]="getAchievementProgress(badge)"
                                                   [active]="activeItemIds.badge === badge.id"
-                                                  (onItemSelected)="selectBadge(badge)">
+                                                  (onItemSelected)="selectItem('badge', badge.id)">
                             </jhi-achievement-item>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                         <div *ngFor="let badge of dimension.badges">
                             <jhi-achievement-item [item]="badge" [progress]="getAchievementProgress(badge)"
                                                   [active]="activeItemIds.badge === badge.id"
-                                                  (onItemSelected)="selectBadge(badge)">
+                                                  (onItemSelected)="selectItem('badge', badge.id)">
                             </jhi-achievement-item>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                             <div *ngFor="let level of dimension.levels">
                                 <jhi-achievement-item [item]="level" [progress]="getAchievementProgress(level)"
                                                       [active]="activeItemIds.level === level.id"
-                                                      (onItemSelected)="selectLevel(level)">
+                                                      (onItemSelected)="selectItem('level', level.id)">
                                 </jhi-achievement-item>
                             </div>
                         </div>
