@@ -142,6 +142,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.GET, "/api/teams/**").permitAll()
             .antMatchers(HttpMethod.PUT, "/api/teams/*/achievable-skills/**").permitAll()
             .antMatchers(HttpMethod.GET, "/api/badges/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/api/dimensions/**").permitAll()
             .antMatchers(HttpMethod.GET, "/api/levels/**").permitAll()
             .antMatchers(HttpMethod.GET, "/api/skills/**").permitAll()
             .antMatchers(HttpMethod.GET, "/api/team-skills/**").permitAll()
