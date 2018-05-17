@@ -15,8 +15,9 @@
             <div class="d-flex flex-wrap align-items-center">
                 <div class="d-inline-flex align-items-center">
                     <div class="team-image" [ngClass]="{complete: showAsComplete(team), incomplete: showAsIncomplete(team)}">
-                        <img [title]="team.name" *ngIf="team.picture && team.pictureContentType"
-                             [src]="team.picture | imageDataUrl: team.pictureContentType"/>
+                        <object class="image" [data]="team.picture | imageDataUrl: team.pictureContentType">
+                            {{team.name | truncateString}}
+                        </object>
                     </div>
                     <a href="#" [routerLink]="['/teams', team.shortName]" class="team-name ml-2">{{team.name}}</a>
                 </div>
