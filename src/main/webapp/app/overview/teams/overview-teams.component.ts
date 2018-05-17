@@ -16,9 +16,9 @@ export class OverviewTeamsComponent implements OnInit {
     @Input() teams: ITeam[];
     @Input() levels: ILevel[];
     @Input() badges: IBadge[];
-    filtered: boolean;
-    relevantTeamIds: number[];
-    completedTeamIds: number[];
+    private filtered: boolean;
+    private relevantTeamIds: number[];
+    private completedTeamIds: number[];
 
     constructor(private route: ActivatedRoute) {}
 
@@ -73,11 +73,23 @@ export class OverviewTeamsComponent implements OnInit {
         return relevantTeams.map((team: ITeam) => team.id);
     }
 
-    isRelevant(team: ITeam): boolean {
+    showAsComplete(team: ITeam): boolean {
+        return this.filtered && this.isRelevant(team) && this.isCompleted(team);
+    }
+
+    showAsIncomplete(team: ITeam): boolean {
+        return this.filtered && this.isRelevant(team) && !this.isCompleted(team);
+    }
+
+    showAsIrrelevant(team: ITeam): boolean {
+        return this.filtered && !this.isRelevant(team);
+    }
+
+    private isRelevant(team: ITeam): boolean {
         return this.relevantTeamIds.indexOf(team.id) !== -1;
     }
 
-    isCompleted(team: ITeam): boolean {
+    private isCompleted(team: ITeam): boolean {
         return this.completedTeamIds.indexOf(team.id) !== -1;
     }
 

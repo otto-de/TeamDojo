@@ -11,10 +11,10 @@
     <div class="team-list list-group">
         <li class="team-item list-group-item list-group-item-action flex-column align-items-start mb-2"
             *ngFor='let team of teams'
-            [ngClass]="{irrelevant: filtered && !isRelevant(team)}">
+            [ngClass]="{irrelevant: showAsIrrelevant(team)}">
             <div class="d-flex flex-wrap align-items-center">
                 <div class="d-inline-flex align-items-center">
-                    <div class="team-image" [ngClass]="{completed: filtered && isRelevant(team) && isCompleted(team), incomplete: filtered && isRelevant(team) && !isCompleted(team)}">
+                    <div class="team-image" [ngClass]="{complete: showAsComplete(team), incomplete: showAsIncomplete(team)}">
                         <img [title]="team.name" *ngIf="team.picture && team.pictureContentType"
                              [src]="team.picture | imageDataUrl: team.pictureContentType"/>
                     </div>
