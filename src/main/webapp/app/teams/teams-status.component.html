@@ -6,24 +6,24 @@
             <div class="avatar-skill-levels mockup mb-1">
                 <a [routerLink]="['.']" [queryParams]="{'dimension': '1000'}">
                     <div class="avatar-skill-level">
-                        <img title="Orange belt in Security" alt="Orange belt in Security" [src]="'' | imageDataUrl: ''"/>
+                        <span class="img-placeholder">{{'Orange belt in Security' | truncateString}}</span>
                     </div>
                 </a>
             </div>
             <div class="avatar-badges mockup mb-0">
                 <a [routerLink]="'.'" [queryParams]="{'badge': '9700'}">
                     <div class="avatar-badge">
-                        <img title="AWS Ready badge" alt="AWS Ready badge" [src]="'' | imageDataUrl: ''"/>
+                        <span class="img-placeholder">{{'AWS Ready badge' | truncateString}}</span>
                     </div>
                 </a>
                 <a [routerLink]="'.'" [queryParams]="{'badge': '9750'}">
                     <div class="avatar-badge">
-                        <img title="The Trophy badge" alt="The Trophy badge" [src]="'' | imageDataUrl: ''"/>
+                        <span class="img-placeholder">{{'The Trophy badge' | truncateString}}</span>
                     </div>
                 </a>
                 <a [routerLink]="'.'" [queryParams]="{'badge': '9800'}">
                     <div class="avatar-badge">
-                        <img title="Security badge" alt="Security badge"  [src]="'' | imageDataUrl: ''"/>
+                        <span class="img-placeholder">{{'Security badge' | truncateString}}</span>
                     </div>
                 </a>
             </div>
