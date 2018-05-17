@@ -19,6 +19,16 @@
                         "completed": "Completed",
                         "incompleted": "Incompleted"
                     }
+                },
+                "details": {
+                    "activate": "Activate skill",
+                    "deactivate": "Deactivate skill",
+                    "desc": "Description",
+                    "implementation": "Implementation",
+                    "validation": "Validation",
+                    "achievedBy": "Achieved by",
+                    "neededFor": "Needed for",
+                    "notRelevant": "Not relevant for my team"
                 }
             },
             "status": {

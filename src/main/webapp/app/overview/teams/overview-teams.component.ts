@@ -3,6 +3,8 @@ import { ITeam } from 'app/shared/model/team.model';
 import { ILevel } from 'app/shared/model/level.model';
 import { IBadge } from 'app/shared/model/badge.model';
 import { CompletionCheck } from 'app/shared/util/completion-check';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { RelevanceCheck } from 'app/shared';
 
 @Component({
     selector: 'jhi-overview-teams',
@@ -13,11 +15,40 @@ export class OverviewTeamsComponent implements OnInit {
     @Input() teams: ITeam[];
     @Input() levels: ILevel[];
     @Input() badges: IBadge[];
+    activeTeamIds: number[];
 
-    ngOnInit(): void {}
+    constructor(private route: ActivatedRoute) {}
 
-    onTeamClicked(event, team: ITeam) {
-        event.preventDefault();
+    ngOnInit(): void {
+        this.route.paramMap.subscribe((params: ParamMap) => {
+            const badgeId: number = this.getParamAsNumber('badge', params);
+            const levelId: number = this.getParamAsNumber('level', params);
+            const dimensionId: number = this.getParamAsNumber('dimension', params);
+
+            this.activeTeamIds = this.teams
+                .filter((team: ITeam) => {
+                    const relevanceCheck = new RelevanceCheck(team);
+                    if (badgeId) {
+                        const badge = this.badges.find((b: IBadge) => b.id === badgeId);
+                        return relevanceCheck.isRelevantBadge(badge);
+                    } else if (levelId) {
+                        const level = this.levels.find((l: ILevel) => l.id === levelId);
+                        return relevanceCheck.isRelevantLevel(level);
+                    } else if (dimensionId) {
+                        return relevanceCheck.isRelevantDimensionId(dimensionId);
+                    }
+                    return false;
+                })
+                .map((team: ITeam) => team.id);
+        });
+    }
+
+    isActive(team: ITeam): boolean {
+        return this.activeTeamIds.indexOf(team.id) !== -1;
+    }
+
+    isInactive(team: ITeam): boolean {
+        return this.activeTeamIds.length && this.activeTeamIds.indexOf(team.id) === -1;
     }
 
     calcLevelBase(team: ITeam) {
@@ -50,5 +81,9 @@ export class OverviewTeamsComponent implements OnInit {
 
     private isLevelOrBadgeCompleted(team: ITeam, item: ILevel | IBadge): boolean {
         return new CompletionCheck(team, item).isCompleted();
+    }
+
+    private getParamAsNumber(name: string, params: ParamMap): number {
+        return Number.parseInt(params.get(name));
     }
 }

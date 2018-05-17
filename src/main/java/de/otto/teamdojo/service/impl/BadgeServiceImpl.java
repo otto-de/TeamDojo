@@ -12,7 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing Badge.
@@ -58,6 +61,13 @@ public class BadgeServiceImpl implements BadgeService {
         log.debug("Request to get all Badges");
         return badgeRepository.findAll(pageable)
             .map(badgeMapper::toDto);
+    }
+
+    public Page<BadgeDTO> findByIdIn(List<Long> badgeIds, Pageable pageable){
+        log.debug("Request to get Badges by Badge Ids: {}", badgeIds);
+        return badgeRepository.findByIdIn(badgeIds, pageable)
+            .map(badgeMapper::toDto);
+
     }
 
     /**

@@ -9,11 +9,12 @@
         </form>
     </div>
     <div class="team-list list-group">
-        <li class="list-group-item list-group-item-action flex-column align-items-start mb-2 team-item"
-            *ngFor='let team of teams'>
+        <li class="team-item list-group-item list-group-item-action flex-column align-items-start mb-2"
+            *ngFor='let team of teams'
+            [ngClass]="{inactive: isInactive(team)}">
             <div class="d-flex flex-wrap align-items-center">
                 <div class="d-inline-flex align-items-center">
-                    <div class="team-image">
+                    <div class="team-image" [ngClass]="{active: isActive(team)}">
                         <img [title]="team.name" *ngIf="team.picture && team.pictureContentType"
                              [src]="team.picture | imageDataUrl: team.pictureContentType"/>
                     </div>

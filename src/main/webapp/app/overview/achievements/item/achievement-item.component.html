@@ -1,7 +1,7 @@
 <ng-template #popoverContent>
     <div class="d-flex flex-column align-items-center">
         <div>{{item.name}}</div>
-        <small>({{progress}}%)</small>
+        <small>( {{progress | number: '1.0-2' }}% )</small>
     </div>
 </ng-template>
 <div class="achievement-item" (click)="selectItem($event)" [ngClass]="{'active': active}"
