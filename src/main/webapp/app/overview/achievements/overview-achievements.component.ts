@@ -6,6 +6,7 @@ import { HttpResponse } from '@angular/common/http';
 import { IBadge } from 'app/shared/model/badge.model';
 import { ITeam } from 'app/shared/model/team.model';
 import { CompletionCheck } from 'app/shared/util/completion-check';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-overview-achievements',
@@ -23,7 +24,7 @@ export class OverviewAchievementsComponent implements OnInit {
 
     //activeDimensionId: number;
 
-    constructor(private dimensionService: DimensionService) {}
+    constructor(private dimensionService: DimensionService, private router: Router) {}
 
     ngOnInit(): void {
         this.generalBadges = [];
@@ -102,8 +103,10 @@ export class OverviewAchievementsComponent implements OnInit {
         // this.activeDimensionId = null;
         if (this.activeBadgeId === badge.id) {
             this.activeBadgeId = null;
+            this.router.navigate(['.']);
         } else {
             this.activeBadgeId = badge.id;
+            this.router.navigate(['.'], { queryParams: { badge: this.activeBadgeId } });
         }
     }
 
@@ -112,8 +115,10 @@ export class OverviewAchievementsComponent implements OnInit {
         // this.activeDimensionId = null;
         if (this.activeLevelId === level.id) {
             this.activeLevelId = null;
+            this.router.navigate(['.']);
         } else {
             this.activeLevelId = level.id;
+            this.router.navigate(['.'], { queryParams: { level: this.activeLevelId } });
         }
     }
 
