@@ -21,7 +21,13 @@
         <ul class="navbar-nav ml-auto">
 
             <li class="nav-item" *ngIf="teamsSelectionService.selectedTeam === null">
-                <a class="nav-link" (click)="selectTeam()" jhiTranslate="global.menu.teams.select">Select My Team</a>
+                <a class="nav-link" (click)="selectTeam()" >
+                     <span>
+                        <i class="nav-img team-img"></i>
+                        <span class="navInfo" jhiTranslate="global.menu.teams.select"></span>
+                     </span>
+                </a>
+
             </li>
             <li ngbDropdown class="nav-item dropdown pointer" *ngIf="teamsSelectionService.selectedTeam !== null">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="teamDropdown">
@@ -185,10 +191,10 @@
                 </ul>
             </li>
             <li ngbDropdown class="nav-item dropdown pointer" *ngIf="languages">
-                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);"
+                <a class="nav-link dropdown-toggle navInfo" ngbDropdownToggle href="javascript:void(0);"
                    id="languagesnavBarDropdown" *ngIf="languages.length > 1">
-                    <span>
-                        <i class="fa fa-flag" aria-hidden="true"></i>
+                    <span class="navInfo">
+                        <i class="nav-img language-img" aria-hidden="true"></i>
                         <span jhiTranslate="global.menu.language">Language</span>
                     </span>
                 </a>
