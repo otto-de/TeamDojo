@@ -1,0 +1,56 @@
+<div class="row skill-details">
+    <div class="col-md-4">
+        <jhi-overview-skills [activeSkill]="skill" [teams]="teams" [levels]="levels" [badges]="badges"></jhi-overview-skills>
+    </div>
+    <div class="col-md-8">
+        <h2 class="skill-title">{{skill.title}}</h2>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="skill-desc desc-block">
+                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.desc">Description</h3>
+                    <p>{{skill.description}}</p>
+                </div>
+                <div class="skill-impl desc-block">
+                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.implementation">Implementation</h3>
+                    <p>{{skill.implementation}}</p>
+                </div>
+                <div class="skill-validation desc-block">
+                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.validation">Validation</h3>
+                    <p>{{skill.validation}}</p>
+                </div>
+
+                <div class="achieved-by desc-block">
+                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.achievedBy">Achieved by</h3>
+                    <div class="achieved-by-teams">
+                        <div *ngFor="let t of achievedByTeams" class="avatar-team" placement="top" [ngbTooltip]="t.name">
+                            <img [src]="t.picture | imageDataUrl: t.pictureContentType" />
+                        </div>
+                        <p *ngIf="achievedByTeams.length === 0">No teams have achieved this skill yet!</p>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+               <h3 jhiTranslate="teamdojoApp.teams.skills.details.neededFor">Needed for</h3>
+
+                <div class="needed-for">
+                    <div class="needed-for-levels">
+                        <div *ngFor="let l of neededForLevels" class="avatar-level" placement="top" [ngbTooltip]="l.name">
+                            <img [src]="l.picture | imageDataUrl: l.pictureContentType" />
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="needed-for-badges">
+                        <div *ngFor="let b of neededForBadges" class="avatar-badge" placement="top" [ngbTooltip]="b.name">
+                            <img [src]="b.logo | imageDataUrl: b.logoContentType" />
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
