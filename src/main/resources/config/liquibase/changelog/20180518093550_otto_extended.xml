@@ -32,4 +32,63 @@
             <column name="teams_id" valueComputed="(SELECT id FROM team WHERE short_name = &apos;ft3&apos; LIMIT 1)"/>
         </insert>
     </changeSet>
+    <changeSet author="sberlin" id="1526628951200-3">
+        <sql>
+            <comment>Team DV has yellow and orange level</comment>
+            INSERT INTO team_skill (id, completed_at, verified_at, irrelevant, note, skill_id, team_id)
+            SELECT nextval(&apos;hibernate_sequence&apos;), current_timestamp, current_timestamp, FALSE, NULL, level_skill.skill_id, team.id as team_id
+            FROM level_skill level_skill
+            LEFT JOIN level level ON level_skill.level_id = level.id, team team
+            WHERE (level.name = 'yellow'
+            OR level.name = 'orange')
+            AND team.short_name = 'dv'
+        </sql>
+        <sql>
+            <comment>Team Tesla has yellow, orange, green, blue and brown level</comment>
+            INSERT INTO team_skill (id, completed_at, verified_at, irrelevant, note, skill_id, team_id)
+            SELECT nextval(&apos;hibernate_sequence&apos;), current_timestamp, current_timestamp, FALSE, NULL, level_skill.skill_id, team.id as team_id
+            FROM level_skill level_skill
+            LEFT JOIN level level ON level_skill.level_id = level.id, team team
+            WHERE (level.name = 'yellow'
+            OR level.name = 'orange'
+            OR level.name = 'green'
+            OR level.name = 'blue'
+            OR level.name = 'brown')
+            AND team.short_name = 'tesla'
+        </sql>
+        <sql>
+            <comment>Team Tesla has partly achieved the black level</comment>
+            INSERT INTO team_skill (id, completed_at, verified_at, irrelevant, note, skill_id, team_id)
+            SELECT nextval(&apos;hibernate_sequence&apos;), current_timestamp, current_timestamp, FALSE, NULL, level_skill.skill_id, team.id as team_id
+            FROM level_skill level_skill
+            LEFT JOIN level level ON level_skill.level_id = level.id, team team
+            WHERE level.name = 'black'
+            AND team.short_name = 'tesla'
+            LIMIT 2
+        </sql>
+        <sql>
+            <comment>Team FT1 has some skills</comment>
+            INSERT INTO team_skill (id, completed_at, verified_at, irrelevant, note, skill_id, team_id)
+            SELECT nextval(&apos;hibernate_sequence&apos;), current_timestamp, current_timestamp, FALSE, NULL, skill.id as skill_id, team.id as team_id
+            FROM skill skill, team team
+            WHERE team.short_name = 'ft1'
+            AND skill.id IN (SELECT id FROM skill OFFSET random() * (SELECT count(*) FROM skill) LIMIT 10)
+        </sql>
+        <sql>
+            <comment>Team FT2 has some skills</comment>
+            INSERT INTO team_skill (id, completed_at, verified_at, irrelevant, note, skill_id, team_id)
+            SELECT nextval(&apos;hibernate_sequence&apos;), current_timestamp, current_timestamp, FALSE, NULL, skill.id as skill_id, team.id as team_id
+            FROM skill skill, team team
+            WHERE team.short_name = 'ft2'
+            AND skill.id IN (SELECT id FROM skill OFFSET random() * (SELECT count(*) FROM skill) LIMIT 10)
+        </sql>
+        <sql>
+            <comment>Team FT3 has some skills</comment>
+            INSERT INTO team_skill (id, completed_at, verified_at, irrelevant, note, skill_id, team_id)
+            SELECT nextval(&apos;hibernate_sequence&apos;), current_timestamp, current_timestamp, FALSE, NULL, skill.id as skill_id, team.id as team_id
+            FROM skill skill, team team
+            WHERE team.short_name = 'ft3'
+            AND skill.id IN (SELECT id FROM skill OFFSET random() * (SELECT count(*) FROM skill) LIMIT 10)
+        </sql>
+    </changeSet>
 </databaseChangeLog>
