@@ -15,6 +15,7 @@
                 "badge": "Badge",
                 "badgeSkill": "Badge Skill",
                 "levelSkill": "Level Skill",
+                "organization": "Organization",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
