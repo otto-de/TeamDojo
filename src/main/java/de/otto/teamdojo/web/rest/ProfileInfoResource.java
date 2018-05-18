@@ -22,7 +22,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class ProfileInfoResource {
 
-    private static final String DEFAULT_ORGANIZATION_NAME = "Otto";
+    private static final String DEFAULT_ORGANIZATION_NAME = "Organization";
     private final Logger log = LoggerFactory.getLogger(ProfileInfoResource.class);
 
     private final Environment env;
