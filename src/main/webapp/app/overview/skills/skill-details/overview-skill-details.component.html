@@ -8,25 +8,25 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="skill-desc desc-block">
-                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.desc">Description</h3>
+                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.desc"></h3>
                     <p>{{skill.description}}</p>
                 </div>
                 <div class="skill-impl desc-block">
-                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.implementation">Implementation</h3>
+                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.implementation"></h3>
                     <p>{{skill.implementation}}</p>
                 </div>
                 <div class="skill-validation desc-block">
-                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.validation">Validation</h3>
+                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.validation"></h3>
                     <p>{{skill.validation}}</p>
                 </div>
 
                 <div class="achieved-by desc-block">
-                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.achievedBy">Achieved by</h3>
+                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.achievedBy"></h3>
                     <div class="achieved-by-teams">
                         <div *ngFor="let t of achievedByTeams" class="avatar-team" placement="top" [ngbTooltip]="t.name">
                             <img [src]="t.picture | imageDataUrl: t.pictureContentType" />
                         </div>
-                        <p *ngIf="achievedByTeams.length === 0">No teams have achieved this skill yet!</p>
+                        <p *ngIf="achievedByTeams.length === 0" jhiTranslate="teamdojoApp.teams.skills.details.achievedByNone"></p>
                         <div class="clearfix"></div>
                     </div>
                 </div>

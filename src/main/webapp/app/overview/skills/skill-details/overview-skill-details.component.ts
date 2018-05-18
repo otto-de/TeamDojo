@@ -34,8 +34,6 @@ export class OverviewSkillDetailsComponent implements OnInit {
     levelSkills: ILevelSkill[];
     badgeSkills: IBadgeSkill[];
 
-    // @ViewChild(TeamsSkillsComponent) skillList;
-
     constructor(
         private route: ActivatedRoute,
         private skillService: SkillService,
@@ -46,7 +44,7 @@ export class OverviewSkillDetailsComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.data.subscribe(({ teams, levels, badges, teamSkills, levelSkills, badgeSkills, skill }) => {
-            this.skill = skill;
+            this.skill = skill.body;
 
             this.teams = teams.body;
             this.levels = levels.body;
