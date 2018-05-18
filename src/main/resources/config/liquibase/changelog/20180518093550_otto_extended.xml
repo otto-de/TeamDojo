@@ -91,4 +91,37 @@
             AND skill.id IN (SELECT id FROM skill OFFSET random() * (SELECT count(*) FROM skill) LIMIT 10)
         </sql>
     </changeSet>
+    <changeSet author="sberlin" id="1526628951200-4">
+        <update tableName="team">
+            <column name="picture" valueBlobFile="../blobs/Team-Data.jpg" />
+            <column name="picture_content_type" value="image/jpeg" />
+            <where>short_name = &apos;dv&apos;</where>
+        </update>
+        <update tableName="team">
+            <column name="picture" valueBlobFile="../blobs/Team-Tesla.png" />
+            <column name="picture_content_type" value="image/png" />
+            <where>short_name = &apos;tesla&apos;</where>
+        </update>
+        <update tableName="team">
+            <column name="picture" valueBlobFile="../blobs/Team-FT1.jpg" />
+            <column name="picture_content_type" value="image/jpeg" />
+            <where>short_name = &apos;ft1&apos;</where>
+        </update>
+        <update tableName="team">
+            <column name="picture" valueBlobFile="../blobs/Team-FT2.jpg" />
+            <column name="picture_content_type" value="image/jpeg" />
+            <where>short_name = &apos;ft2&apos;</where>
+        </update>
+        <update tableName="team">
+            <column name="picture" valueBlobFile="../blobs/Team-FT3.jpg" />
+            <column name="picture_content_type" value="image/jpeg" />
+            <where>short_name = &apos;ft3&apos;</where>
+        </update>
+    </changeSet>
+    <changeSet author="sberlin" id="1526628951200-5">
+        <update tableName="badge">
+            <column name="logo" valueBlobFile="../blobs/Badge-Ninja-Tanto.png" />
+            <column name="logo_content_type" value="image/png" />
+        </update>
+    </changeSet>
 </databaseChangeLog>
