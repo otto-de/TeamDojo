@@ -28,12 +28,12 @@ export class OverviewSkillsComponent implements OnInit {
     @Input() badges: IBadge[];
     @Input() activeSkill: ISkill;
     @Output() onSkillClicked = new EventEmitter<{ iSkill: ISkill }>();
-    levelSkills: ILevelSkill[];
+    activeSkills: ILevelSkill[] | IBadgeSkill[];
     activeLevel: ILevel;
     activeBadge: IBadge;
     dimensions: IDimension[];
     dimensionsBySkillId: any;
-    generalSkillsId: number[];
+    generalSkillsIds: number[];
 
     constructor(
         private levelSkillService: LevelSkillService,
@@ -50,23 +50,23 @@ export class OverviewSkillsComponent implements OnInit {
         this.route.queryParamMap.subscribe((params: ParamMap) => {
             if (params.get('level')) {
                 this.activeLevel = this.levels.find((level: ILevel) => level.id === Number.parseInt(params.get('level')));
-                this.levelSkills = this.activeLevel ? this.activeLevel.skills : [];
+                this.activeSkills = this.activeLevel ? this.activeLevel.skills : [];
                 this.activeBadge = null;
             } else if (params.get('badge')) {
                 this.activeBadge = this.badges.find((badge: IBadge) => badge.id === Number.parseInt(params.get('badge')));
-                this.levelSkills = this.activeBadge ? this.activeBadge.skills : [];
+                this.activeSkills = this.activeBadge ? this.activeBadge.skills : [];
                 this.activeLevel = null;
             } else {
                 this.levelSkillService.query().subscribe(
                     (res: HttpResponse<ILevelSkill[]>) => {
-                        this.levelSkills = res.body;
+                        this.activeSkills = res.body;
                     },
                     (res: HttpErrorResponse) => this.onError(res.error)
                 );
             }
         });
 
-        this.generalSkillsId = [];
+        this.generalSkillsIds = [];
         this.dimensionsBySkillId = {};
         this.levels.forEach(level => {
             level.skills.forEach((levelSkill: ILevelSkill) => {
@@ -80,7 +80,7 @@ export class OverviewSkillsComponent implements OnInit {
 
         this.badges.forEach(badge => {
             if (badge.dimensions.length === 0) {
-                this.generalSkillsId = this.generalSkillsId.concat(badge.skills.map(bs => bs.skillId));
+                this.generalSkillsIds = this.generalSkillsIds.concat(badge.skills.map(bs => bs.skillId));
             }
 
             badge.dimensions.forEach(dimension => {
@@ -118,16 +118,16 @@ export class OverviewSkillsComponent implements OnInit {
                 }
             }
         }
-        if (this.generalSkillsId.indexOf(levelSkill.id) !== -1) {
+        if (this.generalSkillsIds.indexOf(levelSkill.id) !== -1) {
             relevantCount = this.teams.length;
         }
 
         return `${completedCount}  / ${relevantCount}`;
     }
 
-    private isSkillCompleted(team: ITeam, levelSkill: ILevelSkill): boolean {
+    private isSkillCompleted(team: ITeam, skill: ILevelSkill | IBadgeSkill): boolean {
         return team.skills.some((teamSkill: ITeamSkill) => {
-            if (levelSkill.skillId === teamSkill.skillId) {
+            if (skill.skillId === teamSkill.skillId) {
                 return !!teamSkill.completedAt;
             }
             return false;

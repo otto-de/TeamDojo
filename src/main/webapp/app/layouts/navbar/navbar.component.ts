@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit {
     isNavbarCollapsed: boolean;
     languages: any[];
     swaggerEnabled: boolean;
+    organizationName: string;
     modalRef: NgbModalRef;
     isTeamSelectionOpen = false;
     teamsSelectionService: TeamsSelectionService;
@@ -46,6 +47,7 @@ export class NavbarComponent implements OnInit {
         this.profileService.getProfileInfo().then(profileInfo => {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
+            this.organizationName = profileInfo.organization.name;
         });
     }
 

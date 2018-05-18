@@ -64,7 +64,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
             const badgeId: string = params.get('badge');
             this.levelIds = levelId && Number.parseInt(levelId) ? [Number.parseInt(levelId)] : [];
             this.badgeIds = badgeId && Number.parseInt(badgeId) ? [Number.parseInt(badgeId)] : [];
-            this.skills = [];
+            this.reset();
             this.loadAll();
         });
     }
