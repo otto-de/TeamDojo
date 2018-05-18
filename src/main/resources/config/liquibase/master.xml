@@ -23,4 +23,5 @@
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <include file="config/liquibase/changelog/20180423142616_changelog.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180502160041_otto.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180518093550_otto_extended.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
