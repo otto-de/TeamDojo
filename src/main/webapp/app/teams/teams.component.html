@@ -1,11 +1,15 @@
 <div class="row teams">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <jhi-teams-status [team]="team"></jhi-teams-status>
     </div>
-    <div class="col-md-4">
-        <jhi-teams-achievements [team]="team"></jhi-teams-achievements>
-    </div>
-    <div class="col-md-4">
-        <jhi-teams-skills [team]="team"></jhi-teams-skills>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-8">
+                <jhi-teams-achievements [team]="team"></jhi-teams-achievements>
+            </div>
+            <div class="col-md-4">
+                <jhi-teams-skills [team]="team"></jhi-teams-skills>
+            </div>
+        </div>
     </div>
 </div>
