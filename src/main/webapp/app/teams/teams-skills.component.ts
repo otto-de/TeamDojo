@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSkillsService } from './teams-skills.service';
@@ -11,10 +11,9 @@ import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection
 import * as moment from 'moment';
 import { ISkill } from 'app/shared/model/skill.model';
 import { SkillService } from 'app/entities/skill';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 const MAX_ITEMS_PER_PAGE = 1000;
-import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
     selector: 'jhi-teams-skills',
@@ -59,14 +58,18 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.reset();
-        this.route.paramMap.subscribe((params: ParamMap) => {
-            const levelId: string = params.get('level');
-            const badgeId: string = params.get('badge');
-            this.levelIds = levelId && Number.parseInt(levelId) ? [Number.parseInt(levelId)] : [];
-            this.badgeIds = badgeId && Number.parseInt(badgeId) ? [Number.parseInt(badgeId)] : [];
+        this.route.queryParamMap.subscribe((params: ParamMap) => {
+            const levelId = this.getParamAsNumber('level', params);
+            const badgeId = this.getParamAsNumber('badge', params);
+            this.levelIds = levelId ? [levelId] : [];
+            this.badgeIds = badgeId ? [badgeId] : [];
             this.reset();
             this.loadAll();
         });
+    }
+
+    private getParamAsNumber(name: string, params: ParamMap) {
+        return Number.parseInt(params.get(name));
     }
 
     getFiltersFromStorage(): string[] {

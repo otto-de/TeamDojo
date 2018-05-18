@@ -16,7 +16,6 @@ import { OverviewComponent } from 'app/overview/overview.component';
 import { OverviewTeamsComponent } from 'app/overview/teams/overview-teams.component';
 import { OverviewAchievementsComponent } from 'app/overview/achievements/overview-achievements.component';
 import { OverviewSkillsComponent } from 'app/overview/skills/overview-skills.component';
-import { AchievementItemComponent } from 'app/overview/achievements';
 import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
 
 @NgModule({
@@ -26,7 +25,6 @@ import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details
         OverviewTeamsComponent,
         OverviewAchievementsComponent,
         OverviewSkillsComponent,
-        AchievementItemComponent,
         OverviewSkillDetailsComponent
     ],
     entryComponents: [],
