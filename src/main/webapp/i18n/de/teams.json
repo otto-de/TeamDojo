@@ -27,8 +27,10 @@
                     "implementation": "Implementation",
                     "validation": "Validation",
                     "achievedBy": "Erfüllt von",
+                    "achievedByNone" : "Dieser Skill wurde noch von keinem Team erfüllt!",
                     "neededFor": "Benötigt für",
                     "notRelevant": "Für mein Team nicht relevant"
+
                 }
             },
             "status": {

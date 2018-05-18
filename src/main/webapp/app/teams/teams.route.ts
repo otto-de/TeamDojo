@@ -20,7 +20,7 @@ export class TeamsResolve implements Resolve<any> {
                 if (value.body.length === 0) {
                     this.router.navigate(['/error']);
                 }
-                return value;
+                return value.body[0];
             });
         }
         return new Team();
