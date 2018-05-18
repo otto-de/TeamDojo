@@ -69,16 +69,5 @@ export const TEAMS_ROUTES: Route[] = [
             authorities: [],
             pageTitle: 'teamdojoApp.teams.skills.title'
         }
-    },
-    {
-        path: 'skills/:skillId',
-        component: SkillDetailsComponent,
-        resolve: {
-            skill: SkillResolve
-        },
-        data: {
-            authorities: [],
-            pageTitle: 'teamdojoApp.teams.skills.title'
-        }
     }
 ];

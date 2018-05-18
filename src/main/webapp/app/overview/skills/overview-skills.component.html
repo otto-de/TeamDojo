@@ -4,8 +4,10 @@
     </div>
     <div class="teams-skills-list list-group">
         <li class="list-group-item list-group-item-action flex-column align-items-start mb-2"
-        *ngFor="let skill of levelSkills">
-            <div class="d-flex w-100 justify-content-between">
+            [ngClass]="{'active-skill':isActiveSkill(skill)}"
+            *ngFor="let skill of levelSkills">
+            <div class="d-flex w-100 justify-content-between"
+                 [routerLink]="['/overview', 'skills', skill.skillId]" [queryParams]="{level: activeLevel?.id, badge: activeBadge?.id}">
                     <a class="#" (click)="skillClicked($event, skill)" class="text-dark mb-1">{{ skill.skillTitle }}</a>
                 <span class="noWrap">{{getRelevantTeams(skill)}}</span>
             </div>
