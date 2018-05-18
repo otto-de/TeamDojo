@@ -10,7 +10,6 @@ import { BadgeSkillService } from 'app/entities/badge-skill';
 import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
 import { Skill } from 'app/shared/model/skill.model';
 import { SkillService } from 'app/entities/skill';
-import { TeamsService } from 'app/teams/teams.service';
 
 @Injectable()
 export class AllTeamsResolve implements Resolve<any> {
@@ -73,12 +72,7 @@ export class SkillResolve implements Resolve<any> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const skillId = route.params['skillId'] ? route.params['skillId'] : null;
         if (skillId) {
-            return this.skillService.query({ 'id.equals': skillId }).map(res => {
-                if (res.body.length === 0) {
-                    this.router.navigate(['/error']);
-                }
-                return res.body[0];
-            });
+            return this.skillService.find(skillId);
         }
         return new Skill();
     }
