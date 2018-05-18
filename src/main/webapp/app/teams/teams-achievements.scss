@@ -1,64 +1,45 @@
-.teams-achievements {
+@import '~bootstrap/scss/bootstrap';
+@import "../../content/scss/colors";
+@import "../../content/scss/mixins";
+.teams-achievements{
     height: inherit;
     overflow-y: auto;
     padding-right: 10px;
-    .achievements-level-active {
-        .skill-level-image {
-            width: 10vh;
-            height: 10vh;
-        }
-        .achievement-progress svg {
-            width: 8vh;
-            height: 8vh;
+    .achievement-list {
+
+    }
+    &-body {
+        .achievement-list-title {
+            margin-top: 5px;
         }
     }
-    .skill-level-image, .badge-image {
-        width: 5vh;
-        height: 5vh;
-        display: flex;
-        align-items: center;
-        border-radius: 50%;
-        border: 2px solid gold;
-        background: white !important;
-        overflow: hidden;
-        img {
-            width: 100%;
-        }
-    }
-    .achievement-progress {
-        display: inline-flex;
-        svg {
-            width: 3vh;
-            height: 3vh;
-            transform: rotate(-90deg);
-            background: #655;
-            border-radius: 50%;
-        }
-        circle {
-            fill: #655;
-            stroke: yellowgreen;
-            stroke-width: 32;
-        }
-        .fa-check {
-            color: yellowgreen;
-            font-size: 3vh;
-        }
-    }
-    .teams-achievements-dimensions, .teams-achievements-badges {
-        ul.achievements-skill-levels, ul.achievements-badges {
-            list-style: none;
-        }
-        .achievements-skill-level, .achievements-badge {
-            border: 1px solid transparent;
-            border-radius: 5vh;
-            &.active {
-                border-color: grey;
+
+    .achievement-list-header{
+        &-left{
+            padding: 6px;
+            border-right: 1px solid rgba(0, 0, 0, 0.125);
+            &-image{
+                @include achievement-image()
             }
         }
-        .achievements-dimension, .achievements-skill-level, .achievements-badge {
-            .skill-level-name, .badge-name {
-                display: inline-block;
-            }
+        &-right{
+            padding-left: 10px;
+            color: $gray-800
         }
+
+    }
+
+    /deep/ .card-header{
+        padding: 0;
+        background-color: $dojo-bg-gradient-from;
+        a {
+            text-decoration: none;
+        }
+    }
+    /deep/ .card {
+        margin-top: 25px;
+        background-color: $dojo-bg-gradient-from;
+        border: none;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     }
 }

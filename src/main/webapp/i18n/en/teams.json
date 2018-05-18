@@ -40,8 +40,8 @@
             },
             "achievements": {
                 "title": "Achievements",
-                "badges": {
-                    "title": "Badges"
+                "generalBadges": {
+                    "title": "General Badges"
                 }
             },
             "dateFormat": "yyyy-MM-dd"

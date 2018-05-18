@@ -8,6 +8,8 @@ import { UserRouteAccessService } from 'app/core';
 import { SkillDetailsComponent } from 'app/teams/skill-details/skill-details.component';
 import { Skill } from 'app/shared/model/skill.model';
 import { SkillService } from 'app/entities/skill';
+import { BadgeService } from 'app/entities/badge';
+import { LevelService } from 'app/entities/level';
 
 @Injectable()
 export class TeamsResolve implements Resolve<any> {
@@ -24,6 +26,24 @@ export class TeamsResolve implements Resolve<any> {
             });
         }
         return new Team();
+    }
+}
+
+@Injectable()
+export class AllLevelsResolve implements Resolve<any> {
+    constructor(private levelService: LevelService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.levelService.query();
+    }
+}
+
+@Injectable()
+export class AllBadgesResolve implements Resolve<any> {
+    constructor(private badgeService: BadgeService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.badgeService.query();
     }
 }
 
@@ -50,7 +70,9 @@ export const TEAMS_ROUTES: Route[] = [
         path: 'teams/:shortName',
         component: TeamsComponent,
         resolve: {
-            team: TeamsResolve
+            team: TeamsResolve,
+            levels: AllLevelsResolve,
+            badges: AllBadgesResolve
         },
         data: {
             authorities: [],
