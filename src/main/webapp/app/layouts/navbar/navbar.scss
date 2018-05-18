@@ -72,6 +72,25 @@ Navbar
             color: #fff;
         }
     }
+    .nav-img{
+        height: 15px;
+        width: 15px;
+        top: 0px;
+        display: inline-block;
+        vertical-align: middle;
+        background-size: contain;
+        -webkit-filter: invert(100%);
+        filter: invert(100%);
+    }
+    .language-img {
+        background: url("../../../content/images/language.svg") no-repeat center center;
+    }
+    .team-img {
+        background: url("../../../content/images/team.svg") no-repeat center center;
+    }
+    .navInfo {
+        color: white;
+    }
 }
 
 @media screen and (min-width: 768px) {
