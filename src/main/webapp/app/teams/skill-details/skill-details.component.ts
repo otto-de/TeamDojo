@@ -49,7 +49,7 @@ export class SkillDetailsComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.data.subscribe(({ team, skill }) => {
-            this.team = team.body[0] ? team.body[0] : team;
+            this.team = team;
             this.skill = skill;
         });
         this.loadData();
@@ -109,18 +109,6 @@ export class SkillDetailsComponent implements OnInit {
                 console.log(res);
             }
         );
-    }
-
-    getTeamImage(team: ITeam) {
-        return team.picture && team.pictureContentType ? `data:${team.pictureContentType};base64,${team.picture}` : '';
-    }
-
-    getLevelImage(level: ILevel) {
-        return level.picture && level.pictureContentType ? `data:${level.pictureContentType};base64,${level.picture}` : '';
-    }
-
-    getBadgeImage(badge: IBadge) {
-        return badge.picture && badge.pictureContentType ? `data:${badge.pictureContentType};base64,${badge.picture}` : '';
     }
 
     skillAchieved() {

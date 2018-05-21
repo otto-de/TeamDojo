@@ -1,11 +1,16 @@
 <div class="row overview">
-    <div class="col-md-4">
-        <jhi-overview-teams [teams]="teams" [levels]="levels" [badges]="badges"></jhi-overview-teams>
+    <div class="col-md-6">
+        <jhi-overview-teams [teams]=" teams" [levels]="levels" [badges]="badges"></jhi-overview-teams>
     </div>
-    <div class="col-md-4">
-        <jhi-overview-achievements [teams]="teams" [levels]="levels" [badges]="badges"></jhi-overview-achievements>
-    </div>
-    <div class="col-md-4">
-        <jhi-overview-skills [teams]="teams" [levels]="levels" [badges]="badges"></jhi-overview-skills>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-8">
+                <jhi-overview-achievements [teams]="teams" [levels]="levels"
+                                           [badges]="badges"></jhi-overview-achievements>
+            </div>
+            <div class="col-md-4">
+                <jhi-overview-skills [teams]="teams" [levels]="levels" [badges]="badges"></jhi-overview-skills>
+            </div>
+        </div>
     </div>
 </div>
