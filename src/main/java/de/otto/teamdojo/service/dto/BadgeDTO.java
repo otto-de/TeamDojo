@@ -22,8 +22,8 @@ public class BadgeDTO implements Serializable {
     private String description;
 
     @Lob
-    private byte[] logo;
-    private String logoContentType;
+    private byte[] picture;
+    private String pictureContentType;
 
     private Instant availableUntil;
 
@@ -60,20 +60,20 @@ public class BadgeDTO implements Serializable {
         this.description = description;
     }
 
-    public byte[] getLogo() {
-        return logo;
+    public byte[] getPicture() {
+        return picture;
     }
 
-    public void setLogo(byte[] logo) {
-        this.logo = logo;
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
     }
 
-    public String getLogoContentType() {
-        return logoContentType;
+    public String getPictureContentType() {
+        return pictureContentType;
     }
 
-    public void setLogoContentType(String logoContentType) {
-        this.logoContentType = logoContentType;
+    public void setPictureContentType(String pictureContentType) {
+        this.pictureContentType = pictureContentType;
     }
 
     public Instant getAvailableUntil() {
@@ -135,7 +135,7 @@ public class BadgeDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
-            ", logo='" + getLogo() + "'" +
+            ", picture='" + getPicture() + "'" +
             ", availableUntil='" + getAvailableUntil() + "'" +
             ", availableAmount=" + getAvailableAmount() +
             ", requiredScore=" + getRequiredScore() +
