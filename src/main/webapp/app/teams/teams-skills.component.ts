@@ -58,7 +58,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        this.route.queryParamMap.subscribe((params: ParamMap) => {
+        this.reset();
+        this.route.paramMap.subscribe((params: ParamMap) => {
             const levelId: string = params.get('level');
             const badgeId: string = params.get('badge');
             this.levelIds = levelId && Number.parseInt(levelId) ? [Number.parseInt(levelId)] : [];
@@ -175,6 +176,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         this.skills = this.skills.map(skill => {
             return skill.skillId === s.skillId ? s : skill;
         });
+        this.reset();
+        this.loadAll();
     }
 
     isActiveSkill(s: IAchievableSkill) {
