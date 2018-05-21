@@ -1,12 +1,12 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-    <changeSet author="sberlin" id="1526628951200-1">
+    <changeSet author="sberlin" id="1526628951200-1" context="!test">
         <insert tableName="dimension">
             <column name="id" valueNumeric="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="name" value="Architektur" />
         </insert>
     </changeSet>
-    <changeSet author="sberlin" id="1526628951200-2">
+    <changeSet author="sberlin" id="1526628951200-2" context="!test">
         <insert tableName="team_participations">
             <column name="participations_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;QS&apos; LIMIT 1)"/>
             <column name="teams_id" valueComputed="(SELECT id FROM team WHERE short_name = &apos;dv&apos; LIMIT 1)"/>
@@ -32,7 +32,7 @@
             <column name="teams_id" valueComputed="(SELECT id FROM team WHERE short_name = &apos;ft3&apos; LIMIT 1)"/>
         </insert>
     </changeSet>
-    <changeSet author="sberlin" id="1526628951200-3">
+    <changeSet author="sberlin" id="1526628951200-3" context="!test">
         <sql>
             <comment>Team DV has yellow and orange level</comment>
             INSERT INTO team_skill (id, completed_at, verified_at, irrelevant, note, skill_id, team_id)
@@ -91,7 +91,7 @@
             AND skill.id IN (SELECT id FROM skill OFFSET random() * (SELECT count(*) FROM skill) LIMIT 10)
         </sql>
     </changeSet>
-    <changeSet author="sberlin" id="1526628951200-4">
+    <changeSet author="sberlin" id="1526628951200-4" context="!test">
         <update tableName="team">
             <column name="picture" valueBlobFile="../blobs/Team-Data.jpg" />
             <column name="picture_content_type" value="image/jpeg" />
@@ -118,10 +118,10 @@
             <where>short_name = &apos;ft3&apos;</where>
         </update>
     </changeSet>
-    <changeSet author="sberlin" id="1526628951200-5">
+    <changeSet author="sberlin" id="1526628951200-5" context="!test">
         <update tableName="badge">
-            <column name="logo" valueBlobFile="../blobs/Badge-Ninja-Tanto.png" />
-            <column name="logo_content_type" value="image/png" />
+            <column name="picture" valueBlobFile="../blobs/Badge-Ninja-Tanto.png" />
+            <column name="picture_content_type" value="image/png" />
         </update>
     </changeSet>
 </databaseChangeLog>

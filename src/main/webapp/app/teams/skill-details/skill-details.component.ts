@@ -120,7 +120,7 @@ export class SkillDetailsComponent implements OnInit {
     }
 
     getBadgeImage(badge: IBadge) {
-        return badge.logo && badge.logoContentType ? `data:${badge.logoContentType};base64,${badge.logo}` : '';
+        return badge.picture && badge.pictureContentType ? `data:${badge.pictureContentType};base64,${badge.picture}` : '';
     }
 
     skillAchieved() {

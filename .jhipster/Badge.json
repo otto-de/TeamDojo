@@ -34,7 +34,7 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "logo",
+            "fieldName": "picture",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"
         },

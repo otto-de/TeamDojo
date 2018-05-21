@@ -18,7 +18,7 @@
             },
             "name": "Name",
             "description": "Description",
-            "logo": "Logo",
+            "picture": "Picture",
             "availableUntil": "Available Until",
             "availableAmount": "Available Amount",
             "requiredScore": "Required Score",
