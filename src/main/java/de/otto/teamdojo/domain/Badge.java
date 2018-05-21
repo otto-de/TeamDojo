@@ -35,11 +35,11 @@ public class Badge implements Serializable {
     private String description;
 
     @Lob
-    @Column(name = "logo")
-    private byte[] logo;
+    @Column(name = "picture")
+    private byte[] picture;
 
-    @Column(name = "logo_content_type")
-    private String logoContentType;
+    @Column(name = "picture_content_type")
+    private String pictureContentType;
 
     @Column(name = "available_until")
     private Instant availableUntil;
@@ -99,30 +99,30 @@ public class Badge implements Serializable {
         this.description = description;
     }
 
-    public byte[] getLogo() {
-        return logo;
+    public byte[] getPicture() {
+        return picture;
     }
 
-    public Badge logo(byte[] logo) {
-        this.logo = logo;
+    public Badge picture(byte[] picture) {
+        this.picture = picture;
         return this;
     }
 
-    public void setLogo(byte[] logo) {
-        this.logo = logo;
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
     }
 
-    public String getLogoContentType() {
-        return logoContentType;
+    public String getPictureContentType() {
+        return pictureContentType;
     }
 
-    public Badge logoContentType(String logoContentType) {
-        this.logoContentType = logoContentType;
+    public Badge pictureContentType(String pictureContentType) {
+        this.pictureContentType = pictureContentType;
         return this;
     }
 
-    public void setLogoContentType(String logoContentType) {
-        this.logoContentType = logoContentType;
+    public void setPictureContentType(String pictureContentType) {
+        this.pictureContentType = pictureContentType;
     }
 
     public Instant getAvailableUntil() {
@@ -241,8 +241,8 @@ public class Badge implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
-            ", logo='" + getLogo() + "'" +
-            ", logoContentType='" + getLogoContentType() + "'" +
+            ", picture='" + getPicture() + "'" +
+            ", pictureContentType='" + getPictureContentType() + "'" +
             ", availableUntil='" + getAvailableUntil() + "'" +
             ", availableAmount=" + getAvailableAmount() +
             ", requiredScore=" + getRequiredScore() +
