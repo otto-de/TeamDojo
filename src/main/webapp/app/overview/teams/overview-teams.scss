@@ -1,12 +1,24 @@
 @import '~bootstrap/scss/bootstrap';
 @import '../../../content/scss/_colors.scss';
 .overviews-teams {
+    .additionalFunctions {
+        vertical-align: middle;
+        height: 150px;
+        width: 100%;
+        #form{
+            margin: auto;
+        }
+    }
     .team-list {
         .team-item {
             border-style: none;
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid $gray-400;
             background-color: $dojo-bg-primary;
-            z-index: 2;
+            :last-child{
+                border-style:none;
+            }
+            z-index: 5;
+            //margin-bottom: 1px;
             &.irrelevant {
                 background-color: $gray-400;
                 opacity: 0.5;
@@ -52,7 +64,7 @@
 
 input#teams_searchTerm {
     background-color: #f1d7ae;
-    width: 75%;
+    width: auto;
     margin: 5px;
 }
 
