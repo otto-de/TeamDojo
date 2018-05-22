@@ -1,11 +1,12 @@
 <div class="overviews-teams">
     <div>
         <h4 jhiTranslate="teamdojoApp.overview.teams.title">Teams</h4>
-        <div class="additionalFunctions">
+    </div>
+        <div class="additional-functions d-flex align-items-center">
             <form id="form">
-                    <input type="text" id="teams_searchTerm" placeholder="Suche" disabled>
+                <input type="text" id="teams_searchTerm" placeholder="Suche" disabled>
                 <div style="float:right">
-                    <select type="button" value="Alle Teams" name="Alle Teams" id="teams_selectTeams" disabeld> Abrakadabra
+                    <select type="button" value="Alle Teams" name="Alle Teams" id="teams_selectTeams" disabeld>
                         <option value="0">Alle Teams: </option>
                         <option value="1">Option1</option>
                         <option value="2">Option2</option>
@@ -14,7 +15,6 @@
                 </div>
             </form>
         </div>
-    </div>
     <div class="team-list list-group">
         <div class="team-item list-group-item list-group-item-action flex-column align-items-start"
             *ngFor='let team of teams'
