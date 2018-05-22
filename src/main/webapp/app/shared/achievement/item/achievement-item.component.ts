@@ -12,10 +12,16 @@ export class AchievementItemComponent {
     @Input() progress: number;
     @Input() active: boolean;
     @Input() type = '';
+    @Input() hasStatus = false;
     @Output() onItemSelected = new EventEmitter<ILevel | IBadge>();
 
     selectItem(event) {
         event.preventDefault();
         this.onItemSelected.emit(this.item);
+    }
+
+    get itemStatusCssClass() {
+        const itemStatus = this.progress >= 100 ? 'complete' : 'incomplete';
+        return this.hasStatus ? (this.type ? `${this.type}-${itemStatus}` : `item-${itemStatus}`) : '';
     }
 }
