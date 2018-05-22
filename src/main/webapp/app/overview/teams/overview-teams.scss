@@ -1,12 +1,13 @@
 @import '~bootstrap/scss/bootstrap';
 @import '../../../content/scss/_colors.scss';
 .overviews-teams {
-    .additionalFunctions {
-        vertical-align: middle;
+
+    .additional-functions {
+
         height: 150px;
         width: 100%;
         #form{
-            margin: auto;
+            width: 100%;
         }
     }
     .team-list {
@@ -66,8 +67,20 @@ input#teams_searchTerm {
     background-color: #f1d7ae;
     width: auto;
     margin: 5px;
-}
 
+}
+::-webkit-input-placeholder {
+    font-style: italic;
+}
+:-moz-placeholder {
+    font-style: italic;
+}
+::-moz-placeholder {
+    font-style: italic;
+}
+:-ms-input-placeholder {
+    font-style: italic;
+}
 @media only screen and (min-width: map-get($grid-breakpoints, md)){
     .overviews-teams {
         .team-list {
