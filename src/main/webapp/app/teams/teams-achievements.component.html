@@ -28,9 +28,9 @@
                                 <div class="d-flex align-items-center achievements-badge"
                                      [ngClass]="{'active': activeAchievement && activeAchievement.id === badge.id}">
                                     <div class="badge-image">
-                                        <img [title]="badge.name" *ngIf="badge.logo && badge.logoContentType; else logoPlaceholder"
-                                             [src]="badge.logo | imageDataUrl: badge.logoContentType"/>
-                                        <ng-template #logoPlaceholder>
+                                        <img [title]="badge.name" *ngIf="badge.picture && badge.pictureContentType; else picturePlaceholder"
+                                             [src]="badge.picture | imageDataUrl: badge.pictureContentType"/>
+                                        <ng-template #picturePlaceholder>
                                             <span class="img-placeholder">{{badge.name | truncateString}}</span>
                                         </ng-template>
                                     </div>

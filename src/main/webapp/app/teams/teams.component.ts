@@ -15,7 +15,7 @@ export class TeamsComponent implements OnInit {
 
     ngOnInit() {
         this.route.data.subscribe(({ team }) => {
-            this.team = team.body[0] ? team.body[0] : team;
+            this.team = team;
         });
     }
 
