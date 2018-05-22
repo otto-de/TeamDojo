@@ -1,15 +1,14 @@
 <div class="overviews-teams">
     <div>
         <h4 jhiTranslate="teamdojoApp.overview.teams.title">Teams</h4>
-        <form class="form-inline">
-            <div class="form-group mr-1 mb-2">
-                <input type="text" class="form-control" id="teams_searchTerm" disabled>
+        <form class="list-group">
+            <div>
+                <input type="text" class="form-control" id="teams_searchTerm" placeholder="Suche" disabled>
             </div>
-            <button type="submit" class="btn btn-secondary mb-2" disabled><span class="fa fa-search"></span></button>
         </form>
     </div>
     <div class="team-list list-group">
-        <li class="team-item list-group-item list-group-item-action flex-column align-items-start mb-2"
+        <div class="team-item list-group-item list-group-item-action flex-column align-items-start"
             *ngFor='let team of teams'
             [ngClass]="{irrelevant: showAsIrrelevant(team)}">
             <div class="d-flex flex-wrap align-items-center">
@@ -34,6 +33,6 @@
                     </div>
                 </div>
             </div>
-        </li>
+        </div>
     </div>
 </div>
