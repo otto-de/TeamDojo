@@ -13,13 +13,13 @@
                 <dd>
                     <span>{{badge.description}}</span>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.badge.logo">Logo</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.badge.picture">Picture</span></dt>
                 <dd>
-                    <div *ngIf="badge.logo">
-                        <a (click)="openFile(badge.logoContentType, badge.logo)">
-                            <img [src]="'data:' + badge.logoContentType + ';base64,' + badge.logo" style="max-width: 100%;" alt="badge image"/>
+                    <div *ngIf="badge.picture">
+                        <a (click)="openFile(badge.pictureContentType, badge.picture)">
+                            <img [src]="'data:' + badge.pictureContentType + ';base64,' + badge.picture" style="max-width: 100%;" alt="badge image"/>
                         </a>
-                        {{badge.logoContentType}}, {{byteSize(badge.logo)}}
+                        {{badge.pictureContentType}}, {{byteSize(badge.picture)}}
                     </div>
                 </dd>
                 <dt><span jhiTranslate="teamdojoApp.badge.availableUntil">Available Until</span></dt>
