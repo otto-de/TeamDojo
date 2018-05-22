@@ -1,7 +1,7 @@
 @import '~bootstrap/scss/bootstrap';
 @import "../../../../content/scss/mixins";
 .achievement-item {
-    width: 10vh;
+    width: 11vh;
     border: 2px solid transparent;
 
     .item-badge, .item-level {
@@ -29,7 +29,9 @@
         .item-image {
             position: absolute;
             height: 8vh;
+            width: 15vh;
             background-color: transparent;
+            margin-left: -3.5vh;
         }
     }
 

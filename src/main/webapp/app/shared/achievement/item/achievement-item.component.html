@@ -4,9 +4,9 @@
         <small>( {{progress | number: '1.0-2' }}% )</small>
     </div>
 </ng-template>
-<div class="achievement-item mx-1 mb-2" (click)="selectItem($event)" [ngClass]="{'active': active}"
+<div class="achievement-item mb-2" (click)="selectItem($event)" [ngClass]="{'active': active}"
      [ngbPopover]="popoverContent" triggers="mouseenter:mouseleave" placement="top">
-    <div class="d-flex justify-content-center py-2">
+    <div class="d-flex justify-content-center px-2 py-2">
         <div [ngClass]="[type, itemStatusCssClass]">
             <span class="item-image">
                 <img *ngIf="item.picture && item.pictureContentType; else picturePlaceholder" [title]="item.name"
