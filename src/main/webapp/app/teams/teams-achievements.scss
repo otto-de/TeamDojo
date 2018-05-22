@@ -18,8 +18,8 @@
         &-left {
             padding: 6px;
             border-right: 1px solid rgba(0, 0, 0, 0.125);
-            &-image{
-                @include achievement-image('../../content/images')
+            &-image {
+                @include achievement-image()
             }
         }
         &-right {
