@@ -3,17 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ITeam } from 'app/shared/model/team.model';
 import { ISkill } from 'app/shared/model/skill.model';
 import { TeamSkillService } from 'app/entities/team-skill';
-import { TeamsService } from 'app/teams/teams.service';
-import { IBadge } from 'app/shared/model/badge.model';
-import { ILevel } from 'app/shared/model/level.model';
-import { LevelService } from 'app/entities/level';
-import { BadgeService } from 'app/entities/badge';
-import * as moment from 'moment';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 import { TeamsSkillsComponent } from 'app/teams/teams-skills.component';
-import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details-info/skill-details-info.component';
 
 @Component({
