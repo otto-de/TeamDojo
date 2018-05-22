@@ -51,17 +51,17 @@ export class TeamsAchievementsComponent implements OnInit {
                 }
             }
             if (levelId) {
-                const dimension = this.team.participations.find((d: IDimension) => d.levels.some((l: ILevel) => l.id == levelId));
+                const dimension = this.team.participations.find((d: IDimension) => d.levels.some((l: ILevel) => l.id === levelId));
                 if (dimension) {
                     this.activeItemIds.dimension = dimension.id;
                     this.setExpandedDimensionId(dimension.id);
-                    const level = dimension.levels.find((level: ILevel) => level.id === levelId);
+                    const level = dimension.levels.find((l: ILevel) => l.id === levelId);
                     if (level) {
                         this.activeItemIds.level = level.id;
                     }
                 }
             } else if (badgeId) {
-                const badge = this.generalBadges.find((badge: IBadge) => badge.id === badgeId);
+                const badge = this.generalBadges.find((b: IBadge) => b.id === badgeId);
                 if (badge) {
                     this.activeItemIds.badge = badge.id;
                 }
@@ -110,7 +110,7 @@ export class TeamsAchievementsComponent implements OnInit {
 
     getHighestAchievedLevel(dimension: IDimension): ILevel {
         let currentLevel;
-        for (let level of dimension.levels) {
+        for (const level of dimension.levels) {
             const levelProgress = this.getLevelOrBadgeProgress(level);
             if (!levelProgress.isCompleted()) {
                 break;
