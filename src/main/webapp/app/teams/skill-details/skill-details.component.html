@@ -1,10 +1,13 @@
 <div class="row skill-details">
-    <div class="col-md-4">
+    <div class="skills-list">
         <jhi-teams-skills [team]="team" [skill]="achievableSkill" (onSkillClicked)="onSkillInListClicked($event)"
                           (onSkillChanged)="onSkillInListChanged($event)"></jhi-teams-skills>
     </div>
-    <div class="col-md-8">
+    <div class="skill-info">
         <jhi-skill-details-info (onSkillChanged)="skillList.handleSkillChanged($event)" [skill]="skill"
                                 [team]="team" [achievableSkill]="achievableSkill"></jhi-skill-details-info>
+    </div>
+    <div class="skill-comments">
+        <jhi-skill-details-comments></jhi-skill-details-comments>
     </div>
 </div>

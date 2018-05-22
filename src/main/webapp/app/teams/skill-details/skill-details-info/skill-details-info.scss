@@ -1,29 +1,66 @@
 .skill-title {
-    margin-top: 25px;
-    margin-bottom: 25px;
-}
-.skill-deactivate {
-    margin-bottom: 30px;
-    button {
-        width: 300px;
-    }
+    margin-bottom: 15px;
 }
 .desc-block {
+
     margin-bottom: 35px;
 }
 
-.irrlevant-control {
-    margin-top: 30px;
-    * {
-        vertical-align: middle;
+.skill-actions {
+    margin-bottom: 15px;
+    margin-left: 2px;
+}
+
+.skill-rating {
+    margin-bottom: 20px;
+    margin-left: 2px;
+    .rating-text {
+        margin-left: 5px;
     }
-    input[type=checkbox] {
-        width: 30px;
-        height: 30px;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid transparent;
+    margin-right: 15px;
+    i {
+        margin-right: 3px;
     }
-    label {
-        margin: 0;
+}
+
+.action-btn:hover {
+    border-color: #ccc;
+}
+
+.action-btn:active,
+.action-btn:focus {
+    outline: 0;
+}
+.action-btn:active {
+    border-color: #555;
+}
+
+.irrelevant {
+    i {
+        -moz-transform: scale(-1, 1);
+        -webkit-transform: scale(-1, 1);
+        -o-transform: scale(-1, 1);
+        -ms-transform: scale(-1, 1);
+        transform: scale(-1, 1);
     }
+}
+
+.dojo-card {
+    background: #FFFAF7;
+    box-shadow: 1px 1px 5px #ccc;
+}
+
+.achieved-by {
+    margin-top: 15px;
 }
 
 .achieved-by-teams, .needed-for-levels, .needed-for-badges {

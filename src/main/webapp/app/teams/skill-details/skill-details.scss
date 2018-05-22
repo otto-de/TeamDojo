@@ -1,0 +1,20 @@
+.skill-details {
+    margin-top: 20px;
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .skills-list {
+        width: 20%;
+        padding-right: 10px;
+    }
+    .skill-info {
+        width: 60%;
+        padding: 0 10px;
+    }
+    .skill-comments {
+        width: 20%;
+        padding-left: 10px;
+    }
+}

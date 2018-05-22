@@ -81,13 +81,21 @@ export class SkillDetailsInfoComponent implements OnInit {
         this.skill = skillObjs.iSkill;
     }
 
-    onSkillSelected(skillObjs) {
+    onSkillInListClicked(skillObjs) {
         this.achievableSkill = skillObjs.aSkill;
         this.skill = skillObjs.iSkill;
     }
 
     onToggleSkill(isActivated: boolean) {
         this.achievableSkill.achievedAt = isActivated ? moment() : null;
+        this.updateSkill();
+    }
+
+    onToggleIrrelevance(irrelevant: boolean) {
+        if (irrelevant) {
+            this.achievableSkill.achievedAt = null;
+        }
+        this.achievableSkill.irrelevant = irrelevant;
         this.updateSkill();
     }
 
