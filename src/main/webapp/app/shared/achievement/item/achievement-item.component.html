@@ -18,7 +18,7 @@
             <span class="item-bg"></span>
         </div>
     </div>
-    <div class="item-progress pt-1 px-2 pb-3">
+    <div class="item-progress pt-1 px-2 pb-3" *ngIf="hasStatus">
         <ngb-progressbar height="6px" [value]="progress"></ngb-progressbar>
     </div>
 </div>
