@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ISkill } from 'app/shared/model/skill.model';
 import { SkillService } from 'app/entities/skill';
+import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
 
 @Component({
     selector: 'jhi-overview-skills',
@@ -43,7 +44,8 @@ export class OverviewSkillsComponent implements OnInit {
         private teamsSkillService: TeamsSkillsService,
         private route: ActivatedRoute,
         private router: Router,
-        private location: Location
+        private location: Location,
+        private breadcrumbService: BreadcrumbService
     ) {}
 
     ngOnInit() {
@@ -52,14 +54,17 @@ export class OverviewSkillsComponent implements OnInit {
                 this.activeLevel = this.levels.find((level: ILevel) => level.id === Number.parseInt(params.get('level')));
                 this.activeSkills = this.activeLevel ? this.activeLevel.skills : [];
                 this.activeBadge = null;
+                this.breadcrumbService.setBreadcrumb(null, null, this.activeLevel, null, this.activeSkill);
             } else if (params.get('badge')) {
                 this.activeBadge = this.badges.find((badge: IBadge) => badge.id === Number.parseInt(params.get('badge')));
                 this.activeSkills = this.activeBadge ? this.activeBadge.skills : [];
                 this.activeLevel = null;
+                this.breadcrumbService.setBreadcrumb(null, null, null, this.activeBadge, this.activeSkill);
             } else {
                 this.levelSkillService.query().subscribe(
                     (res: HttpResponse<ILevelSkill[]>) => {
                         this.activeSkills = res.body;
+                        this.breadcrumbService.setBreadcrumb(null, null, null, null, this.activeSkill);
                     },
                     (res: HttpErrorResponse) => this.onError(res.error)
                 );
