@@ -1,0 +1,33 @@
+@import '~bootstrap/scss/bootstrap';
+@import "../../../../content/scss/mixins";
+.achievement-item {
+    width: 7vh;
+    height: 8vh;
+    margin: 5px;
+    border: 1px solid transparent;
+    border-radius: 1vh;
+
+    .item-image {
+        @include achievement-image();
+    }
+
+    .item-progress {
+        padding: 6px 15px 0 15px;
+
+        /deep/ .progress {
+            background-color: transparent;
+            border: 1px solid $gray-600;
+            border-radius: 0;
+        }
+        /deep/ .progress-bar{
+            background-color: $gray-600;
+        }
+    }
+
+    &.active {
+        border-color: $gray-400;
+    }
+    &:hover {
+        cursor: pointer;
+    }
+}
