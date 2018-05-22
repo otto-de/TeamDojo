@@ -7,7 +7,7 @@ import { TeamsStatusComponent } from './teams-status.component';
 import { TeamsAchievementsComponent } from './teams-achievements.component';
 import { TeamsSkillsComponent } from './teams-skills.component';
 import { TeamsSelectionComponent } from 'app/teams/teams-selection/teams-selection.component';
-import { AllBadgesResolve, AllLevelsResolve, TeamsResolve } from './teams.route';
+import { AllBadgeSkillsResolve, AllBadgesResolve, AllLevelSkillsResolve, AllLevelsResolve, TeamAndTeamSkillResolve } from './teams.route';
 import { TeamsService } from './teams.service';
 import { TeamsSkillsService } from './teams-skills.service';
 import { TeamsSelectionService } from './teams-selection/teams-selection.service';
@@ -31,10 +31,12 @@ import { SkillDetailsComponent } from 'app/teams/skill-details/skill-details.com
         TeamsSkillsService,
         TeamsSelectionService,
         TeamsAchievementsService,
-        TeamsResolve,
+        TeamAndTeamSkillResolve,
         SkillResolve,
         AllLevelsResolve,
-        AllBadgesResolve
+        AllBadgesResolve,
+        AllLevelSkillsResolve,
+        AllBadgeSkillsResolve
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
