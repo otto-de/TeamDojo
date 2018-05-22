@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
@@ -12,6 +12,10 @@ import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { LevelSkillService } from 'app/entities/level-skill';
 import { ILevelSkill } from 'app/shared/model/level-skill.model';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { ISkill } from 'app/shared/model/skill.model';
+import { SkillService } from 'app/entities/skill';
 
 @Component({
     selector: 'jhi-overview-skills',
@@ -22,27 +26,36 @@ export class OverviewSkillsComponent implements OnInit {
     @Input() teams: ITeam[];
     @Input() levels: ILevel[];
     @Input() badges: IBadge[];
+    @Input() activeSkill: ISkill;
+    @Output() onSkillClicked = new EventEmitter<{ iSkill: ISkill }>();
     activeSkills: ILevelSkill[] | IBadgeSkill[];
+    activeLevel: ILevel;
+    activeBadge: IBadge;
     dimensions: IDimension[];
     dimensionsBySkillId: any;
     generalSkillsIds: number[];
 
     constructor(
         private levelSkillService: LevelSkillService,
+        private skillService: SkillService,
         private jhiAlertService: JhiAlertService,
         private teamService: TeamService,
         private teamsSkillService: TeamsSkillsService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router,
+        private location: Location
     ) {}
 
     ngOnInit() {
         this.route.queryParamMap.subscribe((params: ParamMap) => {
             if (params.get('level')) {
-                const activeLevel = this.levels.find((level: ILevel) => level.id === Number.parseInt(params.get('level')));
-                this.activeSkills = activeLevel ? activeLevel.skills : [];
+                this.activeLevel = this.levels.find((level: ILevel) => level.id === Number.parseInt(params.get('level')));
+                this.activeSkills = this.activeLevel ? this.activeLevel.skills : [];
+                this.activeBadge = null;
             } else if (params.get('badge')) {
-                const activeBadge = this.badges.find((badge: IBadge) => badge.id === Number.parseInt(params.get('badge')));
-                this.activeSkills = activeBadge ? activeBadge.skills : [];
+                this.activeBadge = this.badges.find((badge: IBadge) => badge.id === Number.parseInt(params.get('badge')));
+                this.activeSkills = this.activeBadge ? this.activeBadge.skills : [];
+                this.activeLevel = null;
             } else {
                 this.levelSkillService.query().subscribe(
                     (res: HttpResponse<ILevelSkill[]>) => {
@@ -52,6 +65,7 @@ export class OverviewSkillsComponent implements OnInit {
                 );
             }
         });
+
         this.generalSkillsIds = [];
         this.dimensionsBySkillId = {};
         this.levels.forEach(level => {
@@ -121,6 +135,12 @@ export class OverviewSkillsComponent implements OnInit {
     }
 
     skillClicked(event, skill: ILevelSkill) {
+        const url = this.router.createUrlTree(['/overview', 'skills', skill.skillId]).toString();
+        this.location.replaceState(url);
         event.preventDefault();
+    }
+
+    isActiveSkill(iLevelSkill: ILevelSkill) {
+        return typeof this.activeSkill !== 'undefined' && this.activeSkill !== null && this.activeSkill.id === iLevelSkill.skillId;
     }
 }

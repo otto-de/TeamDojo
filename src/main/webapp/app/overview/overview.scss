@@ -7,6 +7,12 @@
             height: 100%;
             > * {
                 height: inherit;
+                > * {
+                    height: inherit;
+                    > * {
+                        height: inherit;
+                    }
+                }
             }
         }
     }

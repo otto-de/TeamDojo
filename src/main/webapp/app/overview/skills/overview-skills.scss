@@ -1,8 +1,14 @@
 .overviews-skills{
     height: inherit;
     overflow-y: auto;
+    overflow-x: hidden;
     padding-right: 10px;
 }
 .noWrap {
     white-space: nowrap;
+}
+
+.active-skill,
+.active-skill:hover {
+    background: #f0f0f0;
 }
