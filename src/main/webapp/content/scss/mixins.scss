@@ -3,12 +3,19 @@
     height: 5vh;
     display: flex;
     align-items: center;
-    border-radius: 50%;
-    border: 2px solid gold;
-    background: white !important;
+    background: no-repeat center/100% white;
     overflow: hidden;
     img {
         width: 100%;
+    }
+    &.badge {
+        background-image: url('../../content/images/badge_default.png');
+        img {
+            margin-top: -3px;
+        }
+    }
+    &.level {
+        background-image: url('../../content/images/level_default.png');
     }
 }
 

@@ -11,6 +11,7 @@ export class AchievementItemComponent {
     @Input() item: any;
     @Input() progress: number;
     @Input() active: boolean;
+    @Input() type = '';
     @Output() onItemSelected = new EventEmitter<ILevel | IBadge>();
 
     selectItem(event) {
