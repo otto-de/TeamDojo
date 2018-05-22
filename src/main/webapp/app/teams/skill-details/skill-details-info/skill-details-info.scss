@@ -1,0 +1,60 @@
+.skill-title {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.skill-deactivate {
+    margin-bottom: 30px;
+    button {
+        width: 300px;
+    }
+}
+.desc-block {
+    margin-bottom: 35px;
+}
+
+.irrlevant-control {
+    margin-top: 30px;
+    * {
+        vertical-align: middle;
+    }
+    input[type=checkbox] {
+        width: 30px;
+        height: 30px;
+    }
+    label {
+        margin: 0;
+    }
+}
+
+.achieved-by-teams, .needed-for-levels, .needed-for-badges {
+    margin-top: 15px;
+}
+
+.avatar-badge, .avatar-level, .avatar-team {
+    display: flex;
+    float: left;
+    align-items: center;
+    border-radius: 50%;
+    border: 3px solid #ddd;
+    padding: 3px;
+    background: white !important;
+    overflow: hidden;
+    img {
+        width: 100%;
+    }
+    width: 70px;
+    height: 70px;
+    margin: 0 5px 5px 0;
+}
+
+.avatar-level {
+    border-color: gold;
+}
+
+.avatar-badge {
+    border-color: #3F51B5;
+}
+
+.skill-list-item {
+    cursor: pointer;
+}
