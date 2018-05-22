@@ -33,8 +33,6 @@ export class SkillDetailsComponent implements OnInit {
 
     neededForBadges: IBadge[] = [];
 
-    @Output() onSkillChanged = new EventEmitter<IAchievableSkill>();
-
     @ViewChild(TeamsSkillsComponent) skillList;
 
     constructor(
@@ -102,7 +100,6 @@ export class SkillDetailsComponent implements OnInit {
         this.teamsSkillsService.updateAchievableSkill(this.team.id, this.achievableSkill).subscribe(
             (res: HttpResponse<IAchievableSkill>) => {
                 this.achievableSkill = res.body;
-                this.onSkillChanged.emit(this.achievableSkill);
                 this.skillList.handleSkillChanged(this.achievableSkill);
             },
             (res: HttpErrorResponse) => {

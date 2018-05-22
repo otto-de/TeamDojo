@@ -14,6 +14,7 @@ import { SkillService } from 'app/entities/skill';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 const MAX_ITEMS_PER_PAGE = 1000;
+import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
 
 @Component({
     selector: 'jhi-teams-skills',
@@ -43,7 +44,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         private storage: LocalStorageService,
         private route: ActivatedRoute,
         private location: Location,
-        private router: Router
+        private router: Router,
+        private breadcrumbService: BreadcrumbService
     ) {
         this.filters = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
