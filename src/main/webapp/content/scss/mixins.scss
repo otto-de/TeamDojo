@@ -1,0 +1,14 @@
+@mixin achievement-image() {
+    width: 5vh;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    border: 2px solid gold;
+    background: white !important;
+    overflow: hidden;
+    img {
+        width: 100%;
+    }
+
+}

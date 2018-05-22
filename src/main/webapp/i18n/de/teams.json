@@ -41,8 +41,8 @@
             },
             "achievements": {
                 "title": "Errungenschaften",
-                "badges": {
-                    "title": "Pokale"
+                "generalBadges": {
+                    "title": "Allgemeine Badges"
                 }
             },
             "dateFormat": "dd.MM.yyyy"
