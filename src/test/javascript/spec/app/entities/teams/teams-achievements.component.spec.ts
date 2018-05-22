@@ -75,10 +75,10 @@ describe('Component Tests', () => {
 
             // THEN
             expect(service.queryLevels).toHaveBeenCalled();
-            expect(comp.levels).toEqual(jasmine.objectContaining({ 122: jasmine.anything() }));
-            expect(comp.levels[122].length).toEqual(2);
-            expect(comp.levels[122][0]).toEqual(jasmine.objectContaining({ id: 124 }));
-            expect(comp.levels[122][1]).toEqual(jasmine.objectContaining({ id: 123 }));
+            expect(comp.team.participations[0].id).toEqual(122);
+            expect(comp.team.participations[0].levels.length).toEqual(2);
+            expect(comp.team.participations[0].levels[0]).toEqual(jasmine.objectContaining({ id: 124 }));
+            expect(comp.team.participations[0].levels[1]).toEqual(jasmine.objectContaining({ id: 123 }));
         });
 
         it('Should sort multiple levels descendingly', () => {
@@ -106,12 +106,12 @@ describe('Component Tests', () => {
 
             // THEN
             expect(service.queryLevels).toHaveBeenCalled();
-            expect(comp.levels).toEqual(jasmine.objectContaining({ 122: jasmine.anything() }));
-            expect(comp.levels[122].length).toEqual(4);
-            expect(comp.levels[122][0]).toEqual(jasmine.objectContaining({ id: 126 }));
-            expect(comp.levels[122][1]).toEqual(jasmine.objectContaining({ id: 125 }));
-            expect(comp.levels[122][2]).toEqual(jasmine.objectContaining({ id: 124 }));
-            expect(comp.levels[122][3]).toEqual(jasmine.objectContaining({ id: 123 }));
+            expect(comp.team.participations[0].id).toEqual(122);
+            expect(comp.team.participations[0].levels.length).toEqual(4);
+            expect(comp.team.participations[0].levels[0]).toEqual(jasmine.objectContaining({ id: 126 }));
+            expect(comp.team.participations[0].levels[1]).toEqual(jasmine.objectContaining({ id: 125 }));
+            expect(comp.team.participations[0].levels[2]).toEqual(jasmine.objectContaining({ id: 124 }));
+            expect(comp.team.participations[0].levels[3]).toEqual(jasmine.objectContaining({ id: 123 }));
         });
 
         it('Should sort multiple levels without a root level descendingly', () => {
@@ -138,12 +138,12 @@ describe('Component Tests', () => {
 
             // THEN
             expect(service.queryLevels).toHaveBeenCalled();
-            expect(comp.levels).toEqual(jasmine.objectContaining({ 122: jasmine.anything() }));
-            expect(comp.levels[122].length).toEqual(3);
+            expect(comp.team.participations[0].id).toEqual(122);
+            expect(comp.team.participations[0].levels.length).toEqual(3);
             // use incoming order if dependency is the same
-            expect(comp.levels[122][0]).toEqual(jasmine.objectContaining({ id: 125 }));
-            expect(comp.levels[122][1]).toEqual(jasmine.objectContaining({ id: 124 }));
-            expect(comp.levels[122][2]).toEqual(jasmine.objectContaining({ id: 123 }));
+            expect(comp.team.participations[0].levels[0]).toEqual(jasmine.objectContaining({ id: 125 }));
+            expect(comp.team.participations[0].levels[1]).toEqual(jasmine.objectContaining({ id: 124 }));
+            expect(comp.team.participations[0].levels[2]).toEqual(jasmine.objectContaining({ id: 123 }));
         });
 
         it('Should not fail if no level exists for dimension', () => {
@@ -166,8 +166,8 @@ describe('Component Tests', () => {
 
             // THEN
             expect(service.queryLevels).toHaveBeenCalled();
-            expect(comp.levels).toEqual(jasmine.objectContaining({ 122: [] }));
-            expect(comp.levels[122].length).toEqual(0);
+            expect(comp.team.participations[0].id).toEqual(122);
+            expect(comp.team.participations[0].levels.length).toEqual(0);
         });
 
         it('Should not fail if only a single level is retrieved', () => {
@@ -190,9 +190,9 @@ describe('Component Tests', () => {
 
             // THEN
             expect(service.queryLevels).toHaveBeenCalled();
-            expect(comp.levels).toEqual(jasmine.objectContaining({ 122: jasmine.anything() }));
-            expect(comp.levels[122].length).toEqual(1);
-            expect(comp.levels[122][0]).toEqual(jasmine.objectContaining({ id: 123 }));
+            expect(comp.team.participations[0].id).toEqual(122);
+            expect(comp.team.participations[0].levels.length).toEqual(1);
+            expect(comp.team.participations[0].levels[0]).toEqual(jasmine.objectContaining({ id: 123 }));
         });
 
         it('Should load multiple dimensions with levels', () => {
@@ -215,13 +215,13 @@ describe('Component Tests', () => {
 
             // THEN
             expect(service.queryLevels).toHaveBeenCalled();
-            expect(comp.levels).toEqual(jasmine.objectContaining({ 122: jasmine.anything() }));
-            expect(comp.levels[122].length).toEqual(1);
-            expect(comp.levels[122][0]).toEqual(jasmine.objectContaining({ id: 124 }));
+            expect(comp.team.participations[0].id).toEqual(122);
+            expect(comp.team.participations[0].levels.length).toEqual(1);
+            expect(comp.team.participations[0].levels[122][0]).toEqual(jasmine.objectContaining({ id: 124 }));
 
-            expect(comp.levels).toEqual(jasmine.objectContaining({ 123: jasmine.anything() }));
-            expect(comp.levels[123].length).toEqual(1);
-            expect(comp.levels[123][0]).toEqual(jasmine.objectContaining({ id: 125 }));
+            expect(comp.team.participations[1].id).toEqual(123);
+            expect(comp.team.participations[1].levels.length).toEqual(1);
+            expect(comp.team.participations[1].levels[0]).toEqual(jasmine.objectContaining({ id: 125 }));
         });
     });
 });

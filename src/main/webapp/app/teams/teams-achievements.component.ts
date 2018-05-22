@@ -6,11 +6,15 @@ import { JhiAlertService } from 'ng-jhipster';
 import { TeamsAchievementsService } from './teams-achievements.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { IDimension } from 'app/shared/model/dimension.model';
+import { AchievementProgress } from 'app/shared/achievement/model/achievement-progress.model';
+import { RelevanceCheck } from 'app/shared';
+import { CompletionCheck } from 'app/shared/util/completion-check';
+import { IProgress, Progress } from 'app/shared/achievement/model/progress.model';
 
 @Component({
     selector: 'jhi-teams-achievements',
     templateUrl: './teams-achievements.component.html',
-    styleUrls: ['teams-achievements.scss']
+    styleUrls: ['./teams-achievements.scss']
 })
 export class TeamsAchievementsComponent implements OnInit {
     @Input() team: ITeam;
@@ -89,7 +93,27 @@ export class TeamsAchievementsComponent implements OnInit {
     }
 
     getAchievementProgress(item: ILevel | IBadge): number {
-        return 0;
+        const countProgress = new Progress(0, 0);
+        const scoreProgress = new Progress(0, 0);
+        if (this.isRelevant(item)) {
+            const itemProgress = this.getLevelOrBadgeProgress(item);
+            scoreProgress.required += itemProgress.required;
+            scoreProgress.achieved += itemProgress.achieved;
+            countProgress.required++;
+            if (itemProgress.isCompleted()) {
+                countProgress.achieved++;
+            }
+        }
+        const progress = new AchievementProgress(countProgress, scoreProgress);
+        return progress.scoreProgress.getPercentage();
+    }
+
+    private getLevelOrBadgeProgress(item: ILevel | IBadge): IProgress {
+        return new CompletionCheck(this.team, item).getProgress();
+    }
+
+    private isRelevant(item: ILevel | IBadge): boolean {
+        return new RelevanceCheck(this.team).isRelevantLevelOrBadge(item);
     }
 
     private setExpandedDimensionId(dimensionId: number) {
