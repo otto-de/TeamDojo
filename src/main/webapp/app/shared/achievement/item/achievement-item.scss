@@ -7,22 +7,11 @@
     border: 1px solid transparent;
     border-radius: 1vh;
 
-    .item-image {
-        @include achievement-image();
-    }
-
-    .badge, .level {
+    .item-badge, .item-level {
         display: flex;
         height: 6vh;
         .item-image {
-            display: flex;
-            width: 6vh;
-            align-items: center;
-            background-color: white;
-            overflow: hidden;
-            img {
-                width: 80%;
-            }
+            @include achievement-image();
         }
 
         .item-bg {
@@ -34,7 +23,7 @@
         }
     }
 
-    .badge {
+    .item-badge {
         .item-image img {
             margin-top: -3px;
         }
@@ -49,7 +38,7 @@
         }
     }
 
-    .level {
+    .item-level {
         .item-bg {
             background-image: url('../../../../content/images/level_default.png');
         }
