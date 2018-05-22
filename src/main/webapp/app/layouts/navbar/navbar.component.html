@@ -23,7 +23,7 @@
             <li class="nav-item" *ngIf="teamsSelectionService.selectedTeam === null">
                 <a class="nav-link" (click)="selectTeam()" >
                      <span>
-                        <i class="nav-img team-img"></i>
+                        <i class="nav-img team-img" style="background-size: contain;"></i>
                         <span class="navInfo" jhiTranslate="global.menu.teams.select"></span>
                      </span>
                 </a>
@@ -194,7 +194,7 @@
                 <a class="nav-link dropdown-toggle navInfo" ngbDropdownToggle href="javascript:void(0);"
                    id="languagesnavBarDropdown" *ngIf="languages.length > 1">
                     <span class="navInfo">
-                        <i class="nav-img language-img" aria-hidden="true"></i>
+                        <i class="nav-img language-img" aria-hidden="true" style="background-size: contain;"></i>
                         <span jhiTranslate="global.menu.language">Language</span>
                     </span>
                 </a>
