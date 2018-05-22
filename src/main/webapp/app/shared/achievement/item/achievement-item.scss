@@ -15,11 +15,27 @@
         }
 
         .item-bg {
-            position: absolute;
             display: flex;
-            height: 6vh;
             width: 6vh;
             background: no-repeat center/100% transparent;
+        }
+    }
+
+    .item-badge {
+        .item-image {
+            background-color: white;
+        }
+        .item-bg {
+            position: absolute;
+            height: 6vh;
+        }
+    }
+
+    .item-level {
+        .item-image {
+            position: absolute;
+            height: 6vh;
+            background-color: transparent;
         }
     }
 
