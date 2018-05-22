@@ -124,4 +124,36 @@
             <column name="logo_content_type" value="image/png" />
         </update>
     </changeSet>
+    <changeSet author="sberlin" id="1526628951200-6">
+        <update tableName="level">
+            <column name="picture" valueBlobFile="../blobs/Belt-yellow.png" />
+            <column name="picture_content_type" value="image/png" />
+            <where>name = &apos;yellow&apos;</where>
+        </update>
+        <update tableName="level">
+            <column name="picture" valueBlobFile="../blobs/Belt-orange.png" />
+            <column name="picture_content_type" value="image/png" />
+            <where>name = &apos;orange&apos;</where>
+        </update>
+        <update tableName="level">
+            <column name="picture" valueBlobFile="../blobs/Belt-green.png" />
+            <column name="picture_content_type" value="image/png" />
+            <where>name = &apos;green&apos;</where>
+        </update>
+        <update tableName="level">
+            <column name="picture" valueBlobFile="../blobs/Belt-blue.png" />
+            <column name="picture_content_type" value="image/png" />
+            <where>name = &apos;blue&apos;</where>
+        </update>
+        <update tableName="level">
+            <column name="picture" valueBlobFile="../blobs/Belt-brown.png" />
+            <column name="picture_content_type" value="image/png" />
+            <where>name = &apos;brown&apos;</where>
+        </update>
+        <update tableName="level">
+            <column name="picture" valueBlobFile="../blobs/Belt-black.png" />
+            <column name="picture_content_type" value="image/png" />
+            <where>name = &apos;black&apos;</where>
+        </update>
+    </changeSet>
 </databaseChangeLog>
