@@ -28,10 +28,10 @@
                     <div class="d-flex flex-column">
                         <div class="d-flex">
                             <div class="skill-title" [ngClass]="{'irrelevant': skill.irrelevant}">
-                                <a *ngIf="isInSkillDetails()" class="text-dark mb-1">{{skill.title}}</a>
+                                <a *ngIf="isInSkillDetails()" class="mb-1">{{skill.title}}</a>
                                 <a *ngIf="!isInSkillDetails()"
                                    [routerLink]="['/teams', team.shortName,'skills', skill.skillId]"
-                                   class="text-dark mb-1">{{skill.title}}</a>
+                                   class="mb-1">{{skill.title}}</a>
                             </div>
                             <div class="skill-status ml-auto" [ngClass]="{'completed': !skill.irrelevant && skill.achievedAt}">
                                 <i *ngIf="skill.irrelevant" class="fa fa-thumbs-o-down"></i>
@@ -40,20 +40,20 @@
                             </div>
                         </div>
                         <div *ngIf="isSameTeamSelected()" class="skill-action-bar d-flex flex-wrap justify-content-between">
-                            <a *ngIf="!skill.irrelevant" class="skill-action-bar-item text-dark"
+                            <a *ngIf="!skill.irrelevant" class="skill-action-bar-item"
                                (click)="setIrrelevant(skill)"><i class="fa fa-thumbs-o-down"></i>
                                 <small>Irrelevant</small>
                             </a>
-                            <a *ngIf="skill.irrelevant" class="skill-action-bar-item text-dark"
+                            <a *ngIf="skill.irrelevant" class="skill-action-bar-item"
                                (click)="setRelevant(skill)"><i class="fa fa-thumbs-o-up"></i>
                                 <small>Relevant</small>
                             </a>
-                            <a *ngIf="!skill.achievedAt" class="skill-action-bar-item text-dark"
+                            <a *ngIf="!skill.achievedAt" class="skill-action-bar-item"
                                [ngClass]="{'disabled': skill.irrelevant}"
                                (click)="setComplete(skill)"><i class="fa fa-check"></i>
                                 <small>Aktivieren</small>
                             </a>
-                            <a *ngIf="skill.achievedAt" class="skill-action-bar-item text-dark"
+                            <a *ngIf="skill.achievedAt" class="skill-action-bar-item"
                                [ngClass]="{'disabled': skill.irrelevant}"
                                (click)="setIncomplete(skill)"><i class="fa fa-check"></i>
                                 <small>Wiedereröffnen</small>

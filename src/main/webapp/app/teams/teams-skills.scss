@@ -23,6 +23,7 @@
             }
         }
         .skill-status {
+            color: $dojo-text-primary;
             padding: 10px;
             background-color: transparent;
             &.completed {
@@ -42,7 +43,9 @@
                     margin-right: 3px;
                 }
                 a {
-                   color: $dojo-text-primary;
+                   small {
+                       color: $dojo-text-primary;
+                   }
                 }
             }
         }
@@ -52,6 +55,11 @@
             border: none;
             border-radius: 2px;
             box-shadow: 0px 3px 6px rgba(0,0,0,0.16), 0px 3px 6px rgba(0,0,0,0.23);
+
+            a {
+                color: $dojo-text-primary;
+                font-weight: normal;
+            }
         }
         .teams-skills-badge {
             padding: 6px;
