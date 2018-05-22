@@ -2,10 +2,7 @@
 @import "../../../../content/scss/mixins";
 .achievement-item {
     width: 7vh;
-    height: 8vh;
-    margin: 5px;
-    border: 1px solid transparent;
-    border-radius: 1vh;
+    border: 2px solid transparent;
 
     .item-badge, .item-level {
         display: flex;
@@ -22,9 +19,6 @@
     }
 
     .item-badge {
-        .item-image {
-            background-color: white;
-        }
         .item-bg {
             position: absolute;
             height: 6vh;
@@ -80,7 +74,8 @@
     }
 
     &.active {
-        border-color: $gray-400;
+        border-color: #edb900;
+        background-color: rgba(237, 185, 0, 0.2);
     }
     &:hover {
         cursor: pointer;
