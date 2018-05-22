@@ -108,6 +108,18 @@ export class TeamsAchievementsComponent implements OnInit {
         return progress.scoreProgress.getPercentage();
     }
 
+    getHighestAchievedLevel(dimension: IDimension): ILevel {
+        let currentLevel;
+        for (let level of dimension.levels) {
+            const levelProgress = this.getLevelOrBadgeProgress(level);
+            if (!levelProgress.isCompleted()) {
+                break;
+            }
+            currentLevel = level;
+        }
+        return currentLevel;
+    }
+
     private getLevelOrBadgeProgress(item: ILevel | IBadge): IProgress {
         return new CompletionCheck(this.team, item).getProgress();
     }
