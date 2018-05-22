@@ -3,7 +3,6 @@ import { IBadge } from 'app/shared/model/badge.model';
 import { ITeam } from 'app/shared/model/team.model';
 import { ILevel } from 'app/shared/model/level.model';
 import { JhiAlertService } from 'ng-jhipster';
-import { TeamsAchievementsService } from './teams-achievements.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { AchievementProgress } from 'app/shared/achievement/model/achievement-progress.model';
@@ -23,12 +22,7 @@ export class TeamsAchievementsComponent implements OnInit {
     activeItemIds: { badge: number; level: number; dimension: number };
     expandedDimensions: string[];
 
-    constructor(
-        private route: ActivatedRoute,
-        private teamsAchievementsService: TeamsAchievementsService,
-        private jhiAlertService: JhiAlertService,
-        private router: Router
-    ) {}
+    constructor(private route: ActivatedRoute, private jhiAlertService: JhiAlertService, private router: Router) {}
 
     ngOnInit() {
         this.generalBadges = this.badges.filter((badge: IBadge) => !badge.dimensions || !badge.dimensions.length);
