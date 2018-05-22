@@ -18,6 +18,7 @@ import { OverviewAchievementsComponent } from 'app/overview/achievements/overvie
 import { OverviewSkillsComponent } from 'app/overview/skills/overview-skills.component';
 import { AchievementItemComponent } from 'app/overview/achievements';
 import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
+import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
 
 @NgModule({
     imports: [TeamdojoSharedModule, RouterModule.forChild(OVERVIEW_ROUTE), NgbModule],
@@ -37,7 +38,8 @@ import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details
         AllTeamSkillsResolve,
         AllLevelSkillsResolve,
         SkillResolve,
-        AllBadgeSkillsResolve
+        AllBadgeSkillsResolve,
+        BreadcrumbService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

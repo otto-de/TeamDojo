@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { JhiDataUtils } from 'ng-jhipster';
 import { ActivatedRoute } from '@angular/router';
 import { ITeam } from 'app/shared/model/team.model';
@@ -9,6 +9,8 @@ import { ITeam } from 'app/shared/model/team.model';
     styleUrls: ['./teams.scss']
 })
 export class TeamsComponent implements OnInit {
+    @Output() changeTeam = new EventEmitter<any>();
+
     team: ITeam;
 
     constructor(private dataUtils: JhiDataUtils, private route: ActivatedRoute) {}
@@ -17,6 +19,7 @@ export class TeamsComponent implements OnInit {
         this.route.data.subscribe(({ team }) => {
             this.team = team;
         });
+        this.changeTeam.emit(this.team);
     }
 
     byteSize(field) {
