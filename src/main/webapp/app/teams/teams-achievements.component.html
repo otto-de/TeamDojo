@@ -29,16 +29,25 @@
                 </ng-template>
             </ngb-panel>
         </ngb-accordion>
-    <div class="mt-1 teams-achievements-dimensions">
+    <div class="mt-1">
         <ngb-accordion [activeIds]="expandedDimensions">
             <ngb-panel class="mt-1" *ngFor="let dimension of team.participations"
                        id="achievements-dimension-{{dimension.id}}">
                 <ng-template ngbPanelTitle>
                     <div class="achievement-list-header d-flex align-items-center">
                         <div class="achievement-list-header-left">
-                            <span class="achievement-list-header-left-image">
-                                <span class="img-placeholder">Badges</span>
-                            </span>
+                            <div *ngIf="getHighestAchievedLevel(dimension) as highestLevel; else noLevelAchieved">
+                                <jhi-achievement-item [item]="highestLevel"
+                                                      [progress]="getAchievementProgress(highestLevel)"
+                                                      [active]="false"
+                                                      (onItemSelected)="true">
+                                </jhi-achievement-item>
+                            </div>
+                            <ng-template #noLevelAchieved>
+                                    <span class="achievement-list-header-left-image">
+                                        <span class="img-placeholder">{{dimension.name | truncateString}}</span>
+                                    </span>
+                            </ng-template>
                         </div>
                         <div class="achievement-list-header-right">
                             <i class="fa fa-caret-right mr-2"></i>
@@ -47,8 +56,7 @@
                     </div>
                 </ng-template>
                 <ng-template ngbPanelContent>
-                    <!-- TODO badges -->
-                    <div class="achievements-skill-levels">
+                    <div>
                         <div *ngIf="dimension.levels.length" class="item-list-title"
                              jhiTranslate="teamdojoApp.overview.achievements.dimensions.levels.title"></div>
                         <div class="d-flex flex-wrap">
@@ -56,6 +64,16 @@
                                 <jhi-achievement-item [item]="level" [progress]="getAchievementProgress(level)"
                                                       [active]="activeItemIds.level === level.id"
                                                       (onItemSelected)="selectItem('level', level.id)">
+                                </jhi-achievement-item>
+                            </div>
+                        </div>
+                        <div *ngIf="dimension.badges.length" class="item-list-title"
+                             jhiTranslate="teamdojoApp.overview.achievements.dimensions.badges.title"></div>
+                        <div class="d-flex flex-wrap">
+                            <div *ngFor="let badge of dimension.badges">
+                                <jhi-achievement-item [item]="badge" [progress]="getAchievementProgress(badge)"
+                                                      [active]="activeItemIds.badge === badge.id"
+                                                      (onItemSelected)="selectItem('badge', badge.id)">
                                 </jhi-achievement-item>
                             </div>
                         </div>
