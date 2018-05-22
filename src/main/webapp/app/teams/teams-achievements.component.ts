@@ -61,7 +61,15 @@ export class TeamsAchievementsComponent implements OnInit {
                     }
                 }
             } else if (badgeId) {
-                const badge = this.generalBadges.find((b: IBadge) => b.id === badgeId);
+                const dimension = this.team.participations.find((d: IDimension) => d.badges.some((b: IBadge) => b.id === badgeId));
+                let badge;
+                if (dimension) {
+                    this.activeItemIds.dimension = dimension.id;
+                    this.setExpandedDimensionId(dimension.id);
+                    badge = dimension.badges.find((b: IBadge) => b.id === badgeId);
+                } else {
+                    badge = this.generalBadges.find((b: IBadge) => b.id === badgeId);
+                }
                 if (badge) {
                     this.activeItemIds.badge = badge.id;
                 }
