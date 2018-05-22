@@ -8,7 +8,57 @@
     border-radius: 1vh;
 
     .item-image {
-        @include achievement-image('../../../../content/images');
+        @include achievement-image();
+    }
+
+    .badge, .level {
+        display: flex;
+        height: 6vh;
+        .item-image {
+            display: flex;
+            width: 6vh;
+            align-items: center;
+            background-color: white;
+            overflow: hidden;
+            img {
+                width: 80%;
+            }
+        }
+
+        .item-bg {
+            position: absolute;
+            display: flex;
+            height: 6vh;
+            width: 6vh;
+            background: no-repeat center/100% transparent;
+        }
+    }
+
+    .badge {
+        .item-image img {
+            margin-top: -3px;
+        }
+        .item-bg {
+            background-image: url('../../../../content/images/badge_default.png');
+        }
+        &-disabled .item-bg {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../../../content/images/badge_default.png');
+        }
+        &-incomplete .item-bg {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('../../../../content/images/badge_default.png');
+        }
+    }
+
+    .level {
+        .item-bg {
+            background-image: url('../../../../content/images/level_default.png');
+        }
+        &-disabled .item-bg {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../../../content/images/level_default.png');
+        }
+        &-incomplete .item-bg {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('../../../../content/images/level_default.png');
+        }
     }
 
     .item-progress {

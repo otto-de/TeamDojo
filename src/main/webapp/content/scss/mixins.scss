@@ -1,35 +1,11 @@
-@mixin achievement-image($imgDir) {
-    width: 5vh;
-    height: 5vh;
+@mixin achievement-image() {
     display: flex;
+    width: 6vh;
     align-items: center;
-    background: no-repeat center/100% white;
+    background-color: white;
     overflow: hidden;
     img {
-        width: 100%;
-    }
-    &.badge {
-        background-image: url('#{$imgDir}/badge_default.png');
-        &-disabled {
-            background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('#{$imgDir}/badge_default.png');
-        }
-        &-complete {}
-        &-incomplete {
-            background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('#{$imgDir}/badge_default.png');
-        }
-        img {
-            margin-top: -3px;
-        }
-    }
-    &.level {
-        background-image: url('#{$imgDir}/level_default.png');
-        &-disabled {
-            background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('#{$imgDir}/level_default.png');
-        }
-        &-complete {}
-        &-incomplete {
-            background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('#{$imgDir}/level_default.png');
-        }
+        width: 80%;
     }
 }
 
