@@ -1,11 +1,19 @@
 <div class="overviews-teams">
     <div>
         <h4 jhiTranslate="teamdojoApp.overview.teams.title">Teams</h4>
-        <form class="list-group">
-            <div>
-                <input type="text" class="form-control" id="teams_searchTerm" placeholder="Suche" disabled>
-            </div>
-        </form>
+        <div class="additionalFunctions">
+            <form id="form">
+                    <input type="text" id="teams_searchTerm" placeholder="Suche" disabled>
+                <div style="float:right">
+                    <select type="button" value="Alle Teams" name="Alle Teams" id="teams_selectTeams" disabeld> Abrakadabra
+                        <option value="0">Alle Teams: </option>
+                        <option value="1">Option1</option>
+                        <option value="2">Option2</option>
+                    </select>
+                    <input type="button" value="Vergleich starten" name="startCompare" id="teams_startCompare" disabled />
+                </div>
+            </form>
+        </div>
     </div>
     <div class="team-list list-group">
         <div class="team-item list-group-item list-group-item-action flex-column align-items-start"
