@@ -1,7 +1,7 @@
 @import '~bootstrap/scss/bootstrap';
 @import "../../content/scss/colors";
 @import "../../content/scss/mixins";
-.teams-achievements{
+.teams-achievements {
     height: inherit;
     overflow-y: auto;
     padding-right: 10px;
@@ -14,22 +14,22 @@
         }
     }
 
-    .achievement-list-header{
-        &-left{
+    .achievement-list-header {
+        &-left {
             padding: 6px;
             border-right: 1px solid rgba(0, 0, 0, 0.125);
             &-image{
                 @include achievement-image()
             }
         }
-        &-right{
+        &-right {
             padding-left: 10px;
             color: $gray-800
         }
 
     }
 
-    /deep/ .card-header{
+    /deep/ .card-header {
         padding: 0;
         background-color: $dojo-bg-gradient-from;
         a {
