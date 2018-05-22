@@ -1,5 +1,6 @@
 @import '~bootstrap/scss/bootstrap';
 @media only screen and (min-width: map-get($grid-breakpoints, md)){
+    font-family: 'IBM Plex Sans';
     .overview {
         height: calc(100vh - 151px);
         overflow: hidden;
