@@ -6,15 +6,16 @@
                 opacity: 0.5;
             }
             .team-image {
-                width: 5vh;
+                width: 6vh;
                 min-width: 46px;
-                height: 5vh;
+                height: 6vh;
                 min-height: 46px;
                 display: flex;
                 align-items: center;
                 border-radius: 50%;
-                border: 1px solid $gray-400;
+                border: 2px solid #e5e1d8;
                 background: white !important;
+                overflow: hidden;
                 img {
                     width: 100%;
                 }
