@@ -1,4 +1,5 @@
 .overviews-skills{
+    font-family: "IBM Plex Sans";
     height: inherit;
     overflow-y: auto;
     overflow-x: hidden;
@@ -13,6 +14,10 @@
     background: #f0f0f0;
 }
 
+#skills_searchTerm {
+    background-color: #f1d7ae;
+    width: 250px;
+}
 
 .additional-functions {
     height: 150px;
