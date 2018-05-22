@@ -1,19 +1,19 @@
 @import '~bootstrap/scss/bootstrap';
 @import "../../../../content/scss/mixins";
 .achievement-item {
-    width: 7vh;
+    width: 10vh;
     border: 2px solid transparent;
 
     .item-badge, .item-level {
         display: flex;
-        height: 6vh;
+        height: 8vh;
         .item-image {
             @include achievement-image();
         }
 
         .item-bg {
             display: flex;
-            width: 6vh;
+            width: 8vh;
             background: no-repeat center/100% transparent;
         }
     }
@@ -21,14 +21,14 @@
     .item-badge {
         .item-bg {
             position: absolute;
-            height: 6vh;
+            height: 8vh;
         }
     }
 
     .item-level {
         .item-image {
             position: absolute;
-            height: 6vh;
+            height: 8vh;
             background-color: transparent;
         }
     }
