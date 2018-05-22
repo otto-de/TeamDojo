@@ -1,4 +1,4 @@
-@mixin achievement-image() {
+@mixin achievement-image($imgDir) {
     width: 5vh;
     height: 5vh;
     display: flex;
@@ -9,13 +9,27 @@
         width: 100%;
     }
     &.badge {
-        background-image: url('../../content/images/badge_default.png');
+        background-image: url('#{$imgDir}/badge_default.png');
+        &-disabled {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('#{$imgDir}/badge_default.png');
+        }
+        &-complete {}
+        &-incomplete {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('#{$imgDir}/badge_default.png');
+        }
         img {
             margin-top: -3px;
         }
     }
     &.level {
-        background-image: url('../../content/images/level_default.png');
+        background-image: url('#{$imgDir}/level_default.png');
+        &-disabled {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('#{$imgDir}/level_default.png');
+        }
+        &-complete {}
+        &-incomplete {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('#{$imgDir}/level_default.png');
+        }
     }
 }
 
