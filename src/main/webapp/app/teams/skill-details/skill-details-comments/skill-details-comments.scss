@@ -12,7 +12,7 @@
     .dojo-card {
         height: calc(100% - 150px);
         background: $dojo-bg-primary;
-        box-shadow: 1px 1px 5px #ccc;
+        @include shadow();
         margin-top: 88px;
         * {
             color: $dojo-text-secondary;
