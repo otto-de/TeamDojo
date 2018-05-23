@@ -38,16 +38,14 @@
 
                 <div class="needed-for">
                     <div class="needed-for-levels">
-                        <div *ngFor="let l of neededForLevels" class="avatar-level" placement="top" [ngbTooltip]="l.name">
-                            <img [src]="l.picture | imageDataUrl: l.pictureContentType" />
-                        </div>
-                        <div class="clearfix"></div>
+                        <jhi-achievement-item *ngFor="let level of neededForLevels" class="avatar-level"
+                                              type="item-level" [item]="level">
+                        </jhi-achievement-item>
                     </div>
                     <div class="needed-for-badges">
-                        <div *ngFor="let b of neededForBadges" class="avatar-badge" placement="top" [ngbTooltip]="b.name">
-                            <img [src]="b.logo | imageDataUrl: b.logoContentType" />
-                        </div>
-                        <div class="clearfix"></div>
+                        <jhi-achievement-item *ngFor="let badge of neededForBadges" class="avatar-badge"
+                                              type="item-badge" [item]="badge">
+                        </jhi-achievement-item>
                     </div>
                 </div>
             </div>
