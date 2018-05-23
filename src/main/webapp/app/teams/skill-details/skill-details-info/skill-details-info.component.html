@@ -11,7 +11,7 @@
 
     <span *ngIf="!achievableSkill.irrelevant">
         <button *ngIf="!skillAchieved()" class="activation action-btn" (click)="onToggleSkill(true)">
-            <i class="fa fa-check"></i> Lernen
+            <i class="fa fa-check"></i> Erlernen
         </button>
 
         <button *ngIf="skillAchieved()" class="activation action-btn" (click)="onToggleSkill(false)">
@@ -38,55 +38,51 @@
 </div>
 
 
-<div class="card dojo-card">
-  <div class="card-body">
-      <div class="row">
-          <div class="col-md-8">
-              <div class="skill-desc desc-block">
-                  <h5 jhiTranslate="teamdojoApp.teams.skills.details.desc"></h5>
-                  <p>{{skill.description}}</p>
-              </div>
-              <div class="skill-impl desc-block">
-                  <h5 jhiTranslate="teamdojoApp.teams.skills.details.implementation"></h5>
-                  <p>{{skill.implementation}}</p>
-              </div>
-              <div class="skill-validation desc-block">
-                  <h5 jhiTranslate="teamdojoApp.teams.skills.details.validation"></h5>
-                  <p>{{skill.validation}}</p>
-              </div>
+<div class="dojo-card">
+    <div class="skill-desc desc-block">
+        <h5 jhiTranslate="teamdojoApp.teams.skills.details.desc"></h5>
+        <p>{{skill.description}}</p>
+    </div>
+    <div class="skill-impl desc-block">
+        <h5 jhiTranslate="teamdojoApp.teams.skills.details.implementation"></h5>
+        <p>{{skill.implementation}}</p>
+    </div>
+    <div class="skill-validation desc-block">
+        <h5 jhiTranslate="teamdojoApp.teams.skills.details.validation"></h5>
+        <p>{{skill.validation}}</p>
+    </div>
 
-              <div class="needed-for">
-                  <h5 jhiTranslate="teamdojoApp.teams.skills.details.neededFor"></h5>
-                  <div class="needed-for-avatars">
-                      <div class="needed-for-levels">
-                          <div *ngFor="let l of neededForLevels" class="avatar avatar-level" placement="top" [ngbTooltip]="l.name">
-                              <img [src]="l.picture | imageDataUrl: l.pictureContentType"/>
-                          </div>
-                          <div class="clearfix"></div>
-                      </div>
-                      <div class="needed-for-badges">
-                          <div *ngFor="let b of neededForBadges" class="avatar avatar-badge" placement="top" [ngbTooltip]="b.name">
-                              <img [src]="b.logo | imageDataUrl: b.logoContentType"/>
-                          </div>
-                          <div class="clearfix"></div>
-                      </div>
-                  </div>
-              </div>
+    <div class="needed-for">
+        <h5 jhiTranslate="teamdojoApp.teams.skills.details.neededFor"></h5>
+        <div class="needed-for-avatars">
+            <div class="needed-for-levels">
+                <div *ngFor="let l of neededForLevels" class="avatar avatar-level" placement="top"
+                     [ngbTooltip]="l.name">
+                    <img [src]="l.picture | imageDataUrl: l.pictureContentType"/>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="needed-for-badges">
+                <div *ngFor="let b of neededForBadges" class="avatar avatar-badge" placement="top"
+                     [ngbTooltip]="b.name">
+                    <img [src]="b.logo | imageDataUrl: b.logoContentType"/>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
 
-              <div class="achieved-by">
-                  <h5 jhiTranslate="teamdojoApp.teams.skills.details.achievedBy"></h5>
-                  <div class="achieved-by-teams">
-                      <div *ngFor="let t of achievedByTeams" class="avatar-team" placement="top" [ngbTooltip]="t.name">
-                          <img [src]="t.picture | imageDataUrl: t.pictureContentType"/>
-                      </div>
-                      <p *ngIf="achievedByTeams.length === 0"
-                         jhiTranslate="teamdojoApp.teams.skills.details.achievedByNone"></p>
-                      <div class="clearfix"></div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+    <div class="achieved-by">
+        <h5 jhiTranslate="teamdojoApp.teams.skills.details.achievedBy"></h5>
+        <div class="achieved-by-teams">
+            <div *ngFor="let t of achievedByTeams" class="avatar-team" placement="top" [ngbTooltip]="t.name">
+                <img [src]="t.picture | imageDataUrl: t.pictureContentType"/>
+            </div>
+            <p *ngIf="achievedByTeams.length === 0"
+               jhiTranslate="teamdojoApp.teams.skills.details.achievedByNone"></p>
+            <div class="clearfix"></div>
+        </div>
+    </div>
 </div>
 
 
