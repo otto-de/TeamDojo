@@ -51,6 +51,10 @@ module.exports = (WATCH) => ({
                 enforce: 'post',
                 exclude: /node_modules/,
                 loader: 'sourcemap-istanbul-instrumenter-loader?force-sourcemap=true'
+            },
+            {
+                test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
+                loaders: ['file-loader?hash=sha512&digest=hex&name=content/[hash].[ext]']
             }]
     },
     plugins: [
