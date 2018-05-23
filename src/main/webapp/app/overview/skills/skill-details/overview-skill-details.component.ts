@@ -12,6 +12,7 @@ import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
 import { ILevelSkill } from 'app/shared/model/level-skill.model';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import { sortLevels } from 'app/shared';
+import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 
 @Component({
     selector: 'jhi-overview-skill-details',
@@ -39,7 +40,8 @@ export class OverviewSkillDetailsComponent implements OnInit {
         private skillService: SkillService,
         private teamsService: TeamsService,
         private levelService: LevelService,
-        private badgeService: BadgeService
+        private badgeService: BadgeService,
+        private teamsSelectionService: TeamsSelectionService
     ) {}
 
     ngOnInit(): void {
@@ -122,5 +124,9 @@ export class OverviewSkillDetailsComponent implements OnInit {
     onSkillSelected(skillObjs) {
         this.skill = skillObjs.aSkill;
         this.skill = skillObjs.iSkill;
+    }
+
+    get currentTeam() {
+        return this.teamsSelectionService.selectedTeam;
     }
 }
