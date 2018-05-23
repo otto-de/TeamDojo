@@ -56,12 +56,12 @@
         <h5 jhiTranslate="teamdojoApp.teams.skills.details.neededFor"></h5>
         <div class="needed-for-avatars">
             <div class="needed-for-levels">
-                <jhi-achievement-item [item]="l" *ngFor="let l of neededForLevels"></jhi-achievement-item>
-                <div class="clearfix"></div>
+                <jhi-achievement-item type="item-level" [item]="l" *ngFor="let l of neededForLevels">
+                </jhi-achievement-item>
             </div>
             <div class="needed-for-badges">
-                <jhi-achievement-item [item]="b" *ngFor="let b of neededForBadges"></jhi-achievement-item>
-                <div class="clearfix"></div>
+                <jhi-achievement-item type="item-badge" [item]="b" *ngFor="let b of neededForBadges">
+                </jhi-achievement-item>
             </div>
         </div>
     </div>
