@@ -1,98 +1,81 @@
 <div class="teams-achievements">
     <h4>{{'teamdojoApp.teams.achievements.title' | translate}}</h4>
-    <div class="achievements-level-active mockup mb-2" *ngIf="activeAchievement">
-        <div class="skill-level-image mx-auto">
-            <img [title]="activeAchievement.name" *ngIf="false; else progressPicture"
-                 [src]="activeAchievement.picture | imageDataUrl: activeAchievement.pictureContentType"/>
-            <ng-template #progressPicture>
-                <div class="ml-auto achievement-progress px-2">
-                    <svg viewBox="0 0 32 32">
-                        <circle r="16" cx="16" cy="16" style="stroke-dasharray: 40 100;"/>
-                    </svg>
-                </div>
-            </ng-template>
-        </div>
-    </div>
-    <div class="teams-achievements-badges">
-        <ngb-accordion activeIds="achievements-badge-0">
-            <ngb-panel id="achievements-badge-0">
+    <ngb-accordion activeIds="achievements-general-badges">
+        <ngb-panel id="achievements-general-badges">
                 <ng-template ngbPanelTitle>
-                    <i class="fa fa-caret-right mr-2"></i><span>{{'teamdojoApp.teams.achievements.badges.title' | translate}}</span>
-                    <span class="float-right"><span class="mockup minor px-2">0</span>/{{badges.length}}</span>
+                    <div class="achievement-list-header d-flex align-items-center">
+                        <div class="achievement-list-header-left">
+                            <span class="achievement-list-header-left-image">
+                                <span class="img-placeholder">Badges</span>
+                            </span>
+                        </div>
+                        <div class="achievement-list-header-right">
+                            <i class="fa fa-caret-right mr-2"></i>
+                            <span jhiTranslate="teamdojoApp.teams.achievements.generalBadges.title"></span>
+                        </div>
+                    </div>
                 </ng-template>
                 <ng-template ngbPanelContent>
-                    <div class="achievements-badges">
-                        <div [ngClass]="{'mb-3': !isLast}" *ngFor="let badge of badges; trackBy: trackId; last as isLast">
-                            <a [routerLink]="['.']" [queryParams]="badgeRouteParameters(badge)"
-                               (click)="activeAchievement = badge">
-                                <div class="d-flex align-items-center achievements-badge"
-                                     [ngClass]="{'active': activeAchievement && activeAchievement.id === badge.id}">
-                                    <div class="badge-image">
-                                        <img [title]="badge.name" *ngIf="badge.picture && badge.pictureContentType; else picturePlaceholder"
-                                             [src]="badge.picture | imageDataUrl: badge.pictureContentType"/>
-                                        <ng-template #picturePlaceholder>
-                                            <span class="img-placeholder">{{badge.name | truncateString}}</span>
-                                        </ng-template>
-                                    </div>
-                                    <div class="badge-name ml-2">{{badge.name}}</div>
-                                    <div class="ml-auto achievement-progress mockup minor px-2">
-                                        <svg viewBox="0 0 32 32">
-                                            <circle r="16" cx="16" cy="16" style="stroke-dasharray: 40 100;"/>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </a>
+                    <div class="item-list-body">
+                        <div class="d-flex flex-wrap">
+                            <div class="" *ngFor="let badge of generalBadges">
+                                <jhi-achievement-item [item]="badge" [progress]="getAchievementProgress(badge)"
+                                                      [active]="activeItemIds.badge === badge.id"
+                                                      (onItemSelected)="selectItem('badge', badge.id)">
+                                </jhi-achievement-item>
+                            </div>
                         </div>
                     </div>
                 </ng-template>
             </ngb-panel>
         </ngb-accordion>
-    </div>
-    <div class="mt-1 teams-achievements-dimensions">
-        <ngb-accordion [destroyOnHide]="false" activeIds="achievements-dimension-{{activeDimensionId}}">
-            <ngb-panel id="achievements-dimension-{{dimension.id}}"
-                       *ngFor="let dimension of team.participations; trackBy: trackId">
+    <div class="mt-1">
+        <ngb-accordion [activeIds]="expandedDimensions">
+            <ngb-panel class="mt-1" *ngFor="let dimension of team.participations"
+                       id="achievements-dimension-{{dimension.id}}">
                 <ng-template ngbPanelTitle>
-                    <div class="d-flex align-items-center achievements-dimension"
-                         [routerLink]="['.']" [queryParams]="{'dimension': dimension.id}">
-                        <div class="d-flex align-items-center">
-                            <i class="fa fa-caret-right mr-2"></i>
-                            <div class="d-inline-block mockup minor px-2">
-                                <div class="skill-level-image">
-                                    <span class="img-placeholder">{{'Current skill level' | truncateString}}</span>
-                                </div>
+                    <div class="achievement-list-header d-flex align-items-center">
+                        <div class="achievement-list-header-left">
+                            <div *ngIf="getHighestAchievedLevel(dimension) as highestLevel; else noLevelAchieved">
+                                <jhi-achievement-item [item]="highestLevel"
+                                                      [progress]="getAchievementProgress(highestLevel)"
+                                                      [active]="false"
+                                                      (onItemSelected)="true">
+                                </jhi-achievement-item>
                             </div>
-                            <span>{{dimension.name}}</span>
+                            <ng-template #noLevelAchieved>
+                                    <span class="achievement-list-header-left-image">
+                                        <span class="img-placeholder">{{dimension.name | truncateString}}</span>
+                                    </span>
+                            </ng-template>
                         </div>
-                        <div class="ml-auto">
-                            <span class="mockup minor px-2">0</span>/{{(levels[dimension.id] || []).length}}
+                        <div class="achievement-list-header-right">
+                            <i class="fa fa-caret-right mr-2"></i>
+                            <span>{{dimension.name}}</span>
                         </div>
                     </div>
                 </ng-template>
                 <ng-template ngbPanelContent>
-                    <div class="achievements-skill-levels">
-                        <div [ngClass]="{'pb-3': !isLast}" id="achievements-level-{{level.id}}"
-                             *ngFor="let level of levels[dimension.id]; trackBy: trackId; last as isLast">
-                            <a [routerLink]="['.']"  [queryParams]="levelRouteParameters(dimension, level)"
-                               (click)="activeAchievement = level">
-                                <div class="d-flex align-items-center achievements-skill-level"
-                                     [ngClass]="{'active': activeAchievement && activeAchievement.id === level.id}">
-                                    <div class="skill-level-image">
-                                        <img [title]="level.name"
-                                             *ngIf="level.picture && level.pictureContentType; else picturePlaceholder"
-                                             [src]="level.picture | imageDataUrl: level.pictureContentType"/>
-                                        <ng-template #picturePlaceholder>
-                                            <span class="img-placeholder">{{level.name | truncateString}}</span>
-                                        </ng-template>
-                                    </div>
-                                    <div class="skill-level-name ml-2">{{level.name}}</div>
-                                    <div class="ml-auto achievement-progress mockup minor px-2">
-                                        <svg viewBox="0 0 32 32">
-                                            <circle r="16" cx="16" cy="16" style="stroke-dasharray: 12 100;"/>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </a>
+                    <div>
+                        <div *ngIf="dimension.levels.length" class="item-list-title"
+                             jhiTranslate="teamdojoApp.overview.achievements.dimensions.levels.title"></div>
+                        <div class="d-flex flex-wrap">
+                            <div *ngFor="let level of dimension.levels">
+                                <jhi-achievement-item [item]="level" [progress]="getAchievementProgress(level)"
+                                                      [active]="activeItemIds.level === level.id"
+                                                      (onItemSelected)="selectItem('level', level.id)">
+                                </jhi-achievement-item>
+                            </div>
+                        </div>
+                        <div *ngIf="dimension.badges.length" class="item-list-title"
+                             jhiTranslate="teamdojoApp.overview.achievements.dimensions.badges.title"></div>
+                        <div class="d-flex flex-wrap">
+                            <div *ngFor="let badge of dimension.badges">
+                                <jhi-achievement-item [item]="badge" [progress]="getAchievementProgress(badge)"
+                                                      [active]="activeItemIds.badge === badge.id"
+                                                      (onItemSelected)="selectItem('badge', badge.id)">
+                                </jhi-achievement-item>
+                            </div>
                         </div>
                     </div>
                 </ng-template>

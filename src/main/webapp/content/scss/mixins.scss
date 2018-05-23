@@ -1,0 +1,18 @@
+@mixin achievement-image() {
+    width: 5vh;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    border: 2px solid gold;
+    background: white !important;
+    overflow: hidden;
+    img {
+        width: 100%;
+    }
+}
+
+@mixin shadow(){
+    -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
