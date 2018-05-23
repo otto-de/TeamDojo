@@ -12,7 +12,7 @@
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="#">{{organizationName}}</a></li>
                 <li class="breadcrumb-item" *ngFor='let breadcrumb of breadcrumbs' [ngClass]="{active: breadcrumb.active}">
-                    <a *ngIf="!breadcrumb.active" href="{{breadcrumb.path}}">
+                    <a *ngIf="!breadcrumb.active" href="#{{breadcrumb.path}}">
                         {{breadcrumb.text}}
                     </a>
                     <span *ngIf="breadcrumb.active">{{breadcrumb.text}}</span>

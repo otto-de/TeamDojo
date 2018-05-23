@@ -36,7 +36,7 @@
 
                     <div class="d-flex w-100 justify-content-between">
                         <a *ngIf="isInSkillDetails()" class="text-dark mb-1 skill-title">{{skill.title}}</a>
-                        <a *ngIf="!isInSkillDetails()" [routerLink]="['/teams', team.shortName,'skills', skill.skillId]"
+                        <a *ngIf="!isInSkillDetails()" [routerLink]="['/teams', team.shortName,'skills', skill.skillId]" [queryParams]="{level: getLevelId(), badge: getBadgeId(), filter: filters}"
                            class="text-dark mb-1 skill-title">{{skill.title}}</a>
                         <jhi-toggle-switch
                             *ngIf="!skill.irrelevant"
@@ -51,7 +51,9 @@
                     </div>
                     <p class="mb-1"></p>
                     <small>{{skill.description}}</small>
-                    <a *ngIf="skill.irrelevant && !isInSkillDetails()" [routerLink]="['/teams', team.shortName,'skills', skill.skillId]" class="irrelevant-overlay"></a>
+                    <a *ngIf="skill.irrelevant && !isInSkillDetails()"
+                       [routerLink]="['/teams', team.shortName,'skills', skill.skillId]"
+                       [queryParams]="{level: getLevelId(), badge: getBadgeId(), filter: filters}" class="irrelevant-overlay"></a>
                     <a *ngIf="skill.irrelevant && isInSkillDetails()" class="irrelevant-overlay"></a>
                 </li>
             </div>

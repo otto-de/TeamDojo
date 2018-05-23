@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
@@ -17,13 +17,14 @@ import { Location } from '@angular/common';
 import { ISkill } from 'app/shared/model/skill.model';
 import { SkillService } from 'app/entities/skill';
 import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
+import { DimensionService } from 'app/entities/dimension';
 
 @Component({
     selector: 'jhi-overview-skills',
     templateUrl: './overview-skills.component.html',
     styleUrls: ['./overview-skills.scss']
 })
-export class OverviewSkillsComponent implements OnInit {
+export class OverviewSkillsComponent implements OnInit, OnChanges {
     @Input() teams: ITeam[];
     @Input() levels: ILevel[];
     @Input() badges: IBadge[];
@@ -45,7 +46,8 @@ export class OverviewSkillsComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private location: Location,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private dimensionService: DimensionService
     ) {}
 
     ngOnInit() {
@@ -54,17 +56,17 @@ export class OverviewSkillsComponent implements OnInit {
                 this.activeLevel = this.levels.find((level: ILevel) => level.id === Number.parseInt(params.get('level')));
                 this.activeSkills = this.activeLevel ? this.activeLevel.skills : [];
                 this.activeBadge = null;
-                this.breadcrumbService.setBreadcrumb(null, null, this.activeLevel, null, this.activeSkill);
+                this.updateBreadcrumb(null, this.activeLevel, this.activeBadge, this.activeSkill);
             } else if (params.get('badge')) {
                 this.activeBadge = this.badges.find((badge: IBadge) => badge.id === Number.parseInt(params.get('badge')));
                 this.activeSkills = this.activeBadge ? this.activeBadge.skills : [];
                 this.activeLevel = null;
-                this.breadcrumbService.setBreadcrumb(null, null, null, this.activeBadge, this.activeSkill);
+                this.updateBreadcrumb(null, this.activeLevel, this.activeBadge, this.activeSkill);
             } else {
                 this.levelSkillService.query().subscribe(
                     (res: HttpResponse<ILevelSkill[]>) => {
                         this.activeSkills = res.body;
-                        this.breadcrumbService.setBreadcrumb(null, null, null, null, this.activeSkill);
+                        this.updateBreadcrumb(null, this.activeLevel, this.activeBadge, this.activeSkill);
                     },
                     (res: HttpErrorResponse) => this.onError(res.error)
                 );
@@ -101,6 +103,20 @@ export class OverviewSkillsComponent implements OnInit {
                 });
             });
         });
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        this.updateBreadcrumb(null, this.activeLevel, this.activeBadge, this.activeSkill);
+    }
+
+    private updateBreadcrumb(team: ITeam, level: ILevel, badge: IBadge, skill: ISkill) {
+        if (level !== null && typeof level !== 'undefined') {
+            this.dimensionService.find(this.activeLevel.dimensionId).subscribe(dimension => {
+                this.breadcrumbService.setBreadcrumb(team, dimension.body, level, badge, skill);
+            });
+        } else {
+            this.breadcrumbService.setBreadcrumb(team, null, level, badge, skill);
+        }
     }
 
     private onError(errorMessage: string) {

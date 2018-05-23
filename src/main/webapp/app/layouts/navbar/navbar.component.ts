@@ -60,15 +60,16 @@ export class NavbarComponent implements OnInit {
         private levelService: LevelService,
         private skillService: SkillService,
         private breadcrumbService: BreadcrumbService
-    ) //private teamsComponent: TeamsComponent
-
-    {
+    ) {
         this.teamsSelectionService = teamsSelectionService;
         this.isNavbarCollapsed = true;
     }
 
     ngOnInit() {
-        this.breadcrumbService.breadcrumbChanged.subscribe(team => this.loadBreadcrumb());
+        this.breadcrumbs = this.breadcrumbService.getCurrentBreadcrumb();
+        this.breadcrumbService.breadcrumbChanged.subscribe(breadcrumb => {
+            this.breadcrumbs = this.breadcrumbService.getCurrentBreadcrumb();
+        });
 
         this.languageHelper.getAll().then(languages => {
             this.languages = languages;
@@ -79,56 +80,18 @@ export class NavbarComponent implements OnInit {
             this.swaggerEnabled = profileInfo.swaggerEnabled;
             this.organizationName = profileInfo.organization.name;
         });
-
-        this.loadBreadcrumb();
     }
 
+    ngAfterViewInit() {}
+
     loadBreadcrumb() {
-        console.log('Parent childs: ', this.route.parent.children);
         this.activeLevel = null;
         this.activeBadge = null;
         this.activeDimension = null;
         this.activeTeam = null;
         this.activeSkill = null;
-
-        /*this.route.parent.children.find( r => r.outlet === "primary").params.subscribe( value => {
-            console.log("Value: ", value)
-            if(value.shortName !== null && value.shortName !== 'undefined'){
-                this.teamService.query({ 'shortName.equals': value.shortName }).subscribe( teams => {
-                    const resultingTeams = teams.body;
-                    this.activeTeam = resultingTeams.pop();
-                });
-            }
-
-            if(value.skillId !== null && value.skillId !== 'undefined'){
-                this.skillService.find(Number.parseInt(value.skillId)).subscribe( skill => {
-                   this.activeSkill = skill.body;
-                });
-            }
-        });
-
-
-        this.route.queryParamMap.subscribe((params: ParamMap) => {
-            if (params.get('dimension')) {
-                this.dimensionService.find(Number.parseInt(params.get('dimension'))).subscribe( dimension => {
-                    this.activeDimension = dimension.body;
-                });
-            }
-            if (params.get('badge')) {
-                this.badgeService.find(Number.parseInt(params.get('badge'))).subscribe( badge => {
-                    this.activeBadge = badge.body;
-                });
-            }
-            if (params.get('level')) {
-                this.levelService.find(Number.parseInt(params.get('level'))).subscribe( level => {
-                    this.activeLevel = level.body;
-                });
-            }
-        });*/
-
         this.breadcrumbs = null;
         this.breadcrumbs = this.breadcrumbService.getCurrentBreadcrumb();
-        console.log('Breadcrumb: ', this.breadcrumbs);
     }
 
     changeLanguage(languageKey: string) {
