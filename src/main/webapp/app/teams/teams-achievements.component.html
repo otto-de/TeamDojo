@@ -6,7 +6,8 @@
                     <div class="achievement-list-header d-flex align-items-center">
                         <div class="achievement-list-header-left">
                             <span class="achievement-list-header-left-image">
-                                <span class="img-placeholder">Badges</span>
+                                <jhi-achievement-item type="item-badge" size="4vh" [item]="{'name': 'recent'}">
+                                </jhi-achievement-item>
                             </span>
                         </div>
                         <div class="achievement-list-header-right">
@@ -38,16 +39,14 @@
                     <div class="achievement-list-header d-flex align-items-center">
                         <div class="achievement-list-header-left">
                             <div *ngIf="getHighestAchievedLevel(dimension) as highestLevel; else noLevelAchieved">
-                                <jhi-achievement-item type="item-level" [hasStatus]="true" [item]="highestLevel"
-                                                      [progress]="getAchievementProgress(highestLevel)"
-                                                      [active]="false"
-                                                      (onItemSelected)="true">
+                                <jhi-achievement-item type="item-level" size="4vh" [item]="highestLevel">
                                 </jhi-achievement-item>
                             </div>
                             <ng-template #noLevelAchieved>
-                                    <span class="achievement-list-header-left-image">
-                                        <span class="img-placeholder">{{dimension.name | truncateString}}</span>
-                                    </span>
+                                <span class="achievement-list-header-left-image">
+                                    <jhi-achievement-item type="item-level" size="4vh" [item]="{'name': 'none'}">
+                                    </jhi-achievement-item>
+                                </span>
                             </ng-template>
                         </div>
                         <div class="achievement-list-header-right">
