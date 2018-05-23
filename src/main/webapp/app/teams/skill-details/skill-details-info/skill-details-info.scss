@@ -1,7 +1,7 @@
 @import '~bootstrap/scss/bootstrap';
 @import '../../../../content/scss/bootstrap-variables';
 @import '../../../../content/scss/colors';
-@import "../../../../content/scss/mixins";
+@import '../../../../content/scss/mixins';
 
 .skill-title {
     margin-bottom: 15px;
@@ -83,33 +83,19 @@
     margin-top: 15px;
 }
 
+.avatar-team {
+    @include team-image();
+    height: 8vh;
+    width: 8vh;
+    box-sizing: border-box;
+    margin: 12px;
+}
+
 .achieved-by-teams, .needed-for-levels, .needed-for-badges {
-    margin-top: 15px;
-}
-
-.avatar-badge, .avatar-level, .avatar-team {
     display: flex;
-    float: left;
-    align-items: center;
-    border-radius: 50%;
-    border: 3px solid #ddd;
-    padding: 3px;
-    background: white !important;
-    overflow: hidden;
-    img {
-        width: 100%;
+    > * {
+        display: inline-flex;
     }
-    width: 70px;
-    height: 70px;
-    margin: 0 5px 5px 0;
-}
-
-.avatar-level {
-    border-color: gold;
-}
-
-.avatar-badge {
-    border-color: #3F51B5;
 }
 
 .skill-list-item {

@@ -81,11 +81,13 @@ export class SkillDetailsInfoComponent implements OnInit {
     onSkillInListChange(skillObjs) {
         this.achievableSkill = skillObjs.aSkill;
         this.skill = skillObjs.iSkill;
+        this.loadData();
     }
 
     onSkillInListClicked(skillObjs) {
         this.achievableSkill = skillObjs.aSkill;
         this.skill = skillObjs.iSkill;
+        this.loadData();
     }
 
     onToggleSkill(isActivated: boolean) {
