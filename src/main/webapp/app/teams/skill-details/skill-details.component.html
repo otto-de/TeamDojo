@@ -1,69 +1,15 @@
+<div class="background-image-small" [ngStyle]="{'background-image': 'url(' + (team.picture | imageDataUrl: team.pictureContentType ) +  ')'}"></div>
 <div class="row skill-details">
-    <div class="col-md-4">
+    <div class="skills-list col-20">
         <a class="breadcrumb-item active" href="#">&lt;{{'teamdojoApp.overview.navigation.text' | translate}}</a>
-        <jhi-teams-skills [team]="team" [skill]="achievableSkill" (onSkillClicked)="onSkillSelected($event)"
-                          (onSkillChanged)="onSkillInListChange($event)"></jhi-teams-skills>
+        <jhi-teams-skills [team]="team" [skill]="achievableSkill" (onSkillClicked)="onSkillInListClicked($event)"
+                          (onSkillChanged)="onSkillInListChanged($event)"></jhi-teams-skills>
     </div>
-    <div class="col-md-8">
-        <h2 class="skill-title">{{skill.title}}</h2>
-
-        <div  *ngIf="isSameTeamSelected()" class="row skill-deactivate">
-            <div class="col-md-12">
-                <button *ngIf="skillAchieved()" class="btn btn-danger" jhiTranslate="teamdojoApp.teams.skills.details.deactivate" (click)="onToggleSkill(false)"></button>
-                <button *ngIf="!skillAchieved()" class="btn btn-success" jhiTranslate="teamdojoApp.teams.skills.details.activate" (click)="onToggleSkill(true)"></button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8">
-                <div class="skill-desc desc-block">
-                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.desc"></h3>
-                    <p>{{skill.description}}</p>
-                </div>
-                <div class="skill-impl desc-block">
-                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.implementation"></h3>
-                    <p>{{skill.implementation}}</p>
-                </div>
-                <div class="skill-validation desc-block">
-                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.validation"></h3>
-                    <p>{{skill.validation}}</p>
-                </div>
-
-                <div class="achieved-by desc-block">
-                    <h3 jhiTranslate="teamdojoApp.teams.skills.details.achievedBy"></h3>
-                    <div class="achieved-by-teams">
-                        <div *ngFor="let t of achievedByTeams" class="avatar-team" placement="top" [ngbTooltip]="t.name">
-                            <img [src]="t.picture | imageDataUrl: t.pictureContentType" />
-                        </div>
-                        <p *ngIf="achievedByTeams.length === 0" jhiTranslate="teamdojoApp.teams.skills.details.achievedByNone"></p>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-
-                <div *ngIf="isSameTeamSelected()" class="irrlevant-control desc-block">
-                    <input type="checkbox" id="irrelevantCheckbox" [(ngModel)]="achievableSkill.irrelevant" (change)="updateSkill()">
-                    <label for="irrelevantCheckbox" jhiTranslate="teamdojoApp.teams.skills.details.notRelevant"></label>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-
-               <h3 jhiTranslate="teamdojoApp.teams.skills.details.neededFor"></h3>
-
-                <div class="needed-for">
-                    <div class="needed-for-levels">
-                        <div *ngFor="let l of neededForLevels" class="avatar-level" placement="top" [ngbTooltip]="l.name">
-                            <img [src]="l.picture | imageDataUrl: l.pictureContentType" />
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="needed-for-badges">
-                        <div *ngFor="let b of neededForBadges" class="avatar-badge" placement="top" [ngbTooltip]="b.name">
-                            <img [src]="b.logo | imageDataUrl: b.logoContentType" />
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="skill-info col-60">
+        <jhi-skill-details-info (onSkillChanged)="skillList.handleSkillChanged($event)" [skill]="skill"
+                                [team]="team" [achievableSkill]="achievableSkill"></jhi-skill-details-info>
+    </div>
+    <div class="skill-comments col-20">
+        <jhi-skill-details-comments></jhi-skill-details-comments>
     </div>
 </div>

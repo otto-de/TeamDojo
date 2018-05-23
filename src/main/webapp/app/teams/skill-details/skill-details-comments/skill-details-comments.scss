@@ -1,0 +1,127 @@
+@import '~bootstrap/scss/bootstrap';
+@import '../../../../content/scss/bootstrap-variables';
+@import '../../../../content/scss/colors';
+@import "../../../../content/scss/mixins";
+
+.skill-comments {
+    height: 100%;
+    h4 {
+        color: $dojo-text-primary;
+    }
+
+    .dojo-card {
+        height: calc(100% - 150px);
+        background: $dojo-bg-primary;
+        @include shadow();
+        margin-top: 88px;
+        * {
+            color: $dojo-text-secondary;
+        }
+
+        .comments {
+            height: calc(100% - 80px);
+            padding: 20px;
+            overflow-y: hidden;
+        }
+        .comment-input {
+            display: flex;
+            padding: 20px;
+            border-top: 1px solid #ccc;
+            height: 80px;
+
+            .send-btn {
+                cursor: pointer;
+                background: none;
+                border: none;
+                color: #666;
+                font-size: 1.5rem;
+                margin-left: 10px;
+                margin-right: -5px;
+            }
+            .send-btn:focus, .send-btn:active {
+                outline: none;
+            }
+            .send-btn:hover {
+                color: #333;
+            }
+            .send-btn:active {
+                color: #000;
+            }
+        }
+    }
+}
+
+.conversation {
+    margin-bottom: 15px;
+}
+
+.conversation-left  {
+    position: relative;
+    font-size: 0.9rem;
+
+    img {
+        position: absolute;
+        bottom: 0;
+        width:50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    .speech-bubble {
+        position: absolute;
+        background: #e9deb9;
+        border-radius: .4em;
+        padding: 15px;
+        margin-left: 70px;
+    }
+
+    .speech-bubble:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 10px;
+        width: 0;
+        height: 0;
+        border: 17px solid transparent;
+        border-right-color: #e9deb9;
+        border-left: 0;
+        border-top: 0;
+        margin-left: -17px;
+    }
+}
+
+.conversation-right  {
+    position: relative;
+    font-size: 0.9rem;
+
+    img {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width:50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    .speech-bubble {
+        position: absolute;
+        background: #e9deb9;
+        border-radius: .4em;
+        padding: 15px;
+        margin-right: 70px;
+    }
+
+    .speech-bubble:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: 10px;
+        width: 0;
+        height: 0;
+        border: 17px solid transparent;
+        border-left-color: #e9deb9;
+        border-right: 0;
+        border-top: 0;
+        margin-right: -17px;
+    }
+}

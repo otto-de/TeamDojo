@@ -37,9 +37,9 @@
         }
     }
     /deep/ .card {
+        @include shadow();
         margin-top: 25px;
         background-color: $dojo-bg-gradient-from;
         border: none;
-        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     }
 }
