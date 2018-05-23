@@ -73,14 +73,13 @@ export class BreadcrumbService {
         if (this.level !== null && typeof this.level !== 'undefined') {
             const url = this.router.createUrlTree(path, { queryParams: this.params }).toString();
             breadcrumbs.push(new Breadcrumb(this.level.name, url, false));
-            console.log('Breadcrumbs: ', breadcrumbs);
         }
         if (this.badge !== null && typeof this.badge !== 'undefined') {
             const url = this.router.createUrlTree(path, { queryParams: this.params }).toString();
             breadcrumbs.push(new Breadcrumb(this.badge.name, url, false));
         }
         if (this.skill !== null && typeof this.skill !== 'undefined') {
-            //path.push("skills", this.skill.id);
+            path.push('skills', this.skill.id);
             const url = this.router.createUrlTree(path, { queryParams: this.params }).toString();
             breadcrumbs.push(new Breadcrumb(this.skill.title, url, false));
         }
