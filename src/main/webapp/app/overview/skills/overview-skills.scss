@@ -1,12 +1,28 @@
-.overviews-skills{
+@import '../../../content/scss/_colors.scss';
+
+.overviews-skills {
     font-family: "IBM Plex Sans";
     height: inherit;
     overflow-y: auto;
     overflow-x: hidden;
     padding-right: 10px;
 }
-.noWrap {
+
+.skill-container {
+    background-color: $dojo-bg-gradient-from;
+}
+
+.count-teams {
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.skill-title{
+    width: 70%;
 }
 
 .active-skill,
@@ -16,10 +32,26 @@
 
 #skills_searchTerm {
     background-color: #f1d7ae;
-    width: 250px;
+    width: 270px;
 }
 
 .additional-functions {
-    height: 150px;
+    height: 75px;
     width: 100%;
+}
+
+::-webkit-input-placeholder {
+    font-style: italic;
+}
+
+:-moz-placeholder {
+    font-style: italic;
+}
+
+::-moz-placeholder {
+    font-style: italic;
+}
+
+:-ms-input-placeholder {
+    font-style: italic;
 }
