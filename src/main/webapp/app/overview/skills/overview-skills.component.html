@@ -3,7 +3,7 @@
         <h4>{{'teamdojoApp.overview.skills.title' | translate}}</h4>
     </div>
     <div class="teams-skills-list list-group">
-        <li class="list-group-item list-group-item-action flex-column align-items-start mb-2"
+        <div class="list-group-item list-group-item-action flex-column align-items-start mb-2"
             [ngClass]="{'active-skill':isActiveSkill(skill)}"
             *ngFor="let skill of activeSkills">
             <div class="d-flex justify-content-between"
@@ -13,6 +13,6 @@
                     <span class="noWrap">{{getRelevantTeams(skill)}}</span>
                 </div>
             </div>
-        </li>
+        </div>
     </div>
 </div>

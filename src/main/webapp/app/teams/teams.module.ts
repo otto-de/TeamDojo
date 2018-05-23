@@ -42,6 +42,7 @@ import { SkillDetailsCommentsComponent } from 'app/teams/skill-details/skill-det
         AllLevelSkillsResolve,
         AllBadgeSkillsResolve
     ],
+    exports: [SkillDetailsInfoComponent, SkillDetailsCommentsComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TeamsModule {}
