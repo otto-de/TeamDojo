@@ -44,6 +44,9 @@ export class OverviewSkillDetailsComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.data.subscribe(({ teams, levels, badges, teamSkills, levelSkills, badgeSkills, skill }) => {
+            this.achievedByTeams = [];
+            this.neededForLevels = [];
+            this.neededForBadges = [];
             this.skill = skill.body;
 
             this.teams = teams.body;
@@ -69,6 +72,9 @@ export class OverviewSkillDetailsComponent implements OnInit {
             this.levels.forEach(level => {
                 groupedLevels[level.dimensionId] = groupedLevels[level.dimensionId] || [];
                 groupedLevels[level.dimensionId].push(Object.assign(level, { skills: groupedLevelSkills[level.id] }));
+                if (level.skills.some(s => s.skillId === this.skill.id)) {
+                    this.neededForLevels.push(level);
+                }
             });
             for (const dimensionId in groupedLevels) {
                 if (groupedLevels.hasOwnProperty(dimensionId)) {
@@ -84,6 +90,9 @@ export class OverviewSkillDetailsComponent implements OnInit {
 
             this.badges.forEach(badge => {
                 badge.skills = groupedBadgeSkills[badge.id] || [];
+                if (badge.skills.some(s => s.skillId === this.skill.id)) {
+                    this.neededForBadges.push(badge);
+                }
             });
 
             this.teams.forEach(team => {
@@ -92,25 +101,6 @@ export class OverviewSkillDetailsComponent implements OnInit {
                     dimension.levels = groupedLevels[dimension.id] || [];
                 });
             });
-        });
-        this.loadData();
-    }
-
-    loadData() {
-        this.achievedByTeams = [];
-        this.neededForLevels = [];
-        this.neededForBadges = [];
-
-        this.skillService.find(this.skill.id).subscribe(skill => {
-            this.skill = skill.body;
-        });
-
-        this.levelService.query({ 'skillsId.in': this.skill.id }).subscribe(res => {
-            this.neededForLevels = res.body;
-        });
-
-        this.badgeService.query({ 'skillsId.in': this.skill.id }).subscribe(res => {
-            this.neededForBadges = res.body;
         });
     }
 
