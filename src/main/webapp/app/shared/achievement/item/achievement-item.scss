@@ -1,15 +1,12 @@
 @import '~bootstrap/scss/bootstrap';
 @import "../../../../content/scss/mixins";
 .achievement-item {
-    width: 10vh;
-    height: 10vh;
     border: 2px solid transparent;
-    padding: 0.5rem;
+    padding: 0.5rem 0;
 
-    > div {
-        width: inherit;
-        height: inherit;
-        margin: -0.6rem 0 0 -0.6rem;
+    .item-content {
+        width: 10vh;
+        height: 10vh;
     }
 
     .item-badge, .item-level {
@@ -36,7 +33,7 @@
                 display: flex;
                 width: inherit;
                 height: inherit;
-                background: no-repeat center/80% url('../../../../content/images/badge_default.png');
+                background: no-repeat center/90% url('../../../../content/images/badge_default.png');
             }
         }
         &-disabled .item-image:after {
@@ -75,7 +72,7 @@
     }
 
     .item-progress {
-        padding: 6px 15px 0 15px;
+        padding: 0 25px;
 
         /deep/ .progress {
             background-color: transparent;
