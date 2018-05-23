@@ -22,7 +22,14 @@ export class AchievementItemComponent {
     }
 
     get itemStatusCssClass() {
-        const itemStatus = this.progress >= 100 ? 'complete' : 'incomplete';
+        let itemStatus;
+        if (this.progress >= 100) {
+            itemStatus = 'complete';
+        } else if (this.progress > 0) {
+            itemStatus = 'incomplete';
+        } else {
+            itemStatus = 'disabled';
+        }
         return this.hasStatus ? (this.type ? `${this.type}-${itemStatus}` : `item-${itemStatus}`) : '';
     }
 }
