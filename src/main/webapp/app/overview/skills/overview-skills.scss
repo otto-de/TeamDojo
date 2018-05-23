@@ -1,7 +1,6 @@
 @import '../../../content/scss/_colors.scss';
 
 .overviews-skills {
-    font-family: "IBM Plex Sans";
     height: inherit;
     overflow-y: auto;
     overflow-x: hidden;
@@ -14,11 +13,7 @@
 
 .count-teams {
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    float: left;
 }
 
 .skill-title{
@@ -31,7 +26,7 @@
 }
 
 #skills_searchTerm {
-    background-color: #f1d7ae;
+    background-color: #e8ddb7;
     width: 270px;
 }
 

@@ -63,7 +63,7 @@
                 }
             }
         }
-        .list-group-item {
+        /*.list-group-item {
             padding: 0;
             background-color: $dojo-bg-gradient-from;
             border: none;
@@ -79,7 +79,7 @@
                 color: $dojo-text-primary;
                 font-weight: normal;
             }
-        }
+        }*/
     }
 }
 @media only screen and (min-width: map-get($grid-breakpoints, md)){

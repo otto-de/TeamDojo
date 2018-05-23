@@ -2,16 +2,14 @@
 @import '../../../content/scss/_colors.scss';
 
 .overviews-teams {
-    //font-family: "IBM Plex Sans";
-
     .additional-functions {
         height: 75px;
         width: 100%;
     }
     .team-list {
+        border-style: none;
         .team-item {
             border-style: none;
-            border-bottom: 1px solid $gray-400;
             background-color: $dojo-bg-gradient-from;
             &.irrelevant {
                 background-color: $gray-400;
@@ -57,7 +55,7 @@
 }
 
 #teams_startCompare {
-    background-color: orange;
+    background-color: #f1d7ae;
     float: right;
     margin: 5px;
     padding: 5px;
@@ -75,7 +73,7 @@
 }
 
 input#teams_searchTerm {
-    background-color: #f1d7ae;
+    background-color: #e8ddb7;
     width: 270px;
     margin: 5px;
 }
