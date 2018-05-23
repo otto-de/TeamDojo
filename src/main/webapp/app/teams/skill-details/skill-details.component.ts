@@ -58,6 +58,7 @@ export class SkillDetailsComponent implements OnInit {
         this.neededForLevels = [];
         this.neededForBadges = [];
         this.achievableSkill = new AchievableSkill();
+        this.achievableSkill.skillId = this.skill.id;
 
         this.teamSkillService.query({ 'skillId.equals': this.skill.id, 'completedAt.specified': true }).subscribe(res => {
             const teamsId = res.body.map(ts => ts.teamId);

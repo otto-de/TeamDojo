@@ -1,26 +1,25 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { ITeam, Team } from 'app/shared/model/team.model';
-import { TeamsService } from 'app/teams/teams.service';
-import { LocalStorageService } from 'ngx-webstorage';
+import { ITeam } from 'app/shared/model/team.model';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { IBadge } from 'app/shared/model/badge.model';
 import { ISkill } from 'app/shared/model/skill.model';
 import { ILevel } from 'app/shared/model/level.model';
-import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
-import { Breadcrumb, IBreadcrumb } from 'app/shared/model/breadcrumb.model';
+import { Breadcrumb } from 'app/shared/model/breadcrumb.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Params } from '@angular/router/src/shared';
 
 @Injectable()
 export class BreadcrumbService {
-    @Output() breadcrumbChanged = new EventEmitter<any>();
+    @Output() breadcrumbChanged = new EventEmitter<any>(true);
 
     private team: ITeam;
     private dimension: IDimension;
     private badge: IBadge;
     private skill: ISkill;
     private level: ILevel;
-    private breadcrumbs: IBreadcrumb[];
+    private params: Params;
 
-    constructor() {}
+    constructor(private route: ActivatedRoute, private router: Router) {}
 
     setBreadcrumb(team: ITeam, dimension: IDimension, level: ILevel, badge: IBadge, skill: ISkill) {
         this.team = team;
@@ -29,6 +28,10 @@ export class BreadcrumbService {
         this.badge = badge;
         this.skill = skill;
         this.breadcrumbChanged.emit('Breadcrumb changed');
+
+        this.route.queryParams.subscribe(queryParams => {
+            this.params = queryParams;
+        });
     }
 
     setBadge(badge: IBadge) {
@@ -52,25 +55,38 @@ export class BreadcrumbService {
     }
 
     getCurrentBreadcrumb() {
-        this.breadcrumbs = [];
+        var breadcrumbs = [];
+
+        var path = [];
+
         if (this.team !== null && typeof this.team !== 'undefined') {
-            this.breadcrumbs.push(new Breadcrumb(this.team.shortName, '', false));
+            path.push('teams', this.team.shortName);
+            const url = this.router.createUrlTree(path, { queryParams: this.params }).toString();
+            breadcrumbs.push(new Breadcrumb(this.team.shortName, url, false));
+        } else {
+            path.push('');
         }
         if (this.dimension !== null && typeof this.dimension !== 'undefined') {
-            this.breadcrumbs.push(new Breadcrumb(this.dimension.name, '', false));
+            const url = this.router.createUrlTree(path, { queryParams: this.params }).toString();
+            breadcrumbs.push(new Breadcrumb(this.dimension.name, url, false));
         }
         if (this.level !== null && typeof this.level !== 'undefined') {
-            this.breadcrumbs.push(new Breadcrumb(this.level.name, '', false));
+            const url = this.router.createUrlTree(path, { queryParams: this.params }).toString();
+            breadcrumbs.push(new Breadcrumb(this.level.name, url, false));
+            console.log('Breadcrumbs: ', breadcrumbs);
         }
         if (this.badge !== null && typeof this.badge !== 'undefined') {
-            this.breadcrumbs.push(new Breadcrumb(this.badge.name, '', false));
+            const url = this.router.createUrlTree(path, { queryParams: this.params }).toString();
+            breadcrumbs.push(new Breadcrumb(this.badge.name, url, false));
         }
         if (this.skill !== null && typeof this.skill !== 'undefined') {
-            this.breadcrumbs.push(new Breadcrumb(this.skill.title, '', false));
+            //path.push("skills", this.skill.id);
+            const url = this.router.createUrlTree(path, { queryParams: this.params }).toString();
+            breadcrumbs.push(new Breadcrumb(this.skill.title, url, false));
         }
-        if (this.breadcrumbs.length > 0) {
-            this.breadcrumbs[this.breadcrumbs.length - 1].active = true;
+        if (breadcrumbs.length > 0) {
+            breadcrumbs[breadcrumbs.length - 1].active = true;
         }
-        return this.breadcrumbs;
+        return breadcrumbs;
     }
 }
