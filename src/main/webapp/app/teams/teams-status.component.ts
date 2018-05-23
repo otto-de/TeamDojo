@@ -39,7 +39,6 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     }
 
     selectItem(itemType: string, id: number) {
-        console.log('navigating to type', itemType);
         this.router.navigate(['teams', this.team.shortName], {
             queryParams: { [itemType]: id }
         });
