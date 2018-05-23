@@ -38,8 +38,6 @@
 
     &.item-level {
         .item-image {
-            height: inherit;
-            width: inherit;
             background-color: transparent;
             img {
                 width: inherit;
@@ -52,7 +50,7 @@
                 width: inherit;
                 height: inherit;
                 z-index: 1;
-                background: no-repeat center url('../../../../content/images/level_default.png');
+                background: no-repeat center/72% url('../../../../content/images/level_default.png');
             }
         }
         &-disabled, &-incomplete .item-image::before {
