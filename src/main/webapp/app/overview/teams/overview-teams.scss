@@ -2,26 +2,17 @@
 @import '../../../content/scss/_colors.scss';
 
 .overviews-teams {
-    font-family: "IBM Plex Sans";
+    //font-family: "IBM Plex Sans";
 
     .additional-functions {
-
-        height: 150px;
+        height: 75px;
         width: 100%;
-        #form {
-            width: 100%;
-        }
     }
     .team-list {
         .team-item {
             border-style: none;
             border-bottom: 1px solid $gray-400;
-            background-color: $dojo-bg-primary;
-            :last-child {
-                border-style: none;
-            }
-            z-index: 5;
-            //margin-bottom: 1px;
+            background-color: $dojo-bg-gradient-from;
             &.irrelevant {
                 background-color: $gray-400;
                 opacity: 0.5;
@@ -65,26 +56,28 @@
     }
 }
 
-#positioning {
-    vertical-align: middle;
-}
-
 #teams_startCompare {
     background-color: orange;
     float: right;
-    margin-right: 5px;
+    margin: 5px;
+    padding: 5px;
+    border: $gray-400;
+    color: white;
 }
 
 #teams_selectTeams {
-    background-color: mintcream;
+    background-color: $dojo-nav-primary;
     float: right;
+    margin: 5px;
+    padding: 5px;
+    border: $gray-400;
+    color: white;
 }
 
 input#teams_searchTerm {
     background-color: #f1d7ae;
-    width: 250px;
+    width: 270px;
     margin: 5px;
-
 }
 
 ::-webkit-input-placeholder {

@@ -1,19 +1,30 @@
+@import '../../../content/scss/_colors.scss';
+
 .overviews-achievements {
-    font-family: "IBM Plex Sans";
+    //font-family: "IBM Plex Sans";
     height: inherit;
     overflow-y: auto;
     padding-right: 10px;
+
     .item-list-body {
         .item-list-title {
             margin-top: 5px;
         }
     }
     /deep/ .card {
-        margin-top: 8px;
+        margin-top: 5px;
+    }
+
+    /deep/ .card-header {
+        background-color: $dojo-bg-gradient-from;
+    }
+
+    /deep/ .card-body {
+        background-color: $dojo-bg-gradient-to;
     }
 
     .additional-functions {
-        height: 150px;
+        height: 75px;
         width: 100%;
     }
 }
