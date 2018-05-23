@@ -2,6 +2,7 @@
 
 <div class="row skill-details">
     <div class="skills-list col-20">
+        <a class="breadcrumb-item active" [routerLink]="['/teams', team.shortName]" >&lt;{{'global.menu.teams.home' | translate}}</a>
         <jhi-teams-skills [team]="team" [skill]="achievableSkill" (onSkillClicked)="onSkillInListClicked($event)"
                           (onSkillChanged)="onSkillInListChanged($event)"></jhi-teams-skills>
     </div>
