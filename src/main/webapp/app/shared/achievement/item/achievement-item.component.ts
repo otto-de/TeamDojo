@@ -13,6 +13,7 @@ export class AchievementItemComponent {
     @Input() active: boolean;
     @Input() type = '';
     @Input() hasStatus = false;
+    @Input() size = '10vh';
     @Output() onItemSelected = new EventEmitter<ILevel | IBadge>();
 
     selectItem(event) {
