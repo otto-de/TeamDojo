@@ -1,4 +1,5 @@
 @import '~bootstrap/scss/bootstrap';
+@import '../../../content/scss/mixins';
 .overviews-teams {
     .team-list {
         .team-item {
@@ -6,19 +7,7 @@
                 opacity: 0.5;
             }
             .team-image {
-                width: 6vh;
-                min-width: 46px;
-                height: 6vh;
-                min-height: 46px;
-                display: flex;
-                align-items: center;
-                border-radius: 50%;
-                border: 2px solid #e5e1d8;
-                background: white !important;
-                overflow: hidden;
-                img {
-                    width: 100%;
-                }
+                @include team-image();
                 &.complete{
                     border-color: $success;
                 }
