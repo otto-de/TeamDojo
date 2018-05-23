@@ -2,28 +2,25 @@
     <div>
         <h4 jhiTranslate="teamdojoApp.overview.teams.title">Teams</h4>
     </div>
-        <div class="additional-functions d-flex align-items-center">
-            <form id="form">
-                <input type="text" id="teams_searchTerm" placeholder="Suche" disabled>
-                <div style="float:right">
-                    <select type="button" value="Alle Teams" name="Alle Teams" id="teams_selectTeams" disabeld>
-                        <option value="0" disabled>Alle Teams </option>
-                        <option value="1" disabled>Option1</option>
-                        <option value="2" disabled>Option2</option>
-                    </select>
-                    <input type="button" value="Vergleich starten" name="startCompare" id="teams_startCompare" disabled />
-                </div>
-            </form>
+    <div class="additional-functions d-flex align-items-center">
+        <form style="width: 100%;">
+            <input type="text" id="teams_searchTerm" placeholder="Suche" disabled>
+            <div style="float: right;">
+                <input type="button" value="Vergleich starten" id="teams_startCompare" disabled/>
+                <input type="button" value="Alle Teams" id="teams_selectTeams" disabled/>
             </div>
-        </div>
+        </form>
+    </div>
     <div class="team-list list-group">
         <div class="team-item list-group-item list-group-item-action flex-column align-items-start"
-            *ngFor='let team of teams'
-            [ngClass]="{irrelevant: showAsIrrelevant(team)}">
+             *ngFor='let team of teams'
+             [ngClass]="{irrelevant: showAsIrrelevant(team)}">
             <div class="d-flex flex-wrap align-items-center">
                 <div class="d-inline-flex align-items-center">
-                    <div class="team-image" [ngClass]="{complete: showAsComplete(team), incomplete: showAsIncomplete(team)}">
-                        <img [title]="team.name" *ngIf="team.picture && team.pictureContentType; else picturePlaceholder"
+                    <div class="team-image"
+                         [ngClass]="{complete: showAsComplete(team), incomplete: showAsIncomplete(team)}">
+                        <img [title]="team.name"
+                             *ngIf="team.picture && team.pictureContentType; else picturePlaceholder"
                              [src]="team.picture | imageDataUrl: team.pictureContentType"/>
                         <ng-template #picturePlaceholder>
                             <span class="img-placeholder">{{team.name | truncateString}}</span>
