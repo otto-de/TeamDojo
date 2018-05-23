@@ -1,5 +1,6 @@
 <div class="row skill-details">
     <div class="col-md-4">
+        <a class="breadcrumb-item active" href="#">&lt;{{'teamdojoApp.overview.navigation.text' | translate}}</a>
         <jhi-teams-skills [team]="team" [skill]="achievableSkill" (onSkillClicked)="onSkillSelected($event)"
                           (onSkillChanged)="onSkillInListChange($event)"></jhi-teams-skills>
     </div>
