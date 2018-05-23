@@ -1,13 +1,62 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ITeam } from 'app/shared/model/team.model';
+import { IDimension } from 'app/shared/model/dimension.model';
+import { IBadge } from 'app/shared/model/badge.model';
+import { CompletionCheck, RelevanceCheck } from 'app/shared';
+import { Router } from '@angular/router';
+import { HighestLevel, IHighestLevel } from 'app/shared/achievement';
 
 @Component({
     selector: 'jhi-teams-status',
     templateUrl: './teams-status.component.html',
     styleUrls: ['teams-status.scss']
 })
-export class TeamsStatusComponent {
+export class TeamsStatusComponent implements OnInit {
     @Input() team: ITeam;
+    @Input() badges: IBadge[];
+    completedBadges: IBadge[];
+    highestAchievedLevels: IHighestLevel[];
 
-    constructor() {}
+    constructor(private router: Router) {}
+
+    ngOnInit(): void {
+        this.completedBadges = this.getCompletedBadges();
+        this.highestAchievedLevels = this.getHighestAchievedLevels();
+    }
+
+    selectItem(itemType: string, id: number) {
+        console.log('navigating to type', itemType);
+        this.router.navigate(['teams', this.team.shortName], {
+            queryParams: { [itemType]: id }
+        });
+    }
+
+    private getCompletedBadges() {
+        return this.badges.filter(
+            (badge: IBadge) => new RelevanceCheck(this.team).isRelevantBadge(badge) && new CompletionCheck(this.team, badge).isCompleted()
+        );
+    }
+
+    private isLevelCompleted(level) {
+        return new CompletionCheck(this.team, level).isCompleted();
+    }
+
+    private getHighestAchievedLevels(): IHighestLevel[] {
+        const highestAchievedLevels = [];
+        this.team.participations.forEach((dimension: IDimension) => {
+            let ordinal = 0;
+            let achievedLevel;
+            for (const level of dimension.levels) {
+                if (!this.isLevelCompleted(level)) {
+                    break;
+                }
+                achievedLevel = level;
+                ordinal++;
+            }
+            if (achievedLevel) {
+                highestAchievedLevels.push(new HighestLevel(dimension, achievedLevel, ordinal));
+            }
+        });
+        return highestAchievedLevels;
+    }
 }
