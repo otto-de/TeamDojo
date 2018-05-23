@@ -150,7 +150,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
                 });
             });
         }
-        console.log('Skill: ', this.skill);
         if (typeof this.skill !== 'undefined' && this.skill !== null && typeof this.skill.skillId !== 'undefined') {
             this.skillService.find(this.skill.skillId).subscribe(skillRes => {
                 this.activeSkill = skillRes.body;

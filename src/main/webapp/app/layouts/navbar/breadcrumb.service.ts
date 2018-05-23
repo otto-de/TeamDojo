@@ -19,7 +19,11 @@ export class BreadcrumbService {
     private level: ILevel;
     private params: Params;
 
-    constructor(private route: ActivatedRoute, private router: Router) {}
+    constructor(private route: ActivatedRoute, private router: Router) {
+        this.route.queryParams.subscribe(queryParams => {
+            this.params = queryParams;
+        });
+    }
 
     setBreadcrumb(team: ITeam, dimension: IDimension, level: ILevel, badge: IBadge, skill: ISkill) {
         this.team = team;
@@ -28,10 +32,6 @@ export class BreadcrumbService {
         this.badge = badge;
         this.skill = skill;
         this.breadcrumbChanged.emit('Breadcrumb changed');
-
-        this.route.queryParams.subscribe(queryParams => {
-            this.params = queryParams;
-        });
     }
 
     setBadge(badge: IBadge) {
