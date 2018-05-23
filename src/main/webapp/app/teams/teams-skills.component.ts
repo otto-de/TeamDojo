@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { LocalStorageService } from 'ngx-webstorage';
+import { SessionStorageService } from 'ngx-webstorage';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSkillsService } from './teams-skills.service';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
@@ -40,7 +40,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         private jhiAlertService: JhiAlertService,
         private parseLinks: JhiParseLinks,
         private teamsSelectionService: TeamsSelectionService,
-        private storage: LocalStorageService,
+        private storage: SessionStorageService,
         private route: ActivatedRoute,
         private location: Location,
         private router: Router
@@ -73,7 +73,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     }
 
     getFiltersFromStorage(): string[] {
-        return this.storage.retrieve(this.team.id.toString()) || [];
+        return this.storage.retrieve('filterKey') || [];
     }
 
     reset() {
@@ -156,7 +156,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         } else {
             this.filters.push(filterName);
         }
-        this.storage.store(this.team.id.toString(), this.filters);
+        this.storage.store('filterKey', this.filters);
         this.reset();
         this.loadAll();
     }
