@@ -10,54 +10,66 @@
         .item-image {
             @include achievement-image();
         }
-
-        .item-bg {
-            display: flex;
-            width: 8vh;
-            background: no-repeat center/100% transparent;
-        }
     }
 
     .item-badge {
-        .item-bg {
+        .item-image:after {
+            content: '';
             position: absolute;
+            display: flex;
+            width: 8vh;
             height: 8vh;
+            background: no-repeat center/100% transparent;
         }
     }
 
     .item-level {
         .item-image {
-            position: absolute;
             height: 8vh;
-            width: 15vh;
+            width: 12vh;
             background-color: transparent;
-            margin-left: -3.5vh;
+            img {
+                width: auto;
+                z-index: 2;
+            }
+            &:before {
+                content: '';
+                position: absolute;
+                display: flex;
+                width: 8vh;
+                height: 8vh;
+                background: no-repeat center/100% transparent;
+                margin-left: 2vh;
+                z-index: 1;
+            }
         }
     }
 
     .item-badge {
-        .item-image img {
-            margin-top: -3px;
+        .item-image {
+            img {
+                margin-top: -3px;
+            }
+            &:after {
+                background-image: url('../../../../content/images/badge_default.png');
+            }
         }
-        .item-bg {
-            background-image: url('../../../../content/images/badge_default.png');
-        }
-        &-disabled .item-bg {
+        &-disabled .item-image:after {
             background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../../../content/images/badge_default.png');
         }
-        &-incomplete .item-bg {
+        &-incomplete .item-image:after {
             background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('../../../../content/images/badge_default.png');
         }
     }
 
     .item-level {
-        .item-bg {
+        .item-image:before {
             background-image: url('../../../../content/images/level_default.png');
         }
-        &-disabled .item-bg {
+        &-disabled .item-image:before {
             background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../../../content/images/level_default.png');
         }
-        &-incomplete .item-bg {
+        &-incomplete .item-image:before {
             background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('../../../../content/images/level_default.png');
         }
     }
