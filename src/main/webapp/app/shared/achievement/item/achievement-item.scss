@@ -13,13 +13,24 @@
     }
 
     .item-badge {
-        .item-image:after {
-            content: '';
-            position: absolute;
-            display: flex;
-            width: 8vh;
-            height: 8vh;
-            background: no-repeat center/100% transparent;
+        .item-image {
+            img {
+                margin-top: -3px;
+            }
+            &:after {
+                content: '';
+                position: absolute;
+                display: flex;
+                width: 8vh;
+                height: 8vh;
+                background: no-repeat center/100% url('../../../../content/images/badge_default.png');
+            }
+        }
+        &-disabled .item-image:after {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../../../content/images/badge_default.png');
+        }
+        &-incomplete .item-image:after {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('../../../../content/images/badge_default.png');
         }
     }
 
@@ -38,33 +49,10 @@
                 display: flex;
                 width: 8vh;
                 height: 8vh;
-                background: no-repeat center/100% transparent;
                 margin-left: 2vh;
                 z-index: 1;
+                background: no-repeat center/100% url('../../../../content/images/level_default.png');
             }
-        }
-    }
-
-    .item-badge {
-        .item-image {
-            img {
-                margin-top: -3px;
-            }
-            &:after {
-                background-image: url('../../../../content/images/badge_default.png');
-            }
-        }
-        &-disabled .item-image:after {
-            background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../../../content/images/badge_default.png');
-        }
-        &-incomplete .item-image:after {
-            background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('../../../../content/images/badge_default.png');
-        }
-    }
-
-    .item-level {
-        .item-image:before {
-            background-image: url('../../../../content/images/level_default.png');
         }
         &-disabled .item-image:before {
             background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../../../content/images/level_default.png');
