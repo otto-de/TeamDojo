@@ -29,6 +29,7 @@
                                 <a *ngIf="isInSkillDetails()" class="mb-1">{{skill.title}}</a>
                                 <a *ngIf="!isInSkillDetails()"
                                    [routerLink]="['/teams', team.shortName,'skills', skill.skillId]"
+                                   [queryParams]="{level: getLevelId(), badge: getBadgeId(), filter: filters}"
                                    class="mb-1">{{skill.title}}</a>
                             </div>
                             <div class="skill-status ml-auto" [ngClass]="{'completed': !skill.irrelevant && skill.achievedAt}">

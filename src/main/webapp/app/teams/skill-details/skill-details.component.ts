@@ -44,6 +44,7 @@ export class SkillDetailsComponent implements OnInit {
 
     loadData() {
         this.achievableSkill = new AchievableSkill();
+        this.achievableSkill.skillId = this.skill.id;
         this.teamsSkillsService.findAchievableSkill(this.team.id, this.skill.id).subscribe(skill => {
             this.achievableSkill = skill;
         });
