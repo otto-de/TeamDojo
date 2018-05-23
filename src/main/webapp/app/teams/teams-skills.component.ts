@@ -130,15 +130,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         this.updateSkill(skill);
     }
 
-    onToggled(checked: boolean, skill: IAchievableSkill) {
-        if (checked) {
-            skill.achievedAt = moment();
-        } else {
-            skill.achievedAt = null;
-        }
-        this.updateSkill(skill);
-    }
-
     private updateSkill(skill: IAchievableSkill) {
         this.teamsSkillsService.updateAchievableSkill(this.team.id, skill).subscribe(
             (res: HttpResponse<IAchievableSkill>) => {

@@ -16,9 +16,14 @@
                 "search": {
                     "placeholder": "Search",
                     "filter": {
-                        "completed": "Completed",
-                        "incompleted": "Incompleted"
+                        "label": "Hide completed skills"
                     }
+                },
+                "action": {
+                    "complete": "Complete",
+                    "incomplete": "Reopen",
+                    "irrelevant": "Irrelevant",
+                    "relevant": "Relevant"
                 },
                 "details": {
                     "activate": "Activate skill",
