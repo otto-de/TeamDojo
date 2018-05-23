@@ -6,6 +6,7 @@
     height: inherit;
     overflow-y: auto;
     padding-right: 10px;
+
     .item-list-body {
         .item-list-title {
             margin-top: 5px;
@@ -24,8 +25,11 @@
         margin-bottom: 25px;
         background-color: $dojo-bg-gradient-from;
         border: none;
-    }
 
+        /deep/ .card-body {
+            background-color: $dojo-bg-gradient-from;
+        }
+    }
     .additional-functions {
         height: 75px;
         width: 100%;
