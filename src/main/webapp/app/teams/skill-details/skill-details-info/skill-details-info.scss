@@ -1,5 +1,11 @@
+@import '~bootstrap/scss/bootstrap';
+@import '../../../../content/scss/bootstrap-variables';
+@import '../../../../content/scss/colors';
+@import "../../../../content/scss/mixins";
+
 .skill-title {
     margin-bottom: 15px;
+    color: $dojo-text-primary;
 }
 .desc-block {
 
@@ -7,12 +13,16 @@
 }
 
 .skill-actions {
-    margin-bottom: 15px;
+    * {
+        color: $dojo-text-primary;
+    }
+    margin-bottom: 5px;
     margin-left: 2px;
 }
 
 .skill-rating {
-    margin-bottom: 20px;
+    color: $dojo-text-primary;
+    margin-bottom: 15px;
     margin-left: 2px;
     float: left;
     .rating-text {
@@ -20,6 +30,7 @@
     }
 }
 .skill-contact {
+    color: $dojo-text-primary;
     float: right;
 }
 
@@ -37,7 +48,7 @@
 }
 
 .action-btn:hover {
-    border-color: #ccc;
+    border-color: #aaa;
 }
 
 .action-btn:active,
@@ -59,8 +70,9 @@
 }
 
 .dojo-card {
-    background: #FFFAF7;
-    box-shadow: 1px 1px 5px #ccc;
+    background: $dojo-bg-primary;
+    padding: 20px;
+    @include shadow();
 }
 
 .needed-for {

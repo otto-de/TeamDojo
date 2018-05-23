@@ -1,11 +1,22 @@
+@import '~bootstrap/scss/bootstrap';
+@import '../../../../content/scss/bootstrap-variables';
+@import '../../../../content/scss/colors';
+@import "../../../../content/scss/mixins";
+
 .skill-comments {
     height: 100%;
+    h4 {
+        color: $dojo-text-primary;
+    }
 
     .dojo-card {
         height: calc(100% - 150px);
-        background: #FFFAF7;
+        background: $dojo-bg-primary;
         box-shadow: 1px 1px 5px #ccc;
-        margin-top: 105px;
+        margin-top: 88px;
+        * {
+            color: $dojo-text-secondary;
+        }
 
         .comments {
             height: calc(100% - 80px);

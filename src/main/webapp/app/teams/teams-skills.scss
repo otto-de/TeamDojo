@@ -13,8 +13,14 @@
 }
 
 .teams-skills {
+    h4 {
+        color: $dojo-text-primary;
+    }
+
     padding-right: 10px;
     .skill-search {
+        color: $dojo-text-primary;
+
         margin-right: 23px;
 
         .skill-search-input {
@@ -37,7 +43,7 @@
             }
         }
         .skill-status {
-            color: $dojo-text-primary;
+            color: $dojo-text-secondary;
             padding: 10px;
             background-color: transparent;
             &.completed {
@@ -58,7 +64,7 @@
                 }
                 a {
                    small {
-                       color: $dojo-text-primary;
+                       color: $dojo-text-secondary;
                    }
                 }
             }
@@ -76,7 +82,7 @@
             }
 
             a {
-                color: $dojo-text-primary;
+                color: $dojo-text-secondary;
                 font-weight: normal;
             }
         }
