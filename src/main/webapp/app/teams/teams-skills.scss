@@ -23,10 +23,11 @@
         background: white;
     }
 }
-
 .teams-skills {
     padding-right: 10px;
     .teams-skills-list {
+        margin-right: 1.06em;
+        overflow-y: hidden;
         .teams-skills-badge {
             padding: 6px;
             min-width: 40px;
@@ -44,9 +45,12 @@
     .teams-skills {
         .teams-skills-list {
             height: calc(100vh - 250px);
-            overflow-y: auto;
             padding: 5px;
             padding-left: 0;
+            &:hover, &:focus {
+                overflow-y: auto;
+                margin-right: 0em;
+            }
         }
     }
 }
