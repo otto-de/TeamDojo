@@ -2,20 +2,20 @@
 
 <div class="skill-actions" *ngIf="isSameTeamSelected()">
     <button class="irrelevant action-btn" *ngIf="!achievableSkill.irrelevant" (click)="onToggleIrrelevance(true)">
-        <i class="fa fa-thumbs-o-down"></i> Irrelevant
+        <i class="fa fa-thumbs-o-down"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.irrelevant"></span>
     </button>
 
     <button class="irrelevant action-btn" *ngIf="achievableSkill.irrelevant" (click)="onToggleIrrelevance(false)">
-        <i class="fa fa-thumbs-o-up"></i> Relevant
+        <i class="fa fa-thumbs-o-up"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.relevant"></span>
     </button>
 
     <span *ngIf="!achievableSkill.irrelevant">
         <button *ngIf="!skillAchieved()" class="activation action-btn" (click)="onToggleSkill(true)">
-            <i class="fa fa-check"></i> Erlernen
+            <i class="fa fa-check"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.complete"></span>
         </button>
 
         <button *ngIf="skillAchieved()" class="activation action-btn" (click)="onToggleSkill(false)">
-            <i class="fa fa-circle-o"></i> Verlernen
+            <i class="fa fa-circle-o"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.incomplete"></span>
         </button>
     </span>
 </div>
@@ -28,11 +28,11 @@
         <span class="fa fa-star-o"></span>
         <span class="fa fa-star-o"></span>
 
-        <span class="rating-text">3 von 5 Sternen</span>
+        <span class="rating-text" jhiTranslate="teamdojoApp.teams.skills.details.3of5">3 von 5 Sternen</span>
     </div>
 
     <div class="skill-contact mockup">
-        <span>Ansprechpartner: Max Mustermann</span>
+        <span jhitranslate="teamdojoApp.teams.skills.details.contact">Ansprechpartner: </span> Max Mustermann
     </div>
     <div class="clearfix"></div>
 </div>
