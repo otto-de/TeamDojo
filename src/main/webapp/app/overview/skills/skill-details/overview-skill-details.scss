@@ -1,5 +1,5 @@
 @import '~bootstrap/scss/bootstrap';
-
+@import '../../../../content/scss/mixins';
 .skill-title {
     margin-top: 25px;
     margin-bottom: 25px;
@@ -30,6 +30,10 @@
 
 .achieved-by-teams, .needed-for-levels, .needed-for-badges {
     margin-top: 15px;
+}
+
+.avatar-team {
+    @include team-image();
 }
 
 .avatar-badge, .avatar-level, .avatar-team {
