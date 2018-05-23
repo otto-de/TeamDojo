@@ -1,10 +1,11 @@
 @import 'bootstrap-variables';
-@import "colors";
+@import "colors.scss";
+@import "mixins.scss";
+@import '~bootstrap/scss/bootstrap';
 
 /* ==============================================================
 Bootstrap tweaks
 ===============================================================*/
-
 
 body, h1, h2, h3, h4 {
     font-weight: 300;
@@ -35,12 +36,12 @@ Generic styles
 ========================================================================== */
 
 /* Error highlight on input fields */
-.ng-valid[required], .ng-valid.required  {
-  border-left: 5px solid green;
+.ng-valid[required], .ng-valid.required {
+    border-left: 5px solid green;
 }
 
-.ng-invalid:not(form)  {
-  border-left: 5px solid red;
+.ng-invalid:not(form) {
+    border-left: 5px solid red;
 }
 
 /* other generic styles */
@@ -49,8 +50,6 @@ body {
     background-color: $dojo-bg-primary;
     background-image: linear-gradient(90deg, $dojo-bg-gradient-from, $dojo-bg-gradient-to);
 }
-
-
 
 .jh-card {
     &.card {
@@ -79,7 +78,7 @@ body {
 
 .break {
     white-space: normal;
-    word-break:break-all;
+    word-break: break-all;
 }
 
 .readonly {
@@ -94,7 +93,7 @@ body {
 .mockup {
     background: repeating-linear-gradient(
             -45deg,
-            rgba(200,200,200,0.2),
+            rgba(200, 200, 200, 0.2),
             10px,
             transparent 10px,
             transparent 20px);
@@ -104,7 +103,7 @@ body {
     &.minor {
         background: repeating-linear-gradient(
                 -45deg,
-                rgba(200,200,200,0.8),
+                rgba(200, 200, 200, 0.8),
                 5px,
                 transparent 5px,
                 transparent 10px);
@@ -125,7 +124,7 @@ body {
 make sure browsers use the pointer cursor for anchors, even with no href
 ========================================================================== */
 a:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .hand, [jhisortby] {
@@ -138,7 +137,7 @@ Custom alerts for notification
 .alerts {
     .alert {
         text-overflow: ellipsis;
-        pre{
+        pre {
             background: none;
             border: none;
             font: inherit;
@@ -191,6 +190,7 @@ entity tables helpers
         }
     }
 }
+
 @include no-padding("left");
 @include no-padding("right");
 @include no-padding("top");
@@ -199,17 +199,19 @@ entity tables helpers
 
 /* bootstrap 3 input-group 100% width
    http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
-.width-min { width: 1% !important; }
+.width-min {
+    width: 1% !important;
+}
 
 /* Makes toolbar not wrap on smaller screens
    http://www.sketchingwithcss.com/samplechapter/cheatsheet.html#right */
 .flex-btn-group-container {
-   display: -webkit-flex;
-   display: flex;
-   -webkit-flex-direction: row;
-   flex-direction: row;
-   -webkit-justify-content: flex-end;
-   justify-content: flex-end;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
 }
 
 /* ==========================================================================
@@ -242,12 +244,12 @@ ui bootstrap tweaks
 }
 
 .datetime-picker-dropdown > li.date-picker-menu div > table .btn-default,
-.uib-datepicker-popup  > li > div.uib-datepicker > table .btn-default {
+.uib-datepicker-popup > li > div.uib-datepicker > table .btn-default {
     border: 0;
 }
 
 .datetime-picker-dropdown > li.date-picker-menu div > table:focus,
-.uib-datepicker-popup  > li > div.uib-datepicker > table:focus {
+.uib-datepicker-popup > li > div.uib-datepicker > table:focus {
     outline: none;
 }
 
@@ -256,6 +258,71 @@ ui bootstrap tweaks
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
- }
+}
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+
+.achievement-list-header {
+    min-height: 70px;
+    &-left {
+        padding: 6px;
+        border-right: 1px solid rgba(0, 0, 0, 0.125);
+        &-image {
+            @include achievement-image()
+        }
+    }
+    &-right {
+        padding-left: 10px;
+        color: $gray-800
+    }
+}
+
+.skill-search-input {
+    height: 35px;
+    padding-left: 15px;
+    border: none;
+    border-radius: 0;
+    background-color: #e8ddb7;
+    color: $dojo-text-primary;
+    font-style: italic;
+}
+
+.list-group-item {
+    padding: 0;
+    background-color: $dojo-bg-gradient-from;
+    border: none;
+    border-radius: 2px;
+    @include shadow();
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    &:hover {
+        -webkit-box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
+        box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
+    }
+
+    a {
+        color: $dojo-text-primary;
+        font-weight: normal;
+    }
+}
+
+.teams-skills {
+    .teams-skills-list {
+        .list-group-item {
+            padding: 0;
+            background-color: $dojo-bg-gradient-from;
+            border: none;
+            border-radius: 2px;
+            @include shadow();
+            transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+            &:hover {
+                -webkit-box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
+                box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
+            }
+
+            a {
+                color: $dojo-text-primary;
+                font-weight: normal;
+            }
+        }
+    }
+}

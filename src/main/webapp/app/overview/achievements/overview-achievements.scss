@@ -1,26 +1,29 @@
 @import '../../../content/scss/_colors.scss';
+@import '~bootstrap/scss/bootstrap';
+@import "../../../content/scss/mixins";
 
 .overviews-achievements {
-    //font-family: "IBM Plex Sans";
     height: inherit;
     overflow-y: auto;
     padding-right: 10px;
-
     .item-list-body {
         .item-list-title {
             margin-top: 5px;
         }
     }
-    /deep/ .card {
-        margin-top: 5px;
-    }
-
     /deep/ .card-header {
+        padding: auto;
         background-color: $dojo-bg-gradient-from;
+        min-height: 50px;
+        a {
+            text-decoration: none;
+        }
     }
-
-    /deep/ .card-body {
-        background-color: $dojo-bg-gradient-to;
+    /deep/ .card {
+        @include shadow();
+        margin-bottom: 25px;
+        background-color: $dojo-bg-gradient-from;
+        border: none;
     }
 
     .additional-functions {

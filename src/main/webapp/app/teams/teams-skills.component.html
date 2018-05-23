@@ -19,7 +19,6 @@
              [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="1"
              [infiniteScrollContainer]="'.teams-skills-list'">
             <div class="teams-skills-list list-group">
-
                 <li class="list-group-item list-group-item-action flex-column align-items-start mb-3 skill-list-item"
                     *ngFor='let skill of skills' (click)="handleSkillClicked(skill)"
                     [ngClass]="{'active-skill':isActiveSkill(skill), 'irrelevant-skill': skill.irrelevant, 'in-skill-details': isInSkillDetails()}">
@@ -32,7 +31,7 @@
                                    [routerLink]="['/teams', team.shortName,'skills', skill.skillId]"
                                    class="mb-1">{{skill.title}}</a>
                             </div>
-                            <div class="skill-status ml-auto" [ngClass]="{'completed': !skill.irrelevant && skill.achievedAt}">
+                            <div class="skill-status ml-auto mb-auto" [ngClass]="{'completed': !skill.irrelevant && skill.achievedAt}">
                                 <i *ngIf="skill.irrelevant" class="fa fa-thumbs-o-down"></i>
                                 <i *ngIf="!skill.irrelevant && skill.achievedAt" class="fa fa-check fa-inverse"></i>
                                 <i *ngIf="!skill.irrelevant &&!skill.achievedAt" class="fa fa-circle-o"></i>

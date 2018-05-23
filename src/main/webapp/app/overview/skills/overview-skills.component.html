@@ -4,7 +4,7 @@
     </div>
     <div class="additional-functions d-flex align-items-center">
         <form>
-            <input type="text" placeholder="Suche" id="skills_searchTerm" disabled/>
+            <input type="text" [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate" id="skills_searchTerm"  class ="skill-search-input" disabled/>
         </form>
     </div>
     <div class="teams-skills-list list-group">
@@ -16,8 +16,8 @@
                  [queryParams]="{level: activeLevel?.id, badge: activeBadge?.id}">
                 <a class="#" (click)="skillClicked($event, skill)" class="text-dark mb-1 skill-title">{{
                     skill.skillTitle }}</a>
-                <div class="d-flex align-items-end ml-auto">
-                    <span class="count-teams">{{getRelevantTeams(skill)}}</span>
+                <div class="d-flex align-items-end ml-auto count-teams">
+                    <span class="mb-auto">{{getRelevantTeams(skill)}}</span>
                 </div>
             </div>
             <div>
