@@ -20,8 +20,8 @@
                     }
                 },
                 "action": {
-                    "complete": "Aktivieren",
-                    "incomplete": "Wiedereröffnen",
+                    "complete": "Erlernen",
+                    "incomplete": "Verlernen",
                     "irrelevant": "Irrelevant",
                     "relevant": "Relevant"
                 },
