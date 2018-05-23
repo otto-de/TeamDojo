@@ -82,8 +82,6 @@ export class NavbarComponent implements OnInit {
         });
     }
 
-    ngAfterViewInit() {}
-
     loadBreadcrumb() {
         this.activeLevel = null;
         this.activeBadge = null;

@@ -51,7 +51,7 @@ export class SkillDetailsComponent implements OnInit {
     }
 
     onSkillInListChanged(skillObjs) {
-        this.skillInfo.onSkillInListchange(skillObjs);
+        this.skillInfo.onSkillInListChanged(skillObjs);
     }
 
     onSkillInListClicked(skillObjs) {

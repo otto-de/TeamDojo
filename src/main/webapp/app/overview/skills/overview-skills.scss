@@ -1,4 +1,8 @@
 @import '~bootstrap/scss/bootstrap';
+@import '../../../content/scss/bootstrap-variables';
+@import '../../../content/scss/colors';
+@import "../../../content/scss/mixins";
+
 .overviews-skills{
     height: inherit;
     overflow-y: hidden;
@@ -8,6 +12,14 @@
 }
 .noWrap {
     white-space: nowrap;
+}
+
+.list-group-item {
+    background: $dojo-bg-primary;
+    @include shadow();
+    .justify-content-between {
+       outline: none;
+    }
 }
 
 .active-skill,

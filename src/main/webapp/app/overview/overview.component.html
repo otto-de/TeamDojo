@@ -1,4 +1,5 @@
 <div class="row overview">
+    <div *ngIf="currentTeam" class="background-image" [ngStyle]="{'background-image': 'url(' + (currentTeam.picture | imageDataUrl: currentTeam.pictureContentType ) +  ')'}"></div>
     <div class="col-md-6">
         <jhi-overview-teams [teams]=" teams" [levels]="levels" [badges]="badges"></jhi-overview-teams>
     </div>
