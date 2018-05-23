@@ -63,9 +63,11 @@ export class SkillDetailsInfoComponent implements OnInit {
             }
         });
 
-        this.teamsSkillsService.findAchievableSkill(this.team.id, this.skill.id).subscribe(skill => {
-            this.achievableSkill = skill;
-        });
+        if (this.team) {
+            this.teamsSkillsService.findAchievableSkill(this.team.id, this.skill.id).subscribe(skill => {
+                this.achievableSkill = skill;
+            });
+        }
 
         this.levelService.query({ 'skillsId.in': this.skill.id }).subscribe(res => {
             this.neededForLevels = res.body;
@@ -117,6 +119,6 @@ export class SkillDetailsInfoComponent implements OnInit {
 
     isSameTeamSelected() {
         const selectedTeam = this.teamsSelectionService.selectedTeam;
-        return selectedTeam && selectedTeam.id === this.team.id;
+        return selectedTeam && this.team && selectedTeam.id === this.team.id;
     }
 }

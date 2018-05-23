@@ -4,16 +4,14 @@
 @import "../../../../content/scss/mixins";
 
 .skill-comments {
-    height: 100%;
     h4 {
         color: $dojo-text-primary;
     }
 
     .dojo-card {
-        height: calc(100% - 150px);
+        height: calc(100vh - 250px);
         background: $dojo-bg-primary;
         @include shadow();
-        margin-top: 88px;
         * {
             color: $dojo-text-secondary;
         }
