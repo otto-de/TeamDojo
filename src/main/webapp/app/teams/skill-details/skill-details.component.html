@@ -1,9 +1,9 @@
 <div class="row skill-details">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <jhi-teams-skills [team]="team" [skill]="achievableSkill" (onSkillClicked)="onSkillSelected($event)"
                           (onSkillChanged)="onSkillInListChange($event)"></jhi-teams-skills>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-9">
         <h2 class="skill-title">{{skill.title}}</h2>
 
         <div  *ngIf="isSameTeamSelected()" class="row skill-deactivate">
