@@ -7,6 +7,7 @@ import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-s
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 import { TeamsSkillsComponent } from 'app/teams/teams-skills.component';
 import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details-info/skill-details-info.component';
+import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 
 @Component({
     selector: 'jhi-skill-details',
@@ -29,7 +30,8 @@ export class SkillDetailsComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private teamSkillService: TeamSkillService,
-        private teamsSkillsService: TeamsSkillsService
+        private teamsSkillsService: TeamsSkillsService,
+        private teamsSelectionService: TeamsSelectionService
     ) {}
 
     ngOnInit(): void {
@@ -54,5 +56,9 @@ export class SkillDetailsComponent implements OnInit {
     onSkillInListClicked(skillObjs) {
         this.achievableSkill = skillObjs.aSkill;
         this.skillInfo.onSkillInListClicked(skillObjs);
+    }
+
+    get currentTeam() {
+        return this.teamsSelectionService.selectedTeam;
     }
 }

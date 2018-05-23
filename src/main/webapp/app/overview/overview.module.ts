@@ -17,9 +17,10 @@ import { OverviewTeamsComponent } from 'app/overview/teams/overview-teams.compon
 import { OverviewAchievementsComponent } from 'app/overview/achievements/overview-achievements.component';
 import { OverviewSkillsComponent } from 'app/overview/skills/overview-skills.component';
 import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
+import { TeamsModule } from 'app/teams';
 
 @NgModule({
-    imports: [TeamdojoSharedModule, RouterModule.forChild(OVERVIEW_ROUTE), NgbModule],
+    imports: [TeamdojoSharedModule, RouterModule.forChild(OVERVIEW_ROUTE), NgbModule, TeamsModule],
     declarations: [
         OverviewComponent,
         OverviewTeamsComponent,
