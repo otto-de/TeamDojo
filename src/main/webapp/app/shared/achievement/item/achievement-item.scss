@@ -1,29 +1,42 @@
 @import '~bootstrap/scss/bootstrap';
 @import "../../../../content/scss/mixins";
 .achievement-item {
-    width: 11vh;
+    width: 10vh;
+    height: 10vh;
     border: 2px solid transparent;
+    padding: 0.5rem;
+
+    > div {
+        width: inherit;
+        height: inherit;
+        margin: -0.6rem 0 0 -0.6rem;
+    }
 
     .item-badge, .item-level {
         display: flex;
-        height: 8vh;
+        width: inherit;
+        height: inherit;
         .item-image {
             @include achievement-image();
+            width: inherit;
+            height: inherit;
+            overflow: visible;
         }
     }
 
     .item-badge {
         .item-image {
             img {
+                width: 70%;
                 margin-top: -3px;
             }
             &:after {
                 content: '';
                 position: absolute;
                 display: flex;
-                width: 8vh;
-                height: 8vh;
-                background: no-repeat center/100% url('../../../../content/images/badge_default.png');
+                width: inherit;
+                height: inherit;
+                background: no-repeat center/80% url('../../../../content/images/badge_default.png');
             }
         }
         &-disabled .item-image:after {
@@ -36,22 +49,21 @@
 
     .item-level {
         .item-image {
-            height: 8vh;
-            width: 12vh;
+            height: inherit;
+            width: inherit;
             background-color: transparent;
             img {
-                width: auto;
+                width: inherit;
                 z-index: 2;
             }
             &:before {
                 content: '';
                 position: absolute;
                 display: flex;
-                width: 8vh;
-                height: 8vh;
-                margin-left: 2vh;
+                width: inherit;
+                height: inherit;
                 z-index: 1;
-                background: no-repeat center/100% url('../../../../content/images/level_default.png');
+                background: no-repeat center url('../../../../content/images/level_default.png');
             }
         }
         &-disabled .item-image:before {
