@@ -1,13 +1,14 @@
+<div class="background-image-small" [ngStyle]="{'background-image': 'url(' + (team.picture | imageDataUrl: team.pictureContentType ) +  ')'}"></div>
 <div class="row skill-details">
-    <div class="skills-list">
+    <div class="skills-list col-20">
         <jhi-teams-skills [team]="team" [skill]="achievableSkill" (onSkillClicked)="onSkillInListClicked($event)"
                           (onSkillChanged)="onSkillInListChanged($event)"></jhi-teams-skills>
     </div>
-    <div class="skill-info">
+    <div class="skill-info col-60">
         <jhi-skill-details-info (onSkillChanged)="skillList.handleSkillChanged($event)" [skill]="skill"
                                 [team]="team" [achievableSkill]="achievableSkill"></jhi-skill-details-info>
     </div>
-    <div class="skill-comments">
+    <div class="skill-comments col-20">
         <jhi-skill-details-comments></jhi-skill-details-comments>
     </div>
 </div>

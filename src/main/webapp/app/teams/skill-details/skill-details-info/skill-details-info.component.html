@@ -20,14 +20,21 @@
     </span>
 </div>
 
-<div class="skill-rating">
-    <span class="fa fa-star checked"></span>
-    <span class="fa fa-star checked"></span>
-    <span class="fa fa-star checked"></span>
-    <span class="fa fa-star-o"></span>
-    <span class="fa fa-star-o"></span>
+<div>
+    <div class="skill-rating mockup">
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
 
-    <span class="rating-text">3 von 5 Sternen</span>
+        <span class="rating-text">3 von 5 Sternen</span>
+    </div>
+
+    <div class="skill-contact mockup">
+        <span>Ansprechpartner: Max Mustermann</span>
+    </div>
+    <div class="clearfix"></div>
 </div>
 
 
@@ -50,7 +57,7 @@
 
               <div class="needed-for">
                   <h5 jhiTranslate="teamdojoApp.teams.skills.details.neededFor"></h5>
-                  <div class="needed-for">
+                  <div class="needed-for-avatars">
                       <div class="needed-for-levels">
                           <div *ngFor="let l of neededForLevels" class="avatar avatar-level" placement="top" [ngbTooltip]="l.name">
                               <img [src]="l.picture | imageDataUrl: l.pictureContentType"/>
