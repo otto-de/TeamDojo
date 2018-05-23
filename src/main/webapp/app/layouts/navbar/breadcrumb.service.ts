@@ -55,9 +55,9 @@ export class BreadcrumbService {
     }
 
     getCurrentBreadcrumb() {
-        var breadcrumbs = [];
+        const breadcrumbs = [];
 
-        var path = [];
+        const path = [];
 
         if (this.team !== null && typeof this.team !== 'undefined') {
             path.push('teams', this.team.shortName);

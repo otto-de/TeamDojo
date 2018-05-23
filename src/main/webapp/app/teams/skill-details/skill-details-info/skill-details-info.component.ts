@@ -78,7 +78,7 @@ export class SkillDetailsInfoComponent implements OnInit {
         });
     }
 
-    onSkillInListChange(skillObjs) {
+    onSkillInListChanged(skillObjs) {
         this.achievableSkill = skillObjs.aSkill;
         this.skill = skillObjs.iSkill;
         this.loadData();
@@ -108,6 +108,7 @@ export class SkillDetailsInfoComponent implements OnInit {
             (res: HttpResponse<IAchievableSkill>) => {
                 this.achievableSkill = res.body;
                 this.onSkillChanged.emit(this.achievableSkill);
+                this.loadData();
             },
             (res: HttpErrorResponse) => {
                 console.log(res);

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSkillsService } from './teams-skills.service';
@@ -97,8 +97,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         });
         this.loadAll();
     }
-
-    ngAfterViewInit() {}
 
     private getParamAsNumber(name: string, params: ParamMap) {
         return Number.parseInt(params.get(name));
