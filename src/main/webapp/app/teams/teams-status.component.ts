@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ITeam } from 'app/shared/model/team.model';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { IBadge } from 'app/shared/model/badge.model';
@@ -11,7 +11,7 @@ import { HighestLevel, IHighestLevel } from 'app/shared/achievement';
     templateUrl: './teams-status.component.html',
     styleUrls: ['teams-status.scss']
 })
-export class TeamsStatusComponent implements OnInit {
+export class TeamsStatusComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
     @Input() badges: IBadge[];
     completedBadges: IBadge[];
@@ -20,6 +20,20 @@ export class TeamsStatusComponent implements OnInit {
     constructor(private router: Router) {}
 
     ngOnInit(): void {
+        this.calculateStatus();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (this.hasTeamChanged(changes.team)) {
+            this.calculateStatus();
+        }
+    }
+
+    private hasTeamChanged(team: any) {
+        return team && team.previousValue && team.previousValue.id !== team.currentValue.id;
+    }
+
+    private calculateStatus() {
         this.completedBadges = this.getCompletedBadges();
         this.highestAchievedLevels = this.getHighestAchievedLevels();
     }

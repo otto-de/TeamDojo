@@ -10,23 +10,6 @@
                     </div>
                 </a>
             </div>
-            <div class="avatar-badges mockup mb-0">
-                <a [routerLink]="'.'" [queryParams]="{'badge': '9700'}">
-                    <div class="avatar-badge">
-                        <span class="img-placeholder">{{'AWS Ready badge' | truncateString}}</span>
-                    </div>
-                </a>
-                <a [routerLink]="'.'" [queryParams]="{'badge': '9750'}">
-                    <div class="avatar-badge">
-                        <span class="img-placeholder">{{'The Trophy badge' | truncateString}}</span>
-                    </div>
-                </a>
-                <a [routerLink]="'.'" [queryParams]="{'badge': '9800'}">
-                    <div class="avatar-badge">
-                        <span class="img-placeholder">{{'Security badge' | truncateString}}</span>
-                    </div>
-                </a>
-            </div>
         </div>
         <h1 *ngIf="team.slogan" class="avatar-slogan">{{team.slogan}}</h1>
         <h4 *ngIf="team.slogan" class="avatar-title">{{team.name}}</h4>
@@ -40,7 +23,7 @@
                         <h5>{{highestLevel.dimension.name}}</h5>
                     </div>
                     <div class="d-flex d-inline-flex">
-                        <jhi-achievement-item [item]="highestLevel.level" [progress]="100"
+                        <jhi-achievement-item [item]="highestLevel.level" type="item-level" [hasStatus]="false"
                                               [active]="false"
                                               (onItemSelected)="selectItem('level', highestLevel.level.id)"></jhi-achievement-item>
                         <div class="d-flex align-items-center">
@@ -52,7 +35,7 @@
         </div>
         <div class="teams-status-achievements-badges d-flex justify-content-around">
             <div *ngFor="let badge of completedBadges">
-                <jhi-achievement-item [item]="badge" [progress]="100"
+                <jhi-achievement-item [item]="badge" type="item-badge" [hasStatus]="false"
                                       [active]="false"
                                       (onItemSelected)="selectItem('badge', badge.id)"></jhi-achievement-item>
             </div>
