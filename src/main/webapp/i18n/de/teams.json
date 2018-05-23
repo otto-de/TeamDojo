@@ -16,9 +16,14 @@
                 "search": {
                     "placeholder": "Suche",
                     "filter": {
-                        "completed": "Erfüllt",
-                        "incompleted": "nicht erfüllt"
+                        "label": "Erreichte Skills ausblenden"
                     }
+                },
+                "action": {
+                    "complete": "Erlernen",
+                    "incomplete": "Verlernen",
+                    "irrelevant": "Irrelevant",
+                    "relevant": "Relevant"
                 },
                 "details": {
                     "activate": "Kompetenz aktivieren",
