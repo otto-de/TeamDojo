@@ -4,18 +4,16 @@
         <small *ngIf="hasStatus">( {{progress | number: '1.0-2' }}% )</small>
     </div>
 </ng-template>
-<div class="achievement-item" (click)="selectItem($event)" [ngClass]="{'active': active}"
+<div class="achievement-item" (click)="selectItem($event)" [ngClass]="[active ? 'active' : '', type, itemStatusCssClass]"
      [ngbPopover]="popoverContent" triggers="mouseenter:mouseleave" placement="top">
     <div class="item-content d-flex justify-content-center" [ngStyle]="{'width': size, 'height': size}">
-        <div [ngClass]="[type, itemStatusCssClass]">
-            <span class="item-image">
-                <img *ngIf="item.picture && item.pictureContentType; else picturePlaceholder" [title]="item.name"
-                     [src]="item.picture | imageDataUrl: item.pictureContentType" class="mx-auto"/>
-                <ng-template #picturePlaceholder>
-                    <span class="img-placeholder">{{item.name | truncateString}}</span>
-                </ng-template>
-            </span>
-        </div>
+        <span class="item-image">
+            <img *ngIf="item.picture && item.pictureContentType; else picturePlaceholder" [title]="item.name"
+                 [src]="item.picture | imageDataUrl: item.pictureContentType" class="mx-auto"/>
+            <ng-template #picturePlaceholder>
+                <span class="img-placeholder">{{item.name | truncateString}}</span>
+            </ng-template>
+        </span>
     </div>
     <div class="item-progress" *ngIf="hasStatus">
         <ngb-progressbar height="6px" [value]="progress"></ngb-progressbar>

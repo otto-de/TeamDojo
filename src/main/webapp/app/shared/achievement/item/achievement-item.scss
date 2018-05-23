@@ -4,10 +4,7 @@
     border: 2px solid transparent;
     padding: 0.5rem 0;
 
-    .item-badge, .item-level {
-        display: flex;
-        width: inherit;
-        height: inherit;
+    &.item-badge, &.item-level {
         .item-image {
             @include achievement-image();
             width: inherit;
@@ -16,13 +13,13 @@
         }
     }
 
-    .item-badge {
+    &.item-badge {
         .item-image {
             img {
                 width: 70%;
                 margin-top: -3px;
             }
-            &:after {
+            &::after {
                 content: '';
                 position: absolute;
                 display: flex;
@@ -31,15 +28,15 @@
                 background: no-repeat center/90% url('../../../../content/images/badge_default.png');
             }
         }
-        &-disabled .item-image:after {
-            background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../../../content/images/badge_default.png');
-        }
-        &-incomplete .item-image:after {
-            background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('../../../../content/images/badge_default.png');
+        &-disabled, &-incomplete {
+            filter: opacity(50%);
+            .item-progress {
+                filter: brightness(0%) invert(82%);
+            }
         }
     }
 
-    .item-level {
+    &.item-level {
         .item-image {
             height: inherit;
             width: inherit;
@@ -48,7 +45,7 @@
                 width: inherit;
                 z-index: 2;
             }
-            &:before {
+            &::before {
                 content: '';
                 position: absolute;
                 display: flex;
@@ -58,11 +55,8 @@
                 background: no-repeat center url('../../../../content/images/level_default.png');
             }
         }
-        &-disabled .item-image:before {
-            background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../../../content/images/level_default.png');
-        }
-        &-incomplete .item-image:before {
-            background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('../../../../content/images/level_default.png');
+        &-disabled, &-incomplete .item-image::before {
+            filter: brightness(0%) invert(82%);
         }
     }
 
