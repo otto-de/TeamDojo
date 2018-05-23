@@ -29,7 +29,9 @@
             }
         }
         &-disabled, &-incomplete {
-            filter: opacity(50%);
+            img, .item-image::after {
+                filter: opacity(50%);
+            }
             .item-progress {
                 filter: brightness(0%) invert(82%);
             }
@@ -53,8 +55,15 @@
                 background: no-repeat center/72% url('../../../../content/images/level_default.png');
             }
         }
-        &-disabled, &-incomplete .item-image::before {
-            filter: brightness(0%) invert(82%);
+        &-disabled {
+            img, .item-image::before, .item-progress {
+                filter: brightness(0%) invert(82%);
+            }
+        }
+        &-incomplete {
+            .item-image::before {
+                filter: brightness(0%) invert(82%);
+            }
         }
     }
 
