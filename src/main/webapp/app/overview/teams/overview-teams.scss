@@ -1,6 +1,36 @@
 @import '~bootstrap/scss/bootstrap';
 @import '../../../content/scss/mixins';
+@import '../../../content/scss/_colors';
 .overviews-teams {
+
+    counter-reset: team-counter;
+
+    .counter::before{
+        counter-increment: team-counter;
+        content: counter(team-counter);
+        padding-right: 10px;
+        color: $dojo-text-primary;
+    }
+
+
+    .list-group-item {
+        background: rgba(250, 245, 235, 0.5);
+
+        margin: 0px !important;
+        padding-top: 0px;
+        padding-bottom: 0px;
+
+        border: none;
+        .justify-content-between {
+            outline: none;
+        }
+
+        a{
+            color: $dojo-text-primary;
+            font-weight: normal;
+        }
+    }
+
     .team-list {
         overflow-y: hidden;
         margin-right: 1.06em;
@@ -18,7 +48,7 @@
                 }
             }
             .team-name {
-                color: black;
+                color: $dojo-text-primary;
                 word-break: break-word;
             }
             .count-container {
