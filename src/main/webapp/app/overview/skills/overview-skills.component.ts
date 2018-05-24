@@ -151,7 +151,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     }
 
     private findTeamSkill(team: ITeam, skill: ILevelSkill | IBadgeSkill): ITeamSkill {
-        return team.skills ? team.skills.find((teamSkill: ITeamSkill) => teamSkill.skillId == skill.skillId) : null;
+        return team.skills ? team.skills.find((teamSkill: ITeamSkill) => teamSkill.skillId === skill.skillId) : null;
     }
 
     private isTeamSkillCompleted(teamSkill: ITeamSkill): boolean {
