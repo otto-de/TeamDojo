@@ -33,10 +33,10 @@
         <ul class="navbar-nav ml-auto">
 
             <li class="nav-item" *ngIf="teamsSelectionService.selectedTeam === null">
-                <a class="nav-link" (click)="selectTeam()" >
-                     <span>
-                        <i class="nav-img team-img" style="background-size: contain;"></i>
-                        <span class="navInfo" jhiTranslate="global.menu.teams.select"></span>
+                <a class="nav-link" (click)="selectTeam()">
+                     <span class="icon">
+                         <i class="fa fa-users fa-2"></i>
+                         <span class="nav-info" jhiTranslate="global.menu.teams.select"></span>
                      </span>
                 </a>
 
@@ -44,7 +44,8 @@
             <li ngbDropdown class="nav-item dropdown pointer" *ngIf="teamsSelectionService.selectedTeam !== null">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="teamDropdown">
                     <div class="team-avatar" *ngIf="getTeamImage(teamsSelectionService.selectedTeam)">
-                        <img class="avatar-image" [src]="getTeamImage(teamsSelectionService.selectedTeam)" [title]="teamsSelectionService.selectedTeam.name"/>
+                        <img class="avatar-image" [src]="getTeamImage(teamsSelectionService.selectedTeam)"
+                             [title]="teamsSelectionService.selectedTeam.name"/>
                     </div>
                     <span>Team {{teamsSelectionService.selectedTeam.name}}</span>
                 </a>
@@ -56,7 +57,7 @@
                             <span jhiTranslate="global.menu.teams.home">Living Room</span>
                         </a>
                         <a class="dropdown-item" href="javascript:void(0);" (click)="selectTeam()">
-                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <i class="icon fa fa-users" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.teams.change">Change Team</span>
                         </a>
                     </li>
@@ -152,7 +153,7 @@
                     <li>
                         <a class="dropdown-item" routerLink="admin/user-management" routerLinkActive="active"
                            (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-user" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-user"></i>
                             <span jhiTranslate="global.menu.admin.userManagement">User management</span>
                         </a>
                     </li>
@@ -209,11 +210,11 @@
                 </ul>
             </li>
             <li ngbDropdown class="nav-item dropdown pointer" *ngIf="languages">
-                <a class="nav-link dropdown-toggle navInfo" ngbDropdownToggle href="javascript:void(0);"
+                <a class="nav-link dropdown-toggle nav-info" ngbDropdownToggle href="javascript:void(0);"
                    id="languagesnavBarDropdown" *ngIf="languages.length > 1">
-                    <span class="navInfo">
-                        <i class="nav-img language-img" aria-hidden="true" style="background-size: contain;"></i>
-                        <span jhiTranslate="global.menu.language">Language</span>
+                    <span class="icon">
+                        <i class="fa fa-globe fa-4"></i>
+                        <span class="nav-info" jhiTranslate="global.menu.language"></span>
                     </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu *ngIf="languages.length > 1">
