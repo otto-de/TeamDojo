@@ -2,17 +2,19 @@
     <div>
         <h4>{{'teamdojoApp.overview.achievements.title' | translate}}</h4>
     </div>
+    <div class="additional-functions d-none d-xl-block">
+    </div>
     <ngb-accordion activeIds="achievements-general-badges">
-        <ngb-panel id="achievements-general-badges">
+        <ngb-panel id="achievements-general-badges achievement-list-header">
             <ng-template ngbPanelTitle>
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center mt-0">
                     <div class="d-inline-block minor px-2">
                         <div class="">
                             <img/>
                         </div>
                     </div>
-                    <i class="fa fa-caret-right mr-2"></i>
-                    <span jhiTranslate="teamdojoApp.overview.achievements.generalBadges.title"></span>
+                    <i class="fa fa-caret-right mr-2 achievement-list-header-right"></i>
+                    <span class="achievement-list-header-right" jhiTranslate="teamdojoApp.overview.achievements.generalBadges.title"></span>
                 </div>
             </ng-template>
             <ng-template ngbPanelContent>
@@ -32,14 +34,14 @@
     <ngb-accordion [activeIds]="expandedDimensions">
         <ngb-panel class="mt-1" *ngFor="let dimension of dimensions" id="achievements-dimension-{{dimension.id}}">
             <ng-template ngbPanelTitle>
-                <div class="d-flex align-items-center">
+                <div>
                     <div class="d-inline-block minor px-2">
                         <div class="">
                             <img/>
                         </div>
                     </div>
-                    <i class="fa fa-caret-right mr-2"></i>
-                    <span>{{dimension.name}}</span>
+                    <i class="fa fa-caret-right mr-2 achievement-list-header-right"></i>
+                    <span class="achievement-list-header-right">{{dimension.name}}</span>
                 </div>
             </ng-template>
             <ng-template ngbPanelContent>

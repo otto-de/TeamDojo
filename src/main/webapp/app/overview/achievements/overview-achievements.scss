@@ -1,16 +1,39 @@
 @import '~bootstrap/scss/bootstrap';
+@import '../../../content/scss/_colors.scss';
+@import "../../../content/scss/mixins";
+
+
 .overviews-achievements {
+    @include accordeon();
     height: inherit;
-    overflow-y: hidden;
+    overflow-y: auto;
     padding-right: 10px;
-    margin-right: 1.06em;
     .item-list-body {
         .item-list-title {
             margin-top: 5px;
         }
     }
+  /*  /deep/ .card-header {
+        padding: auto;
+        background-color: $dojo-bg-gradient-from;
+        min-height: 50px;
+        a {
+            text-decoration: none;
+        }
+    }
     /deep/ .card {
-        //margin-top: 8px;
+        @include shadow();
+        margin-bottom: 25px;
+        background-color: $dojo-bg-gradient-from;
+        border: none;
+
+        /deep/ .card-body {
+            background-color: $dojo-bg-gradient-from;
+        }
+    }*/
+    .additional-functions {
+        height: 75px;
+        width: 100%;
     }
 }
 @media only screen and (min-width: map-get($grid-breakpoints, md)){
