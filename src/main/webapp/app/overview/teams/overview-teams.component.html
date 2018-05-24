@@ -1,21 +1,27 @@
 <div class="overviews-teams">
     <div>
         <h4 jhiTranslate="teamdojoApp.overview.teams.title">Teams</h4>
-        <form class="form-inline">
-            <div class="form-group mr-1 mb-2">
-                <input type="text" class="form-control" id="teams_searchTerm" disabled>
+    </div>
+    <div class="additional-functions d-flex align-items-center">
+        <form style="width: 100%;">
+            <input type="text" id="teams_search-term" placeholder="Suche" class="skill-search-input"
+                   [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate" disabled>
+            <div style="float: right;">
+                <input type="button" value="Vergleich starten" id="teams_start-compare" disabled/>
+                <input type="button" value="Alle Teams" id="teams_select-teams" disabled/>
             </div>
-            <button type="submit" class="btn btn-secondary mb-2" disabled><span class="fa fa-search"></span></button>
         </form>
     </div>
     <div class="team-list list-group">
-        <li class="team-item list-group-item list-group-item-action flex-column align-items-start mb-2"
-            *ngFor='let team of teams'
-            [ngClass]="{irrelevant: showAsIrrelevant(team)}">
+        <div class="team-item list-group-item list-group-item-action flex-column align-items-start"
+             *ngFor='let team of teams'
+             [ngClass]="{irrelevant: showAsIrrelevant(team)}">
             <div class="d-flex flex-wrap align-items-center">
-                <div class="d-inline-flex align-items-center">
-                    <div class="team-image" [ngClass]="{complete: showAsComplete(team), incomplete: showAsIncomplete(team)}">
-                        <img [title]="team.name" *ngIf="team.picture && team.pictureContentType; else picturePlaceholder"
+                <div class="d-inline-flex align-items-center achievement-list-header">
+                    <div class="team-image"
+                         [ngClass]="{complete: showAsComplete(team), incomplete: showAsIncomplete(team)}">
+                        <img [title]="team.name"
+                             *ngIf="team.picture && team.pictureContentType; else picturePlaceholder"
                              [src]="team.picture | imageDataUrl: team.pictureContentType"/>
                         <ng-template #picturePlaceholder>
                             <span class="img-placeholder">{{team.name | truncateString}}</span>
@@ -24,7 +30,7 @@
                     <a href="#" [routerLink]="['/teams', team.shortName]" class="team-name ml-2">{{team.name}}</a>
                 </div>
                 <div class="count-container ml-auto d-flex">
-                    <div class="count-item">
+                    <div class="count-item mr-4">
                         <div class="count-item-header">Levels</div>
                         <div class="count-item-value">{{calcCompletedLevel(team)}}/{{calcLevelBase(team)}}</div>
                     </div>
@@ -34,6 +40,6 @@
                     </div>
                 </div>
             </div>
-        </li>
+        </div>
     </div>
 </div>

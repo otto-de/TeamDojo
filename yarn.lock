@@ -157,6 +157,10 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
+"@ibm/plex@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@ibm/plex/-/plex-1.0.2.tgz#d11bb043619081d5ee332db74f048d8711ca606b"
+
 "@ng-bootstrap/ng-bootstrap@1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-1.0.1.tgz#65d13fb2da02f450bb5edc0256599f2841e5e918"
