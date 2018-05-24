@@ -4,11 +4,19 @@
     padding-right: 10px;
     .teams-status-avatar {
         text-align: center;
-        .avatar-image {
+        .team-image {
             width: 35vh;
             height: 35vh;
             overflow: hidden;
             border-radius: 50%;
+            &::after {
+                content: '';
+                width: inherit;
+                height: inherit;
+                position: absolute;
+                background: no-repeat center/contain url('../../content/images/avatars/avatar_overlay.png');
+                z-index: 1;
+            }
         }
     }
     .teams-status-achievements {
