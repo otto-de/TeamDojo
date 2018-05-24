@@ -3,6 +3,8 @@
 @import '../../../content/scss/mixins';
 
 .overviews-teams {
+    height: inherit;
+    overflow-y: auto;
     .additional-functions {
         height: 75px;
         width: 100%;
