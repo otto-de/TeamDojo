@@ -1,6 +1,9 @@
 package de.otto.teamdojo.web.rest;
 
+import com.google.common.collect.Lists;
 import de.otto.teamdojo.TeamdojoApp;
+import de.otto.teamdojo.service.OrganizationService;
+import de.otto.teamdojo.service.dto.OrganizationDTO;
 import io.github.jhipster.config.JHipsterProperties;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,10 +17,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static de.otto.teamdojo.web.rest.ProfileInfoResource.DEFAULT_ORGANIZATION_NAME;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Test class for the ProfileInfoResource REST controller.
@@ -34,6 +37,9 @@ public class ProfileInfoResourceIntTest {
     @Mock
     private JHipsterProperties jHipsterProperties;
 
+    @Mock
+    private OrganizationService organizationService;
+
     private MockMvc restProfileMockMvc;
 
     @Before
@@ -48,7 +54,7 @@ public class ProfileInfoResourceIntTest {
         when(environment.getDefaultProfiles()).thenReturn(activeProfiles);
         when(environment.getActiveProfiles()).thenReturn(activeProfiles);
 
-        ProfileInfoResource profileInfoResource = new ProfileInfoResource(environment, jHipsterProperties);
+        ProfileInfoResource profileInfoResource = new ProfileInfoResource(environment, jHipsterProperties, organizationService);
         this.restProfileMockMvc = MockMvcBuilders
             .standaloneSetup(profileInfoResource)
             .build();
@@ -81,5 +87,26 @@ public class ProfileInfoResourceIntTest {
         restProfileMockMvc.perform(get("/api/profile-info"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
+    }
+
+    @Test
+    public void getProfileWithOrganization() throws Exception {
+        String customOrganizationName = "My Org";
+        OrganizationDTO organization = new OrganizationDTO();
+        organization.setName(customOrganizationName);
+        when(organizationService.findAll()).thenReturn(Lists.newArrayList(organization));
+
+        restProfileMockMvc.perform(get("/api/profile-info"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.organization.name").value(customOrganizationName));
+    }
+
+    @Test
+    public void getProfileWithDefaultOrganization() throws Exception {
+        restProfileMockMvc.perform(get("/api/profile-info"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.organization.name").value(DEFAULT_ORGANIZATION_NAME));
     }
 }

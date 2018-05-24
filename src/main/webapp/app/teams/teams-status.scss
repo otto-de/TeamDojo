@@ -15,11 +15,7 @@
                 width: 10vh;
                 height: 10vh;
             }
-            .avatar-badge {
-                width: 6vh;
-                height: 6vh;
-            }
-            .avatar-skill-level, .avatar-badge {
+            .avatar-skill-level {
                 display: inline-flex;
                 align-items: center;
                 border-radius: 50%;
@@ -32,19 +28,17 @@
             }
         }
     }
-    .teams-status-activities {
-        .fa {
-            font-size: 1.2rem;
+    .teams-status-achievements {
+        .teams-status-achievements-levels {
+            h5 {
+                margin-bottom: 0;
+            }
+            /deep/ .achievement-item {
+                padding-top: 0;
+            }
         }
-        .fa.belt-yellow {
-            color: gold;
+        .teams-status-achievements-badges {
         }
-        .fa.belt-orange {
-            color: orange;
-        }
-        .activity-date {
-            float: right;
-            font-size: 0.8rem;
-        }
+
     }
 }

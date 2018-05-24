@@ -20,6 +20,9 @@
             },
             "skills": {
                 "title": "Kompetenzen"
+            },
+            "navigation" : {
+                "text" : "Teamübersicht"
             }
         }
     }

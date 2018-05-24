@@ -1,11 +1,20 @@
+<div class="row back">
+    <div class="col-md-6">
+        <a class="breadcrumb-item active" href="#"><i class="fa fa-angle-left"></i>{{'teamdojoApp.overview.navigation.text' | translate}}</a>
+    </div>
+</div>
 <div class="row teams">
-    <div class="col-md-4">
-        <jhi-teams-status [team]="team"></jhi-teams-status>
+    <div class="col-md-6">
+        <jhi-teams-status [team]="team" [badges]="badges"></jhi-teams-status>
     </div>
-    <div class="col-md-4">
-        <jhi-teams-achievements [team]="team"></jhi-teams-achievements>
-    </div>
-    <div class="col-md-4">
-        <jhi-teams-skills [team]="team"></jhi-teams-skills>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-8">
+                <jhi-teams-achievements [team]="team" [badges]="badges"></jhi-teams-achievements>
+            </div>
+            <div class="col-md-4">
+                <jhi-teams-skills [team]="team" (onSkillChanged)="loadTeamSkills()"></jhi-teams-skills>
+            </div>
+        </div>
     </div>
 </div>

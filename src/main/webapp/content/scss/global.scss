@@ -1,4 +1,5 @@
 @import 'bootstrap-variables';
+@import "colors";
 
 /* ==============================================================
 Bootstrap tweaks
@@ -9,12 +10,12 @@ body, h1, h2, h3, h4 {
 }
 
 a {
-    color: #533f03;
+    color: $dojo-text-primary;
     font-weight: bold;
 }
 
 a:hover {
-    color: #533f03;
+    color: $dojo-text-primary;
     font-weight: bold;
 }
 
@@ -43,10 +44,19 @@ Generic styles
 
 /* other generic styles */
 
+body {
+    background-color: $dojo-bg-primary;
+    background-image: linear-gradient(90deg, $dojo-bg-gradient-from, $dojo-bg-gradient-to);
+}
+
+
+
 .jh-card {
-    padding: 20px;
-    margin-top: 20px;
-    border: none;
+    &.card {
+        padding: 20px;
+        border: none;
+        background-color: transparent;
+    }
 }
 
 .error {
@@ -77,7 +87,7 @@ Generic styles
 }
 
 .footer {
-    border-top: 1px solid rgba(0,0,0,.125);
+    padding-left: 10px;
 }
 
 .mockup {
@@ -101,9 +111,13 @@ Generic styles
     }
 }
 
-img {
+.img-placeholder {
+    width: 80%;
+    color: grey;
     font-size: 10px;
     text-align: center;
+    font-weight: normal;
+    margin: 0px auto;
 }
 
 /* ==========================================================================

@@ -6,7 +6,9 @@ import { HttpResponse } from '@angular/common/http';
 import { IBadge } from 'app/shared/model/badge.model';
 import { ITeam } from 'app/shared/model/team.model';
 import { CompletionCheck } from 'app/shared/util/completion-check';
-import { RelevanceCheck } from 'app/shared';
+import { Router } from '@angular/router';
+import { RelevanceCheck, sortLevels } from 'app/shared';
+import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
 
 @Component({
     selector: 'jhi-overview-achievements',
@@ -19,13 +21,19 @@ export class OverviewAchievementsComponent implements OnInit {
     @Input() badges: IBadge[];
     dimensions: IDimension[];
     generalBadges: IBadge[];
-    activeBadgeId: number;
-    activeLevelId: number;
+    activeItemIds: { [key: string]: number };
+    expandedDimensions: string[];
 
-    constructor(private dimensionService: DimensionService) {}
+    constructor(private dimensionService: DimensionService, private router: Router, private breadcrumbService: BreadcrumbService) {}
 
     ngOnInit(): void {
+        this.activeItemIds = {
+            badge: null,
+            level: null,
+            dimension: null
+        };
         this.generalBadges = [];
+        this.expandedDimensions = [];
         this.dimensionService.query().subscribe((res: HttpResponse<IDimension[]>) => {
             this.dimensions = res.body;
             const levelsByDimensionId = {};
@@ -47,9 +55,13 @@ export class OverviewAchievementsComponent implements OnInit {
             });
 
             this.dimensions.forEach((dimension: IDimension) => {
-                dimension.levels = levelsByDimensionId[dimension.id] || [];
+                dimension.levels = (sortLevels(levelsByDimensionId[dimension.id]) || []).reverse();
                 dimension.badges = badgesByDimensionId[dimension.id] || [];
             });
+
+            this.expandedDimensions = this.dimensions
+                ? this.dimensions.map((dimension: IDimension) => `achievements-dimension-${dimension.id}`)
+                : [];
         });
     }
 
@@ -75,13 +87,22 @@ export class OverviewAchievementsComponent implements OnInit {
         return new RelevanceCheck(team).isRelevantLevelOrBadge(item);
     }
 
-    selectBadge(badge: IBadge) {
-        this.activeLevelId = null;
-        this.activeBadgeId = this.activeBadgeId === badge.id ? null : badge.id;
-    }
-
-    selectLevel(level: ILevel) {
-        this.activeBadgeId = null;
-        this.activeLevelId = this.activeLevelId === level.id ? null : level.id;
+    selectItem(itemType: string, itemId: number) {
+        if (itemType && itemId >= 0) {
+            for (const availableItemType in this.activeItemIds) {
+                if (this.activeItemIds.hasOwnProperty(availableItemType) && availableItemType !== itemType) {
+                    this.activeItemIds[availableItemType] = null;
+                }
+            }
+            if (this.activeItemIds[itemType] === itemId) {
+                this.activeItemIds[itemType] = null;
+                this.router.navigate(['.']);
+            } else {
+                this.activeItemIds[itemType] = itemId;
+                this.router.navigate(['.'], {
+                    queryParams: { [itemType]: this.activeItemIds[itemType] }
+                });
+            }
+        }
     }
 }

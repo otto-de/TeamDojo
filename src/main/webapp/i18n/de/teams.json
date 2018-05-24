@@ -16,9 +16,14 @@
                 "search": {
                     "placeholder": "Suche",
                     "filter": {
-                        "completed": "Erfüllt",
-                        "incompleted": "nicht erfüllt"
+                        "label": "Erreichte Skills ausblenden"
                     }
+                },
+                "action": {
+                    "complete": "Erlernen",
+                    "incomplete": "Verlernen",
+                    "irrelevant": "Irrelevant",
+                    "relevant": "Relevant"
                 },
                 "details": {
                     "activate": "Kompetenz aktivieren",
@@ -27,9 +32,12 @@
                     "implementation": "Implementation",
                     "validation": "Validation",
                     "achievedBy": "Erfüllt von",
+                    "achievedByNone" : "Dieser Skill wurde noch von keinem Team erfüllt!",
                     "neededFor": "Benötigt für",
-                    "notRelevant": "Für mein Team nicht relevant"
-                }
+                    "3of5": "3 von 5 Sternen",
+                    "contact": "Ansprechpartner"
+                },
+                "comments": "Kommentare"
             },
             "status": {
                 "activities": {
@@ -39,8 +47,8 @@
             },
             "achievements": {
                 "title": "Errungenschaften",
-                "badges": {
-                    "title": "Pokale"
+                "generalBadges": {
+                    "title": "Allgemeine Badges"
                 }
             },
             "dateFormat": "dd.MM.yyyy"

@@ -1,27 +1,17 @@
 <div class="teams-skills">
     <div class="teams-skills-filter">
         <h4>{{'teamdojoApp.teams.skills.title' | translate}}</h4>
-        <form class="form-inline">
-            <div class="form-group mr-1 mb-2 mockup">
-                <input type="text" class="form-control" id="skills_searchTerm" disabled
-                       [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate">
+        <div class="skill-search form-group mb-2">
+            <div class="form-check form-check-inline mb-2">
+                <input class="form-check-input" type="checkbox" value="" id="checkIncomplete"
+                       [checked]="filters.indexOf('INCOMPLETE') > -1" (click)="onFilterClicked('INCOMPLETE')">
+                <label class="form-check-label" for="checkIncomplete"
+                       jhiTranslate="teamdojoApp.teams.skills.search.filter.label">
+                </label>
             </div>
-            <button type="submit" class="btn btn-secondary mb-2" disabled><span class="fa fa-search"></span></button>
-            <div class="form-group m-2">
-                <div class="form-check form-check-inline mb-2">
-                    <input class="form-check-input" type="checkbox" value="" id="checkComplete" [checked]="filters.indexOf('COMPLETE') > -1" (click)="onFilterClicked('COMPLETE')">
-                    <label class="form-check-label" for="checkComplete" jhiTranslate="teamdojoApp.teams.skills.search.filter.completed">
-                        COMPLETE
-                    </label>
-                </div>
-                <div class="form-check form-check-inline mb-2" >
-                    <input class="form-check-input" type="checkbox" value="" id="checkIncomplete" [checked]="filters.indexOf('INCOMPLETE') > -1" (click)="onFilterClicked('INCOMPLETE')">
-                    <label class="form-check-label" for="checkIncomplete" jhiTranslate="teamdojoApp.teams.skills.search.filter.incompleted">
-                        INCOMPLETE
-                    </label>
-                </div>
-            </div>
-        </form>
+            <input type="text" class="skill-search-input form-control" id="skills_searchTerm" disabled
+                   [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate">
+        </div>
     </div>
     <div>
         <div infinite-scroll (scrolled)="loadPage(page + 1)"
@@ -29,29 +19,46 @@
              [infiniteScrollContainer]="'.teams-skills-list'">
             <div class="teams-skills-list list-group">
 
-                <li class="list-group-item list-group-item-action flex-column align-items-start mb-2 skill-list-item"
-                    *ngFor='let skill of skills' [ngClass]="{'active-skill':isActiveSkill(skill), 'irrelevant-skill': skill.irrelevant}"
-                    (click)="handleSkillClicked(skill)">
+                <li class="list-group-item list-group-item-action flex-column align-items-start mb-3 skill-list-item"
+                    *ngFor='let skill of skills' (click)="handleSkillClicked(skill)"
+                    [ngClass]="{'active-skill':isActiveSkill(skill), 'irrelevant-skill': skill.irrelevant, 'in-skill-details': isInSkillDetails()}">
 
-                    <div class="d-flex w-100 justify-content-between">
-                        <a *ngIf="isInSkillDetails()" class="text-dark mb-1 skill-title">{{skill.title}}</a>
-                        <a *ngIf="!isInSkillDetails()" [routerLink]="['/teams', team.shortName,'skills', skill.skillId]"
-                           class="text-dark mb-1 skill-title">{{skill.title}}</a>
-                        <jhi-toggle-switch
-                            *ngIf="!skill.irrelevant"
-                            [checked]="!!skill.achievedAt"
-                            [disabled]="!isSameTeamSelected()"
-                            popoverText="{{!skill.achievedAt ? ('teamdojoApp.teams.skills.notAchieved' | translate)
-                                        : ('teamdojoApp.teams.skills.achievedOn' | translate) +' ' + (skill.achievedAt | date: ('teamdojoApp.teams.dateFormat' | translate))}}"
-                            (onToggled)="onToggled($event, skill)"></jhi-toggle-switch>
-                        <span *ngIf="skill.irrelevant" class="fa fa-thumbs-o-down irrelevant-icon"
-                              triggers="mouseenter:mouseleave" placement="left"
-                              [ngbPopover]="'teamdojoApp.teams.skills.details.notRelevant' | translate"></span>
+                    <div class="d-flex flex-column">
+                        <div class="d-flex">
+                            <div class="skill-title" [ngClass]="{'irrelevant': skill.irrelevant}">
+                                <a *ngIf="isInSkillDetails()" class="mb-1">{{skill.title}}</a>
+                                <a *ngIf="!isInSkillDetails()"
+                                   [routerLink]="['/teams', team.shortName,'skills', skill.skillId]"
+                                   [queryParams]="{level: getLevelId(), badge: getBadgeId(), filter: filters}"
+                                   class="mb-1">{{skill.title}}</a>
+                            </div>
+                            <div class="skill-status ml-auto" [ngClass]="{'completed': !skill.irrelevant && skill.achievedAt}">
+                                <i *ngIf="skill.irrelevant" class="fa fa-thumbs-o-down"></i>
+                                <i *ngIf="!skill.irrelevant && skill.achievedAt" class="fa fa-check fa-inverse"></i>
+                                <i *ngIf="!skill.irrelevant &&!skill.achievedAt" class="fa fa-circle-o"></i>
+                            </div>
+                        </div>
+                        <div *ngIf="isSameTeamSelected()" class="skill-action-bar d-flex flex-wrap justify-content-between">
+                            <a *ngIf="!skill.irrelevant" class="skill-action-bar-item"
+                               (click)="setIrrelevant(skill)"><i class="fa fa-thumbs-o-down"></i>
+                                <small jhiTranslate="teamdojoApp.teams.skills.action.irrelevant"></small>
+                            </a>
+                            <a *ngIf="skill.irrelevant" class="skill-action-bar-item"
+                               (click)="setRelevant(skill)"><i class="fa fa-thumbs-o-up"></i>
+                                <small jhiTranslate="teamdojoApp.teams.skills.action.relevant"></small>
+                            </a>
+                            <a *ngIf="!skill.achievedAt" class="skill-action-bar-item"
+                               [ngClass]="{'disabled': skill.irrelevant}"
+                               (click)="setComplete(skill)"><i class="fa fa-check"></i>
+                                <small jhiTranslate="teamdojoApp.teams.skills.action.complete"></small>
+                            </a>
+                            <a *ngIf="skill.achievedAt" class="skill-action-bar-item"
+                               [ngClass]="{'disabled': skill.irrelevant}"
+                               (click)="setIncomplete(skill)"><i class="fa fa-check"></i>
+                                <small jhiTranslate="teamdojoApp.teams.skills.action.incomplete"></small>
+                            </a>
+                        </div>
                     </div>
-                    <p class="mb-1"></p>
-                    <small>{{skill.description}}</small>
-                    <a *ngIf="skill.irrelevant && !isInSkillDetails()" [routerLink]="['/teams', team.shortName,'skills', skill.skillId]" class="irrelevant-overlay"></a>
-                    <a *ngIf="skill.irrelevant && isInSkillDetails()" class="irrelevant-overlay"></a>
                 </li>
             </div>
         </div>

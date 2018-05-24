@@ -1,13 +1,25 @@
+@import '~bootstrap/scss/bootstrap';
 .overviews-achievements {
     height: inherit;
-    overflow-y: auto;
+    overflow-y: hidden;
     padding-right: 10px;
+    margin-right: 1.06em;
     .item-list-body {
         .item-list-title {
             margin-top: 5px;
         }
     }
     /deep/ .card {
-        margin-top: 8px;
+        //margin-top: 8px;
+    }
+}
+@media only screen and (min-width: map-get($grid-breakpoints, md)){
+    .overviews-achievements {
+        height: calc(100vh - 242px);
+        padding: 5px;
+        &:hover, &:focus {
+            overflow-y: auto;
+            margin-right: 0em;
+        }
     }
 }
