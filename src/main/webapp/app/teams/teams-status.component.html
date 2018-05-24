@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <div class="teams-status-achievements-badges d-flex justify-content-around">
+        <div class="teams-status-achievements-badges d-flex flex-wrap justify-content-center">
             <div *ngFor="let badge of completedBadges">
                 <jhi-achievement-item [item]="badge" type="item-badge" [hasStatus]="false"
                                       [active]="false"
