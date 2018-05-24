@@ -11,10 +11,14 @@
         border-style: none;
         .team-item {
             border-style: none;
-            background-color: $dojo-bg-gradient-from;
+            background: rgba($dojo-bg-gradient-from, 0.5);
             &.irrelevant {
                 background-color: $gray-400;
                 opacity: 0.5;
+            }
+            .team-name {
+                color: $gray-800 !important;
+                word-break: break-word;
             }
             .team-image {
                 width: 5vh;
@@ -36,10 +40,6 @@
                         border-color: $danger;
                     }
                 }
-                .team-name {
-                    color: black;
-                    word-break: break-word;
-                }
                 .count-container {
                     .count-item {
                         display: block;
@@ -57,7 +57,7 @@
         }
     }
 
-    #teams_startCompare {
+    #teams_start-compare {
         background-color: #f1d7ae;
         float: right;
         margin: 5px;
@@ -66,7 +66,7 @@
         color: white;
     }
 
-    #teams_selectTeams {
+    #teams_select-teams {
         background-color: $dojo-nav-primary;
         float: right;
         margin: 5px;
@@ -75,7 +75,7 @@
         color: white;
     }
 
-    input#teams_searchTerm {
+    input#teams_search-term {
         background-color: #e8ddb7;
         width: 270px;
         margin: 5px;

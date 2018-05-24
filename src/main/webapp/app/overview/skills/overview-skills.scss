@@ -3,7 +3,7 @@
 @import '../../../content/scss/bootstrap-variables';
 @import "../../../content/scss/mixins";
 
-.overviews-skills{
+.overviews-skills {
     height: inherit;
     overflow-y: auto;
     overflow-x: hidden;
@@ -18,7 +18,7 @@
     white-space: nowrap;
 }
 
-.skill-title{
+.skill-title {
     width: 70%;
 }
 
@@ -26,7 +26,7 @@
     background: $dojo-bg-primary;
     @include shadow();
     .justify-content-between {
-       outline: none;
+        outline: none;
     }
 }
 
@@ -35,7 +35,7 @@
     background: #f0f0f0;
 }
 
-#skills_searchTerm {
+#skills_search-term {
     background-color: #e8ddb7;
     width: 270px;
 }
@@ -61,7 +61,7 @@
     font-style: italic;
 }
 
-@media only screen and (min-width: map-get($grid-breakpoints, md)){
+@media only screen and (min-width: map-get($grid-breakpoints, md)) {
     .overviews-skills {
         height: calc(100vh - 242px);
         padding: 5px;
