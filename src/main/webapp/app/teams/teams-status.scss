@@ -1,3 +1,4 @@
+@import '../../content/scss/colors';
 .teams-status {
     height: inherit;
     overflow-y: auto;
@@ -16,6 +17,26 @@
                 position: absolute;
                 background: no-repeat center/contain url('../../content/images/avatars/avatar_overlay.png');
                 z-index: 1;
+            }
+        }
+        .status-meta {
+            width: 44vh;
+            height: 15vh;
+            margin-top: -4vh;
+            color: $dojo-text-inverse-secondary;
+            .team-title, .team-slogan {
+                font-size: 2vh;
+                margin-top: 4vh;
+                z-index: 3;
+            }
+            &::after {
+                content: '';
+                width: inherit;
+                height: inherit;
+                position: absolute;
+                background: no-repeat center/contain url('../../content/images/brushstroke.png');
+                z-index: 2;
+                margin-left: 4vh;
             }
         }
     }
