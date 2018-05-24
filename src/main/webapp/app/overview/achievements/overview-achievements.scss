@@ -2,7 +2,9 @@
 @import '../../../content/scss/_colors.scss';
 @import "../../../content/scss/mixins";
 
+
 .overviews-achievements {
+    @include accordeon();
     height: inherit;
     overflow-y: auto;
     padding-right: 10px;
@@ -11,7 +13,7 @@
             margin-top: 5px;
         }
     }
-    /deep/ .card-header {
+  /*  /deep/ .card-header {
         padding: auto;
         background-color: $dojo-bg-gradient-from;
         min-height: 50px;
@@ -28,7 +30,7 @@
         /deep/ .card-body {
             background-color: $dojo-bg-gradient-from;
         }
-    }
+    }*/
     .additional-functions {
         height: 75px;
         width: 100%;
