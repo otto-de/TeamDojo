@@ -5,10 +5,11 @@
                  [src]="team.picture | imageDataUrl: team.pictureContentType"/>
         </div>
         <div class="avatar-image d-flex align-self-center"></div>
-        <div class="status-meta d-flex justify-content-center align-items-center mx-auto">
-            <h5 *ngIf="team.slogan" class="team-slogan">{{team.slogan}}</h5>
-            <h6 *ngIf="team.slogan" class="team-title mt-1">{{team.name}}</h6>
-            <h5 *ngIf="!team.slogan" class="team-title">{{team.name}}</h5>
+        <div class="status-meta d-flex flex-column justify-content-center align-items-center mx-auto">
+            <h5 *ngIf="team.slogan" class="team-slogan mb-0">{{team.slogan}}</h5>
+            <h6 *ngIf="team.slogan" class="team-title mt-1 mb-0">{{team.name}}</h6>
+            <h5 *ngIf="!team.slogan" class="team-title mb-0">{{team.name}}</h5>
+            <div class="team-score"><span>1290</span></div>
         </div>
     </div>
     <div class="teams-status-achievements">
