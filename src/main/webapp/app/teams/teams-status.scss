@@ -26,17 +26,28 @@
             background: no-repeat center/contain url('../../content/images/avatars/avatar_default.png');
             top: 0.5rem;
             margin-left: 3rem;
-            z-index: 4;
+            z-index: 3;
         }
         .status-meta {
             width: 44vh;
             height: 15vh;
-            margin-top: -4vh;
             color: $dojo-text-inverse-secondary;
             .team-title, .team-slogan {
-                font-size: 2vh;
-                margin-top: 4vh;
-                z-index: 3;
+                font-size: 2.3vh;
+                z-index: 4;
+            }
+            .team-score {
+                font-size: 1.8vh;
+                z-index: 4;
+                &::before {
+                    content: '';
+                    width: 1.8vh;
+                    height: 2.5vh;
+                    position: absolute;
+                    background: no-repeat center/contain url('../../content/images/coin.png');
+                    margin-left: -2vh;
+                    z-index: 4;
+                }
             }
             &::after {
                 content: '';
