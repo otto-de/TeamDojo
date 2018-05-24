@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
@@ -9,15 +9,15 @@ import { ILevel } from 'app/shared/model/level.model';
 import { IBadge } from 'app/shared/model/badge.model';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { LevelSkillService } from 'app/entities/level-skill';
 import { ILevelSkill } from 'app/shared/model/level-skill.model';
-import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ISkill } from 'app/shared/model/skill.model';
 import { SkillService } from 'app/entities/skill';
 import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
 import { DimensionService } from 'app/entities/dimension';
+import { Progress } from 'app/shared/achievement/model/progress.model';
 
 @Component({
     selector: 'jhi-overview-skills',
@@ -123,36 +123,39 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    getRelevantTeams(levelSkill: ILevelSkill): string {
-        let relevantCount = 0;
-        let completedCount = 0;
+    getRelevantTeams(itemSkill: ILevelSkill | IBadgeSkill): string {
+        const countProgress = new Progress(0, 0);
         for (const team of this.teams) {
-            const skillDimensionIds = this.dimensionsBySkillId[levelSkill.skillId] || [];
-            const relevant = team.participations.some(dimension => {
-                return skillDimensionIds.indexOf(dimension.id) !== -1;
-            });
-            if (relevant) {
-                relevantCount++;
-                const completed = this.isSkillCompleted(team, levelSkill);
-                if (completed) {
-                    completedCount++;
+            const teamSkill = this.findTeamSkill(team, itemSkill);
+            if (this.isRelevantSkill(team, teamSkill, itemSkill)) {
+                countProgress.required++;
+                if (this.isTeamSkillCompleted(teamSkill)) {
+                    countProgress.achieved++;
                 }
             }
         }
-        if (this.generalSkillsIds.indexOf(levelSkill.id) !== -1) {
-            relevantCount = this.teams.length;
+        if (this.generalSkillsIds.indexOf(itemSkill.id) !== -1) {
+            countProgress.required = this.teams.length;
         }
-
-        return `${completedCount}  / ${relevantCount}`;
+        return `${countProgress.achieved}  / ${countProgress.required}`;
     }
 
-    private isSkillCompleted(team: ITeam, skill: ILevelSkill | IBadgeSkill): boolean {
-        return team.skills.some((teamSkill: ITeamSkill) => {
-            if (skill.skillId === teamSkill.skillId) {
-                return !!teamSkill.completedAt;
-            }
+    private isRelevantSkill(team: ITeam, teamSkill: ITeamSkill, itemSkill: ILevelSkill | IBadgeSkill) {
+        if (teamSkill && teamSkill.irrelevant) {
             return false;
+        }
+        const skillDimensionIds = this.dimensionsBySkillId[itemSkill.skillId] || [];
+        return team.participations.some(dimension => {
+            return skillDimensionIds.indexOf(dimension.id) !== -1;
         });
+    }
+
+    private findTeamSkill(team: ITeam, skill: ILevelSkill | IBadgeSkill): ITeamSkill {
+        return team.skills ? team.skills.find((teamSkill: ITeamSkill) => teamSkill.skillId == skill.skillId) : null;
+    }
+
+    private isTeamSkillCompleted(teamSkill: ITeamSkill): boolean {
+        return teamSkill && !!teamSkill.completedAt;
     }
 
     skillClicked(event, skill: ILevelSkill) {
