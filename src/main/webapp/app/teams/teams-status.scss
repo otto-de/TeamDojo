@@ -9,24 +9,6 @@
             height: 35vh;
             overflow: hidden;
             border-radius: 50%;
-            margin-bottom: -8vh;
-        }
-        .avatar-achievements {
-            .avatar-skill-level {
-                width: 10vh;
-                height: 10vh;
-            }
-            .avatar-skill-level {
-                display: inline-flex;
-                align-items: center;
-                border-radius: 50%;
-                border: 3px solid gold;
-                background: white !important;
-                overflow: hidden;
-                img {
-                    width: 100%;
-                }
-            }
         }
     }
     .teams-status-achievements {
