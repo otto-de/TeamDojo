@@ -6,6 +6,7 @@ import { sortLevels } from 'app/shared';
 import { IBadge } from 'app/shared/model/badge.model';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
+import { TeamSkillService } from 'app/entities/team-skill';
 
 @Component({
     selector: 'jhi-teams',
@@ -18,7 +19,7 @@ export class TeamsComponent implements OnInit {
     team: ITeam;
     badges: IBadge[];
 
-    constructor(private dataUtils: JhiDataUtils, private route: ActivatedRoute) {}
+    constructor(private dataUtils: JhiDataUtils, private route: ActivatedRoute, private teamSkillService: TeamSkillService) {}
 
     ngOnInit() {
         this.route.data.subscribe(({ team, levels, badges, levelSkills, badgeSkills }) => {
@@ -64,6 +65,12 @@ export class TeamsComponent implements OnInit {
             });
         });
         this.changeTeam.emit(this.team);
+    }
+
+    updateSkillProgress() {
+        this.teamSkillService.query({ 'teamId.equals': this.team.id }).subscribe(teamSkillResponse => {
+            this.team.skills = teamSkillResponse.body;
+        });
     }
 
     byteSize(field) {
