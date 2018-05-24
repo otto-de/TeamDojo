@@ -17,7 +17,7 @@ Navbar
                     font: normal normal normal 14px/1 FontAwesome;
                     content: "\F054";
                 }
-                a{
+                a {
                     color: rgba(233, 233, 233, 1.0);
                     font-weight: normal;
                 }
@@ -91,6 +91,7 @@ Navbar
             width: 100%;
         }
     }
+}
 
 .breadcrumb-item{
     color: $dojo-text-inverse-primary
