@@ -16,10 +16,13 @@
 
     /*.achievement-list-header {
         &-left {
-            padding: 6px;
+            padding: 2px;
             border-right: 1px solid rgba(0, 0, 0, 0.125);
-            &-image{
-                @include achievement-image()
+            &-image {
+                @include achievement-image();
+            }
+            /deep/ .achievement-item {
+                padding: 0;
             }
         }
         &-right {

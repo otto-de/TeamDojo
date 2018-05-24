@@ -1,5 +1,6 @@
 @import '~bootstrap/scss/bootstrap';
 @import '../../../content/scss/_colors.scss';
+@import '../../../content/scss/mixins';
 
 .overviews-teams {
     .additional-functions {
@@ -27,79 +28,86 @@
                     width: 100%;
                 }
                 &.complete {
-                    border-color: $success;
-                }
-                &.incomplete {
-                    border-color: $danger;
-                }
-            }
-            .team-name {
-                color: black;
-                word-break: break-word;
-            }
-            .count-container {
-                .count-item {
-                    display: block;
-                    margin-left: 5px;
-                    .count-item-header {
-
+                    @include team-image();
+                    &.complete {
+                        border-color: $success;
                     }
-                    .count-item-value {
-                        float: right;
-                        font-size: 1.5em;
+                    &.incomplete {
+                        border-color: $danger;
+                    }
+                }
+                .team-name {
+                    color: black;
+                    word-break: break-word;
+                }
+                .count-container {
+                    .count-item {
+                        display: block;
+                        margin-left: 5px;
+                        .count-item-header {
+
+                        }
+                        .count-item-value {
+                            float: right;
+                            font-size: 1.5em;
+                        }
                     }
                 }
             }
         }
     }
-}
 
-#teams_startCompare {
-    background-color: #f1d7ae;
-    float: right;
-    margin: 5px;
-    padding: 5px;
-    border: $gray-400;
-    color: white;
-}
+    #teams_startCompare {
+        background-color: #f1d7ae;
+        float: right;
+        margin: 5px;
+        padding: 5px;
+        border: $gray-400;
+        color: white;
+    }
 
-#teams_selectTeams {
-    background-color: $dojo-nav-primary;
-    float: right;
-    margin: 5px;
-    padding: 5px;
-    border: $gray-400;
-    color: white;
-}
+    #teams_selectTeams {
+        background-color: $dojo-nav-primary;
+        float: right;
+        margin: 5px;
+        padding: 5px;
+        border: $gray-400;
+        color: white;
+    }
 
-input#teams_searchTerm {
-    background-color: #e8ddb7;
-    width: 270px;
-    margin: 5px;
-}
+    input#teams_searchTerm {
+        background-color: #e8ddb7;
+        width: 270px;
+        margin: 5px;
+    }
 
-::-webkit-input-placeholder {
-    font-style: italic;
-}
+    ::-webkit-input-placeholder {
+        font-style: italic;
+    }
 
-:-moz-placeholder {
-    font-style: italic;
-}
+    :-moz-placeholder {
+        font-style: italic;
+    }
 
-::-moz-placeholder {
-    font-style: italic;
-}
+    ::-moz-placeholder {
+        font-style: italic;
+    }
 
-:-ms-input-placeholder {
-    font-style: italic;
-}
+    :-ms-input-placeholder {
+        font-style: italic;
+    }
 
-@media only screen and (min-width: map-get($grid-breakpoints, md)) {
-    .overviews-teams {
-        .team-list {
-            height: calc(100vh - 242px);
-            overflow-y: auto;
-            padding: 5px;
+    @media only screen and (min-width: map-get($grid-breakpoints, md)) {
+        .overviews-teams {
+            .team-list {
+                height: calc(100vh - 242px);
+                overflow-y: auto;
+                padding: 5px;
+                &:hover, &:focus {
+                    overflow-y: auto;
+                    margin-right: 0em;
+                }
+            }
         }
     }
 }

@@ -34,9 +34,10 @@
                     "achievedBy": "Erfüllt von",
                     "achievedByNone" : "Dieser Skill wurde noch von keinem Team erfüllt!",
                     "neededFor": "Benötigt für",
-                    "notRelevant": "Für mein Team nicht relevant"
-
-                }
+                    "3of5": "3 von 5 Sternen",
+                    "contact": "Ansprechpartner"
+                },
+                "comments": "Kommentare"
             },
             "status": {
                 "activities": {

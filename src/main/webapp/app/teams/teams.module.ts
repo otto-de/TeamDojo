@@ -14,6 +14,8 @@ import { TeamsSelectionService } from './teams-selection/teams-selection.service
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TeamsAchievementsService } from 'app/teams/teams-achievements.service';
 import { SkillDetailsComponent } from 'app/teams/skill-details/skill-details.component';
+import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details-info/skill-details-info.component';
+import { SkillDetailsCommentsComponent } from 'app/teams/skill-details/skill-details-comments/skill-details-comments.component';
 
 @NgModule({
     imports: [TeamdojoSharedModule, RouterModule.forChild(TEAMS_ROUTES), NgbModule],
@@ -23,7 +25,9 @@ import { SkillDetailsComponent } from 'app/teams/skill-details/skill-details.com
         TeamsAchievementsComponent,
         TeamsSkillsComponent,
         TeamsSelectionComponent,
-        SkillDetailsComponent
+        SkillDetailsComponent,
+        SkillDetailsInfoComponent,
+        SkillDetailsCommentsComponent
     ],
     entryComponents: [TeamsSelectionComponent],
     providers: [
@@ -38,6 +42,7 @@ import { SkillDetailsComponent } from 'app/teams/skill-details/skill-details.com
         AllLevelSkillsResolve,
         AllBadgeSkillsResolve
     ],
+    exports: [SkillDetailsInfoComponent, SkillDetailsCommentsComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TeamsModule {}

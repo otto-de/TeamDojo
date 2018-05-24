@@ -1,0 +1,22 @@
+@import '../../../content/scss/colors';
+
+
+.dojo-breadcrumb {
+    background-color: transparent;
+    padding: 0.75rem 0.25rem;
+    .dojo-breadcrumb-item + .dojo-breadcrumb-item::before {
+        font: normal normal normal 14px/1 FontAwesome;
+        content: "\F054";
+    }
+    .dojo-breadcrumb-item.active, .dojo-breadcrumb-item::before {
+        color: rgba(255, 255, 255, 0.5);
+    }
+}
+
+.dojo-breadcrumb-item{
+    color: $dojo-text-inverse
+
+    a {
+        color: $dojo-text-inverse !important;
+    }
+}

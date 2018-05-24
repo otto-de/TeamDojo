@@ -20,6 +20,9 @@
             },
             "skills": {
                 "title": "Skills"
+            },
+            "navigation" : {
+                "text" : "Team overview"
             }
         }
     }

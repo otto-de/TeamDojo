@@ -1,12 +1,11 @@
-@import '../../../content/scss/_colors.scss';
 @import '~bootstrap/scss/bootstrap';
+@import '../../../content/scss/_colors.scss';
 @import "../../../content/scss/mixins";
 
 .overviews-achievements {
     height: inherit;
     overflow-y: auto;
     padding-right: 10px;
-
     .item-list-body {
         .item-list-title {
             margin-top: 5px;
@@ -33,5 +32,15 @@
     .additional-functions {
         height: 75px;
         width: 100%;
+    }
+}
+@media only screen and (min-width: map-get($grid-breakpoints, md)){
+    .overviews-achievements {
+        height: calc(100vh - 242px);
+        padding: 5px;
+        &:hover, &:focus {
+            overflow-y: auto;
+            margin-right: 0em;
+        }
     }
 }

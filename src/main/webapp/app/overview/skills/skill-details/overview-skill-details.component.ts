@@ -12,6 +12,7 @@ import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
 import { ILevelSkill } from 'app/shared/model/level-skill.model';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import { sortLevels } from 'app/shared';
+import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 
 @Component({
     selector: 'jhi-overview-skill-details',
@@ -39,11 +40,15 @@ export class OverviewSkillDetailsComponent implements OnInit {
         private skillService: SkillService,
         private teamsService: TeamsService,
         private levelService: LevelService,
-        private badgeService: BadgeService
+        private badgeService: BadgeService,
+        private teamsSelectionService: TeamsSelectionService
     ) {}
 
     ngOnInit(): void {
         this.route.data.subscribe(({ teams, levels, badges, teamSkills, levelSkills, badgeSkills, skill }) => {
+            this.achievedByTeams = [];
+            this.neededForLevels = [];
+            this.neededForBadges = [];
             this.skill = skill.body;
 
             this.teams = teams.body;
@@ -69,6 +74,9 @@ export class OverviewSkillDetailsComponent implements OnInit {
             this.levels.forEach(level => {
                 groupedLevels[level.dimensionId] = groupedLevels[level.dimensionId] || [];
                 groupedLevels[level.dimensionId].push(Object.assign(level, { skills: groupedLevelSkills[level.id] }));
+                if (level.skills.some(s => s.skillId === this.skill.id)) {
+                    this.neededForLevels.push(level);
+                }
             });
             for (const dimensionId in groupedLevels) {
                 if (groupedLevels.hasOwnProperty(dimensionId)) {
@@ -84,6 +92,9 @@ export class OverviewSkillDetailsComponent implements OnInit {
 
             this.badges.forEach(badge => {
                 badge.skills = groupedBadgeSkills[badge.id] || [];
+                if (badge.skills.some(s => s.skillId === this.skill.id)) {
+                    this.neededForBadges.push(badge);
+                }
             });
 
             this.teams.forEach(team => {
@@ -92,25 +103,6 @@ export class OverviewSkillDetailsComponent implements OnInit {
                     dimension.levels = groupedLevels[dimension.id] || [];
                 });
             });
-        });
-        this.loadData();
-    }
-
-    loadData() {
-        this.achievedByTeams = [];
-        this.neededForLevels = [];
-        this.neededForBadges = [];
-
-        this.skillService.find(this.skill.id).subscribe(skill => {
-            this.skill = skill.body;
-        });
-
-        this.levelService.query({ 'skillsId.in': this.skill.id }).subscribe(res => {
-            this.neededForLevels = res.body;
-        });
-
-        this.badgeService.query({ 'skillsId.in': this.skill.id }).subscribe(res => {
-            this.neededForBadges = res.body;
         });
     }
 
@@ -122,5 +114,9 @@ export class OverviewSkillDetailsComponent implements OnInit {
     onSkillSelected(skillObjs) {
         this.skill = skillObjs.aSkill;
         this.skill = skillObjs.iSkill;
+    }
+
+    get currentTeam() {
+        return this.teamsSelectionService.selectedTeam;
     }
 }

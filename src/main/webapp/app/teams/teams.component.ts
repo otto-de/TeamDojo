@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { JhiDataUtils } from 'ng-jhipster';
 import { ActivatedRoute } from '@angular/router';
 import { ITeam } from 'app/shared/model/team.model';
@@ -13,6 +13,8 @@ import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
     styleUrls: ['./teams.scss']
 })
 export class TeamsComponent implements OnInit {
+    @Output() changeTeam = new EventEmitter<any>();
+
     team: ITeam;
     badges: IBadge[];
 
@@ -61,6 +63,7 @@ export class TeamsComponent implements OnInit {
                 dimension.badges = badgesByDimensionId[dimension.id] || [];
             });
         });
+        this.changeTeam.emit(this.team);
     }
 
     byteSize(field) {
