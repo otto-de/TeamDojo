@@ -7,12 +7,24 @@
         </a>
         <a class="navbar-brand logo float-left" routerLink="/" (click)="collapseNavbar()">
             <span class="logo-img"></span>
-            <span jhiTranslate="global.title" class="navbar-title">Team Dojo</span>
         </a>
-        <nav class="mockup" aria-label="breadcrumb">
+        <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="#">OTTO</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Team FT1</li>
+                <li class="breadcrumb-item"><a href="#">{{organizationName}}</a></li>
+                <li class="breadcrumb-item" *ngFor='let breadcrumb of breadcrumbs' [ngClass]="{active: breadcrumb.active}">
+                    <a *ngIf="!breadcrumb.active" href="#{{breadcrumb.path}}">
+                        {{breadcrumb.text}}
+                    </a>
+                    <span *ngIf="breadcrumb.active">{{breadcrumb.text}}</span>
+                </li>
+
+                <ng-template #teamBreadcrumb>
+                    <li class="breadcrumb-item" aria-current="page">{{activeTeam?.shortName}}</li>
+                </ng-template>
+                <ng-template #skillBreadcrumb>
+                    <li class="breadcrumb-item active" aria-current="page">{{activeSkill?.title}}</li>
+                </ng-template>
+
             </ol>
         </nav>
     </div>
@@ -117,6 +129,12 @@
                            [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.levelSkill">Level Skill</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="organization" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.organization">Organization</span>
                         </a>
                     </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->

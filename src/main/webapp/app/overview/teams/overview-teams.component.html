@@ -1,7 +1,7 @@
 <div class="overviews-teams">
     <div>
         <h4 jhiTranslate="teamdojoApp.overview.teams.title">Teams</h4>
-        <form class="form-inline pl-2 mb-2 mockup">
+        <form class="form-inline">
             <div class="form-group mr-1 mb-2">
                 <input type="text" class="form-control" id="teams_searchTerm" disabled>
             </div>
@@ -11,12 +11,15 @@
     <div class="team-list list-group">
         <li class="team-item list-group-item list-group-item-action flex-column align-items-start mb-2"
             *ngFor='let team of teams'
-            [ngClass]="{inactive: isInactive(team)}">
+            [ngClass]="{irrelevant: showAsIrrelevant(team)}">
             <div class="d-flex flex-wrap align-items-center">
                 <div class="d-inline-flex align-items-center">
-                    <div class="team-image" [ngClass]="{active: isActive(team)}">
-                        <img [title]="team.name" *ngIf="team.picture && team.pictureContentType"
+                    <div class="team-image" [ngClass]="{complete: showAsComplete(team), incomplete: showAsIncomplete(team)}">
+                        <img [title]="team.name" *ngIf="team.picture && team.pictureContentType; else picturePlaceholder"
                              [src]="team.picture | imageDataUrl: team.pictureContentType"/>
+                        <ng-template #picturePlaceholder>
+                            <span class="img-placeholder">{{team.name | truncateString}}</span>
+                        </ng-template>
                     </div>
                     <a href="#" [routerLink]="['/teams', team.shortName]" class="team-name ml-2">{{team.name}}</a>
                 </div>

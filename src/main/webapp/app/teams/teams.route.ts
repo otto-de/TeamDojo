@@ -8,22 +8,71 @@ import { UserRouteAccessService } from 'app/core';
 import { SkillDetailsComponent } from 'app/teams/skill-details/skill-details.component';
 import { Skill } from 'app/shared/model/skill.model';
 import { SkillService } from 'app/entities/skill';
+import { BadgeService } from 'app/entities/badge';
+import { LevelService } from 'app/entities/level';
+import { TeamSkillService } from 'app/entities/team-skill';
+import { BadgeSkillService } from 'app/entities/badge-skill';
+import { LevelSkillService } from 'app/entities/level-skill';
 
 @Injectable()
-export class TeamsResolve implements Resolve<any> {
-    constructor(private service: TeamsService, private router: Router) {}
+export class TeamAndTeamSkillResolve implements Resolve<any> {
+    constructor(private teamService: TeamsService, private teamSkillService: TeamSkillService, private router: Router) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const shortName = route.params['shortName'] ? route.params['shortName'] : null;
         if (shortName) {
-            return this.service.query({ 'shortName.equals': shortName }).map(value => {
-                if (value.body.length === 0) {
-                    this.router.navigate(['/error']);
-                }
-                return value;
-            });
+            return this.teamService
+                .query({
+                    'shortName.equals': shortName
+                })
+                .flatMap(teamResponse => {
+                    if (teamResponse.body.length === 0) {
+                        this.router.navigate(['/error']);
+                    }
+                    const team = teamResponse.body[0];
+                    return this.teamSkillService.query({ 'teamId.equals': team.id }).map(teamSkillResponse => {
+                        team.skills = teamSkillResponse.body;
+                        return team;
+                    });
+                });
         }
         return new Team();
+    }
+}
+
+@Injectable()
+export class AllLevelsResolve implements Resolve<any> {
+    constructor(private levelService: LevelService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.levelService.query({ eagerload: true });
+    }
+}
+
+@Injectable()
+export class AllBadgesResolve implements Resolve<any> {
+    constructor(private badgeService: BadgeService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.badgeService.query();
+    }
+}
+
+@Injectable()
+export class AllLevelSkillsResolve implements Resolve<any> {
+    constructor(private levelSkillService: LevelSkillService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.levelSkillService.query();
+    }
+}
+
+@Injectable()
+export class AllBadgeSkillsResolve implements Resolve<any> {
+    constructor(private badgeSkillService: BadgeSkillService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.badgeSkillService.query();
     }
 }
 
@@ -50,7 +99,11 @@ export const TEAMS_ROUTES: Route[] = [
         path: 'teams/:shortName',
         component: TeamsComponent,
         resolve: {
-            team: TeamsResolve
+            team: TeamAndTeamSkillResolve,
+            levels: AllLevelsResolve,
+            badges: AllBadgesResolve,
+            levelSkills: AllLevelSkillsResolve,
+            badgeSkills: AllBadgeSkillsResolve
         },
         data: {
             authorities: [],
@@ -62,7 +115,7 @@ export const TEAMS_ROUTES: Route[] = [
         path: 'teams/:shortName/skills/:skillId',
         component: SkillDetailsComponent,
         resolve: {
-            team: TeamsResolve,
+            team: TeamAndTeamSkillResolve,
             skill: SkillResolve
         },
         data: {

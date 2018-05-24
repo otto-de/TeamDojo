@@ -16,9 +16,14 @@
                 "search": {
                     "placeholder": "Search",
                     "filter": {
-                        "completed": "Completed",
-                        "incompleted": "Incompleted"
+                        "label": "Hide completed skills"
                     }
+                },
+                "action": {
+                    "complete": "Complete",
+                    "incomplete": "Reopen",
+                    "irrelevant": "Irrelevant",
+                    "relevant": "Relevant"
                 },
                 "details": {
                     "activate": "Activate skill",
@@ -27,9 +32,12 @@
                     "implementation": "Implementation",
                     "validation": "Validation",
                     "achievedBy": "Achieved by",
+                    "achievedByNone" : "No teams have achieved this skill yet!",
                     "neededFor": "Needed for",
-                    "notRelevant": "Not relevant for my team"
-                }
+                    "3of5": "3 out of 5 stars",
+                    "contact": "Contact"
+                },
+                "comments": "Comments"
             },
             "status": {
                 "activities": {
@@ -39,8 +47,8 @@
             },
             "achievements": {
                 "title": "Achievements",
-                "badges": {
-                    "title": "Badges"
+                "generalBadges": {
+                    "title": "General Badges"
                 }
             },
             "dateFormat": "yyyy-MM-dd"

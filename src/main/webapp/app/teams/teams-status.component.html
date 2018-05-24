@@ -4,26 +4,9 @@
              [src]="team.picture | imageDataUrl: team.pictureContentType"/>
         <div class="avatar-achievements mb-md-3">
             <div class="avatar-skill-levels mockup mb-1">
-                <a [routerLink]="['.', {'dimension': '1000'}]">
+                <a [routerLink]="['.']" [queryParams]="{'dimension': '1000'}">
                     <div class="avatar-skill-level">
-                        <img title="Orange belt in Security" alt="Orange belt in Security" [src]="'' | imageDataUrl: ''"/>
-                    </div>
-                </a>
-            </div>
-            <div class="avatar-badges mockup mb-0">
-                <a [routerLink]="['.', {'badge': '9700'}]">
-                    <div class="avatar-badge">
-                        <img title="AWS Ready badge" alt="AWS Ready badge" [src]="'' | imageDataUrl: ''"/>
-                    </div>
-                </a>
-                <a [routerLink]="['.', {'badge': '9750'}]">
-                    <div class="avatar-badge">
-                        <img title="The Trophy badge" alt="The Trophy badge" [src]="'' | imageDataUrl: ''"/>
-                    </div>
-                </a>
-                <a [routerLink]="['.', {'badge': '9800'}]">
-                    <div class="avatar-badge">
-                        <img title="Security badge" alt="Security badge"  [src]="'' | imageDataUrl: ''"/>
+                        <span class="img-placeholder">{{'Orange belt in Security' | truncateString}}</span>
                     </div>
                 </a>
             </div>
@@ -32,35 +15,29 @@
         <h4 *ngIf="team.slogan" class="avatar-title">{{team.name}}</h4>
         <h1 *ngIf="!team.slogan" class="avatar-title">{{team.name}}</h1>
     </div>
-    <div class="teams-status-activities mt-md-2 mt-lg-4 mockup">
-        <h4>{{'teamdojoApp.teams.status.activities.title' | translate}}</h4>
-        <div class="activity-cards">
-            <div class="card mb-1">
-                <div class="card-body">
-                    <span class="activity-date">{{'2018-02-22T09:00:00.000Z' | date:('teamdojoApp.teams.dateFormat' | translate)}}</span>
-                    <div>
-                        <i class="fa fa-certificate belt-orange"></i>
-                        <span>Orange Belt in Security {{'teamdojoApp.teams.status.activities.received' | translate}}!</span>
+    <div class="teams-status-achievements">
+        <div class="teams-status-achievements-levels d-flex justify-content-around mb-1">
+            <div *ngFor="let highestLevel of highestAchievedLevels">
+                <div>
+                    <div class="d-flex justify-content-center">
+                        <h5>{{highestLevel.dimension.name}}</h5>
+                    </div>
+                    <div class="d-flex d-inline-flex">
+                        <jhi-achievement-item [item]="highestLevel.level" type="item-level" [hasStatus]="false"
+                                              [active]="false"
+                                              (onItemSelected)="selectItem('level', highestLevel.level.id)"></jhi-achievement-item>
+                        <div class="d-flex align-items-center">
+                            <h1>{{highestLevel.ordinal}}</h1>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="card mb-1">
-                <div class="card-body">
-                    <span class="activity-date">{{'2018-02-05T09:00:00.000Z' | date:('teamdojoApp.teams.dateFormat' | translate)}}</span>
-                    <div>
-                        <i class="fa fa-gift"></i>
-                        <span>AWS Ready Badge {{'teamdojoApp.teams.status.activities.received' | translate}}!</span>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-0">
-                <div class="card-body">
-                    <span class="activity-date">{{'2018-02-04T09:00:00.000Z' | date:('teamdojoApp.teams.dateFormat' | translate)}}</span>
-                    <div>
-                        <i class="fa fa-certificate belt-yellow"></i>
-                        <span>Yellow Belt in Security {{'teamdojoApp.teams.status.activities.received' | translate}}!</span>
-                    </div>
-                </div>
+        </div>
+        <div class="teams-status-achievements-badges d-flex flex-wrap justify-content-center">
+            <div *ngFor="let badge of completedBadges">
+                <jhi-achievement-item [item]="badge" type="item-badge" [hasStatus]="false"
+                                      [active]="false"
+                                      (onItemSelected)="selectItem('badge', badge.id)"></jhi-achievement-item>
             </div>
         </div>
     </div>

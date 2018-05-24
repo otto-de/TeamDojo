@@ -1,0 +1,82 @@
+<h4 class="skill-title">{{skill.title}}</h4>
+
+<div class="skill-actions" *ngIf="isSameTeamSelected()">
+    <button class="irrelevant action-btn" *ngIf="!achievableSkill.irrelevant" (click)="onToggleIrrelevance(true)">
+        <i class="fa fa-thumbs-o-down"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.irrelevant"></span>
+    </button>
+
+    <button class="irrelevant action-btn" *ngIf="achievableSkill.irrelevant" (click)="onToggleIrrelevance(false)">
+        <i class="fa fa-thumbs-o-up"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.relevant"></span>
+    </button>
+
+    <span *ngIf="!achievableSkill.irrelevant">
+        <button *ngIf="!skillAchieved()" class="activation action-btn" (click)="onToggleSkill(true)">
+            <i class="fa fa-check"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.complete"></span>
+        </button>
+
+        <button *ngIf="skillAchieved()" class="activation action-btn" (click)="onToggleSkill(false)">
+            <i class="fa fa-circle-o"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.incomplete"></span>
+        </button>
+    </span>
+</div>
+
+<div>
+    <div class="skill-rating mockup">
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+
+        <span class="rating-text" jhiTranslate="teamdojoApp.teams.skills.details.3of5">3 von 5 Sternen</span>
+    </div>
+
+    <div class="skill-contact mockup">
+        <span jhitranslate="teamdojoApp.teams.skills.details.contact">Ansprechpartner: </span> Max Mustermann
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+
+<div class="dojo-card">
+    <div class="skill-desc desc-block">
+        <h5 jhiTranslate="teamdojoApp.teams.skills.details.desc"></h5>
+        <p>{{skill.description}}</p>
+    </div>
+    <div class="skill-impl desc-block">
+        <h5 jhiTranslate="teamdojoApp.teams.skills.details.implementation"></h5>
+        <p>{{skill.implementation}}</p>
+    </div>
+    <div class="skill-validation desc-block">
+        <h5 jhiTranslate="teamdojoApp.teams.skills.details.validation"></h5>
+        <p>{{skill.validation}}</p>
+    </div>
+
+    <div class="needed-for">
+        <h5 jhiTranslate="teamdojoApp.teams.skills.details.neededFor"></h5>
+        <div class="needed-for-avatars">
+            <div class="needed-for-levels">
+                <jhi-achievement-item type="item-level" [item]="l" *ngFor="let l of neededForLevels">
+                </jhi-achievement-item>
+            </div>
+            <div class="needed-for-badges">
+                <jhi-achievement-item type="item-badge" [item]="b" *ngFor="let b of neededForBadges">
+                </jhi-achievement-item>
+            </div>
+        </div>
+    </div>
+
+    <div class="achieved-by">
+        <h5 jhiTranslate="teamdojoApp.teams.skills.details.achievedBy"></h5>
+        <div class="achieved-by-teams">
+            <div *ngFor="let t of achievedByTeams" class="avatar-team" placement="top" [ngbTooltip]="t.name">
+                <img [src]="t.picture | imageDataUrl: t.pictureContentType"/>
+            </div>
+            <p *ngIf="achievedByTeams.length === 0"
+               jhiTranslate="teamdojoApp.teams.skills.details.achievedByNone"></p>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+
