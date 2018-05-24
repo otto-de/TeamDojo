@@ -4,15 +4,6 @@
             <img *ngIf="team.picture && team.pictureContentType"
                  [src]="team.picture | imageDataUrl: team.pictureContentType"/>
         </div>
-        <div class="avatar-achievements mb-md-3">
-            <div class="avatar-skill-levels mockup mb-1">
-                <a [routerLink]="['.']" [queryParams]="{'dimension': '1000'}">
-                    <div class="avatar-skill-level">
-                        <span class="img-placeholder">{{'Orange belt in Security' | truncateString}}</span>
-                    </div>
-                </a>
-            </div>
-        </div>
         <h1 *ngIf="team.slogan" class="avatar-slogan">{{team.slogan}}</h1>
         <h4 *ngIf="team.slogan" class="avatar-title">{{team.name}}</h4>
         <h1 *ngIf="!team.slogan" class="avatar-title">{{team.name}}</h1>
