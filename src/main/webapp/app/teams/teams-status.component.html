@@ -4,6 +4,7 @@
             <img *ngIf="team.picture && team.pictureContentType"
                  [src]="team.picture | imageDataUrl: team.pictureContentType"/>
         </div>
+        <div class="avatar-image d-flex align-self-center"></div>
         <div class="status-meta d-flex justify-content-center align-items-center mx-auto">
             <h5 *ngIf="team.slogan" class="team-slogan">{{team.slogan}}</h5>
             <h6 *ngIf="team.slogan" class="team-title mt-1">{{team.name}}</h6>

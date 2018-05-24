@@ -19,6 +19,15 @@
                 z-index: 1;
             }
         }
+        .avatar-image {
+            width: 30vh;
+            height: 41vh;
+            position: absolute;
+            background: no-repeat center/contain url('../../content/images/avatars/avatar_default.png');
+            top: 0.5rem;
+            margin-left: 3rem;
+            z-index: 4;
+        }
         .status-meta {
             width: 44vh;
             height: 15vh;
