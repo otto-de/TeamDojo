@@ -67,7 +67,7 @@ export class TeamsComponent implements OnInit {
         this.changeTeam.emit(this.team);
     }
 
-    updateSkillProgress() {
+    loadTeamSkills() {
         this.teamSkillService.query({ 'teamId.equals': this.team.id }).subscribe(teamSkillResponse => {
             this.team.skills = teamSkillResponse.body;
         });
