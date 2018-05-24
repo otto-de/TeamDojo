@@ -5,9 +5,10 @@
     .teams-status-avatar {
         text-align: center;
         .avatar-image {
+            width: 35vh;
+            height: 35vh;
+            overflow: hidden;
             border-radius: 50%;
-            max-width: 80%;
-            max-height: 35vh;
             margin-bottom: -8vh;
         }
         .avatar-achievements {
