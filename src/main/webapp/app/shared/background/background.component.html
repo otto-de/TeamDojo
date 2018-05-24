@@ -1,0 +1,1 @@
+<div *ngIf="currentTeam" class="background-image" [ngStyle]="{'background-image': 'url(' + (currentTeam.picture | imageDataUrl: currentTeam.pictureContentType ) +  ')'}"></div>
