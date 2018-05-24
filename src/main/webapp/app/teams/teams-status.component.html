@@ -4,9 +4,11 @@
             <img *ngIf="team.picture && team.pictureContentType"
                  [src]="team.picture | imageDataUrl: team.pictureContentType"/>
         </div>
-        <h1 *ngIf="team.slogan" class="avatar-slogan">{{team.slogan}}</h1>
-        <h4 *ngIf="team.slogan" class="avatar-title">{{team.name}}</h4>
-        <h1 *ngIf="!team.slogan" class="avatar-title">{{team.name}}</h1>
+        <div class="status-meta d-flex justify-content-center align-items-center mx-auto">
+            <h5 *ngIf="team.slogan" class="team-slogan">{{team.slogan}}</h5>
+            <h6 *ngIf="team.slogan" class="team-title mt-1">{{team.name}}</h6>
+            <h5 *ngIf="!team.slogan" class="team-title">{{team.name}}</h5>
+        </div>
     </div>
     <div class="teams-status-achievements">
         <div class="teams-status-achievements-levels d-flex justify-content-around mb-1">
