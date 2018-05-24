@@ -72,55 +72,43 @@ Navbar
             color: #fff;
         }
     }
-    .nav-img {
-        height: 18px;
-        width: 18px;
+
+    @media screen and (min-width: 768px) {
+        .jh-navbar-toggler {
+            display: none;
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        .jh-logo-container {
+            width: 100%;
+        }
+    }
+
+    .navbar-title {
         display: inline-block;
         vertical-align: middle;
-        -webkit-filter: invert(100%);
-        filter: invert(100%);
     }
-    .language-img {
-        background: url("../../../content/images/language.svg") no-repeat center center;
-    }
-    .team-img {
-        background: url("../../../content/images/team.svg") no-repeat center center;
-    }
-    .navInfo {
+
+    .icon {
         color: white;
+        font-size: 16px;
     }
-}
 
-@media screen and (min-width: 768px) {
-    .jh-navbar-toggler {
-        display: none;
-    }
-}
-
-@media screen and (max-width: 992px) {
-    .jh-logo-container {
-        width: 100%;
-    }
-}
-
-.navbar-title {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-/* ==========================================================================
-Logo styles
-========================================================================== */
-.navbar-brand {
-    &.logo {
-        padding: 5px 0px;
-        .logo-img {
-            height: 45px;
-            width: 70px;
-            display: inline-block;
-            vertical-align: middle;
-            background: url("../../../content/images/security-belt.svg") no-repeat center center;
-            background-size: contain;
+    /* ==========================================================================
+    Logo styles
+    ========================================================================== */
+    .navbar-brand {
+        &.logo {
+            padding: 5px 0px;
+            .logo-img {
+                height: 45px;
+                width: 70px;
+                display: inline-block;
+                vertical-align: middle;
+                background: url("../../../content/images/security-belt.svg") no-repeat center center;
+                background-size: contain;
+            }
         }
     }
 }
