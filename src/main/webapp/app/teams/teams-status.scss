@@ -10,12 +10,15 @@
             height: 35vh;
             overflow: hidden;
             border-radius: 50%;
+            img {
+                height: inherit;
+            }
             &::after {
                 content: '';
                 width: inherit;
                 height: inherit;
                 position: absolute;
-                background: no-repeat center/contain url('../../content/images/avatars/avatar_overlay.png');
+                background: no-repeat center/cover url('../../content/images/avatars/avatar_overlay.png');
                 z-index: 1;
             }
         }
@@ -25,7 +28,7 @@
             position: absolute;
             background: no-repeat center/contain url('../../content/images/avatars/avatar_default.png');
             top: 0.5rem;
-            margin-left: 3rem;
+            margin-left: 5vh;
             z-index: 3;
         }
         .status-meta {
@@ -54,9 +57,9 @@
                 width: inherit;
                 height: inherit;
                 position: absolute;
-                background: no-repeat center/contain url('../../content/images/brushstroke.png');
+                background: no-repeat center/cover url('../../content/images/brushstroke.png');
                 z-index: 2;
-                margin-left: 4vh;
+                margin: -6vh 0 0 4vh;
             }
         }
     }
