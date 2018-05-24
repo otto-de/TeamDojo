@@ -21,7 +21,7 @@
                 <div class="item-list-body">
                     <div class="d-flex flex-wrap">
                         <div class="" *ngFor="let badge of generalBadges">
-                            <jhi-achievement-item [item]="badge" [progress]="getAchievementProgress(badge)"
+                            <jhi-achievement-item type="item-badge" [item]="badge" [progress]="getAchievementProgress(badge)"
                                                   [active]="activeItemIds.badge === badge.id"
                                                   (onItemSelected)="selectItem('badge', badge.id)">
                             </jhi-achievement-item>
@@ -50,7 +50,7 @@
                          jhiTranslate="teamdojoApp.overview.achievements.dimensions.badges.title"></div>
                     <div class="d-flex flex-wrap">
                         <div *ngFor="let badge of dimension.badges">
-                            <jhi-achievement-item [item]="badge" [progress]="getAchievementProgress(badge)"
+                            <jhi-achievement-item type="item-badge" [item]="badge" [progress]="getAchievementProgress(badge)"
                                                   [active]="activeItemIds.badge === badge.id"
                                                   (onItemSelected)="selectItem('badge', badge.id)">
                             </jhi-achievement-item>
@@ -61,7 +61,7 @@
                              jhiTranslate="teamdojoApp.overview.achievements.dimensions.levels.title"></div>
                         <div class="d-flex flex-wrap">
                             <div *ngFor="let level of dimension.levels">
-                                <jhi-achievement-item [item]="level" [progress]="getAchievementProgress(level)"
+                                <jhi-achievement-item type="item-level" [item]="level" [progress]="getAchievementProgress(level)"
                                                       [active]="activeItemIds.level === level.id"
                                                       (onItemSelected)="selectItem('level', level.id)">
                                 </jhi-achievement-item>

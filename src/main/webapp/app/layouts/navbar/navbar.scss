@@ -13,11 +13,17 @@ Navbar
                 background-color: transparent;
                 padding: 0.75rem 0.25rem;
                 .breadcrumb-item + .breadcrumb-item::before {
+                    color: rgba(255, 255, 255, 0.8);
                     font: normal normal normal 14px/1 FontAwesome;
                     content: "\F054";
                 }
+                a{
+                    color: rgba(233, 233, 233, 1.0);
+                    font-weight: normal;
+                }
+
                 .breadcrumb-item.active, .breadcrumb-item::before {
-                    color: rgba(255, 255, 255, 0.5);
+                    color: rgba(233, 233, 233, 1.0);
                 }
             }
         }
@@ -87,6 +93,15 @@ Navbar
     }
 }
 
+.breadcrumb-item{
+    color: $dojo-text-inverse
+
+    a {
+        color: $dojo-text-inverse !important;
+    }
+}
+
+
 /* ==========================================================================
 Logo styles
 ========================================================================== */
@@ -94,7 +109,7 @@ Logo styles
     padding:0px;
     &.logo {
         .logo-img {
-            height: 82px;
+            height: 58px;
             width: 190px;
             display: inline-block;
             vertical-align: middle;

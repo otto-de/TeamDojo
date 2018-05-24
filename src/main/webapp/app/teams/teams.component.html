@@ -1,6 +1,11 @@
+<div class="row back">
+    <div class="col-md-6">
+        <a class="breadcrumb-item active" href="#"><i class="fa fa-angle-left"></i>{{'teamdojoApp.overview.navigation.text' | translate}}</a>
+    </div>
+</div>
 <div class="row teams">
     <div class="col-md-6">
-        <jhi-teams-status [team]="team"></jhi-teams-status>
+        <jhi-teams-status [team]="team" [badges]="badges"></jhi-teams-status>
     </div>
     <div class="col-md-6">
         <div class="row">

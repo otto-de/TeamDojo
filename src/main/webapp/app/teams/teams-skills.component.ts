@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { LocalStorageService } from 'ngx-webstorage';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { SessionStorageService } from 'ngx-webstorage';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSkillsService } from './teams-skills.service';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
@@ -14,6 +14,13 @@ import { SkillService } from 'app/entities/skill';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 const MAX_ITEMS_PER_PAGE = 1000;
+import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
+import { LevelService } from 'app/entities/level';
+import { ILevel } from 'app/shared/model/level.model';
+import { BadgeService } from 'app/entities/badge';
+import { IBadge } from 'app/shared/model/badge.model';
+import { IDimension } from 'app/shared/model/dimension.model';
+import { DimensionService } from 'app/entities/dimension';
 
 @Component({
     selector: 'jhi-teams-skills',
@@ -31,8 +38,12 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     links: any;
     itemsPerPage: number;
     totalItems: number;
-    levelIds: number[];
-    badgeIds: number[];
+    levelId: number;
+    badgeId: number;
+    activeBadge: IBadge;
+    activeLevel: ILevel;
+    activeDimension: IDimension;
+    activeSkill: ISkill;
 
     constructor(
         private teamsSkillsService: TeamsSkillsService,
@@ -40,10 +51,14 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         private jhiAlertService: JhiAlertService,
         private parseLinks: JhiParseLinks,
         private teamsSelectionService: TeamsSelectionService,
-        private storage: LocalStorageService,
+        private storage: SessionStorageService,
         private route: ActivatedRoute,
         private location: Location,
-        private router: Router
+        private router: Router,
+        private breadcrumbService: BreadcrumbService,
+        private levelService: LevelService,
+        private badgeService: BadgeService,
+        private dimensionService: DimensionService
     ) {
         this.filters = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -56,16 +71,31 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         }
     }
 
+    getLevelId() {
+        if (this.levelId !== null && typeof this.levelId !== 'undefined') {
+            return this.levelId;
+        }
+        return '';
+    }
+
+    getBadgeId() {
+        if (this.badgeId !== null && typeof this.badgeId !== 'undefined') {
+            return this.badgeId;
+        }
+        return '';
+    }
+
     ngOnInit() {
         this.reset();
         this.route.queryParamMap.subscribe((params: ParamMap) => {
             const levelId = this.getParamAsNumber('level', params);
             const badgeId = this.getParamAsNumber('badge', params);
-            this.levelIds = levelId ? [levelId] : [];
-            this.badgeIds = badgeId ? [badgeId] : [];
+            this.levelId = levelId ? levelId : null;
+            this.badgeId = badgeId ? badgeId : null;
             this.reset();
             this.loadAll();
         });
+        this.loadAll();
     }
 
     private getParamAsNumber(name: string, params: ParamMap) {
@@ -73,7 +103,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     }
 
     getFiltersFromStorage(): string[] {
-        return this.storage.retrieve(this.team.id.toString()) || [];
+        return this.storage.retrieve('filterKey') || [];
     }
 
     reset() {
@@ -91,13 +121,47 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
                 page: this.page,
                 size: this.isInSkillDetails() ? MAX_ITEMS_PER_PAGE : this.itemsPerPage,
                 filter: this.filters,
-                levelId: this.levelIds || [],
-                badgeId: this.badgeIds || []
+                levelId: this.levelId || null,
+                badgeId: this.badgeId || null
             })
             .subscribe(
                 (res: HttpResponse<IAchievableSkill[]>) => this.paginateAchievableSkills(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
+
+        if (this.badgeId !== null && typeof this.badgeId !== 'undefined') {
+            this.badgeService.find(this.badgeId).subscribe(badge => {
+                this.activeBadge = badge.body;
+                this.activeLevel = null;
+                this.activeDimension = null;
+                this.updateBreadcrumb();
+            });
+        }
+
+        if (this.levelId !== null && typeof this.levelId !== 'undefined') {
+            this.levelService.find(this.levelId).subscribe(level => {
+                this.activeBadge = null;
+                this.activeLevel = level.body;
+                this.dimensionService.find(this.activeLevel.dimensionId).subscribe(dimension => {
+                    this.activeDimension = dimension.body;
+                    this.updateBreadcrumb();
+                });
+            });
+        }
+        if (typeof this.skill !== 'undefined' && this.skill !== null && typeof this.skill.skillId !== 'undefined') {
+            this.skillService.find(this.skill.skillId).subscribe(skillRes => {
+                this.activeSkill = skillRes.body;
+                this.updateBreadcrumb();
+            });
+        } else {
+            this.activeSkill = null;
+        }
+
+        this.updateBreadcrumb();
+    }
+
+    private updateBreadcrumb() {
+        this.breadcrumbService.setBreadcrumb(this.team, this.activeDimension, this.activeLevel, this.activeBadge, this.activeSkill);
     }
 
     loadPage(page) {
@@ -156,7 +220,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         } else {
             this.filters.push(filterName);
         }
-        this.storage.store(this.team.id.toString(), this.filters);
+        this.storage.store('filterKey', this.filters);
         this.reset();
         this.loadAll();
     }
@@ -184,13 +248,18 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
 
     handleSkillClicked(s: IAchievableSkill) {
         if (this.isInSkillDetails()) {
-            const url = this.router.createUrlTree(['/teams', this.team.shortName, 'skills', s.skillId]).toString();
+            const url = this.router
+                .createUrlTree(['/teams', this.team.shortName, 'skills', s.skillId], {
+                    queryParams: { level: this.getLevelId(), badge: this.getBadgeId() }
+                })
+                .toString();
             this.location.replaceState(url);
-            this.skillService.find(s.skillId).subscribe(res => {
+            this.skillService.find(s.skillId).subscribe(skill => {
                 this.onSkillClicked.emit({
-                    iSkill: res.body,
+                    iSkill: skill.body,
                     aSkill: s
                 });
+                this.breadcrumbService.setBreadcrumb(this.team, this.activeDimension, this.activeLevel, this.activeBadge, skill.body);
             });
         }
     }

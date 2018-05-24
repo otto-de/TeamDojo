@@ -7,6 +7,7 @@ import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import { ILevelSkill } from 'app/shared/model/level-skill.model';
 import { sortLevels } from 'app/shared';
 import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
+import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 
 @Component({
     selector: 'jhi-overview',
@@ -21,7 +22,7 @@ export class OverviewComponent implements OnInit {
     levelSkills: ILevelSkill[];
     badgeSkills: IBadgeSkill[];
 
-    constructor(private route: ActivatedRoute) {}
+    constructor(private route: ActivatedRoute, private teamsSelectionService: TeamsSelectionService) {}
 
     ngOnInit() {
         this.route.data.subscribe(({ teams, levels, badges, teamSkills, levelSkills, badgeSkills }) => {
@@ -72,5 +73,9 @@ export class OverviewComponent implements OnInit {
                 });
             });
         });
+    }
+
+    get currentTeam() {
+        return this.teamsSelectionService.selectedTeam;
     }
 }

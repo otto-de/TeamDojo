@@ -1,6 +1,9 @@
 @import '../../../content/scss/_colors.scss';
+@import '~bootstrap/scss/bootstrap';
+@import '../../../content/scss/bootstrap-variables';
+@import "../../../content/scss/mixins";
 
-.overviews-skills {
+.overviews-skills{
     height: inherit;
     overflow-y: auto;
     overflow-x: hidden;
@@ -17,6 +20,14 @@
 
 .skill-title{
     width: 70%;
+}
+
+.list-group-item {
+    background: $dojo-bg-primary;
+    @include shadow();
+    .justify-content-between {
+       outline: none;
+    }
 }
 
 .active-skill,
@@ -48,4 +59,15 @@
 
 :-ms-input-placeholder {
     font-style: italic;
+}
+
+@media only screen and (min-width: map-get($grid-breakpoints, md)){
+    .overviews-skills {
+        height: calc(100vh - 242px);
+        padding: 5px;
+        &:hover, &:focus {
+            overflow-y: auto;
+            margin-right: 0em;
+        }
+    }
 }

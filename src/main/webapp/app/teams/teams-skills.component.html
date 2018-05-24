@@ -1,7 +1,6 @@
 <div class="teams-skills">
     <div class="teams-skills-filter">
         <h4>{{'teamdojoApp.teams.skills.title' | translate}}</h4>
-
         <div class="skill-search form-group mb-2">
             <div class="form-check form-check-inline mb-2">
                 <input class="form-check-input" type="checkbox" value="" id="checkIncomplete"
@@ -29,6 +28,7 @@
                                 <a *ngIf="isInSkillDetails()" class="mb-1">{{skill.title}}</a>
                                 <a *ngIf="!isInSkillDetails()"
                                    [routerLink]="['/teams', team.shortName,'skills', skill.skillId]"
+                                   [queryParams]="{level: getLevelId(), badge: getBadgeId(), filter: filters}"
                                    class="mb-1">{{skill.title}}</a>
                             </div>
                             <div class="skill-status ml-auto mb-auto" [ngClass]="{'completed': !skill.irrelevant && skill.achievedAt}">

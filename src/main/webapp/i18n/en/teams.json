@@ -34,8 +34,10 @@
                     "achievedBy": "Achieved by",
                     "achievedByNone" : "No teams have achieved this skill yet!",
                     "neededFor": "Needed for",
-                    "notRelevant": "Not relevant for my team"
-                }
+                    "3of5": "3 out of 5 stars",
+                    "contact": "Contact"
+                },
+                "comments": "Comments"
             },
             "status": {
                 "activities": {
