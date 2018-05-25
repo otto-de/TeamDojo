@@ -24,14 +24,17 @@
                 z-index: 1;
             }
         }
-        .avatar-image {
-            width: 30vh;
+        .avatar-image-wrapper {
+            width: 31vh;
             height: 41vh;
             position: absolute;
-            background: no-repeat center/contain url('../../content/images/avatars/avatar_default.png');
             top: 0.5rem;
-            margin-left: 5vh;
-            z-index: 3;
+            .avatar-image {
+                width: inherit;
+                height: inherit;
+                background: no-repeat center/contain url('../../content/images/avatars/avatar_default.png');
+                z-index: 3;
+            }
         }
         .status-meta {
             width: 50vh;
