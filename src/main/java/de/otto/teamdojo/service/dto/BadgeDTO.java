@@ -31,6 +31,9 @@ public class BadgeDTO implements Serializable {
     private Integer availableAmount;
 
     @DecimalMin(value = "0")
+    private Double multiplier;
+
+    @DecimalMin(value = "0")
     @DecimalMax(value = "1")
     private Double requiredScore;
 
@@ -92,6 +95,14 @@ public class BadgeDTO implements Serializable {
         this.availableAmount = availableAmount;
     }
 
+    public Double getMultiplier() {
+        return multiplier;
+    }
+
+    public void setMultiplier(Double multiplier) {
+        this.multiplier = multiplier;
+    }
+
     public Double getRequiredScore() {
         return requiredScore;
     }
@@ -138,6 +149,7 @@ public class BadgeDTO implements Serializable {
             ", picture='" + getPicture() + "'" +
             ", availableUntil='" + getAvailableUntil() + "'" +
             ", availableAmount=" + getAvailableAmount() +
+            ", multiplier=" + getMultiplier() +
             ", requiredScore=" + getRequiredScore() +
             "}";
     }

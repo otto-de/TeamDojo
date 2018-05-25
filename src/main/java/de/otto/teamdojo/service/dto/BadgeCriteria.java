@@ -27,6 +27,8 @@ public class BadgeCriteria implements Serializable {
 
     private IntegerFilter availableAmount;
 
+    private DoubleFilter multiplier;
+
     private DoubleFilter requiredScore;
 
     private LongFilter skillsId;
@@ -76,6 +78,14 @@ public class BadgeCriteria implements Serializable {
         this.availableAmount = availableAmount;
     }
 
+    public DoubleFilter getMultiplier() {
+        return multiplier;
+    }
+
+    public void setMultiplier(DoubleFilter multiplier) {
+        this.multiplier = multiplier;
+    }
+
     public DoubleFilter getRequiredScore() {
         return requiredScore;
     }
@@ -108,6 +118,7 @@ public class BadgeCriteria implements Serializable {
             (description != null ? "description=" + description + ", " : "") +
             (availableUntil != null ? "availableUntil=" + availableUntil + ", " : "") +
             (availableAmount != null ? "availableAmount=" + availableAmount + ", " : "") +
+            (multiplier != null ? "multiplier=" + multiplier + ", " : "") +
             (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
             (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
             (dimensionsId != null ? "dimensionsId=" + dimensionsId + ", " : "") +
