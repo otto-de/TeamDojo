@@ -29,24 +29,12 @@
                 word-break: break-word;
             }
             .team-image {
-                width: 5vh;
-                min-width: 46px;
-                height: 5vh;
-                min-height: 46px;
-                display: flex;
-                align-items: center;
-                border-radius: 50%;
-                img {
-                    width: 100%;
-                }
+                @include team-image();
                 &.complete {
-                    @include team-image();
-                    &.complete {
-                        border-color: $success;
-                    }
-                    &.incomplete {
-                        border-color: $danger;
-                    }
+                    border-color: $success;
+                }
+                &.incomplete {
+                    border-color: $danger;
                 }
                 .count-container {
                     .count-item {

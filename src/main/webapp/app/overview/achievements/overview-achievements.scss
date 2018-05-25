@@ -9,7 +9,7 @@
         width: 100%;
     }
     .achievement-container {
-        @include accordeon();
+        @include accordion();
         height: inherit;
         padding-right: 10px;
         /deep/ .simplebar-scroll-content {
@@ -23,27 +23,7 @@
                 margin-top: 5px;
             }
         }
-        /*  /deep/ .card-header {
-              padding: auto;
-              background-color: $dojo-bg-gradient-from;
-              min-height: 50px;
-              a {
-                  text-decoration: none;
-              }
-          }
-          /deep/ .card {
-              @include shadow();
-              margin-bottom: 25px;
-              background-color: $dojo-bg-gradient-from;
-              border: none;
-
-              /deep/ .card-body {
-                  background-color: $dojo-bg-gradient-from;
-              }
-          }*/
-
     }
-
 }
 @media only screen and (min-width: map-get($grid-breakpoints, md)){
     .overviews-achievements {
