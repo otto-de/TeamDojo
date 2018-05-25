@@ -34,26 +34,6 @@ export class BreadcrumbService {
         this.breadcrumbChanged.emit('Breadcrumb changed');
     }
 
-    setBadge(badge: IBadge) {
-        this.dimension = null;
-        this.level = null;
-        this.badge = badge;
-    }
-
-    setDimension(dimension: IDimension) {
-        this.badge = null;
-        this.dimension = this.dimension;
-    }
-
-    setLevel(level: ILevel) {
-        this.badge = null;
-        this.level = level;
-    }
-
-    setSkill(skill: ISkill) {
-        this.skill = skill;
-    }
-
     getCurrentBreadcrumb() {
         const breadcrumbs = [];
 
