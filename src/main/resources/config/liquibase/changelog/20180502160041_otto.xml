@@ -428,36 +428,42 @@
             <column name="name" value="SSL Comfort" />
             <column name="description" value="SSL/CA Probleme werden nicht ignoriert, sondern Otto CA wird systemspezifisch eingebunden" />
             <column name='required_score' valueNumeric='1.0' />
+            <column name='multiplier' valueNumeric='1.0' />
         </insert>
         <insert tableName="badge">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="name" value="AWS Ready" />
             <column name="description" value="Skills die notwendig sind um in die AWS live zu gehen. Sie beschreiben best practices die von jedem Team erwartet werden um in einer public cloud einen angemessenen Sicherheitsstandard zu erreichen" />
             <column name='required_score' valueNumeric='1.0' />
+            <column name='multiplier' valueNumeric='1.0' />
         </insert>
         <insert tableName="badge">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="name" value="The Trophy" />
             <column name="description" value="Badge für das Team, was als erstes alle Services in der AWS hat" />
             <column name='required_score' valueNumeric='1.0' />
+            <column name='multiplier' valueNumeric='1.0' />
         </insert>
         <insert tableName="badge">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="name" value="Security Badge" />
             <column name="description" value="Badge für Teams die einen aktiven security champion haben" />
             <column name='required_score' valueNumeric='1.0' />
+            <column name='multiplier' valueNumeric='1.0' />
         </insert>
         <insert tableName="badge">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="name" value="QS Badge" />
             <column name="description" value="Badge für Teams mit einem aktiven quality specialist" />
             <column name='required_score' valueNumeric='1.0' />
+            <column name='multiplier' valueNumeric='1.0' />
         </insert>
         <insert tableName="badge">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="name" value="The Shield" />
             <column name="description" value="Badge für Teams, die Ihre Schnittstellen nach außen authentifizieren" />
             <column name='required_score' valueNumeric='1.0' />
+            <column name='multiplier' valueNumeric='1.0' />
         </insert>
     </changeSet>
 </databaseChangeLog>

@@ -44,6 +44,10 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="multiplier" type="double">
+                <constraints nullable="true" />
+            </column>
+
             <column name="required_score" type="double">
                 <constraints nullable="true" />
             </column>
