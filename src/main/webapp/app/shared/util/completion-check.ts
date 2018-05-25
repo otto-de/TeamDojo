@@ -29,7 +29,7 @@ export class CompletionCheck {
             }
         }
         const requiredScore = totalScore * this.item.requiredScore;
-        return new Progress(score, requiredScore);
+        return new Progress(score, requiredScore, totalScore); // Änderung!
     }
 
     private isTeamSkillCompleted(teamSkill: ITeamSkill): boolean {
