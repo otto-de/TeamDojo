@@ -17,7 +17,7 @@ Navbar
                     font: normal normal normal 14px/1 FontAwesome;
                     content: "\F054";
                 }
-                a{
+                a {
                     color: rgba(233, 233, 233, 1.0);
                     font-weight: normal;
                 }
@@ -79,25 +79,25 @@ Navbar
             color: #fff;
         }
     }
-}
 
-@media screen and (min-width: 768px) {
-    .jh-navbar-toggler {
-        display: none;
+    @media screen and (min-width: 768px) {
+        .jh-navbar-toggler {
+            display: none;
+        }
     }
-}
 
-@media screen and (max-width: 992px) {
-    .jh-logo-container {
-        width: 100%;
+    @media screen and (max-width: 992px) {
+        .jh-logo-container {
+            width: 100%;
+        }
     }
 }
 
 .breadcrumb-item{
-    color: $dojo-text-inverse
+    color: $dojo-text-inverse-primary
 
     a {
-        color: $dojo-text-inverse !important;
+        color: $dojo-text-inverse-primary !important;
     }
 }
 
