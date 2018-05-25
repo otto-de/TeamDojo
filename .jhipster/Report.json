@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "ReportType",
+            "fieldValues": "BUG,WISH,REVIEW,COMPLIMENT",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180525122526",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "report",
+    "jpaMetamodelFiltering": true,
+    "pagination": "no"
+}
