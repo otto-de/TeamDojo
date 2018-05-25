@@ -18,7 +18,7 @@ import { SkillService } from 'app/entities/skill';
 import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
 import { DimensionService } from 'app/entities/dimension';
 import { Progress } from 'app/shared/achievement/model/progress.model';
-
+import 'simplebar';
 @Component({
     selector: 'jhi-overview-skills',
     templateUrl: './overview-skills.component.html',

@@ -48,9 +48,12 @@
         }
     }
     .teams-skills-list {
-        margin-right: 1.06em;
-        overflow-y: hidden;
-
+        /deep/ .simplebar-scroll-content {
+            padding-right: 1.4em!important;
+            .simplebar-content {
+                margin-right: -0.69em!important;
+            }
+        }
         .skill-title {
             padding: 5px 5px 5px 20px;
             word-break: break-word;
@@ -106,10 +109,6 @@
             height: calc(100vh - 250px);
             padding: 5px;
             padding-left: 0;
-            &:hover, &:focus {
-                overflow-y: auto;
-                margin-right: 0em;
-            }
         }
     }
 }
