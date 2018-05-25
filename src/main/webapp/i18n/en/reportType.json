@@ -2,10 +2,10 @@
     "teamdojoApp": {
         "ReportType" : {
             "null": "",
-            "BUG": "BUG",
-            "WISH": "WISH",
-            "REVIEW": "REVIEW",
-            "COMPLIMENT": "COMPLIMENT"
+            "BUG": "Bug",
+            "WISH": "Wish",
+            "REVIEW": "Review",
+            "COMPLIMENT": "Compliment"
         }
     }
 }
