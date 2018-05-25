@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { JhiDataUtils } from 'ng-jhipster';
 import { ActivatedRoute } from '@angular/router';
 import { ITeam } from 'app/shared/model/team.model';
@@ -7,6 +7,7 @@ import { IBadge } from 'app/shared/model/badge.model';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
 import { TeamSkillService } from 'app/entities/team-skill';
+import { ITeamSkill } from 'app/shared/model/team-skill.model';
 
 @Component({
     selector: 'jhi-teams',
@@ -17,6 +18,7 @@ export class TeamsComponent implements OnInit {
     @Output() changeTeam = new EventEmitter<any>();
 
     team: ITeam;
+    teamSkills: ITeamSkill[];
     badges: IBadge[];
 
     constructor(private dataUtils: JhiDataUtils, private route: ActivatedRoute, private teamSkillService: TeamSkillService) {}
@@ -24,6 +26,7 @@ export class TeamsComponent implements OnInit {
     ngOnInit() {
         this.route.data.subscribe(({ team, levels, badges, levelSkills, badgeSkills }) => {
             this.team = team;
+            this.teamSkills = team.skills;
             this.badges = badges.body;
 
             const groupedLevelSkills = {};
@@ -69,7 +72,7 @@ export class TeamsComponent implements OnInit {
 
     loadTeamSkills() {
         this.teamSkillService.query({ 'teamId.equals': this.team.id }).subscribe(teamSkillResponse => {
-            this.team.skills = teamSkillResponse.body;
+            this.team.skills = this.teamSkills = teamSkillResponse.body;
         });
     }
 
