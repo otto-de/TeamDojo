@@ -22,41 +22,8 @@ export class FeedbackService {
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    update(report: IReport): Observable<EntityResponseType> {
-        const copy = this.convert(report);
-        return this.http
-            .put<IReport>(this.resourceUrl, copy, { observe: 'response' })
-            .map((res: EntityResponseType) => this.convertResponse(res));
-    }
-
-    find(id: number): Observable<EntityResponseType> {
-        return this.http
-            .get<IReport>(`${this.resourceUrl}/${id}`, { observe: 'response' })
-            .map((res: EntityResponseType) => this.convertResponse(res));
-    }
-
-    query(req?: any): Observable<EntityArrayResponseType> {
-        const options = createRequestOption(req);
-        return this.http
-            .get<IReport[]>(this.resourceUrl, { params: options, observe: 'response' })
-            .map((res: EntityArrayResponseType) => this.convertArrayResponse(res));
-    }
-
-    delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-    }
-
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: IReport = this.convertItemFromServer(res.body);
-        return res.clone({ body });
-    }
-
-    private convertArrayResponse(res: EntityArrayResponseType): EntityArrayResponseType {
-        const jsonResponse: IReport[] = res.body;
-        const body: IReport[] = [];
-        for (let i = 0; i < jsonResponse.length; i++) {
-            body.push(this.convertItemFromServer(jsonResponse[i]));
-        }
         return res.clone({ body });
     }
 
