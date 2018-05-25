@@ -1,7 +1,7 @@
 package de.otto.teamdojo.service.dto;
 
+import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.FloatFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 
@@ -26,7 +26,9 @@ public class LevelCriteria implements Serializable {
 
     private StringFilter description;
 
-    private FloatFilter requiredScore;
+    private DoubleFilter multiplier;
+
+    private DoubleFilter requiredScore;
 
     private LongFilter dimensionId;
 
@@ -61,11 +63,19 @@ public class LevelCriteria implements Serializable {
         this.description = description;
     }
 
-    public FloatFilter getRequiredScore() {
+    public DoubleFilter getMultiplier() {
+        return multiplier;
+    }
+
+    public void setMultiplier(DoubleFilter multiplier) {
+        this.multiplier = multiplier;
+    }
+
+    public DoubleFilter getRequiredScore() {
         return requiredScore;
     }
 
-    public void setRequiredScore(FloatFilter requiredScore) {
+    public void setRequiredScore(DoubleFilter requiredScore) {
         this.requiredScore = requiredScore;
     }
 
@@ -99,6 +109,7 @@ public class LevelCriteria implements Serializable {
             (id != null ? "id=" + id + ", " : "") +
             (name != null ? "name=" + name + ", " : "") +
             (description != null ? "description=" + description + ", " : "") +
+            (multiplier != null ? "multiplier=" + multiplier + ", " : "") +
             (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
             (dimensionId != null ? "dimensionId=" + dimensionId + ", " : "") +
             (dependsOnId != null ? "dependsOnId=" + dependsOnId + ", " : "") +

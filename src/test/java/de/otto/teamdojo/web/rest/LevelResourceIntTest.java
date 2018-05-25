@@ -66,11 +66,15 @@ public class LevelResourceIntTest {
     private static final String DEFAULT_PICTURE_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_PICTURE_CONTENT_TYPE = "image/png";
 
-    private static final Float DEFAULT_REQUIRED_SCORE = 0F;
-    private static final Float UPDATED_REQUIRED_SCORE = 1F;
+    private static final Double DEFAULT_MULTIPLIER = 0D;
+    private static final Double UPDATED_MULTIPLIER = 1D;
+
+    private static final Double DEFAULT_REQUIRED_SCORE = 0D;
+    private static final Double UPDATED_REQUIRED_SCORE = 1D;
 
     @Autowired
     private LevelRepository levelRepository;
+
 
 
     @Autowired
@@ -132,7 +136,7 @@ public class LevelResourceIntTest {
 
     /**
      * Create an entity for this test.
-     * <p>
+     *
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -142,6 +146,7 @@ public class LevelResourceIntTest {
             .description(DEFAULT_DESCRIPTION)
             .picture(DEFAULT_PICTURE)
             .pictureContentType(DEFAULT_PICTURE_CONTENT_TYPE)
+            .multiplier(DEFAULT_MULTIPLIER)
             .requiredScore(DEFAULT_REQUIRED_SCORE);
         // Add required entity
         Dimension dimension = DimensionResourceIntTest.createEntity(em);
@@ -176,6 +181,7 @@ public class LevelResourceIntTest {
         assertThat(testLevel.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testLevel.getPicture()).isEqualTo(DEFAULT_PICTURE);
         assertThat(testLevel.getPictureContentType()).isEqualTo(DEFAULT_PICTURE_CONTENT_TYPE);
+        assertThat(testLevel.getMultiplier()).isEqualTo(DEFAULT_MULTIPLIER);
         assertThat(testLevel.getRequiredScore()).isEqualTo(DEFAULT_REQUIRED_SCORE);
     }
 
@@ -205,6 +211,25 @@ public class LevelResourceIntTest {
         int databaseSizeBeforeTest = levelRepository.findAll().size();
         // set the field null
         level.setName(null);
+
+        // Create the Level, which fails.
+        LevelDTO levelDTO = levelMapper.toDto(level);
+
+        restLevelMockMvc.perform(post("/api/levels")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(levelDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Level> levelList = levelRepository.findAll();
+        assertThat(levelList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkMultiplierIsRequired() throws Exception {
+        int databaseSizeBeforeTest = levelRepository.findAll().size();
+        // set the field null
+        level.setMultiplier(null);
 
         // Create the Level, which fails.
         LevelDTO levelDTO = levelMapper.toDto(level);
@@ -252,6 +277,7 @@ public class LevelResourceIntTest {
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
+            .andExpect(jsonPath("$.[*].multiplier").value(hasItem(DEFAULT_MULTIPLIER.doubleValue())))
             .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())));
     }
 
@@ -271,6 +297,7 @@ public class LevelResourceIntTest {
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.pictureContentType").value(DEFAULT_PICTURE_CONTENT_TYPE))
             .andExpect(jsonPath("$.picture").value(Base64Utils.encodeToString(DEFAULT_PICTURE)))
+            .andExpect(jsonPath("$.multiplier").value(DEFAULT_MULTIPLIER.doubleValue()))
             .andExpect(jsonPath("$.requiredScore").value(DEFAULT_REQUIRED_SCORE.doubleValue()));
     }
 
@@ -350,6 +377,45 @@ public class LevelResourceIntTest {
 
         // Get all the levelList where description is null
         defaultLevelShouldNotBeFound("description.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelsByMultiplierIsEqualToSomething() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where multiplier equals to DEFAULT_MULTIPLIER
+        defaultLevelShouldBeFound("multiplier.equals=" + DEFAULT_MULTIPLIER);
+
+        // Get all the levelList where multiplier equals to UPDATED_MULTIPLIER
+        defaultLevelShouldNotBeFound("multiplier.equals=" + UPDATED_MULTIPLIER);
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelsByMultiplierIsInShouldWork() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where multiplier in DEFAULT_MULTIPLIER or UPDATED_MULTIPLIER
+        defaultLevelShouldBeFound("multiplier.in=" + DEFAULT_MULTIPLIER + "," + UPDATED_MULTIPLIER);
+
+        // Get all the levelList where multiplier equals to UPDATED_MULTIPLIER
+        defaultLevelShouldNotBeFound("multiplier.in=" + UPDATED_MULTIPLIER);
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelsByMultiplierIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where multiplier is not null
+        defaultLevelShouldBeFound("multiplier.specified=true");
+
+        // Get all the levelList where multiplier is null
+        defaultLevelShouldNotBeFound("multiplier.specified=false");
     }
 
     @Test
@@ -490,6 +556,7 @@ public class LevelResourceIntTest {
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
+            .andExpect(jsonPath("$.[*].multiplier").value(hasItem(DEFAULT_MULTIPLIER.doubleValue())))
             .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())));
     }
 
@@ -530,6 +597,7 @@ public class LevelResourceIntTest {
             .description(UPDATED_DESCRIPTION)
             .picture(UPDATED_PICTURE)
             .pictureContentType(UPDATED_PICTURE_CONTENT_TYPE)
+            .multiplier(UPDATED_MULTIPLIER)
             .requiredScore(UPDATED_REQUIRED_SCORE);
         LevelDTO levelDTO = levelMapper.toDto(updatedLevel);
 
@@ -546,6 +614,7 @@ public class LevelResourceIntTest {
         assertThat(testLevel.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testLevel.getPicture()).isEqualTo(UPDATED_PICTURE);
         assertThat(testLevel.getPictureContentType()).isEqualTo(UPDATED_PICTURE_CONTENT_TYPE);
+        assertThat(testLevel.getMultiplier()).isEqualTo(UPDATED_MULTIPLIER);
         assertThat(testLevel.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
     }
 
