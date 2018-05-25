@@ -27,3 +27,24 @@
         width: 100%;
     }
 }
+
+@mixin accordeon(){
+    /deep/ .card-header {
+        padding: auto;
+        background-color: $dojo-bg-gradient-from;
+        min-height: 50px;
+        a {
+            text-decoration: none;
+        }
+    }
+    /deep/ .card {
+        @include shadow();
+        margin-bottom: 25px;
+        background-color: $dojo-bg-gradient-from;
+        border: none;
+
+        /deep/ .card-body {
+            background-color: $dojo-bg-gradient-from;
+        }
+    }
+}
