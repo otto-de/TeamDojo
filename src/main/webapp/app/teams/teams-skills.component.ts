@@ -128,7 +128,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
             queryParams['badge'] = this.badgeId;
         }
         this.router.navigate(['teams', this.team.shortName, 'skills', skill.skillId], {
-            queryParams: queryParams
+            queryParams
         });
     }
 
