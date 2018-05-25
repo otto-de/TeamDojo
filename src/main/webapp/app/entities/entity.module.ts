@@ -24,6 +24,7 @@ import { TeamdojoReportModule } from './report/report.module';
         TeamdojoBadgeSkillModule,
         TeamdojoLevelSkillModule,
         TeamdojoOrganizationModule,
+        TeamdojoReportModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],
