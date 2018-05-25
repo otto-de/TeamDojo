@@ -1,64 +1,37 @@
+@import '~bootstrap/scss/bootstrap';
+@import "../../content/scss/colors";
+@import "../../content/scss/mixins";
+
 .teams-achievements {
-    height: inherit;
-    overflow-y: auto;
-    padding-right: 10px;
-    .achievements-level-active {
-        .skill-level-image {
-            width: 10vh;
-            height: 10vh;
-        }
-        .achievement-progress svg {
-            width: 8vh;
-            height: 8vh;
-        }
-    }
-    .skill-level-image, .badge-image {
-        width: 5vh;
-        height: 5vh;
-        display: flex;
-        align-items: center;
-        border-radius: 50%;
-        border: 2px solid gold;
-        background: white !important;
-        overflow: hidden;
-        img {
-            width: 100%;
-        }
-    }
-    .achievement-progress {
-        display: inline-flex;
-        svg {
-            width: 3vh;
-            height: 3vh;
-            transform: rotate(-90deg);
-            background: #655;
-            border-radius: 50%;
-        }
-        circle {
-            fill: #655;
-            stroke: yellowgreen;
-            stroke-width: 32;
-        }
-        .fa-check {
-            color: yellowgreen;
-            font-size: 3vh;
-        }
-    }
-    .teams-achievements-dimensions, .teams-achievements-badges {
-        ul.achievements-skill-levels, ul.achievements-badges {
-            list-style: none;
-        }
-        .achievements-skill-level, .achievements-badge {
-            border: 1px solid transparent;
-            border-radius: 5vh;
-            &.active {
-                border-color: grey;
+    .achievement-container {
+        /deep/ .simplebar-scroll-content {
+            padding-right: 1.369em !important;
+            .simplebar-content {
+                margin-right: -0.69em !important;
             }
         }
-        .achievements-dimension, .achievements-skill-level, .achievements-badge {
-            .skill-level-name, .badge-name {
-                display: inline-block;
+        @include accordion();
+        height: inherit;
+        padding-right: 10px;
+        .achievement-list {
+
+        }
+        &-body {
+            .achievement-list-title {
+                margin-top: 5px;
             }
         }
+    }
+
+}
+@media only screen and (min-width: map-get($grid-breakpoints, md)){
+    .teams-achievements {
+        .achievement-container {
+            height: calc(100vh - 242px);
+            padding: 5px;
+        }
+    }
+    /deep/ .card-header, /deep/ .achievement-list-header .achievement-list-header-left .achievement-item {
+        padding: 0;
     }
 }

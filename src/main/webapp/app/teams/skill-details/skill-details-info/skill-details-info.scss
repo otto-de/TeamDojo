@@ -1,0 +1,103 @@
+@import '~bootstrap/scss/bootstrap';
+@import '../../../../content/scss/bootstrap-variables';
+@import '../../../../content/scss/colors';
+@import '../../../../content/scss/mixins';
+
+.skill-title {
+    margin-bottom: 15px;
+    color: $dojo-text-primary;
+}
+.desc-block {
+
+    margin-bottom: 35px;
+}
+
+.skill-actions {
+    * {
+        color: $dojo-text-primary;
+    }
+    margin-bottom: 5px;
+    margin-left: 2px;
+}
+
+.skill-rating {
+    color: $dojo-text-primary;
+    margin-bottom: 15px;
+    margin-left: 2px;
+    float: left;
+    .rating-text {
+        margin-left: 5px;
+    }
+}
+.skill-contact {
+    color: $dojo-text-primary;
+    float: right;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid transparent;
+    margin-right: 15px;
+    i {
+        margin-right: 3px;
+    }
+}
+
+.action-btn:hover {
+    border-color: #aaa;
+}
+
+.action-btn:active,
+.action-btn:focus {
+    outline: 0;
+}
+.action-btn:active {
+    border-color: #555;
+}
+
+.irrelevant {
+    i {
+        -moz-transform: scale(-1, 1);
+        -webkit-transform: scale(-1, 1);
+        -o-transform: scale(-1, 1);
+        -ms-transform: scale(-1, 1);
+        transform: scale(-1, 1);
+    }
+}
+
+.dojo-card {
+    background: $dojo-bg-primary;
+    padding: 20px;
+    @include shadow();
+}
+
+.needed-for {
+    margin-top: 55px;
+}
+
+.achieved-by {
+    margin-top: 15px;
+}
+
+.avatar-team {
+    @include team-image();
+    height: 8vh;
+    width: 8vh;
+    box-sizing: border-box;
+    margin: 12px;
+}
+
+.achieved-by-teams, .needed-for-levels, .needed-for-badges {
+    display: flex;
+    > * {
+        display: inline-flex;
+    }
+}
+
+.skill-list-item {
+    cursor: pointer;
+}

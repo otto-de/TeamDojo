@@ -22,7 +22,10 @@
             "slogan": "Slogan",
             "contactPerson": "Contact Person",
             "participations": "Participations",
-            "skills": "Skills"
+            "skills": "Skills",
+            "navigation" : {
+                "text" : "Team Wohnzimmer"
+            }
         }
     }
 }

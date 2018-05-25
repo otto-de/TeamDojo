@@ -1,7 +1,11 @@
 package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.config.DefaultProfileUtil;
+import de.otto.teamdojo.service.OrganizationService;
+import de.otto.teamdojo.service.dto.OrganizationDTO;
 import io.github.jhipster.config.JHipsterProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,19 +22,27 @@ import java.util.List;
 @RequestMapping("/api")
 public class ProfileInfoResource {
 
+    static final String DEFAULT_ORGANIZATION_NAME = "Organization";
+    private final Logger log = LoggerFactory.getLogger(ProfileInfoResource.class);
+
     private final Environment env;
 
     private final JHipsterProperties jHipsterProperties;
 
-    public ProfileInfoResource(Environment env, JHipsterProperties jHipsterProperties) {
+    private final OrganizationService organizationService;
+
+    public ProfileInfoResource(Environment env, JHipsterProperties jHipsterProperties, OrganizationService organizationService) {
         this.env = env;
         this.jHipsterProperties = jHipsterProperties;
+        this.organizationService = organizationService;
+
     }
 
     @GetMapping("/profile-info")
     public ProfileInfoVM getActiveProfiles() {
         String[] activeProfiles = DefaultProfileUtil.getActiveProfiles(env);
-        return new ProfileInfoVM(activeProfiles, getRibbonEnv(activeProfiles));
+        OrganizationDTO organization = getOrganization();
+        return new ProfileInfoVM(activeProfiles, getRibbonEnv(activeProfiles), organization);
     }
 
     private String getRibbonEnv(String[] activeProfiles) {
@@ -47,15 +59,36 @@ public class ProfileInfoResource {
         return null;
     }
 
+    private OrganizationDTO getOrganization() {
+        List<OrganizationDTO> organizations = organizationService.findAll();
+        if (organizations.isEmpty()) {
+            return getDefaultOrganization();
+        } else {
+            if (organizations.size() > 1) {
+                log.warn("There exists more than one organization");
+            }
+            return organizations.get(0);
+        }
+    }
+
+    private OrganizationDTO getDefaultOrganization() {
+        OrganizationDTO organization = new OrganizationDTO();
+        organization.setName(DEFAULT_ORGANIZATION_NAME);
+        return organization;
+    }
+
     class ProfileInfoVM {
 
         private String[] activeProfiles;
 
         private String ribbonEnv;
 
-        ProfileInfoVM(String[] activeProfiles, String ribbonEnv) {
+        private OrganizationDTO organization;
+
+        ProfileInfoVM(String[] activeProfiles, String ribbonEnv, OrganizationDTO organization) {
             this.activeProfiles = activeProfiles;
             this.ribbonEnv = ribbonEnv;
+            this.organization = organization;
         }
 
         public String[] getActiveProfiles() {
@@ -64,6 +97,10 @@ public class ProfileInfoResource {
 
         public String getRibbonEnv() {
             return ribbonEnv;
+        }
+
+        public OrganizationDTO getOrganization() {
+            return organization;
         }
     }
 }

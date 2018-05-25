@@ -1,9 +1,10 @@
+@import '../../../content/scss/colors';
 /* ==========================================================================
 Navbar
 ========================================================================== */
 .jh-navbar {
-    background-color: #353d47;
-    padding: .2em 1em;
+    background-color: $dojo-nav-primary;
+    padding: 0 4em 0 1em;
     .jh-logo-container {
         nav {
             display: inline-block;
@@ -12,11 +13,17 @@ Navbar
                 background-color: transparent;
                 padding: 0.75rem 0.25rem;
                 .breadcrumb-item + .breadcrumb-item::before {
+                    color: rgba(255, 255, 255, 0.8);
                     font: normal normal normal 14px/1 FontAwesome;
                     content: "\F054";
                 }
+                a {
+                    color: rgba(233, 233, 233, 1.0);
+                    font-weight: normal;
+                }
+
                 .breadcrumb-item.active, .breadcrumb-item::before {
-                    color: rgba(255, 255, 255, 0.5);
+                    color: rgba(233, 233, 233, 1.0);
                 }
             }
         }
@@ -72,37 +79,41 @@ Navbar
             color: #fff;
         }
     }
-}
 
-@media screen and (min-width: 768px) {
-    .jh-navbar-toggler {
-        display: none;
+    @media screen and (min-width: 768px) {
+        .jh-navbar-toggler {
+            display: none;
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        .jh-logo-container {
+            width: 100%;
+        }
     }
 }
 
-@media screen and (max-width: 992px) {
-    .jh-logo-container {
-        width: 100%;
+.breadcrumb-item{
+    color: $dojo-text-inverse-primary
+
+    a {
+        color: $dojo-text-inverse-primary !important;
     }
 }
 
-.navbar-title {
-    display: inline-block;
-    vertical-align: middle;
-}
 
 /* ==========================================================================
 Logo styles
 ========================================================================== */
 .navbar-brand {
+    padding:0px;
     &.logo {
-        padding: 5px 0px;
         .logo-img {
-            height: 45px;
-            width: 70px;
+            height: 58px;
+            width: 190px;
             display: inline-block;
             vertical-align: middle;
-            background: url("../../../content/images/security-belt.svg") no-repeat center center;
+            background: url("../../../content/images/team-dojo.png") no-repeat center center;
             background-size: contain;
         }
     }

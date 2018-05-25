@@ -1,0 +1,49 @@
+@mixin achievement-image() {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    img {
+        width: 80%;
+    }
+}
+
+@mixin shadow(){
+    -webkit-box-shadow: 0px 2px 4px rgba(119, 119, 119, 0.16), 0px 2px 4px rgba(119, 119, 119, 0.23);
+    box-shadow: 0px 2px 4px rgba(119, 119, 119, 0.16), 0px 2px 4px rgba(119, 119, 119, 0.23);
+}
+
+@mixin team-image() {
+    width: 6vh;
+    min-width: 46px;
+    height: 6vh;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    border: 2px solid #e5e1d8;
+    background: white !important;
+    overflow: hidden;
+    img {
+        width: 100%;
+    }
+}
+
+@mixin accordion(){
+    /deep/ .card-header {
+        background-color: $dojo-bg-gradient-from;
+        min-height: 50px;
+        a {
+            text-decoration: none;
+        }
+    }
+    /deep/ .card {
+        @include shadow();
+        margin-bottom: 25px;
+        background-color: $dojo-bg-gradient-from;
+        border: none;
+
+        /deep/ .card-body {
+            background-color: $dojo-bg-gradient-from;
+        }
+    }
+}

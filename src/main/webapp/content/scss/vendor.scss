@@ -1,5 +1,6 @@
 /* after changing this file run 'yarn run webpack:build' */
 $fa-font-path: '~font-awesome/fonts';
+$font-prefix: '~@ibm/plex';
 
 /***************************
 put Sass variables here:
@@ -10,5 +11,6 @@ eg $input-color: red;
 // Import Bootstrap source files from node_modules
 @import '~bootstrap/scss/bootstrap';
 @import '~font-awesome/scss/font-awesome';
-
+@import '~@ibm/plex/scss/ibm-plex.scss';
+@import '~simplebar/dist/simplebar.css';
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */

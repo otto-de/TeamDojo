@@ -8,6 +8,8 @@ import { ITeam } from 'app/shared/model/team.model';
 import { CompletionCheck } from 'app/shared/util/completion-check';
 import { Router } from '@angular/router';
 import { RelevanceCheck, sortLevels } from 'app/shared';
+import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
+import 'simplebar';
 
 @Component({
     selector: 'jhi-overview-achievements',
@@ -23,7 +25,7 @@ export class OverviewAchievementsComponent implements OnInit {
     activeItemIds: { [key: string]: number };
     expandedDimensions: string[];
 
-    constructor(private dimensionService: DimensionService, private router: Router) {}
+    constructor(private dimensionService: DimensionService, private router: Router, private breadcrumbService: BreadcrumbService) {}
 
     ngOnInit(): void {
         this.activeItemIds = {
