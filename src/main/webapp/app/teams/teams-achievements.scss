@@ -10,7 +10,7 @@
                 margin-right: -0.69em !important;
             }
         }
-        @include accordeon();
+        @include accordion();
         height: inherit;
         padding-right: 10px;
         .achievement-list {
@@ -30,5 +30,8 @@
             height: calc(100vh - 242px);
             padding: 5px;
         }
+    }
+    /deep/ .card-header, /deep/ .achievement-list-header-left .achievement-item {
+        padding: 0;
     }
 }
