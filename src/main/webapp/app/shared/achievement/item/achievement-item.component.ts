@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IBadge } from 'app/shared/model/badge.model';
 import { ILevel } from 'app/shared/model/level.model';
+import { sortLevels } from 'app/shared';
 
 @Component({
     selector: 'jhi-achievement-item',
@@ -14,6 +15,7 @@ export class AchievementItemComponent {
     @Input() type = '';
     @Input() hasStatus = false;
     @Input() size = '10vh';
+    @Input() sortedLevels: ILevel[] = [];
     @Output() onItemSelected = new EventEmitter<ILevel | IBadge>();
 
     selectItem(event) {
@@ -23,9 +25,10 @@ export class AchievementItemComponent {
 
     get itemStatusCssClass() {
         let itemStatus;
-        if (this.progress >= 100) {
+        let requiredScore = this.item.requiredScore * 100;
+        if (this.progress >= requiredScore) {
             itemStatus = 'complete';
-        } else if (this.progress > 0) {
+        } else if (this.progress > requiredScore) {
             itemStatus = 'incomplete';
         } else {
             itemStatus = 'disabled';
