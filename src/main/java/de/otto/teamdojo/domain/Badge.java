@@ -49,6 +49,10 @@ public class Badge implements Serializable {
     private Integer availableAmount;
 
     @DecimalMin(value = "0")
+    @Column(name = "multiplier")
+    private Double multiplier;
+
+    @DecimalMin(value = "0")
     @DecimalMax(value = "1")
     @Column(name = "required_score")
     private Double requiredScore;
@@ -151,6 +155,19 @@ public class Badge implements Serializable {
         this.availableAmount = availableAmount;
     }
 
+    public Double getMultiplier() {
+        return multiplier;
+    }
+
+    public Badge multiplier(Double multiplier) {
+        this.multiplier = multiplier;
+        return this;
+    }
+
+    public void setMultiplier(Double multiplier) {
+        this.multiplier = multiplier;
+    }
+
     public Double getRequiredScore() {
         return requiredScore;
     }
@@ -245,6 +262,7 @@ public class Badge implements Serializable {
             ", pictureContentType='" + getPictureContentType() + "'" +
             ", availableUntil='" + getAvailableUntil() + "'" +
             ", availableAmount=" + getAvailableAmount() +
+            ", multiplier=" + getMultiplier() +
             ", requiredScore=" + getRequiredScore() +
             "}";
     }

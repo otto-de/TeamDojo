@@ -51,6 +51,14 @@
             "fieldValidateRulesMin": "1"
         },
         {
+            "fieldName": "multiplier",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "min"
+            ],
+            "fieldValidateRulesMin": "0"
+        },
+        {
             "fieldName": "requiredScore",
             "fieldType": "Double",
             "fieldValidateRules": [
