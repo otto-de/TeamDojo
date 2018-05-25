@@ -21,6 +21,7 @@
             "picture": "Picture",
             "availableUntil": "Available Until",
             "availableAmount": "Available Amount",
+            "multiplier": "Multiplier",
             "requiredScore": "Required Score",
             "skills": "Skills",
             "dimensions": "Dimensions"

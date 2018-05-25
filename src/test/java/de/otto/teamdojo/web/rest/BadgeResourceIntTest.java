@@ -79,6 +79,9 @@ public class BadgeResourceIntTest {
     private static final Integer DEFAULT_AVAILABLE_AMOUNT = 1;
     private static final Integer UPDATED_AVAILABLE_AMOUNT = 2;
 
+    private static final Double DEFAULT_MULTIPLIER = 0D;
+    private static final Double UPDATED_MULTIPLIER = 1D;
+
     private static final Double DEFAULT_REQUIRED_SCORE = 0D;
     private static final Double UPDATED_REQUIRED_SCORE = 1D;
 
@@ -149,7 +152,7 @@ public class BadgeResourceIntTest {
 
     /**
      * Create an entity for this test.
-     * <p>
+     *
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -161,6 +164,7 @@ public class BadgeResourceIntTest {
             .pictureContentType(DEFAULT_PICTURE_CONTENT_TYPE)
             .availableUntil(DEFAULT_AVAILABLE_UNTIL)
             .availableAmount(DEFAULT_AVAILABLE_AMOUNT)
+            .multiplier(DEFAULT_MULTIPLIER)
             .requiredScore(DEFAULT_REQUIRED_SCORE);
         return badge;
     }
@@ -190,6 +194,7 @@ public class BadgeResourceIntTest {
         assertThat(testBadge.getPictureContentType()).isEqualTo(DEFAULT_PICTURE_CONTENT_TYPE);
         assertThat(testBadge.getAvailableUntil()).isEqualTo(DEFAULT_AVAILABLE_UNTIL);
         assertThat(testBadge.getAvailableAmount()).isEqualTo(DEFAULT_AVAILABLE_AMOUNT);
+        assertThat(testBadge.getMultiplier()).isEqualTo(DEFAULT_MULTIPLIER);
         assertThat(testBadge.getRequiredScore()).isEqualTo(DEFAULT_REQUIRED_SCORE);
     }
 
@@ -249,6 +254,7 @@ public class BadgeResourceIntTest {
             .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
             .andExpect(jsonPath("$.[*].availableUntil").value(hasItem(DEFAULT_AVAILABLE_UNTIL.toString())))
             .andExpect(jsonPath("$.[*].availableAmount").value(hasItem(DEFAULT_AVAILABLE_AMOUNT)))
+            .andExpect(jsonPath("$.[*].multiplier").value(hasItem(DEFAULT_MULTIPLIER.doubleValue())))
             .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())));
     }
 
@@ -300,6 +306,7 @@ public class BadgeResourceIntTest {
             .andExpect(jsonPath("$.picture").value(Base64Utils.encodeToString(DEFAULT_PICTURE)))
             .andExpect(jsonPath("$.availableUntil").value(DEFAULT_AVAILABLE_UNTIL.toString()))
             .andExpect(jsonPath("$.availableAmount").value(DEFAULT_AVAILABLE_AMOUNT))
+            .andExpect(jsonPath("$.multiplier").value(DEFAULT_MULTIPLIER.doubleValue()))
             .andExpect(jsonPath("$.requiredScore").value(DEFAULT_REQUIRED_SCORE.doubleValue()));
     }
 
@@ -488,6 +495,45 @@ public class BadgeResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllBadgesByMultiplierIsEqualToSomething() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where multiplier equals to DEFAULT_MULTIPLIER
+        defaultBadgeShouldBeFound("multiplier.equals=" + DEFAULT_MULTIPLIER);
+
+        // Get all the badgeList where multiplier equals to UPDATED_MULTIPLIER
+        defaultBadgeShouldNotBeFound("multiplier.equals=" + UPDATED_MULTIPLIER);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBadgesByMultiplierIsInShouldWork() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where multiplier in DEFAULT_MULTIPLIER or UPDATED_MULTIPLIER
+        defaultBadgeShouldBeFound("multiplier.in=" + DEFAULT_MULTIPLIER + "," + UPDATED_MULTIPLIER);
+
+        // Get all the badgeList where multiplier equals to UPDATED_MULTIPLIER
+        defaultBadgeShouldNotBeFound("multiplier.in=" + UPDATED_MULTIPLIER);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBadgesByMultiplierIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where multiplier is not null
+        defaultBadgeShouldBeFound("multiplier.specified=true");
+
+        // Get all the badgeList where multiplier is null
+        defaultBadgeShouldNotBeFound("multiplier.specified=false");
+    }
+
+    @Test
+    @Transactional
     public void getAllBadgesByRequiredScoreIsEqualToSomething() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -591,6 +637,7 @@ public class BadgeResourceIntTest {
             .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
             .andExpect(jsonPath("$.[*].availableUntil").value(hasItem(DEFAULT_AVAILABLE_UNTIL.toString())))
             .andExpect(jsonPath("$.[*].availableAmount").value(hasItem(DEFAULT_AVAILABLE_AMOUNT)))
+            .andExpect(jsonPath("$.[*].multiplier").value(hasItem(DEFAULT_MULTIPLIER.doubleValue())))
             .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())));
     }
 
@@ -633,6 +680,7 @@ public class BadgeResourceIntTest {
             .pictureContentType(UPDATED_PICTURE_CONTENT_TYPE)
             .availableUntil(UPDATED_AVAILABLE_UNTIL)
             .availableAmount(UPDATED_AVAILABLE_AMOUNT)
+            .multiplier(UPDATED_MULTIPLIER)
             .requiredScore(UPDATED_REQUIRED_SCORE);
         BadgeDTO badgeDTO = badgeMapper.toDto(updatedBadge);
 
@@ -651,6 +699,7 @@ public class BadgeResourceIntTest {
         assertThat(testBadge.getPictureContentType()).isEqualTo(UPDATED_PICTURE_CONTENT_TYPE);
         assertThat(testBadge.getAvailableUntil()).isEqualTo(UPDATED_AVAILABLE_UNTIL);
         assertThat(testBadge.getAvailableAmount()).isEqualTo(UPDATED_AVAILABLE_AMOUNT);
+        assertThat(testBadge.getMultiplier()).isEqualTo(UPDATED_MULTIPLIER);
         assertThat(testBadge.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
     }
 
