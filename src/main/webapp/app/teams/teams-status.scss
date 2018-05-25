@@ -46,19 +46,19 @@
             color: $dojo-text-inverse-secondary;
             .team-title, .team-slogan {
                 margin-top: 6vh;
-                font-size: 2.3vh;
+                font-size: calc(16px + 0.3vw);
                 z-index: 4;
             }
             .team-score {
-                font-size: 1.8vh;
+                font-size: calc(12px + 0.2vw);
                 z-index: 4;
                 &::before {
                     content: '';
-                    width: 1.8vh;
-                    height: 2.5vh;
+                    width: calc(12px + 0.3vw);
+                    height: calc(18px + 0.3vw);
                     position: absolute;
                     background: no-repeat center/contain url('../../content/images/coin.png');
-                    margin-left: -2vh;
+                    margin-left: calc(-16px - 0.2vw);
                     z-index: 4;
                 }
             }
