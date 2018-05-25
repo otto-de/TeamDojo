@@ -1,9 +1,10 @@
-<div class="overviews-achievements">
+<div class="overviews-achievements" >
     <div>
         <h4>{{'teamdojoApp.overview.achievements.title' | translate}}</h4>
     </div>
     <div class="additional-functions d-none d-xl-block">
     </div>
+    <div class="achievement-container" data-simplebar="init">
     <ngb-accordion activeIds="achievements-general-badges">
         <ngb-panel id="achievements-general-badges achievement-list-header">
             <ng-template ngbPanelTitle>
@@ -72,4 +73,5 @@
             </ng-template>
         </ngb-panel>
     </ngb-accordion>
+    </div>
 </div>

@@ -3,16 +3,32 @@
 @import "../../content/scss/mixins";
 
 .teams-achievements {
-    @include accordeon();
-    height: inherit;
-    overflow-y: auto;
-    padding-right: 10px;
-    .achievement-list {
+    .achievement-container {
+        /deep/ .simplebar-scroll-content {
+            padding-right: 1.369em !important;
+            .simplebar-content {
+                margin-right: -0.69em !important;
+            }
+        }
+        @include accordeon();
+        height: inherit;
+        padding-right: 10px;
+        .achievement-list {
 
+        }
+        &-body {
+            .achievement-list-title {
+                margin-top: 5px;
+            }
+        }
     }
-    &-body {
-        .achievement-list-title {
-            margin-top: 5px;
+
+}
+@media only screen and (min-width: map-get($grid-breakpoints, md)){
+    .teams-achievements {
+        .achievement-container {
+            height: calc(100vh - 242px);
+            padding: 5px;
         }
     }
 }

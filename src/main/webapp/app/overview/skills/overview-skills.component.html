@@ -8,7 +8,7 @@
                    id="skills_search-term" class="skill-search-input" disabled/>
         </form>
     </div>
-    <div class="teams-skills-list list-group">
+    <div class="teams-skills-list list-group"  data-simplebar="init">
         <li class="list-group-item list-group-item-action flex-column align-items-start mb-2 skill-container"
             [ngClass]="{'active-skill':isActiveSkill(skill)}"
             *ngFor="let skill of activeSkills">

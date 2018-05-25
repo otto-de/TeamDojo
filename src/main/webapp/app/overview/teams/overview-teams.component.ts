@@ -6,6 +6,7 @@ import { CompletionCheck } from 'app/shared/util/completion-check';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { RelevanceCheck } from 'app/shared';
 import { IDimension } from 'app/shared/model/dimension.model';
+import 'simplebar';
 
 @Component({
     selector: 'jhi-overview-teams',

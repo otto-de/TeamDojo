@@ -9,7 +9,7 @@ import { AchievementProgress } from 'app/shared/achievement/model/achievement-pr
 import { RelevanceCheck } from 'app/shared';
 import { CompletionCheck } from 'app/shared/util/completion-check';
 import { IProgress, Progress } from 'app/shared/achievement/model/progress.model';
-
+import 'simplebar';
 @Component({
     selector: 'jhi-teams-achievements',
     templateUrl: './teams-achievements.component.html',

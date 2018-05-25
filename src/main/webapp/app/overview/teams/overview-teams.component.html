@@ -1,4 +1,4 @@
-<div class="overviews-teams">
+<div class="overviews-teams" >
     <div>
         <h4 jhiTranslate="teamdojoApp.overview.teams.title">Teams</h4>
     </div>
@@ -12,7 +12,7 @@
             </div>
         </form>
     </div>
-    <div class="team-list list-group">
+    <div class="team-list list-group" data-simplebar="init">
         <div class="team-item list-group-item list-group-item-action flex-column align-items-start"
              *ngFor='let team of teams'
              [ngClass]="{irrelevant: showAsIrrelevant(team)}">
