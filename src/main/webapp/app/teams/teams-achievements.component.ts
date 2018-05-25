@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { IBadge } from 'app/shared/model/badge.model';
 import { ITeam } from 'app/shared/model/team.model';
 import { ILevel } from 'app/shared/model/level.model';
@@ -9,14 +9,16 @@ import { AchievementProgress } from 'app/shared/achievement/model/achievement-pr
 import { RelevanceCheck } from 'app/shared';
 import { CompletionCheck } from 'app/shared/util/completion-check';
 import { IProgress, Progress } from 'app/shared/achievement/model/progress.model';
+import { ITeamSkill } from 'app/shared/model/team-skill.model';
 
 @Component({
     selector: 'jhi-teams-achievements',
     templateUrl: './teams-achievements.component.html',
     styleUrls: ['./teams-achievements.scss']
 })
-export class TeamsAchievementsComponent implements OnInit {
+export class TeamsAchievementsComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
+    @Input() teamSkills: ITeamSkill[];
     @Input() badges: IBadge[];
     generalBadges: IBadge[];
     activeItemIds: { badge: number; level: number; dimension: number };
@@ -27,6 +29,7 @@ export class TeamsAchievementsComponent implements OnInit {
     ngOnInit() {
         this.generalBadges = this.badges.filter((badge: IBadge) => !badge.dimensions || !badge.dimensions.length);
         this.expandedDimensions = [];
+        this.team.skills = this.teamSkills;
 
         this.route.queryParamMap.subscribe((params: ParamMap) => {
             const dimensionId = this.getParamAsNumber('dimension', params);
@@ -73,6 +76,10 @@ export class TeamsAchievementsComponent implements OnInit {
                 }
             }
         });
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.team.skills = this.teamSkills;
     }
 
     selectItem(itemType: string, itemId: number) {
