@@ -75,8 +75,12 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.badge.multiplier" for="field_multiplier">Multiplier</label>
                     <input type="number" class="form-control" name="multiplier" id="field_multiplier"
-                        [(ngModel)]="badge.multiplier" min="0"/>
+                        [(ngModel)]="badge.multiplier" required min="0"/>
                     <div [hidden]="!(editForm.controls.multiplier?.dirty && editForm.controls.multiplier?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.multiplier?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
                         <small class="form-text text-danger"
                             [hidden]="!editForm.controls.multiplier?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
                             This field should be at least 0.
@@ -90,8 +94,12 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.badge.requiredScore" for="field_requiredScore">Required Score</label>
                     <input type="number" class="form-control" name="requiredScore" id="field_requiredScore"
-                        [(ngModel)]="badge.requiredScore" min="0" max="1"/>
+                        [(ngModel)]="badge.requiredScore" required min="0" max="1"/>
                     <div [hidden]="!(editForm.controls.requiredScore?.dirty && editForm.controls.requiredScore?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.requiredScore?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
                         <small class="form-text text-danger"
                             [hidden]="!editForm.controls.requiredScore?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
                             This field should be at least 0.
