@@ -28,10 +28,11 @@
     "ngx-webstorage": "2.0.1",
     "reflect-metadata": "0.1.12",
     "rxjs": "5.5.6",
-    "swagger-ui": "2.2.10",
+    "simplebar": "^2.6.1",
     "sockjs-client": "1.1.4",
-    "webstomp-client": "1.2.0",
+    "swagger-ui": "2.2.10",
     "tslib": "1.9.0",
+    "webstomp-client": "1.2.0",
     "zone.js": "0.8.20"
   },
   "devDependencies": {
@@ -69,23 +70,23 @@
     "karma-webpack": "2.0.13",
     "lint-staged": "7.0.0",
     "merge-jsons-webpack-plugin": "1.0.14",
+    "node-sass": "4.7.2",
+    "postcss-loader": "2.1.1",
     "prettier": "1.11.1",
-    "puppeteer": "1.1.1",
     "proxy-middleware": "0.15.0",
+    "puppeteer": "1.1.1",
     "rimraf": "2.6.1",
+    "sass-loader": "6.0.7",
     "sourcemap-istanbul-instrumenter-loader": "0.2.0",
     "style-loader": "0.20.3",
     "tapable": "1.0.0",
+    "thread-loader": "1.1.5",
     "to-string-loader": "1.1.5",
     "ts-loader": "4.0.1",
     "tslint": "5.9.1",
     "tslint-config-prettier": "1.9.0",
     "tslint-loader": "3.6.0",
     "typescript": "2.7.2",
-    "thread-loader": "1.1.5",
-    "sass-loader": "6.0.7",
-    "node-sass": "4.7.2",
-    "postcss-loader": "2.1.1",
     "uglifyjs-webpack-plugin": "1.2.3",
     "webpack": "4.1.1",
     "webpack-cli": "2.0.11",
@@ -100,11 +101,14 @@
     "node": ">=8.9.0"
   },
   "lint-staged": {
-    "*.ts": ["prettier --write", "git add"]
+    "*.ts": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "scripts": {
     "precommit": "lint-staged",
-    "prettier:format":"yarn prettier --write **/*.ts",
+    "prettier:format": "yarn prettier --write **/*.ts",
     "lint": "tslint --project tsconfig.json -e 'node_modules/**'",
     "lint:fix": "yarn run lint -- --fix",
     "ngc": "ngc -p tsconfig-aot.json",

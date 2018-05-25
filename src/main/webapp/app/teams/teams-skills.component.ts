@@ -21,7 +21,7 @@ import { BadgeService } from 'app/entities/badge';
 import { IBadge } from 'app/shared/model/badge.model';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { DimensionService } from 'app/entities/dimension';
-
+import 'simplebar';
 @Component({
     selector: 'jhi-teams-skills',
     templateUrl: './teams-skills.component.html',

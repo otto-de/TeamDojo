@@ -9,6 +9,7 @@ import { CompletionCheck } from 'app/shared/util/completion-check';
 import { Router } from '@angular/router';
 import { RelevanceCheck, sortLevels } from 'app/shared';
 import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
+import 'simplebar';
 
 @Component({
     selector: 'jhi-overview-achievements',

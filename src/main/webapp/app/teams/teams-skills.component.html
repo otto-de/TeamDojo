@@ -17,7 +17,7 @@
         <div infinite-scroll (scrolled)="loadPage(page + 1)"
              [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="1"
              [infiniteScrollContainer]="'.teams-skills-list'">
-            <div class="teams-skills-list list-group">
+            <div class="teams-skills-list list-group" data-simplebar="init">
                 <li class="list-group-item list-group-item-action flex-column align-items-start mb-3 skill-list-item"
                     *ngFor='let skill of skills' (click)="handleSkillClicked(skill)"
                     [ngClass]="{'active-skill':isActiveSkill(skill), 'irrelevant-skill': skill.irrelevant, 'in-skill-details': isInSkillDetails()}">
