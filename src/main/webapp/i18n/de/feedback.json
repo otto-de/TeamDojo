@@ -1,0 +1,14 @@
+
+{
+    "teamdojoApp": {
+        "feedback" : {
+            "home": {
+                "title": "Feedback",
+                "createLabel": "Feedback geben"
+            },
+            "title": "Titel",
+            "description": "Beschreibung",
+            "type": "Typ"
+        }
+    }
+}
