@@ -1,6 +1,7 @@
 @import '../../content/scss/colors';
 .teams-status {
     height: inherit;
+    position: relative;
     overflow-y: auto;
     padding-right: 10px;
     .teams-status-avatar {
