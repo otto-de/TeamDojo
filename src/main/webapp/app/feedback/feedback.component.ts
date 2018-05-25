@@ -25,7 +25,7 @@ export class FeedbackComponent implements OnInit {
         window.history.back();
     }
 
-    save() {
+    submit() {
         this.isSubmitting = true;
         this.subscribeToSubmitResponse(this.feedbackService.create(this.report));
     }

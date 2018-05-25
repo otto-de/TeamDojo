@@ -8,7 +8,10 @@
             },
             "title": "Title",
             "description": "Description",
-            "type": "Type"
+            "type": "Type",
+            "action": {
+                "submit": "Submit"
+            }
         }
     }
 }
