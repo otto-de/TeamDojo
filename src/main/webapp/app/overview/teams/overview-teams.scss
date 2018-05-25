@@ -1,86 +1,127 @@
 @import '~bootstrap/scss/bootstrap';
 @import '../../../content/scss/mixins';
 @import '../../../content/scss/_colors';
+
 .overviews-teams {
-
-    counter-reset: team-counter;
-
-    .counter::before{
-        counter-increment: team-counter;
-        content: counter(team-counter);
-        padding-right: 10px;
-        color: $dojo-text-primary;
+    height: inherit;
+    overflow-y: auto;
+    .additional-functions {
+        height: 75px;
+        width: 100%;
     }
-
-    img {
-        width: 50%;
-        height: auto;
-    }
-
-
-    .list-group-item {
-        background: rgba(250, 245, 235, 0.5);
-
-        margin: 0px !important;
-        padding-top: 0px;
-        padding-bottom: 0px;
-
-        border: none;
-        .justify-content-between {
-            outline: none;
-        }
-
-        a{
-            color: $dojo-text-primary;
-            font-weight: normal;
-        }
-    }
-
     .team-list {
-        overflow-y: hidden;
-        margin-right: 1.06em;
+
+        counter-reset: team-counter;
+
+        .counter::before{
+            counter-increment: team-counter;
+            content: counter(team-counter);
+            padding-right: 10px;
+            color: $dojo-text-primary;
+        }
+
+        border-style: none;
         .team-item {
+            border-style: none;
+            background: rgba($dojo-bg-gradient-from, 0.5);
+            margin: 0px !important;
+            padding-top: 0px;
+            padding-bottom: 0px;
             &.irrelevant {
+                background-color: $gray-400;
                 opacity: 0.5;
             }
-            .team-image {
-                @include team-image();
-                &.complete{
-                    border-color: $success;
-                }
-                &.incomplete {
-                    border-color: $danger;
-                }
-            }
             .team-name {
-                color: $dojo-text-primary;
+                color: $gray-800 !important;
                 word-break: break-word;
             }
-            .count-container {
-                .count-item {
-                    display: block;
-                    margin-left: 5px;
-                    .count-item-header {
-
+            .team-image {
+                width: 5vh;
+                min-width: 46px;
+                height: 5vh;
+                min-height: 46px;
+                display: flex;
+                align-items: center;
+                border-radius: 50%;
+                img {
+                    width: 100%;
+                }
+                &.complete {
+                    @include team-image();
+                    &.complete {
+                        border-color: $success;
                     }
-                    .count-item-value {
-                        float: right;
-                        font-size: 1.5em;
+                    &.incomplete {
+                        border-color: $danger;
+                    }
+                }
+                .count-container {
+                    .count-item {
+                        display: block;
+                        margin-left: 5px;
+                        .count-item-header {
+
+                        }
+                        .count-item-value {
+                            float: right;
+                            font-size: 1.5em;
+                        }
                     }
                 }
             }
         }
     }
-}
 
-@media only screen and (min-width: map-get($grid-breakpoints, md)){
-    .overviews-teams {
-        .team-list {
-            height: calc(100vh - 242px);
-            padding: 5px;
-            &:hover, &:focus {
+    #teams_start-compare {
+        background-color: #f1d7ae;
+        float: right;
+        margin: 5px;
+        padding: 5px;
+        border: $gray-400;
+        color: white;
+    }
+
+    #teams_select-teams {
+        background-color: $dojo-nav-primary;
+        float: right;
+        margin: 5px;
+        padding: 5px;
+        border: $gray-400;
+        color: white;
+    }
+
+    input#teams_search-term {
+        background-color: #e8ddb7;
+        width: 270px;
+        margin: 5px;
+    }
+
+    ::-webkit-input-placeholder {
+        font-style: italic;
+    }
+
+    :-moz-placeholder {
+        font-style: italic;
+    }
+
+    ::-moz-placeholder {
+        font-style: italic;
+    }
+
+    :-ms-input-placeholder {
+        font-style: italic;
+    }
+
+    @media only screen and (min-width: map-get($grid-breakpoints, md)) {
+        .overviews-teams {
+            .team-list {
+                height: calc(100vh - 242px);
                 overflow-y: auto;
-                margin-right: 0em;
+                padding: 5px;
+                &:hover, &:focus {
+                    overflow-y: auto;
+                    margin-right: 0em;
+                }
             }
         }
     }

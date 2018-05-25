@@ -9,7 +9,7 @@
                        jhiTranslate="teamdojoApp.teams.skills.search.filter.label">
                 </label>
             </div>
-            <input type="text" class="skill-search-input form-control" id="skills_searchTerm" disabled
+            <input type="text" class="skill-search-input form-control" id="skills_search-term" disabled
                    [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate">
         </div>
     </div>
@@ -18,7 +18,6 @@
              [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="1"
              [infiniteScrollContainer]="'.teams-skills-list'">
             <div class="teams-skills-list list-group">
-
                 <li class="list-group-item list-group-item-action flex-column align-items-start mb-3 skill-list-item"
                     *ngFor='let skill of skills' (click)="handleSkillClicked(skill)"
                     [ngClass]="{'active-skill':isActiveSkill(skill), 'irrelevant-skill': skill.irrelevant, 'in-skill-details': isInSkillDetails()}">
@@ -32,13 +31,15 @@
                                    [queryParams]="{level: getLevelId(), badge: getBadgeId(), filter: filters}"
                                    class="mb-1">{{skill.title}}</a>
                             </div>
-                            <div class="skill-status ml-auto" [ngClass]="{'completed': !skill.irrelevant && skill.achievedAt}">
+                            <div class="skill-status ml-auto mb-auto"
+                                 [ngClass]="{'completed': !skill.irrelevant && skill.achievedAt}">
                                 <i *ngIf="skill.irrelevant" class="fa fa-thumbs-o-down"></i>
                                 <i *ngIf="!skill.irrelevant && skill.achievedAt" class="fa fa-check fa-inverse"></i>
                                 <i *ngIf="!skill.irrelevant &&!skill.achievedAt" class="fa fa-circle-o"></i>
                             </div>
                         </div>
-                        <div *ngIf="isSameTeamSelected()" class="skill-action-bar d-flex flex-wrap justify-content-between">
+                        <div *ngIf="isSameTeamSelected()"
+                             class="skill-action-bar d-flex flex-wrap justify-content-between">
                             <a *ngIf="!skill.irrelevant" class="skill-action-bar-item"
                                (click)="setIrrelevant(skill)"><i class="fa fa-thumbs-o-down"></i>
                                 <small jhiTranslate="teamdojoApp.teams.skills.action.irrelevant"></small>

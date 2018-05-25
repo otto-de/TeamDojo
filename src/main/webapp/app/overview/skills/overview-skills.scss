@@ -1,24 +1,32 @@
+@import '../../../content/scss/_colors.scss';
 @import '~bootstrap/scss/bootstrap';
 @import '../../../content/scss/bootstrap-variables';
-@import '../../../content/scss/colors';
 @import "../../../content/scss/mixins";
 
-.overviews-skills{
+.overviews-skills {
     height: inherit;
-    overflow-y: hidden;
+    overflow-y: auto;
     overflow-x: hidden;
     padding-right: 10px;
-    margin-right: 1.06em;
 }
-.noWrap {
+
+.skill-container {
+    background-color: $dojo-bg-gradient-from;
+}
+
+.count-teams {
     white-space: nowrap;
+}
+
+.skill-title {
+    width: 70%;
 }
 
 .list-group-item {
     background: $dojo-bg-primary;
     @include shadow();
     .justify-content-between {
-       outline: none;
+        outline: none;
     }
 }
 
@@ -27,7 +35,33 @@
     background: #f0f0f0;
 }
 
-@media only screen and (min-width: map-get($grid-breakpoints, md)){
+#skills_search-term {
+    background-color: #e8ddb7;
+    width: 270px;
+}
+
+.additional-functions {
+    height: 75px;
+    width: 100%;
+}
+
+::-webkit-input-placeholder {
+    font-style: italic;
+}
+
+:-moz-placeholder {
+    font-style: italic;
+}
+
+::-moz-placeholder {
+    font-style: italic;
+}
+
+:-ms-input-placeholder {
+    font-style: italic;
+}
+
+@media only screen and (min-width: map-get($grid-breakpoints, md)) {
     .overviews-skills {
         height: calc(100vh - 242px);
         padding: 5px;

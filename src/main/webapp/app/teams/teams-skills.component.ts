@@ -95,7 +95,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
             this.reset();
             this.loadAll();
         });
-        this.loadAll();
     }
 
     private getParamAsNumber(name: string, params: ParamMap) {
