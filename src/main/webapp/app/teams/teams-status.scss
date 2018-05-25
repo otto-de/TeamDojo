@@ -34,10 +34,12 @@
             z-index: 3;
         }
         .status-meta {
-            width: 44vh;
+            width: 50vh;
             height: 15vh;
+            margin-top: -4vh;
             color: $dojo-text-inverse-secondary;
             .team-title, .team-slogan {
+                margin-top: 6vh;
                 font-size: 2.3vh;
                 z-index: 4;
             }
@@ -61,7 +63,6 @@
                 position: absolute;
                 background: no-repeat center/cover url('../../content/images/brushstroke.png');
                 z-index: 2;
-                margin: -6vh 0 0 4vh;
             }
         }
     }
