@@ -46,9 +46,14 @@ public class Level implements Serializable {
 
     @NotNull
     @DecimalMin(value = "0")
+    @Column(name = "multiplier", nullable = false)
+    private Double multiplier;
+
+    @NotNull
+    @DecimalMin(value = "0")
     @DecimalMax(value = "1")
     @Column(name = "required_score", nullable = false)
-    private Float requiredScore;
+    private Double requiredScore;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -124,16 +129,29 @@ public class Level implements Serializable {
         this.pictureContentType = pictureContentType;
     }
 
-    public Float getRequiredScore() {
+    public Double getMultiplier() {
+        return multiplier;
+    }
+
+    public Level multiplier(Double multiplier) {
+        this.multiplier = multiplier;
+        return this;
+    }
+
+    public void setMultiplier(Double multiplier) {
+        this.multiplier = multiplier;
+    }
+
+    public Double getRequiredScore() {
         return requiredScore;
     }
 
-    public Level requiredScore(Float requiredScore) {
+    public Level requiredScore(Double requiredScore) {
         this.requiredScore = requiredScore;
         return this;
     }
 
-    public void setRequiredScore(Float requiredScore) {
+    public void setRequiredScore(Double requiredScore) {
         this.requiredScore = requiredScore;
     }
 
@@ -217,6 +235,7 @@ public class Level implements Serializable {
             ", description='" + getDescription() + "'" +
             ", picture='" + getPicture() + "'" +
             ", pictureContentType='" + getPictureContentType() + "'" +
+            ", multiplier=" + getMultiplier() +
             ", requiredScore=" + getRequiredScore() +
             "}";
     }

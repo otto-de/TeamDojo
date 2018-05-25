@@ -19,6 +19,7 @@
             "name": "Name",
             "description": "Description",
             "picture": "Picture",
+            "multiplier": "Multiplier",
             "requiredScore": "Required Score",
             "dimension": "Dimension",
             "dependsOn": "Depends On",
