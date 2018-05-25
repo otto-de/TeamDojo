@@ -15,4 +15,4 @@ const ENTITY_STATES = [...feedbackRoute];
     providers: [FeedbackService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class TeamdojoFeedbackModule {}
+export class FeedbackModule {}

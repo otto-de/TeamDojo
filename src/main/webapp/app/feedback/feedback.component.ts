@@ -12,15 +12,13 @@ import { FeedbackService } from './feedback.service';
 })
 export class FeedbackComponent implements OnInit {
     private _report: IReport;
-    isSaving: boolean;
+    isSubmitting: boolean;
 
-    constructor(private feedbackService: FeedbackService, private route: ActivatedRoute) {}
+    constructor(private feedbackService: FeedbackService) {}
 
     ngOnInit() {
-        this.isSaving = false;
-        this.route.data.subscribe(({ report }) => {
-            this.report = report.body ? report.body : report;
-        });
+        this.isSubmitting = false;
+        this._report = {};
     }
 
     previousState() {
@@ -28,25 +26,21 @@ export class FeedbackComponent implements OnInit {
     }
 
     save() {
-        this.isSaving = true;
-        if (this.report.id !== undefined) {
-            this.subscribeToSaveResponse(this.feedbackService.update(this.report));
-        } else {
-            this.subscribeToSaveResponse(this.feedbackService.create(this.report));
-        }
+        this.isSubmitting = true;
+        this.subscribeToSubmitResponse(this.feedbackService.create(this.report));
     }
 
-    private subscribeToSaveResponse(result: Observable<HttpResponse<IReport>>) {
-        result.subscribe((res: HttpResponse<IReport>) => this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
+    private subscribeToSubmitResponse(result: Observable<HttpResponse<IReport>>) {
+        result.subscribe((res: HttpResponse<IReport>) => this.onSubmitSuccess(res.body), (res: HttpErrorResponse) => this.onSubmitError());
     }
 
-    private onSaveSuccess(result: IReport) {
-        this.isSaving = false;
+    private onSubmitSuccess(result: IReport) {
+        this.isSubmitting = false;
         this.previousState();
     }
 
-    private onSaveError() {
-        this.isSaving = false;
+    private onSubmitError() {
+        this.isSubmitting = false;
     }
     get report() {
         return this._report;
