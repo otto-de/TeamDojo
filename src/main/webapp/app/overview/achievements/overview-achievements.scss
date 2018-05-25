@@ -9,7 +9,7 @@
         width: 100%;
     }
     .achievement-container {
-        @include accordeon();
+        @include accordion();
         height: inherit;
         padding-right: 10px;
         /deep/ .simplebar-scroll-content {

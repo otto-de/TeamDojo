@@ -28,7 +28,7 @@
     }
 }
 
-@mixin accordeon(){
+@mixin accordion(){
     /deep/ .card-header {
         padding: 0;
         background-color: $dojo-bg-gradient-from;
