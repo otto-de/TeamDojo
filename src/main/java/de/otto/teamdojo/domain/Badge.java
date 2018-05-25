@@ -55,6 +55,10 @@ public class Badge implements Serializable {
 
     @NotNull
     @DecimalMin(value = "0")
+    @Column(name = "multiplier")
+    private Double multiplier;
+
+    @DecimalMin(value = "0")
     @DecimalMax(value = "1")
     @Column(name = "required_score", nullable = false)
     private Double requiredScore;
