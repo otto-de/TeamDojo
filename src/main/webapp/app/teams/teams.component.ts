@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { JhiDataUtils } from 'ng-jhipster';
 import { ActivatedRoute } from '@angular/router';
 import { ITeam } from 'app/shared/model/team.model';
@@ -72,7 +72,7 @@ export class TeamsComponent implements OnInit {
 
     loadTeamSkills() {
         this.teamSkillService.query({ 'teamId.equals': this.team.id }).subscribe(teamSkillResponse => {
-            this.teamSkills = teamSkillResponse.body;
+            this.team.skills = this.teamSkills = teamSkillResponse.body;
         });
     }
 

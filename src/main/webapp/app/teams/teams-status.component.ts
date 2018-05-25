@@ -22,6 +22,7 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     constructor(private router: Router) {}
 
     ngOnInit(): void {
+        this.team.skills = this.teamSkills;
         this.calculateStatus();
     }
 
