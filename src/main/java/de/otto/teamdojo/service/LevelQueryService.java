@@ -42,7 +42,6 @@ public class LevelQueryService extends QueryService<Level> {
 
     /**
      * Return a {@link List} of {@link LevelDTO} which matches the criteria from the database
-     *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching entities.
      */
@@ -55,9 +54,8 @@ public class LevelQueryService extends QueryService<Level> {
 
     /**
      * Return a {@link Page} of {@link LevelDTO} which matches the criteria from the database
-     *
      * @param criteria The object which holds all the filters, which the entities should match.
-     * @param page     The page, which should be returned.
+     * @param page The page, which should be returned.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
@@ -82,6 +80,9 @@ public class LevelQueryService extends QueryService<Level> {
             }
             if (criteria.getDescription() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescription(), Level_.description));
+            }
+            if (criteria.getMultiplier() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getMultiplier(), Level_.multiplier));
             }
             if (criteria.getRequiredScore() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getRequiredScore(), Level_.requiredScore));

@@ -27,8 +27,12 @@ public class LevelDTO implements Serializable {
 
     @NotNull
     @DecimalMin(value = "0")
+    private Double multiplier;
+
+    @NotNull
+    @DecimalMin(value = "0")
     @DecimalMax(value = "1")
-    private Float requiredScore;
+    private Double requiredScore;
 
     private Long dimensionId;
 
@@ -78,11 +82,19 @@ public class LevelDTO implements Serializable {
         this.pictureContentType = pictureContentType;
     }
 
-    public Float getRequiredScore() {
+    public Double getMultiplier() {
+        return multiplier;
+    }
+
+    public void setMultiplier(Double multiplier) {
+        this.multiplier = multiplier;
+    }
+
+    public Double getRequiredScore() {
         return requiredScore;
     }
 
-    public void setRequiredScore(Float requiredScore) {
+    public void setRequiredScore(Double requiredScore) {
         this.requiredScore = requiredScore;
     }
 
@@ -146,6 +158,7 @@ public class LevelDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", picture='" + getPicture() + "'" +
+            ", multiplier=" + getMultiplier() +
             ", requiredScore=" + getRequiredScore() +
             ", dimension=" + getDimensionId() +
             ", dimension='" + getDimensionName() + "'" +
