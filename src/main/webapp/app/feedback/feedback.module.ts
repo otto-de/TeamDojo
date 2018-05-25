@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { TeamdojoSharedModule } from 'app/shared/index';
 import { FeedbackService } from './feedback.service';
 import { FeedbackComponent } from './feedback.component';
-import { feedbackRoute } from './feedback.route';
+import { FeedbackResolve, feedbackRoute} from './feedback.route';
 
 const ENTITY_STATES = [...feedbackRoute];
 
@@ -12,7 +12,7 @@ const ENTITY_STATES = [...feedbackRoute];
     imports: [TeamdojoSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [FeedbackComponent],
     entryComponents: [FeedbackComponent],
-    providers: [FeedbackService],
+    providers: [FeedbackService, FeedbackResolve],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class FeedbackModule {}

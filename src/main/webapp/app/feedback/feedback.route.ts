@@ -1,10 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 
-import { UserRouteAccessService } from 'app/core/index';
 import { Report } from 'app/shared/model/report.model';
 import { FeedbackService } from './feedback.service';
 import { FeedbackComponent } from './feedback.component';
+
+@Injectable()
+export class FeedbackResolve implements Resolve<any> {
+    constructor(private service: FeedbackService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return new Report();
+    }
+}
 
 export const feedbackRoute: Routes = [
     {
@@ -14,6 +22,8 @@ export const feedbackRoute: Routes = [
             authorities: [],
             pageTitle: 'teamdojoApp.feedback.home.title'
         },
-        canActivate: [UserRouteAccessService]
+        resolve: {
+            report: FeedbackResolve
+        }
     }
 ];

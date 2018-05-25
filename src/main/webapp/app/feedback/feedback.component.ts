@@ -14,11 +14,13 @@ export class FeedbackComponent implements OnInit {
     private _report: IReport;
     isSubmitting: boolean;
 
-    constructor(private feedbackService: FeedbackService) {}
+    constructor(private feedbackService: FeedbackService, private route: ActivatedRoute) {}
 
     ngOnInit() {
         this.isSubmitting = false;
-        this._report = {};
+        this.route.data.subscribe(({ report }) => {
+            this.report = report.body ? report.body : report;
+        });
     }
 
     previousState() {
