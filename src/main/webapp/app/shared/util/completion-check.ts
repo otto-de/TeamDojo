@@ -6,6 +6,11 @@ import { ITeam } from 'app/shared/model/team.model';
 import { IProgress, Progress } from 'app/shared/achievement/model/progress.model';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 
+export interface ScoreStruct {
+    score: number;
+    totalScore: number;
+}
+
 export class CompletionCheck {
     constructor(private team: ITeam, private item: ILevel | IBadge) {}
 
@@ -14,6 +19,12 @@ export class CompletionCheck {
     }
 
     public getProgress(): IProgress {
+        const scoreStruct = this.getScore();
+        const requiredScore = scoreStruct.totalScore * this.item.requiredScore;
+        return new Progress(scoreStruct.score, requiredScore);
+    }
+
+    public getScore(): ScoreStruct {
         let score = 0;
         let totalScore = 0;
         if (this.item.skills) {
@@ -28,8 +39,7 @@ export class CompletionCheck {
                 }
             }
         }
-        const requiredScore = totalScore * this.item.requiredScore;
-        return new Progress(score, requiredScore);
+        return { score: score, totalScore: totalScore };
     }
 
     private isTeamSkillCompleted(teamSkill: ITeamSkill): boolean {

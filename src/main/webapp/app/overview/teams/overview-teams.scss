@@ -9,6 +9,82 @@
         height: 75px;
         width: 100%;
     }
+
+    .overview-status{
+
+        .status-detail{
+            color: $dojo-text-inverse-secondary;
+            &::before {
+                position: absolute;
+                margin-left: -2vh;
+            }
+        }
+
+        .status-meta {
+            width: 44vh;
+            height: 15vh;
+            color: $dojo-text-inverse-secondary;
+            //.team-title, .team-slogan {
+            //    font-size: 2.3vh;
+            //    z-index: 4;
+            //}
+
+            .overview-score {
+                font-size: 1.8vh;
+                z-index: 4;
+                &::before {
+                    content: '';
+                    width: 3.6vh;
+                    height: 5.0vh;
+                    position: absolute;
+                    background: no-repeat center/contain url('../../../content/images/coin_black.png');
+                    margin-left: -2vh;
+                    z-index: 4;
+                }
+            }
+            .overview-level {
+                font-size: 1.8vh;
+                z-index: 4;
+                &::before {
+                    content: '';
+                    width: 3.6vh;
+                    height: 5.0vh;
+                    position: absolute;
+                    background: no-repeat center/contain url('../../../content/images/belt_black.png');
+                    margin-left: -2vh;
+                    z-index: 4;
+                }
+            }
+            .overview-badge {
+                font-size: 1.8vh;
+                z-index: 4;
+                &::before {
+                    content: '';
+                    width: 3.6vh;
+                    height: 5.0vh;
+                    position: absolute;
+                    background: no-repeat center/contain url('../../../content/images/badge_black.png');
+                    margin-left: -2vh;
+                    z-index: 4;
+                }
+            }
+        }
+    }
+
+    .count-container {
+        .count-item {
+            display: block;
+            margin-left: 5px;
+            .count-item-header {
+
+            }
+            .count-item-value {
+                float: right;
+                font-size: 1.8vh;
+            }
+        }
+    }
+
     .team-list {
 
         counter-reset: team-counter;
@@ -53,19 +129,6 @@
                     }
                     &.incomplete {
                         border-color: $danger;
-                    }
-                }
-                .count-container {
-                    .count-item {
-                        display: block;
-                        margin-left: 5px;
-                        .count-item-header {
-
-                        }
-                        .count-item-value {
-                            float: right;
-                            font-size: 1.5em;
-                        }
                     }
                 }
             }
