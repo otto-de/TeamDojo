@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -47,6 +48,11 @@ public class Skill implements Serializable {
 
     @Column(name = "contact")
     private String contact;
+
+    @NotNull
+    @Min(value = 0)
+    @Column(name = "score", nullable = false)
+    private Integer score;
 
     @OneToMany(mappedBy = "skill")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -145,6 +151,19 @@ public class Skill implements Serializable {
 
     public void setContact(String contact) {
         this.contact = contact;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public Skill score(Integer score) {
+        this.score = score;
+        return this;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
     public Set<TeamSkill> getTeams() {
@@ -253,6 +272,7 @@ public class Skill implements Serializable {
             ", validation='" + getValidation() + "'" +
             ", expiryPeriod='" + getExpiryPeriod() + "'" +
             ", contact='" + getContact() + "'" +
+            ", score=" + getScore() +
             "}";
     }
 }
