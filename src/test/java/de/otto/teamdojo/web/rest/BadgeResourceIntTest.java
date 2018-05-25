@@ -239,6 +239,44 @@ public class BadgeResourceIntTest {
 
     @Test
     @Transactional
+    public void checkMultiplierIsRequired() throws Exception {
+        int databaseSizeBeforeTest = badgeRepository.findAll().size();
+        // set the field null
+        badge.setMultiplier(null);
+
+        // Create the Badge, which fails.
+        BadgeDTO badgeDTO = badgeMapper.toDto(badge);
+
+        restBadgeMockMvc.perform(post("/api/badges")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(badgeDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Badge> badgeList = badgeRepository.findAll();
+        assertThat(badgeList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkRequiredScoreIsRequired() throws Exception {
+        int databaseSizeBeforeTest = badgeRepository.findAll().size();
+        // set the field null
+        badge.setRequiredScore(null);
+
+        // Create the Badge, which fails.
+        BadgeDTO badgeDTO = badgeMapper.toDto(badge);
+
+        restBadgeMockMvc.perform(post("/api/badges")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(badgeDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Badge> badgeList = badgeRepository.findAll();
+        assertThat(badgeList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllBadges() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
