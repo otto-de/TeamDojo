@@ -8,7 +8,10 @@
             },
             "title": "Titel",
             "description": "Beschreibung",
-            "type": "Typ"
+            "type": "Typ",
+            "action": {
+                "submit": "Senden"
+            }
         }
     }
 }

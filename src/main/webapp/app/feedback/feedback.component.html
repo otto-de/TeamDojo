@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate (ngSubmit)="submit()" #editForm="ngForm">
             <h2 id="jhi-feedback-heading" jhiTranslate="teamdojoApp.feedback.home.createLabel">Submit feedback</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
@@ -38,11 +38,11 @@
 
             </div>
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                <button type="button" id="cancel-submit" class="btn btn-secondary"  (click)="previousState()">
                     <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSubmitting" class="btn btn-primary">
-                    <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                <button type="submit" id="submit-entity" [disabled]="editForm.form.invalid || isSubmitting" class="btn btn-primary">
+                    <span class="fa fa-paper-plane"></span>&nbsp;<span jhiTranslate="teamdojoApp.feedback.action.submit">Submit</span>
                 </button>
             </div>
         </form>
