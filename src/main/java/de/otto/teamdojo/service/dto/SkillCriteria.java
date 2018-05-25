@@ -1,6 +1,7 @@
 package de.otto.teamdojo.service.dto;
 
 import io.github.jhipster.service.filter.Filter;
+import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 
@@ -30,6 +31,8 @@ public class SkillCriteria implements Serializable {
     private StringFilter validation;
 
     private StringFilter expiryPeriod;
+
+    private IntegerFilter score;
 
     private LongFilter teamsId;
 
@@ -88,6 +91,14 @@ public class SkillCriteria implements Serializable {
         this.expiryPeriod = expiryPeriod;
     }
 
+    public IntegerFilter getScore() {
+        return score;
+    }
+
+    public void setScore(IntegerFilter score) {
+        this.score = score;
+    }
+
     public LongFilter getTeamsId() {
         return teamsId;
     }
@@ -121,6 +132,7 @@ public class SkillCriteria implements Serializable {
             (implementation != null ? "implementation=" + implementation + ", " : "") +
             (validation != null ? "validation=" + validation + ", " : "") +
             (expiryPeriod != null ? "expiryPeriod=" + expiryPeriod + ", " : "") +
+            (score != null ? "score=" + score + ", " : "") +
             (teamsId != null ? "teamsId=" + teamsId + ", " : "") +
             (badgesId != null ? "badgesId=" + badgesId + ", " : "") +
             (levelsId != null ? "levelsId=" + levelsId + ", " : "") +

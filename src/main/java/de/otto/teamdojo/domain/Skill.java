@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -44,6 +45,11 @@ public class Skill implements Serializable {
     @Pattern(regexp = "^P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?$")
     @Column(name = "expiry_period")
     private String expiryPeriod;
+
+    @NotNull
+    @Min(value = 0)
+    @Column(name = "score", nullable = false)
+    private Integer score;
 
     @OneToMany(mappedBy = "skill")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -129,6 +135,19 @@ public class Skill implements Serializable {
 
     public void setExpiryPeriod(String expiryPeriod) {
         this.expiryPeriod = expiryPeriod;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public Skill score(Integer score) {
+        this.score = score;
+        return this;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
     public Set<TeamSkill> getTeams() {
@@ -236,6 +255,7 @@ public class Skill implements Serializable {
             ", implementation='" + getImplementation() + "'" +
             ", validation='" + getValidation() + "'" +
             ", expiryPeriod='" + getExpiryPeriod() + "'" +
+            ", score=" + getScore() +
             "}";
     }
 }
