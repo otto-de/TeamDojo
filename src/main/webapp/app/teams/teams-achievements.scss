@@ -10,7 +10,7 @@
                 margin-right: -0.69em !important;
             }
         }
-        @include accordeon();
+        @include accordion();
         height: inherit;
         padding-right: 10px;
         .achievement-list {
