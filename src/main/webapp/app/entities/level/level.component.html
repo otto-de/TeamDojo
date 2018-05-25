@@ -18,6 +18,7 @@
             <th><span jhiTranslate="teamdojoApp.level.name">Name</span></th>
             <th><span jhiTranslate="teamdojoApp.level.description">Description</span></th>
             <th><span jhiTranslate="teamdojoApp.level.picture">Picture</span></th>
+            <th><span jhiTranslate="teamdojoApp.level.multiplier">Multiplier</span></th>
             <th><span jhiTranslate="teamdojoApp.level.requiredScore">Required Score</span></th>
             <th><span jhiTranslate="teamdojoApp.level.dimension">Dimension</span></th>
             <th><span jhiTranslate="teamdojoApp.level.dependsOn">Depends On</span></th>
@@ -35,6 +36,7 @@
                     </a>
                     <span *ngIf="level.picture">{{level.pictureContentType}}, {{byteSize(level.picture)}}</span>
                 </td>
+                <td>{{level.multiplier}}</td>
                 <td>{{level.requiredScore}}</td>
                 <td>
                     <div *ngIf="level.dimensionId">

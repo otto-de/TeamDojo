@@ -188,6 +188,7 @@
             <column name="dimension_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;QS&apos; LIMIT 1)" />
             <column name="description" value="Ein grundlegender Prozess existiert" />
             <column name="required_score" valueNumeric="0.9" />
+            <column name='multiplier' valueNumeric='1.0' />
         </insert>
         <insert tableName="level">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
@@ -195,6 +196,7 @@
             <column name="dimension_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;QS&apos; LIMIT 1)" />
             <column name="required_score" valueNumeric="0.9" />
             <column name="description" value="Ein definierter Prozess existiert" />
+            <column name='multiplier' valueNumeric='1.0' />
             <column name="depends_on_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 1&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level">
@@ -203,6 +205,7 @@
             <column name="dimension_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;QS&apos; LIMIT 1)" />
             <column name="required_score" valueNumeric="0.9" />
             <column name="description" value="Ein definierter Prozess mit quantifizierbaren Zielen existiert" />
+            <column name='multiplier' valueNumeric='1.0' />
             <column name="depends_on_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 2&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level">
@@ -211,6 +214,7 @@
             <column name="dimension_id" valueComputed="(SELECT id FROM dimension WHERE name = &apos;QS&apos; LIMIT 1)" />
             <column name="required_score" valueNumeric="0.9" />
             <column name="description" value="Ein definierter Prozess mit quantifizierbaren Zielen wird permanent optimiert" />
+            <column name='multiplier' valueNumeric='1.0' />
             <column name="depends_on_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 3&apos; LIMIT 1)" />
         </insert>
     </changeSet>
