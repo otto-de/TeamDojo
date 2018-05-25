@@ -8,26 +8,38 @@ import {
     AllLevelsResolve,
     AllTeamSkillsResolve,
     AllTeamsResolve,
-    OVERVIEW_ROUTE
+    OVERVIEW_ROUTE,
+    SkillResolve
 } from 'app/overview/overview.route';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OverviewComponent } from 'app/overview/overview.component';
 import { OverviewTeamsComponent } from 'app/overview/teams/overview-teams.component';
 import { OverviewAchievementsComponent } from 'app/overview/achievements/overview-achievements.component';
 import { OverviewSkillsComponent } from 'app/overview/skills/overview-skills.component';
-import { AchievementItemComponent } from 'app/overview/achievements';
+import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
+import { TeamsModule } from 'app/teams';
+import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
 
 @NgModule({
-    imports: [TeamdojoSharedModule, RouterModule.forChild([OVERVIEW_ROUTE]), NgbModule],
+    imports: [TeamdojoSharedModule, RouterModule.forChild(OVERVIEW_ROUTE), NgbModule, TeamsModule],
     declarations: [
         OverviewComponent,
         OverviewTeamsComponent,
         OverviewAchievementsComponent,
         OverviewSkillsComponent,
-        AchievementItemComponent
+        OverviewSkillDetailsComponent
     ],
     entryComponents: [],
-    providers: [AllTeamsResolve, AllLevelsResolve, AllBadgesResolve, AllTeamSkillsResolve, AllLevelSkillsResolve, AllBadgeSkillsResolve],
+    providers: [
+        AllTeamsResolve,
+        AllLevelsResolve,
+        AllBadgesResolve,
+        AllTeamSkillsResolve,
+        AllLevelSkillsResolve,
+        SkillResolve,
+        AllBadgeSkillsResolve,
+        BreadcrumbService
+    ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class OverviewModule {}

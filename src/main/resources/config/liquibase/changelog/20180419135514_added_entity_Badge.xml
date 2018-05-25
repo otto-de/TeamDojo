@@ -29,10 +29,10 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="logo" type="longblob">
+            <column name="picture" type="longblob">
                 <constraints nullable="true" />
             </column>
-            <column name="logo_content_type" type="varchar(255)">
+            <column name="picture_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 

@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, Resolve, Route, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, Route, Router, RouterStateSnapshot } from '@angular/router';
 import { OverviewComponent } from './';
 import { Injectable } from '@angular/core';
 import { LevelSkillService } from 'app/entities/level-skill';
@@ -7,6 +7,9 @@ import { LevelService } from 'app/entities/level';
 import { BadgeService } from 'app/entities/badge';
 import { TeamSkillService } from 'app/entities/team-skill';
 import { BadgeSkillService } from 'app/entities/badge-skill';
+import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
+import { Skill } from 'app/shared/model/skill.model';
+import { SkillService } from 'app/entities/skill';
 
 @Injectable()
 export class AllTeamsResolve implements Resolve<any> {
@@ -62,19 +65,51 @@ export class AllBadgeSkillsResolve implements Resolve<any> {
     }
 }
 
-export const OVERVIEW_ROUTE: Route = {
-    path: '',
-    component: OverviewComponent,
-    data: {
-        authorities: [],
-        pageTitle: 'teamdojoApp.teams.home.title'
-    },
-    resolve: {
-        teams: AllTeamsResolve,
-        levels: AllLevelsResolve,
-        badges: AllBadgesResolve,
-        teamSkills: AllTeamSkillsResolve,
-        levelSkills: AllLevelSkillsResolve,
-        badgeSkills: AllBadgeSkillsResolve
+@Injectable()
+export class SkillResolve implements Resolve<any> {
+    constructor(private skillService: SkillService, private router: Router) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        const skillId = route.params['skillId'] ? route.params['skillId'] : null;
+        if (skillId) {
+            return this.skillService.find(skillId);
+        }
+        return new Skill();
     }
-};
+}
+
+export const OVERVIEW_ROUTE: Route[] = [
+    {
+        path: '',
+        component: OverviewComponent,
+        data: {
+            authorities: [],
+            pageTitle: 'teamdojoApp.teams.home.title'
+        },
+        resolve: {
+            teams: AllTeamsResolve,
+            levels: AllLevelsResolve,
+            badges: AllBadgesResolve,
+            teamSkills: AllTeamSkillsResolve,
+            levelSkills: AllLevelSkillsResolve,
+            badgeSkills: AllBadgeSkillsResolve
+        }
+    },
+    {
+        path: 'overview/skills/:skillId',
+        component: OverviewSkillDetailsComponent,
+        resolve: {
+            teams: AllTeamsResolve,
+            levels: AllLevelsResolve,
+            badges: AllBadgesResolve,
+            teamSkills: AllTeamSkillsResolve,
+            levelSkills: AllLevelSkillsResolve,
+            badgeSkills: AllBadgeSkillsResolve,
+            skill: SkillResolve
+        },
+        data: {
+            authorities: [],
+            pageTitle: 'teamdojoApp.teams.skills.title'
+        }
+    }
+];

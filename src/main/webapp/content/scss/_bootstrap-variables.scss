@@ -9,9 +9,9 @@
 // Grayscale and brand colors for use across Bootstrap.
 
 $primary:             #3E8ACC;
-$success:             #28a745;
+$success:             #a8bc66;
 $info:                #17a2b8;
-$warning:             #ffc107;
+$warning:             #edb900;
 $danger:              #dc3545;
 
 // Options:
@@ -40,3 +40,7 @@ $body-bg:                   #e4e5e6;
 // Font, line-height, and color for body text, headings, and more.
 
 $font-size-base:            1rem;
+
+$font-family-sans-serif:      'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif !default;
+$font-family-monospace:       'IBM Plex Mono', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', Courier, monospace !default;
+$font-family-base:            $font-family-sans-serif !default;

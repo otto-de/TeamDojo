@@ -1,50 +1,94 @@
+@import '../../content/scss/colors';
 .teams-status {
     height: inherit;
+    position: relative;
     overflow-y: auto;
     padding-right: 10px;
     .teams-status-avatar {
         text-align: center;
-        .avatar-image {
+        .team-image-wrapper {
+            width: 35vh;
+            height: 35vh;
+            max-width: 100%;
+            overflow: hidden;
             border-radius: 50%;
-            max-width: 80%;
-            max-height: 35vh;
-            margin-bottom: -8vh;
+            .team-image {
+                height: inherit;
+                width: inherit;
+                background: repeat-x center/cover;
+            }
+            &::after {
+                content: '';
+                width: inherit;
+                height: inherit;
+                position: absolute;
+                background: no-repeat center/cover url('../../content/images/avatars/avatar_overlay.png');
+                z-index: 1;
+            }
         }
-        .avatar-achievements {
-            .avatar-skill-level {
-                width: 10vh;
-                height: 10vh;
+        .avatar-image-wrapper {
+            width: 31vh;
+            height: 41vh;
+            position: absolute;
+            top: 0.5rem;
+            .avatar-image {
+                width: inherit;
+                height: inherit;
+                background: no-repeat center/contain url('../../content/images/avatars/avatar_default.png');
+                z-index: 3;
             }
-            .avatar-badge {
-                width: 6vh;
-                height: 6vh;
+        }
+        .status-meta {
+            width: 50vh;
+            height: 15vh;
+            max-width: 100%;
+            margin-top: -4vh;
+            color: $dojo-text-inverse-secondary;
+            .team-title, .team-slogan {
+                margin-top: 6vh;
+                z-index: 4;
             }
-            .avatar-skill-level, .avatar-badge {
-                display: inline-flex;
-                align-items: center;
-                border-radius: 50%;
-                border: 3px solid gold;
-                background: white !important;
-                overflow: hidden;
-                img {
-                    width: 100%;
+            h5 {
+                font-size: calc(16px + 0.3vw);
+            }
+            h6 {
+                font-size: calc(10px + 0.3vw);
+            }
+            .team-score {
+                font-size: calc(12px + 0.2vw);
+                z-index: 4;
+                &::before {
+                    content: '';
+                    width: calc(12px + 0.3vw);
+                    height: calc(18px + 0.3vw);
+                    position: absolute;
+                    background: no-repeat center/contain url('../../content/images/coin.png');
+                    margin-left: calc(-16px - 0.2vw);
+                    z-index: 4;
                 }
+            }
+            &::after {
+                content: '';
+                width: inherit;
+                height: inherit;
+                max-width: 100%;
+                position: absolute;
+                background: no-repeat center/contain url('../../content/images/brushstroke.png');
+                z-index: 2;
             }
         }
     }
-    .teams-status-activities {
-        .fa {
-            font-size: 1.2rem;
+    .teams-status-achievements {
+        .teams-status-achievements-levels {
+            h5 {
+                margin-bottom: 0;
+            }
+            /deep/ .achievement-item {
+                padding-top: 0;
+            }
         }
-        .fa.belt-yellow {
-            color: gold;
+        .teams-status-achievements-badges {
         }
-        .fa.belt-orange {
-            color: orange;
-        }
-        .activity-date {
-            float: right;
-            font-size: 0.8rem;
-        }
+
     }
 }
