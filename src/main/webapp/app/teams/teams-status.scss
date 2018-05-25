@@ -8,6 +8,7 @@
         .team-image-wrapper {
             width: 35vh;
             height: 35vh;
+            max-width: 100%;
             overflow: hidden;
             border-radius: 50%;
             .team-image {
@@ -39,6 +40,7 @@
         .status-meta {
             width: 50vh;
             height: 15vh;
+            max-width: 100%;
             margin-top: -4vh;
             color: $dojo-text-inverse-secondary;
             .team-title, .team-slogan {
@@ -63,8 +65,9 @@
                 content: '';
                 width: inherit;
                 height: inherit;
+                max-width: 100%;
                 position: absolute;
-                background: no-repeat center/cover url('../../content/images/brushstroke.png');
+                background: no-repeat center/contain url('../../content/images/brushstroke.png');
                 z-index: 2;
             }
         }
