@@ -36,9 +36,6 @@ public class BadgeDTO implements Serializable {
 
     @NotNull
     @DecimalMin(value = "0")
-    private Double multiplier;
-
-    @DecimalMin(value = "0")
     @DecimalMax(value = "1")
     private Double requiredScore;
 
