@@ -11,7 +11,7 @@ export const feedbackRoute: Routes = [
         path: 'feedback',
         component: FeedbackComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: [],
             pageTitle: 'teamdojoApp.feedback.home.title'
         },
         canActivate: [UserRouteAccessService]
