@@ -1,5 +1,6 @@
 package de.otto.teamdojo.service.dto;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -25,6 +26,10 @@ public class SkillDTO implements Serializable {
 
     @Pattern(regexp = "^P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?$")
     private String expiryPeriod;
+
+    @NotNull
+    @Min(value = 0)
+    private Integer score;
 
     public Long getId() {
         return id;
@@ -74,6 +79,14 @@ public class SkillDTO implements Serializable {
         this.expiryPeriod = expiryPeriod;
     }
 
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -104,6 +117,7 @@ public class SkillDTO implements Serializable {
             ", implementation='" + getImplementation() + "'" +
             ", validation='" + getValidation() + "'" +
             ", expiryPeriod='" + getExpiryPeriod() + "'" +
+            ", score=" + getScore() +
             "}";
     }
 }

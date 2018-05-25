@@ -21,6 +21,7 @@
             "implementation": "Implementation",
             "validation": "Validation",
             "expiryPeriod": "Expiry Period",
+            "score": "Score",
             "teams": "Teams",
             "badges": "Badges",
             "levels": "Levels"
