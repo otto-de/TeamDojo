@@ -21,6 +21,7 @@
             <column name='description' value='Damit sie nicht erraten werden können' />
             <column name='implementation' value='Sichere Passwörter nutzen, im Zweifel generieren lassen.' />
             <column name='jhi_validation' value='n/a' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -36,6 +37,7 @@
             <column name='description' value='Treibt Sicherheitsthemen im Team und bringt Know How.' />
             <column name='implementation' value='Das Team findet einen "Security Champion". Diese/Dieser nimmt an der Security Champion Runde teil.' />
             <column name='jhi_validation' value='Mindestens 6-malige Teilnahme in den letzten 12 Monaten' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -51,6 +53,7 @@
             <column name='description' value='Basics lernen/auffrischen' />
             <column name='implementation' value='Interne Mitarbeiter bearbeiten die Elearning Module zur Informationssicherheit im eCampus. Die aktuellen Module behandeln Themen zum Umgang mit E-Mails, OTTO Richtlinien (1-3) und sicherer Softwareentwicklung' />
             <column name='jhi_validation' value='Alle internen Mitarbeiter haben Pflicht- und optionale Module absolviert (Führungskraft kann validieren)' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -66,6 +69,7 @@
             <column name='description' value='Datenkonsistenz. Injection Angriffe verhindern' />
             <column name='implementation' value='Sanitizing der Daten.' />
             <column name='jhi_validation' value='Fachl. Vorgaben. (Plausibilität), Aktzeptanzkriterien.. API Doku ist aktuell. Automatisch testen.' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -81,6 +85,7 @@
             <column name='description' value='Generierte Passwörter sind besser als merkbare. Sicherer als andere Speichermethoden. Teilbar mit Team' />
             <column name='implementation' value='Teammitglieder installieren/verwenden Passwort-Manager.' />
             <column name='jhi_validation' value='alle Otto-Relevanten Passwörter sind bei Teammitgliedern im Password-Manager' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -96,6 +101,7 @@
             <column name='description' value='Man muss sein System kennen, um Schwachstellen erkennen zu können. Onboarding von Kollegen vereinfacht.' />
             <column name='implementation' value='Regelmässiges Review der System-Dokumentation' />
             <column name='jhi_validation' value='Zu jedem System existiert eine Dokumentation. Letztes Review ist nicht älter als 6 Monate' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -111,6 +117,7 @@
             <column name='description' value='Gesicherte Ablage von Credentials und anderen schützenswerten Daten. Mails und Chat können in falsche Hände gelangen und werden außerhalb des eigenen Einflussbereichs vielfach gespeichert. Confluence ist keine gesicherte Ablage!' />
             <column name='implementation' value='Passwörter werden nicht per Email oder Chat verschickt oder im Wiki hinterlegt. Besser ist beispielsweise ein geteilter Passwortcontainer. Zum Beispiel KeePass.' />
             <column name='jhi_validation' value='Aufklärungsarbeit...' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -126,6 +133,7 @@
             <column name='description' value='Grundlegendes Verständnis von Security unabhängig von der Rolle' />
             <column name='implementation' value='Teilnahme an standard Schulung' />
             <column name='jhi_validation' value='Security Champion pflegt Liste mit Teilnehmern' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -141,6 +149,7 @@
             <column name='description' value='Zugriff durch Dritte vermeiden' />
             <column name='implementation' value='Aktuell existiert ein zentraler Service für genau diesen Zweck: vault. Die Properties werden verschlüsselt und zugriffsgeschützt abgelegt.' />
             <column name='jhi_validation' value='Quellcode nach Credentials durchsuchen' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -156,6 +165,7 @@
             <column name='description' value='Kein Zugriff auf Adminseiten ohne Authentifizierung/Authorisierung' />
             <column name='implementation' value='Basic auth erlaubt. Eindeutige Benutzer. Verschiedene Passwörter.' />
             <column name='jhi_validation' value='Kein Aufruf ohne Authentifizierung. Alte geteilte Passwörter werden entfernt. Regelmäßig Passwörter tauschen' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -171,6 +181,7 @@
             <column name='description' value='Devices können gestohlen werden.' />
             <column name='implementation' value='Windows: Bitlocker oder McAffee endpoint protection aktivieren. OSX: Filevault aktivieren. Android/iOS: Gerätesperre anschalten.' />
             <column name='jhi_validation' value='Team fragen' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -195,6 +206,7 @@
             <column name='description' value='Helfen Fehler zu vermeiden, die zu Sicherheitslücken führen können' />
             <column name='implementation' value='sprachspezifische Linter werden regelmäßig benutzt, Fehler und Warnungen werden behoben' />
             <column name='jhi_validation' value='Produktiv-Code wurde durch Linter überprüft' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -210,6 +222,7 @@
             <column name='description' value='Security sollte im Entwicklungsprozess beachtet werden. Software ist nur sicher, wenn Security kontinuierlich beachtet wird.' />
             <column name='implementation' value='Securityaspekte in Definition of Done vorhanden, Review mit Fokus auf Security während und nach der Entwicklung' />
             <column name='jhi_validation' value='Stories beinhalten Securityaspkete und -anforderungen' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -225,6 +238,7 @@
             <column name='description' value='Die OWASP Top 10 sind best practices für sichere Softwareentwicklung.' />
             <column name='implementation' value='Lernen der OWASP Top 10. Berücksichtigung bei der Implementation von Stories' />
             <column name='jhi_validation' value='3 Leute im Team können die OWASP Top 10 aufzählen' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -240,6 +254,7 @@
             <column name='description' value='Angriffe erkennen / nachvollziehen, Sichtbarkeit' />
             <column name='implementation' value='Daten an Logserver schicken, Graphen erzeugen / Alerting aktivieren, KPIs bestimmen' />
             <column name='jhi_validation' value='Logging + Visualisierung / Alerting existiert für alle KPIs' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -255,6 +270,7 @@
             <column name='description' value='Sicherheitslücken identifizieren, Voraussetzungen für Gegenmaßnahmen schaffen' />
             <column name='implementation' value='Durch Nuttzung von gängigen Vorgehensmodellen (z.B. Attack Trees), Unterstützung von SCALE' />
             <column name='jhi_validation' value='Dokumentation, Regelmäßige Überprüfung auf Aktualität' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -270,6 +286,7 @@
             <column name='description' value='Schadcode-Injection vermeiden' />
             <column name='implementation' value='Bei Storydesign beachten. Code validieren' />
             <column name='jhi_validation' value='Tests oder bei Abnahme beachten' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -285,6 +302,7 @@
             <column name='description' value='Verhindern, dass unauthorisierte Nutzer &amp; Systeme auf die Schnittstellen zugreifen' />
             <column name='implementation' value='Authentifizierungs- und Authorisierungssystem integrieren, Rollenkonzept. Sicherheitskonzept fuer unverschluesselte Schnittstellen ist vorhanden(bspw. HMAC)' />
             <column name='jhi_validation' value='Zugriff auf interne Schnittstellen ohne Authentifizierung nicht möglich' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -300,6 +318,7 @@
             <column name='description' value='Die Pipeline hat Rechte, nach Live zu deployen und ist deshalb ein attraktives Ziel fuer Angreifer' />
             <column name='implementation' value='Jeder muss sich mit seinem persönlichen Account (z.B. LDAP) authentifizieren, um Lesezugriff auf die Pipeline zu bekommen. Die Konfiguration der Pipeline enthält keine Credentials.' />
             <column name='jhi_validation' value='Benutzung und Einsicht von Logs sowie der Konfiguration ohne Anmeldung nicht möglich.' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -315,6 +334,7 @@
             <column name='description' value='Accountmanagement wird zentralisiert' />
             <column name='implementation' value='LDAP Anbindung, Funktionaler User fuer das Team' />
             <column name='jhi_validation' value='Nur selektierte LDAP-User koennen auf die Adminseiten zugreifen' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -330,6 +350,7 @@
             <column name='description' value='Präventiver Schutz' />
             <column name='implementation' value='Auswertung der Bedrohungsanalyse, Umsetzung von geeigneten Maßnahmen' />
             <column name='jhi_validation' value='Automatisierte Tests' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -345,6 +366,7 @@
             <column name='description' value='Vermeidung der Verwendung von fehlerhafter Drittanbieter-Software' />
             <column name='implementation' value='Sprachspezifisches Tool zum Aufzeigen von Sicherheitslücken. Updates werden für Module, Libraries, Packages, Baseimage etc regelmäßig eingespielt' />
             <column name='jhi_validation' value='Alle eingesetzten Abhängigkeiten werden regelmäßig überprüft' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -360,6 +382,7 @@
             <column name='description' value='Postmortem Analyse, Bewusstwerden der Angriffsvektoren. Rückfluss der Infos in die Applikation. Wissensaustausch und Checklisten generieren.' />
             <column name='implementation' value='Confluence, Scale pflegt nachhaltige Historie' />
             <column name='jhi_validation' value='Seiten wurden angelegt und sind allen bekannt' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -375,6 +398,7 @@
             <column name='description' value='Datenschutzvorgaben, Schutz vor Missbrauch' />
             <column name='implementation' value='Beim Storydesign und der Abnahme beachten' />
             <column name='jhi_validation' value='Teamintern, Automatisierte und manuelle Tests' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -390,6 +414,7 @@
             <column name='description' value='Gleiches Verständnis von Security schaffen, Aktuelle Entwicklungen, Vermeidung von Single Points of Failure (SPOF)' />
             <column name='implementation' value='Regelmäßiger Austausch' />
             <column name='jhi_validation' value='Einschätzung durch Security Champion' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -405,6 +430,7 @@
             <column name='description' value='Datenschutz, kein Vertrauen gegenueber Serverbetreibern, Konzernrichtlinie' />
             <column name='implementation' value='(Server-)Festplatten sowie Datensätze verschlüssen' />
             <column name='jhi_validation' value='Überprüfung von Datenbanken und Dateisystemen' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -420,6 +446,7 @@
             <column name='description' value='Verhindern, dass Angreifer sich erweiterte Rechte verschaffen' />
             <column name='implementation' value='Server und Container nutzen default Privilegien und haben keine root Rechte' />
             <column name='jhi_validation' value='Automatisierte Tests' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -444,6 +471,7 @@
             <column name='description' value='Automatische erkennung von Fehlern/Luecken' />
             <column name='implementation' value='Auswahl passender tools, automatisierbar.' />
             <column name='jhi_validation' value='geeignetes alarming' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -459,6 +487,7 @@
             <column name='description' value='Kommunikation ohne Zertifikatsvalaidierung ist unsicher, Moegliche MITM' />
             <column name='implementation' value='Otto CA systemspezifisch einbinden. Alle Zeritikate werden validiert (strict SSL)' />
             <column name='jhi_validation' value='egal' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -474,6 +503,7 @@
             <column name='description' value='Angriffsvektoren reduzieren' />
             <column name='implementation' value='Abbau von Altlasten. (Features, Code, API, Tokens, Toggles)' />
             <column name='jhi_validation' value='Es existieren keine nicht mehr benoetigten Fatures/Code/API/Tokens/Toggles im system' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -489,6 +519,7 @@
             <column name='description' value='Erkennung von veralteten Bibliotheken, Behebung von Luecken' />
             <column name='implementation' value='Dependency checks in der Pipeline' />
             <column name='jhi_validation' value='alarming' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -504,6 +535,7 @@
             <column name='description' value='Im Falle einse Diebstahls lieber weniger Daten verlieren, Datenschutzgesetz' />
             <column name='implementation' value='Vorher genau definieren welche Daten benoetigt werden' />
             <column name='jhi_validation' value='Vergleich der Datenmengen. Hinterher sollte es weniger sein' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -519,6 +551,7 @@
             <column name='description' value='Sicherheit fuers Team, Live Schwachstellen vermeiden. Mehr Stabilitaet der Platform' />
             <column name='implementation' value='Tests werden in der Pipeline ausgefuehrt' />
             <column name='jhi_validation' value='Test-Ausgabe in der Pipeline' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -534,6 +567,7 @@
             <column name='description' value='Potenzielle Angriffsvektoren durch eingesetzten 3rd party code reduzieren' />
             <column name='implementation' value='Github-Issues o.Ä. der eingesetzten Libraries nach Security-Problemen durchsuchen; Einsatz von Libraries mit wenig Usern überdenken; Libraries mit Sicherheitslücken austauschen' />
             <column name='jhi_validation' value='Sämtliche Libraries wurden überprüft; Im Team ist bekannt, dass neue Libraries vor dem Einsatz auf Security-Gesichtspunkte untersucht werden müssen' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -549,6 +583,7 @@
             <column name='description' value='Security-Themen vorantreiben, auf dem neuesten Stand bleiben' />
             <column name='implementation' value='Blgs, Websites, neue technologien ausprobieren, security Treffen besuchen' />
             <column name='jhi_validation' value='Zeiterfassung im Personalportal' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -564,6 +599,7 @@
             <column name='description' value='Sicherstellen dass Schwachstellen/Bedrohungen nicht ausgenutzt werden koennen' />
             <column name='implementation' value='Betrachten der Softer asu Angreiferperspektive und erstellen von entsprechenden Stories' />
             <column name='jhi_validation' value='Evil User Stories werden wie normale User Stories priorisiert und implementiert (inkl Tests)' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -579,6 +615,7 @@
             <column name='description' value='Ueberblick fuer Team und SPOC schaffen. Transparenz von security Metriken.' />
             <column name='implementation' value='Dashboard bereitstellen, Security KPIs erstellen und Alarming aktivieren.' />
             <column name='jhi_validation' value='Es existiert, der SPOC findet es geil, das Team findet es auch geil' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -594,6 +631,7 @@
             <column name='description' value='Sicherstellung des BEtriebs' />
             <column name='implementation' value='SOS(-Runbook) ist aktuell, Security emergency toggles sind bekannt &amp; regeln getestet' />
             <column name='jhi_validation' value='Kontaktperson gepflegt&amp;aktuell, Tests werden planmaessig 2x jaehrlich getestet (Emergency Toggles)' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -618,6 +656,7 @@
             <column name='description' value='Schnelle und angemessene Reaktion auf Incidents' />
             <column name='implementation' value='Geeigneten Prozess definieren' />
             <column name='jhi_validation' value='Es existiert ein Incident-Response-Plan' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -633,6 +672,7 @@
             <column name='description' value='Kontinuierlicher Wissensaustausch' />
             <column name='implementation' value='Security Champion Runde als Wissensbasis, Barcamps (Security Days), Community of Practice, Workshops, Konferenzen' />
             <column name='jhi_validation' value='Es finden regelmaessige Angebote zum Wissenstransfer statt' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -648,6 +688,7 @@
             <column name='description' value='Sicherung gegen Kompromittierung/Verlust von Credentials' />
             <column name='implementation' value='Anwendungen muessen Passwortrotation (mit zero downtime) erlauben' />
             <column name='jhi_validation' value='Prozess funktioniert und wird regelmaessig durchgefuerhrt. Es gibt keine Passwoerter aelter als X Tage' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -663,6 +704,7 @@
             <column name='description' value='Grundlegendes verstaendnis fuer Security. Unabhaengig von der Rolle.' />
             <column name='implementation' value='Teilnahme' />
             <column name='jhi_validation' value='Security Champion pflegt Liste' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -678,6 +720,7 @@
             <column name='description' value='Damit Fehler schnell gefunden und gefixt werden.' />
             <column name='implementation' value='Strafmassnahmen nach X Tagen einleiten. Continer nicht mehr deployen, Toggle, Emails, Alarm' />
             <column name='jhi_validation' value='Test ob Strafmassnahmen automaitsch eingeleitet werden.' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -693,6 +736,7 @@
             <column name='description' value='Ex-Mitarbeitern haben keinen Zugriff mehr' />
             <column name='implementation' value='Persoenliche Accounts loeschen (OCN,LDAP), Dokumentation ueber Zugriffe anlegen (auch externe)' />
             <column name='jhi_validation' value='Alle Accounts geloescht &amp; alle PWs geaendert.' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -708,6 +752,7 @@
             <column name='description' value='Niemand soll Daten mitlesen koennen (MITM). Auch nicht intern.' />
             <column name='implementation' value='HTTPS nutzen. Eigene Zertifikate verwalten.' />
             <column name='jhi_validation' value='Services sind nicht mehr per http erreichbar' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -723,6 +768,7 @@
             <column name='description' value='Unbefugten den Zugriff auf Daten erschweren.' />
             <column name='implementation' value='Daten werden mindestens auf Dateisystemebene verschluesselt.' />
             <column name='jhi_validation' value='Daten koennen von unbefugten nicht gelesen werden.' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -738,6 +784,7 @@
             <column name='description' value='Daten schwer verwertbar fuer Angreifer, Manipulation von Daten erschwert' />
             <column name='implementation' value='Einsatz von SSL, Logging anonymisiert' />
             <column name='jhi_validation' value='Alle relevanten Daten werden nur verschluesselt uebertragen' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -762,6 +809,7 @@
             <column name='description' value='Um die gesamte Applikation auf Schwachstellen&amp;Robustheit zu beweisen/untersuchen' />
             <column name='implementation' value='Externer Dienstleister, Pentest under Anleitung von SCALE, QA enabled fuer Pentest' />
             <column name='jhi_validation' value='Anzahl der Pentests &gt; 0, Ergebnisse der Pentests sind umgesetzt.' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -777,6 +825,7 @@
             <column name='description' value='Aus Fehlern lernen' />
             <column name='implementation' value='Postmortem, Verbreitung ueber security COP' />
             <column name='jhi_validation' value='Tests fuer gefundene Fehler/Luecken' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -792,6 +841,7 @@
             <column name='description' value='Automatische Erkennung von Sicherheitsluecken.' />
             <column name='implementation' value='Auswahl eines geeigneten Tools, Unterstuetzung durch Scale' />
             <column name='jhi_validation' value='geeignetes Alarming, Build breaker' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -807,6 +857,7 @@
             <column name='description' value='Kommunikation vor dritten verbergen' />
             <column name='implementation' value='alle Schnittstellen sind SSL-only. Alle Anfragen nach aussen benutzen SSL' />
             <column name='jhi_validation' value='keine unverschluesselten Requests (in/out)' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -831,6 +882,7 @@
             <column name='description' value='Kuerzere Lebensdauer von Credentials ist sicherer. Automatisierung ist weniger fehleranfaellig.' />
             <column name='implementation' value='Credentials werden automatisch rolliert.' />
             <column name='jhi_validation' value='alte Credentials sind nicht mehr nutzbar.Scripte zum Rollieren existieren' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -846,6 +898,7 @@
             <column name='description' value='Gamification, Blackbox testing' />
             <column name='implementation' value='Capture the flag' />
             <column name='jhi_validation' value='Hack wurde demonstriert' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
@@ -861,6 +914,7 @@
             <column name='description' value='Verbreitung von Wissen' />
             <column name='implementation' value='Teams halten Vortraege, teilnahme and Konferenzen' />
             <column name='jhi_validation' value='Team wird als Wissensverbreiter wahrgenommen' />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName='level_skill'>
             <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />

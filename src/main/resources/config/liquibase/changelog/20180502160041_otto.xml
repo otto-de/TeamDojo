@@ -219,86 +219,103 @@
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="title" value="Funktionale Qualität" />
             <column name="description" value="Wir prüfen unsere funktionale Qualität" />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName="skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="title" value="Regressionstests" />
             <column name="description" value="Wir haben Regressionstests, die wir ab und zu durchführen" />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName="skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="title" value="Nicht-funktionale Qualität" />
             <column name="description" value="Wir prüfen unsere nicht-funktionale Qualität" />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName="skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="title" value="Bugfixingprozess" />
             <column name="description" value="Unser Bugfixingprozess ist noch nicht ausformuliert, aber wir haben einen" />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName="skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="title" value="Regelmäßige Regressionstests" />
             <column name="description" value="Wir haben Regressionstests, die wir regelmäßig durchführen" />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName="skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="title" value="Permanenter Bugfixingprozess" />
             <column name="description" value="Unser Bugfixingprozess wird permanent gelebt" />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName="skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="title" value="Überdeckungsgrade" />
             <column name="description" value="Wir haben uns Überdeckungsgrade für Überdeckungsarten überlegt" />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName="skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="title" value="Qualitätsleitplanken" />
             <column name="description" value="Wir haben Qualitätsleitplanken im Team festgelegt" />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName="skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="title" value="Sinnvolle Tools" />
             <column name="description" value="Wir haben für uns sinnvolle Tools eingeführt" />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName="skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="title" value="Automatisierung kritischer Regressionstests" />
             <column name="description" value="Wir haben die kritischen Regressionstests automatisiert" />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName="skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="title" value="Monitoring unserer Ziele" />
             <column name="description" value="über unser Monitoring sehen wir, wenn unsere gesetzten Ziele nicht erreicht werden" />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName="skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="title" value="Time to Production" />
             <column name="description" value="Wir haben uns selbst ein Zeitziel gesetzt, wie lange es maximal dauern darf von push zu Livegang inkl. aller sinnvollen Tests" />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName="skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="title" value="Quantifizierbare Qualitätsleitplanken" />
             <column name="description" value="Unsere Qualitätsleitplanken sind quantifizierbar" />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName="skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="title" value="Automatisierung wirtschaftlich sinnvoller Regressionstests" />
             <column name="description" value="Wir haben alle wirtschaftlich sinnvollen Regressionstests automatisiert" />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName="skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="title" value="Richtige Teststufe automatisierter Regressionstests" />
             <column name="description" value="Für die automatisierten Regressionstests ist die richtige Teststufe gewählt" />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName="skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="title" value="Einschätzbarkeit von Automatisierung, Pflege und Wartung von Testfällen" />
             <column name="description" value="Wir können genau sagen, wie teuer es ist einen Testfall zu automatisieren, zu pflegen und zu warten" />
+            <column name="score" valueNumeric="1" />
         </insert>
         <insert tableName="skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
             <column name="title" value="Prozessuale Gegenmaßnahmen dank Monitoring" />
             <column name="description" value="Wir ergreifen prozessuelle Maßnahmen, wenn unser Monitoring eine systematische Schwäche aufdeckt" />
+            <column name="score" valueNumeric="1" />
         </insert>
     </changeSet>
     <changeSet author="sbe" context="!test" id="1525269642023-6">
