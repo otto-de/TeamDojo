@@ -46,8 +46,13 @@
             color: $dojo-text-inverse-secondary;
             .team-title, .team-slogan {
                 margin-top: 6vh;
-                font-size: calc(16px + 0.3vw);
                 z-index: 4;
+            }
+            h5 {
+                font-size: calc(16px + 0.3vw);
+            }
+            h6 {
+                font-size: calc(10px + 0.3vw);
             }
             .team-score {
                 font-size: calc(12px + 0.2vw);
