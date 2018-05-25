@@ -10,6 +10,7 @@ export interface IBadge {
     picture?: any;
     availableUntil?: Moment;
     availableAmount?: number;
+    multiplier?: number;
     requiredScore?: number;
     skills?: IBadgeSkill[];
     dimensions?: IDimension[];
@@ -24,6 +25,7 @@ export class Badge implements IBadge {
         public picture?: any,
         public availableUntil?: Moment,
         public availableAmount?: number,
+        public multiplier?: number,
         public requiredScore?: number,
         public skills?: IBadgeSkill[],
         public dimensions?: IDimension[]
