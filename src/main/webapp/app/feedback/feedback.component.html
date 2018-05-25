@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="submit()" #editForm="ngForm">
+        <form name="feedbackForm" role="form" novalidate (ngSubmit)="submit()" #feedbackForm="ngForm">
             <h2 id="jhi-feedback-heading" jhiTranslate="teamdojoApp.feedback.home.createLabel">Submit feedback</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
@@ -13,9 +13,9 @@
                     <label class="form-control-label" jhiTranslate="teamdojoApp.feedback.description" for="field_description">Description</label>
                     <textarea class="form-control" rows="5" name="description" id="field_description"
                               [(ngModel)]="report.description" required></textarea>
-                    <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                    <div [hidden]="!(feedbackForm.controls.description?.dirty && feedbackForm.controls.description?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.description?.errors?.required" jhiTranslate="entity.validation.required">
+                        [hidden]="!feedbackForm.controls.description?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                     </div>
@@ -28,9 +28,9 @@
                         <option value="REVIEW">{{'teamdojoApp.ReportType.REVIEW' | translate}}</option>
                         <option value="COMPLIMENT">{{'teamdojoApp.ReportType.COMPLIMENT' | translate}}</option>
                     </select>
-                    <div [hidden]="!(editForm.controls.type?.dirty && editForm.controls.type?.invalid)">
+                    <div [hidden]="!(feedbackForm.controls.type?.dirty && feedbackForm.controls.type?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.type?.errors?.required" jhiTranslate="entity.validation.required">
+                        [hidden]="!feedbackForm.controls.type?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                     </div>
@@ -41,7 +41,7 @@
                 <button type="button" id="cancel-submit" class="btn btn-secondary"  (click)="previousState()">
                     <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="submit-entity" [disabled]="editForm.form.invalid || isSubmitting" class="btn btn-primary">
+                <button type="submit" id="submit-entity" [disabled]="feedbackForm.form.invalid || isSubmitting" class="btn btn-primary">
                     <span class="fa fa-paper-plane"></span>&nbsp;<span jhiTranslate="teamdojoApp.feedback.action.submit">Submit</span>
                 </button>
             </div>
