@@ -45,11 +45,11 @@
             </column>
 
             <column name="multiplier" type="double">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
 
             <column name="required_score" type="double">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->

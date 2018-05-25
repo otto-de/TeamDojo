@@ -54,6 +54,7 @@
             "fieldName": "multiplier",
             "fieldType": "Double",
             "fieldValidateRules": [
+                "required",
                 "min"
             ],
             "fieldValidateRulesMin": "0"
@@ -62,6 +63,7 @@
             "fieldName": "requiredScore",
             "fieldType": "Double",
             "fieldValidateRules": [
+                "required",
                 "min",
                 "max"
             ],
