@@ -1,0 +1,24 @@
+
+{
+    "teamdojoApp": {
+        "report" : {
+            "home": {
+                "title": "Reports",
+                "createLabel": "Report erstellen",
+                "createOrEditLabel": "Report erstellen oder bearbeiten"
+            },
+            "created": "Report erstellt mit ID {{ param }}",
+            "updated": "Report aktualisiert mit ID {{ param }}",
+            "deleted": "Report gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Report {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Report"
+            },
+            "title": "Title",
+            "description": "Description",
+            "type": "Type"
+        }
+    }
+}

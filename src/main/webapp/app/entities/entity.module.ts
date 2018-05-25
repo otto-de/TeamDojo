@@ -9,6 +9,7 @@ import { TeamdojoBadgeModule } from './badge/badge.module';
 import { TeamdojoBadgeSkillModule } from './badge-skill/badge-skill.module';
 import { TeamdojoLevelSkillModule } from './level-skill/level-skill.module';
 import { TeamdojoOrganizationModule } from './organization/organization.module';
+import { TeamdojoReportModule } from './report/report.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
