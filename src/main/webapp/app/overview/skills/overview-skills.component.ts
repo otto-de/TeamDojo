@@ -63,6 +63,8 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
                 this.activeLevel = null;
                 this.updateBreadcrumb(null, this.activeLevel, this.activeBadge, this.activeSkill);
             } else {
+                this.activeLevel = null;
+                this.activeBadge = null;
                 this.levelSkillService.query().subscribe(
                     (res: HttpResponse<ILevelSkill[]>) => {
                         this.activeSkills = res.body;
