@@ -1,7 +1,5 @@
 package de.otto.teamdojo.service.dto;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -11,10 +9,6 @@ import java.util.Objects;
 public class LevelSkillDTO implements Serializable {
 
     private Long id;
-
-    @NotNull
-    @Min(value = 0)
-    private Integer score;
 
     private Long skillId;
 
@@ -30,14 +24,6 @@ public class LevelSkillDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
     }
 
     public Long getSkillId() {
@@ -97,7 +83,6 @@ public class LevelSkillDTO implements Serializable {
     public String toString() {
         return "LevelSkillDTO{" +
             "id=" + getId() +
-            ", score=" + getScore() +
             ", skill=" + getSkillId() +
             ", skill='" + getSkillTitle() + "'" +
             ", level=" + getLevelId() +
