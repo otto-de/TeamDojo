@@ -88,29 +88,26 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
 
+        this.activeBadge = null;
+        this.activeLevel = null;
+        this.activeDimension = null;
+        this.activeSkill = null;
+
         if (this.badgeId) {
             this.badgeService.find(this.badgeId).subscribe(badge => {
                 this.activeBadge = badge.body;
-                this.activeLevel = null;
-                this.activeDimension = null;
                 this.updateBreadcrumb();
             });
-        } else {
-            this.activeBadge = null;
         }
 
         if (this.levelId) {
             this.levelService.find(this.levelId).subscribe(level => {
-                this.activeBadge = null;
                 this.activeLevel = level.body;
                 this.dimensionService.find(this.activeLevel.dimensionId).subscribe(dimension => {
                     this.activeDimension = dimension.body;
                     this.updateBreadcrumb();
                 });
             });
-        } else {
-            this.activeLevel = null;
-            this.activeDimension = null;
         }
 
         if (this.skill && this.skill.skillId) {
@@ -118,8 +115,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
                 this.activeSkill = skillRes.body;
                 this.updateBreadcrumb();
             });
-        } else {
-            this.activeSkill = null;
         }
 
         this.updateBreadcrumb();
