@@ -15,11 +15,10 @@
     <div class="team-list list-group" data-simplebar="init">
         <div class="team-item list-group-item list-group-item-action flex-column align-items-start"
              *ngFor='let team of teams'
-             [ngClass]="{irrelevant: showAsIrrelevant(team)}">
+             [ngClass]="{irrelevant: showAsIrrelevant(team), complete: showAsComplete(team), incomplete: showAsIncomplete(team)}">
             <div class="d-flex flex-wrap align-items-center">
                 <div class="d-inline-flex align-items-center achievement-list-header">
-                    <div class="team-image"
-                         [ngClass]="{complete: showAsComplete(team), incomplete: showAsIncomplete(team)}">
+                    <div class="team-image">
                         <img [title]="team.name"
                              *ngIf="team.picture && team.pictureContentType; else picturePlaceholder"
                              [src]="team.picture | imageDataUrl: team.pictureContentType"/>
@@ -38,6 +37,10 @@
                         <div class="count-item-header">Badges</div>
                         <div class="count-item-value">{{calcCompletedBadges(team)}}</div>
                     </div>
+                </div>
+                <div class="status"
+                     [ngClass]="{complete: showAsComplete(team)}">
+                    <i *ngIf="showAsComplete(team)" class="fa fa-check fa-inverse"></i>
                 </div>
             </div>
         </div>
