@@ -52,21 +52,21 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.route.queryParamMap.subscribe((params: ParamMap) => {
+            this.activeLevel = null;
+            this.activeBadge = null;
             if (params.get('level')) {
                 this.activeLevel = this.levels.find((level: ILevel) => level.id === Number.parseInt(params.get('level')));
                 this.activeSkills = this.activeLevel ? this.activeLevel.skills : [];
-                this.activeBadge = null;
-                this.updateBreadcrumb(null, this.activeLevel, this.activeBadge, this.activeSkill);
+                this.updateBreadcrumb();
             } else if (params.get('badge')) {
                 this.activeBadge = this.badges.find((badge: IBadge) => badge.id === Number.parseInt(params.get('badge')));
                 this.activeSkills = this.activeBadge ? this.activeBadge.skills : [];
-                this.activeLevel = null;
-                this.updateBreadcrumb(null, this.activeLevel, this.activeBadge, this.activeSkill);
+                this.updateBreadcrumb();
             } else {
                 this.levelSkillService.query().subscribe(
                     (res: HttpResponse<ILevelSkill[]>) => {
                         this.activeSkills = res.body;
-                        this.updateBreadcrumb(null, this.activeLevel, this.activeBadge, this.activeSkill);
+                        this.updateBreadcrumb();
                     },
                     (res: HttpErrorResponse) => this.onError(res.error)
                 );
@@ -106,16 +106,16 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        this.updateBreadcrumb(null, this.activeLevel, this.activeBadge, this.activeSkill);
+        this.updateBreadcrumb();
     }
 
-    private updateBreadcrumb(team: ITeam, level: ILevel, badge: IBadge, skill: ISkill) {
-        if (level !== null && typeof level !== 'undefined') {
+    private updateBreadcrumb() {
+        if (this.activeLevel !== null && typeof this.activeLevel !== 'undefined') {
             this.dimensionService.find(this.activeLevel.dimensionId).subscribe(dimension => {
-                this.breadcrumbService.setBreadcrumb(team, dimension.body, level, badge, skill);
+                this.breadcrumbService.setBreadcrumb(null, dimension.body, this.activeLevel, this.activeBadge, this.activeSkill);
             });
         } else {
-            this.breadcrumbService.setBreadcrumb(team, null, level, badge, skill);
+            this.breadcrumbService.setBreadcrumb(null, null, this.activeLevel, this.activeBadge, this.activeSkill);
         }
     }
 
