@@ -8,6 +8,7 @@ import { ILevelSkill } from 'app/shared/model/level-skill.model';
 import { sortLevels } from 'app/shared';
 import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { ISkill } from 'app/shared/model/skill.model';
 
 @Component({
     selector: 'jhi-overview',
@@ -18,6 +19,7 @@ export class OverviewComponent implements OnInit {
     teams: ITeam[];
     levels: ILevel[];
     badges: IBadge[];
+    skills: ISkill[];
     teamSkills: ITeamSkill[];
     levelSkills: ILevelSkill[];
     badgeSkills: IBadgeSkill[];
@@ -25,13 +27,14 @@ export class OverviewComponent implements OnInit {
     constructor(private route: ActivatedRoute, private teamsSelectionService: TeamsSelectionService) {}
 
     ngOnInit() {
-        this.route.data.subscribe(({ teams, levels, badges, teamSkills, levelSkills, badgeSkills }) => {
+        this.route.data.subscribe(({ teams, levels, badges, teamSkills, levelSkills, badgeSkills, skills }) => {
             this.teams = teams.body;
             this.levels = levels.body;
             this.badges = badges.body;
             this.teamSkills = teamSkills.body;
             this.levelSkills = levelSkills.body;
             this.badgeSkills = badgeSkills.body;
+            this.skills = skills.body;
 
             const groupedTeamSkills = {};
             this.teamSkills.forEach(teamSkill => {
