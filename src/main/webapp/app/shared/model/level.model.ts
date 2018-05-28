@@ -6,8 +6,9 @@ export interface ILevel {
     description?: string;
     pictureContentType?: string;
     picture?: any;
-    multiplier?: number;
     requiredScore?: number;
+    instantMultiplier?: number;
+    completionBonus?: number;
     dimensionName?: string;
     dimensionId?: number;
     dependsOnName?: string;
@@ -22,8 +23,9 @@ export class Level implements ILevel {
         public description?: string,
         public pictureContentType?: string,
         public picture?: any,
-        public multiplier?: number,
         public requiredScore?: number,
+        public instantMultiplier?: number,
+        public completionBonus?: number,
         public dimensionName?: string,
         public dimensionId?: number,
         public dependsOnName?: string,

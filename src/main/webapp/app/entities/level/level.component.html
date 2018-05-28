@@ -18,8 +18,9 @@
             <th><span jhiTranslate="teamdojoApp.level.name">Name</span></th>
             <th><span jhiTranslate="teamdojoApp.level.description">Description</span></th>
             <th><span jhiTranslate="teamdojoApp.level.picture">Picture</span></th>
-            <th><span jhiTranslate="teamdojoApp.level.multiplier">Multiplier</span></th>
             <th><span jhiTranslate="teamdojoApp.level.requiredScore">Required Score</span></th>
+            <th><span jhiTranslate="teamdojoApp.level.instantMultiplier">Instant Multiplier</span></th>
+            <th><span jhiTranslate="teamdojoApp.level.completionBonus">Completion Bonus</span></th>
             <th><span jhiTranslate="teamdojoApp.level.dimension">Dimension</span></th>
             <th><span jhiTranslate="teamdojoApp.level.dependsOn">Depends On</span></th>
             <th></th>
@@ -36,8 +37,9 @@
                     </a>
                     <span *ngIf="level.picture">{{level.pictureContentType}}, {{byteSize(level.picture)}}</span>
                 </td>
-                <td>{{level.multiplier}}</td>
                 <td>{{level.requiredScore}}</td>
+                <td>{{level.instantMultiplier}}</td>
+                <td>{{level.completionBonus}}</td>
                 <td>
                     <div *ngIf="level.dimensionId">
                         <a [routerLink]="['../dimension', level.dimensionId , 'view' ]" >{{level.dimensionName}}</a>

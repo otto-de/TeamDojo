@@ -36,12 +36,16 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="multiplier" type="double">
+            <column name="required_score" type="double">
                 <constraints nullable="false" />
             </column>
 
-            <column name="required_score" type="double">
+            <column name="instant_multiplier" type="double">
                 <constraints nullable="false" />
+            </column>
+
+            <column name="completion_bonus" type="integer">
+                <constraints nullable="true" />
             </column>
 
             <column name="dimension_id" type="bigint">

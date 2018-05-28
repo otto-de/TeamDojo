@@ -5,10 +5,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -46,14 +43,18 @@ public class Level implements Serializable {
 
     @NotNull
     @DecimalMin(value = "0")
-    @Column(name = "multiplier", nullable = false)
-    private Double multiplier;
-
-    @NotNull
-    @DecimalMin(value = "0")
     @DecimalMax(value = "1")
     @Column(name = "required_score", nullable = false)
     private Double requiredScore;
+
+    @NotNull
+    @DecimalMin(value = "0")
+    @Column(name = "instant_multiplier", nullable = false)
+    private Double instantMultiplier;
+
+    @Min(value = 0)
+    @Column(name = "completion_bonus")
+    private Integer completionBonus;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -129,19 +130,6 @@ public class Level implements Serializable {
         this.pictureContentType = pictureContentType;
     }
 
-    public Double getMultiplier() {
-        return multiplier;
-    }
-
-    public Level multiplier(Double multiplier) {
-        this.multiplier = multiplier;
-        return this;
-    }
-
-    public void setMultiplier(Double multiplier) {
-        this.multiplier = multiplier;
-    }
-
     public Double getRequiredScore() {
         return requiredScore;
     }
@@ -153,6 +141,32 @@ public class Level implements Serializable {
 
     public void setRequiredScore(Double requiredScore) {
         this.requiredScore = requiredScore;
+    }
+
+    public Double getInstantMultiplier() {
+        return instantMultiplier;
+    }
+
+    public Level instantMultiplier(Double instantMultiplier) {
+        this.instantMultiplier = instantMultiplier;
+        return this;
+    }
+
+    public void setInstantMultiplier(Double instantMultiplier) {
+        this.instantMultiplier = instantMultiplier;
+    }
+
+    public Integer getCompletionBonus() {
+        return completionBonus;
+    }
+
+    public Level completionBonus(Integer completionBonus) {
+        this.completionBonus = completionBonus;
+        return this;
+    }
+
+    public void setCompletionBonus(Integer completionBonus) {
+        this.completionBonus = completionBonus;
     }
 
     public Dimension getDimension() {
@@ -235,8 +249,9 @@ public class Level implements Serializable {
             ", description='" + getDescription() + "'" +
             ", picture='" + getPicture() + "'" +
             ", pictureContentType='" + getPictureContentType() + "'" +
-            ", multiplier=" + getMultiplier() +
             ", requiredScore=" + getRequiredScore() +
+            ", instantMultiplier=" + getInstantMultiplier() +
+            ", completionBonus=" + getCompletionBonus() +
             "}";
     }
 }

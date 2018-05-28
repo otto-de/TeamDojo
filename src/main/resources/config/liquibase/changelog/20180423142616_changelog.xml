@@ -12,7 +12,8 @@
             <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
             <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;null&apos; LIMIT 1)' />
             <column name='required_score' valueNumeric='1.0' />
-            <column name='multiplier' valueNumeric='1.0' />
+            <column name='instant_multiplier' valueNumeric='0.0' />
+            <column name="completion_bonus" valueNumeric='0' />
         </insert>
     </changeSet>
     <changeSet author='gradle' context='!test' id='1525700349786-3'>
@@ -198,7 +199,8 @@
             <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
             <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;yellow&apos; LIMIT 1)' />
             <column name='required_score' valueNumeric='1.0' />
-            <column name='multiplier' valueNumeric='1.0' />
+            <column name='instant_multiplier' valueNumeric='0.0' />
+            <column name="completion_bonus" valueNumeric='0' />
         </insert>
     </changeSet>
     <changeSet author='gradle' context='!test' id='1525700349786-15'>
@@ -464,7 +466,8 @@
             <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
             <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;orange&apos; LIMIT 1)' />
             <column name='required_score' valueNumeric='1.0' />
-            <column name='multiplier' valueNumeric='1.0' />
+            <column name='instant_multiplier' valueNumeric='0.0' />
+            <column name="completion_bonus" valueNumeric='0' />
         </insert>
     </changeSet>
     <changeSet author='gradle' context='!test' id='1525700349786-32'>
@@ -650,7 +653,8 @@
             <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
             <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;green&apos; LIMIT 1)' />
             <column name='required_score' valueNumeric='1.0' />
-            <column name='multiplier' valueNumeric='1.0' />
+            <column name='instant_multiplier' valueNumeric='0.0' />
+            <column name="completion_bonus" valueNumeric='0' />
         </insert>
     </changeSet>
     <changeSet author='gradle' context='!test' id='1525700349786-44'>
@@ -804,7 +808,8 @@
             <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
             <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;blue&apos; LIMIT 1)' />
             <column name='required_score' valueNumeric='1.0' />
-            <column name='multiplier' valueNumeric='1.0' />
+            <column name='instant_multiplier' valueNumeric='0.0' />
+            <column name="completion_bonus" valueNumeric='0' />
         </insert>
     </changeSet>
     <changeSet author='gradle' context='!test' id='1525700349786-54'>
@@ -878,7 +883,8 @@
             <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
             <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;brown&apos; LIMIT 1)' />
             <column name='required_score' valueNumeric='1.0' />
-            <column name='multiplier' valueNumeric='1.0' />
+            <column name='instant_multiplier' valueNumeric='0.0' />
+            <column name="completion_bonus" valueNumeric='0' />
         </insert>
     </changeSet>
     <changeSet author='gradle' context='!test' id='1525700349786-59'>
