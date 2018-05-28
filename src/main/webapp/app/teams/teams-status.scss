@@ -9,10 +9,6 @@
         .team-image-wrapper {
             width: 35vh;
             height: 35vh;
-            &.big {
-                width: 50vh;
-                height: 50vh;
-            }
             max-width: 100%;
             overflow: hidden;
             border-radius: 50%;
@@ -33,10 +29,6 @@
         .avatar-image-wrapper {
             width: 31vh;
             height: 41vh;
-            &.big {
-                width: 40vh;
-                height: 55vh;
-            }
             position: absolute;
             top: 0.5rem;
             .avatar-image {
@@ -49,10 +41,6 @@
         .status-meta {
             width: 50vh;
             height: 20vh;
-            &.big {
-                width: 70vh;
-                height: 15vh;
-            }
             margin-top: -4vh;
             color: $dojo-text-inverse-secondary;
             .team-title, .team-slogan {

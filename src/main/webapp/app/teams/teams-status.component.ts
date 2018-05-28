@@ -16,7 +16,6 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
     @Input() teamSkills: ITeamSkill[];
     @Input() badges: IBadge[];
-    @Input() asBackground = false;
     completedBadges: IBadge[];
     highestAchievedLevels: IHighestLevel[];
 
