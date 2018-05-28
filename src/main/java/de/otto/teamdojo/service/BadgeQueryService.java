@@ -87,11 +87,14 @@ public class BadgeQueryService extends QueryService<Badge> {
             if (criteria.getAvailableAmount() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getAvailableAmount(), Badge_.availableAmount));
             }
-            if (criteria.getMultiplier() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getMultiplier(), Badge_.multiplier));
-            }
             if (criteria.getRequiredScore() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getRequiredScore(), Badge_.requiredScore));
+            }
+            if (criteria.getInstantMultiplier() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getInstantMultiplier(), Badge_.instantMultiplier));
+            }
+            if (criteria.getCompletionBonus() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getCompletionBonus(), Badge_.completionBonus));
             }
             if (criteria.getSkillsId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getSkillsId(), Badge_.skills, BadgeSkill_.id));
