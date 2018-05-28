@@ -1,6 +1,6 @@
 <div class="overviews-teams">
     <div>
-        <h4 jhiTranslate="teamdojoApp.overview.teams.title">Teams</h4>
+        <h4 jhiTranslate="teamdojoApp.overview.teams.title"></h4>
     </div>
     <div class="additional-functions d-flex align-items-center">
         <form style="width: 100%;">
@@ -12,48 +12,52 @@
             </div>
         </form>
     </div>
-    <div class="row mr-4 overview-status">
-        <div class="count-container status-meta d-flex ml-auto">
-            <div class="col-6"></div>
-            <div class="col-2 count-item overview-score"></div>
-            <div class="col-2 count-item overview-level"></div>
-            <div class="col-2 count-item overview-badge"></div>
+    <div class="overview-status teams-skills">
+
+        <div class="row count-container mr-1 ">
+            <div class="col-sm-7 status-detail"></div>
+            <div class="col-sm-5">
+                <div class="row item">
+                    <div class="col-sm-4 text-right"><img src="../../../content/images/coin_black.png"/></div>
+                    <div class="col-sm-4 text-right"><img src="../../../content/images/belt_black.png"/></div>
+                    <div class="col-sm-4 text-right"><img src="../../../content/images/badge_black.png"/></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row count-container bottom-border mr-1">
+            <div class="col-sm-7 status-detail" jhiTranslate="teamdojoApp.overview.total-score"></div>
+            <div class="col-sm-5">
+                <div class="row item">
+                    <div class="col-sm-4 text-right">{{calcTotalTeamScore()}}</div>
+                    <div class="col-sm-4 text-right">{{calcTotalCompletedLevel()}}/{{getTotalLevelBase()}}</div>
+                    <div class="col-sm-4 text-right">{{calcTotalCompletedBadges()}}</div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row mr-4 overview-status">
-        <div class="count-container status-meta d-flex ml-auto">
-            <div class="col-6 status-detail">Insgesamt</div>
-            <div class="col-2 status-detail count-item">{{calcTotalTeamScore()}}</div>
-            <div class="col-2 status-detail count-item">{{calcTotalCompletedLevel()}}/{{getTotalLevelBase()}}</div>
-            <div class="col-2 status-detail count-item">{{calcTotalCompletedBadges()}}</div>
-        </div>
-    </div>
-    <div class="team-list list-group">
-        <div class="team-item list-group-item list-group-item-action flex-column align-items-start"
-             *ngFor='let team of teams'
-             [ngClass]="{irrelevant: showAsIrrelevant(team)}">
-            <div class="row mr-4 counter d-flex flex-wrap align-items-center">
-                <div class="col-6 d-inline-flex align-items-center achievement-list-header">
+    <div class="team-list">
+        <div class="team-item list-item"
+             *ngFor='let teamScore of teamScores '
+             [ngClass]="{irrelevant: showAsIrrelevant(teamScore.team)}">
+            <div class="row align-items-center">
+                <div class="col-sm-7 counter align-items-center d-inline-flex achievement-list-header">
                     <div class="team-image"
-                         [ngClass]="{complete: showAsComplete(team), incomplete: showAsIncomplete(team)}">
-                        <img [title]="team.name"
-                             *ngIf="team.picture && team.pictureContentType; else picturePlaceholder"
-                             [src]="team.picture | imageDataUrl: team.pictureContentType"/>
+                         [ngClass]="{complete: showAsComplete(teamScore.team), incomplete: showAsIncomplete(teamScore.team)}">
+                        <img [title]="teamScore.team.name"
+                             *ngIf="teamScore.team.picture && teamScore.team.pictureContentType; else picturePlaceholder"
+                             [src]="teamScore.team.picture | imageDataUrl: teamScore.team.pictureContentType"/>
                         <ng-template #picturePlaceholder>
-                            <span class="img-placeholder">{{team.name | truncateString}}</span>
+                            <span class="img-placeholder">{{teamScore.team.name | truncateString}}</span>
                         </ng-template>
                     </div>
-                    <a href="#" [routerLink]="['/teams', team.shortName]" class="team-name ml-2">{{team.name}}</a>
+                    <a href="#" [routerLink]="['/teams', teamScore.team.shortName]" class="team-name ml-2">{{teamScore.team.name}}</a>
                 </div>
-                <div class="count-container ml-auto d-flex">
-                    <div class="col-2 status-detail count-item">
-                        <div class="count-item-value">{{calcTeamScore(team)}}</div>
-                    </div>
-                    <div class="col-2 status-detail count-item">
-                        <div class="count-item-value">{{calcCompletedLevel(team)}}/{{calcLevelBase(team)}}</div>
-                    </div>
-                    <div class="col-2 status-detail count-item">
-                        <div class="count-item-value">{{calcCompletedBadges(team)}}</div>
+                <div class="col-sm-5 count-container">
+                    <div class="row mr-1">
+                        <div class="col-sm-4 text-right">{{teamScore.score}}</div>
+                        <div class="col-sm-4 text-right">{{calcCompletedLevel(teamScore.team)}}/{{calcLevelBase(teamScore.team)}}</div>
+                        <div class="col-sm-4 text-right">{{calcCompletedBadges(teamScore.team)}}</div>
                     </div>
                 </div>
             </div>

@@ -10,68 +10,34 @@
         width: 100%;
     }
 
-    .overview-status{
+    .bottom-border{
+        border-bottom: 1px solid #E5E1D8;
+    }
 
-        .status-detail{
-            color: $dojo-text-inverse-secondary;
-            &::before {
-                position: absolute;
-                margin-left: -2vh;
-            }
+    .overview-status-detail{
+        color: $dojo-text-primary;
+        &::before {
+            position: absolute;
+            margin-left: -2vh;
+        }
+    }
+
+    .overview-status {
+        color: $dojo-text-primary;
+
+        img{
+            width: 5.0vh;
+            opacity: 0.5;
         }
 
-        .status-meta {
-            width: 44vh;
-            height: 15vh;
-            color: $dojo-text-inverse-secondary;
-            //.team-title, .team-slogan {
-            //    font-size: 2.3vh;
-            //    z-index: 4;
-            //}
-
-            .overview-score {
-                font-size: 1.8vh;
-                z-index: 4;
-                &::before {
-                    content: '';
-                    width: 3.6vh;
-                    height: 5.0vh;
-                    position: absolute;
-                    background: no-repeat center/contain url('../../../content/images/coin_black.png');
-                    margin-left: -2vh;
-                    z-index: 4;
-                }
-            }
-            .overview-level {
-                font-size: 1.8vh;
-                z-index: 4;
-                &::before {
-                    content: '';
-                    width: 3.6vh;
-                    height: 5.0vh;
-                    position: absolute;
-                    background: no-repeat center/contain url('../../../content/images/belt_black.png');
-                    margin-left: -2vh;
-                    z-index: 4;
-                }
-            }
-            .overview-badge {
-                font-size: 1.8vh;
-                z-index: 4;
-                &::before {
-                    content: '';
-                    width: 3.6vh;
-                    height: 5.0vh;
-                    position: absolute;
-                    background: no-repeat center/contain url('../../../content/images/badge_black.png');
-                    margin-left: -2vh;
-                    z-index: 4;
-                }
-            }
+        .borderless tr td {
+            border: none !important;
+            padding: 0px !important;
         }
     }
 
     .count-container {
+        line-height:4.5;
         .count-item {
             display: block;
             margin-left: 5px;
@@ -96,6 +62,24 @@
             color: $dojo-text-primary;
         }
 
+        .list-item {
+            padding: 0;
+            background-color: $dojo-bg-gradient-from;
+            border: none;
+            border-radius: 2px;
+            @include shadow();
+            transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+            &:hover {
+                -webkit-box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
+                box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
+            }
+
+            a {
+                color: $dojo-text-primary;
+                font-weight: normal;
+            }
+        }
+
         border-style: none;
         .team-item {
             border-style: none;
@@ -103,6 +87,7 @@
             margin: 0px !important;
             padding-top: 0px;
             padding-bottom: 0px;
+            line-height:4.5;
             &.irrelevant {
                 background-color: $gray-400;
                 opacity: 0.5;
