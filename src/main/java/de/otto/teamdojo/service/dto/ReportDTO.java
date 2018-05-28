@@ -15,6 +15,7 @@ public class ReportDTO implements Serializable {
     private String title;
 
     @NotNull
+    @Size(max = 4096)
     private String description;
 
     @NotNull
