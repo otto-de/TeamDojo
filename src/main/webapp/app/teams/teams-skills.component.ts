@@ -95,6 +95,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
                 this.activeDimension = null;
                 this.updateBreadcrumb();
             });
+        } else {
+            this.activeBadge = null;
         }
 
         if (this.levelId) {
@@ -106,7 +108,11 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
                     this.updateBreadcrumb();
                 });
             });
+        } else {
+            this.activeLevel = null;
+            this.activeDimension = null;
         }
+
         if (this.skill && this.skill.skillId) {
             this.skillService.find(this.skill.skillId).subscribe(skillRes => {
                 this.activeSkill = skillRes.body;
