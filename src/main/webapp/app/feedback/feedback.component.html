@@ -12,11 +12,15 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.feedback.description" for="field_description">Description</label>
                     <textarea class="form-control" rows="5" name="description" id="field_description"
-                              [(ngModel)]="report.description" required></textarea>
+                              [(ngModel)]="report.description" required maxlength="4096"></textarea>
                     <div [hidden]="!(feedbackForm.controls.description?.dirty && feedbackForm.controls.description?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!feedbackForm.controls.description?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               [hidden]="!feedbackForm.controls.description?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 4096 }">
+                        This field cannot be longer than 4096 characters.
                         </small>
                     </div>
                 </div>
