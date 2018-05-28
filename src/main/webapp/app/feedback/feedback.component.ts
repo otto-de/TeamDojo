@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { IReport } from 'app/shared/model/report.model';
 import { FeedbackService } from './feedback.service';
 import * as moment from 'moment';
+import { DATE_TIME_FORMAT } from 'app/shared';
 
 @Component({
     selector: 'jhi-feedback',
@@ -30,7 +31,7 @@ export class FeedbackComponent implements OnInit {
 
     submit() {
         this.isSubmitting = true;
-        this._report.creationDate = moment();
+        this._report.creationDate = moment(moment().format(DATE_TIME_FORMAT), DATE_TIME_FORMAT);
         this.subscribeToSubmitResponse(this.feedbackService.create(this.report));
     }
 
