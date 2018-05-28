@@ -8,8 +8,6 @@ import { ILevel } from 'app/shared/model/level.model';
     styleUrls: ['./achievement-item.scss']
 })
 export class AchievementItemComponent {
-    staticStatus: boolean;
-
     @Input() item: any;
     @Input() progress: number;
     @Input() active: boolean;
