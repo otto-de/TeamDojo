@@ -1,10 +1,7 @@
 package de.otto.teamdojo.service.dto;
 
 import javax.persistence.Lob;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -27,12 +24,15 @@ public class LevelDTO implements Serializable {
 
     @NotNull
     @DecimalMin(value = "0")
-    private Double multiplier;
+    @DecimalMax(value = "1")
+    private Double requiredScore;
 
     @NotNull
     @DecimalMin(value = "0")
-    @DecimalMax(value = "1")
-    private Double requiredScore;
+    private Double instantMultiplier;
+
+    @Min(value = 0)
+    private Integer completionBonus;
 
     private Long dimensionId;
 
@@ -82,20 +82,28 @@ public class LevelDTO implements Serializable {
         this.pictureContentType = pictureContentType;
     }
 
-    public Double getMultiplier() {
-        return multiplier;
-    }
-
-    public void setMultiplier(Double multiplier) {
-        this.multiplier = multiplier;
-    }
-
     public Double getRequiredScore() {
         return requiredScore;
     }
 
     public void setRequiredScore(Double requiredScore) {
         this.requiredScore = requiredScore;
+    }
+
+    public Double getInstantMultiplier() {
+        return instantMultiplier;
+    }
+
+    public void setInstantMultiplier(Double instantMultiplier) {
+        this.instantMultiplier = instantMultiplier;
+    }
+
+    public Integer getCompletionBonus() {
+        return completionBonus;
+    }
+
+    public void setCompletionBonus(Integer completionBonus) {
+        this.completionBonus = completionBonus;
     }
 
     public Long getDimensionId() {
@@ -158,8 +166,9 @@ public class LevelDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", picture='" + getPicture() + "'" +
-            ", multiplier=" + getMultiplier() +
             ", requiredScore=" + getRequiredScore() +
+            ", instantMultiplier=" + getInstantMultiplier() +
+            ", completionBonus=" + getCompletionBonus() +
             ", dimension=" + getDimensionId() +
             ", dimension='" + getDimensionName() + "'" +
             ", dependsOn=" + getDependsOnId() +

@@ -1,9 +1,6 @@
 package de.otto.teamdojo.service.dto;
 
-import io.github.jhipster.service.filter.DoubleFilter;
-import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.LongFilter;
-import io.github.jhipster.service.filter.StringFilter;
+import io.github.jhipster.service.filter.*;
 
 import java.io.Serializable;
 
@@ -26,9 +23,11 @@ public class LevelCriteria implements Serializable {
 
     private StringFilter description;
 
-    private DoubleFilter multiplier;
-
     private DoubleFilter requiredScore;
+
+    private DoubleFilter instantMultiplier;
+
+    private IntegerFilter completionBonus;
 
     private LongFilter dimensionId;
 
@@ -63,20 +62,28 @@ public class LevelCriteria implements Serializable {
         this.description = description;
     }
 
-    public DoubleFilter getMultiplier() {
-        return multiplier;
-    }
-
-    public void setMultiplier(DoubleFilter multiplier) {
-        this.multiplier = multiplier;
-    }
-
     public DoubleFilter getRequiredScore() {
         return requiredScore;
     }
 
     public void setRequiredScore(DoubleFilter requiredScore) {
         this.requiredScore = requiredScore;
+    }
+
+    public DoubleFilter getInstantMultiplier() {
+        return instantMultiplier;
+    }
+
+    public void setInstantMultiplier(DoubleFilter instantMultiplier) {
+        this.instantMultiplier = instantMultiplier;
+    }
+
+    public IntegerFilter getCompletionBonus() {
+        return completionBonus;
+    }
+
+    public void setCompletionBonus(IntegerFilter completionBonus) {
+        this.completionBonus = completionBonus;
     }
 
     public LongFilter getDimensionId() {
@@ -109,8 +116,9 @@ public class LevelCriteria implements Serializable {
             (id != null ? "id=" + id + ", " : "") +
             (name != null ? "name=" + name + ", " : "") +
             (description != null ? "description=" + description + ", " : "") +
-            (multiplier != null ? "multiplier=" + multiplier + ", " : "") +
             (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
+            (instantMultiplier != null ? "instantMultiplier=" + instantMultiplier + ", " : "") +
+            (completionBonus != null ? "completionBonus=" + completionBonus + ", " : "") +
             (dimensionId != null ? "dimensionId=" + dimensionId + ", " : "") +
             (dependsOnId != null ? "dependsOnId=" + dependsOnId + ", " : "") +
             (skillsId != null ? "skillsId=" + skillsId + ", " : "") +

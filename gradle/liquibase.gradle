@@ -108,6 +108,8 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd''') {
                     column(name: 'dimension_id', valueComputed: "(SELECT id FROM dimension WHERE name = '${dimension.name}' LIMIT 1)")
                     column(name: 'depends_on_id', valueComputed: "(SELECT id FROM level WHERE name = '${level.dependsOn}' LIMIT 1)")
                     column(name: 'required_score', valueNumeric: 1.0)
+                    column(name: 'instant_multiplier', valueNumeric: 0.0)
+                    column(name: 'completion_bonus', valueNumeric: 0.0)
                 }
             }
             level.fileTree.getFiles().collect { loadYaml(it) }.each { skill ->
