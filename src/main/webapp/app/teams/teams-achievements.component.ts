@@ -11,6 +11,7 @@ import { CompletionCheck } from 'app/shared/util/completion-check';
 import { IProgress, Progress } from 'app/shared/achievement/model/progress.model';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import 'simplebar';
+
 @Component({
     selector: 'jhi-teams-achievements',
     templateUrl: './teams-achievements.component.html',
@@ -139,7 +140,6 @@ export class TeamsAchievementsComponent implements OnInit, OnChanges {
                 return false;
             }
         }
-        return false;
     }
 
     private getLevelOrBadgeProgress(item: ILevel | IBadge): IProgress {
