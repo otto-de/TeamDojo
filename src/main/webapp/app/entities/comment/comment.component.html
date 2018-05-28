@@ -1,0 +1,68 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="teamdojoApp.comment.home.title">Comments</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-comment" [routerLink]="['/comment/new']">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="teamdojoApp.comment.home.createLabel">
+            Create new Comment
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="comments">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="teamdojoApp.comment.text">Text</span></th>
+            <th><span jhiTranslate="teamdojoApp.comment.creationDate">Creation Date</span></th>
+            <th><span jhiTranslate="teamdojoApp.comment.team">Team</span></th>
+            <th><span jhiTranslate="teamdojoApp.comment.skill">Skill</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let comment of comments ;trackBy: trackId">
+                <td><a [routerLink]="['/comment', comment.id, 'view' ]">{{comment.id}}</a></td>
+                <td>{{comment.text}}</td>
+                <td>{{comment.creationDate | date:'medium'}}</td>
+                <td>
+                    <div *ngIf="comment.teamId">
+                        <a [routerLink]="['../team', comment.teamId , 'view' ]" >{{comment.teamShortName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="comment.skillId">
+                        <a [routerLink]="['../skill', comment.skillId , 'view' ]" >{{comment.skillTitle}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/comment', comment.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/comment', comment.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'comment/'+ comment.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
