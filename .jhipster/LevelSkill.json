@@ -21,17 +21,7 @@
             "otherEntityField": "name"
         }
     ],
-    "fields": [
-        {
-            "fieldName": "score",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required",
-                "min"
-            ],
-            "fieldValidateRulesMin": 0
-        }
-    ],
+    "fields": [],
     "changelogDate": "20180419154302",
     "dto": "mapstruct",
     "service": "serviceImpl",
