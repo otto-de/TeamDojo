@@ -1,1 +1,5 @@
-<div *ngIf="currentTeam" class="background-image" [ngStyle]="{'background-image': 'url(' + (currentTeam.picture | imageDataUrl: currentTeam.pictureContentType ) +  ')'}"></div>
+<div *ngIf="currentTeam" class="row">
+    <div class="col-md-6 background-image">
+        <jhi-teams-status [team]="currentTeam" [teamSkills]="[]" [badges]="[]"></jhi-teams-status>
+    </div>
+</div>
