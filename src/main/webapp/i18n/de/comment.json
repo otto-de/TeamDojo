@@ -1,0 +1,25 @@
+
+{
+    "teamdojoApp": {
+        "comment" : {
+            "home": {
+                "title": "Comments",
+                "createLabel": "Comment erstellen",
+                "createOrEditLabel": "Comment erstellen oder bearbeiten"
+            },
+            "created": "Comment erstellt mit ID {{ param }}",
+            "updated": "Comment aktualisiert mit ID {{ param }}",
+            "deleted": "Comment gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Comment {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Comment"
+            },
+            "text": "Text",
+            "creationDate": "Creation Date",
+            "team": "Team",
+            "skill": "Skill"
+        }
+    }
+}
