@@ -8,9 +8,10 @@
     padding-right: 10px;
     .teams-skills-list {
         /deep/ .simplebar-scroll-content {
-            padding-right: 1.4em!important;
+            padding-right: 1.4em !important;
             .simplebar-content {
-                margin-right: -0.74em!important;
+                padding-right: 5px !important;
+                margin-right: -0.74em !important;
                 overflow-x: hidden;
             }
         }
@@ -28,16 +29,8 @@
         }
 
         .list-group-item {
-            background: $dojo-bg-primary;
-            @include shadow();
-            .justify-content-between {
-                outline: none;
-            }
-        }
-
-        .active-skill,
-        .active-skill:hover {
-            background: #f0f0f0;
+            @include skill-list-entry();
+            padding: 10px;
         }
     }
 }
@@ -45,7 +38,7 @@
 #skills_search-term {
     background-color: #e8ddb7;
     width: 100%;
-    margin-right: 7px;
+    margin-right: 13px;
 }
 
 .additional-functions {
