@@ -8,6 +8,7 @@ import { RelevanceCheck } from 'app/shared';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { LevelService } from 'app/entities/level';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { TeamScore } from 'app/shared/model/team-score.model';
 
 @Component({
     selector: 'jhi-overview-teams',
@@ -22,8 +23,11 @@ export class OverviewTeamsComponent implements OnInit {
     private relevantTeamIds: number[];
     private completedTeamIds: number[];
     private totalTeamLevelBase: number;
+    private teamScores: TeamScore[];
 
-    constructor(private route: ActivatedRoute, private levelService: LevelService) {}
+    constructor(private route: ActivatedRoute, private levelService: LevelService) {
+        this.teamScores = [];
+    }
 
     ngOnInit(): void {
         this.route.queryParamMap.subscribe((params: ParamMap) => {
@@ -36,6 +40,20 @@ export class OverviewTeamsComponent implements OnInit {
             this.completedTeamIds = this.getCompletedTeamIds(relevantTeams, badgeId, levelId, dimensionId);
             this.relevantTeamIds = this.getRelevantTeamIds(relevantTeams);
         });
+
+        for (const team of this.teams) {
+            this.teamScores.push(new TeamScore(team, this.calcTeamScore(team)));
+        }
+        this.teamScores = this.teamScores.sort((ts1, ts2) => {
+            if (ts1.score > ts2.score) {
+                return 1;
+            }
+            if (ts1.score < ts2.score) {
+                return -1;
+            }
+            return 0;
+        });
+        this.teamScores = this.teamScores.reverse();
     }
 
     private getRelevantTeams(badgeId: number, levelId: number, dimensionId: number) {
@@ -121,12 +139,6 @@ export class OverviewTeamsComponent implements OnInit {
     }
 
     getTotalLevelBase() {
-        //this.levelService.query().subscribe(
-        //    (res: HttpResponse<ILevel[]>) => {
-        //        this.levels = res.body;
-        //    },
-        //    (res: HttpErrorResponse) => this.onError(res.message)
-        //);
         return this.levels.length * this.teams.length;
     }
 
