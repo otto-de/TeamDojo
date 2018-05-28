@@ -20,6 +20,7 @@
         }
         .team-item {
             border-style: none;
+            margin: 0;
             background: rgba($dojo-bg-gradient-from, 0.5);
             .status {
                 color: $dojo-text-secondary;
