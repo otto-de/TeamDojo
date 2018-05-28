@@ -3,7 +3,6 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from 'app/shared';
 import { IReport } from 'app/shared/model/report.model';
 
 export type EntityResponseType = HttpResponse<IReport>;
