@@ -77,9 +77,6 @@ public class LevelSkillQueryService extends QueryService<LevelSkill> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildSpecification(criteria.getId(), LevelSkill_.id));
             }
-            if (criteria.getScore() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getScore(), LevelSkill_.score));
-            }
             if (criteria.getSkillId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getSkillId(), LevelSkill_.skill, Skill_.id));
             }
