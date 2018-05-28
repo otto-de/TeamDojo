@@ -10,7 +10,7 @@ import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 
-
+import io.github.jhipster.service.filter.InstantFilter;
 
 
 
@@ -40,6 +40,8 @@ public class ReportCriteria implements Serializable {
     private StringFilter description;
 
     private ReportTypeFilter type;
+
+    private InstantFilter creationDate;
 
     public ReportCriteria() {
     }
@@ -76,6 +78,14 @@ public class ReportCriteria implements Serializable {
         this.type = type;
     }
 
+    public InstantFilter getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(InstantFilter creationDate) {
+        this.creationDate = creationDate;
+    }
+
     @Override
     public String toString() {
         return "ReportCriteria{" +
@@ -83,6 +93,7 @@ public class ReportCriteria implements Serializable {
                 (title != null ? "title=" + title + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
                 (type != null ? "type=" + type + ", " : "") +
+                (creationDate != null ? "creationDate=" + creationDate + ", " : "") +
             "}";
     }
 

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import * as moment from 'moment';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
@@ -64,7 +65,9 @@ export class ReportService {
      * Convert a returned JSON object to Report.
      */
     private convertItemFromServer(report: IReport): IReport {
-        const copy: IReport = Object.assign({}, report, {});
+        const copy: IReport = Object.assign({}, report, {
+            creationDate: report.creationDate != null ? moment(report.creationDate) : report.creationDate
+        });
         return copy;
     }
 
@@ -72,7 +75,9 @@ export class ReportService {
      * Convert a Report to a JSON which can be sent to the server.
      */
     private convert(report: IReport): IReport {
-        const copy: IReport = Object.assign({}, report, {});
+        const copy: IReport = Object.assign({}, report, {
+            creationDate: report.creationDate != null && report.creationDate.isValid() ? report.creationDate.toJSON() : null
+        });
         return copy;
     }
 }

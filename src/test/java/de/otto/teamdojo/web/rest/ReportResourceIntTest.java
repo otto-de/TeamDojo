@@ -27,6 +27,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -54,6 +56,9 @@ public class ReportResourceIntTest {
 
     private static final ReportType DEFAULT_TYPE = ReportType.BUG;
     private static final ReportType UPDATED_TYPE = ReportType.WISH;
+
+    private static final Instant DEFAULT_CREATION_DATE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_CREATION_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private ReportRepository reportRepository;
@@ -107,7 +112,8 @@ public class ReportResourceIntTest {
         Report report = new Report()
             .title(DEFAULT_TITLE)
             .description(DEFAULT_DESCRIPTION)
-            .type(DEFAULT_TYPE);
+            .type(DEFAULT_TYPE)
+            .creationDate(DEFAULT_CREATION_DATE);
         return report;
     }
 
@@ -135,6 +141,7 @@ public class ReportResourceIntTest {
         assertThat(testReport.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testReport.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testReport.getType()).isEqualTo(DEFAULT_TYPE);
+        assertThat(testReport.getCreationDate()).isEqualTo(DEFAULT_CREATION_DATE);
     }
 
     @Test
@@ -197,6 +204,25 @@ public class ReportResourceIntTest {
 
     @Test
     @Transactional
+    public void checkCreationDateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = reportRepository.findAll().size();
+        // set the field null
+        report.setCreationDate(null);
+
+        // Create the Report, which fails.
+        ReportDTO reportDTO = reportMapper.toDto(report);
+
+        restReportMockMvc.perform(post("/api/reports")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(reportDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Report> reportList = reportRepository.findAll();
+        assertThat(reportList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllReports() throws Exception {
         // Initialize the database
         reportRepository.saveAndFlush(report);
@@ -208,7 +234,8 @@ public class ReportResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(report.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())));
+            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].creationDate").value(hasItem(DEFAULT_CREATION_DATE.toString())));
     }
     
 
@@ -225,7 +252,8 @@ public class ReportResourceIntTest {
             .andExpect(jsonPath("$.id").value(report.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()));
+            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
+            .andExpect(jsonPath("$.creationDate").value(DEFAULT_CREATION_DATE.toString()));
     }
 
     @Test
@@ -344,6 +372,45 @@ public class ReportResourceIntTest {
         // Get all the reportList where type is null
         defaultReportShouldNotBeFound("type.specified=false");
     }
+
+    @Test
+    @Transactional
+    public void getAllReportsByCreationDateIsEqualToSomething() throws Exception {
+        // Initialize the database
+        reportRepository.saveAndFlush(report);
+
+        // Get all the reportList where creationDate equals to DEFAULT_CREATION_DATE
+        defaultReportShouldBeFound("creationDate.equals=" + DEFAULT_CREATION_DATE);
+
+        // Get all the reportList where creationDate equals to UPDATED_CREATION_DATE
+        defaultReportShouldNotBeFound("creationDate.equals=" + UPDATED_CREATION_DATE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllReportsByCreationDateIsInShouldWork() throws Exception {
+        // Initialize the database
+        reportRepository.saveAndFlush(report);
+
+        // Get all the reportList where creationDate in DEFAULT_CREATION_DATE or UPDATED_CREATION_DATE
+        defaultReportShouldBeFound("creationDate.in=" + DEFAULT_CREATION_DATE + "," + UPDATED_CREATION_DATE);
+
+        // Get all the reportList where creationDate equals to UPDATED_CREATION_DATE
+        defaultReportShouldNotBeFound("creationDate.in=" + UPDATED_CREATION_DATE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllReportsByCreationDateIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        reportRepository.saveAndFlush(report);
+
+        // Get all the reportList where creationDate is not null
+        defaultReportShouldBeFound("creationDate.specified=true");
+
+        // Get all the reportList where creationDate is null
+        defaultReportShouldNotBeFound("creationDate.specified=false");
+    }
     /**
      * Executes the search, and checks that the default entity is returned
      */
@@ -354,7 +421,8 @@ public class ReportResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(report.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())));
+            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].creationDate").value(hasItem(DEFAULT_CREATION_DATE.toString())));
     }
 
     /**
@@ -392,7 +460,8 @@ public class ReportResourceIntTest {
         updatedReport
             .title(UPDATED_TITLE)
             .description(UPDATED_DESCRIPTION)
-            .type(UPDATED_TYPE);
+            .type(UPDATED_TYPE)
+            .creationDate(UPDATED_CREATION_DATE);
         ReportDTO reportDTO = reportMapper.toDto(updatedReport);
 
         restReportMockMvc.perform(put("/api/reports")
@@ -407,6 +476,7 @@ public class ReportResourceIntTest {
         assertThat(testReport.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testReport.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testReport.getType()).isEqualTo(UPDATED_TYPE);
+        assertThat(testReport.getCreationDate()).isEqualTo(UPDATED_CREATION_DATE);
     }
 
     @Test

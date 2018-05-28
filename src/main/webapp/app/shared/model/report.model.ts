@@ -1,3 +1,5 @@
+import { Moment } from 'moment';
+
 export const enum ReportType {
     'BUG',
     'WISH',
@@ -10,8 +12,15 @@ export interface IReport {
     title?: string;
     description?: string;
     type?: ReportType;
+    creationDate?: Moment;
 }
 
 export class Report implements IReport {
-    constructor(public id?: number, public title?: string, public description?: string, public type?: ReportType) {}
+    constructor(
+        public id?: number,
+        public title?: string,
+        public description?: string,
+        public type?: ReportType,
+        public creationDate?: Moment
+    ) {}
 }
