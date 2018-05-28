@@ -27,9 +27,11 @@ public class BadgeCriteria implements Serializable {
 
     private IntegerFilter availableAmount;
 
-    private DoubleFilter multiplier;
-
     private DoubleFilter requiredScore;
+
+    private DoubleFilter instantMultiplier;
+
+    private IntegerFilter completionBonus;
 
     private LongFilter skillsId;
 
@@ -78,20 +80,28 @@ public class BadgeCriteria implements Serializable {
         this.availableAmount = availableAmount;
     }
 
-    public DoubleFilter getMultiplier() {
-        return multiplier;
-    }
-
-    public void setMultiplier(DoubleFilter multiplier) {
-        this.multiplier = multiplier;
-    }
-
     public DoubleFilter getRequiredScore() {
         return requiredScore;
     }
 
     public void setRequiredScore(DoubleFilter requiredScore) {
         this.requiredScore = requiredScore;
+    }
+
+    public DoubleFilter getInstantMultiplier() {
+        return instantMultiplier;
+    }
+
+    public void setInstantMultiplier(DoubleFilter instantMultiplier) {
+        this.instantMultiplier = instantMultiplier;
+    }
+
+    public IntegerFilter getCompletionBonus() {
+        return completionBonus;
+    }
+
+    public void setCompletionBonus(IntegerFilter completionBonus) {
+        this.completionBonus = completionBonus;
     }
 
     public LongFilter getSkillsId() {
@@ -118,8 +128,9 @@ public class BadgeCriteria implements Serializable {
             (description != null ? "description=" + description + ", " : "") +
             (availableUntil != null ? "availableUntil=" + availableUntil + ", " : "") +
             (availableAmount != null ? "availableAmount=" + availableAmount + ", " : "") +
-            (multiplier != null ? "multiplier=" + multiplier + ", " : "") +
             (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
+            (instantMultiplier != null ? "instantMultiplier=" + instantMultiplier + ", " : "") +
+            (completionBonus != null ? "completionBonus=" + completionBonus + ", " : "") +
             (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
             (dimensionsId != null ? "dimensionsId=" + dimensionsId + ", " : "") +
             "}";

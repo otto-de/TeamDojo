@@ -51,15 +51,6 @@
             "fieldValidateRulesMin": "1"
         },
         {
-            "fieldName": "multiplier",
-            "fieldType": "Double",
-            "fieldValidateRules": [
-                "required",
-                "min"
-            ],
-            "fieldValidateRulesMin": "0"
-        },
-        {
             "fieldName": "requiredScore",
             "fieldType": "Double",
             "fieldValidateRules": [
@@ -69,6 +60,23 @@
             ],
             "fieldValidateRulesMin": "0",
             "fieldValidateRulesMax": "1"
+        },
+        {
+            "fieldName": "instantMultiplier",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": "0"
+        },
+        {
+            "fieldName": "completionBonus",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min"
+            ],
+            "fieldValidateRulesMin": "0"
         }
     ],
     "changelogDate": "20180419135514",

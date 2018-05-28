@@ -50,14 +50,18 @@ public class Badge implements Serializable {
 
     @NotNull
     @DecimalMin(value = "0")
-    @Column(name = "multiplier", nullable = false)
-    private Double multiplier;
-
-    @NotNull
-    @DecimalMin(value = "0")
     @DecimalMax(value = "1")
     @Column(name = "required_score", nullable = false)
     private Double requiredScore;
+
+    @NotNull
+    @DecimalMin(value = "0")
+    @Column(name = "instant_multiplier", nullable = false)
+    private Double instantMultiplier;
+
+    @Min(value = 0)
+    @Column(name = "completion_bonus")
+    private Integer completionBonus;
 
     @OneToMany(mappedBy = "badge")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -157,19 +161,6 @@ public class Badge implements Serializable {
         this.availableAmount = availableAmount;
     }
 
-    public Double getMultiplier() {
-        return multiplier;
-    }
-
-    public Badge multiplier(Double multiplier) {
-        this.multiplier = multiplier;
-        return this;
-    }
-
-    public void setMultiplier(Double multiplier) {
-        this.multiplier = multiplier;
-    }
-
     public Double getRequiredScore() {
         return requiredScore;
     }
@@ -181,6 +172,32 @@ public class Badge implements Serializable {
 
     public void setRequiredScore(Double requiredScore) {
         this.requiredScore = requiredScore;
+    }
+
+    public Double getInstantMultiplier() {
+        return instantMultiplier;
+    }
+
+    public Badge instantMultiplier(Double instantMultiplier) {
+        this.instantMultiplier = instantMultiplier;
+        return this;
+    }
+
+    public void setInstantMultiplier(Double instantMultiplier) {
+        this.instantMultiplier = instantMultiplier;
+    }
+
+    public Integer getCompletionBonus() {
+        return completionBonus;
+    }
+
+    public Badge completionBonus(Integer completionBonus) {
+        this.completionBonus = completionBonus;
+        return this;
+    }
+
+    public void setCompletionBonus(Integer completionBonus) {
+        this.completionBonus = completionBonus;
     }
 
     public Set<BadgeSkill> getSkills() {
@@ -264,8 +281,9 @@ public class Badge implements Serializable {
             ", pictureContentType='" + getPictureContentType() + "'" +
             ", availableUntil='" + getAvailableUntil() + "'" +
             ", availableAmount=" + getAvailableAmount() +
-            ", multiplier=" + getMultiplier() +
             ", requiredScore=" + getRequiredScore() +
+            ", instantMultiplier=" + getInstantMultiplier() +
+            ", completionBonus=" + getCompletionBonus() +
             "}";
     }
 }
