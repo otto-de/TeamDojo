@@ -7,6 +7,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { RelevanceCheck } from 'app/shared';
 import { IDimension } from 'app/shared/model/dimension.model';
 import 'simplebar';
+import { ISkill } from 'app/shared/model/skill.model';
 
 @Component({
     selector: 'jhi-overview-teams',
@@ -17,6 +18,7 @@ export class OverviewTeamsComponent implements OnInit {
     @Input() teams: ITeam[];
     @Input() levels: ILevel[];
     @Input() badges: IBadge[];
+    @Input() skills: ISkill[];
     private filtered: boolean;
     private relevantTeamIds: number[];
     private completedTeamIds: number[];
@@ -57,13 +59,13 @@ export class OverviewTeamsComponent implements OnInit {
             .filter((team: ITeam) => {
                 if (badgeId) {
                     const badge = this.badges.find((b: IBadge) => b.id === badgeId);
-                    return new CompletionCheck(team, badge).isCompleted();
+                    return new CompletionCheck(team, badge, this.skills).isCompleted();
                 } else if (levelId) {
                     const level = this.levels.find((l: ILevel) => l.id === levelId);
-                    return new CompletionCheck(team, level).isCompleted();
+                    return new CompletionCheck(team, level, this.skills).isCompleted();
                 } else if (dimensionId) {
                     const dimensions = team.participations.find((d: IDimension) => d.id === dimensionId);
-                    return dimensions.levels.every((level: ILevel) => new CompletionCheck(team, level).isCompleted());
+                    return dimensions.levels.every((level: ILevel) => new CompletionCheck(team, level, this.skills).isCompleted());
                 }
                 return false;
             })
@@ -123,7 +125,7 @@ export class OverviewTeamsComponent implements OnInit {
     }
 
     private isLevelOrBadgeCompleted(team: ITeam, item: ILevel | IBadge): boolean {
-        return new CompletionCheck(team, item).isCompleted();
+        return new CompletionCheck(team, item, this.skills).isCompleted();
     }
 
     private getParamAsNumber(name: string, params: ParamMap): number {

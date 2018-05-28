@@ -6,6 +6,7 @@ import {
     AllBadgesResolve,
     AllLevelSkillsResolve,
     AllLevelsResolve,
+    AllSkillsResolve,
     AllTeamSkillsResolve,
     AllTeamsResolve,
     OVERVIEW_ROUTE,
@@ -38,6 +39,7 @@ import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
         AllLevelSkillsResolve,
         SkillResolve,
         AllBadgeSkillsResolve,
+        AllSkillsResolve,
         BreadcrumbService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
