@@ -20,8 +20,9 @@
             <th jhiSortBy="picture"><span jhiTranslate="teamdojoApp.badge.picture">Picture</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="availableUntil"><span jhiTranslate="teamdojoApp.badge.availableUntil">Available Until</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="availableAmount"><span jhiTranslate="teamdojoApp.badge.availableAmount">Available Amount</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="multiplier"><span jhiTranslate="teamdojoApp.badge.multiplier">Multiplier</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="requiredScore"><span jhiTranslate="teamdojoApp.badge.requiredScore">Required Score</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="instantMultiplier"><span jhiTranslate="teamdojoApp.badge.instantMultiplier">Instant Multiplier</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="completionBonus"><span jhiTranslate="teamdojoApp.badge.completionBonus">Completion Bonus</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -38,8 +39,9 @@
                 </td>
                 <td>{{badge.availableUntil | date:'medium'}}</td>
                 <td>{{badge.availableAmount}}</td>
-                <td>{{badge.multiplier}}</td>
                 <td>{{badge.requiredScore}}</td>
+                <td>{{badge.instantMultiplier}}</td>
+                <td>{{badge.completionBonus}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
