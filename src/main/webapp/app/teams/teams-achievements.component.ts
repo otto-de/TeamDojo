@@ -130,6 +130,18 @@ export class TeamsAchievementsComponent implements OnInit, OnChanges {
         return currentLevel;
     }
 
+    isCompletable(level: ILevel, dimension: IDimension): boolean {
+        for (const l of dimension.levels) {
+            if (l.id === level.id) {
+                return true;
+            }
+            if (!this.getLevelOrBadgeProgress(l).isCompleted()) {
+                return false;
+            }
+        }
+        return false;
+    }
+
     private getLevelOrBadgeProgress(item: ILevel | IBadge): IProgress {
         return new CompletionCheck(this.team, item).getProgress();
     }
