@@ -31,6 +31,8 @@ public class SkillCriteria implements Serializable {
 
     private StringFilter expiryPeriod;
 
+    private StringFilter contact;
+
     private LongFilter teamsId;
 
     private LongFilter badgesId;
@@ -88,6 +90,14 @@ public class SkillCriteria implements Serializable {
         this.expiryPeriod = expiryPeriod;
     }
 
+    public StringFilter getContact() {
+        return contact;
+    }
+
+    public void setContact(StringFilter contact) {
+        this.contact = contact;
+    }
+
     public LongFilter getTeamsId() {
         return teamsId;
     }
@@ -121,6 +131,7 @@ public class SkillCriteria implements Serializable {
             (implementation != null ? "implementation=" + implementation + ", " : "") +
             (validation != null ? "validation=" + validation + ", " : "") +
             (expiryPeriod != null ? "expiryPeriod=" + expiryPeriod + ", " : "") +
+            (contact != null ? "contact=" + contact + ", " : "") +
             (teamsId != null ? "teamsId=" + teamsId + ", " : "") +
             (badgesId != null ? "badgesId=" + badgesId + ", " : "") +
             (levelsId != null ? "levelsId=" + levelsId + ", " : "") +

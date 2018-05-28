@@ -58,13 +58,17 @@ public class SkillResourceIntTest {
     private static final String DEFAULT_EXPIRY_PERIOD = "P+5M+24D";
     private static final String UPDATED_EXPIRY_PERIOD = "P78Y3W";
 
+    private static final String DEFAULT_CONTACT = "AAAAAAAAAA";
+    private static final String UPDATED_CONTACT = "BBBBBBBBBB";
+
     @Autowired
     private SkillRepository skillRepository;
 
 
+
     @Autowired
     private SkillMapper skillMapper;
-
+    
 
     @Autowired
     private SkillService skillService;
@@ -111,7 +115,8 @@ public class SkillResourceIntTest {
             .description(DEFAULT_DESCRIPTION)
             .implementation(DEFAULT_IMPLEMENTATION)
             .validation(DEFAULT_VALIDATION)
-            .expiryPeriod(DEFAULT_EXPIRY_PERIOD);
+            .expiryPeriod(DEFAULT_EXPIRY_PERIOD)
+            .contact(DEFAULT_CONTACT);
         return skill;
     }
 
@@ -141,6 +146,7 @@ public class SkillResourceIntTest {
         assertThat(testSkill.getImplementation()).isEqualTo(DEFAULT_IMPLEMENTATION);
         assertThat(testSkill.getValidation()).isEqualTo(DEFAULT_VALIDATION);
         assertThat(testSkill.getExpiryPeriod()).isEqualTo(DEFAULT_EXPIRY_PERIOD);
+        assertThat(testSkill.getContact()).isEqualTo(DEFAULT_CONTACT);
     }
 
     @Test
@@ -197,9 +203,10 @@ public class SkillResourceIntTest {
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].implementation").value(hasItem(DEFAULT_IMPLEMENTATION.toString())))
             .andExpect(jsonPath("$.[*].validation").value(hasItem(DEFAULT_VALIDATION.toString())))
-            .andExpect(jsonPath("$.[*].expiryPeriod").value(hasItem(DEFAULT_EXPIRY_PERIOD.toString())));
+            .andExpect(jsonPath("$.[*].expiryPeriod").value(hasItem(DEFAULT_EXPIRY_PERIOD.toString())))
+            .andExpect(jsonPath("$.[*].contact").value(hasItem(DEFAULT_CONTACT.toString())));
     }
-
+    
 
     @Test
     @Transactional
@@ -216,7 +223,8 @@ public class SkillResourceIntTest {
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.implementation").value(DEFAULT_IMPLEMENTATION.toString()))
             .andExpect(jsonPath("$.validation").value(DEFAULT_VALIDATION.toString()))
-            .andExpect(jsonPath("$.expiryPeriod").value(DEFAULT_EXPIRY_PERIOD.toString()));
+            .andExpect(jsonPath("$.expiryPeriod").value(DEFAULT_EXPIRY_PERIOD.toString()))
+            .andExpect(jsonPath("$.contact").value(DEFAULT_CONTACT.toString()));
     }
 
     @Test
@@ -416,6 +424,45 @@ public class SkillResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllSkillsByContactIsEqualToSomething() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where contact equals to DEFAULT_CONTACT
+        defaultSkillShouldBeFound("contact.equals=" + DEFAULT_CONTACT);
+
+        // Get all the skillList where contact equals to UPDATED_CONTACT
+        defaultSkillShouldNotBeFound("contact.equals=" + UPDATED_CONTACT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSkillsByContactIsInShouldWork() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where contact in DEFAULT_CONTACT or UPDATED_CONTACT
+        defaultSkillShouldBeFound("contact.in=" + DEFAULT_CONTACT + "," + UPDATED_CONTACT);
+
+        // Get all the skillList where contact equals to UPDATED_CONTACT
+        defaultSkillShouldNotBeFound("contact.in=" + UPDATED_CONTACT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSkillsByContactIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where contact is not null
+        defaultSkillShouldBeFound("contact.specified=true");
+
+        // Get all the skillList where contact is null
+        defaultSkillShouldNotBeFound("contact.specified=false");
+    }
+
+    @Test
+    @Transactional
     public void getAllSkillsByTeamsIsEqualToSomething() throws Exception {
         // Initialize the database
         TeamSkill teams = TeamSkillResourceIntTest.createEntity(em);
@@ -482,7 +529,8 @@ public class SkillResourceIntTest {
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].implementation").value(hasItem(DEFAULT_IMPLEMENTATION.toString())))
             .andExpect(jsonPath("$.[*].validation").value(hasItem(DEFAULT_VALIDATION.toString())))
-            .andExpect(jsonPath("$.[*].expiryPeriod").value(hasItem(DEFAULT_EXPIRY_PERIOD.toString())));
+            .andExpect(jsonPath("$.[*].expiryPeriod").value(hasItem(DEFAULT_EXPIRY_PERIOD.toString())))
+            .andExpect(jsonPath("$.[*].contact").value(hasItem(DEFAULT_CONTACT.toString())));
     }
 
     /**
@@ -522,7 +570,8 @@ public class SkillResourceIntTest {
             .description(UPDATED_DESCRIPTION)
             .implementation(UPDATED_IMPLEMENTATION)
             .validation(UPDATED_VALIDATION)
-            .expiryPeriod(UPDATED_EXPIRY_PERIOD);
+            .expiryPeriod(UPDATED_EXPIRY_PERIOD)
+            .contact(UPDATED_CONTACT);
         SkillDTO skillDTO = skillMapper.toDto(updatedSkill);
 
         restSkillMockMvc.perform(put("/api/skills")
@@ -539,6 +588,7 @@ public class SkillResourceIntTest {
         assertThat(testSkill.getImplementation()).isEqualTo(UPDATED_IMPLEMENTATION);
         assertThat(testSkill.getValidation()).isEqualTo(UPDATED_VALIDATION);
         assertThat(testSkill.getExpiryPeriod()).isEqualTo(UPDATED_EXPIRY_PERIOD);
+        assertThat(testSkill.getContact()).isEqualTo(UPDATED_CONTACT);
     }
 
     @Test
