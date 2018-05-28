@@ -61,7 +61,7 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
         this.team.participations.forEach((dimension: IDimension) => {
             let ordinal = 0;
             let achievedLevel;
-            for (const level of dimension.levels) {
+            for (const level of dimension.levels || []) {
                 if (!this.isLevelCompleted(level)) {
                     break;
                 }
