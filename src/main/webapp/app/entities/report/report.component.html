@@ -15,20 +15,20 @@
             <thead>
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="teamdojoApp.report.creationDate">Creation Date</span></th>
             <th><span jhiTranslate="teamdojoApp.report.title">Title</span></th>
             <th><span jhiTranslate="teamdojoApp.report.description">Description</span></th>
             <th><span jhiTranslate="teamdojoApp.report.type">Type</span></th>
-            <th><span jhiTranslate="teamdojoApp.report.creationDate">Creation Date</span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let report of reports ;trackBy: trackId">
                 <td><a [routerLink]="['/report', report.id, 'view' ]">{{report.id}}</a></td>
+                <td>{{report.creationDate | date:'medium'}}</td>
                 <td>{{report.title}}</td>
                 <td>{{report.description}}</td>
                 <td jhiTranslate="{{'teamdojoApp.ReportType.' + report.type}}">{{report.type}}</td>
-                <td>{{report.creationDate | date:'medium'}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
