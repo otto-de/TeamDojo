@@ -6,10 +6,6 @@
         <form style="width: 100%;">
             <input type="text" id="teams_search-term" placeholder="Suche" class="skill-search-input"
                    [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate" disabled>
-            <div style="float: right;">
-                <input type="button" value="Vergleich starten" id="teams_start-compare" disabled/>
-                <input type="button" value="Alle Teams" id="teams_select-teams" disabled/>
-            </div>
         </form>
     </div>
     <div class="team-list list-group" data-simplebar="init">
@@ -23,7 +19,7 @@
                              *ngIf="team.picture && team.pictureContentType; else picturePlaceholder"
                              [src]="team.picture | imageDataUrl: team.pictureContentType"/>
                         <ng-template #picturePlaceholder>
-                            <span class="img-placeholder">{{team.name | truncateString}}</span>
+                            <span class="img-placeholder">{{ team.shortName }}</span>
                         </ng-template>
                     </div>
                     <a href="#" [routerLink]="['/teams', team.shortName]" class="team-name ml-2">{{team.name}}</a>

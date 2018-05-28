@@ -1,14 +1,14 @@
 <div class="teams-status">
     <div class="teams-status-avatar d-flex flex-column justify-content-center">
-        <div class="team-image-wrapper d-flex justify-content-center mx-auto mt-3">
+        <div class="team-image-wrapper d-flex justify-content-center mx-auto mt-3" [ngClass]="{'big': asBackground}">
             <div class="team-image" *ngIf="team.picture && team.pictureContentType"
                  [ngStyle]="{'background-image': 'url(' + (team.picture | imageDataUrl: team.pictureContentType) + ')'}">
             </div>
         </div>
-        <div class="avatar-image-wrapper d-flex align-self-center">
+        <div class="avatar-image-wrapper d-flex align-self-center" [ngClass]="{'big': asBackground}">
             <div class="avatar-image"></div>
         </div>
-        <div class="status-meta d-flex flex-column justify-content-center align-items-center mx-auto">
+        <div class="status-meta d-flex flex-column justify-content-center align-items-center mx-auto"  [ngClass]="{'big': asBackground}">
             <h5 *ngIf="team.slogan" class="team-slogan mb-0">{{team.slogan}}</h5>
             <h6 *ngIf="team.slogan" class="team-title mt-0 mb-0">{{team.name}}</h6>
             <h5 *ngIf="!team.slogan" class="team-title mb-0">{{team.name}}</h5>
