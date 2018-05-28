@@ -3,6 +3,7 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@a
 
 import { Report } from 'app/shared/model/report.model';
 import { FeedbackComponent } from './feedback.component';
+import { UserRouteAccessService } from 'app/core';
 
 @Injectable()
 export class FeedbackResolve implements Resolve<Report> {
@@ -23,6 +24,7 @@ export const feedbackRoute: Routes = [
         },
         resolve: {
             report: FeedbackResolve
-        }
+        },
+        canActivate: [UserRouteAccessService]
     }
 ];
