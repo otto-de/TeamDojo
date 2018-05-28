@@ -12,9 +12,9 @@ export class AchievementItemComponent {
     @Input() progress: number;
     @Input() active: boolean;
     @Input() type = '';
-    @Input() hasStatus: boolean;
+    @Input() hasStatus = false;
     @Input() size = '10vh';
-    @Input() completable: boolean;
+    @Input() completable = false;
     @Output() onItemSelected = new EventEmitter<ILevel | IBadge>();
 
     selectItem(event) {
