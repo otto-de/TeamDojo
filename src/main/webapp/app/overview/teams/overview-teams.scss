@@ -15,12 +15,29 @@
             padding-right: 1.4em!important;
             .simplebar-content {
                 margin-right: -0.6em!important;
+                overflow-x: hidden;
             }
         }
         .team-item {
             border-style: none;
             background: rgba($dojo-bg-gradient-from, 0.5);
+            .status {
+                color: $dojo-text-secondary;
+                padding: 10px;
+                height: 4em;
+                width: 2.2em;
+                margin-left: 10px;
+                background-color: transparent;
+            }
+            &.complete {
+                .status {
+                    background-color: #a8bc66;
+                }
+            }
             &.irrelevant {
+                display: none;
+            }
+            &.incomplete {
                 background-color: $gray-400;
                 opacity: 0.5;
             }
@@ -30,12 +47,6 @@
             }
             .team-image {
                 @include team-image();
-                &.complete {
-                    border-color: $success;
-                }
-                &.incomplete {
-                    border-color: $danger;
-                }
                 .count-container {
                     .count-item {
                         display: block;
@@ -50,10 +61,9 @@
                     }
                 }
             }
+
         }
     }
-
-
 
     #teams_start-compare {
         background-color: #f1d7ae;
