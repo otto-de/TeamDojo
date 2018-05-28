@@ -24,15 +24,9 @@
 
     .overview-status {
         color: $dojo-text-primary;
-
         img{
             width: 5.0vh;
             opacity: 0.5;
-        }
-
-        .borderless tr td {
-            border: none !important;
-            padding: 0px !important;
         }
     }
 
@@ -41,9 +35,6 @@
         .count-item {
             display: block;
             margin-left: 5px;
-            .count-item-header {
-
-            }
             .count-item-value {
                 float: right;
                 font-size: 1.8vh;
@@ -54,6 +45,7 @@
     .team-list {
 
         counter-reset: team-counter;
+        border-style: none;
 
         .counter::before{
             counter-increment: team-counter;
@@ -62,27 +54,9 @@
             color: $dojo-text-primary;
         }
 
-        .list-item {
-            padding: 0;
-            background-color: $dojo-bg-gradient-from;
-            border: none;
-            border-radius: 2px;
-            @include shadow();
-            transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
-            &:hover {
-                -webkit-box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
-                box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
-            }
-
-            a {
-                color: $dojo-text-primary;
-                font-weight: normal;
-            }
-        }
-
-        border-style: none;
         .team-item {
             border-style: none;
+            border: none;
             background: rgba($dojo-bg-gradient-from, 0.5);
             margin: 0px !important;
             padding-top: 0px;
@@ -91,6 +65,14 @@
             &.irrelevant {
                 background-color: $gray-400;
                 opacity: 0.5;
+            }
+            &:hover {
+                -webkit-box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
+                box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
+            }
+            a {
+                color: $dojo-text-primary;
+                font-weight: normal;
             }
             .team-name {
                 color: $gray-800 !important;

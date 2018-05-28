@@ -26,7 +26,7 @@
         </div>
 
         <div class="row count-container bottom-border mr-1">
-            <div class="col-sm-7 status-detail" jhiTranslate="teamdojoApp.overview.total-score"></div>
+            <div class="col-sm-7 status-detail" jhiTranslate="teamdojoApp.overview.total-score.title"></div>
             <div class="col-sm-5">
                 <div class="row item">
                     <div class="col-sm-4 text-right">{{calcTotalTeamScore()}}</div>
@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="team-list">
-        <div class="team-item list-item"
+        <div class="team-item"
              *ngFor='let teamScore of teamScores '
              [ngClass]="{irrelevant: showAsIrrelevant(teamScore.team)}">
             <div class="row align-items-center">
