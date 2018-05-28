@@ -79,13 +79,14 @@ public class BadgeResourceIntTest {
     private static final Integer DEFAULT_AVAILABLE_AMOUNT = 1;
     private static final Integer UPDATED_AVAILABLE_AMOUNT = 2;
 
-    private static final Double DEFAULT_MULTIPLIER = 0D;
-    private static final Double UPDATED_MULTIPLIER = 1D;
-
     private static final Double DEFAULT_REQUIRED_SCORE = 0D;
     private static final Double UPDATED_REQUIRED_SCORE = 1D;
 
+    private static final Double DEFAULT_INSTANT_MULTIPLIER = 0D;
+    private static final Double UPDATED_INSTANT_MULTIPLIER = 1D;
 
+    private static final Integer DEFAULT_COMPLETION_BONUS = 0;
+    private static final Integer UPDATED_COMPLETION_BONUS = 1;
 
     @Autowired
     private BadgeRepository badgeRepository;
@@ -164,8 +165,9 @@ public class BadgeResourceIntTest {
             .pictureContentType(DEFAULT_PICTURE_CONTENT_TYPE)
             .availableUntil(DEFAULT_AVAILABLE_UNTIL)
             .availableAmount(DEFAULT_AVAILABLE_AMOUNT)
-            .multiplier(DEFAULT_MULTIPLIER)
-            .requiredScore(DEFAULT_REQUIRED_SCORE);
+            .requiredScore(DEFAULT_REQUIRED_SCORE)
+            .instantMultiplier(DEFAULT_INSTANT_MULTIPLIER)
+            .completionBonus(DEFAULT_COMPLETION_BONUS);
         return badge;
     }
 
@@ -194,8 +196,9 @@ public class BadgeResourceIntTest {
         assertThat(testBadge.getPictureContentType()).isEqualTo(DEFAULT_PICTURE_CONTENT_TYPE);
         assertThat(testBadge.getAvailableUntil()).isEqualTo(DEFAULT_AVAILABLE_UNTIL);
         assertThat(testBadge.getAvailableAmount()).isEqualTo(DEFAULT_AVAILABLE_AMOUNT);
-        assertThat(testBadge.getMultiplier()).isEqualTo(DEFAULT_MULTIPLIER);
         assertThat(testBadge.getRequiredScore()).isEqualTo(DEFAULT_REQUIRED_SCORE);
+        assertThat(testBadge.getInstantMultiplier()).isEqualTo(DEFAULT_INSTANT_MULTIPLIER);
+        assertThat(testBadge.getCompletionBonus()).isEqualTo(DEFAULT_COMPLETION_BONUS);
     }
 
     @Test
@@ -239,10 +242,10 @@ public class BadgeResourceIntTest {
 
     @Test
     @Transactional
-    public void checkMultiplierIsRequired() throws Exception {
+    public void checkRequiredScoreIsRequired() throws Exception {
         int databaseSizeBeforeTest = badgeRepository.findAll().size();
         // set the field null
-        badge.setMultiplier(null);
+        badge.setRequiredScore(null);
 
         // Create the Badge, which fails.
         BadgeDTO badgeDTO = badgeMapper.toDto(badge);
@@ -258,10 +261,10 @@ public class BadgeResourceIntTest {
 
     @Test
     @Transactional
-    public void checkRequiredScoreIsRequired() throws Exception {
+    public void checkInstantMultiplierIsRequired() throws Exception {
         int databaseSizeBeforeTest = badgeRepository.findAll().size();
         // set the field null
-        badge.setRequiredScore(null);
+        badge.setInstantMultiplier(null);
 
         // Create the Badge, which fails.
         BadgeDTO badgeDTO = badgeMapper.toDto(badge);
@@ -292,8 +295,9 @@ public class BadgeResourceIntTest {
             .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
             .andExpect(jsonPath("$.[*].availableUntil").value(hasItem(DEFAULT_AVAILABLE_UNTIL.toString())))
             .andExpect(jsonPath("$.[*].availableAmount").value(hasItem(DEFAULT_AVAILABLE_AMOUNT)))
-            .andExpect(jsonPath("$.[*].multiplier").value(hasItem(DEFAULT_MULTIPLIER.doubleValue())))
-            .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())));
+            .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())))
+            .andExpect(jsonPath("$.[*].instantMultiplier").value(hasItem(DEFAULT_INSTANT_MULTIPLIER.doubleValue())))
+            .andExpect(jsonPath("$.[*].completionBonus").value(hasItem(DEFAULT_COMPLETION_BONUS)));
     }
 
     public void getAllBadgesWithEagerRelationshipsIsEnabled() throws Exception {
@@ -344,8 +348,9 @@ public class BadgeResourceIntTest {
             .andExpect(jsonPath("$.picture").value(Base64Utils.encodeToString(DEFAULT_PICTURE)))
             .andExpect(jsonPath("$.availableUntil").value(DEFAULT_AVAILABLE_UNTIL.toString()))
             .andExpect(jsonPath("$.availableAmount").value(DEFAULT_AVAILABLE_AMOUNT))
-            .andExpect(jsonPath("$.multiplier").value(DEFAULT_MULTIPLIER.doubleValue()))
-            .andExpect(jsonPath("$.requiredScore").value(DEFAULT_REQUIRED_SCORE.doubleValue()));
+            .andExpect(jsonPath("$.requiredScore").value(DEFAULT_REQUIRED_SCORE.doubleValue()))
+            .andExpect(jsonPath("$.instantMultiplier").value(DEFAULT_INSTANT_MULTIPLIER.doubleValue()))
+            .andExpect(jsonPath("$.completionBonus").value(DEFAULT_COMPLETION_BONUS));
     }
 
     @Test
@@ -533,45 +538,6 @@ public class BadgeResourceIntTest {
 
     @Test
     @Transactional
-    public void getAllBadgesByMultiplierIsEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where multiplier equals to DEFAULT_MULTIPLIER
-        defaultBadgeShouldBeFound("multiplier.equals=" + DEFAULT_MULTIPLIER);
-
-        // Get all the badgeList where multiplier equals to UPDATED_MULTIPLIER
-        defaultBadgeShouldNotBeFound("multiplier.equals=" + UPDATED_MULTIPLIER);
-    }
-
-    @Test
-    @Transactional
-    public void getAllBadgesByMultiplierIsInShouldWork() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where multiplier in DEFAULT_MULTIPLIER or UPDATED_MULTIPLIER
-        defaultBadgeShouldBeFound("multiplier.in=" + DEFAULT_MULTIPLIER + "," + UPDATED_MULTIPLIER);
-
-        // Get all the badgeList where multiplier equals to UPDATED_MULTIPLIER
-        defaultBadgeShouldNotBeFound("multiplier.in=" + UPDATED_MULTIPLIER);
-    }
-
-    @Test
-    @Transactional
-    public void getAllBadgesByMultiplierIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where multiplier is not null
-        defaultBadgeShouldBeFound("multiplier.specified=true");
-
-        // Get all the badgeList where multiplier is null
-        defaultBadgeShouldNotBeFound("multiplier.specified=false");
-    }
-
-    @Test
-    @Transactional
     public void getAllBadgesByRequiredScoreIsEqualToSomething() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -608,6 +574,111 @@ public class BadgeResourceIntTest {
         // Get all the badgeList where requiredScore is null
         defaultBadgeShouldNotBeFound("requiredScore.specified=false");
     }
+
+    @Test
+    @Transactional
+    public void getAllBadgesByInstantMultiplierIsEqualToSomething() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where instantMultiplier equals to DEFAULT_INSTANT_MULTIPLIER
+        defaultBadgeShouldBeFound("instantMultiplier.equals=" + DEFAULT_INSTANT_MULTIPLIER);
+
+        // Get all the badgeList where instantMultiplier equals to UPDATED_INSTANT_MULTIPLIER
+        defaultBadgeShouldNotBeFound("instantMultiplier.equals=" + UPDATED_INSTANT_MULTIPLIER);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBadgesByInstantMultiplierIsInShouldWork() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where instantMultiplier in DEFAULT_INSTANT_MULTIPLIER or UPDATED_INSTANT_MULTIPLIER
+        defaultBadgeShouldBeFound("instantMultiplier.in=" + DEFAULT_INSTANT_MULTIPLIER + "," + UPDATED_INSTANT_MULTIPLIER);
+
+        // Get all the badgeList where instantMultiplier equals to UPDATED_INSTANT_MULTIPLIER
+        defaultBadgeShouldNotBeFound("instantMultiplier.in=" + UPDATED_INSTANT_MULTIPLIER);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBadgesByInstantMultiplierIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where instantMultiplier is not null
+        defaultBadgeShouldBeFound("instantMultiplier.specified=true");
+
+        // Get all the badgeList where instantMultiplier is null
+        defaultBadgeShouldNotBeFound("instantMultiplier.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllBadgesByCompletionBonusIsEqualToSomething() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where completionBonus equals to DEFAULT_COMPLETION_BONUS
+        defaultBadgeShouldBeFound("completionBonus.equals=" + DEFAULT_COMPLETION_BONUS);
+
+        // Get all the badgeList where completionBonus equals to UPDATED_COMPLETION_BONUS
+        defaultBadgeShouldNotBeFound("completionBonus.equals=" + UPDATED_COMPLETION_BONUS);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBadgesByCompletionBonusIsInShouldWork() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where completionBonus in DEFAULT_COMPLETION_BONUS or UPDATED_COMPLETION_BONUS
+        defaultBadgeShouldBeFound("completionBonus.in=" + DEFAULT_COMPLETION_BONUS + "," + UPDATED_COMPLETION_BONUS);
+
+        // Get all the badgeList where completionBonus equals to UPDATED_COMPLETION_BONUS
+        defaultBadgeShouldNotBeFound("completionBonus.in=" + UPDATED_COMPLETION_BONUS);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBadgesByCompletionBonusIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where completionBonus is not null
+        defaultBadgeShouldBeFound("completionBonus.specified=true");
+
+        // Get all the badgeList where completionBonus is null
+        defaultBadgeShouldNotBeFound("completionBonus.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllBadgesByCompletionBonusIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where completionBonus greater than or equals to DEFAULT_COMPLETION_BONUS
+        defaultBadgeShouldBeFound("completionBonus.greaterOrEqualThan=" + DEFAULT_COMPLETION_BONUS);
+
+        // Get all the badgeList where completionBonus greater than or equals to UPDATED_COMPLETION_BONUS
+        defaultBadgeShouldNotBeFound("completionBonus.greaterOrEqualThan=" + UPDATED_COMPLETION_BONUS);
+    }
+
+    @Test
+    @Transactional
+    public void getAllBadgesByCompletionBonusIsLessThanSomething() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where completionBonus less than or equals to DEFAULT_COMPLETION_BONUS
+        defaultBadgeShouldNotBeFound("completionBonus.lessThan=" + DEFAULT_COMPLETION_BONUS);
+
+        // Get all the badgeList where completionBonus less than or equals to UPDATED_COMPLETION_BONUS
+        defaultBadgeShouldBeFound("completionBonus.lessThan=" + UPDATED_COMPLETION_BONUS);
+    }
+
 
     @Test
     @Transactional
@@ -675,8 +746,9 @@ public class BadgeResourceIntTest {
             .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
             .andExpect(jsonPath("$.[*].availableUntil").value(hasItem(DEFAULT_AVAILABLE_UNTIL.toString())))
             .andExpect(jsonPath("$.[*].availableAmount").value(hasItem(DEFAULT_AVAILABLE_AMOUNT)))
-            .andExpect(jsonPath("$.[*].multiplier").value(hasItem(DEFAULT_MULTIPLIER.doubleValue())))
-            .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())));
+            .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())))
+            .andExpect(jsonPath("$.[*].instantMultiplier").value(hasItem(DEFAULT_INSTANT_MULTIPLIER.doubleValue())))
+            .andExpect(jsonPath("$.[*].completionBonus").value(hasItem(DEFAULT_COMPLETION_BONUS)));
     }
 
     /**
@@ -718,8 +790,9 @@ public class BadgeResourceIntTest {
             .pictureContentType(UPDATED_PICTURE_CONTENT_TYPE)
             .availableUntil(UPDATED_AVAILABLE_UNTIL)
             .availableAmount(UPDATED_AVAILABLE_AMOUNT)
-            .multiplier(UPDATED_MULTIPLIER)
-            .requiredScore(UPDATED_REQUIRED_SCORE);
+            .requiredScore(UPDATED_REQUIRED_SCORE)
+            .instantMultiplier(UPDATED_INSTANT_MULTIPLIER)
+            .completionBonus(UPDATED_COMPLETION_BONUS);
         BadgeDTO badgeDTO = badgeMapper.toDto(updatedBadge);
 
         restBadgeMockMvc.perform(put("/api/badges")
@@ -737,8 +810,9 @@ public class BadgeResourceIntTest {
         assertThat(testBadge.getPictureContentType()).isEqualTo(UPDATED_PICTURE_CONTENT_TYPE);
         assertThat(testBadge.getAvailableUntil()).isEqualTo(UPDATED_AVAILABLE_UNTIL);
         assertThat(testBadge.getAvailableAmount()).isEqualTo(UPDATED_AVAILABLE_AMOUNT);
-        assertThat(testBadge.getMultiplier()).isEqualTo(UPDATED_MULTIPLIER);
         assertThat(testBadge.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
+        assertThat(testBadge.getInstantMultiplier()).isEqualTo(UPDATED_INSTANT_MULTIPLIER);
+        assertThat(testBadge.getCompletionBonus()).isEqualTo(UPDATED_COMPLETION_BONUS);
     }
 
     @Test

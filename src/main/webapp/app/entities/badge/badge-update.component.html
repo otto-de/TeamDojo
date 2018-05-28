@@ -73,25 +73,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="teamdojoApp.badge.multiplier" for="field_multiplier">Multiplier</label>
-                    <input type="number" class="form-control" name="multiplier" id="field_multiplier"
-                        [(ngModel)]="badge.multiplier" required min="0"/>
-                    <div [hidden]="!(editForm.controls.multiplier?.dirty && editForm.controls.multiplier?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.multiplier?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.multiplier?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
-                            This field should be at least 0.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.multiplier?.errors?.number" jhiTranslate="entity.validation.number">
-                            This field should be a number.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.badge.requiredScore" for="field_requiredScore">Required Score</label>
                     <input type="number" class="form-control" name="requiredScore" id="field_requiredScore"
                         [(ngModel)]="badge.requiredScore" required min="0" max="1"/>
@@ -110,6 +91,40 @@
                         </small>
                         <small class="form-text text-danger"
                             [hidden]="!editForm.controls.requiredScore?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.badge.instantMultiplier" for="field_instantMultiplier">Instant Multiplier</label>
+                    <input type="number" class="form-control" name="instantMultiplier" id="field_instantMultiplier"
+                        [(ngModel)]="badge.instantMultiplier" required min="0"/>
+                    <div [hidden]="!(editForm.controls.instantMultiplier?.dirty && editForm.controls.instantMultiplier?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.instantMultiplier?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.instantMultiplier?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.instantMultiplier?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.badge.completionBonus" for="field_completionBonus">Completion Bonus</label>
+                    <input type="number" class="form-control" name="completionBonus" id="field_completionBonus"
+                        [(ngModel)]="badge.completionBonus" min="0"/>
+                    <div [hidden]="!(editForm.controls.completionBonus?.dirty && editForm.controls.completionBonus?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.completionBonus?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.completionBonus?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>

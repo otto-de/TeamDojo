@@ -21,8 +21,9 @@
             "picture": "Picture",
             "availableUntil": "Available Until",
             "availableAmount": "Available Amount",
-            "multiplier": "Multiplier",
             "requiredScore": "Required Score",
+            "instantMultiplier": "Instant Multiplier",
+            "completionBonus": "Completion Bonus",
             "skills": "Skills",
             "dimensions": "Dimensions"
         }
