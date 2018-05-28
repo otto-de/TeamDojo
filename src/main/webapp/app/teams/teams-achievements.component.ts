@@ -119,6 +119,22 @@ export class TeamsAchievementsComponent implements OnInit, OnChanges {
         return progress.scoreProgress.getPercentage();
     }
 
+    getAchievementRelevancy(item: ILevel | IBadge): number {
+        if (item.skills) {
+            let relevantCount = 0;
+            for (const itemSkill of item.skills) {
+                const teamSkill = this.team.skills ? this.team.skills.find((s: ITeamSkill) => s.skillId === itemSkill.skillId) : null;
+                if (teamSkill && teamSkill.irrelevant) {
+                    continue;
+                }
+                relevantCount++;
+            }
+            const relevancy = new Progress(relevantCount, item.skills.length);
+            return relevancy.getPercentage();
+        }
+        return 0;
+    }
+
     getHighestAchievedLevel(dimension: IDimension): ILevel {
         let currentLevel;
         for (const level of dimension.levels) {

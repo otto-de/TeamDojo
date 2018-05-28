@@ -9,6 +9,7 @@ import { ILevel } from 'app/shared/model/level.model';
 })
 export class AchievementItemComponent {
     @Input() item: any;
+    @Input() relevancePercentage: number;
     @Input() progress: number;
     @Input() active: boolean;
     @Input() type = '';
