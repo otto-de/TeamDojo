@@ -16,8 +16,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.report.description" for="field_description">Description</label>
-                    <input type="text" class="form-control" name="description" id="field_description"
-                        [(ngModel)]="report.description" required maxlength="4096"/>
+                    <textarea class="form-control" name="description" id="field_description"
+                        [(ngModel)]="report.description" required rows="5" maxlength="4096"></textarea>
                     <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.description?.errors?.required" jhiTranslate="entity.validation.required">
