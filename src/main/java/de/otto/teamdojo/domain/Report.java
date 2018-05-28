@@ -30,7 +30,8 @@ public class Report implements Serializable {
     private String title;
 
     @NotNull
-    @Column(name = "description", nullable = false)
+    @Size(max = 4096)
+    @Column(name = "description", length = 4096, nullable = false)
     private String description;
 
     @NotNull
