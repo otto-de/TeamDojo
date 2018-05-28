@@ -18,7 +18,8 @@
             },
             "title": "Title",
             "description": "Description",
-            "type": "Type"
+            "type": "Type",
+            "creationDate": "Creation Date"
         }
     }
 }

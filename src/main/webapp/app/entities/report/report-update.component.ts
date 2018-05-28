@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import * as moment from 'moment';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 
 import { IReport } from 'app/shared/model/report.model';
 import { ReportService } from './report.service';
@@ -13,6 +15,7 @@ import { ReportService } from './report.service';
 export class ReportUpdateComponent implements OnInit {
     private _report: IReport;
     isSaving: boolean;
+    creationDate: string;
 
     constructor(private reportService: ReportService, private route: ActivatedRoute) {}
 
@@ -29,6 +32,7 @@ export class ReportUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.report.creationDate = moment(this.creationDate, DATE_TIME_FORMAT);
         if (this.report.id !== undefined) {
             this.subscribeToSaveResponse(this.reportService.update(this.report));
         } else {
@@ -54,5 +58,6 @@ export class ReportUpdateComponent implements OnInit {
 
     set report(report: IReport) {
         this._report = report;
+        this.creationDate = moment(report.creationDate).format();
     }
 }

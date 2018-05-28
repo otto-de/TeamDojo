@@ -1,5 +1,6 @@
 package de.otto.teamdojo.service.dto;
 
+import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -20,6 +21,9 @@ public class ReportDTO implements Serializable {
 
     @NotNull
     private ReportType type;
+
+    @NotNull
+    private Instant creationDate;
 
     public Long getId() {
         return id;
@@ -53,6 +57,14 @@ public class ReportDTO implements Serializable {
         this.type = type;
     }
 
+    public Instant getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Instant creationDate) {
+        this.creationDate = creationDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -81,6 +93,7 @@ public class ReportDTO implements Serializable {
             ", title='" + getTitle() + "'" +
             ", description='" + getDescription() + "'" +
             ", type='" + getType() + "'" +
+            ", creationDate='" + getCreationDate() + "'" +
             "}";
     }
 }

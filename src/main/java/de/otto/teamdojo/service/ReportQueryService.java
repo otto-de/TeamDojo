@@ -85,6 +85,9 @@ public class ReportQueryService extends QueryService<Report> {
             if (criteria.getType() != null) {
                 specification = specification.and(buildSpecification(criteria.getType(), Report_.type));
             }
+            if (criteria.getCreationDate() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getCreationDate(), Report_.creationDate));
+            }
         }
         return specification;
     }

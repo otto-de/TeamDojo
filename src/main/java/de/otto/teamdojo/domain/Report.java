@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
 
 import de.otto.teamdojo.domain.enumeration.ReportType;
@@ -38,6 +39,10 @@ public class Report implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "jhi_type", nullable = false)
     private ReportType type;
+
+    @NotNull
+    @Column(name = "creation_date", nullable = false)
+    private Instant creationDate;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -86,6 +91,19 @@ public class Report implements Serializable {
     public void setType(ReportType type) {
         this.type = type;
     }
+
+    public Instant getCreationDate() {
+        return creationDate;
+    }
+
+    public Report creationDate(Instant creationDate) {
+        this.creationDate = creationDate;
+        return this;
+    }
+
+    public void setCreationDate(Instant creationDate) {
+        this.creationDate = creationDate;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -115,6 +133,7 @@ public class Report implements Serializable {
             ", title='" + getTitle() + "'" +
             ", description='" + getDescription() + "'" +
             ", type='" + getType() + "'" +
+            ", creationDate='" + getCreationDate() + "'" +
             "}";
     }
 }
