@@ -124,7 +124,6 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd''') {
                     }
                     insert(tableName: 'level_skill') {
                         column(name: 'id', valueComputed: 'nextval(\'hibernate_sequence\')')
-                        column(name: 'score', value: 50)
                         column(name: 'level_id', valueComputed: "(SELECT id FROM level WHERE name ='${level.name}' LIMIT 1)")
                         column(name: 'skill_id', valueComputed: "(SELECT id FROM skill WHERE title = '${skill.title.trim()}' LIMIT 1)")
                     }

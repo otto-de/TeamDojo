@@ -329,103 +329,86 @@
     <changeSet author="sbe" context="!test" id="1525269642023-6">
         <insert tableName="level_skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="score" valueNumeric="50" />
             <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 1&apos; LIMIT 1)" />
             <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Funktionale Qualität&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level_skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="score" valueNumeric="50" />
             <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 1&apos; LIMIT 1)" />
             <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Regressionstests&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level_skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="score" valueNumeric="50" />
             <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 1&apos; LIMIT 1)" />
             <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Nicht-funktionale Qualität&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level_skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="score" valueNumeric="50" />
             <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 1&apos; LIMIT 1)" />
             <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Bugfixingprozess&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level_skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="score" valueNumeric="50" />
             <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 2&apos; LIMIT 1)" />
             <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Regelmäßige Regressionstests&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level_skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="score" valueNumeric="50" />
             <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 2&apos; LIMIT 1)" />
             <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Permanenter Bugfixingprozess&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level_skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="score" valueNumeric="50" />
             <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 2&apos; LIMIT 1)" />
             <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Überdeckungsgrade&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level_skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="score" valueNumeric="50" />
             <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 2&apos; LIMIT 1)" />
             <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Qualitätsleitplanken&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level_skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="score" valueNumeric="50" />
             <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 2&apos; LIMIT 1)" />
             <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Sinnvolle Tools&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level_skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="score" valueNumeric="50" />
             <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 3&apos; LIMIT 1)" />
             <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Automatisierung kritischer Regressionstests&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level_skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="score" valueNumeric="50" />
             <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 3&apos; LIMIT 1)" />
             <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Monitoring unserer Ziele&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level_skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="score" valueNumeric="50" />
             <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 3&apos; LIMIT 1)" />
             <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Time to Production&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level_skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="score" valueNumeric="50" />
             <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 3&apos; LIMIT 1)" />
             <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Quantifizierbare Qualitätsleitplanken&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level_skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="score" valueNumeric="50" />
             <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 4&apos; LIMIT 1)" />
             <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Automatisierung wirtschaftlich sinnvoller Regressionstests&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level_skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="score" valueNumeric="50" />
             <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 4&apos; LIMIT 1)" />
             <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Richtige Teststufe automatisierter Regressionstests&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level_skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="score" valueNumeric="50" />
             <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 4&apos; LIMIT 1)" />
             <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Einschätzbarkeit von Automatisierung, Pflege und Wartung von Testfällen&apos; LIMIT 1)" />
         </insert>
         <insert tableName="level_skill">
             <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)" />
-            <column name="score" valueNumeric="50" />
             <column name="level_id" valueComputed="(SELECT id FROM level WHERE name = &apos;Level 4&apos; LIMIT 1)" />
             <column name="skill_id" valueComputed="(SELECT id FROM skill WHERE title = &apos;Prozessuale Gegenmaßnahmen dank Monitoring&apos; LIMIT 1)" />
         </insert>

@@ -15,7 +15,6 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="score"><span jhiTranslate="teamdojoApp.badgeSkill.score">Score</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="badgeName"><span jhiTranslate="teamdojoApp.badgeSkill.badge">Badge</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="skillTitle"><span jhiTranslate="teamdojoApp.badgeSkill.skill">Skill</span> <span class="fa fa-sort"></span></th>
             <th></th>
@@ -24,7 +23,6 @@
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let badgeSkill of badgeSkills ;trackBy: trackId">
                 <td><a [routerLink]="['/badge-skill', badgeSkill.id, 'view' ]">{{badgeSkill.id}}</a></td>
-                <td>{{badgeSkill.score}}</td>
                 <td>
                     <div *ngIf="badgeSkill.badgeId">
                         <a [routerLink]="['../badge', badgeSkill.badgeId , 'view' ]" >{{badgeSkill.badgeName}}</a>
