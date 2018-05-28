@@ -67,12 +67,15 @@
         }
     }
 
-    .item-progress {
-        padding: 0 25px;
+    .item-progress-wrapper {
+        margin: 0 25px;
+        border: 1px solid $gray-600;
+    }
 
+    .item-progress {
+        background: #ddd;
         /deep/ .progress {
             background-color: transparent;
-            border: 1px solid $gray-600;
             border-radius: 0;
         }
         /deep/ .progress-bar{
