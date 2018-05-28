@@ -31,7 +31,7 @@
         <span class="rating-text" jhiTranslate="teamdojoApp.teams.skills.details.3of5">3 von 5 Sternen</span>
     </div>
 
-    <div class="skill-contact">
+    <div class="skill-contact" *ngIf="skill.contact">
         <span jhiTranslate="teamdojoApp.teams.skills.details.contact">Contact</span>:
         <span>{{skill.contact}}</span>
     </div>
