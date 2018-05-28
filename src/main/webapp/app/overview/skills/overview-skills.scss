@@ -44,7 +44,8 @@
 
 #skills_search-term {
     background-color: #e8ddb7;
-    width: 270px;
+    width: 100%;
+    margin-right: 7px;
 }
 
 .additional-functions {
@@ -72,7 +73,7 @@
     .overviews-skills {
         .teams-skills-list {
             height: calc(100vh - 242px);
-            padding: 5px;
+            padding-right: 5px;
         }
 
     }
