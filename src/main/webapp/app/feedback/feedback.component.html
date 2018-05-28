@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="feedbackForm" role="form" novalidate (ngSubmit)="submit()" #feedbackForm="ngForm">
+            <h2 id="jhi-feedback-heading" jhiTranslate="teamdojoApp.feedback.home.createLabel">Submit feedback</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.feedback.title" for="field_title">Title</label>
+                    <input type="text" class="form-control" name="title" id="field_title"
+                        [(ngModel)]="report.title" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.feedback.description" for="field_description">Description</label>
+                    <textarea class="form-control" rows="5" name="description" id="field_description"
+                              [(ngModel)]="report.description" required maxlength="4096"></textarea>
+                    <div [hidden]="!(feedbackForm.controls.description?.dirty && feedbackForm.controls.description?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!feedbackForm.controls.description?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               [hidden]="!feedbackForm.controls.description?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 4096 }">
+                        This field cannot be longer than 4096 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.feedback.type" for="field_type">Type</label>
+                    <select class="form-control" name="type" [(ngModel)]="report.type" id="field_type"  required>
+                        <option value="BUG">{{'teamdojoApp.ReportType.BUG' | translate}}</option>
+                        <option value="WISH">{{'teamdojoApp.ReportType.WISH' | translate}}</option>
+                        <option value="REVIEW">{{'teamdojoApp.ReportType.REVIEW' | translate}}</option>
+                        <option value="COMPLIMENT">{{'teamdojoApp.ReportType.COMPLIMENT' | translate}}</option>
+                    </select>
+                    <div [hidden]="!(feedbackForm.controls.type?.dirty && feedbackForm.controls.type?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!feedbackForm.controls.type?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-submit" class="btn btn-secondary"  (click)="previousState()">
+                    <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="submit-entity" [disabled]="feedbackForm.form.invalid || isSubmitting" class="btn btn-primary">
+                    <span class="fa fa-paper-plane"></span>&nbsp;<span jhiTranslate="teamdojoApp.feedback.action.submit">Submit</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

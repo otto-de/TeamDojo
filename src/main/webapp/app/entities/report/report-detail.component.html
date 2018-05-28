@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="report">
+            <h2><span jhiTranslate="teamdojoApp.report.detail.title">Report</span> {{report.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="teamdojoApp.report.creationDate">Creation Date</span></dt>
+                <dt><span jhiTranslate="teamdojoApp.report.title">Title</span></dt>
+                <dd>
+                    <span>{{report.title}}</span>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.report.description">Description</span></dt>
+                <dd>
+                    <span>{{report.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.report.type">Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'teamdojoApp.ReportType.' + report.type}}">{{report.type}}</span>
+                </dd>
+                <dd>
+                    <span>{{report.creationDate}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/report', report.id, 'edit']"
+                    class="btn btn-primary">
+                <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
