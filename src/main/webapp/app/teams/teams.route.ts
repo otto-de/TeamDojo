@@ -116,7 +116,11 @@ export class TeamsSelectionResolve implements Resolve<any> {
 
 @Injectable()
 export class SkillResolve implements Resolve<any> {
-    constructor(private skillService: SkillService, private teamsService: TeamsService, private router: Router) {}
+    constructor(
+        private skillService: SkillService,
+        private teamsService: TeamsService,
+        private router: Router
+    ) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const skillId = route.params['skillId'] ? route.params['skillId'] : null;
