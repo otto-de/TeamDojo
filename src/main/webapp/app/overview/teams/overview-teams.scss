@@ -9,14 +9,6 @@
         width: 100%;
     }
 
-    .overview-status {
-        color: $dojo-text-primary;
-        img{
-            width: 5.0vh;
-            opacity: 0.5;
-        }
-    }
-
     .count-item-value {
         font-size: 1.8vh;
     }
@@ -30,46 +22,68 @@
 
     .team-list {
 
+        &-header {
+            &-title {
+
+            }
+            &-scores {
+                width: 50%;
+                color: $dojo-text-primary;
+                img {
+                    width: 5.0vh;
+                    opacity: 0.5;
+                }
+                margin-right: 40px;
+            }
+            border-bottom: 1px solid #E5E1D8;
+        }
+
+        &-body {
+            &-item {
+                min-height: 70px;
+                .team-image {
+                    @include team-image();
+                }
+                .team-info {
+                   width: 48%;
+                    .team-name {
+                        a {
+                            color: $gray-800 !important;
+                            word-break: break-word;
+                            font-size: 1.8vh;
+                        }
+                    }
+                }
+                .team-scores {
+                    width: 48%;
+                }
+                .team-status {
+                    padding: 10px;
+                    width: 36px;
+                    margin-left: 15px;
+                    background-color: transparent;
+                }
+                &.complete {
+                    .team-status {
+                        background-color: #a8bc66;
+                    }
+                }
+                &.irrelevant {
+                    display: none !important;
+                }
+                &.incomplete {
+                    background-color: $gray-300;
+                    opacity: 0.4;
+                }
+            }
+        }
+
         /deep/ .simplebar-scroll-content {
             padding-right: 1.4em!important;
             .simplebar-content {
                 margin-right: -0.6em!important;
                 overflow-x: hidden;
             }
-        }
-
-        .team-item {
-            td {
-                border: none;
-                vertical-align: middle;
-            }
-            .status {
-                padding: 10px;
-                background-color: transparent;
-            }
-            &.complete {
-                .status {
-                    background-color: #a8bc66;
-                }
-            }
-            &.irrelevant {
-                display: none;
-            }
-            &.incomplete {
-                background-color: $gray-400;
-                opacity: 0.5;
-            }
-            .team-name {
-                a {
-                    color: $gray-800 !important;
-                    word-break: break-word;
-                    font-size: 1.8vh;
-                }
-            }
-            .team-image {
-                @include team-image();
-            }
-
         }
     }
 

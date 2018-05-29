@@ -234,7 +234,7 @@ export class OverviewTeamsComponent implements OnInit {
     }
 
     private isSkillCompleted(team: ITeam, skill: ISkill) {
-        const teamSkill = team.skills.find((teamSkill: ITeamSkill) => teamSkill.skillId === skill.id);
+        const teamSkill = team.skills.find((ts: ITeamSkill) => ts.skillId === skill.id);
         return teamSkill && teamSkill.completedAt;
     }
 }
