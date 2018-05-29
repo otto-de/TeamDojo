@@ -8,6 +8,7 @@ import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 import { TeamsSkillsComponent } from 'app/teams/teams-skills.component';
 import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details-info/skill-details-info.component';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { IComment } from 'app/shared/model/comment.model';
 
 @Component({
     selector: 'jhi-skill-details',
@@ -20,6 +21,10 @@ export class SkillDetailsComponent implements OnInit {
     skill: ISkill;
 
     achievableSkill: IAchievableSkill;
+
+    private _comments: IComment[];
+
+    skillComments: IComment[];
 
     @Output() onSkillChanged = new EventEmitter<IAchievableSkill>();
 
@@ -35,9 +40,10 @@ export class SkillDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.route.data.subscribe(({ team, skill }) => {
+        this.route.data.subscribe(({ team, skill, comments }) => {
             this.team = team;
             this.skill = skill;
+            this._comments = comments.body ? comments.body : comments;
         });
         this.loadData();
     }
@@ -47,6 +53,7 @@ export class SkillDetailsComponent implements OnInit {
         this.achievableSkill.skillId = this.skill.id;
         this.teamsSkillsService.findAchievableSkill(this.team.id, this.skill.id).subscribe(skill => {
             this.achievableSkill = skill;
+            this.skillComments = this._getSkillComments();
         });
     }
 
@@ -57,6 +64,12 @@ export class SkillDetailsComponent implements OnInit {
     onSkillInListClicked(skillObjs) {
         this.achievableSkill = skillObjs.aSkill;
         this.skillInfo.onSkillInListClicked(skillObjs);
+    }
+
+    private _getSkillComments(): IComment[] {
+        return (this._comments || [])
+            .filter((comment: IComment) => comment.skillId === this.achievableSkill.skillId)
+            .sort((comment1: IComment, comment2: IComment) => comment1.creationDate.diff(comment2.creationDate));
     }
 
     get currentTeam() {

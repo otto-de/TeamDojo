@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import { Comment, IComment } from 'app/shared/model/comment.model';
 import { ISkill } from 'app/shared/model/skill.model';
-import { ActivatedRoute } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
 import * as moment from 'moment';
 import { CommentService } from 'app/entities/comment';
@@ -14,26 +13,15 @@ import { CommentService } from 'app/entities/comment';
     styleUrls: ['./skill-details-comments.scss']
 })
 export class SkillDetailsCommentsComponent implements OnInit {
-    team: ITeam;
-    skill: ISkill;
-    comments: IComment[];
+    @Input() team: ITeam;
+    @Input() skill: ISkill;
+    @Input() comments: IComment[];
     newComment: IComment;
 
-    constructor(
-        private commentService: CommentService,
-        private teamsSelectionService: TeamsSelectionService,
-        private route: ActivatedRoute
-    ) {}
+    constructor(private commentService: CommentService, private teamsSelectionService: TeamsSelectionService) {}
 
     ngOnInit() {
         this.newComment = new Comment();
-        this.route.data.subscribe(({ team, skill, comments }) => {
-            this.skill = skill.body ? skill.body : skill;
-            this.team = team.body ? team.body : team;
-            this.comments = (comments.body ? comments.body : comments)
-                .filter((comment: IComment) => comment.skillId === this.skill.id)
-                .sort((comment1: IComment, comment2: IComment) => comment1.creationDate.diff(comment2.creationDate));
-        });
     }
 
     isActiveTeam() {
