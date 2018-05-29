@@ -550,7 +550,7 @@ public class BadgeResourceIntTest {
         setupTestData();
         em.flush();
 
-        restBadgeMockMvc.perform(get("/api/badges?skillsId.in="+softwareUpdates.getId()))
+        restBadgeMockMvc.perform(get("/api/badges?skillsId.in=" + softwareUpdates.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.length()").value(1))

@@ -68,7 +68,7 @@ public class SkillResourceIntTest {
 
     @Autowired
     private SkillMapper skillMapper;
-    
+
 
     @Autowired
     private SkillService skillService;
@@ -206,7 +206,7 @@ public class SkillResourceIntTest {
             .andExpect(jsonPath("$.[*].expiryPeriod").value(hasItem(DEFAULT_EXPIRY_PERIOD.toString())))
             .andExpect(jsonPath("$.[*].contact").value(hasItem(DEFAULT_CONTACT.toString())));
     }
-    
+
 
     @Test
     @Transactional
