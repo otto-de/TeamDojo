@@ -2,8 +2,8 @@
     <div class="additional-functions"></div>
     <div class="dojo-card d-flex flex-column">
         <div class="comments">
-            <div *ngFor="let comment of comments" class="conversation d-flex align-items-end"
-                 [ngClass]="isActiveTeam() ? 'conversation-right' : 'conversation-left'">
+            <div *ngFor="let comment of comments" class="message d-flex align-items-end"
+                 [ngClass]="isActiveTeam() ? 'message-sent' : 'message-received'">
                 <img *ngIf="team.picture && team.pictureContentType"
                      class="team-image" [src]="team.picture | imageDataUrl: team.pictureContentType">
                 <div class="speech-bubble d-flex">{{comment.text}}</div>
