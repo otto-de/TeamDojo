@@ -25,6 +25,7 @@ import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details
 import { SkillDetailsCommentsComponent } from 'app/teams/skill-details/skill-details-comments/skill-details-comments.component';
 import { AllSkillsResolve } from 'app/teams/teams.route';
 import { TeamsSelectionResolve } from 'app/teams/teams.route';
+import { SkillDetailsRatingComponent } from 'app/teams/skill-details/skill-details-rating/skill-details-rating.component';
 
 @NgModule({
     imports: [TeamdojoSharedModule, RouterModule.forChild(TEAMS_ROUTES), NgbModule],
@@ -35,7 +36,8 @@ import { TeamsSelectionResolve } from 'app/teams/teams.route';
         TeamsSelectionComponent,
         SkillDetailsComponent,
         SkillDetailsInfoComponent,
-        SkillDetailsCommentsComponent
+        SkillDetailsCommentsComponent,
+        SkillDetailsRatingComponent
     ],
     entryComponents: [TeamsSelectionComponent],
     providers: [

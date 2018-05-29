@@ -3,14 +3,10 @@ import { ISkill } from 'app/shared/model/skill.model';
 import { ITeam } from 'app/shared/model/team.model';
 
 @Component({
-    selector: 'star-rating',
+    selector: 'jhi-star-rating',
     templateUrl: './skill-details-rating.component.html',
     styleUrls: ['./skill-details-rating.scss']
 })
-export class SkillDetailsRatingComponent implements OnInit {
-    ngOnInit() {
-        debugger;
-        console.log('In SkillDetailsRatingComponent');
-        console.log('Was geht ab');
-    }
+export class SkillDetailsRatingComponent {
+    private currentRate = 4.5;
 }
