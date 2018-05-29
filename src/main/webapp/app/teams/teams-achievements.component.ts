@@ -11,6 +11,7 @@ import { CompletionCheck } from 'app/shared/util/completion-check';
 import { IProgress, Progress } from 'app/shared/achievement/model/progress.model';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import 'simplebar';
+
 @Component({
     selector: 'jhi-teams-achievements',
     templateUrl: './teams-achievements.component.html',
@@ -103,11 +104,12 @@ export class TeamsAchievementsComponent implements OnInit, OnChanges {
 
     getAchievementProgress(item: ILevel | IBadge): number {
         const countProgress = new Progress(0, 0);
-        const scoreProgress = new Progress(0, 0);
+        const scoreProgress = new Progress(0, 0, 0);
         if (this.isRelevant(item)) {
             const itemProgress = this.getLevelOrBadgeProgress(item);
             scoreProgress.required += itemProgress.required;
             scoreProgress.achieved += itemProgress.achieved;
+            scoreProgress.totalScore += itemProgress.totalScore;
             countProgress.required++;
             if (itemProgress.isCompleted()) {
                 countProgress.achieved++;
@@ -127,6 +129,14 @@ export class TeamsAchievementsComponent implements OnInit, OnChanges {
             currentLevel = level;
         }
         return currentLevel;
+    }
+
+    isCompletable(level: ILevel, dimension: IDimension): boolean {
+        return !dimension || !dimension.levels
+            ? false
+            : dimension.levels
+                  .slice(0, dimension.levels.findIndex(l => l.id === level.id) || 0)
+                  .every(l => this.getLevelOrBadgeProgress(l).isCompleted());
     }
 
     private getLevelOrBadgeProgress(item: ILevel | IBadge): IProgress {
