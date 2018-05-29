@@ -13,6 +13,7 @@ import { LevelService } from 'app/entities/level';
 import { TeamSkillService } from 'app/entities/team-skill';
 import { BadgeSkillService } from 'app/entities/badge-skill';
 import { LevelSkillService } from 'app/entities/level-skill';
+import { CommentService } from 'app/entities/comment';
 
 @Injectable()
 export class TeamAndTeamSkillResolve implements Resolve<any> {
@@ -87,16 +88,25 @@ export class AllSkillsResolve implements Resolve<any> {
 
 @Injectable()
 export class SkillResolve implements Resolve<any> {
-    constructor(private skillService: SkillService, private teamsService: TeamsService, private router: Router) {}
+    constructor(
+        private skillService: SkillService,
+        private teamsService: TeamsService,
+        private commentService: CommentService,
+        private router: Router
+    ) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const skillId = route.params['skillId'] ? route.params['skillId'] : null;
         if (skillId) {
-            return this.skillService.query({ 'id.equals': skillId }).map(res => {
-                if (res.body.length === 0) {
+            return this.skillService.query({ 'id.equals': skillId }).flatMap(skillRes => {
+                if (skillRes.body.length === 0) {
                     this.router.navigate(['/error']);
                 }
-                return res.body[0];
+                const skill = skillRes.body[0];
+                return this.commentService.query({ 'skillId.equals': skillId }).map(commentsRes => {
+                    skill.comments = commentsRes.body || [];
+                    return skill;
+                });
             });
         }
         return new Skill();
