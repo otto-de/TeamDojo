@@ -1,0 +1,24 @@
+
+{
+    "teamdojoApp": {
+        "activity" : {
+            "home": {
+                "title": "Activities",
+                "createLabel": "Activity erstellen",
+                "createOrEditLabel": "Activity erstellen oder bearbeiten"
+            },
+            "created": "Activity erstellt mit ID {{ param }}",
+            "updated": "Activity aktualisiert mit ID {{ param }}",
+            "deleted": "Activity gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Activity {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Activity"
+            },
+            "type": "Type",
+            "data": "Data",
+            "createdAt": "Created At"
+        }
+    }
+}
