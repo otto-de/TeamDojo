@@ -6,7 +6,14 @@ import { SkillResolve, TEAMS_ROUTES, TeamsComponent } from './';
 import { TeamsAchievementsComponent } from './teams-achievements.component';
 import { TeamsSkillsComponent } from './teams-skills.component';
 import { TeamsSelectionComponent } from 'app/teams/teams-selection/teams-selection.component';
-import { AllBadgeSkillsResolve, AllBadgesResolve, AllLevelSkillsResolve, AllLevelsResolve, TeamAndTeamSkillResolve } from './teams.route';
+import {
+    AllBadgeSkillsResolve,
+    AllBadgesResolve,
+    AllCommentsResolve,
+    AllLevelSkillsResolve,
+    AllLevelsResolve,
+    TeamAndTeamSkillResolve
+} from './teams.route';
 import { TeamsService } from './teams.service';
 import { TeamsSkillsService } from './teams-skills.service';
 import { TeamsSelectionService } from './teams-selection/teams-selection.service';
@@ -40,7 +47,8 @@ import { AllSkillsResolve } from 'app/teams/teams.route';
         AllBadgesResolve,
         AllLevelSkillsResolve,
         AllBadgeSkillsResolve,
-        AllSkillsResolve
+        AllSkillsResolve,
+        AllCommentsResolve
     ],
     exports: [SkillDetailsInfoComponent, SkillDetailsCommentsComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

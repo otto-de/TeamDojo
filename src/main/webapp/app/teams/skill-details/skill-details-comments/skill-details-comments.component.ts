@@ -30,7 +30,7 @@ export class SkillDetailsCommentsComponent implements OnInit {
         this.route.data.subscribe(({ team, skill, comments }) => {
             this.skill = skill.body ? skill.body : skill;
             this.team = team.body ? team.body : team;
-            this.comments = comments
+            this.comments = (comments.body ? comments.body : comments)
                 .filter((comment: IComment) => comment.skillId === this.skill.id)
                 .sort((comment1: IComment, comment2: IComment) => comment1.creationDate.diff(comment2.creationDate));
         });
