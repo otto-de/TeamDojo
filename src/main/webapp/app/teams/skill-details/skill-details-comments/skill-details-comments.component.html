@@ -1,7 +1,7 @@
 <div class="skill-comments">
     <div class="dojo-card" style="position: relative">
         <div class="comments">
-            <div *ngFor="let comment of skill.comments" class="conversation"
+            <div *ngFor="let comment of comments" class="conversation"
                  [ngClass]="isActiveTeam() ? 'conversation-right' : 'conversation-left'">
                 <img *ngIf="team.picture && team.pictureContentType"
                      class="team-image" [src]="team.picture | imageDataUrl: team.pictureContentType">
