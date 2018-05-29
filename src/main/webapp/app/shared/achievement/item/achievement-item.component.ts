@@ -14,6 +14,7 @@ export class AchievementItemComponent {
     @Input() type = '';
     @Input() hasStatus = false;
     @Input() size = '10vh';
+    @Input() completable = false;
     @Output() onItemSelected = new EventEmitter<ILevel | IBadge>();
 
     selectItem(event) {
@@ -23,7 +24,8 @@ export class AchievementItemComponent {
 
     get itemStatusCssClass() {
         let itemStatus;
-        if (this.progress >= 100) {
+        let requiredScore = this.item.requiredScore * 100;
+        if (this.progress >= requiredScore && this.completable) {
             itemStatus = 'complete';
         } else if (this.progress > 0) {
             itemStatus = 'incomplete';
