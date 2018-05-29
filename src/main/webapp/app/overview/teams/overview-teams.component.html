@@ -39,8 +39,7 @@
              [ngClass]="{irrelevant: showAsIrrelevant(teamScore.team), complete: showAsComplete(teamScore.team), showAsIncomplete: showAsIncomplete(teamScore.team)}">
             <div class="row align-items-center">
                 <div class="col-6 counter align-items-center d-inline-flex">
-                    <div class="team-image"
-                         [ngClass]="{complete: showAsComplete(teamScore.team), incomplete: showAsIncomplete(teamScore.team)}">
+                    <div class="team-image">
                         <img [title]="teamScore.team.name"
                              *ngIf="teamScore.team.picture && teamScore.team.pictureContentType; else picturePlaceholder"
                              [src]="teamScore.team.picture | imageDataUrl: teamScore.team.pictureContentType"/>
