@@ -3,35 +3,35 @@
     <div class="achievement-container" data-simplebar="init">
         <ngb-accordion activeIds="achievements-general-badges">
             <ngb-panel id="achievements-general-badges">
-                    <ng-template ngbPanelTitle>
-                        <div class="achievement-list-header d-flex align-items-center">
-                            <div class="achievement-list-header-left">
+                <ng-template ngbPanelTitle>
+                    <div class="achievement-list-header d-flex align-items-center">
+                        <div class="achievement-list-header-left">
                                 <span class="achievement-list-header-left-image">
                                     <jhi-achievement-item type="item-badge" size="4vh" [item]="{'name': 'recent'}">
                                     </jhi-achievement-item>
                                 </span>
-                            </div>
-                            <div class="achievement-list-header-right">
-                                <i class="fa fa-caret-right mr-2"></i>
-                                <span jhiTranslate="teamdojoApp.teams.achievements.generalBadges.title"></span>
+                        </div>
+                        <div class="achievement-list-header-right">
+                            <i class="fa fa-caret-right mr-2"></i>
+                            <span jhiTranslate="teamdojoApp.teams.achievements.generalBadges.title"></span>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    <div class="item-list-body">
+                        <div class="d-flex flex-wrap">
+                            <div class="" *ngFor="let badge of generalBadges">
+                                <jhi-achievement-item type="item-badge" [hasStatus]="true" [item]="badge"
+                                                      [progress]="getAchievementProgress(badge)"
+                                                      [active]="activeItemIds.badge === badge.id"
+                                                      (onItemSelected)="selectItem('badge', badge.id)">
+                                </jhi-achievement-item>
                             </div>
                         </div>
-                    </ng-template>
-                    <ng-template ngbPanelContent>
-                        <div class="item-list-body">
-                            <div class="d-flex flex-wrap">
-                                <div class="" *ngFor="let badge of generalBadges">
-                                    <jhi-achievement-item type="item-badge" [hasStatus]="true" [item]="badge"
-                                                          [progress]="getAchievementProgress(badge)"
-                                                          [active]="activeItemIds.badge === badge.id"
-                                                          (onItemSelected)="selectItem('badge', badge.id)">
-                                    </jhi-achievement-item>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-template>
-                </ngb-panel>
-            </ngb-accordion>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
         <div class="mt-1">
             <ngb-accordion [activeIds]="expandedDimensions">
                 <ngb-panel class="mt-1" *ngFor="let dimension of team.participations"
@@ -65,6 +65,7 @@
                                     <jhi-achievement-item type="item-level" [hasStatus]="true" [item]="level"
                                                           [progress]="getAchievementProgress(level)"
                                                           [active]="activeItemIds.level === level.id"
+                                                          [completable]="isCompletable(level, dimension)"
                                                           (onItemSelected)="selectItem('level', level.id)">
                                     </jhi-achievement-item>
                                 </div>
