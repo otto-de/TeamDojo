@@ -190,7 +190,7 @@ export class OverviewTeamsComponent implements OnInit {
     }
 
     private getLevelScore(team: ITeam, level: ILevel): number {
-        return new CompletionCheck(team, level).getScore().score;
+        return new CompletionCheck(team, level).getProgress().achieved;
     }
 
     private getParamAsNumber(name: string, params: ParamMap): number {
