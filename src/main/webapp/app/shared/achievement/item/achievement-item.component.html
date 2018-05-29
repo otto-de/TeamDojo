@@ -17,9 +17,9 @@
     </div>
     <div *ngIf="hasStatus">
         <div class="item-progress-wrapper">
-            <div class="item-progress" [ngStyle]="{width: relevancePercentage + '%'}">
-                <ngb-progressbar height="6px" [value]="progress"></ngb-progressbar>
-            </div>
+            <div class="item-progress" [ngStyle]="{width: progressWidth + '%'}"></div>
+            <div class="item-irrelevance" [ngStyle]="{width: irrelevancePercentage + '%'}"></div>
+            <div class="clearfix"></div>
         </div>
     </div>
 </div>
