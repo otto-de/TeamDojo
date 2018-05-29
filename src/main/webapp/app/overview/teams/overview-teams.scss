@@ -4,7 +4,7 @@
 
 .overviews-teams {
     height: inherit;
-    overflow-y: auto;
+
     .additional-functions {
         height: 75px;
         width: 100%;
@@ -81,13 +81,9 @@
             &.irrelevant {
                 display: none;
             }
-            &:hover {
-                -webkit-box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
-                box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
-            }
-            a {
-                color: $dojo-text-primary;
-                font-weight: normal;
+            &.incomplete {
+                background-color: $gray-400;
+                opacity: 0.5;
             }
             .team-name {
                 color: $gray-800 !important;
@@ -96,25 +92,6 @@
                 line-height: 1.2em;
             }
             .team-image {
-                width: 5vh;
-                min-width: 46px;
-                height: 5vh;
-                min-height: 46px;
-                display: flex;
-                align-items: center;
-                border-radius: 50%;
-                img {
-                    width: 100%;
-                }
-                &.complete {
-                    @include team-image();
-                    &.complete {
-                        border-color: $success;
-                    }
-                    &.incomplete {
-                        border-color: $danger;
-                    }
-                }
                 @include team-image();
             }
 
@@ -166,6 +143,7 @@
     .overviews-teams {
         .team-list {
             height: calc(100vh - 242px);
+            padding: 5px;
         }
     }
 }
