@@ -21,13 +21,12 @@ export class OverviewTeamsComponent implements OnInit {
     private filtered: boolean;
     private relevantTeamIds: number[];
     private completedTeamIds: number[];
-    private teamScores: TeamScore[];
+    teamScores: TeamScore[];
 
-    constructor(private route: ActivatedRoute) {
-        this.teamScores = [];
-    }
+    constructor(private route: ActivatedRoute) {}
 
     ngOnInit(): void {
+        this.teamScores = [];
         this.route.queryParamMap.subscribe((params: ParamMap) => {
             const badgeId: number = this.getParamAsNumber('badge', params);
             const levelId: number = this.getParamAsNumber('level', params);
