@@ -12,6 +12,7 @@
                                 </span>
                         </div>
                         <div class="achievement-list-header-right">
+
                             <i class="fa fa-caret-right mr-2"></i>
                             <span jhiTranslate="teamdojoApp.teams.achievements.generalBadges.title"></span>
                         </div>
@@ -23,7 +24,9 @@
                             <div class="" *ngFor="let badge of generalBadges">
                                 <jhi-achievement-item type="item-badge" [hasStatus]="true" [item]="badge"
                                                       [progress]="getAchievementProgress(badge)"
+                                                      [irrelevancePercentage]="getAchievementIrrelevancy(badge)"
                                                       [active]="activeItemIds.badge === badge.id"
+                                                      [completable]="true"
                                                       (onItemSelected)="selectItem('badge', badge.id)">
                                 </jhi-achievement-item>
                             </div>
@@ -64,6 +67,7 @@
                                 <div *ngFor="let level of dimension.levels">
                                     <jhi-achievement-item type="item-level" [hasStatus]="true" [item]="level"
                                                           [progress]="getAchievementProgress(level)"
+                                                          [irrelevancePercentage]="getAchievementIrrelevancy(level)"
                                                           [active]="activeItemIds.level === level.id"
                                                           [completable]="isCompletable(level, dimension)"
                                                           (onItemSelected)="selectItem('level', level.id)">
@@ -76,7 +80,9 @@
                                 <div *ngFor="let badge of dimension.badges">
                                     <jhi-achievement-item type="item-badge" [hasStatus]="true" [item]="badge"
                                                           [progress]="getAchievementProgress(badge)"
+                                                          [irrelevancePercentage]="getAchievementIrrelevancy(badge)"
                                                           [active]="activeItemIds.badge === badge.id"
+                                                          [completable]="true"
                                                           (onItemSelected)="selectItem('badge', badge.id)">
                                     </jhi-achievement-item>
                                 </div>

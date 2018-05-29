@@ -28,12 +28,14 @@
                 background: no-repeat center/90% url('../../../../content/images/badge_default.png');
             }
         }
-        &-disabled, &-incomplete {
-            img, .item-image::after {
+        &-disabled {
+            .item-image, .item-progress-wrapper {
                 filter: opacity(50%);
             }
-            .item-progress {
-                filter: brightness(0%) invert(82%);
+        }
+        &-incomplete {
+            .item-image {
+                filter: opacity(50%);
             }
         }
     }
@@ -56,7 +58,7 @@
             }
         }
         &-disabled {
-            img, .item-image::before, .item-progress {
+            img, .item-image::before, .item-progress-wrapper {
                 filter: brightness(0%) invert(82%);
             }
         }
@@ -67,16 +69,20 @@
         }
     }
 
-    .item-progress {
-        padding: 0 25px;
-
-        /deep/ .progress {
-            background-color: transparent;
-            border: 1px solid $gray-600;
-            border-radius: 0;
+    .item-progress-wrapper {
+        height: 6px;
+        margin: 0 25px;
+        border: 1px solid $gray-600;
+        background: transparent;
+        .item-progress {
+            height: 100%;
+            background: $gray-600;
+            float: left;
         }
-        /deep/ .progress-bar{
-            background-color: $gray-600;
+        .item-irrelevance {
+            height: 100%;
+            background: #D1D1D1;
+            float: left;
         }
     }
 
