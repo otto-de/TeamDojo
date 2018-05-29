@@ -25,7 +25,6 @@
         .comments {
             height: calc(100% - 60px);
             padding: 10px;
-            overflow-y: hidden;
         }
         .new-comment {
             padding: 10px;
@@ -55,6 +54,7 @@
 
             .speech-bubble {
                 position: relative;
+                max-width: 71%;
                 background: #e9deb9;
                 border-radius: 0.4rem;
                 padding: 6px 8px;
