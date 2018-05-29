@@ -1,3 +1,9 @@
-<div class="wrapper">
-    <star-rating [starType]="'svg'"> I Bims</star-rating>
-</div>
+<ngb-rating [(rate)]="currentRate" max="5" [starTemplate]="stars">
+</ngb-rating>
+<ng-template #stars let-fill="fill" let-index="index">
+            <span class="star" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+              </span>
+</ng-template>
+<hr>
+<pre>Rate: <b>{{currentRate}}</b></pre>
