@@ -29,18 +29,12 @@
             width: 5.0vh;
             opacity: 0.5;
         }
+        margin-right: 7px;
     }
 
-    .count-container {
-        line-height:4.5;
-        .count-item {
-            display: block;
-            margin-left: 5px;
-            .count-item-value {
-                float: right;
-                font-size: 1.8vh;
-            }
-        }
+    .count-item-value {
+        padding: 0 5px;
+        font-size: 1.8vh;
     }
 
     .team-list {
@@ -52,7 +46,8 @@
         .counter::before{
             counter-increment: team-counter;
             content: counter(team-counter);
-            padding-right: 10px;
+            min-width: 2em;
+            padding-right: 5px;
             color: $dojo-text-primary;
         }
 
@@ -97,6 +92,8 @@
             .team-name {
                 color: $gray-800 !important;
                 word-break: break-word;
+                font-size: 1.8vh;
+                line-height: 1.2em;
             }
             .team-image {
                 width: 5vh;
@@ -119,19 +116,6 @@
                     }
                 }
                 @include team-image();
-                .count-container {
-                    .count-item {
-                        display: block;
-                        margin-left: 5px;
-                        .count-item-header {
-
-                        }
-                        .count-item-value {
-                            float: right;
-                            font-size: 1.5em;
-                        }
-                    }
-                }
             }
 
         }
