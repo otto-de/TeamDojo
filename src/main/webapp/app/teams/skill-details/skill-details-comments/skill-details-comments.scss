@@ -46,28 +46,19 @@
 }
 
 .message {
-    &~ .message {
-        margin-top: 0.5rem;
-    }
-    img {
-        @include team-image();
-    }
-}
-
-.message-received  {
     position: relative;
     font-size: 0.9rem;
 
     img {
+        @include team-image();
         width: 40px;
         height: 40px;
-        border-radius: 50%;
     }
 
     .speech-bubble {
+        position: relative;
         background: #e9deb9;
-        border-radius: 0.4rem 0.4rem 0.4rem 0;
-        margin: 0 0 20px 14px;
+        border-radius: 0.4rem;
         padding: 6px 8px;
         word-break: break-all;
     }
@@ -75,48 +66,42 @@
     .speech-bubble::before {
         content: '';
         position: absolute;
-        bottom: 20px;
+        bottom: 0;
         width: 0;
         height: 0;
         border: 12px solid transparent;
         border-bottom-color: #e9deb9;
+    }
+    &~ .message {
+        margin-top: 0.5rem;
+    }
+}
+
+.message-received  {
+    flex-direction: row;
+
+    .speech-bubble {
+        border-bottom-left-radius: 0;
+        margin: 0 0 20px 14px;
+    }
+
+    .speech-bubble::before {
         border-right: 0;
         margin-left: -20px;
     }
 }
 
 .message-sent  {
-    position: relative;
-    font-size: 0.9rem;
-
-    img {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width:50px;
-        height: 50px;
-        border-radius: 50%;
-    }
+    flex-direction: row-reverse;
 
     .speech-bubble {
-        position: absolute;
-        background: #e9deb9;
-        border-radius: .4em;
-        padding: 15px;
-        margin-right: 70px;
+        border-bottom-right-radius: 0;
+        margin: 0 14px 20px 0;
     }
 
-    .speech-bubble:after {
-        content: '';
-        position: absolute;
-        right: 0;
-        bottom: 10px;
-        width: 0;
-        height: 0;
-        border: 17px solid transparent;
-        border-left-color: #e9deb9;
-        border-right: 0;
-        border-top: 0;
-        margin-right: -17px;
+    .speech-bubble::before {
+        right: 8px;
+        border-left: 0;
+        margin-right: -20px;
     }
 }
