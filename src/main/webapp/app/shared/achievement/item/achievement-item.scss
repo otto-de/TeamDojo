@@ -68,18 +68,19 @@
     }
 
     .item-progress-wrapper {
+        height: 6px;
         margin: 0 25px;
         border: 1px solid $gray-600;
-    }
-
-    .item-progress {
-        background: #ddd;
-        /deep/ .progress {
-            background-color: transparent;
-            border-radius: 0;
+        background: transparent;
+        .item-progress {
+            height: 100%;
+            background: $gray-600;
+            float: left;
         }
-        /deep/ .progress-bar{
-            background-color: $gray-600;
+        .item-irrelevance {
+            height: 100%;
+            background: #D1D1D1;
+            float: left;
         }
     }
 
