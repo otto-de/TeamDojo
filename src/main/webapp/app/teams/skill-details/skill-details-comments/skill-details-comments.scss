@@ -45,8 +45,8 @@
     }
 }
 
-.conversation {
-    &~ .conversation {
+.message {
+    &~ .message {
         margin-top: 0.5rem;
     }
     img {
@@ -54,7 +54,7 @@
     }
 }
 
-.conversation-left  {
+.message-received  {
     position: relative;
     font-size: 0.9rem;
 
@@ -80,13 +80,12 @@
         height: 0;
         border: 12px solid transparent;
         border-bottom-color: #e9deb9;
-        border-top: 0;
         border-right: 0;
         margin-left: -20px;
     }
 }
 
-.conversation-right  {
+.message-sent  {
     position: relative;
     font-size: 0.9rem;
 
