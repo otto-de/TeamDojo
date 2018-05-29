@@ -23,6 +23,9 @@
             },
             "navigation" : {
                 "text" : "Teamübersicht"
+            },
+            "total-score": {
+                "title": "Insgesamt"
             }
         }
     }
