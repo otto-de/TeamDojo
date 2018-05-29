@@ -23,36 +23,27 @@
         }
 
         .comments {
-            height: calc(100% - 80px);
-            padding: 20px;
+            height: calc(100% - 60px);
+            padding: 10px;
             overflow-y: hidden;
             .team-image {
                 @include team-image();
             }
         }
-        .comment-input {
+        .new-comment {
             display: flex;
-            padding: 20px;
+            padding: 10px;
             border-top: 1px solid #ccc;
-            height: 80px;
 
             .send-btn {
-                cursor: pointer;
-                background: none;
-                border: none;
-                color: #666;
-                font-size: 1.5rem;
-                margin-left: 10px;
-                margin-right: -5px;
+                height: 100%;
+                * {
+                    color: $dojo-text-inverse-secondary;
+                }
             }
-            .send-btn:focus, .send-btn:active {
-                outline: none;
-            }
-            .send-btn:hover {
-                color: #333;
-            }
-            .send-btn:active {
-                color: #000;
+            &-input {
+                width: 76%;
+                height: 40px;
             }
         }
     }
