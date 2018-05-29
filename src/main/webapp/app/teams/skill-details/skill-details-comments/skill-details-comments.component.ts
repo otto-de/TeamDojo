@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import { Comment, IComment } from 'app/shared/model/comment.model';
@@ -16,6 +16,7 @@ export class SkillDetailsCommentsComponent implements OnInit {
     @Input() team: ITeam;
     @Input() achievableSkill: IAchievableSkill;
     @Input() comments: IComment[];
+    @Output() onCommentSubmitted = new EventEmitter<IComment>();
     newComment: IComment;
 
     constructor(private commentService: CommentService, private teamsSelectionService: TeamsSelectionService) {}
@@ -36,8 +37,8 @@ export class SkillDetailsCommentsComponent implements OnInit {
         this.newComment.teamShortName = this.team ? this.team.shortName : undefined;
         this.commentService.create(this.newComment).subscribe((res: HttpResponse<IComment>) => {
             if (res.body) {
-                this.comments.push(res.body);
                 this.newComment = new Comment();
+                this.onCommentSubmitted.emit(res.body);
             }
         });
     }

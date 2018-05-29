@@ -66,6 +66,13 @@ export class SkillDetailsComponent implements OnInit {
         this.skillInfo.onSkillInListClicked(skillObjs);
     }
 
+    onCommentSubmitted(newComment: IComment) {
+        if (newComment) {
+            this._comments.push(newComment);
+            this.skillComments = this._getSkillComments();
+        }
+    }
+
     private _getSkillComments(): IComment[] {
         return (this._comments || [])
             .filter((comment: IComment) => comment.skillId === this.achievableSkill.skillId)
