@@ -1,11 +1,19 @@
 package de.otto.teamdojo.service.impl;
 
+import de.otto.teamdojo.domain.Badge;
+import de.otto.teamdojo.domain.Skill;
+import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.domain.enumeration.ActivityType;
+import de.otto.teamdojo.repository.BadgeRepository;
+import de.otto.teamdojo.repository.SkillRepository;
+import de.otto.teamdojo.repository.TeamRepository;
 import de.otto.teamdojo.service.ActivityService;
 import de.otto.teamdojo.domain.Activity;
 import de.otto.teamdojo.repository.ActivityRepository;
+import de.otto.teamdojo.service.dto.AchievableSkillDTO;
 import de.otto.teamdojo.service.dto.ActivityDTO;
 import de.otto.teamdojo.service.dto.BadgeDTO;
+import de.otto.teamdojo.service.dto.TeamSkillDTO;
 import de.otto.teamdojo.service.mapper.ActivityMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,9 +41,22 @@ public class ActivityServiceImpl implements ActivityService {
 
     private final ActivityMapper activityMapper;
 
-    public ActivityServiceImpl(ActivityRepository activityRepository, ActivityMapper activityMapper) {
+    private final BadgeRepository badgeRepository;
+
+    private final TeamRepository teamRepository;
+
+    private final SkillRepository skillRepository;
+
+    public ActivityServiceImpl(ActivityRepository activityRepository,
+                               ActivityMapper activityMapper,
+                               BadgeRepository badgeRepository,
+                               TeamRepository teamRepository,
+                               SkillRepository skillRepository) {
         this.activityRepository = activityRepository;
         this.activityMapper = activityMapper;
+        this.badgeRepository = badgeRepository;
+        this.teamRepository = teamRepository;
+        this.skillRepository = skillRepository;
     }
 
     /**
@@ -53,19 +74,44 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public ActivityDTO createFor(BadgeDTO badgeDTO) {
-        ActivityDTO activityDTO = new ActivityDTO();
+    public ActivityDTO createForNewBadge(BadgeDTO badgeDTO) {
+        Badge badge = badgeRepository.getOne(badgeDTO.getId());
         JSONObject data = new JSONObject();
         try {
-            data.put("badgeName", badgeDTO.getName());
+            data.put("badgeId", badge.getId());
+            data.put("badgeName", badge.getName());
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
+        ActivityDTO activityDTO = new ActivityDTO();
         activityDTO.setType(ActivityType.BADGE_CREATED);
         activityDTO.setCreatedAt(Instant.now());
         activityDTO.setData(data.toString());
         log.debug("Request to create activity for BADGE_CREATED {}", activityDTO);
+        return save(activityDTO);
+    }
+
+    @Override
+    public ActivityDTO createForCompletedSkill(TeamSkillDTO teamSkill) {
+        Team team = teamRepository.getOne(teamSkill.getTeamId());
+        Skill skill = skillRepository.getOne(teamSkill.getSkillId());
+
+        JSONObject data = new JSONObject();
+        try {
+            data.put("teamId", team.getId());
+            data.put("teamName", team.getName());
+            data.put("skillId", skill.getId());
+            data.put("skillTitle", skill.getTitle());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+        ActivityDTO activityDTO = new ActivityDTO();
+        activityDTO.setType(ActivityType.SKILL_COMPLETED);
+        activityDTO.setCreatedAt(Instant.now());
+        activityDTO.setData(data.toString());
+        log.debug("Request to create activity for SKILL_COMPLETED {}", activityDTO);
         return save(activityDTO);
     }
 
