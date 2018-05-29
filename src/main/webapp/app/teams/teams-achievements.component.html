@@ -26,6 +26,7 @@
                                                       [progress]="getAchievementProgress(badge)"
                                                       [irrelevancePercentage]="getAchievementIrrelevancy(badge)"
                                                       [active]="activeItemIds.badge === badge.id"
+                                                      [completable]="true"
                                                       (onItemSelected)="selectItem('badge', badge.id)">
                                 </jhi-achievement-item>
                             </div>
@@ -81,6 +82,7 @@
                                                           [progress]="getAchievementProgress(badge)"
                                                           [irrelevancePercentage]="getAchievementIrrelevancy(badge)"
                                                           [active]="activeItemIds.badge === badge.id"
+                                                          [completable]="true"
                                                           (onItemSelected)="selectItem('badge', badge.id)">
                                     </jhi-achievement-item>
                                 </div>
