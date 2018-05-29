@@ -2,17 +2,17 @@
     <div class="additional-functions"></div>
     <div class="dojo-card d-flex flex-column">
         <div class="comments">
-            <div *ngFor="let comment of comments" class="conversation"
+            <div *ngFor="let comment of comments" class="conversation d-flex align-items-start"
                  [ngClass]="isActiveTeam() ? 'conversation-right' : 'conversation-left'">
                 <img *ngIf="team.picture && team.pictureContentType"
                      class="team-image" [src]="team.picture | imageDataUrl: team.pictureContentType">
-                <div class="speech-bubble">{{comment.text}}</div>
+                <div class="speech-bubble d-flex">{{comment.text}}</div>
             </div>
         </div>
         <div class="new-comment">
             <form class="form-inline" name="commentForm" #commentForm="ngForm" (ngSubmit)="onSubmit()">
                 <label class="sr-only" for="new-comment" jhiTranslate="teamdojoApp.teams.skills.comments.newComment">Your comment</label>
-                <textarea id="new-comment" name="newComment" maxlength="255" class="form-control new-comment-input"
+                <textarea id="new-comment" name="newComment" maxlength="255" class="form-control d-flex new-comment-input"
                           [(ngModel)]="newComment.text" required></textarea>
                 <button type="submit" class="btn btn-secondary send-btn ml-1" [disabled]="commentForm.form.invalid">
                     <i class="fa fa-paper-plane"></i>
