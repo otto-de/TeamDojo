@@ -37,7 +37,10 @@
                     "3of5": "3 von 5 Sternen",
                     "contact": "Ansprechpartner"
                 },
-                "comments": "Kommentare"
+                "comments": {
+                    "title": "Kommentare",
+                    "newComment": "Dein Kommentar"
+                }
             },
             "status": {
                 "activities": {
