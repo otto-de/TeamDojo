@@ -59,32 +59,30 @@
     font-size: 0.9rem;
 
     img {
-        bottom: 0;
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
     }
 
     .speech-bubble {
-        max-width: 71%;
         background: #e9deb9;
-        border-radius: .4em;
-        margin-left: 10px;
+        border-radius: 0.4rem 0.4rem 0.4rem 0;
+        margin: 0 0 20px 14px;
         padding: 6px 8px;
         word-break: break-all;
     }
 
-    .speech-bubble:after {
+    .speech-bubble::before {
         content: '';
         position: absolute;
-        bottom: 30px;
+        bottom: 20px;
         width: 0;
         height: 0;
-        border: 17px solid transparent;
-        border-right-color: #e9deb9;
-        border-left: 0;
+        border: 12px solid transparent;
+        border-bottom-color: #e9deb9;
         border-top: 0;
-        margin-left: -25px;
+        border-right: 0;
+        margin-left: -20px;
     }
 }
 
