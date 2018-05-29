@@ -103,20 +103,8 @@ export class TeamsAchievementsComponent implements OnInit, OnChanges {
     }
 
     getAchievementProgress(item: ILevel | IBadge): number {
-        const countProgress = new Progress(0, 0);
-        const scoreProgress = new Progress(0, 0, 0);
-        if (this.isRelevant(item)) {
-            const itemProgress = this.getLevelOrBadgeProgress(item);
-            scoreProgress.required += itemProgress.required;
-            scoreProgress.achieved += itemProgress.achieved;
-            scoreProgress.totalScore += itemProgress.totalScore;
-            countProgress.required++;
-            if (itemProgress.isCompleted()) {
-                countProgress.achieved++;
-            }
-        }
-        const progress = new AchievementProgress(countProgress, scoreProgress);
-        return progress.scoreProgress.getPercentage();
+        const scoreProgress = this.isRelevant(item) ? this.getLevelOrBadgeProgress(item) : new Progress(0, 0, 0);
+        return scoreProgress.getPercentage();
     }
 
     getAchievementIrrelevancy(item: ILevel | IBadge): number {
