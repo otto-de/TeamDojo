@@ -9,6 +9,7 @@ import { ILevel } from 'app/shared/model/level.model';
 })
 export class AchievementItemComponent {
     @Input() item: any;
+    @Input() irrelevancePercentage: number;
     @Input() progress: number;
     @Input() active: boolean;
     @Input() type = '';
@@ -20,6 +21,10 @@ export class AchievementItemComponent {
     selectItem(event) {
         event.preventDefault();
         this.onItemSelected.emit(this.item);
+    }
+
+    get progressWidth() {
+        return this.progress * (100 - this.irrelevancePercentage) / 100.0;
     }
 
     get itemStatusCssClass() {
