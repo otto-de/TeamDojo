@@ -1,6 +1,6 @@
 <div class="skill-comments">
     <div class="additional-functions"></div>
-    <div class="dojo-card">
+    <div class="dojo-card d-flex flex-column">
         <div class="comments">
             <div *ngFor="let comment of comments" class="conversation"
                  [ngClass]="isActiveTeam() ? 'conversation-right' : 'conversation-left'">
@@ -9,11 +9,12 @@
                 <div class="speech-bubble">{{comment.text}}</div>
             </div>
         </div>
-        <div class="comment-input">
-            <form name="commentForm" #commentForm="ngForm" (ngSubmit)="onSubmit()">
-                <input title="New comment" name="newComment" type="text" class="form-control"
-                       [(ngModel)]="newComment.text" required>
-                <button type="submit" class="send-btn" [disabled]="commentForm.form.invalid">
+        <div class="new-comment">
+            <form class="form-inline" name="commentForm" #commentForm="ngForm" (ngSubmit)="onSubmit()">
+                <label class="sr-only" for="new-comment">Username</label>
+                <textarea id="new-comment" name="newComment" maxlength="255" class="form-control new-comment-input"
+                          [(ngModel)]="newComment.text" required></textarea>
+                <button type="submit" class="btn btn-secondary send-btn ml-1" [disabled]="commentForm.form.invalid">
                     <i class="fa fa-paper-plane"></i>
                 </button>
             </form>
