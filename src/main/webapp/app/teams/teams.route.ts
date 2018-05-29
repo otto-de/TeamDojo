@@ -87,26 +87,26 @@ export class AllSkillsResolve implements Resolve<any> {
 }
 
 @Injectable()
+export class AllCommentsResolve implements Resolve<any> {
+    constructor(private commentService: CommentService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.commentService.query();
+    }
+}
+
+@Injectable()
 export class SkillResolve implements Resolve<any> {
-    constructor(
-        private skillService: SkillService,
-        private teamsService: TeamsService,
-        private commentService: CommentService,
-        private router: Router
-    ) {}
+    constructor(private skillService: SkillService, private teamsService: TeamsService, private router: Router) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const skillId = route.params['skillId'] ? route.params['skillId'] : null;
         if (skillId) {
-            return this.skillService.query({ 'id.equals': skillId }).flatMap(skillRes => {
-                if (skillRes.body.length === 0) {
+            return this.skillService.query({ 'id.equals': skillId }).map(res => {
+                if (res.body.length === 0) {
                     this.router.navigate(['/error']);
                 }
-                const skill = skillRes.body[0];
-                return this.commentService.query({ 'skillId.equals': skillId }).map(commentsRes => {
-                    skill.comments = commentsRes.body || [];
-                    return skill;
-                });
+                return res.body[0];
             });
         }
         return new Skill();
@@ -136,7 +136,8 @@ export const TEAMS_ROUTES: Route[] = [
         component: SkillDetailsComponent,
         resolve: {
             team: TeamAndTeamSkillResolve,
-            skill: SkillResolve
+            skill: SkillResolve,
+            comments: AllCommentsResolve
         },
         data: {
             authorities: [],

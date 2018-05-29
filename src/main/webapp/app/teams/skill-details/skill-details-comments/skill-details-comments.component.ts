@@ -4,9 +4,9 @@ import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection
 import { Comment, IComment } from 'app/shared/model/comment.model';
 import { ISkill } from 'app/shared/model/skill.model';
 import { ActivatedRoute } from '@angular/router';
-import { CommentService } from 'app/entities/comment';
 import { HttpResponse } from '@angular/common/http';
 import * as moment from 'moment';
+import { CommentService } from 'app/entities/comment';
 
 @Component({
     selector: 'jhi-skill-details-comments',
@@ -16,6 +16,7 @@ import * as moment from 'moment';
 export class SkillDetailsCommentsComponent implements OnInit {
     team: ITeam;
     skill: ISkill;
+    comments: IComment[];
     newComment: IComment;
 
     constructor(
@@ -26,9 +27,12 @@ export class SkillDetailsCommentsComponent implements OnInit {
 
     ngOnInit() {
         this.newComment = new Comment();
-        this.route.data.subscribe(({ team, skill }) => {
+        this.route.data.subscribe(({ team, skill, comments }) => {
             this.skill = skill.body ? skill.body : skill;
             this.team = team.body ? team.body : team;
+            this.comments = comments
+                .filter((comment: IComment) => comment.skillId === this.skill.id)
+                .sort((comment1: IComment, comment2: IComment) => comment1.creationDate.diff(comment2.creationDate));
         });
     }
 
@@ -44,7 +48,7 @@ export class SkillDetailsCommentsComponent implements OnInit {
         this.newComment.teamShortName = this.team ? this.team.shortName : undefined;
         this.commentService.create(this.newComment).subscribe((res: HttpResponse<IComment>) => {
             if (res.body) {
-                this.skill.comments.push(res.body);
+                this.comments.push(res.body);
                 this.newComment = new Comment();
             }
         });
