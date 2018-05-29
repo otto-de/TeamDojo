@@ -20,6 +20,9 @@
             height: calc(100% - 80px);
             padding: 20px;
             overflow-y: hidden;
+            .team-image {
+                @include team-image();
+            }
         }
         .comment-input {
             display: flex;
