@@ -6,6 +6,7 @@ import { HttpResponse } from '@angular/common/http';
 import * as moment from 'moment';
 import { CommentService } from 'app/entities/comment';
 import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
+import 'simplebar';
 
 @Component({
     selector: 'jhi-skill-details-comments',
