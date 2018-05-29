@@ -4,10 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -53,6 +50,10 @@ public class Skill implements Serializable {
     @Min(value = 0)
     @Column(name = "score", nullable = false)
     private Integer score;
+
+    @DecimalMin(value = "0") @DecimalMax(value = "5") @Column(name = "rate_score") private Double rateScore;
+
+    @Min(value = 0) @Column(name = "rate_count") private Integer rateCount;
 
     @OneToMany(mappedBy = "skill")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -166,6 +167,32 @@ public class Skill implements Serializable {
         this.score = score;
     }
 
+    public Double getRateScore() {
+        return rateScore;
+    }
+
+    public Skill rateScore(Double rateScore) {
+        this.rateScore = rateScore;
+        return this;
+    }
+
+    public void setRateScore(Double rateScore) {
+        this.rateScore = rateScore;
+    }
+
+    public Integer getRateCount() {
+        return rateCount;
+    }
+
+    public Skill rateCount(Integer rateCount) {
+        this.rateCount = rateCount;
+        return this;
+    }
+
+    public void setRateCount(Integer rateCount) {
+        this.rateCount = rateCount;
+    }
+
     public Set<TeamSkill> getTeams() {
         return teams;
     }
@@ -273,6 +300,9 @@ public class Skill implements Serializable {
             ", expiryPeriod='" + getExpiryPeriod() + "'" +
             ", contact='" + getContact() + "'" +
             ", score=" + getScore() +
+            ", contact='" + getContact() + "'" +
+            ", rateScore=" + getRateScore() +
+            ", rateCount=" + getRateCount() +
             "}";
     }
 }

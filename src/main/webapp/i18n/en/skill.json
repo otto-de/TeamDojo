@@ -23,6 +23,8 @@
             "expiryPeriod": "Expiry Period",
             "contact": "Contact",
             "score": "Score",
+            "rateScore": "Rate Score",
+            "rateCount": "Rate Count",
             "teams": "Teams",
             "badges": "Badges",
             "levels": "Levels"
