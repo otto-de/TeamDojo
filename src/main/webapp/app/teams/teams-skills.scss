@@ -3,11 +3,6 @@
 @import '../../content/scss/colors';
 @import "../../content/scss/mixins";
 
-.active-skill,
-.active-skill:hover {
-   background: #f0f0f0;
-}
-
 .in-skill-details {
     cursor: pointer;
 }
@@ -27,6 +22,7 @@
     }
 }
 .teams-skills {
+
     h4 {
         color: $dojo-text-primary;
     }
@@ -35,7 +31,7 @@
     .skill-search {
         color: $dojo-text-primary;
 
-        margin-right: 23px;
+        margin-right: 14px;
 
         .skill-search-input {
             height: 35px;
@@ -48,9 +44,15 @@
         }
     }
     .teams-skills-list {
-        margin-right: 1.06em;
-        overflow-y: hidden;
-
+        /deep/ .simplebar-scroll-content {
+            padding-right: 1.4em!important;
+            .simplebar-content {
+                padding-left: 2px !important;
+                padding-right: 5px !important;
+                margin-right: -0.69em!important;
+                overflow-x: hidden!important;
+            }
+        }
         .skill-title {
             padding: 5px 5px 5px 20px;
             word-break: break-word;
@@ -98,6 +100,10 @@
                 }
             }
         }
+        .list-group-item {
+            @include skill-list-entry();
+            border: none;
+        }
     }
 }
 @media only screen and (min-width: map-get($grid-breakpoints, md)){
@@ -106,10 +112,6 @@
             height: calc(100vh - 250px);
             padding: 5px;
             padding-left: 0;
-            &:hover, &:focus {
-                overflow-y: auto;
-                margin-right: 0em;
-            }
         }
     }
 }

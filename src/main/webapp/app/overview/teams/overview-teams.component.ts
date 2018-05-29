@@ -1,4 +1,4 @@
-import { Component, Injectable, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ITeam } from 'app/shared/model/team.model';
 import { ILevel } from 'app/shared/model/level.model';
 import { IBadge } from 'app/shared/model/badge.model';
@@ -6,9 +6,8 @@ import { CompletionCheck } from 'app/shared/util/completion-check';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { RelevanceCheck } from 'app/shared';
 import { IDimension } from 'app/shared/model/dimension.model';
-import { LevelService } from 'app/entities/level';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { TeamScore } from 'app/shared/model/team-score.model';
+import 'simplebar';
 
 @Component({
     selector: 'jhi-overview-teams',
@@ -22,10 +21,9 @@ export class OverviewTeamsComponent implements OnInit {
     private filtered: boolean;
     private relevantTeamIds: number[];
     private completedTeamIds: number[];
-    private totalTeamLevelBase: number;
     private teamScores: TeamScore[];
 
-    constructor(private route: ActivatedRoute, private levelService: LevelService) {
+    constructor(private route: ActivatedRoute) {
         this.teamScores = [];
     }
 

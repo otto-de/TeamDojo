@@ -9,6 +9,7 @@ export interface ISkill {
     implementation?: string;
     validation?: string;
     expiryPeriod?: string;
+    contact?: string;
     teams?: ITeamSkill[];
     badges?: IBadgeSkill[];
     levels?: ILevelSkill[];
@@ -22,6 +23,7 @@ export class Skill implements ISkill {
         public implementation?: string,
         public validation?: string,
         public expiryPeriod?: string,
+        public contact?: string,
         public teams?: ITeamSkill[],
         public badges?: IBadgeSkill[],
         public levels?: ILevelSkill[]

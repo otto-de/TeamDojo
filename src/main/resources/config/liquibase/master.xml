@@ -14,6 +14,7 @@
     <include file="config/liquibase/changelog/20180419141143_added_entity_BadgeSkill.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180419154302_added_entity_LevelSkill.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180517074753_added_entity_Organization.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180525122526_added_entity_Report.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20180419083624_added_entity_constraints_Team.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180419092355_added_entity_constraints_TeamSkill.xml" relativeToChangelogFile="false"/>

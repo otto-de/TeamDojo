@@ -3,18 +3,16 @@
         <h4>{{'teamdojoApp.overview.skills.title' | translate}}</h4>
     </div>
     <div class="additional-functions d-flex align-items-center">
-        <form>
-            <input type="text" [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate"
-                   id="skills_search-term" class="skill-search-input" disabled/>
-        </form>
+        <input type="text" [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate"
+               id="skills_search-term" class="skill-search-input" disabled/>
     </div>
-    <div class="teams-skills-list list-group">
+    <div class="teams-skills-list list-group"  data-simplebar="init">
         <li class="list-group-item list-group-item-action flex-column align-items-start mb-2 skill-container"
             [ngClass]="{'active-skill':isActiveSkill(skill)}"
-            *ngFor="let skill of activeSkills">
-            <div class="d-flex justify-content-between"
-                 [routerLink]="['/overview', 'skills', skill.skillId]"
+            *ngFor="let skill of activeSkills" [routerLink]="['/overview', 'skills', skill.skillId]"
                  [queryParams]="{level: activeLevel?.id, badge: activeBadge?.id}">
+            <div class="d-flex justify-content-between"
+                 >
                 <a class="#" (click)="skillClicked($event, skill)" class="text-dark mb-1 skill-title">{{
                     skill.skillTitle }}</a>
                 <div class="d-flex align-items-end ml-auto count-teams">

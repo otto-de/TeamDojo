@@ -1,17 +1,21 @@
 @import '../../content/scss/colors';
 .teams-status {
     height: inherit;
+    position: relative;
     overflow-y: auto;
     padding-right: 10px;
     .teams-status-avatar {
         text-align: center;
-        .team-image {
+        .team-image-wrapper {
             width: 35vh;
             height: 35vh;
+            max-width: 100%;
             overflow: hidden;
             border-radius: 50%;
-            img {
+            .team-image {
                 height: inherit;
+                width: inherit;
+                background: repeat-x center/cover;
             }
             &::after {
                 content: '';
@@ -22,33 +26,43 @@
                 z-index: 1;
             }
         }
-        .avatar-image {
-            width: 30vh;
+        .avatar-image-wrapper {
+            width: 31vh;
             height: 41vh;
             position: absolute;
-            background: no-repeat center/contain url('../../content/images/avatars/avatar_default.png');
             top: 0.5rem;
-            margin-left: 5vh;
-            z-index: 3;
+            .avatar-image {
+                width: inherit;
+                height: inherit;
+                background: no-repeat center/contain url('../../content/images/avatars/avatar_default.png');
+                z-index: 3;
+            }
         }
         .status-meta {
-            width: 44vh;
-            height: 15vh;
+            width: 50vh;
+            height: 20vh;
+            margin-top: -4vh;
             color: $dojo-text-inverse-secondary;
             .team-title, .team-slogan {
-                font-size: 2.3vh;
+                margin-top: 6vh;
                 z-index: 4;
             }
+            h5 {
+                font-size: calc(16px + 0.3vw);
+            }
+            h6 {
+                font-size: calc(10px + 0.3vw);
+            }
             .team-score {
-                font-size: 1.8vh;
+                font-size: calc(12px + 0.2vw);
                 z-index: 4;
                 &::before {
                     content: '';
-                    width: 1.8vh;
-                    height: 2.5vh;
+                    width: calc(12px + 0.3vw);
+                    height: calc(18px + 0.3vw);
                     position: absolute;
                     background: no-repeat center/contain url('../../content/images/coin.png');
-                    margin-left: -2vh;
+                    margin-left: calc(-16px - 0.2vw);
                     z-index: 4;
                 }
             }
@@ -56,10 +70,10 @@
                 content: '';
                 width: inherit;
                 height: inherit;
+                max-width: 100%;
                 position: absolute;
-                background: no-repeat center/cover url('../../content/images/brushstroke.png');
+                background: no-repeat center/contain url('../../content/images/brushstroke.png');
                 z-index: 2;
-                margin: -6vh 0 0 4vh;
             }
         }
     }

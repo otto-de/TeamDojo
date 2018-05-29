@@ -45,6 +45,9 @@ public class Skill implements Serializable {
     @Column(name = "expiry_period")
     private String expiryPeriod;
 
+    @Column(name = "contact")
+    private String contact;
+
     @OneToMany(mappedBy = "skill")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<TeamSkill> teams = new HashSet<>();
@@ -129,6 +132,19 @@ public class Skill implements Serializable {
 
     public void setExpiryPeriod(String expiryPeriod) {
         this.expiryPeriod = expiryPeriod;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public Skill contact(String contact) {
+        this.contact = contact;
+        return this;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public Set<TeamSkill> getTeams() {
@@ -236,6 +252,7 @@ public class Skill implements Serializable {
             ", implementation='" + getImplementation() + "'" +
             ", validation='" + getValidation() + "'" +
             ", expiryPeriod='" + getExpiryPeriod() + "'" +
+            ", contact='" + getContact() + "'" +
             "}";
     }
 }
