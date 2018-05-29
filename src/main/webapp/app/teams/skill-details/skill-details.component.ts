@@ -64,6 +64,7 @@ export class SkillDetailsComponent implements OnInit {
     onSkillInListClicked(skillObjs) {
         this.achievableSkill = skillObjs.aSkill;
         this.skillInfo.onSkillInListClicked(skillObjs);
+        this.skillComments = this._getSkillComments();
     }
 
     onCommentSubmitted(newComment: IComment) {
