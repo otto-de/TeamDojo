@@ -1,6 +1,7 @@
 import { ITeamSkill } from './team-skill.model';
 import { IBadgeSkill } from './badge-skill.model';
 import { ILevelSkill } from './level-skill.model';
+import { IComment } from 'app/shared/model/comment.model';
 
 export interface ISkill {
     id?: number;
@@ -14,6 +15,7 @@ export interface ISkill {
     teams?: ITeamSkill[];
     badges?: IBadgeSkill[];
     levels?: ILevelSkill[];
+    comments?: IComment[];
 }
 
 export class Skill implements ISkill {
@@ -28,6 +30,7 @@ export class Skill implements ISkill {
         public score?: number,
         public teams?: ITeamSkill[],
         public badges?: IBadgeSkill[],
-        public levels?: ILevelSkill[]
+        public levels?: ILevelSkill[],
+        public comments?: IComment[]
     ) {}
 }
