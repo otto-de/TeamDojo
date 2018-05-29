@@ -8,57 +8,56 @@
                    [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate" disabled>
         </form>
     </div>
-    <div class="overview-status teams-skills">
-
-        <div class="row count-container mr-1 ">
-            <div class="col-sm-7 status-detail"></div>
-            <div class="col-sm-4">
+    <div class="overview-status">
+        <div class="row">
+            <div class="col-6 status-detail"></div>
+            <div class="col-5 p-0">
                 <div class="row item">
-                    <div class="col-sm-4 text-right pr-0"><img src="../../../content/images/coin_black.png"/></div>
-                    <div class="col-sm-4 text-right pr-0"><img src="../../../content/images/belt_black.png"/></div>
-                    <div class="col-sm-4 text-right pr-0"><img src="../../../content/images/badge_black.png"/></div>
+                    <div class="col-4 text-center"><img src="../../../content/images/coin_black.png"/></div>
+                    <div class="col-4 text-center"><img src="../../../content/images/belt_black.png"/></div>
+                    <div class="col-4 text-center"><img src="../../../content/images/badge_black.png"/></div>
                 </div>
             </div>
-            <div class="col-sm-1"></div>
+            <div class="col-1"></div>
         </div>
 
-        <div class="row count-container bottom-border mr-1">
-            <div class="col-sm-7 status-detail" jhiTranslate="teamdojoApp.overview.total-score.title"></div>
-            <div class="col-sm-4">
+        <div class="row bottom-border">
+            <div class="col-6 status-detail" jhiTranslate="teamdojoApp.overview.total-score.title"></div>
+            <div class="col-5 p-0">
                 <div class="row item">
-                    <div class="col-sm-4 text-right">{{calcTotalTeamScore()}}</div>
-                    <div class="col-sm-4 text-right">{{calcTotalCompletedLevel()}}/{{getTotalLevelBase()}}</div>
-                    <div class="col-sm-4 text-right">{{calcTotalCompletedBadges()}}</div>
+                    <div class="col-4 text-center count-item-value">{{calcTotalTeamScore()}}</div>
+                    <div class="col-4 text-center count-item-value">{{calcTotalCompletedLevel()}}/{{getTotalLevelBase()}}</div>
+                    <div class="col-4 text-center count-item-value">{{calcTotalCompletedBadges()}}</div>
                 </div>
             </div>
-            <div class="col-sm-1"></div>
+            <div class="col-1 status"></div>
         </div>
     </div>
     <div class="team-list" data-simplebar="init">
         <div class="team-item"
-             *ngFor='let teamScore of teamScores '
+             *ngFor='let teamScore of teamScores'
              [ngClass]="{irrelevant: showAsIrrelevant(teamScore.team), complete: showAsComplete(teamScore.team), showAsIncomplete: showAsIncomplete(teamScore.team)}">
             <div class="row align-items-center">
-                <div class="col-sm-7 counter align-items-center d-inline-flex achievement-list-header">
+                <div class="col-6 counter align-items-center d-inline-flex">
                     <div class="team-image"
                          [ngClass]="{complete: showAsComplete(teamScore.team), incomplete: showAsIncomplete(teamScore.team)}">
                         <img [title]="teamScore.team.name"
                              *ngIf="teamScore.team.picture && teamScore.team.pictureContentType; else picturePlaceholder"
                              [src]="teamScore.team.picture | imageDataUrl: teamScore.team.pictureContentType"/>
                         <ng-template #picturePlaceholder>
-                            <span class="img-placeholder">{{teamScore.team.name | truncateString}}</span>
+                            <span class="img-placeholder">{{teamScore.team.shortName}}</span>
                         </ng-template>
                     </div>
                     <a href="#" [routerLink]="['/teams', teamScore.team.shortName]" class="team-name ml-2">{{teamScore.team.name}}</a>
                 </div>
-                <div class="col-sm-4 count-container">
-                    <div class="row mr-1">
-                        <div class="col-sm-4 text-right">{{teamScore.score}}</div>
-                        <div class="col-sm-4 text-right">{{calcCompletedLevel(teamScore.team)}}/{{calcLevelBase(teamScore.team)}}</div>
-                        <div class="col-sm-4 text-right">{{calcCompletedBadges(teamScore.team)}}</div>
+                <div class="col-5 p-0">
+                    <div class="row">
+                        <div class="col-4 text-center count-item-value">{{teamScore.score}}</div>
+                        <div class="col-4 text-center count-item-value">{{calcCompletedLevel(teamScore.team)}}/{{calcLevelBase(teamScore.team)}}</div>
+                        <div class="col-4 text-center count-item-value">{{calcCompletedBadges(teamScore.team)}}</div>
                     </div>
                 </div>
-                <div class="col-sm-1 status"
+                <div class="col-1 status"
                      [ngClass]="{complete: showAsComplete(teamScore.team)}">
                     <i *ngIf="showAsComplete(teamScore.team)" class="fa fa-check fa-inverse"></i>
                 </div>

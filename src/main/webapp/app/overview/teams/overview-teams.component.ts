@@ -137,7 +137,13 @@ export class OverviewTeamsComponent implements OnInit {
     }
 
     getTotalLevelBase() {
-        return this.levels.length * this.teams.length;
+        let totalLevelBase = 0;
+        this.teams.forEach((team: ITeam) => {
+            team.participations.forEach((dimension: IDimension) => {
+                totalLevelBase += dimension.levels.length;
+            });
+        });
+        return totalLevelBase;
     }
 
     calcLevelBase(team: ITeam) {
