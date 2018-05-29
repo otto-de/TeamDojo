@@ -1,10 +1,9 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="teamdojoApp.level.home.title">Levels</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-level"
-                [routerLink]="['/level/new']">
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-level" [routerLink]="['/level/new']">
             <span class="fa fa-plus"></span>
-            <span jhiTranslate="teamdojoApp.level.home.createLabel">
+            <span  jhiTranslate="teamdojoApp.level.home.createLabel">
             Create new Level
             </span>
         </button>
@@ -15,14 +14,14 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th><span jhiTranslate="global.field.id">ID</span></th>
-                <th><span jhiTranslate="teamdojoApp.level.name">Name</span></th>
-                <th><span jhiTranslate="teamdojoApp.level.description">Description</span></th>
-                <th><span jhiTranslate="teamdojoApp.level.picture">Picture</span></th>
-                <th><span jhiTranslate="teamdojoApp.level.requiredScore">Required Score</span></th>
-                <th><span jhiTranslate="teamdojoApp.level.dimension">Dimension</span></th>
-                <th><span jhiTranslate="teamdojoApp.level.dependsOn">Depends On</span></th>
-                <th></th>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="teamdojoApp.level.name">Name</span></th>
+            <th><span jhiTranslate="teamdojoApp.level.description">Description</span></th>
+            <th><span jhiTranslate="teamdojoApp.level.picture">Picture</span></th>
+            <th><span jhiTranslate="teamdojoApp.level.requiredScore">Required Score</span></th>
+            <th><span jhiTranslate="teamdojoApp.level.dimension">Dimension</span></th>
+            <th><span jhiTranslate="teamdojoApp.level.dependsOn">Depends On</span></th>
+            <th></th>
             </tr>
             </thead>
             <tbody>
@@ -32,20 +31,19 @@
                 <td>{{level.description}}</td>
                 <td>
                     <a *ngIf="level.picture" (click)="openFile(level.pictureContentType, level.picture)">
-                        <img [src]="'data:' + level.pictureContentType + ';base64,' + level.picture"
-                             style="max-height: 30px;" alt="level image"/>
+                        <img [src]="'data:' + level.pictureContentType + ';base64,' + level.picture" style="max-height: 30px;" alt="level image"/>
                     </a>
                     <span *ngIf="level.picture">{{level.pictureContentType}}, {{byteSize(level.picture)}}</span>
                 </td>
                 <td>{{level.requiredScore}}</td>
                 <td>
                     <div *ngIf="level.dimensionId">
-                        <a [routerLink]="['../dimension', level.dimensionId , 'view' ]">{{level.dimensionName}}</a>
+                        <a [routerLink]="['../dimension', level.dimensionId , 'view' ]" >{{level.dimensionName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="level.dependsOnId">
-                        <a [routerLink]="['../level', level.dependsOnId , 'view' ]">{{level.dependsOnName}}</a>
+                        <a [routerLink]="['../level', level.dependsOnId , 'view' ]" >{{level.dependsOnName}}</a>
                     </div>
                 </td>
                 <td class="text-right">
