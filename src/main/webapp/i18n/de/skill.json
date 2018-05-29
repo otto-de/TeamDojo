@@ -14,7 +14,11 @@
                 "question": "Soll Skill {{ id }} wirklich dauerhaft gelöscht werden?"
             },
             "detail": {
-                "title": "Skill"
+                "title": "Skill",
+                "rateCount": "Bewertungen",
+                "modalTitle": "Bewerte den Skill",
+                "modalClose": "Abbrechen",
+                "modalSubmit": "Bewertung abschicken"
             },
             "title": "Title",
             "description": "Description",
