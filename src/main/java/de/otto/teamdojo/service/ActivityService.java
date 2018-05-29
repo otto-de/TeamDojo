@@ -2,6 +2,7 @@ package de.otto.teamdojo.service;
 
 import de.otto.teamdojo.service.dto.ActivityDTO;
 import de.otto.teamdojo.service.dto.BadgeDTO;
+import de.otto.teamdojo.service.dto.TeamSkillDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,10 +21,17 @@ public interface ActivityService {
     ActivityDTO save(ActivityDTO activityDTO);
 
     /**
-     * Save a activity.
+     * Create an activity for BADGE_CREATED
      * @return the persisted entity
      */
-    ActivityDTO createFor(BadgeDTO badgeDTO);
+    ActivityDTO createForNewBadge(BadgeDTO badgeDTO);
+
+    /**
+     * Create an activity for SKILL_COMPLETED
+     * @param teamSkill
+     * @return the persisted entity
+     */
+    ActivityDTO createForCompletedSkill(TeamSkillDTO teamSkill);
 
     /**
      * Get all the activities.

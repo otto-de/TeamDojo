@@ -1,15 +1,11 @@
 package de.otto.teamdojo.service.impl;
 
 import de.otto.teamdojo.domain.Badge;
-import de.otto.teamdojo.domain.enumeration.ActivityType;
 import de.otto.teamdojo.repository.BadgeRepository;
 import de.otto.teamdojo.service.ActivityService;
 import de.otto.teamdojo.service.BadgeService;
-import de.otto.teamdojo.service.dto.ActivityDTO;
 import de.otto.teamdojo.service.dto.BadgeDTO;
 import de.otto.teamdojo.service.mapper.BadgeMapper;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -17,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,13 +46,14 @@ public class BadgeServiceImpl implements BadgeService {
     @Override
     public BadgeDTO save(BadgeDTO badgeDTO) {
         log.debug("Request to save Badge : {}", badgeDTO);
+        boolean newBadge = badgeDTO.getId() == null;
         Badge badge = badgeMapper.toEntity(badgeDTO);
         badge = badgeRepository.save(badge);
-        // create an activity if creating a new badge
-        if (badgeDTO.getId() == null) {
-            this.activityService.createFor(badgeDTO);
+        badgeDTO = badgeMapper.toDto(badge);
+        if (newBadge) {
+            this.activityService.createForNewBadge(badgeDTO);
         }
-        return badgeMapper.toDto(badge);
+        return badgeDTO;
     }
 
     /**
