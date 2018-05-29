@@ -1,16 +1,21 @@
 package de.otto.teamdojo.service.impl;
 
+import de.otto.teamdojo.domain.enumeration.ActivityType;
 import de.otto.teamdojo.service.ActivityService;
 import de.otto.teamdojo.domain.Activity;
 import de.otto.teamdojo.repository.ActivityRepository;
 import de.otto.teamdojo.service.dto.ActivityDTO;
+import de.otto.teamdojo.service.dto.BadgeDTO;
 import de.otto.teamdojo.service.mapper.ActivityMapper;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.Optional;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,6 +50,23 @@ public class ActivityServiceImpl implements ActivityService {
         Activity activity = activityMapper.toEntity(activityDTO);
         activity = activityRepository.save(activity);
         return activityMapper.toDto(activity);
+    }
+
+    @Override
+    public ActivityDTO createFor(BadgeDTO badgeDTO) {
+        ActivityDTO activityDTO = new ActivityDTO();
+        JSONObject data = new JSONObject();
+        try {
+            data.put("badgeName", badgeDTO.getName());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+        activityDTO.setType(ActivityType.BADGE_CREATED);
+        activityDTO.setCreatedAt(Instant.now());
+        activityDTO.setData(data.toString());
+        log.debug("Request to create activity for BADGE_CREATED {}", activityDTO);
+        return save(activityDTO);
     }
 
     /**
