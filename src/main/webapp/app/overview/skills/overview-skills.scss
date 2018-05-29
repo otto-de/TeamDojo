@@ -63,7 +63,7 @@
     font-style: italic;
 }
 
-@media only screen and (min-width: map-get($grid-breakpoints, md)) {
+@media only screen and (min-width: map-get($grid-breakpoints, lg)) {
     .overviews-skills {
         .teams-skills-list {
             height: calc(100vh - 242px);
