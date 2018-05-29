@@ -2,10 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import { Comment, IComment } from 'app/shared/model/comment.model';
-import { ISkill } from 'app/shared/model/skill.model';
 import { HttpResponse } from '@angular/common/http';
 import * as moment from 'moment';
 import { CommentService } from 'app/entities/comment';
+import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 
 @Component({
     selector: 'jhi-skill-details-comments',
@@ -14,7 +14,7 @@ import { CommentService } from 'app/entities/comment';
 })
 export class SkillDetailsCommentsComponent implements OnInit {
     @Input() team: ITeam;
-    @Input() skill: ISkill;
+    @Input() achievableSkill: IAchievableSkill;
     @Input() comments: IComment[];
     newComment: IComment;
 
@@ -30,8 +30,8 @@ export class SkillDetailsCommentsComponent implements OnInit {
 
     onSubmit() {
         this.newComment.creationDate = moment();
-        this.newComment.skillId = this.skill ? this.skill.id : undefined;
-        this.newComment.skillTitle = this.skill ? this.skill.title : undefined;
+        this.newComment.skillId = this.achievableSkill ? this.achievableSkill.skillId : undefined;
+        this.newComment.skillTitle = this.achievableSkill ? this.achievableSkill.title : undefined;
         this.newComment.teamId = this.team ? this.team.id : undefined;
         this.newComment.teamShortName = this.team ? this.team.shortName : undefined;
         this.commentService.create(this.newComment).subscribe((res: HttpResponse<IComment>) => {
