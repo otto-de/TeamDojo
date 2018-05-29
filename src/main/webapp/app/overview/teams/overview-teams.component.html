@@ -13,25 +13,25 @@
             <thead class="overview-status">
             <tr>
                 <th scope="col" jhiTranslate="teamdojoApp.overview.total-score.title"></th>
-                <th scope="col">
+                <th class="px-0" scope="col">
                     <div class="d-flex flex-column align-items-center">
                         <img src="../../../content/images/coin_black.png"/>
                         <span>{{calcTotalTeamScore()}}</span>
-                </div>
+                    </div>
                 </th>
-                <th scope="col">
+                <th class="px-0" scope="col">
                     <div class="d-flex flex-column align-items-center">
                         <img src="../../../content/images/belt_black.png"/>
                         <span>{{calcTotalCompletedLevel()}}/{{getTotalLevelBase()}}</span>
                     </div>
                 </th>
-                <th scope="col">
+                <th class="px-0" scope="col">
                     <div class="d-flex flex-column align-items-center">
                         <img src="../../../content/images/badge_black.png"/>
                         <span>{{calcTotalCompletedBadges()}}</span>
                     </div>
                 </th>
-                <th scope="col">
+                <th class="px-0" scope="col">
             </tr>
             </thead>
             <tbody>
@@ -53,12 +53,12 @@
                     </div>
                     </div>
                 </td>
-                <td class="text-center" style="padding:0">{{teamScore.score}}</td>
-                <td class="text-center" style="padding:0%">
+                <td class="text-center">{{teamScore.score}}</td>
+                <td class="text-center">
                     {{calcCompletedLevel(teamScore.team)}}/{{calcLevelBase(teamScore.team)}}
                 </td>
-                <td class="text-center" style="padding:0">{{calcCompletedBadges(teamScore.team)}}</td>
-                <td style="width: 10px">
+                <td class="text-center">{{calcCompletedBadges(teamScore.team)}}</td>
+                <td>
                     <div class="status"
                      [ngClass]="{complete: showAsComplete(teamScore.team)}">
                     <i *ngIf="showAsComplete(teamScore.team)" class="fa fa-check fa-inverse"></i>
