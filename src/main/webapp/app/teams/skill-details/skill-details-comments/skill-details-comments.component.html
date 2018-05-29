@@ -1,41 +1,21 @@
 <div class="skill-comments">
     <div class="dojo-card" style="position: relative">
-        <div class="overlay mockup" style="position: absolute; width: 100%; height: 100%; top:0; left:0; z-index: 100; opacity: 0.5"></div>
         <div class="comments">
-            <div class="conversation-left conversation" style="height: 111px;">
-                <img src="../../../../content/images/avatars/team1.png">
-                <div class="speech-bubble">
-                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus enim eveniet facere illo.
-                </div>
-            </div>
-
-            <div class="conversation-left conversation" style="height: 70px;">
-
-                <img src="../../../../content/images/avatars/team2.jpeg">
-                <div class="speech-bubble">
-                    Lorem ipsum dolor sit amet.
-                </div>
-            </div>
-
-            <div class="conversation-left conversation" style="height: 174px;">
-                <img src="../../../../content/images/avatars/team1.png">
-                <div class="speech-bubble">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam aliquid atque autem consequuntur deserunt distinctio dolorem dolores eius facere libero modi
-                </div>
-            </div>
-
-            <div class="conversation-right conversation" style="height: 175px;">
-                <img src="../../../../content/images/avatars/team3.jpeg">
-                <div class="speech-bubble">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam aliquid atque autem consequuntur deserunt distinctio dolorem dolores eius facere libero mod.
-                </div>
+            <div *ngFor="let comment of skill.comments" class="conversation"
+                 [ngClass]="isActiveTeam() ? 'conversation-right' : 'conversation-left'">
+                <img *ngIf="team.picture && team.pictureContentType"
+                     class="team-image" [src]="team.picture | imageDataUrl: team.pictureContentType">
+                <div class="speech-bubble">{{comment.text}}</div>
             </div>
         </div>
         <div class="comment-input">
-            <input type="text" class="form-control" placeholder="Kommentar">
-            <button class="send-btn">
-                <i class="fa fa-paper-plane"></i>
-            </button>
+            <form name="commentForm" #commentForm="ngForm" (ngSubmit)="onSubmit()">
+                <input title="New comment" name="newComment" type="text" class="form-control"
+                       [(ngModel)]="newComment.text" required>
+                <button type="submit" class="send-btn" [disabled]="commentForm.form.invalid">
+                    <i class="fa fa-paper-plane"></i>
+                </button>
+            </form>
         </div>
     </div>
 </div>
