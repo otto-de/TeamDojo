@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, ParamMap, Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiLanguageService } from 'ng-jhipster';
@@ -20,6 +20,7 @@ import { ISkill } from 'app/shared/model/skill.model';
 import { SkillService } from 'app/entities/skill';
 import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
 import { IBreadcrumb } from 'app/shared/model/breadcrumb.model';
+import { ActivityComponent } from 'app/layouts/navbar/activity/activity.component';
 
 @Component({
     selector: 'jhi-navbar',
@@ -42,6 +43,8 @@ export class NavbarComponent implements OnInit {
     activeTeam: ITeam;
     activeSkill: ISkill;
     breadcrumbs: IBreadcrumb[];
+
+    @ViewChild(ActivityComponent) activitiesList;
 
     constructor(
         private loginService: LoginService,

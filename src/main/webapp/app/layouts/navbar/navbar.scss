@@ -21,7 +21,6 @@ Navbar
                     color: rgba(233, 233, 233, 1.0);
                     font-weight: normal;
                 }
-
                 .breadcrumb-item.active, .breadcrumb-item::before {
                     color: rgba(233, 233, 233, 1.0);
                 }
@@ -77,6 +76,13 @@ Navbar
         padding: 10px;
         &:hover {
             color: #fff;
+        }
+    }
+
+    .navbar-icon {
+        margin-right: 7px !important;
+        .fa {
+            font-size: 1.5em;
         }
     }
 
