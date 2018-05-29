@@ -158,12 +158,6 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
         return teamSkill && !!teamSkill.completedAt;
     }
 
-    skillClicked(event, skill: ILevelSkill) {
-        const url = this.router.createUrlTree(['/overview', 'skills', skill.skillId]).toString();
-        this.location.replaceState(url);
-        event.preventDefault();
-    }
-
     isActiveSkill(iLevelSkill: ILevelSkill) {
         return typeof this.activeSkill !== 'undefined' && this.activeSkill !== null && this.activeSkill.id === iLevelSkill.skillId;
     }
