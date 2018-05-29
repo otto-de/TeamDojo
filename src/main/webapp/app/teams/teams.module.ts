@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 
 import { TeamdojoSharedModule } from 'app/shared';
 import { SkillResolve, TEAMS_ROUTES, TeamsComponent } from './';
-import { TeamsStatusComponent } from './teams-status.component';
 import { TeamsAchievementsComponent } from './teams-achievements.component';
 import { TeamsSkillsComponent } from './teams-skills.component';
 import { TeamsSelectionComponent } from 'app/teams/teams-selection/teams-selection.component';
@@ -21,7 +20,6 @@ import { SkillDetailsCommentsComponent } from 'app/teams/skill-details/skill-det
     imports: [TeamdojoSharedModule, RouterModule.forChild(TEAMS_ROUTES), NgbModule],
     declarations: [
         TeamsComponent,
-        TeamsStatusComponent,
         TeamsAchievementsComponent,
         TeamsSkillsComponent,
         TeamsSelectionComponent,

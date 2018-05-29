@@ -52,6 +52,10 @@
                 "pattern"
             ],
             "fieldValidateRulesPattern": "^P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?$"
+        },
+        {
+            "fieldName": "contact",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20180418141117",

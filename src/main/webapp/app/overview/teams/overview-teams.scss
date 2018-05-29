@@ -24,6 +24,7 @@
 
     .overview-status {
         color: $dojo-text-primary;
+        background: rgba($dojo-bg-gradient-from, 0.5);
         img{
             width: 5.0vh;
             opacity: 0.5;
@@ -46,6 +47,7 @@
 
         counter-reset: team-counter;
         border-style: none;
+        padding: 0;
 
         .counter::before{
             counter-increment: team-counter;
@@ -54,6 +56,13 @@
             color: $dojo-text-primary;
         }
 
+        /deep/ .simplebar-scroll-content {
+            padding-right: 1.4em!important;
+            .simplebar-content {
+                margin-right: -0.6em!important;
+                overflow-x: hidden;
+            }
+        }
         .team-item {
             border-style: none;
             border: none;
@@ -62,9 +71,20 @@
             padding-top: 0px;
             padding-bottom: 0px;
             line-height:4.5;
+            .status {
+                color: $dojo-text-secondary;
+                padding: 10px;
+                height: 4em;
+                width: 2.2em;
+                background-color: transparent;
+            }
+            &.complete {
+                .status {
+                    background-color: #a8bc66;
+                }
+            }
             &.irrelevant {
-                background-color: $gray-400;
-                opacity: 0.5;
+                display: none;
             }
             &:hover {
                 -webkit-box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
@@ -98,7 +118,22 @@
                         border-color: $danger;
                     }
                 }
+                @include team-image();
+                .count-container {
+                    .count-item {
+                        display: block;
+                        margin-left: 5px;
+                        .count-item-header {
+
+                        }
+                        .count-item-value {
+                            float: right;
+                            font-size: 1.5em;
+                        }
+                    }
+                }
             }
+
         }
     }
 
@@ -142,17 +177,11 @@
         font-style: italic;
     }
 
-    @media only screen and (min-width: map-get($grid-breakpoints, md)) {
-        .overviews-teams {
-            .team-list {
-                height: calc(100vh - 242px);
-                overflow-y: auto;
-                padding: 5px;
-                &:hover, &:focus {
-                    overflow-y: auto;
-                    margin-right: 0em;
-                }
-            }
+}
+@media only screen and (min-width: map-get($grid-breakpoints, md)) {
+    .overviews-teams {
+        .team-list {
+            height: calc(100vh - 242px);
         }
     }
 }

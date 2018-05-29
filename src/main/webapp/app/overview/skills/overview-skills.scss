@@ -5,39 +5,41 @@
 
 .overviews-skills {
     height: inherit;
-    overflow-y: auto;
-    overflow-x: hidden;
     padding-right: 10px;
-}
+    .teams-skills-list {
+        /deep/ .simplebar-scroll-content {
+            padding-right: 1.4em !important;
+            .simplebar-content {
+                padding-left: 2px !important;
+                padding-right: 5px !important;
+                margin-right: -0.74em !important;
+                overflow-x: hidden;
+            }
+        }
 
-.skill-container {
-    background-color: $dojo-bg-gradient-from;
-}
+        .skill-container {
+            background-color: $dojo-bg-gradient-from;
+        }
 
-.count-teams {
-    white-space: nowrap;
-}
+        .count-teams {
+            white-space: nowrap;
+        }
 
-.skill-title {
-    width: 70%;
-}
+        .skill-title {
+            width: 70%;
+        }
 
-.list-group-item {
-    background: $dojo-bg-primary;
-    @include shadow();
-    .justify-content-between {
-        outline: none;
+        .list-group-item {
+            @include skill-list-entry();
+            padding: 10px;
+        }
     }
-}
-
-.active-skill,
-.active-skill:hover {
-    background: #f0f0f0;
 }
 
 #skills_search-term {
     background-color: #e8ddb7;
-    width: 270px;
+    width: 100%;
+    margin-right: 13px;
 }
 
 .additional-functions {
@@ -63,11 +65,10 @@
 
 @media only screen and (min-width: map-get($grid-breakpoints, md)) {
     .overviews-skills {
-        height: calc(100vh - 242px);
-        padding: 5px;
-        &:hover, &:focus {
-            overflow-y: auto;
-            margin-right: 0em;
+        .teams-skills-list {
+            height: calc(100vh - 242px);
+            padding-right: 5px;
         }
+
     }
 }

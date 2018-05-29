@@ -26,6 +26,8 @@ public class SkillDTO implements Serializable {
     @Pattern(regexp = "^P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?$")
     private String expiryPeriod;
 
+    private String contact;
+
     public Long getId() {
         return id;
     }
@@ -74,6 +76,14 @@ public class SkillDTO implements Serializable {
         this.expiryPeriod = expiryPeriod;
     }
 
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -104,6 +114,7 @@ public class SkillDTO implements Serializable {
             ", implementation='" + getImplementation() + "'" +
             ", validation='" + getValidation() + "'" +
             ", expiryPeriod='" + getExpiryPeriod() + "'" +
+            ", contact='" + getContact() + "'" +
             "}";
     }
 }

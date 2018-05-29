@@ -5,6 +5,7 @@ import { IBadge } from 'app/shared/model/badge.model';
 import { CompletionCheck, RelevanceCheck } from 'app/shared';
 import { Router } from '@angular/router';
 import { HighestLevel, IHighestLevel } from 'app/shared/achievement';
+import { ITeamSkill } from 'app/shared/model/team-skill.model';
 
 @Component({
     selector: 'jhi-teams-status',
@@ -13,6 +14,7 @@ import { HighestLevel, IHighestLevel } from 'app/shared/achievement';
 })
 export class TeamsStatusComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
+    @Input() teamSkills: ITeamSkill[];
     @Input() badges: IBadge[];
     completedBadges: IBadge[];
     highestAchievedLevels: IHighestLevel[];
@@ -20,13 +22,13 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     constructor(private router: Router) {}
 
     ngOnInit(): void {
+        this.team.skills = this.teamSkills;
         this.calculateStatus();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (this.hasTeamChanged(changes.team)) {
-            this.calculateStatus();
-        }
+        this.team.skills = this.teamSkills;
+        this.calculateStatus();
     }
 
     private hasTeamChanged(team: any) {
@@ -59,7 +61,7 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
         this.team.participations.forEach((dimension: IDimension) => {
             let ordinal = 0;
             let achievedLevel;
-            for (const level of dimension.levels) {
+            for (const level of dimension.levels || []) {
                 if (!this.isLevelCompleted(level)) {
                     break;
                 }
