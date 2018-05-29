@@ -1,6 +1,7 @@
 package de.otto.teamdojo.service;
 
 import de.otto.teamdojo.service.dto.ActivityDTO;
+import de.otto.teamdojo.service.dto.BadgeDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +18,12 @@ public interface ActivityService {
      * @return the persisted entity
      */
     ActivityDTO save(ActivityDTO activityDTO);
+
+    /**
+     * Save a activity.
+     * @return the persisted entity
+     */
+    ActivityDTO createFor(BadgeDTO badgeDTO);
 
     /**
      * Get all the activities.
