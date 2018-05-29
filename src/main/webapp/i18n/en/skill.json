@@ -14,7 +14,11 @@
                 "question": "Are you sure you want to delete Skill {{ id }}?"
             },
             "detail": {
-                "title": "Skill"
+                "title": "Skill",
+                "rateCount": "Votes",
+                "modalTitle": "Vote for it",
+                "modalClose": "Cancel & Close",
+                "modalSubmit": "Submit your voting"
             },
             "title": "Title",
             "description": "Description",

@@ -21,10 +21,8 @@
 </div>
 
 <div>
-    <div class="skill-rating mockup">
-        <jhi-star-rating [starType]="'svg'"></jhi-star-rating>
-
-        <span class="rating-text" jhiTranslate="teamdojoApp.teams.skills.details.3of5">3 von 5 Sternen</span>
+    <div class="skill-rating">
+        <jhi-star-rating [skill]="skill"></jhi-star-rating>
     </div>
 
     <div class="skill-contact" *ngIf="skill.contact">
