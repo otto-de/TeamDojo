@@ -12,6 +12,7 @@
                                 </span>
                         </div>
                         <div class="achievement-list-header-right">
+
                             <i class="fa fa-caret-right mr-2"></i>
                             <span jhiTranslate="teamdojoApp.teams.achievements.generalBadges.title"></span>
                         </div>
@@ -23,6 +24,7 @@
                             <div class="" *ngFor="let badge of generalBadges">
                                 <jhi-achievement-item type="item-badge" [hasStatus]="true" [item]="badge"
                                                       [progress]="getAchievementProgress(badge)"
+                                                      [relevancePercentage]="getAchievementRelevancy(badge)"
                                                       [active]="activeItemIds.badge === badge.id"
                                                       (onItemSelected)="selectItem('badge', badge.id)">
                                 </jhi-achievement-item>
@@ -32,29 +34,6 @@
                 </ng-template>
             </ngb-panel>
         </ngb-accordion>
-                            </div>
-                            <div class="achievement-list-header-right">
-                                <i class="fa fa-caret-right mr-2"></i>
-                                <span jhiTranslate="teamdojoApp.teams.achievements.generalBadges.title"></span>
-                            </div>
-                        </div>
-                    </ng-template>
-                    <ng-template ngbPanelContent>
-                        <div class="item-list-body">
-                            <div class="d-flex flex-wrap">
-                                <div class="" *ngFor="let badge of generalBadges">
-                                    <jhi-achievement-item type="item-badge" [hasStatus]="true" [item]="badge"
-                                                          [progress]="getAchievementProgress(badge)"
-                                                          [relevancePercentage]="getAchievementRelevancy(badge)"
-                                                          [active]="activeItemIds.badge === badge.id"
-                                                          (onItemSelected)="selectItem('badge', badge.id)">
-                                    </jhi-achievement-item>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-template>
-                </ngb-panel>
-            </ngb-accordion>
         <div class="mt-1">
             <ngb-accordion [activeIds]="expandedDimensions">
                 <ngb-panel class="mt-1" *ngFor="let dimension of team.participations"
