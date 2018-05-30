@@ -4,6 +4,7 @@ import { TeamdojoSharedModule } from 'app/shared';
 import {
     AllBadgeSkillsResolve,
     AllBadgesResolve,
+    AllCommentsResolve,
     AllLevelSkillsResolve,
     AllLevelsResolve,
     AllSkillsResolve,
@@ -40,6 +41,7 @@ import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
         SkillResolve,
         AllBadgeSkillsResolve,
         AllSkillsResolve,
+        AllCommentsResolve,
         BreadcrumbService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
