@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { HighestLevel, IHighestLevel } from 'app/shared/achievement';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import { ISkill } from 'app/shared/model/skill.model';
+import { TeamScoreCalculation } from 'app/shared/util/team-score-calculation';
 
 @Component({
     selector: 'jhi-teams-status',
@@ -31,6 +32,10 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         this.team.skills = this.teamSkills;
         this.calculateStatus();
+    }
+
+    get teamScore() {
+        return TeamScoreCalculation.calcTeamScore(this.team, this.skills, this.badges);
     }
 
     private hasTeamChanged(team: any) {
