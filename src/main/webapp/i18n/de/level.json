@@ -20,8 +20,8 @@
             "description": "Description",
             "picture": "Picture",
             "requiredScore": "Required Score",
-            "instantMultiplier": "Instant Multiplier",
-            "completionBonus": "Completion Bonus",
+            "instantMultiplier": "Skill Score Multiplier",
+            "completionBonus": "Level Completion Bonus",
             "dimension": "Dimension",
             "dependsOn": "Depends On",
             "skills": "Skills"

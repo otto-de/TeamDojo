@@ -217,14 +217,14 @@ export class OverviewTeamsComponent implements OnInit {
         return new CompletionCheck(team, item, this.skills).isCompleted();
     }
 
-    private getBonus(team: ITeam, level: ILevel | IBadge): number {
-        if (!level.instantMultiplier && !level.completionBonus) {
-            return null;
+    private getBonus(team: ITeam, item: ILevel | IBadge): number {
+        if (!item.instantMultiplier && !item.completionBonus) {
+            return 0;
         }
-        const levelProgress = new CompletionCheck(team, level, this.skills).getProgress();
-        let score = levelProgress.achieved * level.instantMultiplier;
+        const levelProgress = new CompletionCheck(team, item, this.skills).getProgress();
+        let score = levelProgress.achieved * item.instantMultiplier;
         if (levelProgress.isCompleted()) {
-            score += level.completionBonus;
+            score += item.completionBonus;
         }
         return score;
     }
