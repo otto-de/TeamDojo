@@ -10,6 +10,7 @@ import { BadgeSkillService } from 'app/entities/badge-skill';
 import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
 import { Skill } from 'app/shared/model/skill.model';
 import { SkillService } from 'app/entities/skill';
+import { CommentService } from 'app/entities/comment';
 
 @Injectable()
 export class AllTeamsResolve implements Resolve<any> {
@@ -75,6 +76,15 @@ export class AllSkillsResolve implements Resolve<any> {
 }
 
 @Injectable()
+export class AllCommentsResolve implements Resolve<any> {
+    constructor(private commentService: CommentService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.commentService.query();
+    }
+}
+
+@Injectable()
 export class SkillResolve implements Resolve<any> {
     constructor(private skillService: SkillService, private router: Router) {}
 
@@ -115,7 +125,8 @@ export const OVERVIEW_ROUTE: Route[] = [
             teamSkills: AllTeamSkillsResolve,
             levelSkills: AllLevelSkillsResolve,
             badgeSkills: AllBadgeSkillsResolve,
-            skill: SkillResolve
+            skill: SkillResolve,
+            comments: AllCommentsResolve
         },
         data: {
             authorities: [],
