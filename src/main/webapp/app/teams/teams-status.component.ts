@@ -21,6 +21,7 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     @Input() skills: ISkill[];
     completedBadges: IBadge[];
     highestAchievedLevels: IHighestLevel[];
+    teamScore: number;
 
     constructor(private router: Router) {}
 
@@ -34,15 +35,12 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
         this.calculateStatus();
     }
 
-    get teamScore() {
-        return TeamScoreCalculation.calcTeamScore(this.team, this.skills, this.badges);
-    }
-
     private hasTeamChanged(team: any) {
         return team && team.previousValue && team.previousValue.id !== team.currentValue.id;
     }
 
     private calculateStatus() {
+        this.teamScore = TeamScoreCalculation.calcTeamScore(this.team, this.skills, this.badges);
         this.completedBadges = this.getCompletedBadges();
         this.highestAchievedLevels = this.getHighestAchievedLevels();
     }
