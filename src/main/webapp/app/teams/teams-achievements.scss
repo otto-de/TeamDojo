@@ -30,8 +30,8 @@
             height: calc(100vh - 242px);
             padding: 5px;
         }
-    }
-    /deep/ .card-header, /deep/ .achievement-list-header .achievement-list-header-left .achievement-item {
-        padding: 0;
+        /deep/ .card-header, /deep/ .achievement-list-header .achievement-list-header-left .achievement-item {
+            padding: 0;
+        }
     }
 }
