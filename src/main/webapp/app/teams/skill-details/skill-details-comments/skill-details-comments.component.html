@@ -4,13 +4,13 @@
     <div class="dojo-card d-flex flex-column">
         <div class="comments" data-simplebar="init">
             <div *ngFor="let comment of comments" class="message d-flex align-items-end"
-                 [ngClass]="isActiveTeam() ? 'message-sent' : 'message-received'">
+                 [ngClass]="isActiveTeam(comment) ? 'message-sent' : 'message-received'">
                 <div class="team-image">
-                    <img [title]="getAuthor(comment).name"
-                         *ngIf="getAuthor(comment).picture && getAuthor(comment).pictureContentType; else picturePlaceholder"
-                         [src]="getAuthor(comment).picture | imageDataUrl: getAuthor(comment).pictureContentType"/>
+                    <img [title]="comment.author.name"
+                         *ngIf="comment.author.picture && comment.author.pictureContentType; else picturePlaceholder"
+                         [src]="comment.author.picture | imageDataUrl: comment.author.pictureContentType"/>
                     <ng-template #picturePlaceholder>
-                        <span class="img-placeholder">{{getAuthor(comment).name | truncateString}}</span>
+                        <span class="img-placeholder">{{comment.author.name | truncateString}}</span>
                     </ng-template>
                 </div>
                 <div class="speech-bubble d-flex">{{comment.text}}</div>

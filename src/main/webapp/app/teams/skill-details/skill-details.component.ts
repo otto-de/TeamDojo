@@ -48,6 +48,7 @@ export class SkillDetailsComponent implements OnInit {
             this.teams = teams.body ? teams.body : teams;
             this.skill = skill.body ? skill.body : skill;
             this._comments = comments.body ? comments.body : comments;
+            this._mapCommentAuthors();
         });
         this.loadData();
     }
@@ -75,7 +76,16 @@ export class SkillDetailsComponent implements OnInit {
         if (newComment) {
             this._comments.push(newComment);
             this.skillComments = this._getSkillComments();
+            this._mapCommentAuthors();
         }
+    }
+
+    private _mapCommentAuthors() {
+        (this._comments || [])
+            .filter((comment: IComment) => comment.author === undefined || Object.keys(comment.author).length === 0)
+            .forEach((comment: IComment) => {
+                comment.author = (this.teams || []).find((t: ITeam) => t.id === comment.teamId) || {};
+            });
     }
 
     private _getSkillComments(): IComment[] {
