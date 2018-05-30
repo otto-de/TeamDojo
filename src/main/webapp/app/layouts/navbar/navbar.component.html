@@ -17,14 +17,6 @@
                     </a>
                     <span *ngIf="breadcrumb.active">{{breadcrumb.text | truncateString: 20}}</span>
                 </li>
-
-                <ng-template #teamBreadcrumb>
-                    <li class="breadcrumb-item" aria-current="page">{{activeTeam?.shortName}}</li>
-                </ng-template>
-                <ng-template #skillBreadcrumb>
-                    <li class="breadcrumb-item active" aria-current="page">{{activeSkill?.title}}</li>
-                </ng-template>
-
             </ol>
         </nav>
     </div>
