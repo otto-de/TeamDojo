@@ -12,6 +12,7 @@ import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
 import { ILevelSkill } from 'app/shared/model/level-skill.model';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import { sortLevels } from 'app/shared';
+import { IAchievableSkill, AchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { IComment } from 'app/shared/model/comment.model';
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details-info/skill-details-info.component';
@@ -23,6 +24,8 @@ import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details
 })
 export class OverviewSkillDetailsComponent implements OnInit {
     skill: ISkill;
+
+    achievableSkill: IAchievableSkill;
 
     selectedTeam: ITeam;
 
@@ -122,7 +125,12 @@ export class OverviewSkillDetailsComponent implements OnInit {
                     });
                 });
 
-                this.skillComments = this._getSkillComments();
+                this.achievableSkill = new AchievableSkill();
+                this.achievableSkill.skillId = this.skill.id;
+                this.teamsSkillsService.findAchievableSkill(this.selectedTeam.id, this.skill.id).subscribe(aSkill => {
+                    this.achievableSkill = aSkill;
+                    this.skillComments = this._getSkillComments();
+                });
             }
         );
     }
