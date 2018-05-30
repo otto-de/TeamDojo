@@ -17,7 +17,6 @@ import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection
 })
 export class SkillDetailsRatingComponent implements OnInit {
     @Input() skill: ISkill;
-    @Input() team: ITeam;
     @Output() onVoteSubmitted = new EventEmitter<{ skillRate: ISkillRate; comment: IComment }>();
 
     private rateScore;
@@ -58,11 +57,12 @@ export class SkillDetailsRatingComponent implements OnInit {
     }
 
     submitComment() {
+        const team = this.teamsSelectionService.selectedTeam;
         this.newComment.creationDate = moment();
         this.newComment.skillId = this.skill ? this.skill.id : undefined;
         this.newComment.skillTitle = this.skill ? this.skill.title : undefined;
-        this.newComment.teamId = this.team ? this.team.id : undefined;
-        this.newComment.teamShortName = this.team ? this.team.shortName : undefined;
+        this.newComment.teamId = team ? team.id : undefined;
+        this.newComment.teamShortName = team ? team.shortName : undefined;
         this.commentService.create(this.newComment).subscribe((res: HttpResponse<IComment>) => {
             if (res.body) {
                 this.newComment = new Comment();

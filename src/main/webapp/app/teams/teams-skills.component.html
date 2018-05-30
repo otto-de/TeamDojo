@@ -25,6 +25,16 @@
                             <a *ngIf="!isInSkillDetails()"
                                (click)="goToDetails(skill)"
                                class="mb-1">{{skill.title}}</a>
+
+                            <ngb-rating [(rate)]="findSkill(skill.skillId).rateScore" max="5" [readonly]="true" [starTemplate]="stars">
+                            </ngb-rating>
+                            {{findSkill(skill.skillId).rateCount}} <span class="rating-text" jhiTranslate="teamdojoApp.skill.detail.rateCount"></span>
+
+                            <ng-template #stars let-fill="fill" let-index="index">
+                                <span class="star" [class.full]="fill === 100">
+                                    <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                                </span>
+                            </ng-template>
                         </div>
                         <div class="skill-status ml-auto"
                              [ngClass]="{'completed': !skill.irrelevant && skill.achievedAt}">
