@@ -36,7 +36,7 @@
                    id="notificationnavBarDropdown">
                     <span class="icon">
                         <i class="fa fa-comment fa-4 mr-1"></i>
-                        <span *ngIf="notifications" class="notification-menu-badge badge badge-pill badge-danger pb-1">{{notifications?.length}}</span>
+                        <span *ngIf="getUnreadNotificationsCount() as notificationsCount" class="notification-menu-badge badge badge-pill badge-danger pb-1">{{notificationsCount}}</span>
                         <span class="nav-info" jhiTranslate="global.menu.notification.main"></span>
                     </span>
                 </a>
@@ -52,7 +52,15 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item" *ngIf="teamsSelectionService.selectedTeam === null">
+                <a class="nav-link" (click)="selectTeam()">
+                     <span class="icon">
+                         <i class="fa fa-users fa-2"></i>
+                         <span class="nav-info" jhiTranslate="global.menu.teams.select"></span>
+                     </span>
+                </a>
 
+            </li>
             <li ngbDropdown class="nav-item dropdown pointer" *ngIf="teamsSelectionService.selectedTeam !== null">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="teamDropdown">
                     <div class="team-avatar" *ngIf="getTeamImage(teamsSelectionService.selectedTeam)">

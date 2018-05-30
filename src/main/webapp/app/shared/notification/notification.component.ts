@@ -29,6 +29,6 @@ export class NotificationComponent implements OnInit {
 
     markAsRead(event) {
         event.preventDefault();
-        console.log('read');
+        this.notification.unread = false;
     }
 }

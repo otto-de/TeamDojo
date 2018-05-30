@@ -23,6 +23,7 @@ import { ActivityService } from 'app/entities/activity';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { IActivity } from 'app/shared/model/activity.model';
 import { Notification } from 'app/shared/notification/model/notification.model';
+import { INotification } from 'app/shared/notification';
 
 @Component({
     selector: 'jhi-navbar',
@@ -161,9 +162,13 @@ export class NavbarComponent implements OnInit {
         this.activityService.query().subscribe(
             (res: HttpResponse<IActivity[]>) => {
                 const activities = res.body;
-                this.notifications = activities.filter(() => true).map((activity: IActivity) => new Notification(activity, false));
+                this.notifications = activities.map((activity: IActivity) => new Notification(activity, true));
             },
             (res: HttpErrorResponse) => console.log('Error getting Activities')
         );
+    }
+
+    getUnreadNotificationsCount() {
+        return this.notifications.filter((n: INotification) => n.unread).length;
     }
 }
