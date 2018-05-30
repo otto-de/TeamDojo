@@ -47,9 +47,6 @@
                 .team-rank {
                     min-width: 2em;
                 }
-                .team-image {
-                    @include team-image();
-                }
                 .team-info {
                    width: 48%;
                     .team-name {
