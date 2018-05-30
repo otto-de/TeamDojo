@@ -29,7 +29,6 @@ import {
     PageRibbonComponent,
     ProfileService
 } from './layouts';
-import { ActivityComponent } from 'app/layouts/navbar/activity/activity.component';
 
 @NgModule({
     imports: [
@@ -45,15 +44,7 @@ import { ActivityComponent } from 'app/layouts/navbar/activity/activity.componen
         FeedbackModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
-    declarations: [
-        JhiMainComponent,
-        NavbarComponent,
-        ActivityComponent,
-        ErrorComponent,
-        PageRibbonComponent,
-        ActiveMenuDirective,
-        FooterComponent
-    ],
+    declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
     providers: [
         ProfileService,
         PaginationConfig,

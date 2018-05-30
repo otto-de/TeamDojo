@@ -1,0 +1,18 @@
+{
+    "teamdojoApp": {
+        "notification": {
+            "header": {
+                "unread": {
+                    "title": "New",
+                    "hint": "Mark as read"
+                }
+            },
+            "body": {
+                "text": {
+                    "badgeCreated": "New badge {{ badgeName }} is available",
+                    "skillCompleted": "Skill {{ skillTitle }} was completed"
+                }
+            }
+        }
+    }
+}

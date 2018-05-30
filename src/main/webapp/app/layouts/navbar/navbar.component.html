@@ -31,14 +31,26 @@
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed"
          [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav ml-auto">
-
-            <li ngbDropdown class="nav-item dropdown" (openChange)="activitiesList.loadActivities()">
-                <a class="nav-link nav-info" ngbDropdownToggle href="javascript:void(0);"
-                   id="notificationDropdown">
-                    <span class="navbar-icon"><i class="fa fa-envelope-o"></i></span>
-                    <span jhiTranslate="global.menu.notifications"></span>
+            <li ngbDropdown autoClose="outside" placement="bottom-right" class="nav-item dropdown pointer">
+                <a class="nav-link dropdown-toggle nav-info" ngbDropdownToggle href="javascript:void(0);"
+                   id="notificationnavBarDropdown">
+                    <span class="icon">
+                        <i class="fa fa-comment fa-4 mr-1"></i>
+                        <span *ngIf="notifications" class="notification-menu-badge badge badge-pill badge-danger pb-1">{{notifications?.length}}</span>
+                        <span class="nav-info" jhiTranslate="global.menu.notification.main"></span>
+                    </span>
                 </a>
-                <jhi-activity></jhi-activity>
+                <ul class="dropdown-menu notification-dropdown-menu" ngbDropdownMenu>
+                    <li>
+                        <div class="notification-dropdown-menu-header d-flex justify-content-center mb-3">
+                            <a href="javascript:void(0);" class="btn btn-warning" role="button">Aktivitäten</a>
+                            <a href="javascript:void(0);" class="btn btn-secondary" role="button">Hinweise</a>
+                        </div>
+                    </li>
+                    <li *ngFor="let notification of notifications">
+                       <jhi-notification [notification]="notification"></jhi-notification>
+                    </li>
+                </ul>
             </li>
 
             <li ngbDropdown class="nav-item dropdown pointer" *ngIf="teamsSelectionService.selectedTeam !== null">
