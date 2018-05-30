@@ -1,16 +1,30 @@
+@import '../../../../content/scss/colors';
+
 .star {
     position: relative;
     display: inline-block;
     font-size: 1.5rem;
-    color: #b0c4de;
-}
-.filled {
-    color: #1e90ff;
+    color: rgba($dojo-text-primary, 0.4);
 }
 .half {
     position: absolute;
     display: inline-block;
     font-size: 1.5rem;
     overflow: hidden;
-    color: #1e90ff;
+    color: rgba($dojo-text-primary, 1);
 }
+
+.modal-header{
+    background-color: $dojo-nav-primary;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.modal-body{
+    background-color: $dojo-bg-primary;
+}
+
+.modal-footer{
+    background-color: $dojo-bg-primary;
+}
+
+

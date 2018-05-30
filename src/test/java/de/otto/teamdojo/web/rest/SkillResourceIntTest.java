@@ -9,6 +9,7 @@ import de.otto.teamdojo.repository.SkillRepository;
 import de.otto.teamdojo.service.SkillQueryService;
 import de.otto.teamdojo.service.SkillService;
 import de.otto.teamdojo.service.dto.SkillDTO;
+import de.otto.teamdojo.service.dto.SkillRateDTO;
 import de.otto.teamdojo.service.mapper.SkillMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
@@ -795,6 +796,43 @@ public class SkillResourceIntTest {
         assertThat(testSkill.getScore()).isEqualTo(UPDATED_SCORE);
         assertThat(testSkill.getRateScore()).isEqualTo(UPDATED_RATE_SCORE);
         assertThat(testSkill.getRateCount()).isEqualTo(UPDATED_RATE_COUNT);
+    }
+
+    @Test
+    @Transactional
+    public void createVote() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        assertThat(skill.getRateCount()).isEqualTo(0);
+        assertThat(skill.getRateScore()).isEqualTo(0);
+
+
+        SkillRateDTO skillRateDto = new SkillRateDTO(skill.getId(), 4);
+
+        restSkillMockMvc.perform(post("/api/skills/{id}/vote", skill.getId())
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(skillRateDto)))
+            .andExpect(status().isOk());
+
+        // Validate the Skill in the database
+        List<Skill> skillList = skillRepository.findAll();
+        Skill testSkill = skillList.get(skillList.size() - 1);
+        assertThat(testSkill.getRateScore()).isEqualTo(4);
+        assertThat(testSkill.getRateCount()).isEqualTo(1);
+
+        skillRateDto = new SkillRateDTO(skill.getId(), 2);
+
+        restSkillMockMvc.perform(post("/api/skills/{id}/vote", skill.getId())
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(skillRateDto)))
+            .andExpect(status().isOk());
+
+        skillList = skillRepository.findAll();
+        testSkill = skillList.get(skillList.size() - 1);
+        assertThat(testSkill.getRateScore()).isEqualTo(3);
+        assertThat(testSkill.getRateCount()).isEqualTo(2);
+
     }
 
     @Test
