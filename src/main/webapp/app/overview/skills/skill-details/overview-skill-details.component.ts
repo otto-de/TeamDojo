@@ -27,6 +27,8 @@ export class OverviewSkillDetailsComponent implements OnInit {
 
     achievableSkill: IAchievableSkill;
 
+    selectedTeam: ITeam;
+
     private _comments: IComment[];
 
     skillComments: IComment[];
@@ -50,12 +52,11 @@ export class OverviewSkillDetailsComponent implements OnInit {
         private teamsService: TeamsService,
         private levelService: LevelService,
         private badgeService: BadgeService,
-        private teamsSkillsService: TeamsSkillsService,
-        private teamsSelectionService: TeamsSelectionService
+        private teamsSkillsService: TeamsSkillsService
     ) {}
 
     ngOnInit(): void {
-        this.route.data.subscribe(({ teams, levels, badges, teamSkills, levelSkills, badgeSkills, skill, comments }) => {
+        this.route.data.subscribe(({ teams, levels, badges, teamSkills, levelSkills, badgeSkills, skill, comments, selectedTeam }) => {
             this.achievedByTeams = [];
             this.neededForLevels = [];
             this.neededForBadges = [];
@@ -67,6 +68,7 @@ export class OverviewSkillDetailsComponent implements OnInit {
             this.teamSkills = teamSkills.body;
             this.levelSkills = levelSkills.body;
             this.badgeSkills = badgeSkills.body;
+            this.selectedTeam = selectedTeam.body ? selectedTeam.body : selectedTeam;
 
             this._comments = comments.body ? comments.body : comments;
             this._mapCommentAuthors();
@@ -119,7 +121,7 @@ export class OverviewSkillDetailsComponent implements OnInit {
 
             this.achievableSkill = new AchievableSkill();
             this.achievableSkill.skillId = this.skill.id;
-            this.teamsSkillsService.findAchievableSkill(this.currentTeam.id, this.skill.id).subscribe(aSkill => {
+            this.teamsSkillsService.findAchievableSkill(this.selectedTeam.id, this.skill.id).subscribe(aSkill => {
                 this.achievableSkill = aSkill;
                 this.skillComments = this._getSkillComments();
             });
@@ -156,9 +158,5 @@ export class OverviewSkillDetailsComponent implements OnInit {
         return (this._comments || [])
             .filter(comment => comment.skillId === this.achievableSkill.skillId)
             .sort((comment1, comment2) => comment1.creationDate.diff(comment2.creationDate));
-    }
-
-    get currentTeam() {
-        return this.teamsSelectionService.selectedTeam;
     }
 }
