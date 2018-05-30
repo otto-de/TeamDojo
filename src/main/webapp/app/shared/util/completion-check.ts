@@ -31,7 +31,7 @@ export class CompletionCheck {
             }
         }
         const requiredScore = totalScore * this.item.requiredScore;
-        return new Progress(score, requiredScore, totalScore);
+        return new Progress(score, reqSkillRepositoryIntTestuiredScore, totalScore);
     }
 
     public getIrrelevancy(): number {
