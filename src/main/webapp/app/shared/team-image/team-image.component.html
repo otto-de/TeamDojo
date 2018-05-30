@@ -1,4 +1,5 @@
-<div class="team-image-wrapper d-flex justify-content-center" [ngStyle]="{'width': size, 'height': size}">
+<div class="team-image-wrapper d-flex justify-content-center" [ngClass]="{'has-border': hasBorder, 'has-overlay': hasOverlay}"
+     [ngStyle]="{'width': size, 'height': size}">
     <div class="team-image" *ngIf="team.picture && team.pictureContentType"
          [ngStyle]="{'background-image': 'url(' + (team.picture | imageDataUrl: team.pictureContentType) + ')'}">
     </div>

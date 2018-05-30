@@ -8,6 +8,9 @@ import { ITeam } from 'app/shared/model/team.model';
 })
 export class TeamImageComponent {
     @Input() team: ITeam;
-    @Input() size = '35vh';
+    @Input() size = '50px';
+    @Input() hasPlaceholder = true;
+    @Input() hasBorder = true;
+    @Input() hasOverlay = false;
     constructor() {}
 }
