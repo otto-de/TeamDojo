@@ -37,7 +37,7 @@
                 }
             }
             &-input {
-                width: 76%;
+                width: calc(100% - 38px - 0.5rem);
                 height: 40px;
             }
         }
