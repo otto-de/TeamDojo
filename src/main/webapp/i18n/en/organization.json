@@ -16,7 +16,8 @@
             "detail": {
                 "title": "Organization"
             },
-            "name": "Name"
+            "name": "Name",
+            "levelUpScore": "Level Up Score"
         }
     }
 }
