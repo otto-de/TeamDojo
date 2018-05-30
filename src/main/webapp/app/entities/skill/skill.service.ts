@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { ISkill } from 'app/shared/model/skill.model';
+import { ISkillRate } from 'app/shared/model/skill-rate.model';
 
 export type EntityResponseType = HttpResponse<ISkill>;
 export type EntityArrayResponseType = HttpResponse<ISkill[]>;
@@ -44,6 +45,12 @@ export class SkillService {
 
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    }
+
+    createVote(skillRate: ISkillRate): Observable<EntityResponseType> {
+        return this.http
+            .post<ISkill>(`${this.resourceUrl}/${skillRate.skillId}/vote`, skillRate, { observe: 'response' })
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {

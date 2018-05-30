@@ -5,6 +5,7 @@ import de.otto.teamdojo.service.SkillQueryService;
 import de.otto.teamdojo.service.SkillService;
 import de.otto.teamdojo.service.dto.SkillCriteria;
 import de.otto.teamdojo.service.dto.SkillDTO;
+import de.otto.teamdojo.service.dto.SkillRateDTO;
 import de.otto.teamdojo.web.rest.errors.BadRequestAlertException;
 import de.otto.teamdojo.web.rest.util.HeaderUtil;
 import de.otto.teamdojo.web.rest.util.PaginationUtil;
@@ -128,5 +129,21 @@ public class SkillResource {
         log.debug("REST request to delete Skill : {}", id);
         skillService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * POST /skill/:id : update the "id" skill.
+     *
+     * @param id the id of the skillDTO to update
+     * @return the ResponseEntity with status 200 (OK)
+     */
+    @PostMapping("/skills/{id}/vote")
+    @Timed
+    public ResponseEntity<SkillDTO> createVote(@PathVariable Long id, @Valid @RequestBody SkillRateDTO rateDto){
+        log.debug("REST request to create a new vote for Skill : {}", id);
+        SkillDTO result = skillService.createVote(id, rateDto.getRate());
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, id.toString()))
+            .body(result);
     }
 }

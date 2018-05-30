@@ -85,4 +85,25 @@ public class SkillServiceImpl implements SkillService {
         log.debug("Request to delete Skill : {}", id);
         skillRepository.deleteById(id);
     }
+
+    /**
+     * Creates a new vote
+     * @param id the entity to udpate
+     * @param rate stars to update
+     * @return the persisted entity
+     */
+    public SkillDTO createVote(Long id, Integer rate){
+        Skill skill = skillRepository.findById(id).get();
+
+        Integer rateCount = skill.getRateCount() == null ? 0 : skill.getRateCount();
+        Double sumRate = (skill.getRateScore() == null ? 0 : skill.getRateScore()) * rateCount;
+        Double newrate = sumRate + rate;
+        Double avgRate = newrate / (rateCount + 1);
+
+        skill.setRateScore(avgRate);
+        skill.setRateCount(rateCount+1);
+        skill = skillRepository.saveAndFlush(skill);
+
+        return skillMapper.toDto(skill);
+    }
 }

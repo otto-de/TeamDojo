@@ -1,8 +1,10 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ISkill } from 'app/shared/model/skill.model';
-import { ITeam } from 'app/shared/model/team.model';
 import { SkillService } from 'app/entities/skill';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SkillRate } from 'app/shared/model/skill-rate.model';
+import { IComment } from 'app/shared/model/comment.model';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
     selector: 'jhi-star-rating',
@@ -11,48 +13,31 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 })
 export class SkillDetailsRatingComponent implements OnInit {
     @Input() skill: ISkill;
-    private rateScore = {};
-    private showModal = false;
-    closeResult: string;
+    private rateScore;
+    private comment: string;
+    private modalRef;
 
-    constructor(private skillService: SkillService, private modalService: NgbModal) {
-        this.rateScore = 0;
-    }
+    constructor(private skillService: SkillService, private modalService: NgbModal) {}
 
     ngOnInit(): void {
         this.rateScore = this.skill.rateScore;
     }
 
-    modalShow() {
-        this.showModal = true;
-        console.log(this.showModal);
-    }
+    voteSkill(content: any) {
+        console.log('in voteSkill');
+        const rate = new SkillRate(this.skill.id, this.rateScore);
+        this.skillService.createVote(rate).subscribe((res: HttpResponse<ISkill>) => {
+            if (res.body) {
+                this.skill = res.body;
+                this.rateScore = this.skill.rateScore;
+            }
+        });
 
-    modalHide() {
-        this.showModal = false;
-    }
-
-    voteSkill(event: any) {
-        console.log('clicked');
-        this.modalShow();
-        console.log('VOTE: ', this.showModal);
+        this.modalRef.close();
+        this.comment = '';
     }
 
     open(content) {
-        this.modalService.open(content);
-        /*this.modalService.open(content).result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
-        }, (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        });*/
+        this.modalRef = this.modalService.open(content);
     }
-    /*private getDismissReason(reason: any): string {
-        if (reason === ModalDismissReasons.ESC) {
-            return 'by pressing ESC';
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-            return 'by clicking on a backdrop';
-        } else {
-            return  `with: ${reason}`;
-        }
-    }*/
 }
