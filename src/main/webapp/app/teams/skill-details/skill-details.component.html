@@ -18,6 +18,7 @@
     </div>
     <div class="skill-comments col-20">
         <jhi-skill-details-comments [team]="team" [achievableSkill]="achievableSkill" [comments]="skillComments"
-                                    (onCommentSubmitted)="onCommentSubmitted($event)"></jhi-skill-details-comments>
+                                    [teams]="teams" (onCommentSubmitted)="onCommentSubmitted($event)">
+        </jhi-skill-details-comments>
     </div>
 </div>

@@ -15,6 +15,7 @@ import 'simplebar';
 })
 export class SkillDetailsCommentsComponent implements OnInit {
     @Input() team: ITeam;
+    @Input() teams: ITeam[];
     @Input() achievableSkill: IAchievableSkill;
     @Input() comments: IComment[];
     @Output() onCommentSubmitted = new EventEmitter<IComment>();
@@ -34,13 +35,19 @@ export class SkillDetailsCommentsComponent implements OnInit {
         this.newComment.creationDate = moment();
         this.newComment.skillId = this.achievableSkill ? this.achievableSkill.skillId : undefined;
         this.newComment.skillTitle = this.achievableSkill ? this.achievableSkill.title : undefined;
-        this.newComment.teamId = this.team ? this.team.id : undefined;
-        this.newComment.teamShortName = this.team ? this.team.shortName : undefined;
+        this.newComment.teamId = this.teamsSelectionService.selectedTeam ? this.teamsSelectionService.selectedTeam.id : undefined;
+        this.newComment.teamShortName = this.teamsSelectionService.selectedTeam
+            ? this.teamsSelectionService.selectedTeam.shortName
+            : undefined;
         this.commentService.create(this.newComment).subscribe((res: HttpResponse<IComment>) => {
             if (res.body) {
                 this.newComment = new Comment();
                 this.onCommentSubmitted.emit(res.body);
             }
         });
+    }
+
+    getAuthor(comment: IComment) {
+        return (this.teams || []).find((team: ITeam) => team.id === comment.teamId) || {};
     }
 }

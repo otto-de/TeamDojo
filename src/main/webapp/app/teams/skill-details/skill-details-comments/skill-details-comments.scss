@@ -46,7 +46,7 @@
             position: relative;
             font-size: 0.9rem;
 
-            img {
+            .team-image {
                 @include team-image();
                 width: 40px;
                 height: 40px;
