@@ -22,8 +22,8 @@
             "availableUntil": "Available Until",
             "availableAmount": "Available Amount",
             "requiredScore": "Required Score",
-            "instantMultiplier": "Instant Multiplier",
-            "completionBonus": "Completion Bonus",
+            "instantMultiplier": "Skill Score Multiplier",
+            "completionBonus": "Badge Completion Bonus",
             "skills": "Skills",
             "dimensions": "Dimensions"
         }
