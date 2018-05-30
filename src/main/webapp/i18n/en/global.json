@@ -17,6 +17,7 @@
                 "levelSkill": "Level Skill",
                 "organization": "Organization",
                 "report": "Report",
+                "comment": "Comment",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

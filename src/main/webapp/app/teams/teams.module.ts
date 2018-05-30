@@ -6,7 +6,15 @@ import { SkillResolve, TEAMS_ROUTES, TeamsComponent } from './';
 import { TeamsAchievementsComponent } from './teams-achievements.component';
 import { TeamsSkillsComponent } from './teams-skills.component';
 import { TeamsSelectionComponent } from 'app/teams/teams-selection/teams-selection.component';
-import { AllBadgeSkillsResolve, AllBadgesResolve, AllLevelSkillsResolve, AllLevelsResolve, TeamAndTeamSkillResolve } from './teams.route';
+import {
+    AllBadgeSkillsResolve,
+    AllBadgesResolve,
+    AllCommentsResolve,
+    AllLevelSkillsResolve,
+    AllLevelsResolve,
+    AllTeamsResolve,
+    TeamAndTeamSkillResolve
+} from './teams.route';
 import { TeamsService } from './teams.service';
 import { TeamsSkillsService } from './teams-skills.service';
 import { TeamsSelectionService } from './teams-selection/teams-selection.service';
@@ -16,6 +24,7 @@ import { SkillDetailsComponent } from 'app/teams/skill-details/skill-details.com
 import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details-info/skill-details-info.component';
 import { SkillDetailsCommentsComponent } from 'app/teams/skill-details/skill-details-comments/skill-details-comments.component';
 import { AllSkillsResolve } from 'app/teams/teams.route';
+import { TeamsSelectionResolve } from 'app/teams/teams.route';
 
 @NgModule({
     imports: [TeamdojoSharedModule, RouterModule.forChild(TEAMS_ROUTES), NgbModule],
@@ -36,11 +45,14 @@ import { AllSkillsResolve } from 'app/teams/teams.route';
         TeamsAchievementsService,
         TeamAndTeamSkillResolve,
         SkillResolve,
+        TeamsSelectionResolve,
         AllLevelsResolve,
         AllBadgesResolve,
         AllLevelSkillsResolve,
         AllBadgeSkillsResolve,
-        AllSkillsResolve
+        AllSkillsResolve,
+        AllCommentsResolve,
+        AllTeamsResolve
     ],
     exports: [SkillDetailsInfoComponent, SkillDetailsCommentsComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
