@@ -13,6 +13,8 @@ import { LevelService } from 'app/entities/level';
 import { TeamSkillService } from 'app/entities/team-skill';
 import { BadgeSkillService } from 'app/entities/badge-skill';
 import { LevelSkillService } from 'app/entities/level-skill';
+import { CommentService } from 'app/entities/comment';
+import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 
 @Injectable()
 export class TeamAndTeamSkillResolve implements Resolve<any> {
@@ -86,6 +88,33 @@ export class AllSkillsResolve implements Resolve<any> {
 }
 
 @Injectable()
+export class AllCommentsResolve implements Resolve<any> {
+    constructor(private commentService: CommentService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.commentService.query();
+    }
+}
+
+@Injectable()
+export class AllTeamsResolve implements Resolve<any> {
+    constructor(private teamsService: TeamsService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.teamsService.query();
+    }
+}
+
+@Injectable()
+export class TeamsSelectionResolve implements Resolve<any> {
+    constructor(private teamsSelectionService: TeamsSelectionService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.teamsSelectionService.query();
+    }
+}
+
+@Injectable()
 export class SkillResolve implements Resolve<any> {
     constructor(private skillService: SkillService, private teamsService: TeamsService, private router: Router) {}
 
@@ -126,7 +155,10 @@ export const TEAMS_ROUTES: Route[] = [
         component: SkillDetailsComponent,
         resolve: {
             team: TeamAndTeamSkillResolve,
-            skill: SkillResolve
+            skill: SkillResolve,
+            comments: AllCommentsResolve,
+            teams: AllTeamsResolve,
+            selectedTeam: TeamsSelectionResolve
         },
         data: {
             authorities: [],

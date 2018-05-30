@@ -13,6 +13,9 @@ import { ILevelSkill } from 'app/shared/model/level-skill.model';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import { sortLevels } from 'app/shared';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
+import { IComment } from 'app/shared/model/comment.model';
+import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 
 @Component({
     selector: 'jhi-overview-skill-details',
@@ -21,6 +24,14 @@ import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection
 })
 export class OverviewSkillDetailsComponent implements OnInit {
     skill: ISkill;
+
+    achievableSkill: IAchievableSkill;
+
+    selectedTeam: ITeam;
+
+    private _comments: IComment[];
+
+    skillComments: IComment[];
 
     achievedByTeams: ITeam[] = [];
 
@@ -41,11 +52,11 @@ export class OverviewSkillDetailsComponent implements OnInit {
         private teamsService: TeamsService,
         private levelService: LevelService,
         private badgeService: BadgeService,
-        private teamsSelectionService: TeamsSelectionService
+        private teamsSkillsService: TeamsSkillsService
     ) {}
 
     ngOnInit(): void {
-        this.route.data.subscribe(({ teams, levels, badges, teamSkills, levelSkills, badgeSkills, skill }) => {
+        this.route.data.subscribe(({ teams, levels, badges, teamSkills, levelSkills, badgeSkills, skill, comments, selectedTeam }) => {
             this.achievedByTeams = [];
             this.neededForLevels = [];
             this.neededForBadges = [];
@@ -57,6 +68,10 @@ export class OverviewSkillDetailsComponent implements OnInit {
             this.teamSkills = teamSkills.body;
             this.levelSkills = levelSkills.body;
             this.badgeSkills = badgeSkills.body;
+            this.selectedTeam = selectedTeam.body ? selectedTeam.body : selectedTeam;
+
+            this._comments = comments.body ? comments.body : comments;
+            this._mapCommentAuthors();
 
             const groupedTeamSkills = {};
             this.teamSkills.forEach(teamSkill => {
@@ -103,20 +118,45 @@ export class OverviewSkillDetailsComponent implements OnInit {
                     dimension.levels = groupedLevels[dimension.id] || [];
                 });
             });
+
+            this.achievableSkill = new AchievableSkill();
+            this.achievableSkill.skillId = this.skill.id;
+            this.teamsSkillsService.findAchievableSkill(this.selectedTeam.id, this.skill.id).subscribe(aSkill => {
+                this.achievableSkill = aSkill;
+                this.skillComments = this._getSkillComments();
+            });
         });
     }
 
     onSkillInListChange(skillObjs) {
-        this.skill = skillObjs.aSkill;
+        this.achievableSkill = skillObjs.aSkill;
         this.skill = skillObjs.iSkill;
     }
 
     onSkillSelected(skillObjs) {
-        this.skill = skillObjs.aSkill;
+        this.achievableSkill = skillObjs.aSkill;
         this.skill = skillObjs.iSkill;
     }
 
-    get currentTeam() {
-        return this.teamsSelectionService.selectedTeam;
+    onCommentSubmitted(newComment: IComment) {
+        if (newComment) {
+            this._comments.push(newComment);
+            this._mapCommentAuthors();
+            this.skillComments = this._getSkillComments();
+        }
+    }
+
+    private _mapCommentAuthors() {
+        (this._comments || [])
+            .filter((comment: IComment) => comment.author === undefined || Object.keys(comment.author).length === 0)
+            .forEach((comment: IComment) => {
+                comment.author = (this.teams || []).find((t: ITeam) => t.id === comment.teamId) || {};
+            });
+    }
+
+    private _getSkillComments(): IComment[] {
+        return (this._comments || [])
+            .filter(comment => comment.skillId === this.achievableSkill.skillId)
+            .sort((comment1, comment2) => comment1.creationDate.diff(comment2.creationDate));
     }
 }

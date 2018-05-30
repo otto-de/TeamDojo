@@ -37,7 +37,10 @@
                     "3of5": "3 out of 5 stars",
                     "contact": "Contact"
                 },
-                "comments": "Comments"
+                "comments": {
+                    "title": "Comments",
+                    "newComment": "Your Comment"
+                }
             },
             "status": {
                 "activities": {

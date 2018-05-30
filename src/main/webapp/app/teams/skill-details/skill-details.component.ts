@@ -8,6 +8,8 @@ import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 import { TeamsSkillsComponent } from 'app/teams/teams-skills.component';
 import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details-info/skill-details-info.component';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { IComment } from 'app/shared/model/comment.model';
+import { TeamsService } from 'app/teams/teams.service';
 
 @Component({
     selector: 'jhi-skill-details',
@@ -17,9 +19,17 @@ import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection
 export class SkillDetailsComponent implements OnInit {
     team: ITeam;
 
+    teams: ITeam[];
+
     skill: ISkill;
 
     achievableSkill: IAchievableSkill;
+
+    selectedTeam: ITeam;
+
+    private _comments: IComment[];
+
+    skillComments: IComment[];
 
     @Output() onSkillChanged = new EventEmitter<IAchievableSkill>();
 
@@ -35,9 +45,13 @@ export class SkillDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.route.data.subscribe(({ team, skill }) => {
-            this.team = team;
-            this.skill = skill;
+        this.route.data.subscribe(({ team, teams, skill, comments, selectedTeam }) => {
+            this.team = team.body ? team.body : team;
+            this.teams = teams.body ? teams.body : teams;
+            this.skill = skill.body ? skill.body : skill;
+            this.selectedTeam = selectedTeam.body ? selectedTeam.body : selectedTeam;
+            this._comments = comments.body ? comments.body : comments;
+            this._mapCommentAuthors();
         });
         this.loadData();
     }
@@ -47,6 +61,7 @@ export class SkillDetailsComponent implements OnInit {
         this.achievableSkill.skillId = this.skill.id;
         this.teamsSkillsService.findAchievableSkill(this.team.id, this.skill.id).subscribe(skill => {
             this.achievableSkill = skill;
+            this.skillComments = this._getSkillComments();
         });
     }
 
@@ -57,6 +72,29 @@ export class SkillDetailsComponent implements OnInit {
     onSkillInListClicked(skillObjs) {
         this.achievableSkill = skillObjs.aSkill;
         this.skillInfo.onSkillInListClicked(skillObjs);
+        this.skillComments = this._getSkillComments();
+    }
+
+    onCommentSubmitted(newComment: IComment) {
+        if (newComment) {
+            this._comments.push(newComment);
+            this._mapCommentAuthors();
+            this.skillComments = this._getSkillComments();
+        }
+    }
+
+    private _mapCommentAuthors() {
+        (this._comments || [])
+            .filter((comment: IComment) => comment.author === undefined || Object.keys(comment.author).length === 0)
+            .forEach((comment: IComment) => {
+                comment.author = (this.teams || []).find((t: ITeam) => t.id === comment.teamId) || {};
+            });
+    }
+
+    private _getSkillComments(): IComment[] {
+        return (this._comments || [])
+            .filter(comment => comment.skillId === this.achievableSkill.skillId)
+            .sort((comment1, comment2) => comment1.creationDate.diff(comment2.creationDate));
     }
 
     get currentTeam() {

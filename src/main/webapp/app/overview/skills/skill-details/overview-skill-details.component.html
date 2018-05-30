@@ -15,7 +15,8 @@
         <jhi-skill-details-info [skill]="skill"></jhi-skill-details-info>
     </div>
     <div class="skill-comments col-20">
-        <h4 jhiTranslate="teamdojoApp.teams.skills.comments"></h4>
-        <jhi-skill-details-comments></jhi-skill-details-comments>
+        <jhi-skill-details-comments [achievableSkill]="achievableSkill" [comments]="skillComments" [teams]="teams"
+                                    [selectedTeam]="selectedTeam" (onCommentSubmitted)="onCommentSubmitted($event)">
+        </jhi-skill-details-comments>
     </div>
 </div>
