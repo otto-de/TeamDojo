@@ -6,26 +6,6 @@
     padding-right: 10px;
     .teams-status-avatar {
         text-align: center;
-        .team-image-wrapper {
-            width: 35vh;
-            height: 35vh;
-            max-width: 100%;
-            overflow: hidden;
-            border-radius: 50%;
-            .team-image {
-                height: inherit;
-                width: inherit;
-                background: repeat-x center/cover;
-            }
-            &::after {
-                content: '';
-                width: inherit;
-                height: inherit;
-                position: absolute;
-                background: no-repeat center/cover url('../../content/images/avatars/avatar_overlay.png');
-                z-index: 1;
-            }
-        }
         .avatar-image-wrapper {
             width: 31vh;
             height: 41vh;
