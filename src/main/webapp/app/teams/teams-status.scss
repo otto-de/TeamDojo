@@ -14,8 +14,13 @@
             .avatar-image {
                 width: inherit;
                 height: inherit;
-                background: no-repeat center/contain url('../../content/images/avatars/avatar_default.png');
                 z-index: 3;
+                &-default {
+                    background: no-repeat center/contain url('../../content/images/avatars/avatar_default.png');
+                }
+                &-level-up {
+                    background: no-repeat center/contain url('../../content/images/avatars/avatar_level_up.png');
+                }
             }
         }
         .status-meta {
