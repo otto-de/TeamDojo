@@ -60,13 +60,8 @@ public class BadgeTestDataProvider {
         }
 
         public BadgeBuilder addSkill(Skill skill) {
-            return addSkill(skill, 100);
-        }
-
-        public BadgeBuilder addSkill(Skill skill, Integer score) {
             BadgeSkill badgeSkill = new BadgeSkill();
             badgeSkill.setSkill(skill);
-            badgeSkill.setScore(score);
             this.skills.add(badgeSkill);
             return this;
         }

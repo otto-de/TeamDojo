@@ -110,7 +110,7 @@ export class TeamsAchievementsComponent implements OnInit, OnChanges {
     }
 
     getAchievementIrrelevancy(item: ILevel | IBadge): number {
-        return new CompletionCheck(this.team, item).getIrrelevancy();
+        return new CompletionCheck(this.team, item, this.skills).getIrrelevancy();
     }
 
     getHighestAchievedLevel(dimension: IDimension): ILevel {

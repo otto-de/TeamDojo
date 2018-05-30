@@ -29,47 +29,47 @@ public class LevelTestDataProvider {
     }
 
     public static LevelBuilder yellow(Dimension dimension) {
-        return level(YELLOW_NAME, dimension).requiredScore(0.8f);
+        return level(YELLOW_NAME, dimension).requiredScore(0.8);
     }
 
     public static LevelBuilder orange(Dimension dimension) {
-        return level(ORANGE_NAME, dimension).requiredScore(0.8f);
+        return level(ORANGE_NAME, dimension).requiredScore(0.8);
     }
 
 
 
 
     public static LevelBuilder green(Dimension dimension) {
-        return level(GREEN_NAME, dimension).requiredScore(0.8f);
+        return level(GREEN_NAME, dimension).requiredScore(0.8);
     }
 
 
     public static LevelBuilder blue(Dimension dimension) {
-        return level(BLUE_NAME, dimension).requiredScore(0.8f);
+        return level(BLUE_NAME, dimension).requiredScore(0.8);
     }
 
 
     public static LevelBuilder red(Dimension dimension) {
-        return level(RED_NAME, dimension).requiredScore(0.8f);
+        return level(RED_NAME, dimension).requiredScore(0.8);
     }
 
 
     public static LevelBuilder brown(Dimension dimension) {
-        return level(BROWN_NAME, dimension).requiredScore(0.8f);
+        return level(BROWN_NAME, dimension).requiredScore(0.8);
     }
 
     public static LevelBuilder black(Dimension dimension) {
-        return level(BLACK_NAME, dimension).requiredScore(0.8f);
+        return level(BLACK_NAME, dimension).requiredScore(0.8);
     }
 
     public static LevelBuilder os1(Dimension dimension) {
-        return level(OS_1_NAME, dimension).requiredScore(0.8f);
+        return level(OS_1_NAME, dimension).requiredScore(0.8);
     }
     public static LevelBuilder os2(Dimension dimension) {
-        return level(OS_2_NAME, dimension).requiredScore(0.8f);
+        return level(OS_2_NAME, dimension).requiredScore(0.8);
     }
     public static LevelBuilder os3(Dimension dimension) {
-        return level(OS_3_NAME, dimension).requiredScore(0.8f);
+        return level(OS_3_NAME, dimension).requiredScore(0.8);
     }
 
 
@@ -77,7 +77,7 @@ public class LevelTestDataProvider {
 
         private final String name;
         private final Dimension dimension;
-        private float requiredScore = 1f;
+        private Double requiredScore = 1.0;
         private Level dependsOn;
         private List<LevelSkill> skills = Lists.newArrayList();
 
@@ -91,18 +91,13 @@ public class LevelTestDataProvider {
             return this;
         }
 
-        public LevelBuilder requiredScore(float requiredScore) {
+        public LevelBuilder requiredScore(Double requiredScore) {
             this.requiredScore = requiredScore;
             return this;
         }
 
         public LevelBuilder addSkill(Skill skill) {
-            return addSkill(skill, 100);
-        }
-
-        public LevelBuilder addSkill(Skill skill, Integer score) {
             LevelSkill levelSkill = new LevelSkill();
-            levelSkill.setScore(score);
             skill.addLevels(levelSkill);
             skills.add(levelSkill);
             return this;

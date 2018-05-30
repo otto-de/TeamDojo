@@ -35,19 +35,19 @@ export class CompletionCheck {
     }
 
     public getIrrelevancy(): number {
-        if (!Array.isArray(this.item.skills) || this.item.skills.length === 0) {
-            return 0;
-        }
         let irrelevantScore = 0;
         let totalScore = 0;
-        for (const itemSkill of this.item.skills) {
-            const teamSkill = this.findTeamSkill(itemSkill);
-            if (teamSkill && teamSkill.irrelevant) {
-                irrelevantScore += itemSkill.score;
+        if (this.item.skills) {
+            for (const itemSkill of this.item.skills) {
+                const teamSkill = this.findTeamSkill(itemSkill);
+                const skill = this.findSkill(itemSkill.skillId);
+                if (teamSkill && teamSkill.irrelevant) {
+                    irrelevantScore += skill.score;
+                }
+                totalScore += skill.score;
             }
-            totalScore += itemSkill.score;
         }
-        return irrelevantScore / totalScore * 100.0;
+        return totalScore !== 0 ? irrelevantScore / totalScore * 100.0 : 0;
     }
 
     private isTeamSkillCompleted(teamSkill: ITeamSkill): boolean {
