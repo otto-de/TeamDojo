@@ -13,6 +13,8 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { ISkillRate } from 'app/shared/model/skill-rate.model';
+import { IComment } from 'app/shared/model/comment.model';
 
 @Component({
     selector: 'jhi-skill-details-info',
@@ -27,6 +29,7 @@ export class SkillDetailsInfoComponent implements OnInit {
     @Input() achievableSkill: IAchievableSkill;
 
     @Output() onSkillChanged = new EventEmitter<IAchievableSkill>();
+    @Output() onVoteSubmitted = new EventEmitter<{ skillRate: ISkillRate; comment: IComment }>();
 
     achievedByTeams: ITeam[] = [];
 
@@ -76,6 +79,10 @@ export class SkillDetailsInfoComponent implements OnInit {
         this.badgeService.query({ 'skillsId.in': this.skill.id }).subscribe(res => {
             this.neededForBadges = res.body;
         });
+    }
+
+    onVoteSubmittedFromChild(event) {
+        this.onVoteSubmitted.emit(event);
     }
 
     onSkillInListChanged(skillObjs) {

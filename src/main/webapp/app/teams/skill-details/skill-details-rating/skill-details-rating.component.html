@@ -1,4 +1,4 @@
-<ngb-rating [(rate)]="rateScore" max="5" (click)="open(voteModal)" [starTemplate]="stars">
+<ngb-rating [(rate)]="rateScore" max="5" [readonly]="!isActiveTeam()" (click)="open(voteModal)" [starTemplate]="stars">
 </ngb-rating>
 {{skill.rateCount}} <span class="rating-text" jhiTranslate="teamdojoApp.skill.detail.rateCount"></span>
 
@@ -26,7 +26,7 @@
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal"
                     jhiTranslate="teamdojoApp.skill.detail.modalSubmit" id="submitVote" [disabled]="!comment"
-                    (click)="voteSkill(voteModal)"></button>
+                    (click)="voteSkill()"></button>
             <button type="button" class="btn btn-default" data-dismiss="modal"
                     jhiTranslate="teamdojoApp.skill.detail.modalClose" (click)="c('close')"></button>
         </div>
