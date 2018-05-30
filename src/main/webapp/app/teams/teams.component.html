@@ -13,7 +13,7 @@
                 <jhi-teams-achievements [team]="team" [teamSkills]="teamSkills" [badges]="badges" [skills]="skills"></jhi-teams-achievements>
             </div>
             <div class="col-md-4">
-                <jhi-teams-skills [team]="team" (onSkillChanged)="loadTeamSkills()"></jhi-teams-skills>
+                <jhi-teams-skills [iSkills]="skills" [team]="team" (onSkillChanged)="loadTeamSkills()"></jhi-teams-skills>
             </div>
         </div>
     </div>

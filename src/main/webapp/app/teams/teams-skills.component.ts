@@ -27,6 +27,7 @@ import 'simplebar';
 export class TeamsSkillsComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
     @Input() skill: IAchievableSkill;
+    @Input() iSkills: ISkill[];
     @Output() onSkillClicked = new EventEmitter<{ iSkill: ISkill; aSkill: AchievableSkill }>();
     @Output() onSkillChanged = new EventEmitter<{ iSkill: ISkill; aSkill: AchievableSkill }>();
     skills: IAchievableSkill[];
@@ -235,5 +236,12 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
 
     private getFiltersFromStorage(): string[] {
         return this.storage.retrieve('filterKey') || [];
+    }
+
+    findSkill(skillId: number): ISkill {
+        for (let skill of this.iSkills) {
+            if (skill.id === skillId) return skill;
+        }
+        return null;
     }
 }

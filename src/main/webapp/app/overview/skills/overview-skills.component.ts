@@ -29,6 +29,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     @Input() levels: ILevel[];
     @Input() badges: IBadge[];
     @Input() activeSkill: ISkill;
+    @Input() skills: ISkill[];
     @Output() onSkillClicked = new EventEmitter<{ iSkill: ISkill }>();
     activeSkills: ILevelSkill[] | IBadgeSkill[];
     activeLevel: ILevel;
@@ -148,6 +149,13 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
         return team.participations.some(dimension => {
             return skillDimensionIds.indexOf(dimension.id) !== -1;
         });
+    }
+
+    findSkill(skillId: number): ISkill {
+        for (let skill of this.skills) {
+            if (skill.id === skillId) return skill;
+        }
+        return null;
     }
 
     private findTeamSkill(team: ITeam, skill: ILevelSkill | IBadgeSkill): ITeamSkill {

@@ -68,7 +68,7 @@ export class OverviewSkillDetailsComponent implements OnInit {
             this.teamSkills = teamSkills.body;
             this.levelSkills = levelSkills.body;
             this.badgeSkills = badgeSkills.body;
-            this.selectedTeam = selectedTeam.body ? selectedTeam.body : selectedTeam;
+            this.selectedTeam = selectedTeam !== null && selectedTeam.body ? selectedTeam.body : selectedTeam;
 
             this._comments = comments.body ? comments.body : comments;
             this._mapCommentAuthors();
@@ -121,10 +121,12 @@ export class OverviewSkillDetailsComponent implements OnInit {
 
             this.achievableSkill = new AchievableSkill();
             this.achievableSkill.skillId = this.skill.id;
-            this.teamsSkillsService.findAchievableSkill(this.selectedTeam.id, this.skill.id).subscribe(aSkill => {
-                this.achievableSkill = aSkill;
-                this.skillComments = this._getSkillComments();
-            });
+            if (this.selectedTeam != null) {
+                this.teamsSkillsService.findAchievableSkill(this.selectedTeam.id, this.skill.id).subscribe(aSkill => {
+                    this.achievableSkill = aSkill;
+                    this.skillComments = this._getSkillComments();
+                });
+            }
         });
     }
 
