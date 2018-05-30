@@ -1,7 +1,6 @@
 @import '~bootstrap/scss/bootstrap';
 @import '../../../../content/scss/bootstrap-variables';
 @import '../../../../content/scss/colors';
-@import "../../../../content/scss/mixins";
 
 .skill-title {
     margin-top: 25px;
@@ -35,18 +34,6 @@
 
     .col-60 {
         width: 60%;
-    }
-
-    .achieved-by-teams, .needed-for-levels, .needed-for-badges {
-        margin-top: 15px;
-    }
-
-    .avatar-team {
-        @include team-image();
-    }
-
-    .avatar-badge, .avatar-level, .avatar-team {
-        display: inline-flex;
     }
 
     .skill-details {
