@@ -14,30 +14,29 @@ import 'simplebar';
     styleUrls: ['./skill-details-comments.scss']
 })
 export class SkillDetailsCommentsComponent implements OnInit {
+    @Input() selectedTeam: ITeam;
     @Input() teams: ITeam[];
     @Input() achievableSkill: IAchievableSkill;
     @Input() comments: IComment[];
     @Output() onCommentSubmitted = new EventEmitter<IComment>();
     newComment: IComment;
 
-    constructor(private commentService: CommentService, private teamsSelectionService: TeamsSelectionService) {}
+    constructor(private commentService: CommentService) {}
 
     ngOnInit() {
         this.newComment = new Comment();
     }
 
     isActiveTeam(comment: IComment) {
-        return this.teamsSelectionService.selectedTeam && comment && this.teamsSelectionService.selectedTeam.id === comment.teamId;
+        return this.selectedTeam && comment && this.selectedTeam.id === comment.teamId;
     }
 
     onSubmit() {
         this.newComment.creationDate = moment();
         this.newComment.skillId = this.achievableSkill ? this.achievableSkill.skillId : undefined;
         this.newComment.skillTitle = this.achievableSkill ? this.achievableSkill.title : undefined;
-        this.newComment.teamId = this.teamsSelectionService.selectedTeam ? this.teamsSelectionService.selectedTeam.id : undefined;
-        this.newComment.teamShortName = this.teamsSelectionService.selectedTeam
-            ? this.teamsSelectionService.selectedTeam.shortName
-            : undefined;
+        this.newComment.teamId = this.selectedTeam ? this.selectedTeam.id : undefined;
+        this.newComment.teamShortName = this.selectedTeam ? this.selectedTeam.shortName : undefined;
         this.commentService.create(this.newComment).subscribe((res: HttpResponse<IComment>) => {
             if (res.body) {
                 this.newComment = new Comment();
