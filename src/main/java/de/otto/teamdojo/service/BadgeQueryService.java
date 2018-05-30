@@ -42,7 +42,6 @@ public class BadgeQueryService extends QueryService<Badge> {
 
     /**
      * Return a {@link List} of {@link BadgeDTO} which matches the criteria from the database
-     *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching entities.
      */
@@ -55,9 +54,8 @@ public class BadgeQueryService extends QueryService<Badge> {
 
     /**
      * Return a {@link Page} of {@link BadgeDTO} which matches the criteria from the database
-     *
      * @param criteria The object which holds all the filters, which the entities should match.
-     * @param page     The page, which should be returned.
+     * @param page The page, which should be returned.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
@@ -91,6 +89,12 @@ public class BadgeQueryService extends QueryService<Badge> {
             }
             if (criteria.getRequiredScore() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getRequiredScore(), Badge_.requiredScore));
+            }
+            if (criteria.getInstantMultiplier() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getInstantMultiplier(), Badge_.instantMultiplier));
+            }
+            if (criteria.getCompletionBonus() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getCompletionBonus(), Badge_.completionBonus));
             }
             if (criteria.getSkillsId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getSkillsId(), Badge_.skills, BadgeSkill_.id));

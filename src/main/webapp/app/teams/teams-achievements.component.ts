@@ -11,6 +11,7 @@ import { CompletionCheck } from 'app/shared/util/completion-check';
 import { IProgress, Progress } from 'app/shared/achievement/model/progress.model';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import 'simplebar';
+import { ISkill } from 'app/shared/model/skill.model';
 
 @Component({
     selector: 'jhi-teams-achievements',
@@ -21,6 +22,7 @@ export class TeamsAchievementsComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
     @Input() teamSkills: ITeamSkill[];
     @Input() badges: IBadge[];
+    @Input() skills: ISkill[];
     generalBadges: IBadge[];
     activeItemIds: { badge: number; level: number; dimension: number };
     expandedDimensions: string[];
@@ -132,7 +134,7 @@ export class TeamsAchievementsComponent implements OnInit, OnChanges {
     }
 
     private getLevelOrBadgeProgress(item: ILevel | IBadge): IProgress {
-        return new CompletionCheck(this.team, item).getProgress();
+        return new CompletionCheck(this.team, item, this.skills).getProgress();
     }
 
     private isRelevant(item: ILevel | IBadge): boolean {

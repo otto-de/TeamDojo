@@ -8,6 +8,7 @@ import { IDimension } from 'app/shared/model/dimension.model';
 import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
 import { TeamSkillService } from 'app/entities/team-skill';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
+import { ISkill } from 'app/shared/model/skill.model';
 
 @Component({
     selector: 'jhi-teams',
@@ -20,14 +21,16 @@ export class TeamsComponent implements OnInit {
     team: ITeam;
     teamSkills: ITeamSkill[];
     badges: IBadge[];
+    skills: ISkill[];
 
     constructor(private dataUtils: JhiDataUtils, private route: ActivatedRoute, private teamSkillService: TeamSkillService) {}
 
     ngOnInit() {
-        this.route.data.subscribe(({ team, levels, badges, levelSkills, badgeSkills }) => {
+        this.route.data.subscribe(({ team, levels, badges, levelSkills, badgeSkills, skills }) => {
             this.team = team;
             this.teamSkills = team.skills;
             this.badges = badges.body;
+            this.skills = skills.body;
 
             const groupedLevelSkills = {};
             levelSkills.body.forEach(levelSkill => {

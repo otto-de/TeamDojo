@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { RelevanceCheck, sortLevels } from 'app/shared';
 import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
 import 'simplebar';
+import { ISkill } from 'app/shared/model/skill.model';
 
 @Component({
     selector: 'jhi-overview-achievements',
@@ -20,6 +21,7 @@ export class OverviewAchievementsComponent implements OnInit {
     @Input() teams: ITeam[];
     @Input() levels: ILevel[];
     @Input() badges: IBadge[];
+    @Input() skills: ISkill[];
     dimensions: IDimension[];
     generalBadges: IBadge[];
     activeItemIds: { [key: string]: number };
@@ -81,7 +83,7 @@ export class OverviewAchievementsComponent implements OnInit {
     }
 
     private isLevelOrBadgeCompleted(team: ITeam, item: ILevel | IBadge): boolean {
-        return new CompletionCheck(team, item).isCompleted();
+        return new CompletionCheck(team, item, this.skills).isCompleted();
     }
 
     private isRelevant(team: ITeam, item: ILevel | IBadge): boolean {
