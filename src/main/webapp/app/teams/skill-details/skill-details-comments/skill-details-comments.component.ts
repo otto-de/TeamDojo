@@ -14,7 +14,6 @@ import 'simplebar';
     styleUrls: ['./skill-details-comments.scss']
 })
 export class SkillDetailsCommentsComponent implements OnInit {
-    @Input() team: ITeam;
     @Input() teams: ITeam[];
     @Input() achievableSkill: IAchievableSkill;
     @Input() comments: IComment[];
@@ -27,8 +26,8 @@ export class SkillDetailsCommentsComponent implements OnInit {
         this.newComment = new Comment();
     }
 
-    isActiveTeam() {
-        return this.teamsSelectionService.selectedTeam && this.team && this.teamsSelectionService.selectedTeam.id === this.team.id;
+    isActiveTeam(comment: IComment) {
+        return this.teamsSelectionService.selectedTeam && comment && this.teamsSelectionService.selectedTeam.id === comment.teamId;
     }
 
     onSubmit() {
@@ -45,9 +44,5 @@ export class SkillDetailsCommentsComponent implements OnInit {
                 this.onCommentSubmitted.emit(res.body);
             }
         });
-    }
-
-    getAuthor(comment: IComment) {
-        return (this.teams || []).find((team: ITeam) => team.id === comment.teamId) || {};
     }
 }
