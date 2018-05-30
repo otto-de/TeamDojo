@@ -78,6 +78,8 @@ public class LevelTestDataProvider {
         private final String name;
         private final Dimension dimension;
         private Double requiredScore = 1.0;
+        private Double instantMultiplier = 0.0;
+        private Integer completionBonus = 0;
         private Level dependsOn;
         private List<LevelSkill> skills = Lists.newArrayList();
 
@@ -96,6 +98,16 @@ public class LevelTestDataProvider {
             return this;
         }
 
+        public LevelBuilder instantMultiplier(Double instantMultiplier) {
+            this.instantMultiplier = instantMultiplier;
+            return this;
+        }
+
+        public LevelBuilder completionBonus(Integer completionBonus) {
+            this.completionBonus = completionBonus;
+            return this;
+        }
+
         public LevelBuilder addSkill(Skill skill) {
             LevelSkill levelSkill = new LevelSkill();
             skill.addLevels(levelSkill);
@@ -111,7 +123,8 @@ public class LevelTestDataProvider {
         }
 
         public Level build() {
-            Level level = new Level().name(name).dimension(dimension).dependsOn(dependsOn).requiredScore(requiredScore);
+            Level level = new Level().name(name).dimension(dimension).dependsOn(dependsOn).requiredScore(requiredScore)
+                .instantMultiplier(instantMultiplier).completionBonus(completionBonus);
             dimension.addLevels(level);
             skills.forEach(level::addSkills);
             return level;

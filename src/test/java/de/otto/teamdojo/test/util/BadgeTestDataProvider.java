@@ -42,6 +42,9 @@ public class BadgeTestDataProvider {
 
         private final String name;
         private String description;
+        private Double requiredScore = 1.0;
+        private Double instantMultiplier = 0.0;
+        private Integer completionBonus = 0;
         private Set<Dimension> dimensions = Sets.newHashSet();
         private Set<BadgeSkill> skills = Sets.newHashSet();
 
@@ -51,6 +54,21 @@ public class BadgeTestDataProvider {
 
         public BadgeBuilder description(String description) {
             this.description = description;
+            return this;
+        }
+
+        public BadgeBuilder requiredScore(Double requiredScore) {
+            this.requiredScore = requiredScore;
+            return this;
+        }
+
+        public BadgeBuilder instantMultiplier(Double instantMultiplier) {
+            this.instantMultiplier = instantMultiplier;
+            return this;
+        }
+
+        public BadgeBuilder completionBonus(Integer completionBonus) {
+            this.completionBonus = completionBonus;
             return this;
         }
 
@@ -74,7 +92,8 @@ public class BadgeTestDataProvider {
         }
 
         public Badge build() {
-            Badge badge = new Badge().name(name).description(this.description);
+            Badge badge = new Badge().name(name).description(this.description).requiredScore(requiredScore)
+                .instantMultiplier(instantMultiplier).completionBonus(completionBonus);
             this.dimensions.forEach(badge::addDimensions);
             this.skills.forEach(badge::addSkills);
             return badge;

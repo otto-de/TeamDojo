@@ -42,7 +42,7 @@ public class SkillTestDataProvider {
     public static final String DOCKERIZED_IMPL = DOCKERIZED + VALIDATION;
 
     public static SkillBuilder skill(String title) {
-        return new SkillBuilder(title);
+        return new SkillBuilder(title, 1);
     }
 
     public static SkillBuilder inputValidation() {
@@ -88,9 +88,11 @@ public class SkillTestDataProvider {
         private String description;
         private String validation;
         private String implementation;
+        private Integer score;
 
-        public SkillBuilder(String title) {
+        public SkillBuilder(String title, Integer score) {
             this.title = title;
+            this.score = score;
         }
 
         public SkillBuilder description(String description) {
@@ -119,7 +121,8 @@ public class SkillTestDataProvider {
                 .title(title)
                 .description(description)
                 .validation(validation)
-                .implementation(implementation);
+                .implementation(implementation)
+                .score(score);
         }
     }
 
