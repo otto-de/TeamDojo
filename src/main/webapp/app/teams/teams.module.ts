@@ -12,6 +12,7 @@ import {
     AllCommentsResolve,
     AllLevelSkillsResolve,
     AllLevelsResolve,
+    AllTeamsResolve,
     TeamAndTeamSkillResolve
 } from './teams.route';
 import { TeamsService } from './teams.service';
@@ -48,7 +49,8 @@ import { AllSkillsResolve } from 'app/teams/teams.route';
         AllLevelSkillsResolve,
         AllBadgeSkillsResolve,
         AllSkillsResolve,
-        AllCommentsResolve
+        AllCommentsResolve,
+        AllTeamsResolve
     ],
     exports: [SkillDetailsInfoComponent, SkillDetailsCommentsComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

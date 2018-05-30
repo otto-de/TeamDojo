@@ -9,6 +9,7 @@ import { TeamsSkillsComponent } from 'app/teams/teams-skills.component';
 import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details-info/skill-details-info.component';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import { IComment } from 'app/shared/model/comment.model';
+import { TeamsService } from 'app/teams/teams.service';
 
 @Component({
     selector: 'jhi-skill-details',
@@ -17,6 +18,8 @@ import { IComment } from 'app/shared/model/comment.model';
 })
 export class SkillDetailsComponent implements OnInit {
     team: ITeam;
+
+    teams: ITeam[];
 
     skill: ISkill;
 
@@ -40,9 +43,10 @@ export class SkillDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.route.data.subscribe(({ team, skill, comments }) => {
-            this.team = team;
-            this.skill = skill;
+        this.route.data.subscribe(({ team, teams, skill, comments }) => {
+            this.team = team.body ? team.body : team;
+            this.teams = teams.body ? teams.body : teams;
+            this.skill = skill.body ? skill.body : skill;
             this._comments = comments.body ? comments.body : comments;
         });
         this.loadData();
@@ -76,8 +80,8 @@ export class SkillDetailsComponent implements OnInit {
 
     private _getSkillComments(): IComment[] {
         return (this._comments || [])
-            .filter((comment: IComment) => comment.skillId === this.achievableSkill.skillId)
-            .sort((comment1: IComment, comment2: IComment) => comment1.creationDate.diff(comment2.creationDate));
+            .filter(comment => comment.skillId === this.achievableSkill.skillId)
+            .sort((comment1, comment2) => comment1.creationDate.diff(comment2.creationDate));
     }
 
     get currentTeam() {
