@@ -1,0 +1,5 @@
+<div class="team-image-wrapper d-flex justify-content-center">
+    <div class="team-image" *ngIf="team.picture && team.pictureContentType"
+         [ngStyle]="{'background-image': 'url(' + (team.picture | imageDataUrl: team.pictureContentType) + ')'}">
+    </div>
+</div>
