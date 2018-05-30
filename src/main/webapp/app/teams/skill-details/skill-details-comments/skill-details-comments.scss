@@ -103,5 +103,12 @@
                 margin-right: -20px;
             }
         }
+
+        /deep/ .simplebar-scroll-content {
+            padding-right: 1.4em !important;
+            .simplebar-content {
+                margin-right: -0.7em !important;
+            }
+        }
     }
 }
