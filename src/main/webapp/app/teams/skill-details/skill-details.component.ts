@@ -25,6 +25,8 @@ export class SkillDetailsComponent implements OnInit {
 
     achievableSkill: IAchievableSkill;
 
+    selectedTeam: ITeam;
+
     private _comments: IComment[];
 
     skillComments: IComment[];
@@ -43,10 +45,11 @@ export class SkillDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.route.data.subscribe(({ team, teams, skill, comments }) => {
+        this.route.data.subscribe(({ team, teams, skill, comments, selectedTeam }) => {
             this.team = team.body ? team.body : team;
             this.teams = teams.body ? teams.body : teams;
             this.skill = skill.body ? skill.body : skill;
+            this.selectedTeam = selectedTeam.body ? selectedTeam.body : selectedTeam;
             this._comments = comments.body ? comments.body : comments;
             this._mapCommentAuthors();
         });
@@ -75,8 +78,8 @@ export class SkillDetailsComponent implements OnInit {
     onCommentSubmitted(newComment: IComment) {
         if (newComment) {
             this._comments.push(newComment);
-            this.skillComments = this._getSkillComments();
             this._mapCommentAuthors();
+            this.skillComments = this._getSkillComments();
         }
     }
 

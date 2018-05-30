@@ -17,7 +17,7 @@
                                 [team]="team" [achievableSkill]="achievableSkill"></jhi-skill-details-info>
     </div>
     <div class="skill-comments col-20">
-        <jhi-skill-details-comments [achievableSkill]="achievableSkill" [comments]="skillComments"
+        <jhi-skill-details-comments [achievableSkill]="achievableSkill" [comments]="skillComments" [selectedTeam]="selectedTeam"
                                     [teams]="teams" (onCommentSubmitted)="onCommentSubmitted($event)">
         </jhi-skill-details-comments>
     </div>
