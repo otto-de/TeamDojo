@@ -11,6 +11,7 @@ import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details
 import { Skill } from 'app/shared/model/skill.model';
 import { SkillService } from 'app/entities/skill';
 import { CommentService } from 'app/entities/comment';
+import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 
 @Injectable()
 export class AllTeamsResolve implements Resolve<any> {
@@ -85,6 +86,15 @@ export class AllCommentsResolve implements Resolve<any> {
 }
 
 @Injectable()
+export class TeamsSelectionResolve implements Resolve<any> {
+    constructor(private teamsSelectionService: TeamsSelectionService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.teamsSelectionService.query();
+    }
+}
+
+@Injectable()
 export class SkillResolve implements Resolve<any> {
     constructor(private skillService: SkillService, private router: Router) {}
 
@@ -126,7 +136,8 @@ export const OVERVIEW_ROUTE: Route[] = [
             levelSkills: AllLevelSkillsResolve,
             badgeSkills: AllBadgeSkillsResolve,
             skill: SkillResolve,
-            comments: AllCommentsResolve
+            comments: AllCommentsResolve,
+            selectedTeam: TeamsSelectionResolve
         },
         data: {
             authorities: [],
