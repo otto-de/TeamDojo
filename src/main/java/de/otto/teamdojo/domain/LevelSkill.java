@@ -5,7 +5,6 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
@@ -25,11 +24,6 @@ public class LevelSkill implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotNull
-    @Min(value = 0)
-    @Column(name = "score", nullable = false)
-    private Integer score;
-
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("levels")
@@ -47,19 +41,6 @@ public class LevelSkill implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getScore() {
-        return score;
-    }
-
-    public LevelSkill score(Integer score) {
-        this.score = score;
-        return this;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
     }
 
     public Skill getSkill() {
@@ -113,7 +94,6 @@ public class LevelSkill implements Serializable {
     public String toString() {
         return "LevelSkill{" +
             "id=" + getId() +
-            ", score=" + getScore() +
             "}";
     }
 }

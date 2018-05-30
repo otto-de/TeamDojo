@@ -6,6 +6,7 @@ import { CompletionCheck, RelevanceCheck } from 'app/shared';
 import { Router } from '@angular/router';
 import { HighestLevel, IHighestLevel } from 'app/shared/achievement';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
+import { ISkill } from 'app/shared/model/skill.model';
 
 @Component({
     selector: 'jhi-teams-status',
@@ -16,6 +17,7 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
     @Input() teamSkills: ITeamSkill[];
     @Input() badges: IBadge[];
+    @Input() skills: ISkill[];
     completedBadges: IBadge[];
     highestAchievedLevels: IHighestLevel[];
 
@@ -48,12 +50,13 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
 
     private getCompletedBadges() {
         return this.badges.filter(
-            (badge: IBadge) => new RelevanceCheck(this.team).isRelevantBadge(badge) && new CompletionCheck(this.team, badge).isCompleted()
+            (badge: IBadge) =>
+                new RelevanceCheck(this.team).isRelevantBadge(badge) && new CompletionCheck(this.team, badge, this.skills).isCompleted()
         );
     }
 
     private isLevelCompleted(level) {
-        return new CompletionCheck(this.team, level).isCompleted();
+        return new CompletionCheck(this.team, level, this.skills).isCompleted();
     }
 
     private getHighestAchievedLevels(): IHighestLevel[] {

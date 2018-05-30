@@ -8,6 +8,8 @@ import { RelevanceCheck } from 'app/shared';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { TeamScore } from 'app/shared/model/team-score.model';
 import 'simplebar';
+import { ISkill } from 'app/shared/model/skill.model';
+import { ITeamSkill } from 'app/shared/model/team-skill.model';
 
 @Component({
     selector: 'jhi-overview-teams',
@@ -18,6 +20,7 @@ export class OverviewTeamsComponent implements OnInit {
     @Input() teams: ITeam[];
     @Input() levels: ILevel[];
     @Input() badges: IBadge[];
+    @Input() skills: ISkill[];
     private filtered: boolean;
     private relevantTeamIds: number[];
     private completedTeamIds: number[];
@@ -74,13 +77,13 @@ export class OverviewTeamsComponent implements OnInit {
             .filter((team: ITeam) => {
                 if (badgeId) {
                     const badge = this.badges.find((b: IBadge) => b.id === badgeId);
-                    return new CompletionCheck(team, badge).isCompleted();
+                    return new CompletionCheck(team, badge, this.skills).isCompleted();
                 } else if (levelId) {
                     const level = this.levels.find((l: ILevel) => l.id === levelId);
-                    return new CompletionCheck(team, level).isCompleted();
+                    return new CompletionCheck(team, level, this.skills).isCompleted();
                 } else if (dimensionId) {
                     const dimensions = team.participations.find((d: IDimension) => d.id === dimensionId);
-                    return dimensions.levels.every((level: ILevel) => new CompletionCheck(team, level).isCompleted());
+                    return dimensions.levels.every((level: ILevel) => new CompletionCheck(team, level, this.skills).isCompleted());
                 }
                 return false;
             })
@@ -163,17 +166,6 @@ export class OverviewTeamsComponent implements OnInit {
         return count;
     }
 
-    calcTeamScore(team: ITeam): number {
-        let score = 0;
-
-        team.participations.forEach(dimension => {
-            for (const level of dimension.levels) {
-                score += this.getLevelScore(team, level);
-            }
-        });
-        return score;
-    }
-
     calcCompletedBadges(team: ITeam) {
         let count = 0;
         this.badges.forEach(badge => {
@@ -184,15 +176,65 @@ export class OverviewTeamsComponent implements OnInit {
         return count;
     }
 
-    private isLevelOrBadgeCompleted(team: ITeam, item: ILevel | IBadge): boolean {
-        return new CompletionCheck(team, item).isCompleted();
+    calcTeamScore(team: ITeam): number {
+        let score = this.calcSkillScore(team);
+        score += this.calcLevelBonus(team);
+        score += this.calcBadgeBonus(team);
+        return score;
     }
 
-    private getLevelScore(team: ITeam, level: ILevel): number {
-        return new CompletionCheck(team, level).getProgress().achieved;
+    private calcSkillScore(team: ITeam) {
+        let score = 0;
+        this.skills.forEach((skill: ISkill) => {
+            if (this.isSkillCompleted(team, skill)) {
+                score += skill.score;
+            }
+        });
+        return score;
+    }
+
+    private calcLevelBonus(team: ITeam) {
+        let score = 0;
+        team.participations.forEach(dimension => {
+            dimension.levels.forEach((level: ILevel) => {
+                score += this.getBonus(team, level);
+            });
+        });
+        return score;
+    }
+
+    private calcBadgeBonus(team: ITeam) {
+        let score = 0;
+        this.badges.forEach((badge: IBadge) => {
+            if (new RelevanceCheck(team).isRelevantLevelOrBadge(badge)) {
+                score += this.getBonus(team, badge);
+            }
+        });
+        return score;
+    }
+
+    private isLevelOrBadgeCompleted(team: ITeam, item: ILevel | IBadge): boolean {
+        return new CompletionCheck(team, item, this.skills).isCompleted();
+    }
+
+    private getBonus(team: ITeam, item: ILevel | IBadge): number {
+        if (!item.instantMultiplier && !item.completionBonus) {
+            return 0;
+        }
+        const levelProgress = new CompletionCheck(team, item, this.skills).getProgress();
+        let score = levelProgress.achieved * item.instantMultiplier;
+        if (levelProgress.isCompleted()) {
+            score += item.completionBonus;
+        }
+        return score;
     }
 
     private getParamAsNumber(name: string, params: ParamMap): number {
         return Number.parseInt(params.get(name));
+    }
+
+    private isSkillCompleted(team: ITeam, skill: ISkill) {
+        const teamSkill = team.skills.find((ts: ITeamSkill) => ts.skillId === skill.id);
+        return teamSkill && teamSkill.completedAt;
     }
 }

@@ -29,6 +29,10 @@ public class BadgeCriteria implements Serializable {
 
     private DoubleFilter requiredScore;
 
+    private DoubleFilter instantMultiplier;
+
+    private IntegerFilter completionBonus;
+
     private LongFilter skillsId;
 
     private LongFilter dimensionsId;
@@ -84,6 +88,22 @@ public class BadgeCriteria implements Serializable {
         this.requiredScore = requiredScore;
     }
 
+    public DoubleFilter getInstantMultiplier() {
+        return instantMultiplier;
+    }
+
+    public void setInstantMultiplier(DoubleFilter instantMultiplier) {
+        this.instantMultiplier = instantMultiplier;
+    }
+
+    public IntegerFilter getCompletionBonus() {
+        return completionBonus;
+    }
+
+    public void setCompletionBonus(IntegerFilter completionBonus) {
+        this.completionBonus = completionBonus;
+    }
+
     public LongFilter getSkillsId() {
         return skillsId;
     }
@@ -109,6 +129,8 @@ public class BadgeCriteria implements Serializable {
             (availableUntil != null ? "availableUntil=" + availableUntil + ", " : "") +
             (availableAmount != null ? "availableAmount=" + availableAmount + ", " : "") +
             (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
+            (instantMultiplier != null ? "instantMultiplier=" + instantMultiplier + ", " : "") +
+            (completionBonus != null ? "completionBonus=" + completionBonus + ", " : "") +
             (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
             (dimensionsId != null ? "dimensionsId=" + dimensionsId + ", " : "") +
             "}";

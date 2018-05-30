@@ -15,7 +15,6 @@
             <thead>
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="teamdojoApp.levelSkill.score">Score</span></th>
             <th><span jhiTranslate="teamdojoApp.levelSkill.skill">Skill</span></th>
             <th><span jhiTranslate="teamdojoApp.levelSkill.level">Level</span></th>
             <th></th>
@@ -24,7 +23,6 @@
             <tbody>
             <tr *ngFor="let levelSkill of levelSkills ;trackBy: trackId">
                 <td><a [routerLink]="['/level-skill', levelSkill.id, 'view' ]">{{levelSkill.id}}</a></td>
-                <td>{{levelSkill.score}}</td>
                 <td>
                     <div *ngIf="levelSkill.skillId">
                         <a [routerLink]="['../skill', levelSkill.skillId , 'view' ]" >{{levelSkill.skillTitle}}</a>
