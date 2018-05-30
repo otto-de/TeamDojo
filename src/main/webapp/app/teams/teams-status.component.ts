@@ -3,7 +3,7 @@ import { ITeam } from 'app/shared/model/team.model';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { IBadge } from 'app/shared/model/badge.model';
 import { CompletionCheck, RelevanceCheck } from 'app/shared';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HighestLevel, IHighestLevel } from 'app/shared/achievement';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import { ISkill } from 'app/shared/model/skill.model';
@@ -25,16 +25,13 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     teamScore: number;
     levelUpScore: number;
 
-    constructor(private organizationService: OrganizationService, private router: Router) {}
+    constructor(private route: ActivatedRoute, private router: Router) {}
 
     ngOnInit(): void {
         this.team.skills = this.teamSkills;
-        this.organizationService
-            .query()
-            .take(1)
-            .subscribe(res => {
-                this.levelUpScore = res.body[0] ? res.body[0].levelUpScore : 0;
-            });
+        this.route.data.subscribe(({ organization }) => {
+            this.levelUpScore = (organization.body[0] || organization).levelUpScore || 0;
+        });
         this.calculateStatus();
     }
 
