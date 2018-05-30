@@ -5,14 +5,7 @@
         <div class="comments" data-simplebar="init">
             <div *ngFor="let comment of comments" class="message d-flex align-items-end"
                  [ngClass]="isActiveTeam(comment) ? 'message-sent' : 'message-received'">
-                <div class="team-image">
-                    <img [title]="comment.author.name"
-                         *ngIf="comment.author.picture && comment.author.pictureContentType; else picturePlaceholder"
-                         [src]="comment.author.picture | imageDataUrl: comment.author.pictureContentType"/>
-                    <ng-template #picturePlaceholder>
-                        <span class="img-placeholder">{{comment.author.name | truncateString}}</span>
-                    </ng-template>
-                </div>
+                <jhi-team-image [team]="comment.author"></jhi-team-image>
                 <div class="speech-bubble d-flex">{{comment.text}}</div>
             </div>
         </div>

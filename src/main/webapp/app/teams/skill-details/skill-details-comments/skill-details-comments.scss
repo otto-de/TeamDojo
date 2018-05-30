@@ -46,12 +46,6 @@
             position: relative;
             font-size: 0.9rem;
 
-            .team-image {
-                @include team-image();
-                width: 40px;
-                height: 40px;
-            }
-
             .speech-bubble {
                 position: relative;
                 max-width: 71%;
