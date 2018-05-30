@@ -107,6 +107,32 @@ Navbar
     }
 }
 
+.notification-menu {
+    &-icon {
+
+    }
+    &-badge {
+        display: flex;
+        position: absolute;
+        top: 1px;
+        left: 6px;
+        font-size: 0.5em;
+        padding-top: 4px
+    }
+}
+
+.notification-dropdown-menu {
+    background-color: $dojo-nav-primary;
+    border: none;
+    padding: 15px;
+    min-height: 100px;
+    &-header {
+        a {
+            border-radius: 0;
+        }
+    }
+}
+
 
 /* ==========================================================================
 Logo styles

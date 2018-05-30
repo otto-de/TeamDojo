@@ -4,6 +4,7 @@ import { FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent, Tea
 import { ImageDataUrlPipe } from './pipe/image-data-url.pipe';
 import { TruncateStringPipe } from './pipe/truncate-string.pipe';
 import { AchievementItemComponent } from 'app/shared/achievement';
+import { NotificationComponent } from 'app/shared/notification/notification.component';
 
 @NgModule({
     imports: [TeamdojoSharedLibsModule],
@@ -13,7 +14,8 @@ import { AchievementItemComponent } from 'app/shared/achievement';
         JhiAlertErrorComponent,
         ImageDataUrlPipe,
         TruncateStringPipe,
-        AchievementItemComponent
+        AchievementItemComponent,
+        NotificationComponent
     ],
     providers: [],
     exports: [
@@ -23,7 +25,8 @@ import { AchievementItemComponent } from 'app/shared/achievement';
         JhiAlertErrorComponent,
         ImageDataUrlPipe,
         TruncateStringPipe,
-        AchievementItemComponent
+        AchievementItemComponent,
+        NotificationComponent
     ]
 })
 export class TeamdojoSharedCommonModule {}

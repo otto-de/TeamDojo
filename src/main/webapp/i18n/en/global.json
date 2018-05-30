@@ -48,6 +48,9 @@
                 "select": "Select My Team",
                 "home": "Living Room",
                 "change": "Change Team"
+            },
+            "notification": {
+                "main": "Notifications"
             }
         },
         "form": {

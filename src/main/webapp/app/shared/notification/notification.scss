@@ -1,0 +1,26 @@
+@import "../../../content/scss/colors";
+@import "../../../content/scss/mixins";
+
+.notification {
+    color: $dojo-text-inverse-primary;
+    padding: 15px;
+    border-top: 1px dotted $dojo-text-inverse-primary;
+
+    &-header {
+        &-unread {
+
+        }
+    }
+    &-body {
+        /deep/ .item-content {
+            width: 7vh !important;
+            height: 7vh !important;
+            cursor: default;
+            padding: 0;
+        }
+        &-team-image {
+            @include team-image();
+            margin: 5px;
+        }
+    }
+}
