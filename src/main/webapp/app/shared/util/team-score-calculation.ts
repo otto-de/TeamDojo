@@ -25,8 +25,8 @@ export class TeamScoreCalculation {
 
     private static _calcLevelBonus(team: ITeam, skills: ISkill[]): number {
         let score = 0;
-        team.participations.forEach(dimension => {
-            dimension.levels.forEach((level: ILevel) => {
+        (team.participations || []).forEach(dimension => {
+            (dimension.levels || []).forEach((level: ILevel) => {
                 score += this._getBonus(team, level, skills);
             });
         });
@@ -44,7 +44,7 @@ export class TeamScoreCalculation {
     }
 
     private static _isSkillCompleted(team: ITeam, skill: ISkill): boolean {
-        const teamSkill = team.skills.find((ts: ITeamSkill) => ts.skillId === skill.id);
+        const teamSkill = (team.skills || []).find((ts: ITeamSkill) => ts.skillId === skill.id);
         return !!(teamSkill && teamSkill.completedAt);
     }
 
