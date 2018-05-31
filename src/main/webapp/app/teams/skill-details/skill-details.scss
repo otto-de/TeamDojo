@@ -11,14 +11,6 @@
     .col-60 {
         width: 100%;
     }
-
-    .skill-details {
-        margin-top: 20px;
-
-        * {
-            box-sizing: border-box;
-        }
-    }
 }
 @media (min-width: 992px) {
     .col-20 {
@@ -30,12 +22,6 @@
     }
 
     .skill-details {
-        margin-top: 20px;
-
-        * {
-            box-sizing: border-box;
-        }
-
         .skills-list {
         }
         .skill-info {
@@ -46,6 +32,14 @@
         }
     }
 }
+
+.skill-details {
+    height: calc(100vh - 151px);
+    * {
+        box-sizing: border-box;
+    }
+}
+
 .background-image {
     background-size: cover;
     display: block;
@@ -62,6 +56,5 @@
 .skill-comments {
     h4 {
         color: $dojo-text-primary;
-        margin-bottom: 88px;
     }
 }

@@ -39,7 +39,6 @@ public class SkillQueryService extends QueryService<Skill> {
 
     /**
      * Return a {@link List} of {@link SkillDTO} which matches the criteria from the database
-     *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching entities.
      */
@@ -52,9 +51,8 @@ public class SkillQueryService extends QueryService<Skill> {
 
     /**
      * Return a {@link Page} of {@link SkillDTO} which matches the criteria from the database
-     *
      * @param criteria The object which holds all the filters, which the entities should match.
-     * @param page     The page, which should be returned.
+     * @param page The page, which should be returned.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
@@ -91,6 +89,15 @@ public class SkillQueryService extends QueryService<Skill> {
             }
             if (criteria.getContact() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getContact(), Skill_.contact));
+            }
+            if (criteria.getScore() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getScore(), Skill_.score));
+            }
+            if (criteria.getRateScore() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getRateScore(), Skill_.rateScore));
+            }
+            if (criteria.getRateCount() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getRateCount(), Skill_.rateCount));
             }
             if (criteria.getTeamsId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getTeamsId(), Skill_.teams, TeamSkill_.id));

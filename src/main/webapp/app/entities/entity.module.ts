@@ -10,6 +10,7 @@ import { TeamdojoBadgeSkillModule } from './badge-skill/badge-skill.module';
 import { TeamdojoLevelSkillModule } from './level-skill/level-skill.module';
 import { TeamdojoOrganizationModule } from './organization/organization.module';
 import { TeamdojoReportModule } from './report/report.module';
+import { TeamdojoCommentModule } from './comment/comment.module';
 import { TeamdojoActivityModule } from './activity/activity.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
@@ -26,6 +27,7 @@ import { TeamdojoActivityModule } from './activity/activity.module';
         TeamdojoLevelSkillModule,
         TeamdojoOrganizationModule,
         TeamdojoReportModule,
+        TeamdojoCommentModule,
         TeamdojoActivityModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],

@@ -14,7 +14,11 @@
                 "question": "Are you sure you want to delete Skill {{ id }}?"
             },
             "detail": {
-                "title": "Skill"
+                "title": "Skill",
+                "rateCount": "Votes",
+                "modalTitle": "Vote for it",
+                "modalClose": "Close",
+                "modalSubmit": "Submit your voting"
             },
             "title": "Title",
             "description": "Description",
@@ -22,6 +26,9 @@
             "validation": "Validation",
             "expiryPeriod": "Expiry Period",
             "contact": "Contact",
+            "score": "Score",
+            "rateScore": "Rate Score",
+            "rateCount": "Rate Count",
             "teams": "Teams",
             "badges": "Badges",
             "levels": "Levels"

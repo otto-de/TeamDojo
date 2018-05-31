@@ -14,7 +14,11 @@
                 "question": "Soll Skill {{ id }} wirklich dauerhaft gelöscht werden?"
             },
             "detail": {
-                "title": "Skill"
+                "title": "Skill",
+                "rateCount": "Bewertungen",
+                "modalTitle": "Bewerte den Skill",
+                "modalClose": "Abbrechen",
+                "modalSubmit": "Bewertung abschicken"
             },
             "title": "Title",
             "description": "Description",
@@ -22,6 +26,9 @@
             "validation": "Validation",
             "expiryPeriod": "Expiry Period",
             "contact": "Contact",
+            "score": "Score",
+            "rateScore": "Rate Score",
+            "rateCount": "Rate Count",
             "teams": "Teams",
             "badges": "Badges",
             "levels": "Levels"

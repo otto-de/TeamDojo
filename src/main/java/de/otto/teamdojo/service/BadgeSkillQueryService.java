@@ -77,9 +77,6 @@ public class BadgeSkillQueryService extends QueryService<BadgeSkill> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildSpecification(criteria.getId(), BadgeSkill_.id));
             }
-            if (criteria.getScore() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getScore(), BadgeSkill_.score));
-            }
             if (criteria.getBadgeId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getBadgeId(), BadgeSkill_.badge, Badge_.id));
             }

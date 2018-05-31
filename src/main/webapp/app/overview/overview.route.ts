@@ -10,6 +10,8 @@ import { BadgeSkillService } from 'app/entities/badge-skill';
 import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
 import { Skill } from 'app/shared/model/skill.model';
 import { SkillService } from 'app/entities/skill';
+import { CommentService } from 'app/entities/comment';
+import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 
 @Injectable()
 export class AllTeamsResolve implements Resolve<any> {
@@ -66,6 +68,33 @@ export class AllBadgeSkillsResolve implements Resolve<any> {
 }
 
 @Injectable()
+export class AllSkillsResolve implements Resolve<any> {
+    constructor(private skillService: SkillService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.skillService.query();
+    }
+}
+
+@Injectable()
+export class AllCommentsResolve implements Resolve<any> {
+    constructor(private commentService: CommentService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.commentService.query();
+    }
+}
+
+@Injectable()
+export class TeamsSelectionResolve implements Resolve<any> {
+    constructor(private teamsSelectionService: TeamsSelectionService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.teamsSelectionService.query();
+    }
+}
+
+@Injectable()
 export class SkillResolve implements Resolve<any> {
     constructor(private skillService: SkillService, private router: Router) {}
 
@@ -90,6 +119,7 @@ export const OVERVIEW_ROUTE: Route[] = [
             teams: AllTeamsResolve,
             levels: AllLevelsResolve,
             badges: AllBadgesResolve,
+            skills: AllSkillsResolve,
             teamSkills: AllTeamSkillsResolve,
             levelSkills: AllLevelSkillsResolve,
             badgeSkills: AllBadgeSkillsResolve
@@ -105,7 +135,10 @@ export const OVERVIEW_ROUTE: Route[] = [
             teamSkills: AllTeamSkillsResolve,
             levelSkills: AllLevelSkillsResolve,
             badgeSkills: AllBadgeSkillsResolve,
-            skill: SkillResolve
+            skill: SkillResolve,
+            comments: AllCommentsResolve,
+            selectedTeam: TeamsSelectionResolve,
+            skills: AllSkillsResolve
         },
         data: {
             authorities: [],

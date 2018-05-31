@@ -2,6 +2,7 @@
 @import '~bootstrap/scss/bootstrap';
 @import '../../../content/scss/bootstrap-variables';
 @import "../../../content/scss/mixins";
+@import '../../teams/skill-details/skill-details-rating/skill-details-rating';
 
 .overviews-skills {
     height: inherit;
@@ -63,7 +64,7 @@
     font-style: italic;
 }
 
-@media only screen and (min-width: map-get($grid-breakpoints, md)) {
+@media only screen and (min-width: map-get($grid-breakpoints, lg)) {
     .overviews-skills {
         .teams-skills-list {
             height: calc(100vh - 242px);
