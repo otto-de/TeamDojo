@@ -8,6 +8,9 @@
     &-header {
     }
     &-body {
+        &-icon {
+            color: #e9deb8;
+        }
         /deep/ .item-content {
             width: 6vh !important;
             height: 6vh !important;
@@ -16,10 +19,11 @@
         }
         /deep/ .achievement-item{
             padding: 0;
+            margin: 0 10px;
         }
         &-team-image {
             @include team-image();
-            margin: 5px;
+            margin: 0 15px;
         }
         &-text{
             word-break: break-word;

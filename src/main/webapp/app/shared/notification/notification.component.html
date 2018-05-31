@@ -5,7 +5,7 @@
     <div class="notification-body d-flex flex-row align-items-center">
         <div class="d-flex flex-row align-items-center" [ngSwitch]="notification.activity.type.toString()">
             <ng-container *ngSwitchCase="'BADGE_CREATED'">
-                <i class="fa fa-trophy fa-2x"></i>
+                <i class="notification-body-icon fa fa-trophy fa-2x"></i>
                 <jhi-achievement-item [item]="item" type="item-badge" [hasStatus]="false"
                                       [active]="false"
                                       (onItemSelected)="true"></jhi-achievement-item>
@@ -13,7 +13,7 @@
                      translateValues="{'badgeName':'{{notification.data.badgeName}}' }"></div>
             </ng-container>
             <ng-container *ngSwitchCase="'SKILL_COMPLETED'">
-                <i class="fa fa-check fa-2x"></i>
+                <i class="notification-body-icon fa fa-check fa-2x"></i>
                 <div class="notification-body-team-image" [ngbPopover]="item.name"
                      triggers="mouseenter:mouseleave">
                     <img [title]="item.name"
