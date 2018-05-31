@@ -30,7 +30,7 @@
                             <div>
                                 <ngb-rating [(rate)]="skill.rateScore" max="5" [readonly]="true" [starTemplate]="stars">
                                 </ngb-rating>
-                                {{skill.rateCount}} <span class="rating-text" jhiTranslate="teamdojoApp.skill.detail.rateCount"></span>
+                                {{getRateCount(skill.rateCount)}} <span class="rating-text" jhiTranslate="teamdojoApp.skill.detail.rateCount"></span>
 
                                 <ng-template #stars let-fill="fill" let-index="index">
                                     <span class="star star-sm" [class.full]="fill === 100">

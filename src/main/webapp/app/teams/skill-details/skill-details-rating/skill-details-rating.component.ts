@@ -33,9 +33,14 @@ export class SkillDetailsRatingComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.rateScore = this.skill.rateScore;
-        this.rateCount = this.skill.rateCount;
+        this.onSkillChanged(this.skill);
         this.newComment = new Comment();
+    }
+
+    onSkillChanged(skill: ISkill) {
+        this.skill = skill;
+        this.rateScore = this.skill.rateScore;
+        this.rateCount = this.skill.rateCount !== null && typeof this.skill.rateCount !== 'undefined' ? this.skill.rateCount : 0;
     }
 
     isActiveTeam(): Boolean {

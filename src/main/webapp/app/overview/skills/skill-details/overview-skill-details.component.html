@@ -9,7 +9,7 @@
 </div>
 <div class="row skill-details">
     <div class="skill-list col-20">
-        <jhi-overview-skills [activeSkill]="skill" [teams]="teams" [levels]="levels" [badges]="badges"></jhi-overview-skills>
+        <jhi-overview-skills [skills]="skills" (onSkillChanged)="skillInfo.updateSkillRating($event)" [activeSkill]="skill" [teams]="teams" [levels]="levels" [badges]="badges"></jhi-overview-skills>
     </div>
     <div class="skill-info col-60">
         <jhi-skill-details-info [skills]="skills" (onVoteSubmitted)="onCommentSubmitted($event.comment)" [skill]="skill"></jhi-skill-details-info>

@@ -234,6 +234,10 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         this.loadAll();
     }
 
+    getRateCount(rateCount: number) {
+        return rateCount !== null && typeof rateCount !== 'undefined' ? rateCount : 0;
+    }
+
     private getFiltersFromStorage(): string[] {
         return this.storage.retrieve('filterKey') || [];
     }

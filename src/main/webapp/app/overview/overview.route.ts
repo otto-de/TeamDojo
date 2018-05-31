@@ -137,7 +137,8 @@ export const OVERVIEW_ROUTE: Route[] = [
             badgeSkills: AllBadgeSkillsResolve,
             skill: SkillResolve,
             comments: AllCommentsResolve,
-            selectedTeam: TeamsSelectionResolve
+            selectedTeam: TeamsSelectionResolve,
+            skills: AllSkillsResolve
         },
         data: {
             authorities: [],
