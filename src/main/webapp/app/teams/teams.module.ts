@@ -6,7 +6,15 @@ import { SkillResolve, TEAMS_ROUTES, TeamsComponent } from './';
 import { TeamsAchievementsComponent } from './teams-achievements.component';
 import { TeamsSkillsComponent } from './teams-skills.component';
 import { TeamsSelectionComponent } from 'app/teams/teams-selection/teams-selection.component';
-import { AllBadgeSkillsResolve, AllBadgesResolve, AllLevelSkillsResolve, AllLevelsResolve, TeamAndTeamSkillResolve } from './teams.route';
+import {
+    AllBadgeSkillsResolve,
+    AllBadgesResolve,
+    AllCommentsResolve,
+    AllLevelSkillsResolve,
+    AllLevelsResolve,
+    AllTeamsResolve,
+    TeamAndTeamSkillResolve
+} from './teams.route';
 import { TeamsService } from './teams.service';
 import { TeamsSkillsService } from './teams-skills.service';
 import { TeamsSelectionService } from './teams-selection/teams-selection.service';
@@ -15,6 +23,10 @@ import { TeamsAchievementsService } from 'app/teams/teams-achievements.service';
 import { SkillDetailsComponent } from 'app/teams/skill-details/skill-details.component';
 import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details-info/skill-details-info.component';
 import { SkillDetailsCommentsComponent } from 'app/teams/skill-details/skill-details-comments/skill-details-comments.component';
+import { AllSkillsResolve } from 'app/teams/teams.route';
+import { TeamsSelectionResolve } from 'app/teams/teams.route';
+import { SkillDetailsRatingComponent } from 'app/teams/skill-details/skill-details-rating/skill-details-rating.component';
+import { SkillService } from 'app/entities/skill';
 
 @NgModule({
     imports: [TeamdojoSharedModule, RouterModule.forChild(TEAMS_ROUTES), NgbModule],
@@ -25,7 +37,8 @@ import { SkillDetailsCommentsComponent } from 'app/teams/skill-details/skill-det
         TeamsSelectionComponent,
         SkillDetailsComponent,
         SkillDetailsInfoComponent,
-        SkillDetailsCommentsComponent
+        SkillDetailsCommentsComponent,
+        SkillDetailsRatingComponent
     ],
     entryComponents: [TeamsSelectionComponent],
     providers: [
@@ -35,10 +48,15 @@ import { SkillDetailsCommentsComponent } from 'app/teams/skill-details/skill-det
         TeamsAchievementsService,
         TeamAndTeamSkillResolve,
         SkillResolve,
+        TeamsSelectionResolve,
         AllLevelsResolve,
         AllBadgesResolve,
         AllLevelSkillsResolve,
-        AllBadgeSkillsResolve
+        AllBadgeSkillsResolve,
+        AllSkillsResolve,
+        AllCommentsResolve,
+        AllTeamsResolve,
+        SkillService
     ],
     exports: [SkillDetailsInfoComponent, SkillDetailsCommentsComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

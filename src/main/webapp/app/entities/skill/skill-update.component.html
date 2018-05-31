@@ -59,6 +59,59 @@
                     <input type="text" class="form-control" name="contact" id="field_contact"
                         [(ngModel)]="skill.contact" />
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.skill.score" for="field_score">Score</label>
+                    <input type="number" class="form-control" name="score" id="field_score"
+                        [(ngModel)]="skill.score" required min="0"/>
+                    <div [hidden]="!(editForm.controls.score?.dirty && editForm.controls.score?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.score?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.score?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.score?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.skill.rateScore" for="field_rateScore">Rate Score</label>
+                    <input type="number" class="form-control" name="rateScore" id="field_rateScore"
+                        [(ngModel)]="skill.rateScore" min="0" max="5"/>
+                    <div [hidden]="!(editForm.controls.rateScore?.dirty && editForm.controls.rateScore?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.rateScore?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.rateScore?.errors?.max" jhiTranslate="entity.validation.max" translateValues="{ max: 5 }">
+                            This field cannot be more than 5.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.rateScore?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.skill.rateCount" for="field_rateCount">Rate Count</label>
+                    <input type="number" class="form-control" name="rateCount" id="field_rateCount"
+                        [(ngModel)]="skill.rateCount" min="0"/>
+                    <div [hidden]="!(editForm.controls.rateCount?.dirty && editForm.controls.rateCount?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.rateCount?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.rateCount?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
 
             </div>
             <div>

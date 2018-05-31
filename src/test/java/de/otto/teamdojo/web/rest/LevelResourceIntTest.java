@@ -32,11 +32,8 @@ import static de.otto.teamdojo.test.util.BadgeTestDataProvider.alwaysUpToDate;
 import static de.otto.teamdojo.test.util.BadgeTestDataProvider.awsReady;
 import static de.otto.teamdojo.test.util.DimensionTestDataProvider.operations;
 import static de.otto.teamdojo.test.util.DimensionTestDataProvider.security;
-import static de.otto.teamdojo.test.util.LevelTestDataProvider.orange;
-import static de.otto.teamdojo.test.util.LevelTestDataProvider.os1;
-import static de.otto.teamdojo.test.util.LevelTestDataProvider.yellow;
+import static de.otto.teamdojo.test.util.LevelTestDataProvider.*;
 import static de.otto.teamdojo.test.util.SkillTestDataProvider.*;
-import static de.otto.teamdojo.test.util.SkillTestDataProvider.evilUserStories;
 import static de.otto.teamdojo.test.util.TeamTestDataProvider.ft1;
 import static de.otto.teamdojo.test.util.TeamTestDataProvider.ft2;
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
@@ -66,11 +63,18 @@ public class LevelResourceIntTest {
     private static final String DEFAULT_PICTURE_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_PICTURE_CONTENT_TYPE = "image/png";
 
-    private static final Float DEFAULT_REQUIRED_SCORE = 0F;
-    private static final Float UPDATED_REQUIRED_SCORE = 1F;
+    private static final Double DEFAULT_REQUIRED_SCORE = 0D;
+    private static final Double UPDATED_REQUIRED_SCORE = 1D;
+
+    private static final Double DEFAULT_INSTANT_MULTIPLIER = 0D;
+    private static final Double UPDATED_INSTANT_MULTIPLIER = 1D;
+
+    private static final Integer DEFAULT_COMPLETION_BONUS = 0;
+    private static final Integer UPDATED_COMPLETION_BONUS = 1;
 
     @Autowired
     private LevelRepository levelRepository;
+
 
 
     @Autowired
@@ -132,7 +136,7 @@ public class LevelResourceIntTest {
 
     /**
      * Create an entity for this test.
-     * <p>
+     *
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -142,7 +146,9 @@ public class LevelResourceIntTest {
             .description(DEFAULT_DESCRIPTION)
             .picture(DEFAULT_PICTURE)
             .pictureContentType(DEFAULT_PICTURE_CONTENT_TYPE)
-            .requiredScore(DEFAULT_REQUIRED_SCORE);
+            .requiredScore(DEFAULT_REQUIRED_SCORE)
+            .instantMultiplier(DEFAULT_INSTANT_MULTIPLIER)
+            .completionBonus(DEFAULT_COMPLETION_BONUS);
         // Add required entity
         Dimension dimension = DimensionResourceIntTest.createEntity(em);
         em.persist(dimension);
@@ -177,6 +183,8 @@ public class LevelResourceIntTest {
         assertThat(testLevel.getPicture()).isEqualTo(DEFAULT_PICTURE);
         assertThat(testLevel.getPictureContentType()).isEqualTo(DEFAULT_PICTURE_CONTENT_TYPE);
         assertThat(testLevel.getRequiredScore()).isEqualTo(DEFAULT_REQUIRED_SCORE);
+        assertThat(testLevel.getInstantMultiplier()).isEqualTo(DEFAULT_INSTANT_MULTIPLIER);
+        assertThat(testLevel.getCompletionBonus()).isEqualTo(DEFAULT_COMPLETION_BONUS);
     }
 
     @Test
@@ -239,6 +247,25 @@ public class LevelResourceIntTest {
 
     @Test
     @Transactional
+    public void checkInstantMultiplierIsRequired() throws Exception {
+        int databaseSizeBeforeTest = levelRepository.findAll().size();
+        // set the field null
+        level.setInstantMultiplier(null);
+
+        // Create the Level, which fails.
+        LevelDTO levelDTO = levelMapper.toDto(level);
+
+        restLevelMockMvc.perform(post("/api/levels")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(levelDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Level> levelList = levelRepository.findAll();
+        assertThat(levelList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllLevels() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
@@ -252,7 +279,9 @@ public class LevelResourceIntTest {
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
-            .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())));
+            .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())))
+            .andExpect(jsonPath("$.[*].instantMultiplier").value(hasItem(DEFAULT_INSTANT_MULTIPLIER.doubleValue())))
+            .andExpect(jsonPath("$.[*].completionBonus").value(hasItem(DEFAULT_COMPLETION_BONUS)));
     }
 
 
@@ -271,7 +300,9 @@ public class LevelResourceIntTest {
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.pictureContentType").value(DEFAULT_PICTURE_CONTENT_TYPE))
             .andExpect(jsonPath("$.picture").value(Base64Utils.encodeToString(DEFAULT_PICTURE)))
-            .andExpect(jsonPath("$.requiredScore").value(DEFAULT_REQUIRED_SCORE.doubleValue()));
+            .andExpect(jsonPath("$.requiredScore").value(DEFAULT_REQUIRED_SCORE.doubleValue()))
+            .andExpect(jsonPath("$.instantMultiplier").value(DEFAULT_INSTANT_MULTIPLIER.doubleValue()))
+            .andExpect(jsonPath("$.completionBonus").value(DEFAULT_COMPLETION_BONUS));
     }
 
     @Test
@@ -393,6 +424,111 @@ public class LevelResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllLevelsByInstantMultiplierIsEqualToSomething() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where instantMultiplier equals to DEFAULT_INSTANT_MULTIPLIER
+        defaultLevelShouldBeFound("instantMultiplier.equals=" + DEFAULT_INSTANT_MULTIPLIER);
+
+        // Get all the levelList where instantMultiplier equals to UPDATED_INSTANT_MULTIPLIER
+        defaultLevelShouldNotBeFound("instantMultiplier.equals=" + UPDATED_INSTANT_MULTIPLIER);
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelsByInstantMultiplierIsInShouldWork() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where instantMultiplier in DEFAULT_INSTANT_MULTIPLIER or UPDATED_INSTANT_MULTIPLIER
+        defaultLevelShouldBeFound("instantMultiplier.in=" + DEFAULT_INSTANT_MULTIPLIER + "," + UPDATED_INSTANT_MULTIPLIER);
+
+        // Get all the levelList where instantMultiplier equals to UPDATED_INSTANT_MULTIPLIER
+        defaultLevelShouldNotBeFound("instantMultiplier.in=" + UPDATED_INSTANT_MULTIPLIER);
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelsByInstantMultiplierIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where instantMultiplier is not null
+        defaultLevelShouldBeFound("instantMultiplier.specified=true");
+
+        // Get all the levelList where instantMultiplier is null
+        defaultLevelShouldNotBeFound("instantMultiplier.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelsByCompletionBonusIsEqualToSomething() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where completionBonus equals to DEFAULT_COMPLETION_BONUS
+        defaultLevelShouldBeFound("completionBonus.equals=" + DEFAULT_COMPLETION_BONUS);
+
+        // Get all the levelList where completionBonus equals to UPDATED_COMPLETION_BONUS
+        defaultLevelShouldNotBeFound("completionBonus.equals=" + UPDATED_COMPLETION_BONUS);
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelsByCompletionBonusIsInShouldWork() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where completionBonus in DEFAULT_COMPLETION_BONUS or UPDATED_COMPLETION_BONUS
+        defaultLevelShouldBeFound("completionBonus.in=" + DEFAULT_COMPLETION_BONUS + "," + UPDATED_COMPLETION_BONUS);
+
+        // Get all the levelList where completionBonus equals to UPDATED_COMPLETION_BONUS
+        defaultLevelShouldNotBeFound("completionBonus.in=" + UPDATED_COMPLETION_BONUS);
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelsByCompletionBonusIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where completionBonus is not null
+        defaultLevelShouldBeFound("completionBonus.specified=true");
+
+        // Get all the levelList where completionBonus is null
+        defaultLevelShouldNotBeFound("completionBonus.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelsByCompletionBonusIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where completionBonus greater than or equals to DEFAULT_COMPLETION_BONUS
+        defaultLevelShouldBeFound("completionBonus.greaterOrEqualThan=" + DEFAULT_COMPLETION_BONUS);
+
+        // Get all the levelList where completionBonus greater than or equals to UPDATED_COMPLETION_BONUS
+        defaultLevelShouldNotBeFound("completionBonus.greaterOrEqualThan=" + UPDATED_COMPLETION_BONUS);
+    }
+
+    @Test
+    @Transactional
+    public void getAllLevelsByCompletionBonusIsLessThanSomething() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where completionBonus less than or equals to DEFAULT_COMPLETION_BONUS
+        defaultLevelShouldNotBeFound("completionBonus.lessThan=" + DEFAULT_COMPLETION_BONUS);
+
+        // Get all the levelList where completionBonus less than or equals to UPDATED_COMPLETION_BONUS
+        defaultLevelShouldBeFound("completionBonus.lessThan=" + UPDATED_COMPLETION_BONUS);
+    }
+
+
+    @Test
+    @Transactional
     public void getAllLevelsByDimensionIsEqualToSomething() throws Exception {
         // Initialize the database
         Dimension dimension = DimensionResourceIntTest.createEntity(em);
@@ -490,7 +626,9 @@ public class LevelResourceIntTest {
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
-            .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())));
+            .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())))
+            .andExpect(jsonPath("$.[*].instantMultiplier").value(hasItem(DEFAULT_INSTANT_MULTIPLIER.doubleValue())))
+            .andExpect(jsonPath("$.[*].completionBonus").value(hasItem(DEFAULT_COMPLETION_BONUS)));
     }
 
     /**
@@ -530,7 +668,9 @@ public class LevelResourceIntTest {
             .description(UPDATED_DESCRIPTION)
             .picture(UPDATED_PICTURE)
             .pictureContentType(UPDATED_PICTURE_CONTENT_TYPE)
-            .requiredScore(UPDATED_REQUIRED_SCORE);
+            .requiredScore(UPDATED_REQUIRED_SCORE)
+            .instantMultiplier(UPDATED_INSTANT_MULTIPLIER)
+            .completionBonus(UPDATED_COMPLETION_BONUS);
         LevelDTO levelDTO = levelMapper.toDto(updatedLevel);
 
         restLevelMockMvc.perform(put("/api/levels")
@@ -547,6 +687,8 @@ public class LevelResourceIntTest {
         assertThat(testLevel.getPicture()).isEqualTo(UPDATED_PICTURE);
         assertThat(testLevel.getPictureContentType()).isEqualTo(UPDATED_PICTURE_CONTENT_TYPE);
         assertThat(testLevel.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
+        assertThat(testLevel.getInstantMultiplier()).isEqualTo(UPDATED_INSTANT_MULTIPLIER);
+        assertThat(testLevel.getCompletionBonus()).isEqualTo(UPDATED_COMPLETION_BONUS);
     }
 
     @Test

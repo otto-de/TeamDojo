@@ -9,6 +9,7 @@ import de.otto.teamdojo.repository.SkillRepository;
 import de.otto.teamdojo.service.SkillQueryService;
 import de.otto.teamdojo.service.SkillService;
 import de.otto.teamdojo.service.dto.SkillDTO;
+import de.otto.teamdojo.service.dto.SkillRateDTO;
 import de.otto.teamdojo.service.mapper.SkillMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
@@ -61,6 +62,15 @@ public class SkillResourceIntTest {
     private static final String DEFAULT_CONTACT = "AAAAAAAAAA";
     private static final String UPDATED_CONTACT = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_SCORE = 0;
+    private static final Integer UPDATED_SCORE = 1;
+
+    private static final Double DEFAULT_RATE_SCORE = 0D;
+    private static final Double UPDATED_RATE_SCORE = 1D;
+
+    private static final Integer DEFAULT_RATE_COUNT = 0;
+    private static final Integer UPDATED_RATE_COUNT = 1;
+
     @Autowired
     private SkillRepository skillRepository;
 
@@ -105,7 +115,7 @@ public class SkillResourceIntTest {
 
     /**
      * Create an entity for this test.
-     * <p>
+     *
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -116,7 +126,10 @@ public class SkillResourceIntTest {
             .implementation(DEFAULT_IMPLEMENTATION)
             .validation(DEFAULT_VALIDATION)
             .expiryPeriod(DEFAULT_EXPIRY_PERIOD)
-            .contact(DEFAULT_CONTACT);
+            .contact(DEFAULT_CONTACT)
+            .score(DEFAULT_SCORE)
+            .rateScore(DEFAULT_RATE_SCORE)
+            .rateCount(DEFAULT_RATE_COUNT);
         return skill;
     }
 
@@ -147,6 +160,9 @@ public class SkillResourceIntTest {
         assertThat(testSkill.getValidation()).isEqualTo(DEFAULT_VALIDATION);
         assertThat(testSkill.getExpiryPeriod()).isEqualTo(DEFAULT_EXPIRY_PERIOD);
         assertThat(testSkill.getContact()).isEqualTo(DEFAULT_CONTACT);
+        assertThat(testSkill.getScore()).isEqualTo(DEFAULT_SCORE);
+        assertThat(testSkill.getRateScore()).isEqualTo(DEFAULT_RATE_SCORE);
+        assertThat(testSkill.getRateCount()).isEqualTo(DEFAULT_RATE_COUNT);
     }
 
     @Test
@@ -190,6 +206,25 @@ public class SkillResourceIntTest {
 
     @Test
     @Transactional
+    public void checkScoreIsRequired() throws Exception {
+        int databaseSizeBeforeTest = skillRepository.findAll().size();
+        // set the field null
+        skill.setScore(null);
+
+        // Create the Skill, which fails.
+        SkillDTO skillDTO = skillMapper.toDto(skill);
+
+        restSkillMockMvc.perform(post("/api/skills")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(skillDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Skill> skillList = skillRepository.findAll();
+        assertThat(skillList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllSkills() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
@@ -204,7 +239,11 @@ public class SkillResourceIntTest {
             .andExpect(jsonPath("$.[*].implementation").value(hasItem(DEFAULT_IMPLEMENTATION.toString())))
             .andExpect(jsonPath("$.[*].validation").value(hasItem(DEFAULT_VALIDATION.toString())))
             .andExpect(jsonPath("$.[*].expiryPeriod").value(hasItem(DEFAULT_EXPIRY_PERIOD.toString())))
-            .andExpect(jsonPath("$.[*].contact").value(hasItem(DEFAULT_CONTACT.toString())));
+            .andExpect(jsonPath("$.[*].contact").value(hasItem(DEFAULT_CONTACT.toString())))
+            .andExpect(jsonPath("$.[*].rateScore").value(hasItem(DEFAULT_RATE_SCORE.doubleValue())))
+            .andExpect(jsonPath("$.[*].rateCount").value(hasItem(DEFAULT_RATE_COUNT)))
+            .andExpect(jsonPath("$.[*].contact").value(hasItem(DEFAULT_CONTACT.toString())))
+            .andExpect(jsonPath("$.[*].score").value(hasItem(DEFAULT_SCORE)));
     }
 
 
@@ -224,7 +263,11 @@ public class SkillResourceIntTest {
             .andExpect(jsonPath("$.implementation").value(DEFAULT_IMPLEMENTATION.toString()))
             .andExpect(jsonPath("$.validation").value(DEFAULT_VALIDATION.toString()))
             .andExpect(jsonPath("$.expiryPeriod").value(DEFAULT_EXPIRY_PERIOD.toString()))
-            .andExpect(jsonPath("$.contact").value(DEFAULT_CONTACT.toString()));
+            .andExpect(jsonPath("$.contact").value(DEFAULT_CONTACT.toString()))
+            .andExpect(jsonPath("$.score").value(DEFAULT_SCORE))
+            .andExpect(jsonPath("$.contact").value(DEFAULT_CONTACT.toString()))
+            .andExpect(jsonPath("$.rateScore").value(DEFAULT_RATE_SCORE.doubleValue()))
+            .andExpect(jsonPath("$.rateCount").value(DEFAULT_RATE_COUNT));
     }
 
     @Test
@@ -463,6 +506,160 @@ public class SkillResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllSkillsByScoreIsEqualToSomething() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where score equals to DEFAULT_SCORE
+        defaultSkillShouldBeFound("score.equals=" + DEFAULT_SCORE);
+
+        // Get all the skillList where score equals to UPDATED_SCORE
+        defaultSkillShouldNotBeFound("score.equals=" + UPDATED_SCORE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSkillsByScoreIsInShouldWork() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where score in DEFAULT_SCORE or UPDATED_SCORE
+        defaultSkillShouldBeFound("score.in=" + DEFAULT_SCORE + "," + UPDATED_SCORE);
+
+        // Get all the skillList where score equals to UPDATED_SCORE
+        defaultSkillShouldNotBeFound("score.in=" + UPDATED_SCORE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSkillsByScoreIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where score is not null
+        defaultSkillShouldBeFound("score.specified=true");
+
+        // Get all the skillList where score is null
+        defaultSkillShouldNotBeFound("score.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllSkillsByScoreIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where score greater than or equals to DEFAULT_SCORE
+        defaultSkillShouldBeFound("score.greaterOrEqualThan=" + DEFAULT_SCORE);
+
+        // Get all the skillList where score greater than or equals to UPDATED_SCORE
+        defaultSkillShouldNotBeFound("score.greaterOrEqualThan=" + UPDATED_SCORE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllSkillsByScoreIsLessThanSomething() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where score less than or equals to DEFAULT_SCORE
+        defaultSkillShouldNotBeFound("score.lessThan=" + DEFAULT_SCORE);
+
+        // Get all the skillList where score less than or equals to UPDATED_SCORE
+        defaultSkillShouldBeFound("score.lessThan=" + UPDATED_SCORE);
+    }
+
+
+    @Test @Transactional public void getAllSkillsByRateScoreIsEqualToSomething() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where rateScore equals to DEFAULT_RATE_SCORE
+        defaultSkillShouldBeFound("rateScore.equals=" + DEFAULT_RATE_SCORE);
+
+        // Get all the skillList where rateScore equals to UPDATED_RATE_SCORE
+        defaultSkillShouldNotBeFound("rateScore.equals=" + UPDATED_RATE_SCORE);
+    }
+
+    @Test @Transactional public void getAllSkillsByRateScoreIsInShouldWork() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where rateScore in DEFAULT_RATE_SCORE or UPDATED_RATE_SCORE
+        defaultSkillShouldBeFound("rateScore.in=" + DEFAULT_RATE_SCORE + "," + UPDATED_RATE_SCORE);
+
+        // Get all the skillList where rateScore equals to UPDATED_RATE_SCORE
+        defaultSkillShouldNotBeFound("rateScore.in=" + UPDATED_RATE_SCORE);
+    }
+
+    @Test @Transactional public void getAllSkillsByRateScoreIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where rateScore is not null
+        defaultSkillShouldBeFound("rateScore.specified=true");
+
+        // Get all the skillList where rateScore is null
+        defaultSkillShouldNotBeFound("rateScore.specified=false");
+    }
+
+    @Test @Transactional public void getAllSkillsByRateCountIsEqualToSomething() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where rateCount equals to DEFAULT_RATE_COUNT
+        defaultSkillShouldBeFound("rateCount.equals=" + DEFAULT_RATE_COUNT);
+
+        // Get all the skillList where rateCount equals to UPDATED_RATE_COUNT
+        defaultSkillShouldNotBeFound("rateCount.equals=" + UPDATED_RATE_COUNT);
+    }
+
+    @Test @Transactional public void getAllSkillsByRateCountIsInShouldWork() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where rateCount in DEFAULT_RATE_COUNT or UPDATED_RATE_COUNT
+        defaultSkillShouldBeFound("rateCount.in=" + DEFAULT_RATE_COUNT + "," + UPDATED_RATE_COUNT);
+
+        // Get all the skillList where rateCount equals to UPDATED_RATE_COUNT
+        defaultSkillShouldNotBeFound("rateCount.in=" + UPDATED_RATE_COUNT);
+    }
+
+    @Test @Transactional public void getAllSkillsByRateCountIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where rateCount is not null
+        defaultSkillShouldBeFound("rateCount.specified=true");
+
+        // Get all the skillList where rateCount is null
+        defaultSkillShouldNotBeFound("rateCount.specified=false");
+    }
+
+    @Test @Transactional public void getAllSkillsByRateCountIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where rateCount greater than or equals to DEFAULT_RATE_COUNT
+        defaultSkillShouldBeFound("rateCount.greaterOrEqualThan=" + DEFAULT_RATE_COUNT);
+
+        // Get all the skillList where rateCount greater than or equals to UPDATED_RATE_COUNT
+        defaultSkillShouldNotBeFound("rateCount.greaterOrEqualThan=" + UPDATED_RATE_COUNT);
+    }
+
+    @Test @Transactional public void getAllSkillsByRateCountIsLessThanSomething() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        // Get all the skillList where rateCount less than or equals to DEFAULT_RATE_COUNT
+        defaultSkillShouldNotBeFound("rateCount.lessThan=" + DEFAULT_RATE_COUNT);
+
+        // Get all the skillList where rateCount less than or equals to UPDATED_RATE_COUNT
+        defaultSkillShouldBeFound("rateCount.lessThan=" + UPDATED_RATE_COUNT);
+    }
+
+    @Test
+    @Transactional
     public void getAllSkillsByTeamsIsEqualToSomething() throws Exception {
         // Initialize the database
         TeamSkill teams = TeamSkillResourceIntTest.createEntity(em);
@@ -530,7 +727,11 @@ public class SkillResourceIntTest {
             .andExpect(jsonPath("$.[*].implementation").value(hasItem(DEFAULT_IMPLEMENTATION.toString())))
             .andExpect(jsonPath("$.[*].validation").value(hasItem(DEFAULT_VALIDATION.toString())))
             .andExpect(jsonPath("$.[*].expiryPeriod").value(hasItem(DEFAULT_EXPIRY_PERIOD.toString())))
-            .andExpect(jsonPath("$.[*].contact").value(hasItem(DEFAULT_CONTACT.toString())));
+            .andExpect(jsonPath("$.[*].contact").value(hasItem(DEFAULT_CONTACT.toString())))
+            .andExpect(jsonPath("$.[*].score").value(hasItem(DEFAULT_SCORE)))
+            .andExpect(jsonPath("$.[*].contact").value(hasItem(DEFAULT_CONTACT.toString())))
+            .andExpect(jsonPath("$.[*].rateScore").value(hasItem(DEFAULT_RATE_SCORE.doubleValue())))
+            .andExpect(jsonPath("$.[*].rateCount").value(hasItem(DEFAULT_RATE_COUNT)));
     }
 
     /**
@@ -571,7 +772,10 @@ public class SkillResourceIntTest {
             .implementation(UPDATED_IMPLEMENTATION)
             .validation(UPDATED_VALIDATION)
             .expiryPeriod(UPDATED_EXPIRY_PERIOD)
-            .contact(UPDATED_CONTACT);
+            .contact(UPDATED_CONTACT)
+            .score(UPDATED_SCORE)
+            .expiryPeriod(UPDATED_EXPIRY_PERIOD).contact(UPDATED_CONTACT).rateScore(UPDATED_RATE_SCORE)
+            .rateCount(UPDATED_RATE_COUNT);
         SkillDTO skillDTO = skillMapper.toDto(updatedSkill);
 
         restSkillMockMvc.perform(put("/api/skills")
@@ -589,6 +793,46 @@ public class SkillResourceIntTest {
         assertThat(testSkill.getValidation()).isEqualTo(UPDATED_VALIDATION);
         assertThat(testSkill.getExpiryPeriod()).isEqualTo(UPDATED_EXPIRY_PERIOD);
         assertThat(testSkill.getContact()).isEqualTo(UPDATED_CONTACT);
+        assertThat(testSkill.getScore()).isEqualTo(UPDATED_SCORE);
+        assertThat(testSkill.getRateScore()).isEqualTo(UPDATED_RATE_SCORE);
+        assertThat(testSkill.getRateCount()).isEqualTo(UPDATED_RATE_COUNT);
+    }
+
+    @Test
+    @Transactional
+    public void createVote() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        assertThat(skill.getRateCount()).isEqualTo(0);
+        assertThat(skill.getRateScore()).isEqualTo(0);
+
+
+        SkillRateDTO skillRateDto = new SkillRateDTO(skill.getId(), 4, 5);
+
+        restSkillMockMvc.perform(post("/api/skills/{id}/vote", skill.getId())
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(skillRateDto)))
+            .andExpect(status().isOk());
+
+        // Validate the Skill in the database
+        List<Skill> skillList = skillRepository.findAll();
+        Skill testSkill = skillList.get(skillList.size() - 1);
+        assertThat(testSkill.getRateScore()).isEqualTo(4);
+        assertThat(testSkill.getRateCount()).isEqualTo(1);
+
+        skillRateDto = new SkillRateDTO(skill.getId(), 2, 5);
+
+        restSkillMockMvc.perform(post("/api/skills/{id}/vote", skill.getId())
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(skillRateDto)))
+            .andExpect(status().isOk());
+
+        skillList = skillRepository.findAll();
+        testSkill = skillList.get(skillList.size() - 1);
+        assertThat(testSkill.getRateScore()).isEqualTo(3);
+        assertThat(testSkill.getRateCount()).isEqualTo(2);
+
     }
 
     @Test

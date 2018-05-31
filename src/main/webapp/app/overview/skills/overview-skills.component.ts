@@ -29,7 +29,8 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     @Input() levels: ILevel[];
     @Input() badges: IBadge[];
     @Input() activeSkill: ISkill;
-    @Output() onSkillClicked = new EventEmitter<{ iSkill: ISkill }>();
+    @Input() skills: ISkill[];
+    @Output() onSkillChanged = new EventEmitter<ISkill>();
     activeSkills: ILevelSkill[] | IBadgeSkill[];
     activeLevel: ILevel;
     activeBadge: IBadge;
@@ -107,6 +108,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         this.updateBreadcrumb();
+        this.onSkillChanged.emit(this.activeSkill);
     }
 
     private updateBreadcrumb() {
@@ -150,6 +152,17 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
         });
     }
 
+    findSkill(skillId: number): ISkill {
+        if (this.skills === null || typeof this.skills === 'undefined') {
+            return null;
+        }
+
+        for (let skill of this.skills) {
+            if (skill.id === skillId) return skill;
+        }
+        return null;
+    }
+
     private findTeamSkill(team: ITeam, skill: ILevelSkill | IBadgeSkill): ITeamSkill {
         return team.skills ? team.skills.find((teamSkill: ITeamSkill) => teamSkill.skillId === skill.skillId) : null;
     }
@@ -160,5 +173,9 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
 
     isActiveSkill(iLevelSkill: ILevelSkill) {
         return typeof this.activeSkill !== 'undefined' && this.activeSkill !== null && this.activeSkill.id === iLevelSkill.skillId;
+    }
+
+    getRateCount(rateCount: number) {
+        return rateCount !== null && typeof rateCount !== 'undefined' ? rateCount : 0;
     }
 }

@@ -27,6 +27,7 @@ import 'simplebar';
 export class TeamsSkillsComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
     @Input() skill: IAchievableSkill;
+    @Input() iSkills: ISkill[];
     @Output() onSkillClicked = new EventEmitter<{ iSkill: ISkill; aSkill: AchievableSkill }>();
     @Output() onSkillChanged = new EventEmitter<{ iSkill: ISkill; aSkill: AchievableSkill }>();
     skills: IAchievableSkill[];
@@ -231,6 +232,10 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
             return skill.skillId === s.skillId ? s : skill;
         });
         this.loadAll();
+    }
+
+    getRateCount(rateCount: number) {
+        return rateCount !== null && typeof rateCount !== 'undefined' ? rateCount : 0;
     }
 
     private getFiltersFromStorage(): string[] {

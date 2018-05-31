@@ -21,14 +21,8 @@
 </div>
 
 <div>
-    <div class="skill-rating mockup">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star-o"></span>
-        <span class="fa fa-star-o"></span>
-
-        <span class="rating-text" jhiTranslate="teamdojoApp.teams.skills.details.3of5">3 von 5 Sternen</span>
+    <div class="skill-rating">
+        <jhi-star-rating (onVoteSubmitted)="onVoteSubmittedFromChild($event)" [skill]="skill"></jhi-star-rating>
     </div>
 
     <div class="skill-contact" *ngIf="skill.contact">
