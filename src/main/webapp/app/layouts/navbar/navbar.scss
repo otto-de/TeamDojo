@@ -1,4 +1,5 @@
 @import '../../../content/scss/colors';
+@import '../../../content/scss/bootstrap-variables';
 /* ==========================================================================
 Navbar
 ========================================================================== */
@@ -47,8 +48,22 @@ Navbar
             width: 100%;
         }
     }
+
+    .dropdown-menu {
+        background-color: $dojo-nav-primary;
+        border: none;
+    }
+
+    .dropdown-item {
+        color: $dojo-text-inverse-primary;
+    }
+
+    .dropdown-item:focus, .dropdown-item:hover{
+        background-color: #9a9f7c;
+    }
+
     .dropdown-item.active, .dropdown-item.active:focus, .dropdown-item.active:hover {
-        background-color: #353d47;
+        background-color: $warning;
     }
     .dropdown-toggle::after {
         margin-left: 0.15em;
@@ -105,11 +120,6 @@ Navbar
     a {
         color: $dojo-text-inverse-primary !important;
     }
-}
-
-.notification-dropdown-menu{
-    background-color: $dojo-nav-primary;
-    border: none;
 }
 
 /* ==========================================================================
