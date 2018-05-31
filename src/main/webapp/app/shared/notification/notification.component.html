@@ -1,12 +1,5 @@
-<ng-template #badgePopoverContent>
-    <div jhiTranslate="teamdojoApp.notification.header.unread.hint"></div>
-</ng-template>
 <div class="notification d-flex flex-column">
     <div class="d-flex notification-header">
-        <small *ngIf="notification.unread"><a href="" class="notification-header-unread badge badge-pill badge-danger"
-                  [ngbPopover]="badgePopoverContent"
-                  triggers="mouseenter:mouseleave" (click)="markAsRead($event)"
-                  jhiTranslate="teamdojoApp.notification.header.unread.title"></a></small>
         <small class="ml-auto">{{notification.activity.createdAt | date: 'dd.MM.yyyy'}}</small>
     </div>
     <div class="notification-body d-flex flex-row align-items-center">
@@ -16,7 +9,7 @@
                 <jhi-achievement-item [item]="item" type="item-badge" [hasStatus]="false"
                                       [active]="false"
                                       (onItemSelected)="true"></jhi-achievement-item>
-                <div jhiTranslate="teamdojoApp.notification.body.text.badgeCreated"
+                <div class="notification-body-text" jhiTranslate="teamdojoApp.notification.body.text.badgeCreated"
                      translateValues="{'badgeName':'{{notification.data.badgeName}}' }"></div>
             </ng-container>
             <ng-container *ngSwitchCase="'SKILL_COMPLETED'">
@@ -30,7 +23,7 @@
                         <span class="img-placeholder">{{item.name | truncateString}}</span>
                     </ng-template>
                 </div>
-                <div jhiTranslate="teamdojoApp.notification.body.text.skillCompleted"
+                <div class="notification-body-text" jhiTranslate="teamdojoApp.notification.body.text.skillCompleted"
                      translateValues="{'skillTitle':'{{notification.data.skillTitle}}' }"></div>
             </ng-container>
         </div>

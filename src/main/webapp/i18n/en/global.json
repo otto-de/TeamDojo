@@ -50,7 +50,9 @@
                 "change": "Change Team"
             },
             "notification": {
-                "main": "Notifications"
+                "main": "Notifications",
+                "activities": "Activities",
+                "hints": "Hints"
             }
         },
         "form": {
