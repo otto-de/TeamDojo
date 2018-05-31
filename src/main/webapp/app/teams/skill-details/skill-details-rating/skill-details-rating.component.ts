@@ -19,9 +19,9 @@ export class SkillDetailsRatingComponent implements OnInit {
     @Input() skill: ISkill;
     @Output() onVoteSubmitted = new EventEmitter<{ skillRate: ISkillRate; comment: IComment }>();
 
-    private rateScore;
-    private rateCount;
-    private comment: string;
+    rateScore;
+    rateCount;
+    comment: string;
     private modalRef;
     private newComment: IComment;
 
