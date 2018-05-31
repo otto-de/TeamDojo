@@ -24,11 +24,11 @@ export class SkillDetailsComponent implements OnInit {
 
     skill: ISkill;
 
-    skills: ISkill[];
-
     teamSkills: ITeamSkill[] = [];
 
     badges: IBadge[] = [];
+
+    skills: ISkill[] = [];
 
     achievableSkill: IAchievableSkill;
 
