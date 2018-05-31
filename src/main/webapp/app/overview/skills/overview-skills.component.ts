@@ -157,8 +157,10 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
             return null;
         }
 
-        for (let skill of this.skills) {
-            if (skill.id === skillId) return skill;
+        for (const skill of this.skills) {
+            if (skill.id === skillId) {
+                return skill;
+            }
         }
         return null;
     }
