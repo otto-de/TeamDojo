@@ -10,13 +10,13 @@ buildscript {
         maven { url "https://repo.spring.io/milestone" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
         // TODO this is a non official repo -> remove when 1.5.0 is released
-        maven { url "https://dl.bintray.com/tha/gradle-git-properties" }
+        //maven { url "https://dl.bintray.com/tha/gradle-git-properties" }
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}"
         classpath "io.spring.gradle:propdeps-plugin:0.0.9.RELEASE"
         classpath "gradle.plugin.org.detoeuf:swagger-codegen-plugin:1.7.4"
-        classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.5.0-rc1"
+        classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.21"
         //jhipster-needle-gradle-buildscript-dependency - JHipster will add additional gradle build script plugins here
     }
 }
@@ -80,7 +80,7 @@ generateGitProperties {
 
 gitProperties {
     keys = ['git.branch', 'git.commit.id.abbrev', 'git.closest.tag.name']
-    extProperty = 'gitProps'
+    // extProperty = 'gitProps'
 }
 generateGitProperties.outputs.upToDateWhen { false }
 
@@ -155,7 +155,7 @@ repositories {
     maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     //jhipster-needle-gradle-repositories - JHipster will add additional repositories
     // TODO this is a non official repo -> remove when 1.5.0 is released
-    maven { url "https://dl.bintray.com/tha/gradle-git-properties" }
+    //maven { url "https://dl.bintray.com/tha/gradle-git-properties" }
 }
 
 dependencies {
