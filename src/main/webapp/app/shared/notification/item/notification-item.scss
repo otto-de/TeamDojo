@@ -2,7 +2,6 @@
 @import "../../../../content/scss/mixins";
 
 .notification {
-    color: $dojo-text-inverse-primary;
     padding: 15px;
     border-top: 1px dotted $dojo-text-inverse-primary;
     &-header {
