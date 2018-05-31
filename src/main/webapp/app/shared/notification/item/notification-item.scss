@@ -1,5 +1,5 @@
-@import "../../../content/scss/colors";
-@import "../../../content/scss/mixins";
+@import "../../../../content/scss/colors";
+@import "../../../../content/scss/mixins";
 
 .notification {
     color: $dojo-text-inverse-primary;
@@ -17,7 +17,7 @@
             cursor: default;
             padding: 0;
         }
-        /deep/ .achievement-item{
+        /deep/ .achievement-item {
             padding: 0;
             margin: 0 10px;
         }

@@ -31,7 +31,8 @@
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed"
          [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav ml-auto">
-            <li ngbDropdown autoClose="outside" placement="bottom" (openChange)="loadNotifications()" class="nav-item dropdown pointer">
+            <li ngbDropdown autoClose="outside" placement="bottom" (openChange)="notificationMenu.loadNotifications()"
+                class="nav-item dropdown pointer">
                 <a class="nav-link dropdown-toggle nav-info" ngbDropdownToggle href="javascript:void(0);"
                    id="notificationnavBarDropdown">
                     <span class="icon">
@@ -40,15 +41,7 @@
                     </span>
                 </a>
                 <ul class="dropdown-menu notification-dropdown-menu" ngbDropdownMenu>
-                    <li>
-                        <div class="notification-dropdown-menu-header d-flex justify-content-center mb-3">
-                            <a href="javascript:void(0);" class="btn active" role="button" jhiTranslate="global.menu.notification.activities"></a>
-                            <a href="javascript:void(0);" class="btn disabled" role="button" jhiTranslate="global.menu.notification.hints"></a>
-                        </div>
-                    </li>
-                    <li *ngFor="let notification of notifications">
-                       <jhi-notification [notification]="notification" [teams]="teams" [badges]="badges"></jhi-notification>
-                    </li>
+                    <jhi-notification-menu #notificationMenu></jhi-notification-menu>
                 </ul>
             </li>
             <li class="nav-item" *ngIf="teamsSelectionService.selectedTeam === null">

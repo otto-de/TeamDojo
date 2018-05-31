@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { INotification } from 'app/shared/notification/model/notification.model';
 import { IBadge } from 'app/shared/model/badge.model';
 import { ITeam } from 'app/shared/model/team.model';
 
 @Component({
-    selector: 'jhi-notification',
-    templateUrl: './notification.component.html',
-    styleUrls: ['./notification.scss']
+    selector: 'jhi-notification-item',
+    templateUrl: './notification-item.component.html',
+    styleUrls: ['./notification-item.scss']
 })
 export class NotificationItemComponent implements OnInit {
     @Input() notification: INotification;

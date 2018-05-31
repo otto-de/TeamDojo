@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiLanguageService } from 'ng-jhipster';
-
 import { JhiLanguageHelper, LoginModalService, LoginService, Principal } from 'app/core';
 import { ProfileService } from '../profiles/profile.service';
 import { TeamsSelectionService } from '../../teams/teams-selection/teams-selection.service';
@@ -11,19 +10,9 @@ import { ITeam, Team } from 'app/shared/model/team.model';
 import { IBadge } from 'app/shared/model/badge.model';
 import { ILevel } from 'app/shared/model/level.model';
 import { IDimension } from 'app/shared/model/dimension.model';
-import { TeamService } from 'app/entities/team';
-import { DimensionService } from 'app/entities/dimension';
-import { BadgeService } from 'app/entities/badge';
-import { LevelService } from 'app/entities/level';
 import { ISkill } from 'app/shared/model/skill.model';
-import { SkillService } from 'app/entities/skill';
 import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
 import { IBreadcrumb } from 'app/shared/model/breadcrumb.model';
-import { ActivityService } from 'app/entities/activity';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { IActivity } from 'app/shared/model/activity.model';
-import { Notification } from 'app/shared/notification/model/notification.model';
-import { INotification } from 'app/shared/notification';
 
 @Component({
     selector: 'jhi-navbar',
@@ -34,7 +23,6 @@ export class NavbarComponent implements OnInit {
     inProduction: boolean;
     isNavbarCollapsed: boolean;
     languages: any[];
-    notifications: any[];
     swaggerEnabled: boolean;
     organizationName: string;
     modalRef: NgbModalRef;
@@ -61,13 +49,7 @@ export class NavbarComponent implements OnInit {
         private modalService: NgbModal,
         private router: Router,
         private route: ActivatedRoute,
-        private teamService: TeamService,
-        private dimensionService: DimensionService,
-        private badgeService: BadgeService,
-        private levelService: LevelService,
-        private skillService: SkillService,
-        private breadcrumbService: BreadcrumbService,
-        private activityService: ActivityService
+        private breadcrumbService: BreadcrumbService
     ) {
         this.teamsSelectionService = teamsSelectionService;
         this.isNavbarCollapsed = true;
@@ -88,16 +70,6 @@ export class NavbarComponent implements OnInit {
             this.swaggerEnabled = profileInfo.swaggerEnabled;
             this.organizationName = profileInfo.organization.name;
         });
-        this.teams = [];
-        this.teamService.query().subscribe(response => {
-            this.teams = response.body;
-        });
-        this.badges = [];
-        this.badgeService.query().subscribe(response => {
-            this.badges = response.body;
-        });
-
-        this.notifications = [];
     }
 
     loadBreadcrumb() {
@@ -170,12 +142,6 @@ export class NavbarComponent implements OnInit {
     }
 
     private loadNotifications(): void {
-        this.activityService.query().subscribe(
-            (res: HttpResponse<IActivity[]>) => {
-                const activities = res.body;
-                this.notifications = activities.map((activity: IActivity) => new Notification(activity, true));
-            },
-            (res: HttpErrorResponse) => console.log('Error getting Activities')
-        );
+        // TODO inform child view
     }
 }
