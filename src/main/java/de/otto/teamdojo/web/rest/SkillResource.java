@@ -141,7 +141,7 @@ public class SkillResource {
     @Timed
     public ResponseEntity<SkillDTO> createVote(@PathVariable Long id, @Valid @RequestBody SkillRateDTO rateDto){
         log.debug("REST request to create a new vote for Skill : {}", id);
-        SkillDTO result = skillService.createVote(id, rateDto.getRate());
+        SkillDTO result = skillService.createVote(id, rateDto.getRateScore());
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, id.toString()))
             .body(result);

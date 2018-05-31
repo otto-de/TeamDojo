@@ -2,9 +2,10 @@ import { Moment } from 'moment';
 
 export interface ISkillRate {
     skillId?: number;
-    rate?: number;
+    rateScore?: number;
+    rateCount?: number;
 }
 
 export class SkillRate implements ISkillRate {
-    constructor(public skillId?: number, public rate?: number) {}
+    constructor(public skillId?: number, public rateScore?: number, public rateCount?: number) {}
 }

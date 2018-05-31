@@ -20,21 +20,24 @@
                 [ngClass]="{'active-skill':isActiveSkill(skill), 'irrelevant-skill': skill.irrelevant, 'in-skill-details': isInSkillDetails()}">
                 <div class="d-flex flex-column">
                     <div class="d-flex">
-                        <div class="skill-title" [ngClass]="{'irrelevant': skill.irrelevant}">
-                            <a *ngIf="isInSkillDetails()" class="mb-1">{{skill.title}}</a>
-                            <a *ngIf="!isInSkillDetails()"
-                               (click)="goToDetails(skill)"
-                               class="mb-1">{{skill.title}}</a>
+                        <div class="skill-title d-flex flex-column" [ngClass]="{'irrelevant': skill.irrelevant}">
+                            <div>
+                                <a *ngIf="isInSkillDetails()" class="mb-1">{{skill.title}}</a>
+                                <a *ngIf="!isInSkillDetails()"
+                                   (click)="goToDetails(skill)"
+                                   class="mb-1">{{skill.title}}</a>
+                            </div>
+                            <div>
+                                <ngb-rating [(rate)]="skill.rateScore" max="5" [readonly]="true" [starTemplate]="stars">
+                                </ngb-rating>
+                                {{skill.rateCount}} <span class="rating-text" jhiTranslate="teamdojoApp.skill.detail.rateCount"></span>
 
-                            <ngb-rating [(rate)]="findSkill(skill.skillId).rateScore" max="5" [readonly]="true" [starTemplate]="stars">
-                            </ngb-rating>
-                            {{findSkill(skill.skillId).rateCount}} <span class="rating-text" jhiTranslate="teamdojoApp.skill.detail.rateCount"></span>
-
-                            <ng-template #stars let-fill="fill" let-index="index">
-                                <span class="star" [class.full]="fill === 100">
-                                    <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
-                                </span>
-                            </ng-template>
+                                <ng-template #stars let-fill="fill" let-index="index">
+                                    <span class="star star-sm" [class.full]="fill === 100">
+                                        <span class="half star-sm" [style.width.%]="fill">&#9733;</span>&#9733;
+                                    </span>
+                                </ng-template>
+                            </div>
                         </div>
                         <div class="skill-status ml-auto"
                              [ngClass]="{'completed': !skill.irrelevant && skill.achievedAt}">

@@ -7,24 +7,34 @@ import java.time.Instant;
  */
 public class SkillRateDTO {
 
-    private Integer rate;
+    private Integer rateScore;
+    private Integer rateCount;
     private Long skillId;
 
     public SkillRateDTO() {
         // Empty constructor needed for Jackson.
     }
 
-    public SkillRateDTO(Long skillId, Integer rate) {
-        this.rate = rate;
+    public SkillRateDTO(Long skillId, Integer rateScore, Integer rateCount) {
+        this.rateScore = rateScore;
+        this.rateCount = rateCount;
         this.skillId = skillId;
     }
 
-    public Integer getRate() {
-        return rate;
+    public Integer getRateCount() {
+        return rateCount;
     }
 
-    public void setRate(Integer rate) {
-        this.rate = rate;
+    public void setRateCount(Integer rateCount) {
+        this.rateCount = rateCount;
+    }
+
+    public Integer getRateScore() {
+        return rateScore;
+    }
+
+    public void setRateScore(Integer rateScore) {
+        this.rateScore = rateScore;
     }
 
     public Long getSkillId() {

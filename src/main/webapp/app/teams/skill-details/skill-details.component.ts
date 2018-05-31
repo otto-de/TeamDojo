@@ -9,7 +9,6 @@ import { TeamsSkillsComponent } from 'app/teams/teams-skills.component';
 import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details-info/skill-details-info.component';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import { IComment } from 'app/shared/model/comment.model';
-import { TeamsService } from 'app/teams/teams.service';
 
 @Component({
     selector: 'jhi-skill-details',
@@ -22,6 +21,8 @@ export class SkillDetailsComponent implements OnInit {
     teams: ITeam[];
 
     skill: ISkill;
+
+    skills: ISkill[];
 
     achievableSkill: IAchievableSkill;
 
@@ -45,10 +46,11 @@ export class SkillDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.route.data.subscribe(({ team, teams, skill, comments, selectedTeam }) => {
+        this.route.data.subscribe(({ team, teams, skill, skills, comments, selectedTeam }) => {
             this.team = team.body ? team.body : team;
             this.teams = teams.body ? teams.body : teams;
             this.skill = skill.body ? skill.body : skill;
+            this.skills = skills.body ? skills.body : skills;
             this.selectedTeam = selectedTeam.body ? selectedTeam.body : selectedTeam;
             this._comments = comments.body ? comments.body : comments;
             this._mapCommentAuthors();
@@ -80,6 +82,18 @@ export class SkillDetailsComponent implements OnInit {
             this._comments.push(newComment);
             this._mapCommentAuthors();
             this.skillComments = this._getSkillComments();
+        }
+    }
+
+    onVoteSubmitted(voteObjs) {
+        this.onCommentSubmitted(voteObjs.comment);
+        const skillRate = voteObjs.skillRate;
+
+        for (let skill of this.skills) {
+            if (skillRate.skillId === skill.id) {
+                skill.rateScore = skillRate.rateScore;
+                skill.rateCount = skillRate.rateCount;
+            }
         }
     }
 

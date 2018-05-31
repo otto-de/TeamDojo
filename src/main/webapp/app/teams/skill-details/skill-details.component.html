@@ -9,11 +9,11 @@
 </div>
 <div class="row skill-details">
     <div class="skills-list col-20">
-        <jhi-teams-skills [team]="team" [skill]="achievableSkill" (onSkillClicked)="onSkillInListClicked($event)"
+        <jhi-teams-skills [iSkills]="skills" [team]="team" [skill]="achievableSkill" (onSkillClicked)="onSkillInListClicked($event)"
                           (onSkillChanged)="onSkillInListChanged($event)"></jhi-teams-skills>
     </div>
     <div class="skill-info col-60">
-        <jhi-skill-details-info (onVoteSubmitted)="onCommentSubmitted($event.comment)" (onSkillChanged)="skillList.handleSkillChanged($event)" [skill]="skill"
+        <jhi-skill-details-info (onVoteSubmitted)="onVoteSubmitted($event)" (onSkillChanged)="skillList.handleSkillChanged($event)" [skill]="skill"
                                 [team]="team" [achievableSkill]="achievableSkill"></jhi-skill-details-info>
     </div>
     <div class="skill-comments col-20">
