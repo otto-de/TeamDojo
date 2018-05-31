@@ -1,23 +1,28 @@
 <h4 class="skill-title">{{skill.title}}</h4>
 
 <div class="skill-actions" *ngIf="isSameTeamSelected()">
-    <button class="irrelevant action-btn" *ngIf="!achievableSkill.irrelevant" (click)="onToggleIrrelevance(true)">
-        <i class="fa fa-thumbs-o-down"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.irrelevant"></span>
-    </button>
-
-    <button class="irrelevant action-btn" *ngIf="achievableSkill.irrelevant" (click)="onToggleIrrelevance(false)">
+    <button class="irrelevant action-btn" *ngIf="achievableSkill.irrelevant; else skillNotIrrelevant"
+            (click)="onToggleIrrelevance(false)">
         <i class="fa fa-thumbs-o-up"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.relevant"></span>
     </button>
 
-    <span *ngIf="!achievableSkill.irrelevant">
-        <button *ngIf="!isSkillAchieved" class="activation action-btn" (click)="onToggleSkill(true)">
-            <i class="fa fa-check"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.complete"></span>
+    <ng-template #skillNotIrrelevant>
+        <button class="irrelevant action-btn" (click)="onToggleIrrelevance(true)">
+            <i class="fa fa-thumbs-o-down"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.irrelevant"></span>
         </button>
 
-        <button *ngIf="isSkillAchieved" class="activation action-btn" (click)="onToggleSkill(false)">
-            <i class="fa fa-circle-o"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.incomplete"></span>
-        </button>
-    </span>
+        <span>
+            <button *ngIf="isSkillAchieved; else skillNotAchieved" class="activation action-btn" (click)="onToggleSkill(false)">
+                <i class="fa fa-circle-o"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.incomplete"></span>
+            </button>
+
+            <ng-template #skillNotAchieved>
+                <button class="activation action-btn" (click)="onToggleSkill(true)">
+                    <i class="fa fa-check"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.complete"></span>
+                </button>
+            </ng-template>
+        </span>
+    </ng-template>
 </div>
 
 <div>
