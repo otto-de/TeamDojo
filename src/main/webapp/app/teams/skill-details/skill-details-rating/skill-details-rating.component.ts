@@ -47,8 +47,7 @@ export class SkillDetailsRatingComponent implements OnInit {
         return this.teamsSelectionService.selectedTeam !== null && typeof this.teamsSelectionService.selectedTeam !== 'undefined';
     }
 
-    voteSkill(content: any) {
-        console.log('in voteSkill');
+    voteSkill() {
         const rate = new SkillRate(this.skill.id, this.rateScore);
         this.skillService.createVote(rate).subscribe((res: HttpResponse<ISkill>) => {
             if (res.body) {
