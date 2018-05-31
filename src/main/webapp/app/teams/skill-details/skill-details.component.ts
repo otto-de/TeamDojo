@@ -44,12 +44,7 @@ export class SkillDetailsComponent implements OnInit {
 
     @ViewChild(SkillDetailsInfoComponent) skillInfo;
 
-    constructor(
-        private route: ActivatedRoute,
-        private teamSkillService: TeamSkillService,
-        private teamsSkillsService: TeamsSkillsService,
-        private teamsSelectionService: TeamsSelectionService
-    ) {}
+    constructor(private route: ActivatedRoute, private teamsSkillsService: TeamsSkillsService) {}
 
     ngOnInit(): void {
         this.route.data.subscribe(({ team, teams, skill, comments, selectedTeam, teamSkills, badges, skills }) => {
@@ -117,9 +112,5 @@ export class SkillDetailsComponent implements OnInit {
         return (this._comments || [])
             .filter(comment => comment.skillId === this.achievableSkill.skillId)
             .sort((comment1, comment2) => comment1.creationDate.diff(comment2.creationDate));
-    }
-
-    get currentTeam() {
-        return this.teamsSelectionService.selectedTeam;
     }
 }

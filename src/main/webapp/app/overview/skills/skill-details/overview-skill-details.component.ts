@@ -24,29 +24,17 @@ import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details
 })
 export class OverviewSkillDetailsComponent implements OnInit {
     skill: ISkill;
-
     achievableSkill: IAchievableSkill;
-
     selectedTeam: ITeam;
-
-    private _comments: IComment[];
-
     skills: ISkill[];
-
     skillComments: IComment[];
-
-    achievedByTeams: ITeam[] = [];
-
-    neededForLevels: ILevel[] = [];
-
-    neededForBadges: IBadge[] = [];
-
     teams: ITeam[];
     levels: ILevel[];
     badges: IBadge[];
     teamSkills: ITeamSkill[];
     levelSkills: ILevelSkill[];
     badgeSkills: IBadgeSkill[];
+    private _comments: IComment[];
 
     @ViewChild(SkillDetailsInfoComponent) skillInfo;
 
@@ -62,9 +50,6 @@ export class OverviewSkillDetailsComponent implements OnInit {
     ngOnInit(): void {
         this.route.data.subscribe(
             ({ teams, levels, badges, teamSkills, levelSkills, badgeSkills, skill, comments, selectedTeam, skills }) => {
-                this.achievedByTeams = [];
-                this.neededForLevels = [];
-                this.neededForBadges = [];
                 this.skill = skill.body;
                 this.skills = skills.body ? skills.body : skills;
 
@@ -78,69 +63,28 @@ export class OverviewSkillDetailsComponent implements OnInit {
 
                 this._comments = comments.body ? comments.body : comments;
                 this._mapCommentAuthors();
-
-                const groupedTeamSkills = {};
-                this.teamSkills.forEach(teamSkill => {
-                    groupedTeamSkills[teamSkill.teamId] = groupedTeamSkills[teamSkill.teamId] || [];
-                    groupedTeamSkills[teamSkill.teamId].push(Object.assign(teamSkill));
-                });
-
-                const groupedLevelSkills = {};
-                this.levelSkills.forEach(levelSkill => {
-                    groupedLevelSkills[levelSkill.levelId] = groupedLevelSkills[levelSkill.levelId] || [];
-                    groupedLevelSkills[levelSkill.levelId].push(Object.assign(levelSkill));
-                });
-
-                const groupedLevels = {};
-                this.levels.forEach(level => {
-                    groupedLevels[level.dimensionId] = groupedLevels[level.dimensionId] || [];
-                    groupedLevels[level.dimensionId].push(Object.assign(level, { skills: groupedLevelSkills[level.id] }));
-                    if (level.skills.some(s => s.skillId === this.skill.id)) {
-                        this.neededForLevels.push(level);
-                    }
-                });
-                for (const dimensionId in groupedLevels) {
-                    if (groupedLevels.hasOwnProperty(dimensionId)) {
-                        groupedLevels[dimensionId] = sortLevels(groupedLevels[dimensionId]).reverse();
-                    }
-                }
-
-                const groupedBadgeSkills = {};
-                this.badgeSkills.forEach((badgeSkill: IBadgeSkill) => {
-                    groupedBadgeSkills[badgeSkill.badgeId] = groupedBadgeSkills[badgeSkill.badgeId] || [];
-                    groupedBadgeSkills[badgeSkill.badgeId].push(Object.assign(badgeSkill));
-                });
-
-                this.badges.forEach(badge => {
-                    badge.skills = groupedBadgeSkills[badge.id] || [];
-                    if (badge.skills.some(s => s.skillId === this.skill.id)) {
-                        this.neededForBadges.push(badge);
-                    }
-                });
-
-                this.teams.forEach(team => {
-                    team.skills = groupedTeamSkills[team.id] || [];
-                    team.participations.forEach(dimension => {
-                        dimension.levels = groupedLevels[dimension.id] || [];
-                    });
-                });
-
-                this.achievableSkill = new AchievableSkill();
-                this.achievableSkill.skillId = this.skill.id;
-                this.teamsSkillsService.findAchievableSkill(this.selectedTeam.id, this.skill.id).subscribe(aSkill => {
-                    this.achievableSkill = aSkill;
-                    this.skillComments = this._getSkillComments();
-                });
             }
         );
+        this.loadData();
     }
 
-    onSkillInListChange(skillObjs) {
-        this.skill = skillObjs.iSkill;
+    loadData() {
+        this.achievableSkill = new AchievableSkill();
+        this.achievableSkill.skillId = this.skill.id;
+        this.teamsSkillsService.findAchievableSkill(this.selectedTeam.id, this.skill.id).subscribe(skill => {
+            this.achievableSkill = skill;
+            this.skillComments = this._getSkillComments();
+        });
     }
 
-    onSkillSelected(skillObjs) {
-        this.skill = skillObjs.iSkill;
+    onSkillInListChanged(skillObjs) {
+        this.skillInfo.onSkillInListChanged(skillObjs);
+    }
+
+    onSkillInListClicked(skillObjs) {
+        this.achievableSkill = skillObjs.aSkill;
+        this.skillInfo.onSkillInListClicked(skillObjs);
+        this.skillComments = this._getSkillComments();
     }
 
     onCommentSubmitted(newComment: IComment) {
