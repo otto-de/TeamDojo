@@ -50,7 +50,9 @@
                 "change": "Team wechseln"
             },
             "notification": {
-                "main": "Benachrichtigungen"
+                "main": "Benachrichtigungen",
+                "activities": "Aktivitäten",
+                "hints": "Hinweise"
             }
         },
         "form": {

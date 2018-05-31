@@ -2,10 +2,6 @@
     "teamdojoApp": {
         "notification": {
             "header": {
-                "unread": {
-                    "title": "Neu",
-                    "hint": "Als gelesen markieren"
-                }
             },
             "body": {
                 "text": {

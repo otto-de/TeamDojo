@@ -31,24 +31,23 @@
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed"
          [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav ml-auto">
-            <li ngbDropdown autoClose="outside" placement="bottom-right" class="nav-item dropdown pointer">
+            <li ngbDropdown autoClose="outside" placement="bottom" (openChange)="loadNotifications()" class="nav-item dropdown pointer">
                 <a class="nav-link dropdown-toggle nav-info" ngbDropdownToggle href="javascript:void(0);"
                    id="notificationnavBarDropdown">
                     <span class="icon">
                         <i class="fa fa-comment fa-4 mr-1"></i>
-                        <span *ngIf="getUnreadNotificationsCount() as notificationsCount" class="notification-menu-badge badge badge-pill badge-danger pb-1">{{notificationsCount}}</span>
                         <span class="nav-info" jhiTranslate="global.menu.notification.main"></span>
                     </span>
                 </a>
                 <ul class="dropdown-menu notification-dropdown-menu" ngbDropdownMenu>
                     <li>
                         <div class="notification-dropdown-menu-header d-flex justify-content-center mb-3">
-                            <a href="javascript:void(0);" class="btn btn-warning" role="button">Aktivitäten</a>
-                            <a href="javascript:void(0);" class="btn btn-secondary" role="button">Hinweise</a>
+                            <a href="javascript:void(0);" class="btn active" role="button" jhiTranslate="global.menu.notification.activities"></a>
+                            <a href="javascript:void(0);" class="btn disabled" role="button" jhiTranslate="global.menu.notification.hints"></a>
                         </div>
                     </li>
                     <li *ngFor="let notification of notifications">
-                       <jhi-notification [notification]="notification"></jhi-notification>
+                       <jhi-notification [notification]="notification" [teams]="teams" [badges]="badges"></jhi-notification>
                     </li>
                 </ul>
             </li>

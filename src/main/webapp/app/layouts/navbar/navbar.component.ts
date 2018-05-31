@@ -47,6 +47,8 @@ export class NavbarComponent implements OnInit {
     activeTeam: ITeam;
     activeSkill: ISkill;
     breadcrumbs: IBreadcrumb[];
+    teams: ITeam[];
+    badges: IBadge[];
 
     constructor(
         private loginService: LoginService,
@@ -86,7 +88,16 @@ export class NavbarComponent implements OnInit {
             this.swaggerEnabled = profileInfo.swaggerEnabled;
             this.organizationName = profileInfo.organization.name;
         });
-        this.loadNotifications();
+        this.teams = [];
+        this.teamService.query().subscribe(response => {
+            this.teams = response.body;
+        });
+        this.badges = [];
+        this.badgeService.query().subscribe(response => {
+            this.badges = response.body;
+        });
+
+        this.notifications = [];
     }
 
     loadBreadcrumb() {
@@ -166,9 +177,5 @@ export class NavbarComponent implements OnInit {
             },
             (res: HttpErrorResponse) => console.log('Error getting Activities')
         );
-    }
-
-    getUnreadNotificationsCount() {
-        return this.notifications.filter((n: INotification) => n.unread).length;
     }
 }
