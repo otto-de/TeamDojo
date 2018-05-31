@@ -8,7 +8,7 @@ import { ITeam } from 'app/shared/model/team.model';
     templateUrl: './notification.component.html',
     styleUrls: ['./notification.scss']
 })
-export class NotificationComponent implements OnInit {
+export class NotificationItemComponent implements OnInit {
     @Input() notification: INotification;
     @Input() teams: ITeam[];
     @Input() badges: IBadge[];
