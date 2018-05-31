@@ -1,0 +1,20 @@
+<div class="notification-menu">
+    <li>
+        <div class="notification-menu-header d-flex justify-content-center mb-3">
+            <a href="javascript:void(0);" class="btn active" role="button"
+               jhiTranslate="global.menu.notification.activities"></a>
+            <a href="javascript:void(0);" class="btn disabled" role="button"
+               jhiTranslate="global.menu.notification.hints"></a>
+        </div>
+    </li>
+    <div infinite-scroll (scrolled)="loadPage(page + 1)"
+         [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="1"
+         [infiniteScrollContainer]="'.notification-menu-items'">
+        <div class="notification-menu-items">
+            <li *ngFor="let notification of notifications">
+                <jhi-notification-item [notification]="notification" [teams]="teams"
+                                       [badges]="badges"></jhi-notification-item>
+            </li>
+        </div>
+    </div>
+</div>

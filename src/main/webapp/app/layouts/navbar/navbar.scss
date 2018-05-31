@@ -1,5 +1,4 @@
 @import '../../../content/scss/colors';
-@import '~bootstrap/scss/bootstrap';
 /* ==========================================================================
 Navbar
 ========================================================================== */
@@ -108,39 +107,10 @@ Navbar
     }
 }
 
-.notification-menu {
-    &-icon {
-    }
-}
-
-.notification-dropdown-menu {
+.notification-dropdown-menu{
     background-color: $dojo-nav-primary;
     border: none;
-    padding: 15px;
-    overflow: hidden;
-    &-header {
-        a {
-            width: 100px;
-            border: none;
-            border-radius: 0;
-            background-color:  #9a9f7c;
-            color: $dojo-text-inverse-primary;
-            &:focus{
-                box-shadow: none;
-            }
-        }
-        .active {
-            background-color: $warning;
-        }
-    }
 }
-
-@media only screen and (min-width: map-get($grid-breakpoints, md)){
-    .notification-dropdown-menu {
-        min-width: 550px;
-    }
-}
-
 
 /* ==========================================================================
 Logo styles
