@@ -1,6 +1,6 @@
 <ngb-rating [(rate)]="rateScore" max="5" [readonly]="!isActiveTeam()" (click)="open(voteModal)" [starTemplate]="stars">
 </ngb-rating>
-{{skill.rateCount}} <span class="rating-text" jhiTranslate="teamdojoApp.skill.detail.rateCount"></span>
+{{rateCount}} <span class="rating-text" jhiTranslate="teamdojoApp.skill.detail.rateCount"></span>
 
 <ng-template #stars let-fill="fill" let-index="index">
     <span class="star" [class.full]="fill === 100">

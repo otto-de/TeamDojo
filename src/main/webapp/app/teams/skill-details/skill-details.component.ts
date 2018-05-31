@@ -51,7 +51,8 @@ export class SkillDetailsComponent implements OnInit {
             this.teams = teams.body ? teams.body : teams;
             this.skill = skill.body ? skill.body : skill;
             this.skills = skills.body ? skills.body : skills;
-            this.selectedTeam = selectedTeam.body ? selectedTeam.body : selectedTeam;
+            this.selectedTeam =
+                selectedTeam === null || selectedTeam === 'undefined' ? null : selectedTeam.body ? selectedTeam.body : selectedTeam;
             this._comments = comments.body ? comments.body : comments;
             this._mapCommentAuthors();
         });
@@ -68,6 +69,7 @@ export class SkillDetailsComponent implements OnInit {
     }
 
     onSkillInListChanged(skillObjs) {
+        console.log('Skill changes: ', skillObjs);
         this.skillInfo.onSkillInListChanged(skillObjs);
     }
 

@@ -15,6 +15,7 @@ import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import { ISkillRate } from 'app/shared/model/skill-rate.model';
 import { IComment } from 'app/shared/model/comment.model';
+import { SkillDetailsRatingComponent } from 'app/teams/skill-details/skill-details-rating/skill-details-rating.component';
 
 @Component({
     selector: 'jhi-skill-details-info',
@@ -30,6 +31,8 @@ export class SkillDetailsInfoComponent implements OnInit {
 
     @Output() onSkillChanged = new EventEmitter<IAchievableSkill>();
     @Output() onVoteSubmitted = new EventEmitter<{ skillRate: ISkillRate; comment: IComment }>();
+
+    @ViewChild(SkillDetailsRatingComponent) skillRating;
 
     achievedByTeams: ITeam[] = [];
 
@@ -90,12 +93,14 @@ export class SkillDetailsInfoComponent implements OnInit {
         this.achievableSkill = skillObjs.aSkill;
         this.skill = skillObjs.iSkill;
         this.loadData();
+        this.skillRating.onSkillChanged();
     }
 
     onSkillInListClicked(skillObjs) {
         this.achievableSkill = skillObjs.aSkill;
         this.skill = skillObjs.iSkill;
         this.loadData();
+        this.skillRating.onSkillChanged(skillObjs.iSkill);
     }
 
     onToggleSkill(isActivated: boolean) {
@@ -109,6 +114,10 @@ export class SkillDetailsInfoComponent implements OnInit {
         }
         this.achievableSkill.irrelevant = irrelevant;
         this.updateSkill();
+    }
+
+    updateSkillRating(skill: ISkill) {
+        this.skillRating.onSkillChanged(skill);
     }
 
     updateSkill() {
