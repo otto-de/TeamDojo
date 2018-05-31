@@ -121,9 +121,17 @@ export class SkillDetailsInfoComponent implements OnInit {
     }
 
     updateSkill() {
+        if (
+            this.team === null ||
+            typeof this.team === 'undefined' ||
+            this.achievableSkill === null ||
+            typeof this.achievableSkill === 'undefined'
+        ) {
+            return;
+        }
+
         this.teamsSkillsService.updateAchievableSkill(this.team.id, this.achievableSkill).subscribe(
             (res: HttpResponse<IAchievableSkill>) => {
-                console.log('Achievable Skill: ', res.body);
                 this.achievableSkill = res.body;
                 this.onSkillChanged.emit(this.achievableSkill);
                 this.loadData();
