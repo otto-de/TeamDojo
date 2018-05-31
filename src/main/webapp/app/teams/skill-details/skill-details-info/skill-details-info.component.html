@@ -10,11 +10,11 @@
     </button>
 
     <span *ngIf="!achievableSkill.irrelevant">
-        <button *ngIf="!skillAchieved()" class="activation action-btn" (click)="onToggleSkill(true)">
+        <button *ngIf="!isSkillAchieved" class="activation action-btn" (click)="onToggleSkill(true)">
             <i class="fa fa-check"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.complete"></span>
         </button>
 
-        <button *ngIf="skillAchieved()" class="activation action-btn" (click)="onToggleSkill(false)">
+        <button *ngIf="isSkillAchieved" class="activation action-btn" (click)="onToggleSkill(false)">
             <i class="fa fa-circle-o"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.incomplete"></span>
         </button>
     </span>

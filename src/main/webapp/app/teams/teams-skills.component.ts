@@ -228,6 +228,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     }
 
     handleSkillChanged(s: IAchievableSkill) {
+        this.updateSkill(s);
         this.skills = this.skills.map(skill => {
             return skill.skillId === s.skillId ? s : skill;
         });
