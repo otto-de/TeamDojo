@@ -46,8 +46,8 @@ public interface SkillService {
     /**
      * Creates a new vote
      * @param id the entity to udpate
-     * @param rate stars to update
+     * @param rateScore stars to update
      * @return the persisted entity
      */
-    SkillDTO createVote(Long id, Integer rate);
+    SkillDTO createVote(Long id, Integer rateScore);
 }

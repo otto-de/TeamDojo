@@ -20,6 +20,7 @@ export class SkillDetailsRatingComponent implements OnInit {
     @Output() onVoteSubmitted = new EventEmitter<{ skillRate: ISkillRate; comment: IComment }>();
 
     private rateScore;
+    private rateCount;
     private comment: string;
     private modalRef;
     private newComment: IComment;
@@ -33,6 +34,7 @@ export class SkillDetailsRatingComponent implements OnInit {
 
     ngOnInit(): void {
         this.rateScore = this.skill.rateScore;
+        this.rateCount = this.skill.rateCount;
         this.newComment = new Comment();
     }
 
@@ -47,6 +49,7 @@ export class SkillDetailsRatingComponent implements OnInit {
             if (res.body) {
                 this.skill = res.body;
                 this.rateScore = this.skill.rateScore;
+                this.rateCount = this.skill.rateCount;
             }
         });
 
@@ -66,7 +69,7 @@ export class SkillDetailsRatingComponent implements OnInit {
         this.commentService.create(this.newComment).subscribe((res: HttpResponse<IComment>) => {
             if (res.body) {
                 this.newComment = new Comment();
-                this.onVoteSubmitted.emit({ skillRate: null, comment: res.body });
+                this.onVoteSubmitted.emit({ skillRate: { rateCount: this.rateCount, rateScore: this.rateScore }, comment: res.body });
             }
         });
     }

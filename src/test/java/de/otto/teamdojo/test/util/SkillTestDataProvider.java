@@ -11,6 +11,9 @@ public class SkillTestDataProvider {
     private static final String IMPLEMENTATION = " Implementation";
     private static final String VALIDATION = " Validation";
 
+    private static final Double RATE_SCORE = 4.5;
+    private static final Integer RATE_COUNT = 5;
+
     private static final String INPUT_VALIDATION = "Input Validation";
     public static final String INPUT_VALIDATION_TITLE = INPUT_VALIDATION;
     public static final String INPUT_VALIDATION_DESC = INPUT_VALIDATION + DESCRIPTION;
@@ -49,14 +52,19 @@ public class SkillTestDataProvider {
         return skill(INPUT_VALIDATION_TITLE)
             .description(INPUT_VALIDATION_DESC)
             .validation(INPUT_VALIDATION_VAL)
-            .implementation(INPUT_VALIDATION_IMPL);
+            .implementation(INPUT_VALIDATION_IMPL)
+            .rateCount(RATE_COUNT)
+            .rateScore(RATE_SCORE);
+
     }
 
     public static SkillBuilder softwareUpdates() {
         return skill(SOFTWARE_UPDATES_TITLE)
             .description(SOFTWARE_UPDATES_DESC)
             .validation(SOFTWARE_UPDATES_VAL)
-            .implementation(SOFTWARE_UPDATES_IMPL);
+            .implementation(SOFTWARE_UPDATES_IMPL)
+            .rateCount(RATE_COUNT)
+            .rateScore(RATE_SCORE);
     }
 
 
@@ -64,14 +72,18 @@ public class SkillTestDataProvider {
         return skill(STRONG_PASSWORDS_TITLE)
             .description(STRONG_PASSWORDS_DESC)
             .validation(STRONG_PASSWORDS_VAL)
-            .implementation(STRONG_PASSWORDS_IMPL);
+            .implementation(STRONG_PASSWORDS_IMPL)
+            .rateCount(RATE_COUNT)
+            .rateScore(RATE_SCORE);
     }
 
     public static SkillBuilder evilUserStories() {
         return skill(EVIL_USER_STORIES_TITLE)
             .description(EVIL_USER_STORIES_DESC)
             .validation(EVIL_USER_STORIES_VAL)
-            .implementation(EVIL_USER_STORIES_IMPL);
+            .implementation(EVIL_USER_STORIES_IMPL)
+            .rateCount(RATE_COUNT)
+            .rateScore(RATE_SCORE);
     }
 
 
@@ -79,7 +91,9 @@ public class SkillTestDataProvider {
         return skill(DOCKERIZED_TITLE)
             .description(DOCKERIZED_DESC)
             .validation(DOCKERIZED_VAL)
-            .implementation(DOCKERIZED_IMPL);
+            .implementation(DOCKERIZED_IMPL)
+            .rateCount(RATE_COUNT)
+            .rateScore(RATE_SCORE);
     }
 
     public static class SkillBuilder {
@@ -89,6 +103,8 @@ public class SkillTestDataProvider {
         private String validation;
         private String implementation;
         private Integer score;
+        private Double rateScore;
+        private Integer rateCount;
 
         public SkillBuilder(String title, Integer score) {
             this.title = title;
@@ -107,6 +123,16 @@ public class SkillTestDataProvider {
 
         public SkillBuilder implementation(String implementation) {
             this.implementation = implementation;
+            return this;
+        }
+
+        public SkillBuilder rateScore(Double rateScore){
+            this.rateScore = rateScore;
+            return this;
+        }
+
+        public SkillBuilder rateCount(Integer rateCount){
+            this.rateCount = rateCount;
             return this;
         }
 

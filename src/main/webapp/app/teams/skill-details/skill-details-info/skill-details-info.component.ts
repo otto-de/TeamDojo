@@ -83,6 +83,7 @@ export class SkillDetailsInfoComponent implements OnInit {
 
     onVoteSubmittedFromChild(event) {
         this.onVoteSubmitted.emit(event);
+        this.updateSkill();
     }
 
     onSkillInListChanged(skillObjs) {
@@ -113,6 +114,7 @@ export class SkillDetailsInfoComponent implements OnInit {
     updateSkill() {
         this.teamsSkillsService.updateAchievableSkill(this.team.id, this.achievableSkill).subscribe(
             (res: HttpResponse<IAchievableSkill>) => {
+                console.log('Achievable Skill: ', res.body);
                 this.achievableSkill = res.body;
                 this.onSkillChanged.emit(this.achievableSkill);
                 this.loadData();

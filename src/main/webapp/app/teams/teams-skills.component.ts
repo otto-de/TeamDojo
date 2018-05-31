@@ -237,11 +237,4 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     private getFiltersFromStorage(): string[] {
         return this.storage.retrieve('filterKey') || [];
     }
-
-    findSkill(skillId: number): ISkill {
-        for (let skill of this.iSkills) {
-            if (skill.id === skillId) return skill;
-        }
-        return null;
-    }
 }

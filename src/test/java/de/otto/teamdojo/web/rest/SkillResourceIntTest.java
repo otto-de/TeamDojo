@@ -808,7 +808,7 @@ public class SkillResourceIntTest {
         assertThat(skill.getRateScore()).isEqualTo(0);
 
 
-        SkillRateDTO skillRateDto = new SkillRateDTO(skill.getId(), 4);
+        SkillRateDTO skillRateDto = new SkillRateDTO(skill.getId(), 4, 5);
 
         restSkillMockMvc.perform(post("/api/skills/{id}/vote", skill.getId())
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -821,7 +821,7 @@ public class SkillResourceIntTest {
         assertThat(testSkill.getRateScore()).isEqualTo(4);
         assertThat(testSkill.getRateCount()).isEqualTo(1);
 
-        skillRateDto = new SkillRateDTO(skill.getId(), 2);
+        skillRateDto = new SkillRateDTO(skill.getId(), 2, 5);
 
         restSkillMockMvc.perform(post("/api/skills/{id}/vote", skill.getId())
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
