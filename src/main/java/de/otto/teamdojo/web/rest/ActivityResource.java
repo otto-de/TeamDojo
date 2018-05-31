@@ -1,22 +1,26 @@
 package de.otto.teamdojo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import de.otto.teamdojo.service.ActivityQueryService;
 import de.otto.teamdojo.service.ActivityService;
+import de.otto.teamdojo.service.dto.ActivityCriteria;
+import de.otto.teamdojo.service.dto.ActivityDTO;
 import de.otto.teamdojo.web.rest.errors.BadRequestAlertException;
 import de.otto.teamdojo.web.rest.util.HeaderUtil;
-import de.otto.teamdojo.service.dto.ActivityDTO;
-import de.otto.teamdojo.service.dto.ActivityCriteria;
-import de.otto.teamdojo.service.ActivityQueryService;
+import de.otto.teamdojo.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -85,15 +89,17 @@ public class ActivityResource {
     /**
      * GET  /activities : get all the activities.
      *
+     * @param pageable the pagination information
      * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of activities in body
      */
     @GetMapping("/activities")
     @Timed
-    public ResponseEntity<List<ActivityDTO>> getAllActivities(ActivityCriteria criteria) {
+    public ResponseEntity<List<ActivityDTO>> getAllActivities(ActivityCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Activities by criteria: {}", criteria);
-        List<ActivityDTO> entityList = activityQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
+        Page<ActivityDTO> page = activityQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/activities");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**

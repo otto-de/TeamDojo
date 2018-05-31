@@ -1,16 +1,12 @@
 package de.otto.teamdojo.service.dto;
 
-import java.io.Serializable;
 import de.otto.teamdojo.domain.enumeration.ActivityType;
-import io.github.jhipster.service.filter.BooleanFilter;
-import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.FloatFilter;
-import io.github.jhipster.service.filter.IntegerFilter;
+import io.github.jhipster.service.filter.InstantFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 
-import io.github.jhipster.service.filter.InstantFilter;
+import java.io.Serializable;
 
 
 
