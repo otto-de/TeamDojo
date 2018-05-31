@@ -4,8 +4,10 @@ import java.util.regex.Pattern
 
 task dojoProjectVersion(dependsOn: 'generateGitProperties') {
     doLast {
-        String branch = project.ext.gitProps['git.branch'];
-        String tag = project.ext.gitProps['git.closest.tag.name'];
+        //String branch = project.ext.gitProps['git.branch'];
+        //String tag = project.ext.gitProps['git.closest.tag.name'];
+        String branch = 'develop';
+        String tag = null;
         GitInfo gitInfo = new GitInfo(project.version, branch, tag);
         project.version = new ProjectVersion(project.version, gitInfo.getQualifier()).toString()
         println("Team Dojo Project Version is $project.version")
