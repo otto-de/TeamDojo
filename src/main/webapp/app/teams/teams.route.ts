@@ -106,6 +106,15 @@ export class AllTeamsResolve implements Resolve<any> {
 }
 
 @Injectable()
+export class AllTeamSkillsResolve implements Resolve<any> {
+    constructor(private teamSkillService: TeamSkillService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.teamSkillService.query();
+    }
+}
+
+@Injectable()
 export class TeamsSelectionResolve implements Resolve<any> {
     constructor(private teamsSelectionService: TeamsSelectionService) {}
 
@@ -159,7 +168,12 @@ export const TEAMS_ROUTES: Route[] = [
             skills: AllSkillsResolve,
             comments: AllCommentsResolve,
             teams: AllTeamsResolve,
-            selectedTeam: TeamsSelectionResolve
+            selectedTeam: TeamsSelectionResolve,
+            levels: AllLevelsResolve,
+            badges: AllBadgesResolve,
+            levelSkills: AllLevelSkillsResolve,
+            badgeSkills: AllBadgeSkillsResolve,
+            teamSkills: AllTeamSkillsResolve
         },
         data: {
             authorities: [],
