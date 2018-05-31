@@ -13,15 +13,15 @@
     <div class="table-responsive" *ngIf="activities">
         <table class="table table-striped">
             <thead>
-            <tr>
-            <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="teamdojoApp.activity.type">Type</span></th>
-            <th><span jhiTranslate="teamdojoApp.activity.data">Data</span></th>
-            <th><span jhiTranslate="teamdojoApp.activity.createdAt">Created At</span></th>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="type"><span jhiTranslate="teamdojoApp.activity.type">Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="data"><span jhiTranslate="teamdojoApp.activity.data">Data</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createdAt"><span jhiTranslate="teamdojoApp.activity.createdAt">Created At</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let activity of activities ;trackBy: trackId">
                 <td><a [routerLink]="['/activity', activity.id, 'view' ]">{{activity.id}}</a></td>
                 <td jhiTranslate="{{'teamdojoApp.ActivityType.' + activity.type}}">{{activity.type}}</td>

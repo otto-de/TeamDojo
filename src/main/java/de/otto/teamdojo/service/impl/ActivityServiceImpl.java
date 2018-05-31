@@ -19,7 +19,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -118,15 +119,15 @@ public class ActivityServiceImpl implements ActivityService {
     /**
      * Get all the activities.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
-    public List<ActivityDTO> findAll() {
+    public Page<ActivityDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Activities");
-        return activityRepository.findAll().stream()
-            .map(activityMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return activityRepository.findAll(pageable)
+            .map(activityMapper::toDto);
     }
 
 

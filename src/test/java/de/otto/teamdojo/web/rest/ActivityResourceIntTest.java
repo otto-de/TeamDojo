@@ -1,20 +1,17 @@
 package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
-
 import de.otto.teamdojo.domain.Activity;
+import de.otto.teamdojo.domain.enumeration.ActivityType;
 import de.otto.teamdojo.repository.ActivityRepository;
+import de.otto.teamdojo.service.ActivityQueryService;
 import de.otto.teamdojo.service.ActivityService;
 import de.otto.teamdojo.service.dto.ActivityDTO;
 import de.otto.teamdojo.service.mapper.ActivityMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
-import de.otto.teamdojo.service.dto.ActivityCriteria;
-import de.otto.teamdojo.service.ActivityQueryService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,16 +27,12 @@ import javax.persistence.EntityManager;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.ArrayList;
 
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import de.otto.teamdojo.domain.enumeration.ActivityType;
-
 /**
  * Test class for the ActivityResource REST controller.
  *
@@ -60,6 +53,7 @@ public class ActivityResourceIntTest {
 
     @Autowired
     private ActivityRepository activityRepository;
+
 
 
     @Autowired
@@ -101,7 +95,7 @@ public class ActivityResourceIntTest {
 
     /**
      * Create an entity for this test.
-     * <p>
+     *
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -346,7 +340,6 @@ public class ActivityResourceIntTest {
         // Get all the activityList where createdAt is null
         defaultActivityShouldNotBeFound("createdAt.specified=false");
     }
-
     /**
      * Executes the search, and checks that the default entity is returned
      */

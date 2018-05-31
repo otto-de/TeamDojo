@@ -3,6 +3,8 @@ package de.otto.teamdojo.service;
 import de.otto.teamdojo.service.dto.ActivityDTO;
 import de.otto.teamdojo.service.dto.BadgeDTO;
 import de.otto.teamdojo.service.dto.TeamSkillDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,9 +38,10 @@ public interface ActivityService {
     /**
      * Get all the activities.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<ActivityDTO> findAll();
+    Page<ActivityDTO> findAll(Pageable pageable);
 
 
     /**

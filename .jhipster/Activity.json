@@ -28,5 +28,5 @@
     "service": "serviceImpl",
     "entityTableName": "activity",
     "jpaMetamodelFiltering": true,
-    "pagination": "no"
+    "pagination": "infinite-scroll"
 }
