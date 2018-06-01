@@ -14,15 +14,7 @@
             </ng-container>
             <ng-container *ngSwitchCase="'SKILL_COMPLETED'">
                 <i class="notification-body-icon fa fa-check fa-2x"></i>
-                <div class="notification-body-team-image" [ngbPopover]="item.name"
-                     triggers="mouseenter:mouseleave">
-                    <img [title]="item.name"
-                         *ngIf="item.picture && item.pictureContentType; else picturePlaceholder"
-                         [src]="item.picture | imageDataUrl: item.pictureContentType"/>
-                    <ng-template #picturePlaceholder>
-                        <span class="img-placeholder">{{item.name | truncateString}}</span>
-                    </ng-template>
-                </div>
+                <jhi-team-image class="notification-body-team-image" [team]="item"></jhi-team-image>
                 <div class="notification-body-text" jhiTranslate="teamdojoApp.notification.body.text.skillCompleted"
                      translateValues="{'skillTitle':'{{notification.data.skillTitle}}' }"></div>
             </ng-container>
