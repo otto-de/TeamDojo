@@ -27,10 +27,7 @@ task cleanup(type: YarnTask, dependsOn: 'yarn_install') {
 }
 
 task webpack(type: YarnTask, dependsOn: 'cleanup') {
-    args = ["run", "webpack:prod:main"]
-    doFirst {
-        getArgs().add("--version=$version")
-    }
+    args = ["run", "webpack:prod:main", "--version=$version"]
 }
 
 task cleanwww(type: YarnTask, dependsOn: 'webpack') {
@@ -44,12 +41,22 @@ war {
 processResources {
     filesMatching('**/application.yml') {
         filter {
-            it.replace('#project.version#', version)
+            it.replace('#project.version#', version.toString())
         }
         filter {
             it.replace('#spring.profiles.active#', profiles)
         }
     }
+}
+
+generateGitProperties {
+    onlyIf {
+        !source.isEmpty()
+    }
+}
+
+gitProperties {
+    keys = ['git.branch', 'git.commit.id.abbrev']
 }
 
 test.dependsOn webpack_test

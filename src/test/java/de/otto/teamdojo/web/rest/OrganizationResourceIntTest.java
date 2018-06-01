@@ -1,15 +1,18 @@
 package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
+
 import de.otto.teamdojo.domain.Organization;
 import de.otto.teamdojo.repository.OrganizationRepository;
 import de.otto.teamdojo.service.OrganizationService;
 import de.otto.teamdojo.service.dto.OrganizationDTO;
 import de.otto.teamdojo.service.mapper.OrganizationMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.ArrayList;
 
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,13 +46,17 @@ public class OrganizationResourceIntTest {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_LEVEL_UP_SCORE = 1;
+    private static final Integer UPDATED_LEVEL_UP_SCORE = 2;
+
     @Autowired
     private OrganizationRepository organizationRepository;
 
 
+
     @Autowired
     private OrganizationMapper organizationMapper;
-
+    
 
     @Autowired
     private OrganizationService organizationService;
@@ -82,13 +90,14 @@ public class OrganizationResourceIntTest {
 
     /**
      * Create an entity for this test.
-     * <p>
+     *
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
     public static Organization createEntity(EntityManager em) {
         Organization organization = new Organization()
-            .name(DEFAULT_NAME);
+            .name(DEFAULT_NAME)
+            .levelUpScore(DEFAULT_LEVEL_UP_SCORE);
         return organization;
     }
 
@@ -114,6 +123,7 @@ public class OrganizationResourceIntTest {
         assertThat(organizationList).hasSize(databaseSizeBeforeCreate + 1);
         Organization testOrganization = organizationList.get(organizationList.size() - 1);
         assertThat(testOrganization.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testOrganization.getLevelUpScore()).isEqualTo(DEFAULT_LEVEL_UP_SCORE);
     }
 
     @Test
@@ -166,9 +176,10 @@ public class OrganizationResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(organization.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].levelUpScore").value(hasItem(DEFAULT_LEVEL_UP_SCORE)));
     }
-
+    
 
     @Test
     @Transactional
@@ -181,7 +192,8 @@ public class OrganizationResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(organization.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.levelUpScore").value(DEFAULT_LEVEL_UP_SCORE));
     }
 
     @Test
@@ -205,7 +217,8 @@ public class OrganizationResourceIntTest {
         // Disconnect from session so that the updates on updatedOrganization are not directly saved in db
         em.detach(updatedOrganization);
         updatedOrganization
-            .name(UPDATED_NAME);
+            .name(UPDATED_NAME)
+            .levelUpScore(UPDATED_LEVEL_UP_SCORE);
         OrganizationDTO organizationDTO = organizationMapper.toDto(updatedOrganization);
 
         restOrganizationMockMvc.perform(put("/api/organizations")
@@ -218,6 +231,7 @@ public class OrganizationResourceIntTest {
         assertThat(organizationList).hasSize(databaseSizeBeforeUpdate);
         Organization testOrganization = organizationList.get(organizationList.size() - 1);
         assertThat(testOrganization.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testOrganization.getLevelUpScore()).isEqualTo(UPDATED_LEVEL_UP_SCORE);
     }
 
     @Test

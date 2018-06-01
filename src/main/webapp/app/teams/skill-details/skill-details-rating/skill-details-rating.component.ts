@@ -19,9 +19,9 @@ export class SkillDetailsRatingComponent implements OnInit {
     @Input() skill: ISkill;
     @Output() onVoteSubmitted = new EventEmitter<{ skillRate: ISkillRate; comment: IComment }>();
 
-    private rateScore;
-    private rateCount;
-    private comment: string;
+    rateScore;
+    rateCount;
+    comment: string;
     private modalRef;
     private newComment: IComment;
 
@@ -47,8 +47,7 @@ export class SkillDetailsRatingComponent implements OnInit {
         return this.teamsSelectionService.selectedTeam !== null && typeof this.teamsSelectionService.selectedTeam !== 'undefined';
     }
 
-    voteSkill(content: any) {
-        console.log('in voteSkill');
+    voteSkill() {
         const rate = new SkillRate(this.skill.id, this.rateScore);
         this.skillService.createVote(rate).subscribe((res: HttpResponse<ISkill>) => {
             if (res.body) {
