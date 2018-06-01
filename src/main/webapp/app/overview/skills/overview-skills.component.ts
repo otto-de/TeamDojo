@@ -29,7 +29,8 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     @Input() levels: ILevel[];
     @Input() badges: IBadge[];
     @Input() activeSkill: ISkill;
-    @Output() onSkillClicked = new EventEmitter<{ iSkill: ISkill }>();
+    @Input() skills: ISkill[];
+    @Output() onSkillChanged = new EventEmitter<ISkill>();
     activeSkills: ILevelSkill[] | IBadgeSkill[];
     activeLevel: ILevel;
     activeBadge: IBadge;
@@ -52,21 +53,21 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.route.queryParamMap.subscribe((params: ParamMap) => {
+            this.activeLevel = null;
+            this.activeBadge = null;
             if (params.get('level')) {
                 this.activeLevel = this.levels.find((level: ILevel) => level.id === Number.parseInt(params.get('level')));
                 this.activeSkills = this.activeLevel ? this.activeLevel.skills : [];
-                this.activeBadge = null;
-                this.updateBreadcrumb(null, this.activeLevel, this.activeBadge, this.activeSkill);
+                this.updateBreadcrumb();
             } else if (params.get('badge')) {
                 this.activeBadge = this.badges.find((badge: IBadge) => badge.id === Number.parseInt(params.get('badge')));
                 this.activeSkills = this.activeBadge ? this.activeBadge.skills : [];
-                this.activeLevel = null;
-                this.updateBreadcrumb(null, this.activeLevel, this.activeBadge, this.activeSkill);
+                this.updateBreadcrumb();
             } else {
                 this.levelSkillService.query().subscribe(
                     (res: HttpResponse<ILevelSkill[]>) => {
                         this.activeSkills = res.body;
-                        this.updateBreadcrumb(null, this.activeLevel, this.activeBadge, this.activeSkill);
+                        this.updateBreadcrumb();
                     },
                     (res: HttpErrorResponse) => this.onError(res.error)
                 );
@@ -106,16 +107,17 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        this.updateBreadcrumb(null, this.activeLevel, this.activeBadge, this.activeSkill);
+        this.updateBreadcrumb();
+        this.onSkillChanged.emit(this.activeSkill);
     }
 
-    private updateBreadcrumb(team: ITeam, level: ILevel, badge: IBadge, skill: ISkill) {
-        if (level !== null && typeof level !== 'undefined') {
+    private updateBreadcrumb() {
+        if (this.activeLevel !== null && typeof this.activeLevel !== 'undefined') {
             this.dimensionService.find(this.activeLevel.dimensionId).subscribe(dimension => {
-                this.breadcrumbService.setBreadcrumb(team, dimension.body, level, badge, skill);
+                this.breadcrumbService.setBreadcrumb(null, dimension.body, this.activeLevel, this.activeBadge, this.activeSkill);
             });
         } else {
-            this.breadcrumbService.setBreadcrumb(team, null, level, badge, skill);
+            this.breadcrumbService.setBreadcrumb(null, null, this.activeLevel, this.activeBadge, this.activeSkill);
         }
     }
 
@@ -150,6 +152,19 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
         });
     }
 
+    findSkill(skillId: number): ISkill {
+        if (this.skills === null || typeof this.skills === 'undefined') {
+            return null;
+        }
+
+        for (const skill of this.skills) {
+            if (skill.id === skillId) {
+                return skill;
+            }
+        }
+        return null;
+    }
+
     private findTeamSkill(team: ITeam, skill: ILevelSkill | IBadgeSkill): ITeamSkill {
         return team.skills ? team.skills.find((teamSkill: ITeamSkill) => teamSkill.skillId === skill.skillId) : null;
     }
@@ -158,13 +173,11 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
         return teamSkill && !!teamSkill.completedAt;
     }
 
-    skillClicked(event, skill: ILevelSkill) {
-        const url = this.router.createUrlTree(['/overview', 'skills', skill.skillId]).toString();
-        this.location.replaceState(url);
-        event.preventDefault();
-    }
-
     isActiveSkill(iLevelSkill: ILevelSkill) {
         return typeof this.activeSkill !== 'undefined' && this.activeSkill !== null && this.activeSkill.id === iLevelSkill.skillId;
+    }
+
+    getRateCount(rateCount: number) {
+        return rateCount !== null && typeof rateCount !== 'undefined' ? rateCount : 0;
     }
 }

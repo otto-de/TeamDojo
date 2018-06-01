@@ -1,11 +1,8 @@
 package de.otto.teamdojo.service.dto;
 
-import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.LongFilter;
-import io.github.jhipster.service.filter.StringFilter;
+import io.github.jhipster.service.filter.*;
 
 import java.io.Serializable;
-
 
 /**
  * Criteria class for the Skill entity. This class is used in SkillResource to
@@ -30,6 +27,14 @@ public class SkillCriteria implements Serializable {
     private StringFilter validation;
 
     private StringFilter expiryPeriod;
+
+    private StringFilter contact;
+
+    private IntegerFilter score;
+
+    private DoubleFilter rateScore;
+
+    private IntegerFilter rateCount;
 
     private LongFilter teamsId;
 
@@ -88,6 +93,38 @@ public class SkillCriteria implements Serializable {
         this.expiryPeriod = expiryPeriod;
     }
 
+    public StringFilter getContact() {
+        return contact;
+    }
+
+    public void setContact(StringFilter contact) {
+        this.contact = contact;
+    }
+
+    public IntegerFilter getScore() {
+        return score;
+    }
+
+    public void setScore(IntegerFilter score) {
+        this.score = score;
+    }
+
+    public DoubleFilter getRateScore() {
+        return rateScore;
+    }
+
+    public void setRateScore(DoubleFilter rateScore) {
+        this.rateScore = rateScore;
+    }
+
+    public IntegerFilter getRateCount() {
+        return rateCount;
+    }
+
+    public void setRateCount(IntegerFilter rateCount) {
+        this.rateCount = rateCount;
+    }
+
     public LongFilter getTeamsId() {
         return teamsId;
     }
@@ -121,6 +158,10 @@ public class SkillCriteria implements Serializable {
             (implementation != null ? "implementation=" + implementation + ", " : "") +
             (validation != null ? "validation=" + validation + ", " : "") +
             (expiryPeriod != null ? "expiryPeriod=" + expiryPeriod + ", " : "") +
+            (contact != null ? "contact=" + contact + ", " : "") +
+            (score != null ? "score=" + score + ", " : "") +
+            (rateScore != null ? "rateScore=" + rateScore + ", " : "") +
+            (rateCount != null ? "rateCount=" + rateCount + ", " : "") +
             (teamsId != null ? "teamsId=" + teamsId + ", " : "") +
             (badgesId != null ? "badgesId=" + badgesId + ", " : "") +
             (levelsId != null ? "levelsId=" + levelsId + ", " : "") +

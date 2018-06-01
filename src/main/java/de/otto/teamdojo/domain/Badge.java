@@ -48,10 +48,20 @@ public class Badge implements Serializable {
     @Column(name = "available_amount")
     private Integer availableAmount;
 
+    @NotNull
     @DecimalMin(value = "0")
     @DecimalMax(value = "1")
-    @Column(name = "required_score")
+    @Column(name = "required_score", nullable = false)
     private Double requiredScore;
+
+    @NotNull
+    @DecimalMin(value = "0")
+    @Column(name = "instant_multiplier", nullable = false)
+    private Double instantMultiplier;
+
+    @Min(value = 0)
+    @Column(name = "completion_bonus")
+    private Integer completionBonus;
 
     @OneToMany(mappedBy = "badge")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -164,6 +174,32 @@ public class Badge implements Serializable {
         this.requiredScore = requiredScore;
     }
 
+    public Double getInstantMultiplier() {
+        return instantMultiplier;
+    }
+
+    public Badge instantMultiplier(Double instantMultiplier) {
+        this.instantMultiplier = instantMultiplier;
+        return this;
+    }
+
+    public void setInstantMultiplier(Double instantMultiplier) {
+        this.instantMultiplier = instantMultiplier;
+    }
+
+    public Integer getCompletionBonus() {
+        return completionBonus;
+    }
+
+    public Badge completionBonus(Integer completionBonus) {
+        this.completionBonus = completionBonus;
+        return this;
+    }
+
+    public void setCompletionBonus(Integer completionBonus) {
+        this.completionBonus = completionBonus;
+    }
+
     public Set<BadgeSkill> getSkills() {
         return skills;
     }
@@ -246,6 +282,8 @@ public class Badge implements Serializable {
             ", availableUntil='" + getAvailableUntil() + "'" +
             ", availableAmount=" + getAvailableAmount() +
             ", requiredScore=" + getRequiredScore() +
+            ", instantMultiplier=" + getInstantMultiplier() +
+            ", completionBonus=" + getCompletionBonus() +
             "}";
     }
 }

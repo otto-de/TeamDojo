@@ -9,6 +9,10 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "levelUpScore",
+            "fieldType": "Integer"
         }
     ],
     "changelogDate": "20180517074753",

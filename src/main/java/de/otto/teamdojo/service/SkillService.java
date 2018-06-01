@@ -42,4 +42,12 @@ public interface SkillService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     * Creates a new vote
+     * @param id the entity to udpate
+     * @param rateScore stars to update
+     * @return the persisted entity
+     */
+    SkillDTO createVote(Long id, Integer rateScore);
 }

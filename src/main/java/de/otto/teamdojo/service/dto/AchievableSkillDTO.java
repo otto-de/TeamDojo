@@ -13,18 +13,30 @@ public class AchievableSkillDTO {
     private String description;
     private Instant achievedAt;
     private Boolean irrelevant;
+    private Double rateScore;
+    private Integer rateCount;
 
     public AchievableSkillDTO() {
         // Empty constructor needed for Jackson.
     }
 
-    public AchievableSkillDTO(Long teamSkillId, Long skillId, String title, String description, Instant achievedAt, Boolean irrelevant) {
+    public AchievableSkillDTO(
+        Long teamSkillId,
+        Long skillId,
+        String title,
+        String description,
+        Instant achievedAt,
+        Boolean irrelevant,
+        Double rateScore,
+        Integer rateCount) {
         this.teamSkillId = teamSkillId;
         this.skillId = skillId;
         this.title = title;
         this.description = description;
         this.achievedAt = achievedAt;
         this.irrelevant = irrelevant;
+        this.rateScore = rateScore;
+        this.rateCount = rateCount;
     }
 
     public Long getTeamSkillId() {
@@ -67,5 +79,21 @@ public class AchievableSkillDTO {
 
     public void setIrrelevant(Boolean irrelevant){
         this.irrelevant = irrelevant;
+    }
+
+    public Double getRateScore() {
+        return rateScore;
+    }
+
+    public void setRateScore(Double rateScore) {
+        this.rateScore = rateScore;
+    }
+
+    public Integer getRateCount() {
+        return rateCount;
+    }
+
+    public void setRateCount(Integer rateCount) {
+        this.rateCount = rateCount;
     }
 }

@@ -21,10 +21,6 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="score" type="integer">
-                <constraints nullable="false" />
-            </column>
-
             <column name="badge_id" type="bigint">
                 <constraints nullable="false" />
             </column>

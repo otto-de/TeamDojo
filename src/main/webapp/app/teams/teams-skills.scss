@@ -2,11 +2,7 @@
 @import '../../content/scss/bootstrap-variables';
 @import '../../content/scss/colors';
 @import "../../content/scss/mixins";
-
-.active-skill,
-.active-skill:hover {
-   background: #f0f0f0;
-}
+@import '/skill-details/skill-details-rating/skill-details-rating';
 
 .in-skill-details {
     cursor: pointer;
@@ -27,6 +23,7 @@
     }
 }
 .teams-skills {
+
     h4 {
         color: $dojo-text-primary;
     }
@@ -35,7 +32,7 @@
     .skill-search {
         color: $dojo-text-primary;
 
-        margin-right: 23px;
+        margin-right: 14px;
 
         .skill-search-input {
             height: 35px;
@@ -51,6 +48,8 @@
         /deep/ .simplebar-scroll-content {
             padding-right: 1.4em!important;
             .simplebar-content {
+                padding-left: 2px !important;
+                padding-right: 5px !important;
                 margin-right: -0.69em!important;
                 overflow-x: hidden!important;
             }
@@ -101,6 +100,10 @@
                    }
                 }
             }
+        }
+        .list-group-item {
+            @include skill-list-entry();
+            border: none;
         }
     }
 }

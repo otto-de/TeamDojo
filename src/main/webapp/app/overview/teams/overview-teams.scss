@@ -1,59 +1,97 @@
 @import '~bootstrap/scss/bootstrap';
-@import '../../../content/scss/_colors.scss';
-@import '../../../content/scss/mixins';
+@import '../../../content/scss/_colors';
 
 .overviews-teams {
     height: inherit;
-
     .additional-functions {
         height: 75px;
         width: 100%;
     }
+
+    .count-item-value {
+        font-size: 1.8vh;
+    }
+
+    th, thead{
+        border-top: none;
+    }
+    thead {
+        border-bottom: 1px solid #E5E1D8;;
+    }
+
     .team-list {
-        border-style: none;
+        background: rgba($dojo-bg-gradient-from, 0.5);
+        &-header {
+            &-title {
+
+            }
+            &-scores {
+                width: 48%;
+              //  color: $dojo-text-primary;
+                img {
+                    width: 5.0vh;
+                    opacity: 0.5;
+                }
+                margin-right: 40px;
+                .score {
+                    min-width: 5em;
+                }
+            }
+            border-bottom: 1px solid #E5E1D8;
+        }
+
+        &-body {
+            &-item {
+                min-height: 70px;
+                .team-rank {
+                    min-width: 2em;
+                }
+                .team-info {
+                   width: 48%;
+                    .team-name {
+                        a {
+                            color: $dojo-text-primary;
+                            word-break: break-word;
+                            font-size: 1.8vh;
+                        }
+                    }
+                }
+                .team-scores {
+                    width: 48%;
+                    .score {
+                       // color: $dojo-text-primary;
+                        min-width: 5em;
+                        text-align: center;
+                    }
+                }
+                .team-status {
+                    padding: 10px;
+                    width: 36px;
+                    margin-left: 15px;
+                    background-color: transparent;
+                }
+                &.complete {
+                    .team-status {
+                        background-color: #a8bc66;
+                    }
+                }
+                &.irrelevant {
+                    display: none !important;
+                }
+                &.incomplete {
+                    background-color: $gray-300;
+                    opacity: 0.4;
+                }
+            }
+        }
         /deep/ .simplebar-scroll-content {
             padding-right: 1.4em!important;
             .simplebar-content {
                 margin-right: -0.6em!important;
-            }
-        }
-        .team-item {
-            border-style: none;
-            background: rgba($dojo-bg-gradient-from, 0.5);
-            &.irrelevant {
-                background-color: $gray-400;
-                opacity: 0.5;
-            }
-            .team-name {
-                color: $gray-800 !important;
-                word-break: break-word;
-            }
-            .team-image {
-                @include team-image();
-                &.complete {
-                    border-color: $success;
-                }
-                &.incomplete {
-                    border-color: $danger;
-                }
-                .count-container {
-                    .count-item {
-                        display: block;
-                        margin-left: 5px;
-                        .count-item-header {
-
-                        }
-                        .count-item-value {
-                            float: right;
-                            font-size: 1.5em;
-                        }
-                    }
-                }
+                overflow-x: hidden;
             }
         }
     }
-
-
 
     #teams_start-compare {
         background-color: #f1d7ae;
@@ -96,7 +134,7 @@
     }
 
 }
-@media only screen and (min-width: map-get($grid-breakpoints, md)) {
+@media only screen and (min-width: map-get($grid-breakpoints, lg)) {
     .overviews-teams {
         .team-list {
             height: calc(100vh - 242px);

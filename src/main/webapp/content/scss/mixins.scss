@@ -1,3 +1,26 @@
+@mixin skill-list-entry() {
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+    background-color: $dojo-bg-gradient-from;
+    border-radius: 2px;
+    @include shadow();
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    &:hover {
+        -webkit-box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
+        box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
+    }
+    &.active-skill {
+        background: #f0f0f0;
+    }
+    a {
+        color: $dojo-text-primary;
+        font-weight: normal;
+    }
+    * {
+        outline: none;
+    }
+}
 @mixin achievement-image() {
     display: flex;
     align-items: center;
@@ -10,22 +33,6 @@
 @mixin shadow(){
     -webkit-box-shadow: 0px 2px 4px rgba(119, 119, 119, 0.16), 0px 2px 4px rgba(119, 119, 119, 0.23);
     box-shadow: 0px 2px 4px rgba(119, 119, 119, 0.16), 0px 2px 4px rgba(119, 119, 119, 0.23);
-}
-
-@mixin team-image() {
-    width: 6vh;
-    min-width: 46px;
-    height: 6vh;
-    min-height: 46px;
-    display: flex;
-    align-items: center;
-    border-radius: 50%;
-    border: 2px solid #e5e1d8;
-    background: white !important;
-    overflow: hidden;
-    img {
-        width: 100%;
-    }
 }
 
 @mixin accordion(){

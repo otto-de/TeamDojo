@@ -14,6 +14,8 @@ public class OrganizationDTO implements Serializable {
     @NotNull
     private String name;
 
+    private Integer levelUpScore;
+
     public Long getId() {
         return id;
     }
@@ -28,6 +30,14 @@ public class OrganizationDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getLevelUpScore() {
+        return levelUpScore;
+    }
+
+    public void setLevelUpScore(Integer levelUpScore) {
+        this.levelUpScore = levelUpScore;
     }
 
     @Override
@@ -56,6 +66,7 @@ public class OrganizationDTO implements Serializable {
         return "OrganizationDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", levelUpScore=" + getLevelUpScore() +
             "}";
     }
 }

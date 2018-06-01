@@ -9,11 +9,13 @@ import { ILevel } from 'app/shared/model/level.model';
 })
 export class AchievementItemComponent {
     @Input() item: any;
+    @Input() irrelevancePercentage: number;
     @Input() progress: number;
     @Input() active: boolean;
     @Input() type = '';
     @Input() hasStatus = false;
     @Input() size = '10vh';
+    @Input() completable = false;
     @Output() onItemSelected = new EventEmitter<ILevel | IBadge>();
 
     selectItem(event) {
@@ -21,9 +23,14 @@ export class AchievementItemComponent {
         this.onItemSelected.emit(this.item);
     }
 
+    get progressWidth() {
+        return this.progress * (100 - this.irrelevancePercentage) / 100.0;
+    }
+
     get itemStatusCssClass() {
         let itemStatus;
-        if (this.progress >= 100) {
+        const requiredScore = this.item.requiredScore * 100;
+        if (this.progress >= requiredScore && this.completable) {
             itemStatus = 'complete';
         } else if (this.progress > 0) {
             itemStatus = 'incomplete';

@@ -28,6 +28,9 @@ public class Organization implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "level_up_score")
+    private Integer levelUpScore;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -48,6 +51,19 @@ public class Organization implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getLevelUpScore() {
+        return levelUpScore;
+    }
+
+    public Organization levelUpScore(Integer levelUpScore) {
+        this.levelUpScore = levelUpScore;
+        return this;
+    }
+
+    public void setLevelUpScore(Integer levelUpScore) {
+        this.levelUpScore = levelUpScore;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -76,6 +92,7 @@ public class Organization implements Serializable {
         return "Organization{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", levelUpScore=" + getLevelUpScore() +
             "}";
     }
 }

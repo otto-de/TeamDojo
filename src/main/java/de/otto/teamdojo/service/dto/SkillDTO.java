@@ -1,8 +1,6 @@
 package de.otto.teamdojo.service.dto;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -25,6 +23,18 @@ public class SkillDTO implements Serializable {
 
     @Pattern(regexp = "^P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?$")
     private String expiryPeriod;
+
+    private String contact;
+
+    @NotNull
+    @Min(value = 0)
+    private Integer score;
+
+    @DecimalMin(value = "0") @DecimalMax(value = "5")
+    private Double rateScore;
+
+    @Min(value = 0)
+    private Integer rateCount;
 
     public Long getId() {
         return id;
@@ -74,6 +84,38 @@ public class SkillDTO implements Serializable {
         this.expiryPeriod = expiryPeriod;
     }
 
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public Double getRateScore() {
+        return rateScore;
+    }
+
+    public void setRateScore(Double rateScore) {
+        this.rateScore = rateScore;
+    }
+
+    public Integer getRateCount() {
+        return rateCount;
+    }
+
+    public void setRateCount(Integer rateCount) {
+        this.rateCount = rateCount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -104,6 +146,10 @@ public class SkillDTO implements Serializable {
             ", implementation='" + getImplementation() + "'" +
             ", validation='" + getValidation() + "'" +
             ", expiryPeriod='" + getExpiryPeriod() + "'" +
+            ", contact='" + getContact() + "'" +
+            ", score=" + getScore() +
+            ", rateScore=" + getRateScore() +
+            ", rateCount=" + getRateCount() +
             "}";
     }
 }

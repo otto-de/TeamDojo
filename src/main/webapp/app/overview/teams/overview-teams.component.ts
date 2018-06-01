@@ -6,7 +6,10 @@ import { CompletionCheck } from 'app/shared/util/completion-check';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { RelevanceCheck } from 'app/shared';
 import { IDimension } from 'app/shared/model/dimension.model';
+import { TeamScore } from 'app/shared/model/team-score.model';
 import 'simplebar';
+import { ISkill } from 'app/shared/model/skill.model';
+import { TeamScoreCalculation } from 'app/shared/util/team-score-calculation';
 
 @Component({
     selector: 'jhi-overview-teams',
@@ -17,13 +20,16 @@ export class OverviewTeamsComponent implements OnInit {
     @Input() teams: ITeam[];
     @Input() levels: ILevel[];
     @Input() badges: IBadge[];
+    @Input() skills: ISkill[];
     private filtered: boolean;
     private relevantTeamIds: number[];
     private completedTeamIds: number[];
+    teamScores: TeamScore[];
 
     constructor(private route: ActivatedRoute) {}
 
     ngOnInit(): void {
+        this.teamScores = [];
         this.route.queryParamMap.subscribe((params: ParamMap) => {
             const badgeId: number = this.getParamAsNumber('badge', params);
             const levelId: number = this.getParamAsNumber('level', params);
@@ -34,6 +40,20 @@ export class OverviewTeamsComponent implements OnInit {
             this.completedTeamIds = this.getCompletedTeamIds(relevantTeams, badgeId, levelId, dimensionId);
             this.relevantTeamIds = this.getRelevantTeamIds(relevantTeams);
         });
+
+        for (const team of this.teams) {
+            this.teamScores.push(new TeamScore(team, this._calcTeamScore(team)));
+        }
+        this.teamScores = this.teamScores.sort((ts1, ts2) => {
+            if (ts1.score > ts2.score) {
+                return 1;
+            }
+            if (ts1.score < ts2.score) {
+                return -1;
+            }
+            return 0;
+        });
+        this.teamScores = this.teamScores.reverse();
     }
 
     private getRelevantTeams(badgeId: number, levelId: number, dimensionId: number) {
@@ -57,13 +77,13 @@ export class OverviewTeamsComponent implements OnInit {
             .filter((team: ITeam) => {
                 if (badgeId) {
                     const badge = this.badges.find((b: IBadge) => b.id === badgeId);
-                    return new CompletionCheck(team, badge).isCompleted();
+                    return new CompletionCheck(team, badge, this.skills).isCompleted();
                 } else if (levelId) {
                     const level = this.levels.find((l: ILevel) => l.id === levelId);
-                    return new CompletionCheck(team, level).isCompleted();
+                    return new CompletionCheck(team, level, this.skills).isCompleted();
                 } else if (dimensionId) {
                     const dimensions = team.participations.find((d: IDimension) => d.id === dimensionId);
-                    return dimensions.levels.every((level: ILevel) => new CompletionCheck(team, level).isCompleted());
+                    return dimensions.levels.every((level: ILevel) => new CompletionCheck(team, level, this.skills).isCompleted());
                 }
                 return false;
             })
@@ -94,6 +114,40 @@ export class OverviewTeamsComponent implements OnInit {
         return this.completedTeamIds.indexOf(team.id) !== -1;
     }
 
+    calcTotalCompletedLevel() {
+        let totalCompletedLevel = 0;
+        for (const team of this.teams) {
+            totalCompletedLevel += this.calcCompletedLevel(team);
+        }
+        return totalCompletedLevel;
+    }
+
+    calcTotalCompletedBadges() {
+        let totalCompletedBadges = 0;
+        for (const team of this.teams) {
+            totalCompletedBadges += this.calcCompletedBadges(team);
+        }
+        return totalCompletedBadges;
+    }
+
+    calcTotalTeamScore() {
+        let totalTeamScore = 0;
+        for (const team of this.teams) {
+            totalTeamScore += this._calcTeamScore(team);
+        }
+        return totalTeamScore;
+    }
+
+    getTotalLevelBase() {
+        let totalLevelBase = 0;
+        this.teams.forEach((team: ITeam) => {
+            team.participations.forEach((dimension: IDimension) => {
+                totalLevelBase += dimension.levels.length;
+            });
+        });
+        return totalLevelBase;
+    }
+
     calcLevelBase(team: ITeam) {
         const relevantDimensionIds = team.participations.map(d => d.id);
         return this.levels.filter(l => relevantDimensionIds.indexOf(l.dimensionId) !== -1).length;
@@ -122,8 +176,12 @@ export class OverviewTeamsComponent implements OnInit {
         return count;
     }
 
+    private _calcTeamScore(team: ITeam) {
+        return TeamScoreCalculation.calcTeamScore(team, this.skills, this.badges);
+    }
+
     private isLevelOrBadgeCompleted(team: ITeam, item: ILevel | IBadge): boolean {
-        return new CompletionCheck(team, item).isCompleted();
+        return new CompletionCheck(team, item, this.skills).isCompleted();
     }
 
     private getParamAsNumber(name: string, params: ParamMap): number {

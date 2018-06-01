@@ -13,6 +13,9 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { ISkillRate } from 'app/shared/model/skill-rate.model';
+import { IComment } from 'app/shared/model/comment.model';
+import { SkillDetailsRatingComponent } from 'app/teams/skill-details/skill-details-rating/skill-details-rating.component';
 
 @Component({
     selector: 'jhi-skill-details-info',
@@ -27,6 +30,9 @@ export class SkillDetailsInfoComponent implements OnInit {
     @Input() achievableSkill: IAchievableSkill;
 
     @Output() onSkillChanged = new EventEmitter<IAchievableSkill>();
+    @Output() onVoteSubmitted = new EventEmitter<{ skillRate: ISkillRate; comment: IComment }>();
+
+    @ViewChild(SkillDetailsRatingComponent) skillRating;
 
     achievedByTeams: ITeam[] = [];
 
@@ -78,16 +84,23 @@ export class SkillDetailsInfoComponent implements OnInit {
         });
     }
 
+    onVoteSubmittedFromChild(event) {
+        this.onVoteSubmitted.emit(event);
+        this.updateSkill();
+    }
+
     onSkillInListChanged(skillObjs) {
         this.achievableSkill = skillObjs.aSkill;
         this.skill = skillObjs.iSkill;
         this.loadData();
+        this.skillRating.onSkillChanged();
     }
 
     onSkillInListClicked(skillObjs) {
         this.achievableSkill = skillObjs.aSkill;
         this.skill = skillObjs.iSkill;
         this.loadData();
+        this.skillRating.onSkillChanged(skillObjs.iSkill);
     }
 
     onToggleSkill(isActivated: boolean) {
@@ -103,7 +116,20 @@ export class SkillDetailsInfoComponent implements OnInit {
         this.updateSkill();
     }
 
+    updateSkillRating(skill: ISkill) {
+        this.skillRating.onSkillChanged(skill);
+    }
+
     updateSkill() {
+        if (
+            this.team === null ||
+            typeof this.team === 'undefined' ||
+            this.achievableSkill === null ||
+            typeof this.achievableSkill === 'undefined'
+        ) {
+            return;
+        }
+
         this.teamsSkillsService.updateAchievableSkill(this.team.id, this.achievableSkill).subscribe(
             (res: HttpResponse<IAchievableSkill>) => {
                 this.achievableSkill = res.body;

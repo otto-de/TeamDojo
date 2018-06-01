@@ -1,13 +1,28 @@
 .background-image {
     background-size: cover;
     display: block;
-    filter: blur(5px);
-    -webkit-filter: blur(15px);
-    width: 70vh;
-    height: 70vh;
-    top: 15vh;
-    left: 10vh;
+    filter: blur(6px);
+    -webkit-filter: blur(6px);
+    margin-top: 140px;
     position: fixed;
     z-index: -1;
-}
+    border-radius: 50%;
+    /deep/ .avatar-image-wrapper {
+        width: 40vh !important;
+        height: 55vh !important;
+    }
 
+    /deep/ .team-image-wrapper {
+        width: 50vh !important;
+        height: 50vh !important;
+    }
+
+    /deep/ .status-meta {
+        width: 50vh !important;
+        height: 15vh !important;
+    }
+
+    /deep/ .teams-status-achievements {
+        display: none !important;
+    }
+}

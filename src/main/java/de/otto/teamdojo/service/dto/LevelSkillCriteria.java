@@ -1,7 +1,6 @@
 package de.otto.teamdojo.service.dto;
 
 import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 
 import java.io.Serializable;
@@ -21,8 +20,6 @@ public class LevelSkillCriteria implements Serializable {
 
     private LongFilter id;
 
-    private IntegerFilter score;
-
     private LongFilter skillId;
 
     private LongFilter levelId;
@@ -36,14 +33,6 @@ public class LevelSkillCriteria implements Serializable {
 
     public void setId(LongFilter id) {
         this.id = id;
-    }
-
-    public IntegerFilter getScore() {
-        return score;
-    }
-
-    public void setScore(IntegerFilter score) {
-        this.score = score;
     }
 
     public LongFilter getSkillId() {
@@ -66,7 +55,6 @@ public class LevelSkillCriteria implements Serializable {
     public String toString() {
         return "LevelSkillCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
-            (score != null ? "score=" + score + ", " : "") +
             (skillId != null ? "skillId=" + skillId + ", " : "") +
             (levelId != null ? "levelId=" + levelId + ", " : "") +
             "}";

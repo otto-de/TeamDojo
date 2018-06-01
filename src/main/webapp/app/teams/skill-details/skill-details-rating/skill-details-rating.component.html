@@ -1,0 +1,33 @@
+<ngb-rating [(rate)]="rateScore" max="5" [readonly]="!isActiveTeam()" (click)="open(voteModal)" [starTemplate]="stars">
+</ngb-rating>
+{{rateCount}} <span class="rating-text" jhiTranslate="teamdojoApp.skill.detail.rateCount"></span>
+
+<ng-template #stars let-fill="fill" let-index="index">
+    <span class="star" [class.full]="fill === 100">
+        <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+    </span>
+</ng-template>
+
+<ng-template #voteModal let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title" jhiTranslate="teamdojoApp.skill.detail.modalTitle"></h4>
+            <button type="button" class="close" (click)="d('Cross click')">
+                <span>&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="d-flex justify-content-center">
+                <ngb-rating [(rate)]="rateScore" max="5" [starTemplate]="stars"></ngb-rating>
+            </div>
+            <div class="d-flex flex-column justify-content-center">
+                <textarea rows="4" id="commentVote" [(ngModel)]="comment"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal"
+                    jhiTranslate="teamdojoApp.skill.detail.modalSubmit" id="submitVote" [disabled]="!comment"
+                    (click)="voteSkill()"></button>
+            <button type="button" class="btn btn-default" data-dismiss="modal"
+                    jhiTranslate="teamdojoApp.skill.detail.modalClose" (click)="c('close')"></button>
+        </div>
+</ng-template>

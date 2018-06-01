@@ -11,6 +11,8 @@ import { CompletionCheck } from 'app/shared/util/completion-check';
 import { IProgress, Progress } from 'app/shared/achievement/model/progress.model';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import 'simplebar';
+import { ISkill } from 'app/shared/model/skill.model';
+
 @Component({
     selector: 'jhi-teams-achievements',
     templateUrl: './teams-achievements.component.html',
@@ -20,6 +22,7 @@ export class TeamsAchievementsComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
     @Input() teamSkills: ITeamSkill[];
     @Input() badges: IBadge[];
+    @Input() skills: ISkill[];
     generalBadges: IBadge[];
     activeItemIds: { badge: number; level: number; dimension: number };
     expandedDimensions: string[];
@@ -102,19 +105,12 @@ export class TeamsAchievementsComponent implements OnInit, OnChanges {
     }
 
     getAchievementProgress(item: ILevel | IBadge): number {
-        const countProgress = new Progress(0, 0);
-        const scoreProgress = new Progress(0, 0);
-        if (this.isRelevant(item)) {
-            const itemProgress = this.getLevelOrBadgeProgress(item);
-            scoreProgress.required += itemProgress.required;
-            scoreProgress.achieved += itemProgress.achieved;
-            countProgress.required++;
-            if (itemProgress.isCompleted()) {
-                countProgress.achieved++;
-            }
-        }
-        const progress = new AchievementProgress(countProgress, scoreProgress);
-        return progress.scoreProgress.getPercentage();
+        const scoreProgress = this.isRelevant(item) ? this.getLevelOrBadgeProgress(item) : new Progress(0, 0, 0);
+        return scoreProgress.getPercentage();
+    }
+
+    getAchievementIrrelevancy(item: ILevel | IBadge): number {
+        return new CompletionCheck(this.team, item, this.skills).getIrrelevancy();
     }
 
     getHighestAchievedLevel(dimension: IDimension): ILevel {
@@ -129,8 +125,16 @@ export class TeamsAchievementsComponent implements OnInit, OnChanges {
         return currentLevel;
     }
 
+    isCompletable(level: ILevel, dimension: IDimension): boolean {
+        return !dimension || !dimension.levels
+            ? false
+            : dimension.levels
+                  .slice(0, dimension.levels.findIndex(l => l.id === level.id) || 0)
+                  .every(l => this.getLevelOrBadgeProgress(l).isCompleted());
+    }
+
     private getLevelOrBadgeProgress(item: ILevel | IBadge): IProgress {
-        return new CompletionCheck(this.team, item).getProgress();
+        return new CompletionCheck(this.team, item, this.skills).getProgress();
     }
 
     private isRelevant(item: ILevel | IBadge): boolean {

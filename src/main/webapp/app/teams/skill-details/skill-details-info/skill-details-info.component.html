@@ -21,18 +21,13 @@
 </div>
 
 <div>
-    <div class="skill-rating mockup">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star-o"></span>
-        <span class="fa fa-star-o"></span>
-
-        <span class="rating-text" jhiTranslate="teamdojoApp.teams.skills.details.3of5">3 von 5 Sternen</span>
+    <div class="skill-rating">
+        <jhi-star-rating (onVoteSubmitted)="onVoteSubmittedFromChild($event)" [skill]="skill"></jhi-star-rating>
     </div>
 
-    <div class="skill-contact mockup">
-        <span jhitranslate="teamdojoApp.teams.skills.details.contact">Ansprechpartner: </span> Max Mustermann
+    <div class="skill-contact" *ngIf="skill.contact">
+        <span jhiTranslate="teamdojoApp.teams.skills.details.contact">Contact</span>:
+        <span>{{skill.contact}}</span>
     </div>
     <div class="clearfix"></div>
 </div>
@@ -69,9 +64,8 @@
     <div class="achieved-by">
         <h5 jhiTranslate="teamdojoApp.teams.skills.details.achievedBy"></h5>
         <div class="achieved-by-teams">
-            <div *ngFor="let t of achievedByTeams" class="avatar-team" placement="top" [ngbTooltip]="t.name">
-                <img [src]="t.picture | imageDataUrl: t.pictureContentType"/>
-            </div>
+            <jhi-team-image *ngFor="let t of achievedByTeams" class="avatar-team" [team]="t" size="8vh"
+                            placement="top" [ngbTooltip]="t.name"></jhi-team-image>
             <p *ngIf="achievedByTeams.length === 0"
                jhiTranslate="teamdojoApp.teams.skills.details.achievedByNone"></p>
             <div class="clearfix"></div>

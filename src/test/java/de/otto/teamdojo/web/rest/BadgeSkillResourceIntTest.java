@@ -42,9 +42,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = TeamdojoApp.class)
 public class BadgeSkillResourceIntTest {
 
-    private static final Integer DEFAULT_SCORE = 0;
-    private static final Integer UPDATED_SCORE = 1;
-
     @Autowired
     private BadgeSkillRepository badgeSkillRepository;
 
@@ -93,8 +90,7 @@ public class BadgeSkillResourceIntTest {
      * if they test an entity which requires the current entity.
      */
     public static BadgeSkill createEntity(EntityManager em) {
-        BadgeSkill badgeSkill = new BadgeSkill()
-            .score(DEFAULT_SCORE);
+        BadgeSkill badgeSkill = new BadgeSkill();
         // Add required entity
         Badge badge = BadgeResourceIntTest.createEntity(em);
         em.persist(badge);
@@ -129,7 +125,6 @@ public class BadgeSkillResourceIntTest {
         List<BadgeSkill> badgeSkillList = badgeSkillRepository.findAll();
         assertThat(badgeSkillList).hasSize(databaseSizeBeforeCreate + 1);
         BadgeSkill testBadgeSkill = badgeSkillList.get(badgeSkillList.size() - 1);
-        assertThat(testBadgeSkill.getScore()).isEqualTo(DEFAULT_SCORE);
     }
 
     @Test
@@ -154,25 +149,6 @@ public class BadgeSkillResourceIntTest {
 
     @Test
     @Transactional
-    public void checkScoreIsRequired() throws Exception {
-        int databaseSizeBeforeTest = badgeSkillRepository.findAll().size();
-        // set the field null
-        badgeSkill.setScore(null);
-
-        // Create the BadgeSkill, which fails.
-        BadgeSkillDTO badgeSkillDTO = badgeSkillMapper.toDto(badgeSkill);
-
-        restBadgeSkillMockMvc.perform(post("/api/badge-skills")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(badgeSkillDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<BadgeSkill> badgeSkillList = badgeSkillRepository.findAll();
-        assertThat(badgeSkillList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllBadgeSkills() throws Exception {
         // Initialize the database
         badgeSkillRepository.saveAndFlush(badgeSkill);
@@ -181,8 +157,7 @@ public class BadgeSkillResourceIntTest {
         restBadgeSkillMockMvc.perform(get("/api/badge-skills?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(badgeSkill.getId().intValue())))
-            .andExpect(jsonPath("$.[*].score").value(hasItem(DEFAULT_SCORE)));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(badgeSkill.getId().intValue())));
     }
 
 
@@ -196,75 +171,8 @@ public class BadgeSkillResourceIntTest {
         restBadgeSkillMockMvc.perform(get("/api/badge-skills/{id}", badgeSkill.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(badgeSkill.getId().intValue()))
-            .andExpect(jsonPath("$.score").value(DEFAULT_SCORE));
+            .andExpect(jsonPath("$.id").value(badgeSkill.getId().intValue()));
     }
-
-    @Test
-    @Transactional
-    public void getAllBadgeSkillsByScoreIsEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeSkillRepository.saveAndFlush(badgeSkill);
-
-        // Get all the badgeSkillList where score equals to DEFAULT_SCORE
-        defaultBadgeSkillShouldBeFound("score.equals=" + DEFAULT_SCORE);
-
-        // Get all the badgeSkillList where score equals to UPDATED_SCORE
-        defaultBadgeSkillShouldNotBeFound("score.equals=" + UPDATED_SCORE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllBadgeSkillsByScoreIsInShouldWork() throws Exception {
-        // Initialize the database
-        badgeSkillRepository.saveAndFlush(badgeSkill);
-
-        // Get all the badgeSkillList where score in DEFAULT_SCORE or UPDATED_SCORE
-        defaultBadgeSkillShouldBeFound("score.in=" + DEFAULT_SCORE + "," + UPDATED_SCORE);
-
-        // Get all the badgeSkillList where score equals to UPDATED_SCORE
-        defaultBadgeSkillShouldNotBeFound("score.in=" + UPDATED_SCORE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllBadgeSkillsByScoreIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        badgeSkillRepository.saveAndFlush(badgeSkill);
-
-        // Get all the badgeSkillList where score is not null
-        defaultBadgeSkillShouldBeFound("score.specified=true");
-
-        // Get all the badgeSkillList where score is null
-        defaultBadgeSkillShouldNotBeFound("score.specified=false");
-    }
-
-    @Test
-    @Transactional
-    public void getAllBadgeSkillsByScoreIsGreaterThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeSkillRepository.saveAndFlush(badgeSkill);
-
-        // Get all the badgeSkillList where score greater than or equals to DEFAULT_SCORE
-        defaultBadgeSkillShouldBeFound("score.greaterOrEqualThan=" + DEFAULT_SCORE);
-
-        // Get all the badgeSkillList where score greater than or equals to UPDATED_SCORE
-        defaultBadgeSkillShouldNotBeFound("score.greaterOrEqualThan=" + UPDATED_SCORE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllBadgeSkillsByScoreIsLessThanSomething() throws Exception {
-        // Initialize the database
-        badgeSkillRepository.saveAndFlush(badgeSkill);
-
-        // Get all the badgeSkillList where score less than or equals to DEFAULT_SCORE
-        defaultBadgeSkillShouldNotBeFound("score.lessThan=" + DEFAULT_SCORE);
-
-        // Get all the badgeSkillList where score less than or equals to UPDATED_SCORE
-        defaultBadgeSkillShouldBeFound("score.lessThan=" + UPDATED_SCORE);
-    }
-
 
     @Test
     @Transactional
@@ -310,8 +218,7 @@ public class BadgeSkillResourceIntTest {
         restBadgeSkillMockMvc.perform(get("/api/badge-skills?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(badgeSkill.getId().intValue())))
-            .andExpect(jsonPath("$.[*].score").value(hasItem(DEFAULT_SCORE)));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(badgeSkill.getId().intValue())));
     }
 
     /**
@@ -346,8 +253,6 @@ public class BadgeSkillResourceIntTest {
         BadgeSkill updatedBadgeSkill = badgeSkillRepository.findById(badgeSkill.getId()).get();
         // Disconnect from session so that the updates on updatedBadgeSkill are not directly saved in db
         em.detach(updatedBadgeSkill);
-        updatedBadgeSkill
-            .score(UPDATED_SCORE);
         BadgeSkillDTO badgeSkillDTO = badgeSkillMapper.toDto(updatedBadgeSkill);
 
         restBadgeSkillMockMvc.perform(put("/api/badge-skills")
@@ -359,7 +264,6 @@ public class BadgeSkillResourceIntTest {
         List<BadgeSkill> badgeSkillList = badgeSkillRepository.findAll();
         assertThat(badgeSkillList).hasSize(databaseSizeBeforeUpdate);
         BadgeSkill testBadgeSkill = badgeSkillList.get(badgeSkillList.size() - 1);
-        assertThat(testBadgeSkill.getScore()).isEqualTo(UPDATED_SCORE);
     }
 
     @Test

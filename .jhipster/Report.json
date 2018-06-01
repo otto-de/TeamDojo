@@ -1,0 +1,41 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "4096"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "ReportType",
+            "fieldValues": "BUG,WISH,REVIEW,COMPLIMENT",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "creationDate",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180525122526",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "report",
+    "jpaMetamodelFiltering": true,
+    "pagination": "no"
+}

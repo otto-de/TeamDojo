@@ -2,9 +2,11 @@ package de.otto.teamdojo.service.impl;
 
 import de.otto.teamdojo.domain.Badge;
 import de.otto.teamdojo.repository.BadgeRepository;
+import de.otto.teamdojo.service.ActivityService;
 import de.otto.teamdojo.service.BadgeService;
 import de.otto.teamdojo.service.dto.BadgeDTO;
 import de.otto.teamdojo.service.mapper.BadgeMapper;
+import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -12,10 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing Badge.
@@ -30,9 +30,12 @@ public class BadgeServiceImpl implements BadgeService {
 
     private final BadgeMapper badgeMapper;
 
-    public BadgeServiceImpl(BadgeRepository badgeRepository, BadgeMapper badgeMapper) {
+    private final ActivityService activityService;
+
+    public BadgeServiceImpl(BadgeRepository badgeRepository, BadgeMapper badgeMapper, ActivityService activityService) {
         this.badgeRepository = badgeRepository;
         this.badgeMapper = badgeMapper;
+        this.activityService = activityService;
     }
 
     /**
@@ -42,11 +45,16 @@ public class BadgeServiceImpl implements BadgeService {
      * @return the persisted entity
      */
     @Override
-    public BadgeDTO save(BadgeDTO badgeDTO) {
+    public BadgeDTO save(BadgeDTO badgeDTO) throws JSONException {
         log.debug("Request to save Badge : {}", badgeDTO);
+        boolean newBadge = badgeDTO.getId() == null;
         Badge badge = badgeMapper.toEntity(badgeDTO);
         badge = badgeRepository.save(badge);
-        return badgeMapper.toDto(badge);
+        badgeDTO = badgeMapper.toDto(badge);
+        if (newBadge) {
+            this.activityService.createForNewBadge(badgeDTO);
+        }
+        return badgeDTO;
     }
 
     /**

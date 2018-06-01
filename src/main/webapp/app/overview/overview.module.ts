@@ -4,12 +4,15 @@ import { TeamdojoSharedModule } from 'app/shared';
 import {
     AllBadgeSkillsResolve,
     AllBadgesResolve,
+    AllCommentsResolve,
     AllLevelSkillsResolve,
     AllLevelsResolve,
+    AllSkillsResolve,
     AllTeamSkillsResolve,
     AllTeamsResolve,
     OVERVIEW_ROUTE,
-    SkillResolve
+    SkillResolve,
+    TeamsSelectionResolve
 } from 'app/overview/overview.route';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OverviewComponent } from 'app/overview/overview.component';
@@ -31,6 +34,7 @@ import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
     ],
     entryComponents: [],
     providers: [
+        TeamsSelectionResolve,
         AllTeamsResolve,
         AllLevelsResolve,
         AllBadgesResolve,
@@ -38,6 +42,8 @@ import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
         AllLevelSkillsResolve,
         SkillResolve,
         AllBadgeSkillsResolve,
+        AllSkillsResolve,
+        AllCommentsResolve,
         BreadcrumbService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
