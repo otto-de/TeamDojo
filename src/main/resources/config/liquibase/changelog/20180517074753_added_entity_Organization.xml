@@ -25,6 +25,10 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="level_up_score" type="integer">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
 

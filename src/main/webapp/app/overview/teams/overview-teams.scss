@@ -1,5 +1,4 @@
 @import '~bootstrap/scss/bootstrap';
-@import '../../../content/scss/mixins';
 @import '../../../content/scss/_colors';
 
 .overviews-teams {
@@ -46,9 +45,6 @@
                 min-height: 70px;
                 .team-rank {
                     min-width: 2em;
-                }
-                .team-image {
-                    @include team-image();
                 }
                 .team-info {
                    width: 48%;

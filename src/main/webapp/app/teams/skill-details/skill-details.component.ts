@@ -9,6 +9,8 @@ import { TeamsSkillsComponent } from 'app/teams/teams-skills.component';
 import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details-info/skill-details-info.component';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import { IComment } from 'app/shared/model/comment.model';
+import { IBadge } from 'app/shared/model/badge.model';
+import { ITeamSkill } from 'app/shared/model/team-skill.model';
 
 @Component({
     selector: 'jhi-skill-details',
@@ -22,7 +24,11 @@ export class SkillDetailsComponent implements OnInit {
 
     skill: ISkill;
 
-    skills: ISkill[];
+    teamSkills: ITeamSkill[] = [];
+
+    badges: IBadge[] = [];
+
+    skills: ISkill[] = [];
 
     achievableSkill: IAchievableSkill;
 
@@ -46,13 +52,15 @@ export class SkillDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.route.data.subscribe(({ team, teams, skill, skills, comments, selectedTeam }) => {
+        this.route.data.subscribe(({ team, teams, skill, comments, selectedTeam, teamSkills, badges, skills }) => {
             this.team = team.body ? team.body : team;
             this.teams = teams.body ? teams.body : teams;
             this.skill = skill.body ? skill.body : skill;
-            this.skills = skills.body ? skills.body : skills;
             this.selectedTeam =
                 selectedTeam === null || selectedTeam === 'undefined' ? null : selectedTeam.body ? selectedTeam.body : selectedTeam;
+            this.teamSkills = (teamSkills && teamSkills.body ? teamSkills.body : teamSkills) || [];
+            this.badges = (badges && badges.body ? badges.body : badges) || [];
+            this.skills = (skills && skills.body ? skills.body : skills) || [];
             this._comments = comments.body ? comments.body : comments;
             this._mapCommentAuthors();
         });
@@ -69,7 +77,6 @@ export class SkillDetailsComponent implements OnInit {
     }
 
     onSkillInListChanged(skillObjs) {
-        console.log('Skill changes: ', skillObjs);
         this.skillInfo.onSkillInListChanged(skillObjs);
     }
 
