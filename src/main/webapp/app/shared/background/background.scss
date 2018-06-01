@@ -18,7 +18,11 @@
     }
 
     /deep/ .status-meta {
-        width: 70vh !important;
+        width: 50vh !important;
         height: 15vh !important;
+    }
+
+    /deep/ .teams-status-achievements {
+        display: none !important;
     }
 }

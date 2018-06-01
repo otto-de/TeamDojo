@@ -57,6 +57,7 @@ import { SkillService } from 'app/entities/skill';
         AllCommentsResolve,
         AllTeamsResolve,
         SkillService
+
     ],
     exports: [SkillDetailsInfoComponent, SkillDetailsCommentsComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
