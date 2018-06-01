@@ -14,8 +14,8 @@ export class TeamsSelectionService {
         this.query();
     }
 
-    query(): Observable<ITeam> {
-        return this.teamsService.query().map(result => {
+    query() {
+        return this.teamsService.query().subscribe(result => {
             const teams = result.body;
             const teamIdStr = this.storage.retrieve(TEAM_STORAGE_KEY);
             if (teamIdStr !== null && !isNaN(Number(teamIdStr))) {
@@ -23,7 +23,6 @@ export class TeamsSelectionService {
                 const team = teams.find(t => t.id === Number(teamId));
                 this._selectedTeam = team ? team : null;
             }
-            return this._selectedTeam;
         });
     }
 
