@@ -12,7 +12,6 @@ import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
 import { ILevelSkill } from 'app/shared/model/level-skill.model';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import { sortLevels } from 'app/shared';
-import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { IComment } from 'app/shared/model/comment.model';
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details-info/skill-details-info.component';
@@ -24,8 +23,6 @@ import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details
 })
 export class OverviewSkillDetailsComponent implements OnInit {
     skill: ISkill;
-
-    achievableSkill: IAchievableSkill;
 
     selectedTeam: ITeam;
 
@@ -125,25 +122,16 @@ export class OverviewSkillDetailsComponent implements OnInit {
                     });
                 });
 
-                this.achievableSkill = new AchievableSkill();
-                this.achievableSkill.skillId = this.skill.id;
-                if (this.selectedTeam != null) {
-                    this.teamsSkillsService.findAchievableSkill(this.selectedTeam.id, this.skill.id).subscribe(aSkill => {
-                        this.achievableSkill = aSkill;
-                        this.skillComments = this._getSkillComments();
-                    });
-                }
+                this.skillComments = this._getSkillComments();
             }
         );
     }
 
     onSkillInListChange(skillObjs) {
-        this.achievableSkill = skillObjs.aSkill;
         this.skill = skillObjs.iSkill;
     }
 
     onSkillSelected(skillObjs) {
-        this.achievableSkill = skillObjs.aSkill;
         this.skill = skillObjs.iSkill;
     }
 
@@ -165,7 +153,7 @@ export class OverviewSkillDetailsComponent implements OnInit {
 
     private _getSkillComments(): IComment[] {
         return (this._comments || [])
-            .filter(comment => comment.skillId === this.achievableSkill.skillId)
+            .filter(comment => comment.skillId === this.skill.id)
             .sort((comment1, comment2) => comment1.creationDate.diff(comment2.creationDate));
     }
 }
