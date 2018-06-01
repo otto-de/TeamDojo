@@ -35,8 +35,6 @@ export class NavbarComponent implements OnInit {
     activeTeam: ITeam;
     activeSkill: ISkill;
     breadcrumbs: IBreadcrumb[];
-    teams: ITeam[];
-    badges: IBadge[];
 
     constructor(
         private loginService: LoginService,
@@ -139,9 +137,5 @@ export class NavbarComponent implements OnInit {
 
     getTeamImage(team: Team) {
         return team.picture && team.pictureContentType ? `data:${team.pictureContentType};base64,${team.picture}` : null;
-    }
-
-    private loadNotifications(): void {
-        // TODO inform child view
     }
 }
