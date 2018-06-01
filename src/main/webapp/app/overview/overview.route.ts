@@ -90,7 +90,7 @@ export class TeamsSelectionResolve implements Resolve<any> {
     constructor(private teamsSelectionService: TeamsSelectionService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.teamsSelectionService.query();
+        return this.teamsSelectionService.selectedTeam;
     }
 }
 
