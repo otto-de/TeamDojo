@@ -50,13 +50,12 @@ task buildDocker(type: DockerBuildImage, dependsOn: 'copyDockerFiles') {
     tags = dockerImageNameWithTags
 }
 
-task pushDocker(type: DockerPushImage, dependsOn: 'buildDocker') {
-    description = "Pushing the built image"
+task pushDockerVersion(type: DockerPushImage, dependsOn: 'buildDocker') {
+    description = "Pushes the image with the concrete version number"
     imageName = dockerImageNameWithTags[0];
 }
 
-task tagDocker(type: DockerTagImage, dependsOn: 'pushDocker') {
-    description = "Tag with 'latest' or 'next'"
-    repository = dockerRepository
-    tag = dockerImageNameWithTags[1].split(':')[1]
+task pushDocker(type: DockerPushImage, dependsOn: 'pushDockerVersion') {
+    description = "Pushes the image with tag 'latest' or 'next'"
+    imageName = dockerImageNameWithTags[1];
 }
