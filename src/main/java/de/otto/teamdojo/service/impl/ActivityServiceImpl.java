@@ -1,16 +1,15 @@
 package de.otto.teamdojo.service.impl;
 
+import de.otto.teamdojo.domain.Activity;
 import de.otto.teamdojo.domain.Badge;
 import de.otto.teamdojo.domain.Skill;
 import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.domain.enumeration.ActivityType;
+import de.otto.teamdojo.repository.ActivityRepository;
 import de.otto.teamdojo.repository.BadgeRepository;
 import de.otto.teamdojo.repository.SkillRepository;
 import de.otto.teamdojo.repository.TeamRepository;
 import de.otto.teamdojo.service.ActivityService;
-import de.otto.teamdojo.domain.Activity;
-import de.otto.teamdojo.repository.ActivityRepository;
-import de.otto.teamdojo.service.dto.AchievableSkillDTO;
 import de.otto.teamdojo.service.dto.ActivityDTO;
 import de.otto.teamdojo.service.dto.BadgeDTO;
 import de.otto.teamdojo.service.dto.TeamSkillDTO;
@@ -26,9 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.Optional;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
 /**
  * Service Implementation for managing Activity.
  */
@@ -75,16 +71,12 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public ActivityDTO createForNewBadge(BadgeDTO badgeDTO) {
+    public ActivityDTO createForNewBadge(BadgeDTO badgeDTO) throws JSONException {
         Badge badge = badgeRepository.getOne(badgeDTO.getId());
         JSONObject data = new JSONObject();
-        try {
-            data.put("badgeId", badge.getId());
-            data.put("badgeName", badge.getName());
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
+        data.put("badgeId", badge.getId());
+        data.put("badgeName", badge.getName());
+
         ActivityDTO activityDTO = new ActivityDTO();
         activityDTO.setType(ActivityType.BADGE_CREATED);
         activityDTO.setCreatedAt(Instant.now());
@@ -94,20 +86,16 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public ActivityDTO createForCompletedSkill(TeamSkillDTO teamSkill) {
+    public ActivityDTO createForCompletedSkill(TeamSkillDTO teamSkill) throws JSONException {
         Team team = teamRepository.getOne(teamSkill.getTeamId());
         Skill skill = skillRepository.getOne(teamSkill.getSkillId());
 
         JSONObject data = new JSONObject();
-        try {
-            data.put("teamId", team.getId());
-            data.put("teamName", team.getName());
-            data.put("skillId", skill.getId());
-            data.put("skillTitle", skill.getTitle());
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
+        data.put("teamId", team.getId());
+        data.put("teamName", team.getName());
+        data.put("skillId", skill.getId());
+        data.put("skillTitle", skill.getTitle());
+
         ActivityDTO activityDTO = new ActivityDTO();
         activityDTO.setType(ActivityType.SKILL_COMPLETED);
         activityDTO.setCreatedAt(Instant.now());

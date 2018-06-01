@@ -1,6 +1,7 @@
 package de.otto.teamdojo.service;
 
 import de.otto.teamdojo.service.dto.BadgeDTO;
+import org.json.JSONException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,7 +19,7 @@ public interface BadgeService {
      * @param badgeDTO the entity to save
      * @return the persisted entity
      */
-    BadgeDTO save(BadgeDTO badgeDTO);
+    BadgeDTO save(BadgeDTO badgeDTO) throws JSONException;
 
     /**
      * Get all the badges.

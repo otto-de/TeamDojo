@@ -3,6 +3,7 @@ package de.otto.teamdojo.service;
 import de.otto.teamdojo.service.dto.ActivityDTO;
 import de.otto.teamdojo.service.dto.BadgeDTO;
 import de.otto.teamdojo.service.dto.TeamSkillDTO;
+import org.json.JSONException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -26,14 +27,14 @@ public interface ActivityService {
      * Create an activity for BADGE_CREATED
      * @return the persisted entity
      */
-    ActivityDTO createForNewBadge(BadgeDTO badgeDTO);
+    ActivityDTO createForNewBadge(BadgeDTO badgeDTO) throws JSONException;
 
     /**
      * Create an activity for SKILL_COMPLETED
      * @param teamSkill
      * @return the persisted entity
      */
-    ActivityDTO createForCompletedSkill(TeamSkillDTO teamSkill);
+    ActivityDTO createForCompletedSkill(TeamSkillDTO teamSkill) throws JSONException;
 
     /**
      * Get all the activities.

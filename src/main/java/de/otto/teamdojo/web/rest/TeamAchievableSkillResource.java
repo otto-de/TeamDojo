@@ -5,6 +5,7 @@ import de.otto.teamdojo.service.AchievableSkillService;
 import de.otto.teamdojo.service.dto.AchievableSkillDTO;
 import de.otto.teamdojo.web.rest.util.HeaderUtil;
 import de.otto.teamdojo.web.rest.util.PaginationUtil;
+import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -59,7 +60,7 @@ public class TeamAchievableSkillResource {
 
     @PutMapping("/teams/{id}/achievable-skills")
     @Timed
-    public ResponseEntity<AchievableSkillDTO> updateAchievableSkill(@PathVariable Long id, @RequestBody AchievableSkillDTO achievableSkill) throws URISyntaxException {
+    public ResponseEntity<AchievableSkillDTO> updateAchievableSkill(@PathVariable Long id, @RequestBody AchievableSkillDTO achievableSkill) throws JSONException {
         AchievableSkillDTO result = achievableSkillService.updateAchievableSkill(id, achievableSkill);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("AchievableSkillDTO", result.getSkillId().toString()))
