@@ -1,6 +1,11 @@
-import org.gradle.internal.os.OperatingSystem
+import org.ajoberstar.gradle.git.release.base.ReleaseVersion
+import org.ajoberstar.gradle.git.release.base.VersionStrategy
 import org.ajoberstar.gradle.git.release.opinion.Strategies
 import org.ajoberstar.grgit.Grgit
+import org.gradle.internal.os.OperatingSystem
+
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 buildscript {
     repositories {
@@ -74,7 +79,7 @@ springBoot {
 }
 
 release {
-    versionStrategy Strategies.FINAL
+    versionStrategy new BranchVersionStrategy();
     defaultVersionStrategy Strategies.SNAPSHOT
     grgit = Grgit.open(currentDir: project.file('.'))
     tagStrategy {
@@ -258,3 +263,40 @@ if (project.hasProperty('nodeInstall')) {
 compileJava.dependsOn processResources
 processResources.dependsOn cleanResources, bootBuildInfo
 bootBuildInfo.mustRunAfter cleanResources
+
+class BranchVersionStrategy implements VersionStrategy {
+
+    private Pattern SUFFIXES_PATTERN = Pattern.compile("(\\d+\\.\\d+\\.\\d+)-.+-\\d-[a-z0-9]+");
+
+    @Override
+    String getName() {
+        return "Branch Version Strategy"
+    }
+
+    @Override
+    boolean selector(Project project, Grgit grgit) {
+        return true
+    }
+
+    @Override
+    ReleaseVersion infer(Project project, Grgit grgit) {
+        String tag = getTag(grgit);
+        String branch = grgit.getBranch().getCurrent() ? grgit.getBranch().getCurrent().getName() : System.env.GIT_BRANCH;
+        String qualifier = "SNAPSHOT";
+
+        if (branch.equals("master") || branch.contains("origin/master")) {
+            qualifier = "RELEASE";
+        } else if (!branch.equals("develop") && !branch.contains("origin/develop")) {
+            qualifier += "-" + branch.replaceAll("/", "-").replaceFirst("origin", "");
+        }
+        
+        String version = "${tag}-$qualifier";
+        return new ReleaseVersion(version, null, false);
+    }
+
+    private String getTag(Grgit grgit) {
+        String rawTag = grgit.describe();
+        Matcher matcher = SUFFIXES_PATTERN.matcher(rawTag);
+        return matcher.find() ? matcher.group(1) : rawTag;
+    }
+}
