@@ -79,7 +79,7 @@ springBoot {
 }
 
 release {
-    versionStrategy new BranchVersionStrategy();
+    versionStrategy new DojoReleaseStrategy();
     defaultVersionStrategy Strategies.SNAPSHOT
     grgit = Grgit.open(currentDir: project.file('.'))
     tagStrategy {
@@ -264,36 +264,28 @@ compileJava.dependsOn processResources
 processResources.dependsOn cleanResources, bootBuildInfo
 bootBuildInfo.mustRunAfter cleanResources
 
-class BranchVersionStrategy implements VersionStrategy {
+class DojoReleaseStrategy implements VersionStrategy {
 
     private Pattern SEM_VER_PATTERN = Pattern.compile("v?(\\d+\\.\\d+\\.\\d+)");
 
     @Override
     String getName() {
-        return "Branch Version Strategy"
+        return "dojo-release"
     }
 
     @Override
     boolean selector(Project project, Grgit grgit) {
-        return true
+        String branch = grgit.getBranch().getCurrent() ? grgit.getBranch().getCurrent().getName() : System.env.GIT_BRANCH;
+        return branch.equals("master") || branch.contains("origin/master");
     }
 
     @Override
     ReleaseVersion infer(Project project, Grgit grgit) {
-        String tag = getTag(grgit);
-        String branch = grgit.getBranch().getCurrent() ? grgit.getBranch().getCurrent().getName() : System.env.GIT_BRANCH;
-        String qualifier = "SNAPSHOT";
-
-        if (branch.equals("master") || branch.contains("origin/master")) {
-            qualifier = "RELEASE";
-        } else if (!branch.equals("develop") && !branch.contains("origin/develop")) {
-            qualifier += "-" + branch.replaceAll("/", "-").replaceFirst("origin", "");
-        }
-        String version = "${tag}-$qualifier";
-        return new ReleaseVersion(version, null, false);
+        String version = getVersionFromTag(grgit);
+        return new ReleaseVersion(version, version, false);
     }
 
-    private String getTag(Grgit grgit) {
+    private String getVersionFromTag(Grgit grgit) {
         String rawTag = grgit.describe();
         Matcher matcher = SEM_VER_PATTERN.matcher(rawTag);
         return matcher.find() ? matcher.group(1) : rawTag;
