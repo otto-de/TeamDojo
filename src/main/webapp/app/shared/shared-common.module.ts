@@ -16,7 +16,7 @@ import { NotificationItemComponent, NotificationMenuComponent } from 'app/shared
         ImageDataUrlPipe,
         TruncateStringPipe,
         AchievementItemComponent,
-        TeamImageComponent
+        TeamImageComponent,
         NotificationMenuComponent,
         NotificationItemComponent
     ],
@@ -29,7 +29,7 @@ import { NotificationItemComponent, NotificationMenuComponent } from 'app/shared
         ImageDataUrlPipe,
         TruncateStringPipe,
         AchievementItemComponent,
-        TeamImageComponent
+        TeamImageComponent,
         NotificationMenuComponent,
         NotificationItemComponent
     ]
