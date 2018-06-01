@@ -6,6 +6,7 @@ import de.otto.teamdojo.service.ActivityService;
 import de.otto.teamdojo.service.BadgeService;
 import de.otto.teamdojo.service.dto.BadgeDTO;
 import de.otto.teamdojo.service.mapper.BadgeMapper;
+import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -44,7 +45,7 @@ public class BadgeServiceImpl implements BadgeService {
      * @return the persisted entity
      */
     @Override
-    public BadgeDTO save(BadgeDTO badgeDTO) {
+    public BadgeDTO save(BadgeDTO badgeDTO) throws JSONException {
         log.debug("Request to save Badge : {}", badgeDTO);
         boolean newBadge = badgeDTO.getId() == null;
         Badge badge = badgeMapper.toEntity(badgeDTO);

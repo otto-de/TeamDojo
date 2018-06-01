@@ -12,6 +12,7 @@ import de.otto.teamdojo.service.ActivityService;
 import de.otto.teamdojo.service.TeamSkillService;
 import de.otto.teamdojo.service.dto.AchievableSkillDTO;
 import de.otto.teamdojo.service.dto.TeamSkillDTO;
+import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -73,7 +74,7 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
     }
 
     @Override
-    public AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill) {
+    public AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill) throws JSONException {
         AchievableSkillDTO originSkill = skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId());
 
         TeamSkillDTO teamSkill = new TeamSkillDTO();
