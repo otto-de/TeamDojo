@@ -13,25 +13,29 @@
                 <li class="breadcrumb-item"><a href="#">{{organizationName}}</a></li>
                 <li class="breadcrumb-item" *ngFor='let breadcrumb of breadcrumbs' [ngClass]="{active: breadcrumb.active}">
                     <a *ngIf="!breadcrumb.active" href="#{{breadcrumb.path}}">
-                        {{breadcrumb.text}}
+                        {{breadcrumb.text | truncateString: 20}}
                     </a>
-                    <span *ngIf="breadcrumb.active">{{breadcrumb.text}}</span>
+                    <span *ngIf="breadcrumb.active">{{breadcrumb.text | truncateString: 20}}</span>
                 </li>
-
-                <ng-template #teamBreadcrumb>
-                    <li class="breadcrumb-item" aria-current="page">{{activeTeam?.shortName}}</li>
-                </ng-template>
-                <ng-template #skillBreadcrumb>
-                    <li class="breadcrumb-item active" aria-current="page">{{activeSkill?.title}}</li>
-                </ng-template>
-
             </ol>
         </nav>
     </div>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed"
          [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav ml-auto">
-
+            <li ngbDropdown autoClose="outside" placement="bottom" (openChange)="notificationMenu.loadNotifications()"
+                class="nav-item dropdown pointer">
+                <a class="nav-link dropdown-toggle nav-info" ngbDropdownToggle href="javascript:void(0);"
+                   id="notificationnavBarDropdown">
+                    <span class="icon">
+                        <i class="fa fa-comment fa-4 mr-1"></i>
+                        <span class="nav-info" jhiTranslate="global.menu.notification.main"></span>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <jhi-notification-menu #notificationMenu></jhi-notification-menu>
+                </ul>
+            </li>
             <li class="nav-item" *ngIf="teamsSelectionService.selectedTeam === null">
                 <a class="nav-link" (click)="selectTeam()">
                      <span class="icon">
@@ -138,6 +142,24 @@
                             <span jhiTranslate="global.menu.entities.organization">Organization</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="report" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.report">Report</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="comment" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.comment">Comment</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="activity" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.activity">Activity</span>
+                        </a>
+                    </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>
             </li>
@@ -212,10 +234,8 @@
             <li ngbDropdown class="nav-item dropdown pointer" *ngIf="languages">
                 <a class="nav-link dropdown-toggle nav-info" ngbDropdownToggle href="javascript:void(0);"
                    id="languagesnavBarDropdown" *ngIf="languages.length > 1">
-                    <span class="icon">
-                        <i class="fa fa-globe fa-4"></i>
-                        <span class="nav-info" jhiTranslate="global.menu.language"></span>
-                    </span>
+                    <span class="navbar-icon"><i class="fa fa-globe"></i></span>
+                    <span class="nav-info" jhiTranslate="global.menu.language"></span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu *ngIf="languages.length > 1">
                     <li *ngFor="let language of languages">

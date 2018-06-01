@@ -84,9 +84,6 @@
 }
 
 .avatar-team {
-    @include team-image();
-    height: 8vh;
-    width: 8vh;
     box-sizing: border-box;
     margin: 12px;
 }

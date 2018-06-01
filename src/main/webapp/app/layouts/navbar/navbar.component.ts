@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiLanguageService } from 'ng-jhipster';
-
-import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from 'app/core';
+import { JhiLanguageHelper, LoginModalService, LoginService, Principal } from 'app/core';
 import { ProfileService } from '../profiles/profile.service';
 import { TeamsSelectionService } from '../../teams/teams-selection/teams-selection.service';
 import { TeamsSelectionComponent } from 'app/teams/teams-selection/teams-selection.component';
@@ -11,13 +10,7 @@ import { ITeam, Team } from 'app/shared/model/team.model';
 import { IBadge } from 'app/shared/model/badge.model';
 import { ILevel } from 'app/shared/model/level.model';
 import { IDimension } from 'app/shared/model/dimension.model';
-import { TeamService } from 'app/entities/team';
-import { DimensionService } from 'app/entities/dimension';
-import { BadgeService } from 'app/entities/badge';
-import { LevelService } from 'app/entities/level';
-import { TeamsComponent } from 'app/teams';
 import { ISkill } from 'app/shared/model/skill.model';
-import { SkillService } from 'app/entities/skill';
 import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
 import { IBreadcrumb } from 'app/shared/model/breadcrumb.model';
 
@@ -54,11 +47,6 @@ export class NavbarComponent implements OnInit {
         private modalService: NgbModal,
         private router: Router,
         private route: ActivatedRoute,
-        private teamService: TeamService,
-        private dimensionService: DimensionService,
-        private badgeService: BadgeService,
-        private levelService: LevelService,
-        private skillService: SkillService,
         private breadcrumbService: BreadcrumbService
     ) {
         this.teamsSelectionService = teamsSelectionService;

@@ -27,7 +27,7 @@ war {
 processResources {
     filesMatching('**/application.yml') {
         filter {
-            it.replace('#project.version#', version)
+            it.replace('#project.version#', version.toString())
         }
         filter {
             it.replace('#spring.profiles.active#', profiles)

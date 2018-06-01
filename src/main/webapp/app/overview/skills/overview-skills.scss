@@ -2,15 +2,19 @@
 @import '~bootstrap/scss/bootstrap';
 @import '../../../content/scss/bootstrap-variables';
 @import "../../../content/scss/mixins";
+@import '../../teams/skill-details/skill-details-rating/skill-details-rating';
 
 .overviews-skills {
     height: inherit;
     padding-right: 10px;
     .teams-skills-list {
         /deep/ .simplebar-scroll-content {
-            padding-right: 1.4em!important;
+            padding-right: 1.4em !important;
             .simplebar-content {
-                margin-right: -0.74em!important;
+                padding-left: 2px !important;
+                padding-right: 5px !important;
+                margin-right: -0.74em !important;
+                overflow-x: hidden;
             }
         }
 
@@ -27,23 +31,16 @@
         }
 
         .list-group-item {
-            background: $dojo-bg-primary;
-            @include shadow();
-            .justify-content-between {
-                outline: none;
-            }
-        }
-
-        .active-skill,
-        .active-skill:hover {
-            background: #f0f0f0;
+            @include skill-list-entry();
+            padding: 10px;
         }
     }
 }
 
 #skills_search-term {
     background-color: #e8ddb7;
-    width: 270px;
+    width: 100%;
+    margin-right: 13px;
 }
 
 .additional-functions {
@@ -67,11 +64,11 @@
     font-style: italic;
 }
 
-@media only screen and (min-width: map-get($grid-breakpoints, md)) {
+@media only screen and (min-width: map-get($grid-breakpoints, lg)) {
     .overviews-skills {
         .teams-skills-list {
             height: calc(100vh - 242px);
-            padding: 5px;
+            padding-right: 5px;
         }
 
     }

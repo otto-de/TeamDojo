@@ -30,9 +30,17 @@ public class BadgeDTO implements Serializable {
     @Min(value = 1)
     private Integer availableAmount;
 
+    @NotNull
     @DecimalMin(value = "0")
     @DecimalMax(value = "1")
     private Double requiredScore;
+
+    @NotNull
+    @DecimalMin(value = "0")
+    private Double instantMultiplier;
+
+    @Min(value = 0)
+    private Integer completionBonus;
 
     private Set<DimensionDTO> dimensions = new HashSet<>();
 
@@ -100,6 +108,22 @@ public class BadgeDTO implements Serializable {
         this.requiredScore = requiredScore;
     }
 
+    public Double getInstantMultiplier() {
+        return instantMultiplier;
+    }
+
+    public void setInstantMultiplier(Double instantMultiplier) {
+        this.instantMultiplier = instantMultiplier;
+    }
+
+    public Integer getCompletionBonus() {
+        return completionBonus;
+    }
+
+    public void setCompletionBonus(Integer completionBonus) {
+        this.completionBonus = completionBonus;
+    }
+
     public Set<DimensionDTO> getDimensions() {
         return dimensions;
     }
@@ -139,6 +163,8 @@ public class BadgeDTO implements Serializable {
             ", availableUntil='" + getAvailableUntil() + "'" +
             ", availableAmount=" + getAvailableAmount() +
             ", requiredScore=" + getRequiredScore() +
+            ", instantMultiplier=" + getInstantMultiplier() +
+            ", completionBonus=" + getCompletionBonus() +
             "}";
     }
 }

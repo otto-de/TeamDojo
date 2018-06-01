@@ -6,11 +6,13 @@
     </div>
     <div class="achievement-container" data-simplebar="init">
     <ngb-accordion activeIds="achievements-general-badges">
-        <ngb-panel id="achievements-general-badges achievement-list-header">
+        <ngb-panel id="achievements-general-badges">
             <ng-template ngbPanelTitle>
-                <div class="d-flex align-items-center mt-0">
-                    <i class="fa fa-caret-right mr-2 achievement-list-header-right"></i>
-                    <span class="achievement-list-header-right" jhiTranslate="teamdojoApp.overview.achievements.generalBadges.title"></span>
+                <div class="achievement-list-header d-flex align-items-center">
+                    <div class="achievement-list-header-right">
+                        <i class="fa fa-caret-right mr-2"></i>
+                        <span jhiTranslate="teamdojoApp.overview.achievements.generalBadges.title"></span>
+                    </div>
                 </div>
             </ng-template>
             <ng-template ngbPanelContent>
@@ -30,9 +32,11 @@
     <ngb-accordion [activeIds]="expandedDimensions">
         <ngb-panel class="mt-1" *ngFor="let dimension of dimensions" id="achievements-dimension-{{dimension.id}}">
             <ng-template ngbPanelTitle>
-                <div>
-                    <i class="fa fa-caret-right mr-2 achievement-list-header-right"></i>
-                    <span class="achievement-list-header-right">{{dimension.name}}</span>
+                <div class="achievement-list-header d-flex align-items-center">
+                    <div class="achievement-list-header-right">
+                        <i class="fa fa-caret-right mr-2"></i>
+                        <span>{{dimension.name}}</span>
+                    </div>
                 </div>
             </ng-template>
             <ng-template ngbPanelContent>

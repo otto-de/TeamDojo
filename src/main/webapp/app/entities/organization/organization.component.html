@@ -16,6 +16,7 @@
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="teamdojoApp.organization.name">Name</span></th>
+            <th><span jhiTranslate="teamdojoApp.organization.levelUpScore">Level Up Score</span></th>
             <th></th>
             </tr>
             </thead>
@@ -23,6 +24,7 @@
             <tr *ngFor="let organization of organizations ;trackBy: trackId">
                 <td><a [routerLink]="['/organization', organization.id, 'view' ]">{{organization.id}}</a></td>
                 <td>{{organization.name}}</td>
+                <td>{{organization.levelUpScore}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

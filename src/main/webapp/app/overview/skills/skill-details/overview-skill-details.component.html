@@ -1,4 +1,4 @@
-<jhi-background-component></jhi-background-component>
+<jhi-background-component [teamSkills]="teamSkills" [badges]="badges" [skills]="skills"></jhi-background-component>
 
 <div class="row back">
     <div class="col-20">
@@ -9,13 +9,14 @@
 </div>
 <div class="row skill-details">
     <div class="skill-list col-20">
-        <jhi-overview-skills [activeSkill]="skill" [teams]="teams" [levels]="levels" [badges]="badges"></jhi-overview-skills>
+        <jhi-overview-skills [skills]="skills" (onSkillChanged)="skillInfo.updateSkillRating($event)" [activeSkill]="skill" [teams]="teams" [levels]="levels" [badges]="badges"></jhi-overview-skills>
     </div>
     <div class="skill-info col-60">
-        <jhi-skill-details-info [skill]="skill"></jhi-skill-details-info>
+        <jhi-skill-details-info [skills]="skills" (onVoteSubmitted)="onCommentSubmitted($event.comment)" [skill]="skill"></jhi-skill-details-info>
     </div>
     <div class="skill-comments col-20">
-        <h4 jhiTranslate="teamdojoApp.teams.skills.comments"></h4>
-        <jhi-skill-details-comments></jhi-skill-details-comments>
+        <jhi-skill-details-comments [comments]="skillComments" [teams]="teams"
+                                    [selectedTeam]="selectedTeam" (onCommentSubmitted)="onCommentSubmitted($event)">
+        </jhi-skill-details-comments>
     </div>
 </div>

@@ -6,26 +6,6 @@
     padding-right: 10px;
     .teams-status-avatar {
         text-align: center;
-        .team-image-wrapper {
-            width: 35vh;
-            height: 35vh;
-            max-width: 100%;
-            overflow: hidden;
-            border-radius: 50%;
-            .team-image {
-                height: inherit;
-                width: inherit;
-                background: repeat-x center/cover;
-            }
-            &::after {
-                content: '';
-                width: inherit;
-                height: inherit;
-                position: absolute;
-                background: no-repeat center/cover url('../../content/images/avatars/avatar_overlay.png');
-                z-index: 1;
-            }
-        }
         .avatar-image-wrapper {
             width: 31vh;
             height: 41vh;
@@ -34,14 +14,18 @@
             .avatar-image {
                 width: inherit;
                 height: inherit;
-                background: no-repeat center/contain url('../../content/images/avatars/avatar_default.png');
                 z-index: 3;
+                &-default {
+                    background: no-repeat center/contain url('../../content/images/avatars/avatar_default.png');
+                }
+                &-level-up {
+                    background: no-repeat center/contain url('../../content/images/avatars/avatar_level_up.png');
+                }
             }
         }
         .status-meta {
             width: 50vh;
-            height: 15vh;
-            max-width: 100%;
+            height: 20vh;
             margin-top: -4vh;
             color: $dojo-text-inverse-secondary;
             .team-title, .team-slogan {

@@ -4,9 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -44,6 +42,18 @@ public class Skill implements Serializable {
     @Pattern(regexp = "^P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?$")
     @Column(name = "expiry_period")
     private String expiryPeriod;
+
+    @Column(name = "contact")
+    private String contact;
+
+    @NotNull
+    @Min(value = 0)
+    @Column(name = "score", nullable = false)
+    private Integer score;
+
+    @DecimalMin(value = "0") @DecimalMax(value = "5") @Column(name = "rate_score") private Double rateScore;
+
+    @Min(value = 0) @Column(name = "rate_count") private Integer rateCount;
 
     @OneToMany(mappedBy = "skill")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -129,6 +139,58 @@ public class Skill implements Serializable {
 
     public void setExpiryPeriod(String expiryPeriod) {
         this.expiryPeriod = expiryPeriod;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public Skill contact(String contact) {
+        this.contact = contact;
+        return this;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public Skill score(Integer score) {
+        this.score = score;
+        return this;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public Double getRateScore() {
+        return rateScore;
+    }
+
+    public Skill rateScore(Double rateScore) {
+        this.rateScore = rateScore;
+        return this;
+    }
+
+    public void setRateScore(Double rateScore) {
+        this.rateScore = rateScore;
+    }
+
+    public Integer getRateCount() {
+        return rateCount;
+    }
+
+    public Skill rateCount(Integer rateCount) {
+        this.rateCount = rateCount;
+        return this;
+    }
+
+    public void setRateCount(Integer rateCount) {
+        this.rateCount = rateCount;
     }
 
     public Set<TeamSkill> getTeams() {
@@ -236,6 +298,11 @@ public class Skill implements Serializable {
             ", implementation='" + getImplementation() + "'" +
             ", validation='" + getValidation() + "'" +
             ", expiryPeriod='" + getExpiryPeriod() + "'" +
+            ", contact='" + getContact() + "'" +
+            ", score=" + getScore() +
+            ", contact='" + getContact() + "'" +
+            ", rateScore=" + getRateScore() +
+            ", rateCount=" + getRateCount() +
             "}";
     }
 }

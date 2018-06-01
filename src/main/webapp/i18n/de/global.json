@@ -16,6 +16,9 @@
                 "badgeSkill": "Badge Skill",
                 "levelSkill": "Level Skill",
                 "organization": "Organization",
+                "report": "Report",
+                "comment": "Comment",
+                "activity": "Activity",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -45,6 +48,11 @@
                 "select": "Mein Team auswählen",
                 "home": "Wohnzimmer",
                 "change": "Team wechseln"
+            },
+            "notification": {
+                "main": "Benachrichtigungen",
+                "activities": "Aktivitäten",
+                "hints": "Hinweise"
             }
         },
         "form": {

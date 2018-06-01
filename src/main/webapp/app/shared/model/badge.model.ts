@@ -11,6 +11,8 @@ export interface IBadge {
     availableUntil?: Moment;
     availableAmount?: number;
     requiredScore?: number;
+    instantMultiplier?: number;
+    completionBonus?: number;
     skills?: IBadgeSkill[];
     dimensions?: IDimension[];
 }
@@ -25,6 +27,8 @@ export class Badge implements IBadge {
         public availableUntil?: Moment,
         public availableAmount?: number,
         public requiredScore?: number,
+        public instantMultiplier?: number,
+        public completionBonus?: number,
         public skills?: IBadgeSkill[],
         public dimensions?: IDimension[]
     ) {}

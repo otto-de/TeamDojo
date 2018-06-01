@@ -24,7 +24,7 @@ export class TeamsSelectionComponent implements OnInit {
 
     ngOnInit(): void {
         this.teamsService.query().subscribe(teams => {
-            this.teams = teams.body;
+            this.teams = teams.body.sort((a, b) => a.shortName.localeCompare(b.shortName));
         });
         this.highlightedTeam = this.teamsSelectionService.selectedTeam;
     }

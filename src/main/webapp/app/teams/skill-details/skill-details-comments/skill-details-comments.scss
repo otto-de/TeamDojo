@@ -8,7 +8,13 @@
         color: $dojo-text-primary;
     }
 
+    .additional-functions {
+        height: 74px;
+        width: 100%;
+    }
+
     .dojo-card {
+        position: relative;
         height: calc(100vh - 250px);
         background: $dojo-bg-primary;
         @include shadow();
@@ -17,109 +23,86 @@
         }
 
         .comments {
-            height: calc(100% - 80px);
-            padding: 20px;
-            overflow-y: hidden;
+            height: calc(100% - 60px);
+            padding: 10px;
         }
-        .comment-input {
-            display: flex;
-            padding: 20px;
+        .new-comment {
+            padding: 10px;
             border-top: 1px solid #ccc;
-            height: 80px;
 
             .send-btn {
-                cursor: pointer;
-                background: none;
-                border: none;
-                color: #666;
-                font-size: 1.5rem;
-                margin-left: 10px;
-                margin-right: -5px;
+                height: 100%;
+                * {
+                    color: $dojo-text-inverse-secondary;
+                }
             }
-            .send-btn:focus, .send-btn:active {
-                outline: none;
-            }
-            .send-btn:hover {
-                color: #333;
-            }
-            .send-btn:active {
-                color: #000;
+            &-input {
+                width: calc(100% - 38px - 0.5rem);
+                height: 40px;
             }
         }
-    }
-}
 
-.conversation {
-    margin-bottom: 15px;
-}
+        .message {
+            position: relative;
+            font-size: 0.9rem;
 
-.conversation-left  {
-    position: relative;
-    font-size: 0.9rem;
+            .speech-bubble {
+                position: relative;
+                max-width: 71%;
+                background: #e9deb9;
+                border-radius: 0.4rem;
+                padding: 6px 8px;
+                word-break: break-all;
+            }
 
-    img {
-        position: absolute;
-        bottom: 0;
-        width:50px;
-        height: 50px;
-        border-radius: 50%;
-    }
+            .speech-bubble::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                width: 0;
+                height: 0;
+                border: 12px solid transparent;
+                border-bottom-color: #e9deb9;
+            }
+            &~ .message {
+                margin-top: 0.5rem;
+            }
+        }
 
-    .speech-bubble {
-        position: absolute;
-        background: #e9deb9;
-        border-radius: .4em;
-        padding: 15px;
-        margin-left: 70px;
-    }
+        .message-received  {
+            flex-direction: row;
 
-    .speech-bubble:after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 10px;
-        width: 0;
-        height: 0;
-        border: 17px solid transparent;
-        border-right-color: #e9deb9;
-        border-left: 0;
-        border-top: 0;
-        margin-left: -17px;
-    }
-}
+            .speech-bubble {
+                border-bottom-left-radius: 0;
+                margin: 0 0 20px 14px;
+            }
 
-.conversation-right  {
-    position: relative;
-    font-size: 0.9rem;
+            .speech-bubble::before {
+                border-right: 0;
+                margin-left: -20px;
+            }
+        }
 
-    img {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width:50px;
-        height: 50px;
-        border-radius: 50%;
-    }
+        .message-sent  {
+            flex-direction: row-reverse;
 
-    .speech-bubble {
-        position: absolute;
-        background: #e9deb9;
-        border-radius: .4em;
-        padding: 15px;
-        margin-right: 70px;
-    }
+            .speech-bubble {
+                border-bottom-right-radius: 0;
+                margin: 0 14px 20px 0;
+            }
 
-    .speech-bubble:after {
-        content: '';
-        position: absolute;
-        right: 0;
-        bottom: 10px;
-        width: 0;
-        height: 0;
-        border: 17px solid transparent;
-        border-left-color: #e9deb9;
-        border-right: 0;
-        border-top: 0;
-        margin-right: -17px;
+            .speech-bubble::before {
+                right: 8px;
+                border-left: 0;
+                margin-right: -20px;
+            }
+        }
+
+        /deep/ .simplebar-scroll-content {
+            padding-right: 1.4em !important;
+            .simplebar-content {
+                margin-right: -0.7em !important;
+            }
+        }
     }
 }

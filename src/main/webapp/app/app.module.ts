@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Ng2Webstorage } from 'ngx-webstorage';
 import { JhiEventManager } from 'ng-jhipster';
+import { StarRatingModule } from 'angular-star-rating';
 
 import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interceptor';
 import { ErrorHandlerInterceptor } from './blocks/interceptor/errorhandler.interceptor';
@@ -16,9 +17,11 @@ import { TeamdojoAccountModule } from './account/account.module';
 import { TeamdojoEntityModule } from './entities/entity.module';
 import { OverviewModule } from 'app/overview';
 import { TeamsModule } from './teams/teams.module';
+import { FeedbackModule } from './feedback/feedback.module';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
+
 import {
     ActiveMenuDirective,
     ErrorComponent,
@@ -31,6 +34,7 @@ import {
 
 @NgModule({
     imports: [
+        StarRatingModule.forRoot(),
         BrowserModule,
         TeamdojoAppRoutingModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
@@ -39,7 +43,8 @@ import {
         OverviewModule,
         TeamdojoAccountModule,
         TeamdojoEntityModule,
-        TeamsModule
+        TeamsModule,
+        FeedbackModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],

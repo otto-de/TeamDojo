@@ -1,0 +1,32 @@
+@import "../../../../content/scss/colors";
+@import "../../../../content/scss/mixins";
+
+.notification {
+    padding: 15px;
+    border-top: 1px dotted $dojo-text-inverse-primary;
+    color: $dojo-text-inverse-primary;
+    &-header {
+    }
+    &-body {
+        &-icon {
+            color: #e9deb8;
+        }
+        /deep/ .item-content {
+            width: 6vh !important;
+            height: 6vh !important;
+            cursor: default;
+            padding: 0;
+        }
+        /deep/ .achievement-item {
+            padding: 0;
+            margin: 0 10px;
+        }
+        &-team-image {
+            margin: 0 15px;
+        }
+        &-text{
+            word-break: break-word;
+            white-space: normal;
+        }
+    }
+}

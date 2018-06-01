@@ -34,6 +34,14 @@
                 <dd>
                     <span>{{badge.requiredScore}}</span>
                 </dd>
+                <dt><span jhiTranslate="teamdojoApp.badge.instantMultiplier">Instant Multiplier</span></dt>
+                <dd>
+                    <span>{{badge.instantMultiplier}}</span>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.badge.completionBonus">Completion Bonus</span></dt>
+                <dd>
+                    <span>{{badge.completionBonus}}</span>
+                </dd>
                 <dt><span jhiTranslate="teamdojoApp.badge.dimensions">Dimensions</span></dt>
                 <dd>
                     <span *ngFor="let dimensions of badge.dimensions; let last = last">
