@@ -30,8 +30,9 @@ task copyDockerFiles(type: Copy) {
     include "*"
     exclude "**/*.yml"
 }
-def dockerImageName = "docker.iteratec.io/otto/teamdojo";
-ext.getDockerTags = {
+def dockerRepository = "docker.iteratec.io";
+def dockerImageName = "${dockerRepository}/otto/teamdojo";
+ext.getDockerImageNameWithTags = {
     def dockerTags = ["$dockerImageName:${version}".toString()]
     if (version.toString().contains('SNAPSHOT')) {
         dockerTags.push("$dockerImageName:next".toString());
@@ -40,22 +41,22 @@ ext.getDockerTags = {
     }
     return dockerTags;
 }
-def dockerTags = getDockerTags();
+def dockerImageNameWithTags = getDockerImageNameWithTags();
 
 task buildDocker(type: DockerBuildImage, dependsOn: 'copyDockerFiles') {
     description = "Package application as Docker image"
     group = "Docker"
     inputDir = project.file("${project.buildDir}/docker")
-    tags = dockerTags
+    tags = dockerImageNameWithTags
 }
 
 task pushDocker(type: DockerPushImage, dependsOn: 'buildDocker') {
     description = "Pushing the built image"
-    imageName = dockerImageName;
-    imageName = dockerTags[0];
+    imageName = dockerImageNameWithTags[0];
 }
 
 task tagDocker(type: DockerTagImage, dependsOn: 'pushDocker') {
     description = "Tag with 'latest' or 'next'"
-    tag = dockerTags[1];
+    repository = dockerRepository
+    tag = dockerImageNameWithTags[1].split(':')[1]
 }
