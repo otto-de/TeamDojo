@@ -266,7 +266,7 @@ bootBuildInfo.mustRunAfter cleanResources
 
 class BranchVersionStrategy implements VersionStrategy {
 
-    private Pattern SUFFIXES_PATTERN = Pattern.compile("(\\d+\\.\\d+\\.\\d+)-.+-\\d-[a-z0-9]+");
+    private Pattern SEM_VER_PATTERN = Pattern.compile("v?(\\d+\\.\\d+\\.\\d+)");
 
     @Override
     String getName() {
@@ -289,14 +289,13 @@ class BranchVersionStrategy implements VersionStrategy {
         } else if (!branch.equals("develop") && !branch.contains("origin/develop")) {
             qualifier += "-" + branch.replaceAll("/", "-").replaceFirst("origin", "");
         }
-        
         String version = "${tag}-$qualifier";
         return new ReleaseVersion(version, null, false);
     }
 
     private String getTag(Grgit grgit) {
         String rawTag = grgit.describe();
-        Matcher matcher = SUFFIXES_PATTERN.matcher(rawTag);
+        Matcher matcher = SEM_VER_PATTERN.matcher(rawTag);
         return matcher.find() ? matcher.group(1) : rawTag;
     }
 }
