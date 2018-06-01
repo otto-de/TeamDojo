@@ -14,3 +14,4 @@ export * from './shared.module';
 export * from './util/datepicker-adapter';
 export * from './util/completion-check';
 export * from './util/relevance-check';
+export * from './util/team-score-calculation';

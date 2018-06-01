@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ITeam } from 'app/shared/model/team.model';
 import { ISkill } from 'app/shared/model/skill.model';
@@ -12,7 +12,6 @@ import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
 import { ILevelSkill } from 'app/shared/model/level-skill.model';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import { sortLevels } from 'app/shared';
-import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { IComment } from 'app/shared/model/comment.model';
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
@@ -25,13 +24,14 @@ import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details
 })
 export class OverviewSkillDetailsComponent implements OnInit {
     skill: ISkill;
-    skills: ISkill[];
 
     achievableSkill: IAchievableSkill;
 
     selectedTeam: ITeam;
 
     private _comments: IComment[];
+
+    skills: ISkill[];
 
     skillComments: IComment[];
 
@@ -66,7 +66,7 @@ export class OverviewSkillDetailsComponent implements OnInit {
                 this.neededForLevels = [];
                 this.neededForBadges = [];
                 this.skill = skill.body;
-                this.skills = skills.body;
+                this.skills = skills.body ? skills.body : skills;
 
                 this.teams = teams.body;
                 this.levels = levels.body;

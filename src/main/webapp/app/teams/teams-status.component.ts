@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { HighestLevel, IHighestLevel } from 'app/shared/achievement';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import { ISkill } from 'app/shared/model/skill.model';
+import { TeamScoreCalculation } from 'app/shared/util/team-score-calculation';
+import { OrganizationService } from 'app/entities/organization';
 
 @Component({
     selector: 'jhi-teams-status',
@@ -20,11 +22,19 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     @Input() skills: ISkill[];
     completedBadges: IBadge[];
     highestAchievedLevels: IHighestLevel[];
+    teamScore: number;
+    levelUpScore: number;
 
-    constructor(private router: Router) {}
+    constructor(private organizationService: OrganizationService, private router: Router) {}
 
     ngOnInit(): void {
         this.team.skills = this.teamSkills;
+        this.organizationService
+            .query()
+            .take(1)
+            .subscribe(res => {
+                this.levelUpScore = res.body[0] ? res.body[0].levelUpScore : 0;
+            });
         this.calculateStatus();
     }
 
@@ -38,6 +48,7 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     }
 
     private calculateStatus() {
+        this.teamScore = TeamScoreCalculation.calcTeamScore(this.team, this.skills, this.badges);
         this.completedBadges = this.getCompletedBadges();
         this.highestAchievedLevels = this.getHighestAchievedLevels();
     }
@@ -76,5 +87,9 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
             }
         });
         return highestAchievedLevels;
+    }
+
+    get hasLeveledUp() {
+        return this.levelUpScore > 0 && this.teamScore >= this.levelUpScore;
     }
 }

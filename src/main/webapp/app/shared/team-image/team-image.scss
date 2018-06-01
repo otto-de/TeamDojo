@@ -1,0 +1,22 @@
+.team-image-wrapper {
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: white;
+    .team-image {
+        height: inherit;
+        width: inherit;
+        background: repeat-x center/cover;
+    }
+    &.has-border {
+        border: 2px solid #e5e1d8;
+    }
+    &.has-overlay::after {
+        content: '';
+        width: inherit;
+        height: inherit;
+        position: absolute;
+        background: no-repeat center/cover url('../../../content/images/avatars/avatar_overlay.png');
+        z-index: 1;
+    }
+}

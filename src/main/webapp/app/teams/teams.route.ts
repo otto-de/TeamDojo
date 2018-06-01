@@ -15,6 +15,7 @@ import { BadgeSkillService } from 'app/entities/badge-skill';
 import { LevelSkillService } from 'app/entities/level-skill';
 import { CommentService } from 'app/entities/comment';
 import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { OrganizationService } from 'app/entities/organization';
 
 @Injectable()
 export class TeamAndTeamSkillResolve implements Resolve<any> {
