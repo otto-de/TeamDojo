@@ -12,6 +12,7 @@ apply plugin: com.bmuschko.gradle.docker.DockerRemoteApiPlugin
 
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+import com.bmuschko.gradle.docker.tasks.image.DockerTagImage
 
 docker {
     registryCredentials {
@@ -32,34 +33,29 @@ task copyDockerFiles(type: Copy) {
 def dockerImageName = "docker.iteratec.io/otto/teamdojo";
 ext.getDockerTags = {
     def dockerTags = ["$dockerImageName:${version}".toString()]
-    if (version.contains('SNAPSHOT')) {
+    if (version.toString().contains('SNAPSHOT')) {
         dockerTags.push("$dockerImageName:next".toString());
     } else {
         dockerTags.push("$dockerImageName:latest".toString());
     }
     return dockerTags;
 }
+def dockerTags = getDockerTags();
 
 task buildDocker(type: DockerBuildImage, dependsOn: 'copyDockerFiles') {
     description = "Package application as Docker image"
     group = "Docker"
     inputDir = project.file("${project.buildDir}/docker")
-    doFirst {
-        tags = getDockerTags();
-    }
-}
-buildDocker.dependsOn(dojoProjectVersion)
-
-task pushDockerVersion(type: DockerPushImage, dependsOn: 'buildDocker') {
-    imageName = dockerImageName;
-    doFirst {
-        imageName = getDockerTags()[0];
-    }
+    tags = dockerTags
 }
 
-task pushDocker(type: DockerPushImage, dependsOn: 'pushDockerVersion') {
+task pushDocker(type: DockerPushImage, dependsOn: 'buildDocker') {
+    description = "Pushing the built image"
     imageName = dockerImageName;
-    doFirst {
-        imageName = getDockerTags()[1];
-    }
+    imageName = dockerTags[0];
+}
+
+task tagDocker(type: DockerTagImage, dependsOn: 'pushDocker') {
+    description = "Tag with 'latest' or 'next'"
+    tag = dockerTags[1];
 }
