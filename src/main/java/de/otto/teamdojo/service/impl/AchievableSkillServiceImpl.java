@@ -8,9 +8,11 @@ import de.otto.teamdojo.repository.BadgeRepository;
 import de.otto.teamdojo.repository.SkillRepository;
 import de.otto.teamdojo.repository.TeamRepository;
 import de.otto.teamdojo.service.AchievableSkillService;
+import de.otto.teamdojo.service.ActivityService;
 import de.otto.teamdojo.service.TeamSkillService;
 import de.otto.teamdojo.service.dto.AchievableSkillDTO;
 import de.otto.teamdojo.service.dto.TeamSkillDTO;
+import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -39,14 +41,18 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
 
     private final TeamSkillService teamSkillService;
 
+    private final ActivityService activityService;
 
     public AchievableSkillServiceImpl(SkillRepository skillRepository,
                                       TeamRepository teamRepository,
-                                      BadgeRepository badgeRepository, TeamSkillService teamSkillService) {
+                                      BadgeRepository badgeRepository,
+                                      TeamSkillService teamSkillService,
+                                      ActivityService activityService) {
         this.skillRepository = skillRepository;
         this.teamRepository = teamRepository;
         this.badgeRepository = badgeRepository;
         this.teamSkillService = teamSkillService;
+        this.activityService = activityService;
     }
 
     @Override
@@ -68,7 +74,7 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
     }
 
     @Override
-    public AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill) {
+    public AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill) throws JSONException {
         AchievableSkillDTO originSkill = skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId());
 
         TeamSkillDTO teamSkill = new TeamSkillDTO();
@@ -77,7 +83,12 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
         teamSkill.setSkillId(achievableSkill.getSkillId());
         teamSkill.setCompletedAt(achievableSkill.getAchievedAt());
         teamSkill.setIrrelevant(achievableSkill.isIrrelevant());
-        teamSkillService.save(teamSkill);
+        teamSkill = teamSkillService.save(teamSkill);
+
+        if (teamSkill.getCompletedAt() != null) {
+            activityService.createForCompletedSkill(teamSkill);
+        }
+
         return skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId());
     }
 

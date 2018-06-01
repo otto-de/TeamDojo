@@ -18,6 +18,7 @@
                 "organization": "Organization",
                 "report": "Report",
                 "comment": "Comment",
+                "activity": "Activity",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -47,6 +48,11 @@
                 "select": "Select My Team",
                 "home": "Living Room",
                 "change": "Change Team"
+            },
+            "notification": {
+                "main": "Notifications",
+                "activities": "Activities",
+                "hints": "Hints"
             }
         },
         "form": {
