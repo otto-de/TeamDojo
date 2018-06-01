@@ -44,7 +44,6 @@
                 "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
             },
             "language": "Sprache",
-            "notifications": "Benachrichtigungen",
             "teams": {
                 "select": "Mein Team auswählen",
                 "home": "Wohnzimmer",
