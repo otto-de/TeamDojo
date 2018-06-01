@@ -1,0 +1,31 @@
+<div class="notification d-flex flex-column">
+    <div class="d-flex notification-header">
+        <small class="ml-auto">{{notification.activity.createdAt | date: 'dd.MM.yyyy'}}</small>
+    </div>
+    <div class="notification-body d-flex flex-row align-items-center">
+        <div class="d-flex flex-row align-items-center" [ngSwitch]="notification.activity.type.toString()">
+            <ng-container *ngSwitchCase="'BADGE_CREATED'">
+                <i class="notification-body-icon fa fa-trophy fa-2x"></i>
+                <jhi-achievement-item [item]="item" type="item-badge" [hasStatus]="false"
+                                      [active]="false"
+                                      (onItemSelected)="true"></jhi-achievement-item>
+                <div class="notification-body-text" jhiTranslate="teamdojoApp.notification.body.text.badgeCreated"
+                     translateValues="{'badgeName':'{{notification.data.badgeName}}' }"></div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'SKILL_COMPLETED'">
+                <i class="notification-body-icon fa fa-check fa-2x"></i>
+                <div class="notification-body-team-image" [ngbPopover]="item.name"
+                     triggers="mouseenter:mouseleave">
+                    <img [title]="item.name"
+                         *ngIf="item.picture && item.pictureContentType; else picturePlaceholder"
+                         [src]="item.picture | imageDataUrl: item.pictureContentType"/>
+                    <ng-template #picturePlaceholder>
+                        <span class="img-placeholder">{{item.name | truncateString}}</span>
+                    </ng-template>
+                </div>
+                <div class="notification-body-text" jhiTranslate="teamdojoApp.notification.body.text.skillCompleted"
+                     translateValues="{'skillTitle':'{{notification.data.skillTitle}}' }"></div>
+            </ng-container>
+        </div>
+    </div>
+</div>

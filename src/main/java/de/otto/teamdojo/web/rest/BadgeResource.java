@@ -11,6 +11,7 @@ import de.otto.teamdojo.web.rest.errors.BadRequestAlertException;
 import de.otto.teamdojo.web.rest.util.HeaderUtil;
 import de.otto.teamdojo.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -58,7 +59,7 @@ public class BadgeResource {
      */
     @PostMapping("/badges")
     @Timed
-    public ResponseEntity<BadgeDTO> createBadge(@Valid @RequestBody BadgeDTO badgeDTO) throws URISyntaxException {
+    public ResponseEntity<BadgeDTO> createBadge(@Valid @RequestBody BadgeDTO badgeDTO) throws URISyntaxException, JSONException {
         log.debug("REST request to save Badge : {}", badgeDTO);
         if (badgeDTO.getId() != null) {
             throw new BadRequestAlertException("A new badge cannot already have an ID", ENTITY_NAME, "idexists");
@@ -80,7 +81,7 @@ public class BadgeResource {
      */
     @PutMapping("/badges")
     @Timed
-    public ResponseEntity<BadgeDTO> updateBadge(@Valid @RequestBody BadgeDTO badgeDTO) throws URISyntaxException {
+    public ResponseEntity<BadgeDTO> updateBadge(@Valid @RequestBody BadgeDTO badgeDTO) throws URISyntaxException, JSONException {
         log.debug("REST request to update Badge : {}", badgeDTO);
         if (badgeDTO.getId() == null) {
             return createBadge(badgeDTO);

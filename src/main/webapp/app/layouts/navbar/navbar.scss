@@ -1,4 +1,5 @@
 @import '../../../content/scss/colors';
+@import '../../../content/scss/bootstrap-variables';
 /* ==========================================================================
 Navbar
 ========================================================================== */
@@ -21,7 +22,6 @@ Navbar
                     color: rgba(233, 233, 233, 1.0);
                     font-weight: normal;
                 }
-
                 .breadcrumb-item.active, .breadcrumb-item::before {
                     color: rgba(233, 233, 233, 1.0);
                 }
@@ -48,8 +48,22 @@ Navbar
             width: 100%;
         }
     }
+
+    .dropdown-menu {
+        background-color: $dojo-nav-primary;
+        border: none;
+    }
+
+    .dropdown-item {
+        color: $dojo-text-inverse-primary;
+    }
+
+    .dropdown-item:focus, .dropdown-item:hover{
+        background-color: #9a9f7c;
+    }
+
     .dropdown-item.active, .dropdown-item.active:focus, .dropdown-item.active:hover {
-        background-color: #353d47;
+        background-color: $warning;
     }
     .dropdown-toggle::after {
         margin-left: 0.15em;
@@ -80,6 +94,13 @@ Navbar
         }
     }
 
+    .navbar-icon {
+        margin-right: 7px !important;
+        .fa {
+            font-size: 1.5em;
+        }
+    }
+
     @media screen and (min-width: 768px) {
         .jh-navbar-toggler {
             display: none;
@@ -100,7 +121,6 @@ Navbar
         color: $dojo-text-inverse-primary !important;
     }
 }
-
 
 /* ==========================================================================
 Logo styles

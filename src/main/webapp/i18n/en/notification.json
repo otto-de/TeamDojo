@@ -1,0 +1,14 @@
+{
+    "teamdojoApp": {
+        "notification": {
+            "header": {
+            },
+            "body": {
+                "text": {
+                    "badgeCreated": "New badge {{ badgeName }} is available",
+                    "skillCompleted": "Skill {{ skillTitle }} was completed"
+                }
+            }
+        }
+    }
+}

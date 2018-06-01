@@ -1,6 +1,7 @@
 package de.otto.teamdojo.service;
 
 import de.otto.teamdojo.service.dto.AchievableSkillDTO;
+import org.json.JSONException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,7 +17,7 @@ public interface AchievableSkillService {
     /**
      * Updates an achievable skill
      */
-    AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill);
+    AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill) throws JSONException;
 
     /**
      * Finds AchievableSkill by teamId and skillId

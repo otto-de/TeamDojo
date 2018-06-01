@@ -67,7 +67,7 @@ public class ReportResourceIntTest {
 
     @Autowired
     private ReportMapper reportMapper;
-    
+
 
     @Autowired
     private ReportService reportService;
@@ -237,7 +237,7 @@ public class ReportResourceIntTest {
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].creationDate").value(hasItem(DEFAULT_CREATION_DATE.toString())));
     }
-    
+
 
     @Test
     @Transactional

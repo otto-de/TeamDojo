@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "type",
+            "fieldType": "ActivityType",
+            "fieldValues": "SKILL_COMPLETED,BADGE_CREATED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "data",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdAt",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180529124818",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "activity",
+    "jpaMetamodelFiltering": true,
+    "pagination": "infinite-scroll"
+}
