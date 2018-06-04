@@ -11,7 +11,6 @@ import { SkillService } from 'app/entities/skill';
 import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
 import { ILevelSkill } from 'app/shared/model/level-skill.model';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
-import { sortLevels } from 'app/shared';
 import { IAchievableSkill, AchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { IComment } from 'app/shared/model/comment.model';
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
@@ -48,23 +47,20 @@ export class OverviewSkillDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.route.data.subscribe(
-            ({ teams, levels, badges, teamSkills, levelSkills, badgeSkills, skill, comments, selectedTeam, skills }) => {
-                this.skill = skill.body;
-                this.skills = skills.body ? skills.body : skills;
+        this.route.data.subscribe(({ teams, levels, badges, levelSkills, badgeSkills, skill, comments, selectedTeam, skills }) => {
+            this.skill = skill.body;
+            this.skills = skills.body ? skills.body : skills;
 
-                this.teams = teams.body;
-                this.levels = levels.body;
-                this.badges = badges.body;
-                this.teamSkills = teamSkills.body;
-                this.levelSkills = levelSkills.body;
-                this.badgeSkills = badgeSkills.body;
-                this.selectedTeam = selectedTeam !== null && selectedTeam.body ? selectedTeam.body : selectedTeam;
+            this.teams = teams.body;
+            this.levels = levels.body;
+            this.badges = badges.body;
+            this.levelSkills = levelSkills.body;
+            this.badgeSkills = badgeSkills.body;
+            this.selectedTeam = selectedTeam && selectedTeam.body ? selectedTeam.body : {};
 
-                this._comments = comments.body ? comments.body : comments;
-                this._mapCommentAuthors();
-            }
-        );
+            this._comments = comments.body ? comments.body : comments;
+            this._mapCommentAuthors();
+        });
         this.loadData();
     }
 
