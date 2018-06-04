@@ -35,7 +35,7 @@ export class OverviewComponent implements OnInit {
             this.levelSkills = levelSkills.body;
             this.badgeSkills = badgeSkills.body;
             this.skills = skills.body;
-            this.selectedTeam = selectedTeam.body || {};
+            this.selectedTeam = selectedTeam && selectedTeam.body ? selectedTeam.body : {};
 
             const groupedTeamSkills = {};
             this.teamSkills.forEach(teamSkill => {

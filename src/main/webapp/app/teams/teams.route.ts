@@ -14,7 +14,7 @@ import { TeamSkillService } from 'app/entities/team-skill';
 import { BadgeSkillService } from 'app/entities/badge-skill';
 import { LevelSkillService } from 'app/entities/level-skill';
 import { CommentService } from 'app/entities/comment';
-import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { TeamsSelectionResolve } from 'app/shared/teams-selection/teams-selection.resolve';
 
 @Injectable()
 export class TeamAndTeamSkillResolve implements Resolve<any> {
@@ -111,15 +111,6 @@ export class AllTeamSkillsResolve implements Resolve<any> {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         return this.teamSkillService.query();
-    }
-}
-
-@Injectable()
-export class TeamsSelectionResolve implements Resolve<any> {
-    constructor(private teamsSelectionService: TeamsSelectionService) {}
-
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.teamsSelectionService.query();
     }
 }
 

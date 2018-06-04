@@ -11,7 +11,7 @@ import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details
 import { Skill } from 'app/shared/model/skill.model';
 import { SkillService } from 'app/entities/skill';
 import { CommentService } from 'app/entities/comment';
-import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { TeamsSelectionResolve } from 'app/shared/teams-selection/teams-selection.resolve';
 
 @Injectable()
 export class AllTeamsResolve implements Resolve<any> {
@@ -82,15 +82,6 @@ export class AllCommentsResolve implements Resolve<any> {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         return this.commentService.query();
-    }
-}
-
-@Injectable()
-export class TeamsSelectionResolve implements Resolve<any> {
-    constructor(private teamsSelectionService: TeamsSelectionService) {}
-
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.teamsSelectionService.query();
     }
 }
 

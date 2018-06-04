@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsService } from 'app/teams/teams.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { TeamSkillService } from 'app/entities/team-skill';
+import { Observable } from 'rxjs/Observable';
 
 const TEAM_STORAGE_KEY = 'selectedTeamId';
 
@@ -17,16 +18,15 @@ export class TeamsSelectionService {
     query() {
         const teamIdStr = this.storage.retrieve(TEAM_STORAGE_KEY);
         if (teamIdStr !== null && !isNaN(Number(teamIdStr))) {
-            return this.teamsService.query().subscribe(result => {
-                this._selectedTeam = (result.body || []).find(t => t.id === Number(teamIdStr)) || null;
-                this.teamSkillService.query().subscribe(teamSkillRes => {
-                    this._selectedTeam.skills = (teamSkillRes.body || []).filter(
-                        teamSkill => this._selectedTeam && teamSkill.teamId === this._selectedTeam.id
-                    );
+            return this.teamsService.find(teamIdStr).do(result => {
+                this._selectedTeam = result.body || null;
+            }).do(result => {
+                return this.teamSkillService.query({ 'teamId.equals': result.body.id }).do(teamSkillRes => {
+                    this._selectedTeam.skills = teamSkillRes.body || [];
                 });
             });
         }
-        return Observable.empty;
+        return Observable.of(this._selectedTeam);
     }
 
     get selectedTeam() {

@@ -6,7 +6,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
-import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
 import * as moment from 'moment';
 import { ISkill } from 'app/shared/model/skill.model';
 import { SkillService } from 'app/entities/skill';
