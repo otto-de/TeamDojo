@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
-import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
 import { ISkillRate } from 'app/shared/model/skill-rate.model';
 import { IComment } from 'app/shared/model/comment.model';
 import { SkillDetailsRatingComponent } from 'app/teams/skill-details/skill-details-rating/skill-details-rating.component';

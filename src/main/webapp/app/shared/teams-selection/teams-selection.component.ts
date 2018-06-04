@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { TeamsSelectionService } from './teams-selection.service';
 import { TeamsService } from 'app/teams/teams.service';
 import { Team } from 'app/shared/model/team.model';
 import { Router } from '@angular/router';

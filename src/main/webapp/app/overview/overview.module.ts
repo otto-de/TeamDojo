@@ -11,8 +11,7 @@ import {
     AllTeamSkillsResolve,
     AllTeamsResolve,
     OVERVIEW_ROUTE,
-    SkillResolve,
-    TeamsSelectionResolve
+    SkillResolve
 } from 'app/overview/overview.route';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OverviewComponent } from 'app/overview/overview.component';
@@ -22,7 +21,6 @@ import { OverviewSkillsComponent } from 'app/overview/skills/overview-skills.com
 import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
 import { TeamsModule } from 'app/teams';
 import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
-import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 
 @NgModule({
     imports: [TeamdojoSharedModule, RouterModule.forChild(OVERVIEW_ROUTE), NgbModule, TeamsModule],
@@ -35,7 +33,6 @@ import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection
     ],
     entryComponents: [],
     providers: [
-        TeamsSelectionResolve,
         AllTeamsResolve,
         AllLevelsResolve,
         AllBadgesResolve,

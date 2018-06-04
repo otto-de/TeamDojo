@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ITeam } from 'app/shared/model/team.model';
-import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
 import { Comment, IComment } from 'app/shared/model/comment.model';
 import { HttpResponse } from '@angular/common/http';
 import * as moment from 'moment';
