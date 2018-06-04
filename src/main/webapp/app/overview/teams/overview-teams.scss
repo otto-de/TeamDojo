@@ -52,7 +52,7 @@
                         a {
                             color: $dojo-text-primary;
                             word-break: break-word;
-                            font-size: 1.8vh;
+                            font-size: 1.35rem;
                         }
                     }
                 }
@@ -91,24 +91,6 @@
                 overflow-x: hidden;
             }
         }
-    }
-
-    #teams_start-compare {
-        background-color: #f1d7ae;
-        float: right;
-        margin: 5px;
-        padding: 5px;
-        border: $gray-400;
-        color: white;
-    }
-
-    #teams_select-teams {
-        background-color: $dojo-nav-primary;
-        float: right;
-        margin: 5px;
-        padding: 5px;
-        border: $gray-400;
-        color: white;
     }
 
     input#teams_search-term {
