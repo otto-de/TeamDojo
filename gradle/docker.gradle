@@ -30,8 +30,7 @@ task copyDockerFiles(type: Copy) {
     include "*"
     exclude "**/*.yml"
 }
-def dockerRepository = "docker.iteratec.io";
-def dockerImageName = "${dockerRepository}/otto/teamdojo";
+def dockerImageName = project.docker_repository ? project.docker_repository + "/" : "" + "otto/teamdojo";
 ext.getDockerImageNameWithTags = {
     def dockerTags = ["$dockerImageName:${version}".toString()]
     if (version.toString().contains('SNAPSHOT')) {

@@ -1,7 +1,7 @@
 version: '2'
 services:
     teamdojo-app:
-        image: teamdojo
+        image: otto/teamdojo:next
         environment:
             - SPRING_PROFILES_ACTIVE=prod,swagger
             - SPRING_DATASOURCE_URL=jdbc:postgresql://teamdojo-postgresql:5432/teamdojo
