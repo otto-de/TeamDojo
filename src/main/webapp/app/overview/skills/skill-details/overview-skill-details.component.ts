@@ -15,6 +15,7 @@ import { sortLevels } from 'app/shared';
 import { IComment } from 'app/shared/model/comment.model';
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details-info/skill-details-info.component';
+import { ISkillRate } from 'app/shared/model/skill-rate.model';
 
 @Component({
     selector: 'jhi-overview-skill-details',
@@ -133,6 +134,15 @@ export class OverviewSkillDetailsComponent implements OnInit {
 
     onSkillSelected(skillObjs) {
         this.skill = skillObjs.iSkill;
+    }
+
+    onVoteSubmitted(skillRate: ISkillRate) {
+        for (const skill of this.skills) {
+            if (skillRate.skillId === skill.id) {
+                skill.rateScore = skillRate.rateScore;
+                skill.rateCount = skillRate.rateCount;
+            }
+        }
     }
 
     onCommentSubmitted(newComment: IComment) {
