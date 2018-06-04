@@ -30,7 +30,7 @@ task copyDockerFiles(type: Copy) {
     include "*"
     exclude "**/*.yml"
 }
-def dockerImageName = project.docker_repository ? project.docker_repository + "/" : "" + "otto/teamdojo";
+def dockerImageName = project.docker_repository ? project.docker_repository + "/otto/teamdojo" : "otto/teamdojo";
 ext.getDockerImageNameWithTags = {
     def dockerTags = ["$dockerImageName:${version}".toString()]
     if (version.toString().contains('SNAPSHOT')) {
