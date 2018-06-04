@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="team-list-body">
-            <div class="team-list-body-item d-flex align-items-center justify-content-between"
+            <div class="team-list-body-item d-flex align-items-center justify-content-between mb-1"
                 *ngFor="let teamScore of teamScores index as i"
                 [ngClass]="{irrelevant: showAsIrrelevant(teamScore.team), complete: showAsComplete(teamScore.team), incomplete: showAsIncomplete(teamScore.team)}">
                 <div class="team-info d-flex align-items-center">
