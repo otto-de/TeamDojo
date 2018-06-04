@@ -44,7 +44,7 @@ export class SkillDetailsComponentParent {
     loadData() {
         this.achievableSkill = new AchievableSkill();
         this.achievableSkill.skillId = this.skill.id;
-        this.teamsSkillsService.findAchievableSkill(this.team.id, this.skill.id).subscribe(skill => {
+        this.teamsSkillsService.findAchievableSkill(this.team ? this.team.id : this.selectedTeam.id, this.skill.id).subscribe(skill => {
             this.achievableSkill = skill;
             this.skillComments = this._getSkillComments();
         });
