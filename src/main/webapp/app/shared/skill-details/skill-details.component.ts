@@ -14,7 +14,6 @@ export class SkillDetailsComponentParent {
     team: ITeam;
     teams: ITeam[];
     skill: ISkill;
-    teamSkills: ITeamSkill[] = [];
     badges: IBadge[] = [];
     skills: ISkill[] = [];
     achievableSkill: IAchievableSkill;
@@ -29,12 +28,10 @@ export class SkillDetailsComponentParent {
 
     constructor(public route: ActivatedRoute, public teamsSkillsService: TeamsSkillsService) {}
 
-    setResolvedData({ team, teams, skill, comments, selectedTeam, teamSkills, badges, skills }): void {
-        this.team = team && team.body ? team.body : team;
+    setResolvedData({ teams, skill, comments, selectedTeam, badges, skills }): void {
         this.teams = (teams && teams.body ? teams.body : teams) || [];
         this.skill = skill && skill.body ? skill.body : skill;
         this.selectedTeam = selectedTeam && selectedTeam.body ? selectedTeam.body : selectedTeam;
-        this.teamSkills = (teamSkills && teamSkills.body ? teamSkills.body : teamSkills) || [];
         this.badges = (badges && badges.body ? badges.body : badges) || [];
         this.skills = (skills && skills.body ? skills.body : skills) || [];
         this.comments = (comments && comments.body ? comments.body : comments) || [];

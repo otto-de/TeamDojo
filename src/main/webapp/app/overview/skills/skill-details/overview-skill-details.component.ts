@@ -10,12 +10,15 @@ import { SkillDetailsComponentParent } from 'app/shared/skill-details/skill-deta
     styleUrls: ['./overview-skill-details.scss']
 })
 export class OverviewSkillDetailsComponent extends SkillDetailsComponentParent implements OnInit {
+    levels: ILevel[];
+
     constructor(route: ActivatedRoute, teamsSkillsService: TeamsSkillsService) {
         super(route, teamsSkillsService);
     }
 
     ngOnInit(): void {
-        this.route.data.subscribe((resolvedData: { team; teams; skill; comments; selectedTeam; teamSkills; badges; skills }) => {
+        this.route.data.subscribe((resolvedData: { teams; skill; comments; selectedTeam; levels; badges; skills }) => {
+            this.levels = (resolvedData.levels && resolvedData.levels.body ? resolvedData.levels.body : resolvedData.levels) || [];
             super.setResolvedData(resolvedData);
         });
         super.loadData();
