@@ -15,18 +15,18 @@ export class TeamsSelectionService {
     }
 
     query() {
-        return this.teamsService.query().subscribe(result => {
-            const teams = result.body;
-            const teamIdStr = this.storage.retrieve(TEAM_STORAGE_KEY);
-            if (teamIdStr !== null && !isNaN(Number(teamIdStr))) {
-                const teamId = Number(teamIdStr);
-                const team = teams.find(t => t.id === Number(teamId));
-                this._selectedTeam = team ? team : null;
+        const teamIdStr = this.storage.retrieve(TEAM_STORAGE_KEY);
+        if (teamIdStr !== null && !isNaN(Number(teamIdStr))) {
+            return this.teamsService.query().subscribe(result => {
+                this._selectedTeam = (result.body || []).find(t => t.id === Number(teamIdStr)) || null;
                 this.teamSkillService.query().subscribe(teamSkillRes => {
-                    this._selectedTeam.skills = (teamSkillRes.body || []).filter(teamSkill => teamSkill.teamId === team.id);
+                    this._selectedTeam.skills = (teamSkillRes.body || []).filter(
+                        teamSkill => this._selectedTeam && teamSkill.teamId === this._selectedTeam.id
+                    );
                 });
-            }
-        });
+            });
+        }
+        return Observable.empty;
     }
 
     get selectedTeam() {
