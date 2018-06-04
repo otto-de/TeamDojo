@@ -70,7 +70,7 @@
 }
 
 .dojo-card {
-    background: $dojo-bg-primary;
+    background: rgba($dojo-bg-gradient-from, 0.5);
     padding: 20px;
     @include shadow();
 }
