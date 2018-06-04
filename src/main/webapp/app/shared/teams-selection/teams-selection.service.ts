@@ -18,13 +18,19 @@ export class TeamsSelectionService {
     query() {
         const teamIdStr = this.storage.retrieve(TEAM_STORAGE_KEY);
         if (teamIdStr !== null && !isNaN(Number(teamIdStr))) {
-            return this.teamsService.find(teamIdStr).do(result => {
-                this._selectedTeam = result.body || null;
-            }).do(result => {
-                return this.teamSkillService.query({ 'teamId.equals': result.body.id }).do(teamSkillRes => {
-                    this._selectedTeam.skills = teamSkillRes.body || [];
+            return this.teamsService
+                .find(teamIdStr)
+                .do(result => {
+                    this._selectedTeam = result.body || null;
+                })
+                .flatMap(result => {
+                    return this.teamSkillService
+                        .query({ 'teamId.equals': result.body.id })
+                        .do(teamSkillRes => {
+                            this._selectedTeam.skills = teamSkillRes.body || [];
+                        })
+                        .map(() => result);
                 });
-            });
         }
         return Observable.of(this._selectedTeam);
     }
