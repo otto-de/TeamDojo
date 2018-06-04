@@ -12,13 +12,77 @@ import { Skill } from 'app/shared/model/skill.model';
 import { SkillService } from 'app/entities/skill';
 import { CommentService } from 'app/entities/comment';
 import { TeamsSelectionResolve } from 'app/shared/teams-selection/teams-selection.resolve';
+import { Observable } from 'rxjs/Observable';
+import { sortLevels } from 'app/shared';
 
 @Injectable()
 export class AllTeamsResolve implements Resolve<any> {
-    constructor(private teamService: TeamService) {}
+    constructor(
+        private teamService: TeamService,
+        private teamSkillService: TeamSkillService,
+        private levelService: LevelService,
+        private levelSkillService: LevelSkillService,
+        private badgeSkillService: BadgeSkillService,
+        private badgeService: BadgeService
+    ) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.teamService.query();
+        return Observable.combineLatest(
+            this.teamService.query(),
+            this.teamSkillService.query(),
+            this.levelService.query(),
+            this.levelSkillService.query(),
+            this.badgeService.query(),
+            this.badgeSkillService.query()
+        ).map(([teamsRes, teamSkillsRes, levelsRes, levelSkillsRes, badgesRes, badgeSkillsRes]) => {
+            const teams = teamsRes.body || [];
+            const teamSkills = teamSkillsRes.body || [];
+            const levels = levelsRes.body || [];
+            const levelSkills = levelSkillsRes.body || [];
+            const badges = badgesRes.body || [];
+            const badgeSkills = badgeSkillsRes.body || [];
+
+            const groupedTeamSkills = {};
+            teamSkills.forEach(teamSkill => {
+                groupedTeamSkills[teamSkill.teamId] = groupedTeamSkills[teamSkill.teamId] || [];
+                groupedTeamSkills[teamSkill.teamId].push(Object.assign(teamSkill));
+            });
+
+            const groupedLevelSkills = {};
+            levelSkills.forEach(levelSkill => {
+                groupedLevelSkills[levelSkill.levelId] = groupedLevelSkills[levelSkill.levelId] || [];
+                groupedLevelSkills[levelSkill.levelId].push(Object.assign(levelSkill));
+            });
+
+            const groupedLevels = {};
+            levels.forEach(level => {
+                groupedLevels[level.dimensionId] = groupedLevels[level.dimensionId] || [];
+                groupedLevels[level.dimensionId].push(Object.assign(level, { skills: groupedLevelSkills[level.id] }));
+            });
+            for (const dimensionId in groupedLevels) {
+                if (groupedLevels.hasOwnProperty(dimensionId)) {
+                    groupedLevels[dimensionId] = sortLevels(groupedLevels[dimensionId]).reverse();
+                }
+            }
+
+            const groupedBadgeSkills = {};
+            badgeSkills.forEach(badgeSkill => {
+                groupedBadgeSkills[badgeSkill.badgeId] = groupedBadgeSkills[badgeSkill.badgeId] || [];
+                groupedBadgeSkills[badgeSkill.badgeId].push(Object.assign(badgeSkill));
+            });
+
+            badges.forEach(badge => {
+                badge.skills = groupedBadgeSkills[badge.id] || [];
+            });
+
+            teams.forEach(team => {
+                team.skills = groupedTeamSkills[team.id] || [];
+                team.participations.forEach(dimension => {
+                    dimension.levels = groupedLevels[dimension.id] || [];
+                });
+            });
+            return { body: teams };
+        });
     }
 }
 
@@ -111,9 +175,6 @@ export const OVERVIEW_ROUTE: Route[] = [
             levels: AllLevelsResolve,
             badges: AllBadgesResolve,
             skills: AllSkillsResolve,
-            teamSkills: AllTeamSkillsResolve,
-            levelSkills: AllLevelSkillsResolve,
-            badgeSkills: AllBadgeSkillsResolve,
             selectedTeam: TeamsSelectionResolve
         }
     },

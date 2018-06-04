@@ -22,7 +22,7 @@ import { TeamsAchievementsService } from 'app/teams/teams-achievements.service';
 import { SkillDetailsComponent } from 'app/teams/skill-details/skill-details.component';
 import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details-info/skill-details-info.component';
 import { SkillDetailsCommentsComponent } from 'app/teams/skill-details/skill-details-comments/skill-details-comments.component';
-import { AllSkillsResolve, AllTeamSkillsResolve } from 'app/teams/teams.route';
+import { AllSkillsResolve } from 'app/teams/teams.route';
 import { SkillDetailsRatingComponent } from 'app/teams/skill-details/skill-details-rating/skill-details-rating.component';
 import { SkillService } from 'app/entities/skill';
 
@@ -52,8 +52,7 @@ import { SkillService } from 'app/entities/skill';
         AllSkillsResolve,
         AllCommentsResolve,
         AllTeamsResolve,
-        SkillService,
-        AllTeamSkillsResolve
+        SkillService
     ],
     exports: [SkillDetailsInfoComponent, SkillDetailsCommentsComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

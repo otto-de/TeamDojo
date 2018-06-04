@@ -15,7 +15,8 @@ export class SkillDetailsComponent extends SkillDetailsComponentParent implement
     }
 
     ngOnInit(): void {
-        this.route.data.subscribe((resolvedData: { team; teams; skill; comments; selectedTeam; teamSkills; badges; skills }) => {
+        this.route.data.subscribe((resolvedData: { team; teams; skill; comments; selectedTeam; badges; skills }) => {
+            this.team = resolvedData.team && resolvedData.team.body ? resolvedData.team.body : resolvedData.team;
             super.setResolvedData(resolvedData);
         });
         super.loadData();

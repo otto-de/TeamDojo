@@ -25,12 +25,12 @@ import 'simplebar';
     styleUrls: ['./overview-skills.scss']
 })
 export class OverviewSkillsComponent implements OnInit, OnChanges {
-    @Input() teams: ITeam[];
-    @Input() levels: ILevel[];
-    @Input() badges: IBadge[];
     @Input() activeSkill: ISkill;
-    @Input() skills: ISkill[];
     @Output() onSkillChanged = new EventEmitter<ISkill>();
+    teams: ITeam[];
+    levels: ILevel[];
+    badges: IBadge[];
+    skills: ISkill[];
     activeSkills: ILevelSkill[] | IBadgeSkill[];
     activeLevel: ILevel;
     activeBadge: IBadge;
@@ -73,11 +73,20 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
                 );
             }
         });
+        this.route.data.subscribe(({ teams, levels, badges, skills }) => {
+            this.teams = (teams && teams.body ? teams.body : teams) || [];
+            this.levels = (levels && levels.body ? levels.body : levels) || [];
+            this.badges = (badges && badges.body ? badges.body : badges) || [];
+            this.skills = (skills && skills.body ? skills.body : skills) || [];
+            this.loadAll();
+        });
+    }
 
+    loadAll() {
         this.generalSkillsIds = [];
         this.dimensionsBySkillId = {};
-        this.levels.forEach(level => {
-            level.skills.forEach((levelSkill: ILevelSkill) => {
+        (this.levels || []).forEach(level => {
+            (level.skills || []).forEach((levelSkill: ILevelSkill) => {
                 const skillId = levelSkill.skillId;
                 this.dimensionsBySkillId[skillId] = this.dimensionsBySkillId[skillId] || [];
                 if (this.dimensionsBySkillId[skillId].indexOf(level.dimensionId) === -1) {
@@ -86,13 +95,13 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
             });
         });
 
-        this.badges.forEach(badge => {
+        (this.badges || []).forEach(badge => {
             if (badge.dimensions.length === 0) {
-                this.generalSkillsIds = this.generalSkillsIds.concat(badge.skills.map(bs => bs.skillId));
+                this.generalSkillsIds = this.generalSkillsIds.concat((badge.skills || []).map(bs => bs.skillId));
             }
 
-            badge.dimensions.forEach(dimension => {
-                badge.skills.forEach((badgeSkill: IBadgeSkill) => {
+            (badge.dimensions || []).forEach(dimension => {
+                (badge.skills || []).forEach((badgeSkill: IBadgeSkill) => {
                     const skillId = badgeSkill.skillId;
                     this.dimensionsBySkillId[skillId] = this.dimensionsBySkillId[skillId] || [];
 

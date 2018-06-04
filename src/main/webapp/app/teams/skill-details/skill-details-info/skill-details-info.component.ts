@@ -50,19 +50,20 @@ export class SkillDetailsInfoComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private teamSkillsService: TeamSkillService,
-        private teamsSkillsService: TeamsSkillsService,
         private teamsSelectionService: TeamsSelectionService
     ) {}
 
     ngOnInit(): void {
-        this.route.data.subscribe(({ levels, badges, levelSkills, badgeSkills, teams, teamSkills }) => {
+        this.route.data.subscribe(({ levels, badges, levelSkills, badgeSkills, teams }) => {
             this._levels = (levels.body ? levels.body : levels) || [];
             this._badges = (badges.body ? badges.body : badges) || [];
             this._teams = (teams.body ? teams.body : teams) || [];
             this._levelSkills = (levelSkills.body ? levelSkills.body : levelSkills) || [];
             this._badgeSkills = (badgeSkills.body ? badgeSkills.body : badgeSkills) || [];
-            this._teamSkills = (teamSkills.body ? teamSkills.body : teamSkills) || [];
-            this.loadData();
+            this.teamSkillsService.query().subscribe((res: HttpResponse<ITeamSkill[]>) => {
+                this._teamSkills = res.body || [];
+                this.loadData();
+            });
         });
     }
 
