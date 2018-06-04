@@ -1,14 +1,19 @@
 @import '../../../../content/scss/colors';
-
+*:focus,
+*:active {
+    outline: none;
+}
 .star {
     position: relative;
     display: inline-block;
     font-size: 1.5rem;
     margin-right: 0.2em;
+    width: 1.4rem;
     color: rgba($dojo-text-primary, 0.4);
 }
 .star-sm {
     font-size: 1.0rem !important;
+    width: 0.9rem;
 }
 .half {
     position: absolute;
