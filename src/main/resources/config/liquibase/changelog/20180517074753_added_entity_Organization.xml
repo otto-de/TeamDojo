@@ -33,11 +33,5 @@
         </createTable>
 
     </changeSet>
-    <changeSet id="20180517074753-2" author="lri">
-        <insert tableName="organization">
-            <column name="id" valueComputed="nextval(&apos;hibernate_sequence&apos;)"/>
-            <column name="name" value="Otto"/>
-        </insert>
-    </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>
