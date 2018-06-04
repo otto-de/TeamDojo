@@ -143,3 +143,8 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
+
+######################
+# Build Server
+######################
+/kube/

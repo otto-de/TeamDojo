@@ -1,11 +1,6 @@
-import org.ajoberstar.gradle.git.release.base.ReleaseVersion
-import org.ajoberstar.gradle.git.release.base.VersionStrategy
 import org.ajoberstar.gradle.git.release.opinion.Strategies
 import org.ajoberstar.grgit.Grgit
 import org.gradle.internal.os.OperatingSystem
-
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 
 buildscript {
     repositories {
@@ -79,7 +74,7 @@ springBoot {
 }
 
 release {
-    versionStrategy new DojoReleaseStrategy();
+    versionStrategy Strategies.FINAL
     defaultVersionStrategy Strategies.SNAPSHOT
     grgit = Grgit.open(currentDir: project.file('.'))
     tagStrategy {
@@ -263,31 +258,3 @@ if (project.hasProperty('nodeInstall')) {
 compileJava.dependsOn processResources
 processResources.dependsOn cleanResources, bootBuildInfo
 bootBuildInfo.mustRunAfter cleanResources
-
-class DojoReleaseStrategy implements VersionStrategy {
-
-    private Pattern SEM_VER_PATTERN = Pattern.compile("v?(\\d+\\.\\d+\\.\\d+)");
-
-    @Override
-    String getName() {
-        return "dojo-release"
-    }
-
-    @Override
-    boolean selector(Project project, Grgit grgit) {
-        String branch = grgit.getBranch().getCurrent() ? grgit.getBranch().getCurrent().getName() : System.env.GIT_BRANCH;
-        return branch.equals("master") || branch.contains("origin/master");
-    }
-
-    @Override
-    ReleaseVersion infer(Project project, Grgit grgit) {
-        String version = getVersionFromTag(grgit);
-        return new ReleaseVersion(version, version, false);
-    }
-
-    private String getVersionFromTag(Grgit grgit) {
-        String rawTag = grgit.describe();
-        Matcher matcher = SEM_VER_PATTERN.matcher(rawTag);
-        return matcher.find() ? matcher.group(1) : rawTag;
-    }
-}
