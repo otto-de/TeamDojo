@@ -90,7 +90,7 @@ export class TeamsSelectionResolve implements Resolve<any> {
     constructor(private teamsSelectionService: TeamsSelectionService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.teamsSelectionService.selectedTeam;
+        return this.teamsSelectionService.query();
     }
 }
 
@@ -122,7 +122,8 @@ export const OVERVIEW_ROUTE: Route[] = [
             skills: AllSkillsResolve,
             teamSkills: AllTeamSkillsResolve,
             levelSkills: AllLevelSkillsResolve,
-            badgeSkills: AllBadgeSkillsResolve
+            badgeSkills: AllBadgeSkillsResolve,
+            selectedTeam: TeamsSelectionResolve
         }
     },
     {

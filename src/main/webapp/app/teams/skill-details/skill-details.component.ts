@@ -51,7 +51,7 @@ export class SkillDetailsComponent implements OnInit {
             this.team = team.body ? team.body : team;
             this.teams = teams.body ? teams.body : teams;
             this.skill = skill.body ? skill.body : skill;
-            this.selectedTeam = selectedTeam && selectedTeam.body ? selectedTeam.body : selectedTeam;
+            this.selectedTeam = selectedTeam && selectedTeam.body ? selectedTeam.body : {};
             this.teamSkills = (teamSkills && teamSkills.body ? teamSkills.body : teamSkills) || [];
             this.badges = (badges && badges.body ? badges.body : badges) || [];
             this.skills = (skills && skills.body ? skills.body : skills) || [];

@@ -7,7 +7,6 @@ import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import { ILevelSkill } from 'app/shared/model/level-skill.model';
 import { sortLevels } from 'app/shared';
 import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
-import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 import { ISkill } from 'app/shared/model/skill.model';
 
 @Component({
@@ -23,11 +22,12 @@ export class OverviewComponent implements OnInit {
     teamSkills: ITeamSkill[];
     levelSkills: ILevelSkill[];
     badgeSkills: IBadgeSkill[];
+    selectedTeam: ITeam;
 
-    constructor(private route: ActivatedRoute, private teamsSelectionService: TeamsSelectionService) {}
+    constructor(private route: ActivatedRoute) {}
 
     ngOnInit() {
-        this.route.data.subscribe(({ teams, levels, badges, teamSkills, levelSkills, badgeSkills, skills }) => {
+        this.route.data.subscribe(({ teams, levels, badges, teamSkills, levelSkills, badgeSkills, skills, selectedTeam }) => {
             this.teams = teams.body;
             this.levels = levels.body;
             this.badges = badges.body;
@@ -35,6 +35,7 @@ export class OverviewComponent implements OnInit {
             this.levelSkills = levelSkills.body;
             this.badgeSkills = badgeSkills.body;
             this.skills = skills.body;
+            this.selectedTeam = selectedTeam.body || {};
 
             const groupedTeamSkills = {};
             this.teamSkills.forEach(teamSkill => {
@@ -76,9 +77,5 @@ export class OverviewComponent implements OnInit {
                 });
             });
         });
-    }
-
-    get currentTeam() {
-        return this.teamsSelectionService.selectedTeam;
     }
 }

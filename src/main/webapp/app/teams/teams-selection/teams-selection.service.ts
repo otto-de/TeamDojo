@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamsService } from 'app/teams/teams.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Observable } from 'rxjs/Observable';
+import { TeamSkillService } from 'app/entities/team-skill';
 
 const TEAM_STORAGE_KEY = 'selectedTeamId';
 
@@ -10,7 +10,7 @@ const TEAM_STORAGE_KEY = 'selectedTeamId';
 export class TeamsSelectionService {
     private _selectedTeam: ITeam = null;
 
-    constructor(private teamsService: TeamsService, private storage: LocalStorageService) {
+    constructor(private teamsService: TeamsService, private teamSkillService: TeamSkillService, private storage: LocalStorageService) {
         this.query();
     }
 
@@ -22,6 +22,9 @@ export class TeamsSelectionService {
                 const teamId = Number(teamIdStr);
                 const team = teams.find(t => t.id === Number(teamId));
                 this._selectedTeam = team ? team : null;
+                this.teamSkillService.query().subscribe(teamSkillRes => {
+                    this._selectedTeam.skills = (teamSkillRes.body || []).filter(teamSkill => teamSkill.teamId === team.id);
+                });
             }
         });
     }

@@ -22,6 +22,7 @@ import { OverviewSkillsComponent } from 'app/overview/skills/overview-skills.com
 import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
 import { TeamsModule } from 'app/teams';
 import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
+import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
 
 @NgModule({
     imports: [TeamdojoSharedModule, RouterModule.forChild(OVERVIEW_ROUTE), NgbModule, TeamsModule],

@@ -1,7 +1,7 @@
 <div class="row overview">
-    <jhi-background-component [teamSkills]="teamSkills" [badges]="badges" [skills]="skills"></jhi-background-component>
+    <jhi-background-component [teamSkills]="selectedTeam.skills" [badges]="badges" [skills]="skills"></jhi-background-component>
     <div class="col-lg-6">
-        <jhi-overview-teams [teams]=" teams" [levels]="levels" [badges]="badges" [skills]="skills"></jhi-overview-teams>
+        <jhi-overview-teams [teams]="teams" [levels]="levels" [badges]="badges" [skills]="skills"></jhi-overview-teams>
     </div>
     <div class="col-lg-6">
         <div class="row">
