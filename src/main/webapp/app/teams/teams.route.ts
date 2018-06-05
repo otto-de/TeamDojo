@@ -60,8 +60,7 @@ export const TEAMS_ROUTES: Route[] = [
         data: {
             authorities: [],
             pageTitle: 'teamdojoApp.teams.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+        }
     },
     {
         path: 'teams/:shortName/skills/:skillId',
