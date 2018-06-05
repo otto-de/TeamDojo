@@ -24,11 +24,11 @@ export class OverviewComponent implements OnInit {
     constructor(private route: ActivatedRoute) {}
 
     ngOnInit() {
-        this.route.data.subscribe(({ teams, levels, badges, skills, selectedTeam }) => {
-            this.teams = teams.body;
-            this.levels = levels.body;
-            this.badges = badges.body;
-            this.skills = skills.body;
+        this.route.data.subscribe(({ overview: { teams, levels, badges }, skills, selectedTeam }) => {
+            this.teams = teams;
+            this.levels = levels;
+            this.badges = badges;
+            this.skills = (skills && skills.body ? skills.body : skills) || [];
             this.selectedTeam = selectedTeam && selectedTeam.body ? selectedTeam.body : {};
         });
     }
