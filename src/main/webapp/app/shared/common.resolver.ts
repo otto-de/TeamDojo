@@ -82,10 +82,19 @@ export class DojoModelResolve implements Resolve<any> {
                 badge.skills = groupedBadgeSkills[badge.id] || [];
             });
 
+            const groupedBadges = {};
+            badges.forEach(badge => {
+                (badge.dimensions || []).forEach(dimension => {
+                    groupedBadges[dimension.id] = groupedBadges[dimension.id] || [];
+                    groupedBadges[dimension.id].push(Object.assign(badge, { skills: groupedBadgeSkills[badge.id] }));
+                });
+            });
+
             teams.forEach(team => {
                 team.skills = groupedTeamSkills[team.id] || [];
                 team.participations.forEach(dimension => {
                     dimension.levels = groupedLevels[dimension.id] || [];
+                    dimension.badges = groupedBadges[dimension.id] || [];
                 });
             });
             return { teams, teamSkills, levels, levelSkills, badges, badgeSkills };
