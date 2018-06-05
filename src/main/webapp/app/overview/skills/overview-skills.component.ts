@@ -59,7 +59,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
                     this.activeSkills = this.activeBadge ? this.activeBadge.skills : [];
                     this.updateBreadcrumb();
                 } else {
-                    this.activeSkills = (this.levelSkills || []).concat(...(this.badgeSkills || []));
+                    this.activeSkills = (this.levelSkills || []).concat(this.badgeSkills || []);
                 }
             });
             this.loadAll();
