@@ -25,7 +25,7 @@ export class AllTeamsResolve implements Resolve<any> {
 }
 
 @Injectable()
-export class OverviewResolve implements Resolve<any> {
+export class DojoModelResolve implements Resolve<any> {
     constructor(
         private teamService: TeamService,
         private teamSkillService: TeamSkillService,
@@ -180,7 +180,7 @@ export const OVERVIEW_ROUTE: Route[] = [
             pageTitle: 'teamdojoApp.teams.home.title'
         },
         resolve: {
-            overview: OverviewResolve,
+            dojoModel: DojoModelResolve,
             skills: AllSkillsResolve,
             selectedTeam: TeamsSelectionResolve
         }
@@ -189,12 +189,7 @@ export const OVERVIEW_ROUTE: Route[] = [
         path: 'overview/skills/:skillId',
         component: OverviewSkillDetailsComponent,
         resolve: {
-            teams: AllTeamsResolve,
-            levels: AllLevelsResolve,
-            badges: AllBadgesResolve,
-            teamSkills: AllTeamSkillsResolve,
-            levelSkills: AllLevelSkillsResolve,
-            badgeSkills: AllBadgeSkillsResolve,
+            dojoModel: DojoModelResolve,
             skill: SkillResolve,
             comments: AllCommentsResolve,
             selectedTeam: TeamsSelectionResolve,
