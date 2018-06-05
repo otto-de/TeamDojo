@@ -20,7 +20,7 @@ import { TeamsSkillsService } from './teams-skills.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TeamsAchievementsService } from 'app/teams/teams-achievements.service';
 import { SkillDetailsComponent } from 'app/teams/skill-details/skill-details.component';
-import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details-info/skill-details-info.component';
+import { SkillDetailsInfoComponent } from 'app/shared/skill-details/skill-details-info.component';
 import { SkillDetailsCommentsComponent } from 'app/teams/skill-details/skill-details-comments/skill-details-comments.component';
 import { AllSkillsResolve } from 'app/teams/teams.route';
 import { SkillDetailsRatingComponent } from 'app/teams/skill-details/skill-details-rating/skill-details-rating.component';

@@ -5,7 +5,7 @@ import { ISkill } from 'app/shared/model/skill.model';
 import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 import { TeamsSkillsComponent } from 'app/teams/teams-skills.component';
-import { SkillDetailsInfoComponent } from 'app/teams/skill-details/skill-details-info/skill-details-info.component';
+import { SkillDetailsInfoComponent } from 'app/shared/skill-details/skill-details-info.component';
 import { IComment } from 'app/shared/model/comment.model';
 import { IBadge } from 'app/shared/model/badge.model';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
