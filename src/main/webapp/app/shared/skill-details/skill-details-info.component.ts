@@ -53,7 +53,7 @@ export class SkillDetailsInfoComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.route.data.subscribe(({dojoModel: {teams, teamSkills, levels, badges, levelSkills, badgeSkills }}) => {
+        this.route.data.subscribe(({ dojoModel: { teams, teamSkills, levels, badges, levelSkills, badgeSkills } }) => {
             this._levels = (levels && levels.body ? levels.body : levels) || [];
             this._badges = (badges && badges.body ? badges.body : badges) || [];
             this._teams = (teams && teams.body ? teams.body : teams) || [];

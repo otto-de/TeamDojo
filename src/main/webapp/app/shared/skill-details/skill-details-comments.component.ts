@@ -5,7 +5,7 @@ import { Comment, IComment } from 'app/shared/model/comment.model';
 import { HttpResponse } from '@angular/common/http';
 import * as moment from 'moment';
 import { CommentService } from 'app/entities/comment';
-import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
+import { ISkill } from 'app/shared/model/skill.model';
 import 'simplebar';
 
 @Component({
@@ -16,7 +16,7 @@ import 'simplebar';
 export class SkillDetailsCommentsComponent implements OnInit {
     @Input() selectedTeam: ITeam;
     @Input() teams: ITeam[];
-    @Input() achievableSkill: IAchievableSkill;
+    @Input() skill: ISkill;
     @Input() comments: IComment[];
     @Output() onCommentSubmitted = new EventEmitter<IComment>();
     newComment: IComment;
@@ -33,8 +33,8 @@ export class SkillDetailsCommentsComponent implements OnInit {
 
     onSubmit() {
         this.newComment.creationDate = moment();
-        this.newComment.skillId = this.achievableSkill ? this.achievableSkill.skillId : undefined;
-        this.newComment.skillTitle = this.achievableSkill ? this.achievableSkill.title : undefined;
+        this.newComment.skillId = this.skill ? this.skill.id : undefined;
+        this.newComment.skillTitle = this.skill ? this.skill.title : undefined;
         this.newComment.teamId = this.selectedTeam ? this.selectedTeam.id : undefined;
         this.newComment.teamShortName = this.selectedTeam ? this.selectedTeam.shortName : undefined;
         this.commentService.create(this.newComment).subscribe((res: HttpResponse<IComment>) => {

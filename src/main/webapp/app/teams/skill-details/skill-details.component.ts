@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { SkillDetailsComponentParent } from 'app/shared/skill-details/skill-details.component';
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 import { ActivatedRoute } from '@angular/router';
+import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 
 @Component({
     selector: 'jhi-skill-details',
@@ -10,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
     styleUrls: ['./skill-details.scss']
 })
 export class SkillDetailsComponent extends SkillDetailsComponentParent implements OnInit {
+    achievableSkill: IAchievableSkill;
     constructor(route: ActivatedRoute, teamsSkillsService: TeamsSkillsService) {
         super(route, teamsSkillsService);
     }
@@ -19,7 +21,21 @@ export class SkillDetailsComponent extends SkillDetailsComponentParent implement
             this.team = resolvedData.team && resolvedData.team.body ? resolvedData.team.body : resolvedData.team;
             super.setResolvedData(resolvedData);
         });
-        super.loadData();
+        this.loadData();
+    }
+
+    loadData() {
+        this.achievableSkill = new AchievableSkill();
+        this.achievableSkill.skillId = this.skill.id;
+        this.teamsSkillsService.findAchievableSkill(this.team ? this.team.id : this.selectedTeam.id, this.skill.id).subscribe(skill => {
+            this.achievableSkill = skill;
+            this.skillComments = super._getSkillComments();
+        });
+    }
+
+    onSkillInListClicked(skillObjs) {
+        this.achievableSkill = skillObjs.aSkill;
+        super.onSkillInListClicked(skillObjs);
     }
 
     onVoteSubmitted(voteObjs) {
