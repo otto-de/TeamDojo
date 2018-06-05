@@ -8,15 +8,15 @@ TeamDojo also calculates scores, based on specific Skill, Level and Badge rankin
 the amount of their reached scores.   
 
 
-##Usage
+## Usage
 
-###Cloning
+### Cloning
     
     ToDo
     git clone https://github.com/otto-de/...
     cd ...
 
-###Docker
+### Docker
 First build a docker image by running:
 
     ./gradlew bootWar -Pprod buildDocker
@@ -28,21 +28,21 @@ Then run:
 The application will available on [http://localhost:8080](http://localhost:8080)
     
 
-###Model
+### Model
 
-####Organization
+#### Organization
 
 TeamDojo comes prefilled with some demo data.
 Log in with the default admin credentials: _admin/teamdojo_ under 
 [http://localhost:8080/#/admin](http://localhost:8080/#/admin) and change your __organization__ _Entity - Organization_.
 It will be your navigation root node.
 
-####Dimension
+#### Dimension
 
 Next you would like to create some __Dimensions__ your teams want to reaches skills for: _Entity - Dimensions_. 
 Examples could be _Quality Assurance_, _Security_, _Operations_, _Architecture_, ...
 
-####Team
+#### Team
 
 Teams are the users of TeamDojo. Here you can create them.
 
@@ -56,7 +56,7 @@ _Entity - Team_
 - __Participations__ - Every team can participate on one or more Dimensions. 
 
 
-####Level
+#### Level
 
 Now you can specify maturity or ability __Level__ for these dimensions.
 Each Level should contains _n_ Skills - see next step.
@@ -71,13 +71,13 @@ You can create your own icons, but for the best user experience get some help fr
 - __Required Score__ - A decimal value from 0 to 1. You can define how much percent of reached skills are necessary to get this level.
 Default can be 1.0
 - __Skill Score Multiplier__ - A decimal value. Here you can specify how much bonus points the team can reach with every skill 
-of this level. Default can be 0.0. See [Scoring System](#scoring-system) for more details.
+of this level. Default can be 0.0. See [Scoring System](#scoring-system-and-balancing) for more details.
 - [OPTIONAL] __Level Completion Bonus__ - A numeric value. How much bonus points the team can reach with the 
-completion of this level. See [Scoring System](#scoring-system) for more details.
+completion of this level. See [Scoring System](#scoring-system-and-balancing) for more details.
 - __Dimension__ - Every Level must be assigned to one Dimension.
 - [OPTIONAL] A level can __depends on__ a previous level. E.g.: To reach Level 2, all skills of Level 2 and Level 1 must be completed.
 
-####Badge
+#### Badge
 
 While Level are the core of the maturity model, __Badges__ can be used to push some specific skills or to reward good teams.
 
@@ -91,12 +91,12 @@ You can create your own icons, but for the best user experience get some help fr
 - __Required Score__ - A decimal value from 0 to 1. You can define how much percent of reached skills are necessary to get this badge.
 Default can be 1.0.
 - __Skill Score Multiplier__ - A decimal value. Here you can specify how much bonus points the team can reach with every skill 
-of this badge. Default can be 0.0. See [Scoring System](#scoring-system) for more details.
+of this badge. Default can be 0.0. See [Scoring System](#scoring-system-and-balancing) for more details.
 - [OPTIONAL] __Badge Completion Bonus__ - A numeric value. How much bonus points the team can reach with the 
-completion of this badge. See [Scoring System](#scoring-system) for more details.
+completion of this badge. See [Scoring System](#scoring-system-and-balancing) for more details.
 - __Dimensions__ - Every Badge can be assigned to one ore more Dimensions.
 
-####Skill
+#### Skill
 
 The core element of this framework. Teams can become competent in __skills__.
 
@@ -111,7 +111,7 @@ _Entities - Skill_
 - [DO NOT TOUCH] __Rate Score__ - Users can vote for a skill (1-5 stars). This value should not be set in the admin view.             
 - [DO NOT TOUCH] __Rate Count__ - Users can vote for a skill (1-5 stars). This value should not be set in the admin view.
 
-####Assign Skills to Level and Badges
+#### Assign Skills to Level and Badges
 
 Every Skill should be assigned to at least one Level or Badge:
 - _Entities - Level Skills_
@@ -119,7 +119,7 @@ Every Skill should be assigned to at least one Level or Badge:
 
 Here you can specify which skills are necessary to reach a specific Level or badge.   
 
-###Scoring System and Balancing
+### Scoring System and Balancing
 
 If a team completes a skill, it scores will be added to the team scores.
 With the Skill __Score__ property you can value it costs / complexity / importance.
@@ -166,7 +166,7 @@ If the required percentage (__Required Score__) of skills for the Badge or Level
     +  100 (Level Completion Bonus)
     => 200 Points 
 
-##Security
+## Security
 
 For the reasons of maximum transparency and accessibility there exists no user / role concept.
 Everyone can see and change everything. An exception is the technical Admin. 
@@ -181,7 +181,7 @@ Host this tool in your internal network and let everyone use and see it.
 
 If you really want any kind of authentication/authorization process, build it, push it back into this repository but make it optional.
 
-###Default secrets / credentials
+### Default secrets / credentials
 
 The default admin credentials are: __admin/teamdojo__.
 Configured in [src/main/resources/config/liquibase/users.csv](src/main/resources/config/liquibase/users.csv).
