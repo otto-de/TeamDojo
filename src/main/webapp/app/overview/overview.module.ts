@@ -1,19 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TeamdojoSharedModule } from 'app/shared';
-import {
-    AllBadgeSkillsResolve,
-    AllBadgesResolve,
-    AllCommentsResolve,
-    AllLevelSkillsResolve,
-    AllLevelsResolve,
-    AllSkillsResolve,
-    AllTeamSkillsResolve,
-    AllTeamsResolve,
-    OVERVIEW_ROUTE,
-    DojoModelResolve,
-    SkillResolve
-} from 'app/overview/overview.route';
+import { OVERVIEW_ROUTE } from 'app/overview/overview.route';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OverviewComponent } from 'app/overview/overview.component';
 import { OverviewTeamsComponent } from 'app/overview/teams/overview-teams.component';
@@ -22,6 +10,7 @@ import { OverviewSkillsComponent } from 'app/overview/skills/overview-skills.com
 import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
 import { TeamsModule } from 'app/teams';
 import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
+import { AllCommentsResolve, AllSkillsResolve, DojoModelResolve, SkillResolve } from 'app/shared/common.resolver';
 
 @NgModule({
     imports: [TeamdojoSharedModule, RouterModule.forChild(OVERVIEW_ROUTE), NgbModule, TeamsModule],
@@ -33,19 +22,7 @@ import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
         OverviewSkillDetailsComponent
     ],
     entryComponents: [],
-    providers: [
-        DojoModelResolve,
-        AllTeamsResolve,
-        AllLevelsResolve,
-        AllBadgesResolve,
-        AllTeamSkillsResolve,
-        AllLevelSkillsResolve,
-        SkillResolve,
-        AllBadgeSkillsResolve,
-        AllSkillsResolve,
-        AllCommentsResolve,
-        BreadcrumbService
-    ],
+    providers: [DojoModelResolve, SkillResolve, AllSkillsResolve, AllCommentsResolve, BreadcrumbService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class OverviewModule {}
