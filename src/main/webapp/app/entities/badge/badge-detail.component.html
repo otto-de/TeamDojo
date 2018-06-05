@@ -48,6 +48,12 @@
                         <a [routerLink]="['/dimension', dimensions?.id, 'view' ]">{{dimensions.name}}</a>{{last ? '' : ', '}}
                     </span>
                 </dd>
+                <dt><span jhiTranslate="teamdojoApp.badge.image">Image</span></dt>
+                <dd>
+                    <div *ngIf="badge.imageId">
+                        <a [routerLink]="['/image', badge.imageId, 'view']">{{badge.imageId}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

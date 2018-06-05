@@ -1,12 +1,12 @@
 package de.otto.teamdojo.service.dto;
 
-import javax.persistence.Lob;
+import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
+import javax.persistence.Lob;
 
 /**
  * A DTO for the Badge entity.
@@ -43,6 +43,8 @@ public class BadgeDTO implements Serializable {
     private Integer completionBonus;
 
     private Set<DimensionDTO> dimensions = new HashSet<>();
+
+    private Long imageId;
 
     public Long getId() {
         return id;
@@ -132,6 +134,14 @@ public class BadgeDTO implements Serializable {
         this.dimensions = dimensions;
     }
 
+    public Long getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -165,6 +175,7 @@ public class BadgeDTO implements Serializable {
             ", requiredScore=" + getRequiredScore() +
             ", instantMultiplier=" + getInstantMultiplier() +
             ", completionBonus=" + getCompletionBonus() +
+            ", image=" + getImageId() +
             "}";
     }
 }

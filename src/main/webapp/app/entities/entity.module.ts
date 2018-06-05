@@ -12,6 +12,7 @@ import { TeamdojoOrganizationModule } from './organization/organization.module';
 import { TeamdojoReportModule } from './report/report.module';
 import { TeamdojoCommentModule } from './comment/comment.module';
 import { TeamdojoActivityModule } from './activity/activity.module';
+import { TeamdojoImageModule } from './image/image.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -29,6 +30,7 @@ import { TeamdojoActivityModule } from './activity/activity.module';
         TeamdojoReportModule,
         TeamdojoCommentModule,
         TeamdojoActivityModule,
+        TeamdojoImageModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

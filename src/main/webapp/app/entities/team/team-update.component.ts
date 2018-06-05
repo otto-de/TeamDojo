@@ -8,6 +8,8 @@ import { ITeam } from 'app/shared/model/team.model';
 import { TeamService } from './team.service';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { DimensionService } from 'app/entities/dimension';
+import { IImage } from 'app/shared/model/image.model';
+import { ImageService } from 'app/entities/image';
 
 @Component({
     selector: 'jhi-team-update',
@@ -19,11 +21,14 @@ export class TeamUpdateComponent implements OnInit {
 
     dimensions: IDimension[];
 
+    images: IImage[];
+
     constructor(
         private dataUtils: JhiDataUtils,
         private jhiAlertService: JhiAlertService,
         private teamService: TeamService,
         private dimensionService: DimensionService,
+        private imageService: ImageService,
         private elementRef: ElementRef,
         private route: ActivatedRoute
     ) {}
@@ -36,6 +41,21 @@ export class TeamUpdateComponent implements OnInit {
         this.dimensionService.query().subscribe(
             (res: HttpResponse<IDimension[]>) => {
                 this.dimensions = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.imageService.query({ filter: 'team-is-null' }).subscribe(
+            (res: HttpResponse<IImage[]>) => {
+                if (!this.team.imageId) {
+                    this.images = res.body;
+                } else {
+                    this.imageService.find(this.team.imageId).subscribe(
+                        (subRes: HttpResponse<IImage>) => {
+                            this.images = [subRes.body].concat(res.body);
+                        },
+                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
+                    );
+                }
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -88,6 +108,10 @@ export class TeamUpdateComponent implements OnInit {
     }
 
     trackDimensionById(index: number, item: IDimension) {
+        return item.id;
+    }
+
+    trackImageById(index: number, item: IImage) {
         return item.id;
     }
 

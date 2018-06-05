@@ -8,6 +8,8 @@ import { ILevel } from 'app/shared/model/level.model';
 import { LevelService } from './level.service';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { DimensionService } from 'app/entities/dimension';
+import { IImage } from 'app/shared/model/image.model';
+import { ImageService } from 'app/entities/image';
 
 @Component({
     selector: 'jhi-level-update',
@@ -21,11 +23,14 @@ export class LevelUpdateComponent implements OnInit {
 
     dependsons: ILevel[];
 
+    images: IImage[];
+
     constructor(
         private dataUtils: JhiDataUtils,
         private jhiAlertService: JhiAlertService,
         private levelService: LevelService,
         private dimensionService: DimensionService,
+        private imageService: ImageService,
         private elementRef: ElementRef,
         private route: ActivatedRoute
     ) {}
@@ -49,6 +54,21 @@ export class LevelUpdateComponent implements OnInit {
                     this.levelService.find(this.level.dependsOnId).subscribe(
                         (subRes: HttpResponse<ILevel>) => {
                             this.dependsons = [subRes.body].concat(res.body);
+                        },
+                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
+                    );
+                }
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.imageService.query({ filter: 'level-is-null' }).subscribe(
+            (res: HttpResponse<IImage[]>) => {
+                if (!this.level.imageId) {
+                    this.images = res.body;
+                } else {
+                    this.imageService.find(this.level.imageId).subscribe(
+                        (subRes: HttpResponse<IImage>) => {
+                            this.images = [subRes.body].concat(res.body);
                         },
                         (subRes: HttpErrorResponse) => this.onError(subRes.message)
                     );
@@ -109,6 +129,10 @@ export class LevelUpdateComponent implements OnInit {
     }
 
     trackLevelById(index: number, item: ILevel) {
+        return item.id;
+    }
+
+    trackImageById(index: number, item: IImage) {
         return item.id;
     }
     get level() {

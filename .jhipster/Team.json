@@ -15,6 +15,14 @@
             "otherEntityName": "teamSkill",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "team"
+        },
+        {
+            "relationshipName": "image",
+            "otherEntityName": "image",
+            "relationshipType": "one-to-one",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "team"
         }
     ],
     "fields": [

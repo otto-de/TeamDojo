@@ -21,6 +21,7 @@
             <th><span jhiTranslate="teamdojoApp.team.slogan">Slogan</span></th>
             <th><span jhiTranslate="teamdojoApp.team.contactPerson">Contact Person</span></th>
             <th><span jhiTranslate="teamdojoApp.team.participations">Participations</span></th>
+            <th><span jhiTranslate="teamdojoApp.team.image">Image</span></th>
             <th></th>
             </tr>
             </thead>
@@ -41,6 +42,11 @@
                     <span *ngFor="let participations of team.participations; let last = last">
                             <a class="form-control-static" [routerLink]="['../dimension', participations?.id, 'view' ]">{{participations.name}}</a>{{last ? '' : ', '}}
                         </span>
+                </td>
+                <td>
+                    <div *ngIf="team.imageId">
+                        <a [routerLink]="['../image', team.imageId , 'view' ]" >{{team.imageId}}</a>
+                    </div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

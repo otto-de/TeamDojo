@@ -732,6 +732,25 @@ public class BadgeResourceIntTest {
         defaultBadgeShouldNotBeFound("dimensionsId.equals=" + (dimensionsId + 1));
     }
 
+
+    @Test
+    @Transactional
+    public void getAllBadgesByImageIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Image image = ImageResourceIntTest.createEntity(em);
+        em.persist(image);
+        em.flush();
+        badge.setImage(image);
+        badgeRepository.saveAndFlush(badge);
+        Long imageId = image.getId();
+
+        // Get all the badgeList where image equals to imageId
+        defaultBadgeShouldBeFound("imageId.equals=" + imageId);
+
+        // Get all the badgeList where image equals to imageId + 1
+        defaultBadgeShouldNotBeFound("imageId.equals=" + (imageId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned
      */

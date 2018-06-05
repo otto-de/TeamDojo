@@ -22,7 +22,8 @@
             "slogan": "Slogan",
             "contactPerson": "Contact Person",
             "participations": "Participations",
-            "skills": "Skills"
+            "skills": "Skills",
+            "image": "Image"
         }
     }
 }

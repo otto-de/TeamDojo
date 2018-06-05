@@ -1,9 +1,9 @@
 package de.otto.teamdojo.service.dto;
 
-import javax.persistence.Lob;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Lob;
 
 /**
  * A DTO for the Level entity.
@@ -41,6 +41,8 @@ public class LevelDTO implements Serializable {
     private Long dependsOnId;
 
     private String dependsOnName;
+
+    private Long imageId;
 
     public Long getId() {
         return id;
@@ -138,6 +140,14 @@ public class LevelDTO implements Serializable {
         this.dependsOnName = levelName;
     }
 
+    public Long getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -173,6 +183,7 @@ public class LevelDTO implements Serializable {
             ", dimension='" + getDimensionName() + "'" +
             ", dependsOn=" + getDependsOnId() +
             ", dependsOn='" + getDependsOnName() + "'" +
+            ", image=" + getImageId() +
             "}";
     }
 }

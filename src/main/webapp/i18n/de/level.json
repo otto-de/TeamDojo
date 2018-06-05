@@ -24,7 +24,8 @@
             "completionBonus": "Level Completion Bonus",
             "dimension": "Dimension",
             "dependsOn": "Depends On",
-            "skills": "Skills"
+            "skills": "Skills",
+            "image": "Image"
         }
     }
 }

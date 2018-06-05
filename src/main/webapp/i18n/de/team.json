@@ -23,6 +23,7 @@
             "contactPerson": "Contact Person",
             "participations": "Participations",
             "skills": "Skills",
+            "image": "Image",
             "navigation" : {
                 "text" : "Team Wohnzimmer"
             }

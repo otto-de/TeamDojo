@@ -1,15 +1,17 @@
 package de.otto.teamdojo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
 
 /**
  * A Level.
@@ -58,7 +60,7 @@ public class Level implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("")
+    @JsonIgnoreProperties("levels")
     private Dimension dimension;
 
     @OneToOne
@@ -68,6 +70,10 @@ public class Level implements Serializable {
     @OneToMany(mappedBy = "level")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<LevelSkill> skills = new HashSet<>();
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Image image;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -218,6 +224,19 @@ public class Level implements Serializable {
 
     public void setSkills(Set<LevelSkill> levelSkills) {
         this.skills = levelSkills;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public Level image(Image image) {
+        this.image = image;
+        return this;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

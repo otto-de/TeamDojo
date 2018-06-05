@@ -46,6 +46,12 @@
                         <a [routerLink]="['/level', level.dependsOnId, 'view']">{{level.dependsOnName}}</a>
                     </div>
                 </dd>
+                <dt><span jhiTranslate="teamdojoApp.level.image">Image</span></dt>
+                <dd>
+                    <div *ngIf="level.imageId">
+                        <a [routerLink]="['/image', level.imageId, 'view']">{{level.imageId}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

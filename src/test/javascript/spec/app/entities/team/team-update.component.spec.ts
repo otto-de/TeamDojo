@@ -9,6 +9,7 @@ import { TeamService } from 'app/entities/team/team.service';
 import { Team } from 'app/shared/model/team.model';
 
 import { DimensionService } from 'app/entities/dimension';
+import { ImageService } from 'app/entities/image';
 
 describe('Component Tests', () => {
     describe('Team Management Update Component', () => {
@@ -20,7 +21,7 @@ describe('Component Tests', () => {
             TestBed.configureTestingModule({
                 imports: [TeamdojoTestModule],
                 declarations: [TeamUpdateComponent],
-                providers: [DimensionService, TeamService]
+                providers: [DimensionService, ImageService, TeamService]
             })
                 .overrideTemplate(TeamUpdateComponent, '')
                 .compileComponents();

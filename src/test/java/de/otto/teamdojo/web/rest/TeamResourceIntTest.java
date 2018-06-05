@@ -1,9 +1,12 @@
 package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
+
+import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.domain.Dimension;
 import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.domain.TeamSkill;
+import de.otto.teamdojo.domain.Image;
 import de.otto.teamdojo.repository.TeamRepository;
 import de.otto.teamdojo.service.AchievableSkillService;
 import de.otto.teamdojo.service.TeamQueryService;
@@ -11,6 +14,9 @@ import de.otto.teamdojo.service.TeamService;
 import de.otto.teamdojo.service.dto.TeamDTO;
 import de.otto.teamdojo.service.mapper.TeamMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
+import de.otto.teamdojo.service.dto.TeamCriteria;
+import de.otto.teamdojo.service.TeamQueryService;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +25,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -31,6 +38,7 @@ import org.springframework.util.Base64Utils;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -244,24 +252,24 @@ public class TeamResourceIntTest {
             .setMessageConverters(jacksonMessageConverter).build();
 
         restTeamMockMvc.perform(get("/api/teams?eagerload=true"))
-            .andExpect(status().isOk());
+        .andExpect(status().isOk());
 
         verify(teamServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     public void getAllTeamsWithEagerRelationshipsIsNotEnabled() throws Exception {
         TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService);
-        when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-        MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
+            when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter).build();
 
         restTeamMockMvc.perform(get("/api/teams?eagerload=true"))
-            .andExpect(status().isOk());
+        .andExpect(status().isOk());
 
-        verify(teamServiceMock, times(1)).findAllWithEagerRelationships(any());
+            verify(teamServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test
@@ -474,6 +482,25 @@ public class TeamResourceIntTest {
 
         // Get all the teamList where skills equals to skillsId + 1
         defaultTeamShouldNotBeFound("skillsId.equals=" + (skillsId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllTeamsByImageIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Image image = ImageResourceIntTest.createEntity(em);
+        em.persist(image);
+        em.flush();
+        team.setImage(image);
+        teamRepository.saveAndFlush(team);
+        Long imageId = image.getId();
+
+        // Get all the teamList where image equals to imageId
+        defaultTeamShouldBeFound("imageId.equals=" + imageId);
+
+        // Get all the teamList where image equals to imageId + 1
+        defaultTeamShouldNotBeFound("imageId.equals=" + (imageId + 1));
     }
 
     /**
