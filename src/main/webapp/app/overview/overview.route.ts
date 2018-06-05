@@ -17,6 +17,15 @@ import { sortLevels } from 'app/shared';
 
 @Injectable()
 export class AllTeamsResolve implements Resolve<any> {
+    constructor(private teamService: TeamService) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.teamService.query();
+    }
+}
+
+@Injectable()
+export class OverviewResolve implements Resolve<any> {
     constructor(
         private teamService: TeamService,
         private teamSkillService: TeamSkillService,
@@ -81,7 +90,7 @@ export class AllTeamsResolve implements Resolve<any> {
                     dimension.levels = groupedLevels[dimension.id] || [];
                 });
             });
-            return { body: teams };
+            return { teams, teamSkills, levels, levelSkills, badges, badgeSkills };
         });
     }
 }
@@ -171,9 +180,7 @@ export const OVERVIEW_ROUTE: Route[] = [
             pageTitle: 'teamdojoApp.teams.home.title'
         },
         resolve: {
-            teams: AllTeamsResolve,
-            levels: AllLevelsResolve,
-            badges: AllBadgesResolve,
+            overview: OverviewResolve,
             skills: AllSkillsResolve,
             selectedTeam: TeamsSelectionResolve
         }

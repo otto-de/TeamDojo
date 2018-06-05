@@ -29,7 +29,9 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     @Output() onSkillChanged = new EventEmitter<ISkill>();
     teams: ITeam[];
     levels: ILevel[];
+    levelSkills: ILevelSkill[];
     badges: IBadge[];
+    badgeSkills: IBadgeSkill[];
     skills: ISkill[];
     activeSkills: ILevelSkill[] | IBadgeSkill[];
     activeLevel: ILevel;
@@ -39,11 +41,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     generalSkillsIds: number[];
 
     constructor(
-        private levelSkillService: LevelSkillService,
-        private skillService: SkillService,
         private jhiAlertService: JhiAlertService,
-        private teamService: TeamService,
-        private teamsSkillService: TeamsSkillsService,
         private route: ActivatedRoute,
         private router: Router,
         private location: Location,
@@ -52,32 +50,28 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     ) {}
 
     ngOnInit() {
-        this.route.queryParamMap.subscribe((params: ParamMap) => {
-            this.activeLevel = null;
-            this.activeBadge = null;
-            if (params.get('level')) {
-                this.activeLevel = this.levels.find((level: ILevel) => level.id === Number.parseInt(params.get('level')));
-                this.activeSkills = this.activeLevel ? this.activeLevel.skills : [];
-                this.updateBreadcrumb();
-            } else if (params.get('badge')) {
-                this.activeBadge = this.badges.find((badge: IBadge) => badge.id === Number.parseInt(params.get('badge')));
-                this.activeSkills = this.activeBadge ? this.activeBadge.skills : [];
-                this.updateBreadcrumb();
-            } else {
-                this.levelSkillService.query().subscribe(
-                    (res: HttpResponse<ILevelSkill[]>) => {
-                        this.activeSkills = res.body;
-                        this.updateBreadcrumb();
-                    },
-                    (res: HttpErrorResponse) => this.onError(res.error)
-                );
-            }
-        });
-        this.route.data.subscribe(({ teams, levels, badges, skills }) => {
-            this.teams = (teams && teams.body ? teams.body : teams) || [];
-            this.levels = (levels && levels.body ? levels.body : levels) || [];
-            this.badges = (badges && badges.body ? badges.body : badges) || [];
+        this.route.data.subscribe(({ overview: { teams, levels, levelSkills, badges, badgeSkills }, skills }) => {
+            this.teams = teams || [];
+            this.levels = levels || [];
+            this.levelSkills = levelSkills || [];
+            this.badges = badges || [];
+            this.badgeSkills = badgeSkills || [];
             this.skills = (skills && skills.body ? skills.body : skills) || [];
+            this.route.queryParamMap.subscribe((params: ParamMap) => {
+                this.activeLevel = null;
+                this.activeBadge = null;
+                if (params.get('level')) {
+                    this.activeLevel = (this.levels || []).find((level: ILevel) => level.id === Number.parseInt(params.get('level')));
+                    this.activeSkills = this.activeLevel ? this.activeLevel.skills : [];
+                    this.updateBreadcrumb();
+                } else if (params.get('badge')) {
+                    this.activeBadge = (this.badges || []).find((badge: IBadge) => badge.id === Number.parseInt(params.get('badge')));
+                    this.activeSkills = this.activeBadge ? this.activeBadge.skills : [];
+                    this.updateBreadcrumb();
+                } else {
+                    this.activeSkills = (this.levelSkills || []).concat(...(this.badgeSkills || []));
+                }
+            });
             this.loadAll();
         });
     }
