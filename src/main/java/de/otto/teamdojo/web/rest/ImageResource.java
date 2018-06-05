@@ -10,6 +10,9 @@ import de.otto.teamdojo.service.ImageQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -107,6 +110,40 @@ public class ImageResource {
         log.debug("REST request to get Image : {}", id);
         Optional<ImageDTO> imageDTO = imageService.findOne(id);
         return ResponseUtil.wrapOrNotFound(imageDTO);
+    }
+
+    /**
+     * GET  /images/:id : get the "id" image.
+     *
+     * @param id the id of the imageDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the imageDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/images/{id}/content")
+    @Timed
+    public ResponseEntity<byte[]> getImageContent(@PathVariable Long id, @RequestParam(value="size", required=false) String size) {
+        log.debug("REST request to get Image : {}", id);
+        Optional<ImageDTO> imageDTO = imageService.findOne(id);
+        if (!imageDTO.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        ImageDTO image = imageDTO.get();
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        size = size == null ? "LARGE" : size.toUpperCase();
+        byte[] imageBlob;
+        String contentType;
+        if (size.equals("SMALL")) {
+            imageBlob = image.getSmall();
+            contentType = image.getSmallContentType();
+        } else if (size.equals("MEDIUM")) {
+            imageBlob = image.getMedium();
+            contentType = image.getMediumContentType();
+        } else {
+            imageBlob = image.getLarge();
+            contentType = image.getLargeContentType();
+        }
+        responseHeaders.add("Content-Type", contentType);
+        return new ResponseEntity<>(imageBlob, responseHeaders, HttpStatus.OK);
     }
 
     /**
