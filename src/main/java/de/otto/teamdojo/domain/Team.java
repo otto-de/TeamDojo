@@ -1,16 +1,16 @@
 package de.otto.teamdojo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
 
 /**
  * A Team.
@@ -51,16 +51,20 @@ public class Team implements Serializable {
     @Column(name = "contact_person")
     private String contactPerson;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "team_participations",
-        joinColumns = @JoinColumn(name = "teams_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "participations_id", referencedColumnName = "id"))
+               joinColumns = @JoinColumn(name="teams_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="participations_id", referencedColumnName="id"))
     private Set<Dimension> participations = new HashSet<>();
 
     @OneToMany(mappedBy = "team")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<TeamSkill> skills = new HashSet<>();
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Image image;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -197,6 +201,19 @@ public class Team implements Serializable {
 
     public void setSkills(Set<TeamSkill> teamSkills) {
         this.skills = teamSkills;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public Team image(Image image) {
+        this.image = image;
+        return this;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

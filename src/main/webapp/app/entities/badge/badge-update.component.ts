@@ -10,6 +10,8 @@ import { IBadge } from 'app/shared/model/badge.model';
 import { BadgeService } from './badge.service';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { DimensionService } from 'app/entities/dimension';
+import { IImage } from 'app/shared/model/image.model';
+import { ImageService } from 'app/entities/image';
 
 @Component({
     selector: 'jhi-badge-update',
@@ -20,6 +22,8 @@ export class BadgeUpdateComponent implements OnInit {
     isSaving: boolean;
 
     dimensions: IDimension[];
+
+    images: IImage[];
     availableUntil: string;
 
     constructor(
@@ -27,6 +31,7 @@ export class BadgeUpdateComponent implements OnInit {
         private jhiAlertService: JhiAlertService,
         private badgeService: BadgeService,
         private dimensionService: DimensionService,
+        private imageService: ImageService,
         private elementRef: ElementRef,
         private route: ActivatedRoute
     ) {}
@@ -39,6 +44,21 @@ export class BadgeUpdateComponent implements OnInit {
         this.dimensionService.query().subscribe(
             (res: HttpResponse<IDimension[]>) => {
                 this.dimensions = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.imageService.query({ filter: 'badge-is-null' }).subscribe(
+            (res: HttpResponse<IImage[]>) => {
+                if (!this.badge.imageId) {
+                    this.images = res.body;
+                } else {
+                    this.imageService.find(this.badge.imageId).subscribe(
+                        (subRes: HttpResponse<IImage>) => {
+                            this.images = [subRes.body].concat(res.body);
+                        },
+                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
+                    );
+                }
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -92,6 +112,10 @@ export class BadgeUpdateComponent implements OnInit {
     }
 
     trackDimensionById(index: number, item: IDimension) {
+        return item.id;
+    }
+
+    trackImageById(index: number, item: IImage) {
         return item.id;
     }
 

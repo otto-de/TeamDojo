@@ -37,6 +37,8 @@ public class BadgeCriteria implements Serializable {
 
     private LongFilter dimensionsId;
 
+    private LongFilter imageId;
+
     public BadgeCriteria() {
     }
 
@@ -120,19 +122,28 @@ public class BadgeCriteria implements Serializable {
         this.dimensionsId = dimensionsId;
     }
 
+    public LongFilter getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(LongFilter imageId) {
+        this.imageId = imageId;
+    }
+
     @Override
     public String toString() {
         return "BadgeCriteria{" +
-            (id != null ? "id=" + id + ", " : "") +
-            (name != null ? "name=" + name + ", " : "") +
-            (description != null ? "description=" + description + ", " : "") +
-            (availableUntil != null ? "availableUntil=" + availableUntil + ", " : "") +
-            (availableAmount != null ? "availableAmount=" + availableAmount + ", " : "") +
-            (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
-            (instantMultiplier != null ? "instantMultiplier=" + instantMultiplier + ", " : "") +
-            (completionBonus != null ? "completionBonus=" + completionBonus + ", " : "") +
-            (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
-            (dimensionsId != null ? "dimensionsId=" + dimensionsId + ", " : "") +
+                (id != null ? "id=" + id + ", " : "") +
+                (name != null ? "name=" + name + ", " : "") +
+                (description != null ? "description=" + description + ", " : "") +
+                (availableUntil != null ? "availableUntil=" + availableUntil + ", " : "") +
+                (availableAmount != null ? "availableAmount=" + availableAmount + ", " : "") +
+                (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
+                (instantMultiplier != null ? "instantMultiplier=" + instantMultiplier + ", " : "") +
+                (completionBonus != null ? "completionBonus=" + completionBonus + ", " : "") +
+                (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
+                (dimensionsId != null ? "dimensionsId=" + dimensionsId + ", " : "") +
+                (imageId != null ? "imageId=" + imageId + ", " : "") +
             "}";
     }
 

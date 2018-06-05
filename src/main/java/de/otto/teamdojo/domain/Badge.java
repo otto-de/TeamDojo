@@ -1,15 +1,17 @@
 package de.otto.teamdojo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
 
 /**
  * A Badge.
@@ -70,9 +72,13 @@ public class Badge implements Serializable {
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "badge_dimensions",
-        joinColumns = @JoinColumn(name = "badges_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "dimensions_id", referencedColumnName = "id"))
+               joinColumns = @JoinColumn(name="badges_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="dimensions_id", referencedColumnName="id"))
     private Set<Dimension> dimensions = new HashSet<>();
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Image image;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -248,6 +254,19 @@ public class Badge implements Serializable {
 
     public void setDimensions(Set<Dimension> dimensions) {
         this.dimensions = dimensions;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public Badge image(Image image) {
+        this.image = image;
+        return this;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

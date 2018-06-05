@@ -15,6 +15,14 @@
             "otherEntityField": "name",
             "ownerSide": true,
             "otherEntityRelationshipName": "badges"
+        },
+        {
+            "relationshipName": "image",
+            "otherEntityName": "image",
+            "relationshipType": "one-to-one",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "badge"
         }
     ],
     "fields": [

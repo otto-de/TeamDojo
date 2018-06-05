@@ -14,6 +14,7 @@ export interface ILevel {
     dependsOnName?: string;
     dependsOnId?: number;
     skills?: ILevelSkill[];
+    imageId?: number;
 }
 
 export class Level implements ILevel {
@@ -30,6 +31,7 @@ export class Level implements ILevel {
         public dimensionId?: number,
         public dependsOnName?: string,
         public dependsOnId?: number,
-        public skills?: ILevelSkill[]
+        public skills?: ILevelSkill[],
+        public imageId?: number
     ) {}
 }

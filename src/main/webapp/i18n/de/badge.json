@@ -25,7 +25,8 @@
             "instantMultiplier": "Skill Score Multiplier",
             "completionBonus": "Badge Completion Bonus",
             "skills": "Skills",
-            "dimensions": "Dimensions"
+            "dimensions": "Dimensions",
+            "image": "Image"
         }
     }
 }

@@ -23,6 +23,7 @@
             <th><span jhiTranslate="teamdojoApp.level.completionBonus">Completion Bonus</span></th>
             <th><span jhiTranslate="teamdojoApp.level.dimension">Dimension</span></th>
             <th><span jhiTranslate="teamdojoApp.level.dependsOn">Depends On</span></th>
+            <th><span jhiTranslate="teamdojoApp.level.image">Image</span></th>
             <th></th>
             </tr>
             </thead>
@@ -48,6 +49,11 @@
                 <td>
                     <div *ngIf="level.dependsOnId">
                         <a [routerLink]="['../level', level.dependsOnId , 'view' ]" >{{level.dependsOnName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="level.imageId">
+                        <a [routerLink]="['../image', level.imageId , 'view' ]" >{{level.imageId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

@@ -1,0 +1,75 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-image-heading" jhiTranslate="teamdojoApp.image.home.createOrEditLabel">Create or edit a Image</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!image.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="image.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.image.small" for="field_small">Small</label>
+                    <div>
+                        <img [src]="'data:' + image.smallContentType + ';base64,' + image.small" style="max-height: 100px;" *ngIf="image.small" alt="image image"/>
+                        <div *ngIf="image.small" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{image.smallContentType}}, {{byteSize(image.small)}}</span>
+                            <button type="button" (click)="clearInputImage('small', 'smallContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <span class="fa fa-times"></span>
+                            </button>
+                        </div>
+                        <input type="file" id="file_small" (change)="setFileData($event, image, 'small', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="small" id="field_small"
+                        [(ngModel)]="image.small" />
+                    <input type="hidden" class="form-control" name="smallContentType" id="field_smallContentType"
+                        [(ngModel)]="image.smallContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.image.medium" for="field_medium">Medium</label>
+                    <div>
+                        <img [src]="'data:' + image.mediumContentType + ';base64,' + image.medium" style="max-height: 100px;" *ngIf="image.medium" alt="image image"/>
+                        <div *ngIf="image.medium" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{image.mediumContentType}}, {{byteSize(image.medium)}}</span>
+                            <button type="button" (click)="clearInputImage('medium', 'mediumContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <span class="fa fa-times"></span>
+                            </button>
+                        </div>
+                        <input type="file" id="file_medium" (change)="setFileData($event, image, 'medium', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="medium" id="field_medium"
+                        [(ngModel)]="image.medium" />
+                    <input type="hidden" class="form-control" name="mediumContentType" id="field_mediumContentType"
+                        [(ngModel)]="image.mediumContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.image.large" for="field_large">Large</label>
+                    <div>
+                        <img [src]="'data:' + image.largeContentType + ';base64,' + image.large" style="max-height: 100px;" *ngIf="image.large" alt="image image"/>
+                        <div *ngIf="image.large" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{image.largeContentType}}, {{byteSize(image.large)}}</span>
+                            <button type="button" (click)="clearInputImage('large', 'largeContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <span class="fa fa-times"></span>
+                            </button>
+                        </div>
+                        <input type="file" id="file_large" (change)="setFileData($event, image, 'large', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="large" id="field_large"
+                        [(ngModel)]="image.large" />
+                    <input type="hidden" class="form-control" name="largeContentType" id="field_largeContentType"
+                        [(ngModel)]="image.largeContentType" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

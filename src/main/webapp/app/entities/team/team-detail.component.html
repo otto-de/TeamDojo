@@ -36,6 +36,12 @@
                         <a [routerLink]="['/dimension', participations?.id, 'view' ]">{{participations.name}}</a>{{last ? '' : ', '}}
                     </span>
                 </dd>
+                <dt><span jhiTranslate="teamdojoApp.team.image">Image</span></dt>
+                <dd>
+                    <div *ngIf="team.imageId">
+                        <a [routerLink]="['/image', team.imageId, 'view']">{{team.imageId}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

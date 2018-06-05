@@ -1,13 +1,11 @@
 package de.otto.teamdojo.service.dto;
 
-import javax.persistence.Lob;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
+import javax.persistence.Lob;
 
 /**
  * A DTO for the Team entity.
@@ -34,6 +32,8 @@ public class TeamDTO implements Serializable {
     private String contactPerson;
 
     private Set<DimensionDTO> participations = new HashSet<>();
+
+    private Long imageId;
 
     public Long getId() {
         return id;
@@ -99,6 +99,14 @@ public class TeamDTO implements Serializable {
         this.participations = dimensions;
     }
 
+    public Long getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -129,6 +137,7 @@ public class TeamDTO implements Serializable {
             ", picture='" + getPicture() + "'" +
             ", slogan='" + getSlogan() + "'" +
             ", contactPerson='" + getContactPerson() + "'" +
+            ", image=" + getImageId() +
             "}";
     }
 }
