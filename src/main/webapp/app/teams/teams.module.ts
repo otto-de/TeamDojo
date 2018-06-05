@@ -2,19 +2,11 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { TeamdojoSharedModule } from 'app/shared';
-import { SkillResolve, TEAMS_ROUTES, TeamsComponent } from './';
+import { TEAMS_ROUTES, TeamsComponent } from './';
 import { TeamsAchievementsComponent } from './teams-achievements.component';
 import { TeamsSkillsComponent } from './teams-skills.component';
 import { TeamsSelectionComponent } from 'app/shared/teams-selection/teams-selection.component';
-import {
-    AllBadgeSkillsResolve,
-    AllBadgesResolve,
-    AllCommentsResolve,
-    AllLevelSkillsResolve,
-    AllLevelsResolve,
-    AllTeamsResolve,
-    TeamAndTeamSkillResolve
-} from './teams.route';
+import { TeamAndTeamSkillResolve } from './teams.route';
 import { TeamsService } from './teams.service';
 import { TeamsSkillsService } from './teams-skills.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -22,9 +14,18 @@ import { TeamsAchievementsService } from 'app/teams/teams-achievements.service';
 import { SkillDetailsComponent } from 'app/teams/skill-details/skill-details.component';
 import { SkillDetailsInfoComponent } from 'app/shared/skill-details/skill-details-info.component';
 import { SkillDetailsCommentsComponent } from 'app/shared/skill-details/skill-details-comments.component';
-import { AllSkillsResolve } from 'app/teams/teams.route';
 import { SkillDetailsRatingComponent } from 'app/teams/skill-details/skill-details-rating/skill-details-rating.component';
 import { SkillService } from 'app/entities/skill';
+import {
+    AllBadgeSkillsResolve,
+    AllBadgesResolve,
+    AllCommentsResolve,
+    AllLevelSkillsResolve,
+    AllLevelsResolve,
+    AllSkillsResolve,
+    AllTeamsResolve,
+    SkillResolve
+} from 'app/shared/common.resolver';
 
 @NgModule({
     imports: [TeamdojoSharedModule, RouterModule.forChild(TEAMS_ROUTES), NgbModule],
