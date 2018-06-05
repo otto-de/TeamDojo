@@ -86,7 +86,7 @@ export class SkillDetailsInfoComponent implements OnInit {
     onSkillInListChanged(skillObjs) {
         this.achievableSkill = skillObjs.aSkill;
         this.skill = skillObjs.iSkill;
-        this.skillRating.onSkillChanged();
+        this.skillRating.onSkillChanged(skillObjs.iSkill);
         this.teamSkillsService.query().subscribe((res: HttpResponse<ITeamSkill[]>) => {
             this._teamSkills = res.body || [];
             this.loadData();

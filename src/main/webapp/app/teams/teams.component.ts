@@ -26,49 +26,12 @@ export class TeamsComponent implements OnInit {
     constructor(private dataUtils: JhiDataUtils, private route: ActivatedRoute, private teamSkillService: TeamSkillService) {}
 
     ngOnInit() {
-        this.route.data.subscribe(({ team, levels, badges, levelSkills, badgeSkills, skills }) => {
-            this.team = team;
-            this.teamSkills = team.skills;
-            this.badges = badges.body;
-            this.skills = skills.body;
-
-            const groupedLevelSkills = {};
-            levelSkills.body.forEach(levelSkill => {
-                groupedLevelSkills[levelSkill.levelId] = groupedLevelSkills[levelSkill.levelId] || [];
-                groupedLevelSkills[levelSkill.levelId].push(Object.assign(levelSkill));
-            });
-
-            const levelsByDimensionId = {};
-            levels.body.forEach(level => {
-                levelsByDimensionId[level.dimensionId] = levelsByDimensionId[level.dimensionId] || [];
-                levelsByDimensionId[level.dimensionId].push(Object.assign(level, { skills: groupedLevelSkills[level.id] }));
-            });
-            for (const dimensionId in levelsByDimensionId) {
-                if (levelsByDimensionId.hasOwnProperty(dimensionId)) {
-                    levelsByDimensionId[dimensionId] = sortLevels(levelsByDimensionId[dimensionId]).reverse();
-                }
-            }
-
-            const groupedBadgeSkills = {};
-            badgeSkills.body.forEach((badgeSkill: IBadgeSkill) => {
-                groupedBadgeSkills[badgeSkill.badgeId] = groupedBadgeSkills[badgeSkill.badgeId] || [];
-                groupedBadgeSkills[badgeSkill.badgeId].push(Object.assign(badgeSkill));
-            });
-            this.badges.forEach(badge => {
-                badge.skills = groupedBadgeSkills[badge.id] || [];
-            });
-            const badgesByDimensionId = {};
-            this.badges.forEach(badge => {
-                badge.dimensions.forEach((dimension: IDimension) => {
-                    badgesByDimensionId[dimension.id] = badgesByDimensionId[dimension.id] || [];
-                    badgesByDimensionId[dimension.id].push(Object.assign(badge));
-                });
-            });
-
-            this.team.participations.forEach(dimension => {
-                dimension.levels = levelsByDimensionId[dimension.id] || [];
-                dimension.badges = badgesByDimensionId[dimension.id] || [];
-            });
+        this.route.data.subscribe(({ dojoModel: { teams, levels, levelSkills, badges, badgeSkills }, team, skills }) => {
+            const teamFromRoute = team && team.body ? team.body : team;
+            this.team = (teams || []).find(t => t.id === teamFromRoute.id) || teamFromRoute;
+            this.teamSkills = team && team.skills ? team.skills : [];
+            this.badges = (badges && badges.body ? badges.body : badges) || [];
+            this.skills = (skills && skills.body ? skills.body : skills) || [];
         });
         this.changeTeam.emit(this.team);
     }

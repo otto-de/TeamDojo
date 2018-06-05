@@ -4,18 +4,15 @@ import { TeamsComponent } from './';
 import { TeamsService } from 'app/teams/teams.service';
 import { Team } from 'app/shared/model/team.model';
 import { Injectable } from '@angular/core';
-import { UserRouteAccessService } from 'app/core';
 import { SkillDetailsComponent } from 'app/teams/skill-details/skill-details.component';
 import { TeamSkillService } from 'app/entities/team-skill';
 import { TeamsSelectionResolve } from 'app/shared/teams-selection/teams-selection.resolve';
 import {
-    AllBadgeSkillsResolve,
     AllBadgesResolve,
     AllCommentsResolve,
-    AllLevelSkillsResolve,
-    AllLevelsResolve,
     AllSkillsResolve,
     AllTeamsResolve,
+    DojoModelResolve,
     SkillResolve
 } from 'app/shared/common.resolver';
 
@@ -50,11 +47,8 @@ export const TEAMS_ROUTES: Route[] = [
         path: 'teams/:shortName',
         component: TeamsComponent,
         resolve: {
+            dojoModel: DojoModelResolve,
             team: TeamAndTeamSkillResolve,
-            levels: AllLevelsResolve,
-            badges: AllBadgesResolve,
-            levelSkills: AllLevelSkillsResolve,
-            badgeSkills: AllBadgeSkillsResolve,
             skills: AllSkillsResolve
         },
         data: {
@@ -66,16 +60,12 @@ export const TEAMS_ROUTES: Route[] = [
         path: 'teams/:shortName/skills/:skillId',
         component: SkillDetailsComponent,
         resolve: {
+            dojoModel: DojoModelResolve,
             team: TeamAndTeamSkillResolve,
             skill: SkillResolve,
             skills: AllSkillsResolve,
             comments: AllCommentsResolve,
-            teams: AllTeamsResolve,
-            selectedTeam: TeamsSelectionResolve,
-            levels: AllLevelsResolve,
-            badges: AllBadgesResolve,
-            levelSkills: AllLevelSkillsResolve,
-            badgeSkills: AllBadgeSkillsResolve
+            selectedTeam: TeamsSelectionResolve
         },
         data: {
             authorities: [],

@@ -15,15 +15,10 @@ import { SkillDetailsComponent } from 'app/teams/skill-details/skill-details.com
 import { SkillDetailsInfoComponent } from 'app/shared/skill-details/skill-details-info.component';
 import { SkillDetailsCommentsComponent } from 'app/shared/skill-details/skill-details-comments.component';
 import { SkillDetailsRatingComponent } from 'app/teams/skill-details/skill-details-rating/skill-details-rating.component';
-import { SkillService } from 'app/entities/skill';
 import {
-    AllBadgeSkillsResolve,
-    AllBadgesResolve,
     AllCommentsResolve,
-    AllLevelSkillsResolve,
-    AllLevelsResolve,
     AllSkillsResolve,
-    AllTeamsResolve,
+    DojoModelResolve,
     SkillResolve
 } from 'app/shared/common.resolver';
 
@@ -41,19 +36,14 @@ import {
     ],
     entryComponents: [TeamsSelectionComponent],
     providers: [
+        DojoModelResolve,
         TeamsService,
         TeamsSkillsService,
         TeamsAchievementsService,
         TeamAndTeamSkillResolve,
         SkillResolve,
-        AllLevelsResolve,
-        AllBadgesResolve,
-        AllLevelSkillsResolve,
-        AllBadgeSkillsResolve,
         AllSkillsResolve,
-        AllCommentsResolve,
-        AllTeamsResolve,
-        SkillService
+        AllCommentsResolve
     ],
     exports: [SkillDetailsInfoComponent, SkillDetailsCommentsComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
