@@ -17,10 +17,9 @@ export class OverviewSkillDetailsComponent extends SkillDetailsComponentParent i
     }
 
     ngOnInit(): void {
-        this.route.data.subscribe(({dojoModel: {teams, badges, levels}, skill, skills, comments, selectedTeam}) => {
+        this.route.data.subscribe(({ dojoModel: { teams, badges, levels }, skill, skills, comments, selectedTeam }) => {
             this.levels = (levels && levels.body ? levels.body : levels) || [];
-            super.setResolvedData({teams, skill, comments, selectedTeam, badges, skills});
+            super.setResolvedData({ teams, skill, comments, selectedTeam, badges, skills });
         });
-        super.loadData();
     }
 }
