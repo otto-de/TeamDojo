@@ -107,10 +107,11 @@
         }
     }
 }
+
 @media only screen and (min-width: map-get($grid-breakpoints, md)){
     .teams-skills {
         .teams-skills-list {
-            height: calc(100vh - 250px);
+            height: calc(100vh - 320px);
             padding: 5px;
             padding-left: 0;
         }
