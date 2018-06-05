@@ -1,3 +1,5 @@
+![screencast](screencast.gif "Screencast")
+
 # TeamDojo
 
 An application for improving (application and project) skills of your teams through gamification. 
