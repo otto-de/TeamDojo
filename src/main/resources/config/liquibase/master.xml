@@ -26,6 +26,5 @@
     <include file="config/liquibase/changelog/20180419154302_added_entity_constraints_LevelSkill.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180419135514_added_entity_constraints_Badge.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180528114846_added_entity_constraints_Comment.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180605123508_added_entity_constraints_Image.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
