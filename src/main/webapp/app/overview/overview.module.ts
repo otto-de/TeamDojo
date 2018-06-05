@@ -11,7 +11,7 @@ import {
     AllTeamSkillsResolve,
     AllTeamsResolve,
     OVERVIEW_ROUTE,
-    OverviewResolve,
+    DojoModelResolve,
     SkillResolve
 } from 'app/overview/overview.route';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -34,7 +34,7 @@ import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
     ],
     entryComponents: [],
     providers: [
-        OverviewResolve,
+        DojoModelResolve,
         AllTeamsResolve,
         AllLevelsResolve,
         AllBadgesResolve,

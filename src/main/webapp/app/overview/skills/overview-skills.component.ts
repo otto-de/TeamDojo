@@ -40,7 +40,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     ) {}
 
     ngOnInit() {
-        this.route.data.subscribe(({ overview: { teams, levels, levelSkills, badges, badgeSkills }, skills }) => {
+        this.route.data.subscribe(({ dojoModel: { teams, levels, levelSkills, badges, badgeSkills }, skills }) => {
             this.teams = teams || [];
             this.levels = levels || [];
             this.levelSkills = levelSkills || [];
