@@ -186,7 +186,7 @@ If you really want any kind of authentication/authorization process, build it, p
 The default admin credentials are: __admin/teamdojo__.
 Configured in [src/main/resources/config/liquibase/users.csv](src/main/resources/config/liquibase/users.csv).
 
-There exists a secret for the "Remember me" Cookie. Configured in [src/main/resources/config/application-prod.xml](src/main/resources/config/application-prod.xml).
+There exists a secret for the "Remember me" Cookie. Configured in [src/main/resources/config/application-prod.yml](src/main/resources/config/application-prod.yml).
 
 Change the password and secret in your productive environment.    
  
