@@ -1,20 +1,13 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
-import { TeamService } from 'app/entities/team';
 import { ITeam } from 'app/shared/model/team.model';
-import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 import { ILevel } from 'app/shared/model/level.model';
 import { IBadge } from 'app/shared/model/badge.model';
-import { IDimension } from 'app/shared/model/dimension.model';
 import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { LevelSkillService } from 'app/entities/level-skill';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ILevelSkill } from 'app/shared/model/level-skill.model';
-import { Location } from '@angular/common';
 import { ISkill } from 'app/shared/model/skill.model';
-import { SkillService } from 'app/entities/skill';
 import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
 import { DimensionService } from 'app/entities/dimension';
 import { Progress } from 'app/shared/achievement/model/progress.model';
@@ -36,15 +29,12 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     activeSkills: ILevelSkill[] | IBadgeSkill[];
     activeLevel: ILevel;
     activeBadge: IBadge;
-    dimensions: IDimension[];
     dimensionsBySkillId: any;
     generalSkillsIds: number[];
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private route: ActivatedRoute,
-        private router: Router,
-        private location: Location,
         private breadcrumbService: BreadcrumbService,
         private dimensionService: DimensionService
     ) {}
@@ -156,16 +146,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     }
 
     findSkill(skillId: number): ISkill {
-        if (this.skills === null || typeof this.skills === 'undefined') {
-            return null;
-        }
-
-        for (const skill of this.skills) {
-            if (skill.id === skillId) {
-                return skill;
-            }
-        }
-        return null;
+        return (this.skills || []).find(skill => skill.id === skillId);
     }
 
     private findTeamSkill(team: ITeam, skill: ILevelSkill | IBadgeSkill): ITeamSkill {
