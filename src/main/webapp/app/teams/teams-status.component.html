@@ -7,11 +7,15 @@
         <div class="avatar-image-wrapper d-flex align-self-center">
             <div class="avatar-image" [ngClass]="hasLeveledUp ? 'avatar-image-level-up' : 'avatar-image-default'"></div>
         </div>
-        <div class="status-meta d-flex flex-column justify-content-center align-items-center mx-auto">
-            <h5 *ngIf="team.slogan" class="team-slogan mb-0">{{team.slogan}}</h5>
-            <h6 *ngIf="team.slogan" class="team-title mt-0 mb-0">{{team.name}}</h6>
-            <h5 *ngIf="!team.slogan" class="team-title mb-0">{{team.name}}</h5>
-            <div class="team-score"><span>{{teamScore}}</span></div>
+        <div class="status-meta d-flex justify-content-center mx-auto">
+            <div class="status-meta-text d-flex flex-column justify-content-center align-items-center">
+                <h5 *ngIf="!team.slogan; else sloganWithTitle" class="team-title mb-0">{{team.name}}</h5>
+                <ng-template #sloganWithTitle>
+                    <h5 class="team-slogan mb-0">{{team.slogan}}</h5>
+                    <h6 class="team-title mt-0 mb-0">{{team.name}}</h6>
+                </ng-template>
+                <div class="team-score"><span>{{teamScore}}</span></div>
+            </div>
         </div>
     </div>
     <div class="teams-status-achievements">
