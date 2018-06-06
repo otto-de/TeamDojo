@@ -28,6 +28,11 @@ import java.util.stream.Collectors;
 @Transactional
 public class ImageServiceImpl implements ImageService {
 
+    public static final int MAX_SIZE_LARGE = 512;
+    public static final int MAX_SIZE_MEDIUM = 224;
+    public static final int MAX_SIZE_SMALL = 72;
+    public static final String IMAGE_FORMAT  = "png";
+
     private final Logger log = LoggerFactory.getLogger(ImageServiceImpl.class);
 
     private final ImageRepository imageRepository;
@@ -51,16 +56,17 @@ public class ImageServiceImpl implements ImageService {
 
         byte[] imgByteArray = imageDTO.getLarge();
         if (imgByteArray != null) {
+            String contentType = "image/" + IMAGE_FORMAT;
             BufferedImage img = createImageFromBytes(imgByteArray);
-            BufferedImage large = resize(img, 512);
-            BufferedImage medium = resize(img,  224);
-            BufferedImage small = resize(img, 72);
+            BufferedImage large = resize(img, MAX_SIZE_LARGE);
+            BufferedImage medium = resize(img, MAX_SIZE_MEDIUM);
+            BufferedImage small = resize(img, MAX_SIZE_SMALL);
             imageDTO.setLarge(getByteArrayFromBufferedImage(large));
-            imageDTO.setLargeContentType("image/png");
+            imageDTO.setLargeContentType(contentType);
             imageDTO.setMedium(getByteArrayFromBufferedImage(medium));
-            imageDTO.setMediumContentType("image/png");
+            imageDTO.setMediumContentType(contentType);
             imageDTO.setSmall(getByteArrayFromBufferedImage(small));
-            imageDTO.setSmallContentType("image/png");
+            imageDTO.setSmallContentType(contentType);
         }
 
         Image image = imageMapper.toEntity(imageDTO);
@@ -70,9 +76,8 @@ public class ImageServiceImpl implements ImageService {
 
     private byte[] getByteArrayFromBufferedImage(BufferedImage img) {
         try {
-
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(img, "png", baos);
+            ImageIO.write(img, IMAGE_FORMAT, baos);
             baos.flush();
             byte[] imageInByte = baos.toByteArray();
             baos.close();
@@ -84,7 +89,6 @@ public class ImageServiceImpl implements ImageService {
     }
 
     private BufferedImage resize(BufferedImage img, int max) {
-
         // no scaling if img width and height are smaller than max
         if (img.getWidth() <= max && img.getHeight() <= max) {
             return img;
