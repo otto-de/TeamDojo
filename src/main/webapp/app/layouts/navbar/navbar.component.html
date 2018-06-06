@@ -47,9 +47,8 @@
             </li>
             <li ngbDropdown class="nav-item dropdown pointer" *ngIf="selectedTeam">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="teamDropdown">
-                    <div class="team-avatar" *ngIf="getTeamImage(selectedTeam)">
-                        <img class="avatar-image" [src]="getTeamImage(selectedTeam)"
-                             [title]="selectedTeam.name"/>
+                    <div class="mr-1">
+                        <jhi-team-image [team]="selectedTeam" size="35px"></jhi-team-image>
                     </div>
                     <span>Team {{selectedTeam.name}}</span>
                 </a>
