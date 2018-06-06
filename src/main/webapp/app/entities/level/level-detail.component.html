@@ -13,15 +13,6 @@
                 <dd>
                     <span>{{level.description}}</span>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.level.picture">Picture</span></dt>
-                <dd>
-                    <div *ngIf="level.picture">
-                        <a (click)="openFile(level.pictureContentType, level.picture)">
-                            <img [src]="'data:' + level.pictureContentType + ';base64,' + level.picture" style="max-width: 100%;" alt="level image"/>
-                        </a>
-                        {{level.pictureContentType}}, {{byteSize(level.picture)}}
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="teamdojoApp.level.requiredScore">Required Score</span></dt>
                 <dd>
                     <span>{{level.requiredScore}}</span>

@@ -3,7 +3,6 @@ package de.otto.teamdojo.service.dto;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Lob;
 
 /**
  * A DTO for the Level entity.
@@ -17,10 +16,6 @@ public class LevelDTO implements Serializable {
     private String name;
 
     private String description;
-
-    @Lob
-    private byte[] picture;
-    private String pictureContentType;
 
     @NotNull
     @DecimalMin(value = "0")
@@ -66,22 +61,6 @@ public class LevelDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public byte[] getPicture() {
-        return picture;
-    }
-
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
-    }
-
-    public String getPictureContentType() {
-        return pictureContentType;
-    }
-
-    public void setPictureContentType(String pictureContentType) {
-        this.pictureContentType = pictureContentType;
     }
 
     public Double getRequiredScore() {
@@ -175,7 +154,6 @@ public class LevelDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
-            ", picture='" + getPicture() + "'" +
             ", requiredScore=" + getRequiredScore() +
             ", instantMultiplier=" + getInstantMultiplier() +
             ", completionBonus=" + getCompletionBonus() +

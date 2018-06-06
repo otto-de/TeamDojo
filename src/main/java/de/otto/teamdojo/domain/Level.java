@@ -36,13 +36,6 @@ public class Level implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @Lob
-    @Column(name = "picture")
-    private byte[] picture;
-
-    @Column(name = "picture_content_type")
-    private String pictureContentType;
-
     @NotNull
     @DecimalMin(value = "0")
     @DecimalMax(value = "1")
@@ -108,32 +101,6 @@ public class Level implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public byte[] getPicture() {
-        return picture;
-    }
-
-    public Level picture(byte[] picture) {
-        this.picture = picture;
-        return this;
-    }
-
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
-    }
-
-    public String getPictureContentType() {
-        return pictureContentType;
-    }
-
-    public Level pictureContentType(String pictureContentType) {
-        this.pictureContentType = pictureContentType;
-        return this;
-    }
-
-    public void setPictureContentType(String pictureContentType) {
-        this.pictureContentType = pictureContentType;
     }
 
     public Double getRequiredScore() {
@@ -266,8 +233,6 @@ public class Level implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
-            ", picture='" + getPicture() + "'" +
-            ", pictureContentType='" + getPictureContentType() + "'" +
             ", requiredScore=" + getRequiredScore() +
             ", instantMultiplier=" + getInstantMultiplier() +
             ", completionBonus=" + getCompletionBonus() +
