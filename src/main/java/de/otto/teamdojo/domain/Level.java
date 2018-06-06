@@ -53,7 +53,7 @@ public class Level implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("levels")
+    @JsonIgnoreProperties()
     private Dimension dimension;
 
     @OneToOne
