@@ -128,7 +128,6 @@ public class ImageResource {
         }
         ImageDTO image = imageDTO.get();
 
-        HttpHeaders responseHeaders = new HttpHeaders();
         size = size == null ? "LARGE" : size.toUpperCase();
         byte[] imageBlob;
         String contentType;
@@ -142,8 +141,9 @@ public class ImageResource {
             imageBlob = image.getLarge();
             contentType = image.getLargeContentType();
         }
-        responseHeaders.add("Content-Type", contentType);
-        return new ResponseEntity<>(imageBlob, responseHeaders, HttpStatus.OK);
+        return ResponseEntity.ok()
+            .header("Content-Type", contentType)
+            .body(imageBlob);
     }
 
     /**
