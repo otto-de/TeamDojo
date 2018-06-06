@@ -5,7 +5,6 @@ import { ILevel } from 'app/shared/model/level.model';
 import { JhiAlertService } from 'ng-jhipster';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { IDimension } from 'app/shared/model/dimension.model';
-import { AchievementProgress } from 'app/shared/achievement/model/achievement-progress.model';
 import { RelevanceCheck } from 'app/shared';
 import { CompletionCheck } from 'app/shared/util/completion-check';
 import { IProgress, Progress } from 'app/shared/achievement/model/progress.model';
