@@ -24,38 +24,43 @@
             }
         }
         .status-meta {
-            width: 50vh;
+            width: 100%;
             height: 20vh;
-            margin-top: -4vh;
+            position: relative;
+            margin-top: -6vh;
             color: $dojo-text-inverse-secondary;
-            .team-title, .team-slogan {
-                margin-top: 6vh;
+            &-text {
+                position: absolute;
+                top: 9vh;
                 z-index: 4;
-            }
-            h5 {
-                font-size: calc(16px + 0.3vw);
-            }
-            h6 {
-                font-size: calc(10px + 0.3vw);
-            }
-            .team-score {
-                font-size: calc(12px + 0.2vw);
-                z-index: 4;
-                &::before {
-                    content: '';
-                    width: calc(12px + 0.3vw);
-                    height: calc(18px + 0.3vw);
-                    position: absolute;
-                    background: no-repeat center/contain url('../../content/images/coin.png');
-                    margin-left: calc(-16px - 0.2vw);
+                h5 {
+                    font-size: calc(10px + 1.4vh);
+                }
+                h6 {
+                    font-size: calc(6px + 0.8vh);
+                }
+                .team-score {
+                    font-size: calc(10px + 1vh);
                     z-index: 4;
+                    &::before {
+                        content: '';
+                        width: calc(10px + 1vh);
+                        height: calc(10px + 1vh);
+                        position: absolute;
+                        background: no-repeat center/contain url('../../content/images/coin.png');
+                        margin-top: calc(2px + 0.2vh);
+                        margin-left: calc(-12px - 1.2vh);
+                        z-index: 4;
+                    }
                 }
             }
             &::after {
                 content: '';
                 width: inherit;
                 height: inherit;
-                max-width: 100%;
+                max-width: 50vh;
+                min-width: 100%;
+                min-height: 90px;
                 position: absolute;
                 background: no-repeat center/contain url('../../content/images/brushstroke.png');
                 z-index: 2;
