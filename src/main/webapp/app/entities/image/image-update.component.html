@@ -10,7 +10,18 @@
                         [(ngModel)]="image.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="teamdojoApp.image.detail.title" for="field_large">Image</label>
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.image.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                        [(ngModel)]="image.name" required/>
+                    <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.image.large" for="field_large">Large</label>
                     <div>
                         <img [src]="'data:' + image.largeContentType + ';base64,' + image.large" style="max-height: 100px;" *ngIf="image.large" alt="image image"/>
                         <div *ngIf="image.large" class="form-text text-danger clearfix">

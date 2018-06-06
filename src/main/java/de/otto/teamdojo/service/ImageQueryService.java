@@ -76,6 +76,9 @@ public class ImageQueryService extends QueryService<Image> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildSpecification(criteria.getId(), Image_.id));
             }
+            if (criteria.getName() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getName(), Image_.name));
+            }
         }
         return specification;
     }

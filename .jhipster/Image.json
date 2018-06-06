@@ -4,6 +4,13 @@
     "relationships": [],
     "fields": [
         {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
             "fieldName": "small",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"

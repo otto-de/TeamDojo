@@ -28,6 +28,8 @@ public class ImageCriteria implements Serializable {
 
     private LongFilter id;
 
+    private StringFilter name;
+
     public ImageCriteria() {
     }
 
@@ -39,10 +41,19 @@ public class ImageCriteria implements Serializable {
         this.id = id;
     }
 
+    public StringFilter getName() {
+        return name;
+    }
+
+    public void setName(StringFilter name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "ImageCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
+                (name != null ? "name=" + name + ", " : "") +
             "}";
     }
 

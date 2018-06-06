@@ -1,24 +1,17 @@
 package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
-
-import de.otto.teamdojo.domain.Level;
-import de.otto.teamdojo.domain.Dimension;
-import de.otto.teamdojo.domain.Level;
-import de.otto.teamdojo.domain.LevelSkill;
-import de.otto.teamdojo.domain.Image;
+import de.otto.teamdojo.domain.*;
 import de.otto.teamdojo.repository.LevelRepository;
+import de.otto.teamdojo.service.LevelQueryService;
 import de.otto.teamdojo.service.LevelService;
+import de.otto.teamdojo.service.LevelSkillService;
 import de.otto.teamdojo.service.dto.LevelDTO;
 import de.otto.teamdojo.service.mapper.LevelMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
-import de.otto.teamdojo.service.dto.LevelCriteria;
-import de.otto.teamdojo.service.LevelQueryService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,13 +22,23 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.List;
-import java.util.ArrayList;
 
+import static de.otto.teamdojo.test.util.BadgeTestDataProvider.alwaysUpToDate;
+import static de.otto.teamdojo.test.util.BadgeTestDataProvider.awsReady;
+import static de.otto.teamdojo.test.util.DimensionTestDataProvider.operations;
+import static de.otto.teamdojo.test.util.DimensionTestDataProvider.security;
+import static de.otto.teamdojo.test.util.LevelTestDataProvider.*;
+import static de.otto.teamdojo.test.util.SkillTestDataProvider.*;
+import static de.otto.teamdojo.test.util.TeamTestDataProvider.ft1;
+import static de.otto.teamdojo.test.util.TeamTestDataProvider.ft2;
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -71,13 +74,16 @@ public class LevelResourceIntTest {
 
     @Autowired
     private LevelMapper levelMapper;
-    
+
 
     @Autowired
     private LevelService levelService;
 
     @Autowired
     private LevelQueryService levelQueryService;
+
+    @Autowired
+    private LevelSkillService levelSkillService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -95,10 +101,27 @@ public class LevelResourceIntTest {
 
     private Level level;
 
+    private Badge badge;
+
+    private Team team1;
+    private Team team2;
+    private Skill inputValidation;
+    private Skill softwareUpdates;
+    private Skill strongPasswords;
+    private Skill dockerized;
+    private Level yellow;
+    private Level orange;
+    private Level os1;
+    private Dimension security;
+    private Dimension operations;
+    private TeamSkill teamSkill;
+    private Badge awsReady;
+    private Badge alwaysUpToDate;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final LevelResource levelResource = new LevelResource(levelService, levelQueryService);
+        final LevelResource levelResource = new LevelResource(levelService, levelQueryService, levelSkillService);
         this.restLevelMockMvc = MockMvcBuilders.standaloneSetup(levelResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -249,7 +272,7 @@ public class LevelResourceIntTest {
             .andExpect(jsonPath("$.[*].instantMultiplier").value(hasItem(DEFAULT_INSTANT_MULTIPLIER.doubleValue())))
             .andExpect(jsonPath("$.[*].completionBonus").value(hasItem(DEFAULT_COMPLETION_BONUS)));
     }
-    
+
 
     @Test
     @Transactional
@@ -547,23 +570,35 @@ public class LevelResourceIntTest {
         defaultLevelShouldNotBeFound("skillsId.equals=" + (skillsId + 1));
     }
 
-
     @Test
     @Transactional
-    public void getAllLevelsByImageIsEqualToSomething() throws Exception {
-        // Initialize the database
-        Image image = ImageResourceIntTest.createEntity(em);
-        em.persist(image);
+    public void getAllLevelsBySkillId() throws Exception {
+
+        setupTestData();;
         em.flush();
-        level.setImage(image);
+
+        restLevelMockMvc.perform(get("/api/levels?skillsId.in="+softwareUpdates.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.length()").value(2))
+            .andExpect(jsonPath("$.[*].id").value(containsInAnyOrder(
+                yellow.getId().intValue(),
+                os1.getId().intValue())));
+
+
+        // Initialize the database
+        LevelSkill skills = LevelSkillResourceIntTest.createEntity(em);
+        em.persist(skills);
+        em.flush();
+        level.addSkills(skills);
         levelRepository.saveAndFlush(level);
-        Long imageId = image.getId();
+        Long skillsId = skills.getId();
 
-        // Get all the levelList where image equals to imageId
-        defaultLevelShouldBeFound("imageId.equals=" + imageId);
+        // Get all the levelList where skills equals to skillsId
+        defaultLevelShouldBeFound("skillsId.equals=" + skillsId);
 
-        // Get all the levelList where image equals to imageId + 1
-        defaultLevelShouldNotBeFound("imageId.equals=" + (imageId + 1));
+        // Get all the levelList where skills equals to skillsId + 1
+        defaultLevelShouldNotBeFound("skillsId.equals=" + (skillsId + 1));
     }
 
     /**
@@ -710,5 +745,55 @@ public class LevelResourceIntTest {
     public void testEntityFromId() {
         assertThat(levelMapper.fromId(42L).getId()).isEqualTo(42);
         assertThat(levelMapper.fromId(null)).isNull();
+    }
+
+    private void setupTestData() {
+        inputValidation = inputValidation().build(em);
+        softwareUpdates = softwareUpdates().build(em);
+        strongPasswords = strongPasswords().build(em);
+        dockerized = dockerized().build(em);
+        Skill evilUserStories = evilUserStories().build(em);
+
+        security = security().build(em);
+        operations = operations().build(em);
+
+        yellow = yellow(security).addSkill(inputValidation).addSkill(softwareUpdates).build(em);
+        orange = orange(security).addSkill(strongPasswords).dependsOn(yellow).build(em);
+        os1 = os1(operations).addSkill(softwareUpdates).build(em);
+
+        awsReady = awsReady().addDimension(security).addDimension(operations).
+            addSkill(inputValidation).addSkill(dockerized).build(em);
+
+        alwaysUpToDate = alwaysUpToDate().addSkill(softwareUpdates).build(em);
+
+        team1 = ft1().build(em);
+        team1.addParticipations(security);
+        em.persist(team1);
+        teamSkill = new TeamSkill();
+        teamSkill.setTeam(team1);
+        teamSkill.setSkill(inputValidation);
+        em.persist(teamSkill);
+        team1.addSkills(teamSkill);
+        em.persist(team1);
+
+        teamSkill = new TeamSkill();
+        teamSkill.setTeam(team1);
+        teamSkill.setSkill(softwareUpdates);
+        em.persist(teamSkill);
+        team1.addSkills(teamSkill);
+        em.persist(team1);
+
+        team2 = ft2().build(em);
+        team2.addParticipations(security);
+        team2.addParticipations(operations);
+        em.persist(team2);
+        teamSkill = new TeamSkill();
+        teamSkill.setTeam(team2);
+        teamSkill.setSkill(softwareUpdates);
+        teamSkill.setCompletedAt(new Date().toInstant());
+        em.persist(teamSkill);
+        team2.addSkills(teamSkill);
+        em.persist(team2);
+
     }
 }

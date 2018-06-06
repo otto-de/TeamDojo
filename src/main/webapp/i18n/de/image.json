@@ -16,6 +16,7 @@
             "detail": {
                 "title": "Image"
             },
+            "name": "Name",
             "small": "Small",
             "medium": "Medium",
             "large": "Large"
