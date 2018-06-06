@@ -4,6 +4,9 @@
 
 .teams-achievements {
     .achievement-container {
+        /deep/ .simplebar-track {
+            bottom: 1em!important;
+        }
         /deep/ .simplebar-scroll-content {
             padding-right: 1.93em !important;
             .simplebar-content {
@@ -22,7 +25,6 @@
             }
         }
     }
-
 }
 @media only screen and (min-width: map-get($grid-breakpoints, md)){
     .teams-achievements {
