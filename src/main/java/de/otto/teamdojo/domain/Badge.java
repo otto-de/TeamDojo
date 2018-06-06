@@ -1,6 +1,7 @@
 package de.otto.teamdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -69,8 +70,8 @@ public class Badge implements Serializable {
                inverseJoinColumns = @JoinColumn(name="dimensions_id", referencedColumnName="id"))
     private Set<Dimension> dimensions = new HashSet<>();
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
+    @JsonIgnoreProperties("")
     private Image image;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

@@ -12,6 +12,7 @@ import org.mapstruct.*;
 public interface BadgeMapper extends EntityMapper<BadgeDTO, Badge> {
 
     @Mapping(source = "image.id", target = "imageId")
+    @Mapping(source = "image.name", target = "imageName")
     BadgeDTO toDto(Badge badge);
 
     @Mapping(target = "skills", ignore = true)

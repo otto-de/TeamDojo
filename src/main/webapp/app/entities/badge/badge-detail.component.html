@@ -42,7 +42,7 @@
                 <dt><span jhiTranslate="teamdojoApp.badge.image">Image</span></dt>
                 <dd>
                     <div *ngIf="badge.imageId">
-                        <a [routerLink]="['/image', badge.imageId, 'view']">{{badge.imageId}}</a>
+                        <a [routerLink]="['/image', badge.imageId, 'view']">{{badge.imageName}}</a>
                     </div>
                 </dd>
             </dl>

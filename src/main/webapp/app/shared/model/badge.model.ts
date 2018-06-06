@@ -13,6 +13,7 @@ export interface IBadge {
     completionBonus?: number;
     skills?: IBadgeSkill[];
     dimensions?: IDimension[];
+    imageName?: string;
     imageId?: number;
 }
 
@@ -28,6 +29,7 @@ export class Badge implements IBadge {
         public completionBonus?: number,
         public skills?: IBadgeSkill[],
         public dimensions?: IDimension[],
+        public imageName?: string,
         public imageId?: number
     ) {}
 }

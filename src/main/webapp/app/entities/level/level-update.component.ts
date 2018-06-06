@@ -59,18 +59,9 @@ export class LevelUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.imageService.query({ filter: 'level-is-null' }).subscribe(
+        this.imageService.query().subscribe(
             (res: HttpResponse<IImage[]>) => {
-                if (!this.level.imageId) {
-                    this.images = res.body;
-                } else {
-                    this.imageService.find(this.level.imageId).subscribe(
-                        (subRes: HttpResponse<IImage>) => {
-                            this.images = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
+                this.images = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
