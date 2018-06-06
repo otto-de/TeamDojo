@@ -108,7 +108,7 @@
     }
 }
 
-@media only screen and (min-width: map-get($grid-breakpoints, md)){
+@media only screen and (min-width: map-get($grid-breakpoints, lg)){
     .teams-skills {
         .teams-skills-list {
             height: calc(100vh - 320px);
