@@ -29,13 +29,6 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="picture" type="longblob">
-                <constraints nullable="true" />
-            </column>
-            <column name="picture_content_type" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
             <column name="available_until" type="timestamp">
                 <constraints nullable="true" />
             </column>

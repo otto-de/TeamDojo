@@ -51,11 +51,6 @@
             "fieldValidateRulesPattern": "^[a-zA-Z0-9_-]*$"
         },
         {
-            "fieldName": "picture",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image"
-        },
-        {
             "fieldName": "slogan",
             "fieldType": "String"
         },

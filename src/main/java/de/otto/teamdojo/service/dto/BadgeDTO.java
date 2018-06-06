@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
-import javax.persistence.Lob;
 
 /**
  * A DTO for the Badge entity.
@@ -20,10 +19,6 @@ public class BadgeDTO implements Serializable {
     private String name;
 
     private String description;
-
-    @Lob
-    private byte[] picture;
-    private String pictureContentType;
 
     private Instant availableUntil;
 
@@ -68,22 +63,6 @@ public class BadgeDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public byte[] getPicture() {
-        return picture;
-    }
-
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
-    }
-
-    public String getPictureContentType() {
-        return pictureContentType;
-    }
-
-    public void setPictureContentType(String pictureContentType) {
-        this.pictureContentType = pictureContentType;
     }
 
     public Instant getAvailableUntil() {
@@ -169,7 +148,6 @@ public class BadgeDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
-            ", picture='" + getPicture() + "'" +
             ", availableUntil='" + getAvailableUntil() + "'" +
             ", availableAmount=" + getAvailableAmount() +
             ", requiredScore=" + getRequiredScore() +
