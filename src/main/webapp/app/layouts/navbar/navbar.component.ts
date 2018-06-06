@@ -27,7 +27,6 @@ export class NavbarComponent implements OnInit {
     organizationName: string;
     modalRef: NgbModalRef;
     isTeamSelectionOpen = false;
-    teamsSelectionService: TeamsSelectionService;
 
     activeLevel: ILevel;
     activeBadge: IBadge;
@@ -42,14 +41,13 @@ export class NavbarComponent implements OnInit {
         private languageHelper: JhiLanguageHelper,
         private principal: Principal,
         private loginModalService: LoginModalService,
-        teamsSelectionService: TeamsSelectionService,
+        private teamsSelectionService: TeamsSelectionService,
         private profileService: ProfileService,
         private modalService: NgbModal,
         private router: Router,
         private route: ActivatedRoute,
         private breadcrumbService: BreadcrumbService
     ) {
-        this.teamsSelectionService = teamsSelectionService;
         this.isNavbarCollapsed = true;
     }
 
@@ -137,5 +135,9 @@ export class NavbarComponent implements OnInit {
 
     getTeamImage(team: Team) {
         return team.picture && team.pictureContentType ? `data:${team.pictureContentType};base64,${team.picture}` : null;
+    }
+
+    get selectedTeam() {
+        return this.teamsSelectionService.selectedTeam;
     }
 }
