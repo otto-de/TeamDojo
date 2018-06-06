@@ -65,7 +65,7 @@
         <h5 jhiTranslate="teamdojoApp.teams.skills.details.achievedBy"></h5>
         <div class="achieved-by-teams">
             <jhi-team-image *ngFor="let t of achievedByTeams" class="avatar-team" [team]="t" size="8vh"
-                            placement="top" [ngbTooltip]="t.name"></jhi-team-image>
+                            imageSize="medium" placement="top" [ngbTooltip]="t.name"></jhi-team-image>
             <p *ngIf="achievedByTeams.length === 0"
                jhiTranslate="teamdojoApp.teams.skills.details.achievedByNone"></p>
             <div class="clearfix"></div>

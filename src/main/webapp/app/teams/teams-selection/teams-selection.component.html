@@ -12,7 +12,7 @@
                  [ngClass]="{'selected': highlightedTeam !== null && highlightedTeam.id === team.id}">
                 <div class="team-item-row">
                     <div class="team-avatar">
-                        <img *ngIf="getTeamImage(team)" [src]="getTeamImage(team)" [title]="team.name"/>
+                        <img *ngIf="team.imageId" [src]="team.imageId | imageDataUrl: 'small'" [title]="team.name"/>
                     </div>
                 </div>
                 <div class="team-item-row">

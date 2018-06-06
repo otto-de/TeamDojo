@@ -1,8 +1,9 @@
 <div class="team-image-wrapper d-flex justify-content-center" [ngClass]="{'has-border': hasBorder, 'has-overlay': hasOverlay}"
      [ngStyle]="{'width': size, 'height': size}">
-    <div class="team-image" *ngIf="team.picture && team.pictureContentType; else picturePlaceholder"
-         [ngStyle]="{'background-image': 'url(' + (team.picture | imageDataUrl: team.pictureContentType) + ')'}">
+    <div class="team-image" *ngIf="team.imageId; else picturePlaceholder"
+         [ngStyle]="{'background-image': 'url(' + (team.imageId | imageDataUrl: imageSize) + ')'}">
     </div>
+
     <ng-template #picturePlaceholder>
         <span *ngIf="hasPlaceholder" class="img-placeholder">{{team.shortName | truncateString}}</span>
     </ng-template>

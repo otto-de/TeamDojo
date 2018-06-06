@@ -135,7 +135,7 @@ export class NavbarComponent implements OnInit {
         return this.activeSkill !== null && this.activeSkill !== 'undfined';
     }
 
-    getTeamImage(team: Team) {
-        return team.picture && team.pictureContentType ? `data:${team.pictureContentType};base64,${team.picture}` : null;
+    get selectedTeam() {
+        return this.teamsSelectionService.selectedTeam;
     }
 }
