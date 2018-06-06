@@ -9,6 +9,7 @@ export interface ITeam {
     contactPerson?: string;
     participations?: IDimension[];
     skills?: ITeamSkill[];
+    imageName?: string;
     imageId?: number;
 }
 
@@ -21,6 +22,7 @@ export class Team implements ITeam {
         public contactPerson?: string,
         public participations?: IDimension[],
         public skills?: ITeamSkill[],
+        public imageName?: string,
         public imageId?: number
     ) {}
 }

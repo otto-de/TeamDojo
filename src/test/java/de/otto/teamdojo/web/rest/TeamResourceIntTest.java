@@ -4,12 +4,9 @@ import de.otto.teamdojo.TeamdojoApp;
 
 import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.domain.Dimension;
-import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.domain.TeamSkill;
 import de.otto.teamdojo.domain.Image;
 import de.otto.teamdojo.repository.TeamRepository;
-import de.otto.teamdojo.service.AchievableSkillService;
-import de.otto.teamdojo.service.TeamQueryService;
 import de.otto.teamdojo.service.TeamService;
 import de.otto.teamdojo.service.dto.TeamDTO;
 import de.otto.teamdojo.service.mapper.TeamMapper;
@@ -33,10 +30,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -62,11 +57,6 @@ public class TeamResourceIntTest {
     private static final String DEFAULT_SHORT_NAME = "AAAAAA";
     private static final String UPDATED_SHORT_NAME = "BBBBBB";
 
-    private static final byte[] DEFAULT_PICTURE = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_PICTURE = TestUtil.createByteArray(2, "1");
-    private static final String DEFAULT_PICTURE_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_PICTURE_CONTENT_TYPE = "image/png";
-
     private static final String DEFAULT_SLOGAN = "AAAAAAAAAA";
     private static final String UPDATED_SLOGAN = "BBBBBBBBBB";
 
@@ -81,7 +71,7 @@ public class TeamResourceIntTest {
 
     @Autowired
     private TeamMapper teamMapper;
-
+    
     @Mock
     private TeamService teamServiceMock;
 
@@ -120,7 +110,7 @@ public class TeamResourceIntTest {
 
     /**
      * Create an entity for this test.
-     * <p>
+     *
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -231,12 +221,10 @@ public class TeamResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(team.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].shortName").value(hasItem(DEFAULT_SHORT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
             .andExpect(jsonPath("$.[*].slogan").value(hasItem(DEFAULT_SLOGAN.toString())))
             .andExpect(jsonPath("$.[*].contactPerson").value(hasItem(DEFAULT_CONTACT_PERSON.toString())));
     }
-
+    
     public void getAllTeamsWithEagerRelationshipsIsEnabled() throws Exception {
         TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService);
         when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -281,8 +269,6 @@ public class TeamResourceIntTest {
             .andExpect(jsonPath("$.id").value(team.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.shortName").value(DEFAULT_SHORT_NAME.toString()))
-            .andExpect(jsonPath("$.pictureContentType").value(DEFAULT_PICTURE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.picture").value(Base64Utils.encodeToString(DEFAULT_PICTURE)))
             .andExpect(jsonPath("$.slogan").value(DEFAULT_SLOGAN.toString()))
             .andExpect(jsonPath("$.contactPerson").value(DEFAULT_CONTACT_PERSON.toString()));
     }

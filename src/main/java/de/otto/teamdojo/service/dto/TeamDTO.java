@@ -30,6 +30,8 @@ public class TeamDTO implements Serializable {
 
     private Long imageId;
 
+    private String imageName;
+
     public Long getId() {
         return id;
     }
@@ -86,6 +88,14 @@ public class TeamDTO implements Serializable {
         this.imageId = imageId;
     }
 
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -116,6 +126,7 @@ public class TeamDTO implements Serializable {
             ", slogan='" + getSlogan() + "'" +
             ", contactPerson='" + getContactPerson() + "'" +
             ", image=" + getImageId() +
+            ", image='" + getImageName() + "'" +
             "}";
     }
 }

@@ -12,6 +12,7 @@ import org.mapstruct.*;
 public interface TeamMapper extends EntityMapper<TeamDTO, Team> {
 
     @Mapping(source = "image.id", target = "imageId")
+    @Mapping(source = "image.name", target = "imageName")
     TeamDTO toDto(Team team);
 
     @Mapping(target = "skills", ignore = true)
