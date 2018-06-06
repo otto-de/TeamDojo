@@ -49,16 +49,19 @@ public class ImageServiceImpl implements ImageService {
     public ImageDTO save(ImageDTO imageDTO) {
         log.debug("Request to save Image : {}", imageDTO);
 
-        BufferedImage img = createImageFromBytes(imageDTO.getLarge());
-        BufferedImage large = resize(img, 1.0);
-        BufferedImage medium = resize(img,  0.5);
-        BufferedImage small = resize(img, 0.25);
-        imageDTO.setLarge(getByteArrayFromBufferedImage(large));
-        imageDTO.setLargeContentType("image/png");
-        imageDTO.setMedium(getByteArrayFromBufferedImage(medium));
-        imageDTO.setMediumContentType("image/png");
-        imageDTO.setSmall(getByteArrayFromBufferedImage(small));
-        imageDTO.setSmallContentType("image/png");
+        byte[] imgByteArray = imageDTO.getLarge();
+        if (imgByteArray != null) {
+            BufferedImage img = createImageFromBytes(imgByteArray);
+            BufferedImage large = resize(img, 1.0);
+            BufferedImage medium = resize(img,  0.5);
+            BufferedImage small = resize(img, 0.25);
+            imageDTO.setLarge(getByteArrayFromBufferedImage(large));
+            imageDTO.setLargeContentType("image/png");
+            imageDTO.setMedium(getByteArrayFromBufferedImage(medium));
+            imageDTO.setMediumContentType("image/png");
+            imageDTO.setSmall(getByteArrayFromBufferedImage(small));
+            imageDTO.setSmallContentType("image/png");
+        }
 
         Image image = imageMapper.toEntity(imageDTO);
         image = imageRepository.save(image);

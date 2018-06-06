@@ -48,7 +48,7 @@
             <li ngbDropdown class="nav-item dropdown pointer" *ngIf="selectedTeam !== null">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="teamDropdown">
                     <div class="team-avatar" *ngIf="selectedTeam.imageId">
-                        <img class="avatar-image" [src]="selectedTeam.imageId | imageDataUrl: 'small'"
+                        <img class="avatar-image" [src]="selectedTeam.imageId | imageUrl: 'small'"
                              [title]="selectedTeam.name"/>
                     </div>
                     <span>Team {{selectedTeam.name}}</span>
