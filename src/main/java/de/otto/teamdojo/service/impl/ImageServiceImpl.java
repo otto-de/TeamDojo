@@ -52,9 +52,9 @@ public class ImageServiceImpl implements ImageService {
         byte[] imgByteArray = imageDTO.getLarge();
         if (imgByteArray != null) {
             BufferedImage img = createImageFromBytes(imgByteArray);
-            BufferedImage large = resize(img, 1.0);
-            BufferedImage medium = resize(img,  0.5);
-            BufferedImage small = resize(img, 0.25);
+            BufferedImage large = resize(img, 512);
+            BufferedImage medium = resize(img,  224);
+            BufferedImage small = resize(img, 72);
             imageDTO.setLarge(getByteArrayFromBufferedImage(large));
             imageDTO.setLargeContentType("image/png");
             imageDTO.setMedium(getByteArrayFromBufferedImage(medium));
@@ -83,9 +83,21 @@ public class ImageServiceImpl implements ImageService {
         }
     }
 
-    private BufferedImage resize(BufferedImage img, double ratio) {
-        int width = (int) (img.getWidth() * ratio);
-        int height = (int) (img.getHeight() * ratio);
+    private BufferedImage resize(BufferedImage img, int max) {
+
+        // no scaling if img width and height are smaller than max
+        if (img.getWidth() <= max && img.getHeight() <= max) {
+            return img;
+        }
+
+        int width = max;
+        int height = max;
+        if (img.getWidth() < img.getHeight()) {
+            width = (int) (img.getWidth() * (1.0 * height / img.getHeight()));
+        } else {
+            height = (int) (img.getHeight() * (1.0 * width / img.getWidth()));
+        }
+
         java.awt.Image tmp = img.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
         BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = resized.createGraphics();
