@@ -34,20 +34,6 @@ Navbar
         width: 40px;
         border-radius: 50%;
     }
-    .team-avatar {
-        display: inline-flex;
-        align-items: center;
-        border-radius: 50%;
-        border: 1px solid #ccc;
-        background: white !important;
-        overflow: hidden;
-        width: 35px;
-        height: 35px;
-        margin-right: 10px;
-        img {
-            width: 100%;
-        }
-    }
 
     .dropdown-menu {
         background-color: $dojo-nav-primary;
