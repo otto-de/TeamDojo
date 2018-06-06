@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
-import javax.persistence.Lob;
 
 /**
  * A DTO for the Team entity.
@@ -22,10 +21,6 @@ public class TeamDTO implements Serializable {
     @Size(min = 2, max = 6)
     @Pattern(regexp = "^[a-zA-Z0-9_-]*$")
     private String shortName;
-
-    @Lob
-    private byte[] picture;
-    private String pictureContentType;
 
     private String slogan;
 
@@ -57,22 +52,6 @@ public class TeamDTO implements Serializable {
 
     public void setShortName(String shortName) {
         this.shortName = shortName;
-    }
-
-    public byte[] getPicture() {
-        return picture;
-    }
-
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
-    }
-
-    public String getPictureContentType() {
-        return pictureContentType;
-    }
-
-    public void setPictureContentType(String pictureContentType) {
-        this.pictureContentType = pictureContentType;
     }
 
     public String getSlogan() {
@@ -134,7 +113,6 @@ public class TeamDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", shortName='" + getShortName() + "'" +
-            ", picture='" + getPicture() + "'" +
             ", slogan='" + getSlogan() + "'" +
             ", contactPerson='" + getContactPerson() + "'" +
             ", image=" + getImageId() +

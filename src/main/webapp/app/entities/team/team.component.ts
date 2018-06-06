@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { ITeam } from 'app/shared/model/team.model';
 import { Principal } from 'app/core';
@@ -19,7 +19,6 @@ export class TeamComponent implements OnInit, OnDestroy {
     constructor(
         private teamService: TeamService,
         private jhiAlertService: JhiAlertService,
-        private dataUtils: JhiDataUtils,
         private eventManager: JhiEventManager,
         private principal: Principal
     ) {}
@@ -47,14 +46,6 @@ export class TeamComponent implements OnInit, OnDestroy {
 
     trackId(index: number, item: ITeam) {
         return item.id;
-    }
-
-    byteSize(field) {
-        return this.dataUtils.byteSize(field);
-    }
-
-    openFile(contentType, field) {
-        return this.dataUtils.openFile(contentType, field);
     }
 
     registerChangeInTeams() {

@@ -1,8 +1,8 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { JhiAlertService } from 'ng-jhipster';
 
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamService } from './team.service';
@@ -24,12 +24,10 @@ export class TeamUpdateComponent implements OnInit {
     images: IImage[];
 
     constructor(
-        private dataUtils: JhiDataUtils,
         private jhiAlertService: JhiAlertService,
         private teamService: TeamService,
         private dimensionService: DimensionService,
         private imageService: ImageService,
-        private elementRef: ElementRef,
         private route: ActivatedRoute
     ) {}
 
@@ -59,22 +57,6 @@ export class TeamUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-    }
-
-    byteSize(field) {
-        return this.dataUtils.byteSize(field);
-    }
-
-    openFile(contentType, field) {
-        return this.dataUtils.openFile(contentType, field);
-    }
-
-    setFileData(event, entity, field, isImage) {
-        this.dataUtils.setFileData(event, entity, field, isImage);
-    }
-
-    clearInputImage(field: string, fieldContentType: string, idInput: string) {
-        this.dataUtils.clearInputImage(this.team, this.elementRef, field, fieldContentType, idInput);
     }
 
     previousState() {
