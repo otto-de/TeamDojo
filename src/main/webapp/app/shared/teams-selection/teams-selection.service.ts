@@ -15,7 +15,7 @@ export class TeamsSelectionService {
         this.query();
     }
 
-    query() {
+    query(): Observable<ITeam> {
         const teamIdStr = this.storage.retrieve(TEAM_STORAGE_KEY);
         if (teamIdStr !== null && !isNaN(Number(teamIdStr))) {
             return this.teamsService
@@ -29,7 +29,7 @@ export class TeamsSelectionService {
                         .do(teamSkillRes => {
                             this._selectedTeam.skills = teamSkillRes.body || [];
                         })
-                        .map(() => result);
+                        .map(() => result.body);
                 });
         }
         return Observable.of(this._selectedTeam);

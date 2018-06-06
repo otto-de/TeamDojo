@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TeamsSelectionService } from './teams-selection.service';
 import { TeamsService } from 'app/teams/teams.service';
-import { Team } from 'app/shared/model/team.model';
+import { ITeam } from 'app/shared/model/team.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,9 +11,10 @@ import { Router } from '@angular/router';
     styleUrls: ['./teams-selection.scss']
 })
 export class TeamsSelectionComponent implements OnInit {
-    highlightedTeam: Team = null;
+    highlightedTeam: ITeam = null;
+    selectedTeam: ITeam;
 
-    teams: Team[] = [];
+    teams: ITeam[] = [];
 
     constructor(
         private activeModal: NgbActiveModal,
@@ -29,7 +30,7 @@ export class TeamsSelectionComponent implements OnInit {
         this.highlightedTeam = this.teamsSelectionService.selectedTeam;
     }
 
-    selectTeam(team: Team) {
+    selectTeam(team: ITeam) {
         this.highlightedTeam = team;
     }
 
@@ -49,7 +50,7 @@ export class TeamsSelectionComponent implements OnInit {
         this.activeModal.dismiss('Team selected cancelled');
     }
 
-    getTeamImage(team: Team) {
+    getTeamImage(team: ITeam) {
         return team.picture && team.pictureContentType ? `data:${team.pictureContentType};base64,${team.picture}` : null;
     }
 }
