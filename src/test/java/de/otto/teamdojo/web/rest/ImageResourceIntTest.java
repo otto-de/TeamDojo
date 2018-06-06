@@ -46,6 +46,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = TeamdojoApp.class)
 public class ImageResourceIntTest {
 
+    private static final String DEFAULT_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_NAME = "BBBBBBBBBB";
+
     private static final byte[] DEFAULT_SMALL = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_SMALL = TestUtil.createByteArray(2, "1");
     private static final String DEFAULT_SMALL_CONTENT_TYPE = "image/jpg";
@@ -111,6 +114,7 @@ public class ImageResourceIntTest {
      */
     public static Image createEntity(EntityManager em) {
         Image image = new Image()
+            .name(DEFAULT_NAME)
             .small(DEFAULT_SMALL)
             .smallContentType(DEFAULT_SMALL_CONTENT_TYPE)
             .medium(DEFAULT_MEDIUM)
@@ -141,6 +145,7 @@ public class ImageResourceIntTest {
         List<Image> imageList = imageRepository.findAll();
         assertThat(imageList).hasSize(databaseSizeBeforeCreate + 1);
         Image testImage = imageList.get(imageList.size() - 1);
+        assertThat(testImage.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testImage.getSmall()).isEqualTo(DEFAULT_SMALL);
         assertThat(testImage.getSmallContentType()).isEqualTo(DEFAULT_SMALL_CONTENT_TYPE);
         assertThat(testImage.getMedium()).isEqualTo(DEFAULT_MEDIUM);
@@ -171,6 +176,25 @@ public class ImageResourceIntTest {
 
     @Test
     @Transactional
+    public void checkNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = imageRepository.findAll().size();
+        // set the field null
+        image.setName(null);
+
+        // Create the Image, which fails.
+        ImageDTO imageDTO = imageMapper.toDto(image);
+
+        restImageMockMvc.perform(post("/api/images")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(imageDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Image> imageList = imageRepository.findAll();
+        assertThat(imageList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllImages() throws Exception {
         // Initialize the database
         imageRepository.saveAndFlush(image);
@@ -180,6 +204,7 @@ public class ImageResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(image.getId().intValue())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].smallContentType").value(hasItem(DEFAULT_SMALL_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].small").value(hasItem(Base64Utils.encodeToString(DEFAULT_SMALL))))
             .andExpect(jsonPath("$.[*].mediumContentType").value(hasItem(DEFAULT_MEDIUM_CONTENT_TYPE)))
@@ -200,12 +225,52 @@ public class ImageResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(image.getId().intValue()))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.smallContentType").value(DEFAULT_SMALL_CONTENT_TYPE))
             .andExpect(jsonPath("$.small").value(Base64Utils.encodeToString(DEFAULT_SMALL)))
             .andExpect(jsonPath("$.mediumContentType").value(DEFAULT_MEDIUM_CONTENT_TYPE))
             .andExpect(jsonPath("$.medium").value(Base64Utils.encodeToString(DEFAULT_MEDIUM)))
             .andExpect(jsonPath("$.largeContentType").value(DEFAULT_LARGE_CONTENT_TYPE))
             .andExpect(jsonPath("$.large").value(Base64Utils.encodeToString(DEFAULT_LARGE)));
+    }
+
+    @Test
+    @Transactional
+    public void getAllImagesByNameIsEqualToSomething() throws Exception {
+        // Initialize the database
+        imageRepository.saveAndFlush(image);
+
+        // Get all the imageList where name equals to DEFAULT_NAME
+        defaultImageShouldBeFound("name.equals=" + DEFAULT_NAME);
+
+        // Get all the imageList where name equals to UPDATED_NAME
+        defaultImageShouldNotBeFound("name.equals=" + UPDATED_NAME);
+    }
+
+    @Test
+    @Transactional
+    public void getAllImagesByNameIsInShouldWork() throws Exception {
+        // Initialize the database
+        imageRepository.saveAndFlush(image);
+
+        // Get all the imageList where name in DEFAULT_NAME or UPDATED_NAME
+        defaultImageShouldBeFound("name.in=" + DEFAULT_NAME + "," + UPDATED_NAME);
+
+        // Get all the imageList where name equals to UPDATED_NAME
+        defaultImageShouldNotBeFound("name.in=" + UPDATED_NAME);
+    }
+
+    @Test
+    @Transactional
+    public void getAllImagesByNameIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        imageRepository.saveAndFlush(image);
+
+        // Get all the imageList where name is not null
+        defaultImageShouldBeFound("name.specified=true");
+
+        // Get all the imageList where name is null
+        defaultImageShouldNotBeFound("name.specified=false");
     }
     /**
      * Executes the search, and checks that the default entity is returned
@@ -215,6 +280,7 @@ public class ImageResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(image.getId().intValue())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].smallContentType").value(hasItem(DEFAULT_SMALL_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].small").value(hasItem(Base64Utils.encodeToString(DEFAULT_SMALL))))
             .andExpect(jsonPath("$.[*].mediumContentType").value(hasItem(DEFAULT_MEDIUM_CONTENT_TYPE)))
@@ -256,6 +322,7 @@ public class ImageResourceIntTest {
         // Disconnect from session so that the updates on updatedImage are not directly saved in db
         em.detach(updatedImage);
         updatedImage
+            .name(UPDATED_NAME)
             .small(UPDATED_SMALL)
             .smallContentType(UPDATED_SMALL_CONTENT_TYPE)
             .medium(UPDATED_MEDIUM)
@@ -273,6 +340,7 @@ public class ImageResourceIntTest {
         List<Image> imageList = imageRepository.findAll();
         assertThat(imageList).hasSize(databaseSizeBeforeUpdate);
         Image testImage = imageList.get(imageList.size() - 1);
+        assertThat(testImage.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testImage.getSmall()).isEqualTo(UPDATED_SMALL);
         assertThat(testImage.getSmallContentType()).isEqualTo(UPDATED_SMALL_CONTENT_TYPE);
         assertThat(testImage.getMedium()).isEqualTo(UPDATED_MEDIUM);

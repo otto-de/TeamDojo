@@ -1,5 +1,6 @@
 export interface IImage {
     id?: number;
+    name?: string;
     smallContentType?: string;
     small?: any;
     mediumContentType?: string;
@@ -11,6 +12,7 @@ export interface IImage {
 export class Image implements IImage {
     constructor(
         public id?: number,
+        public name?: string,
         public smallContentType?: string,
         public small?: any,
         public mediumContentType?: string,

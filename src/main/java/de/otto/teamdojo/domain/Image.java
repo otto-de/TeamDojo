@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -22,6 +23,10 @@ public class Image implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
+
+    @NotNull
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @Lob
     @Column(name = "small")
@@ -51,6 +56,19 @@ public class Image implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Image name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public byte[] getSmall() {
@@ -156,6 +174,7 @@ public class Image implements Serializable {
     public String toString() {
         return "Image{" +
             "id=" + getId() +
+            ", name='" + getName() + "'" +
             ", small='" + getSmall() + "'" +
             ", smallContentType='" + getSmallContentType() + "'" +
             ", medium='" + getMedium() + "'" +

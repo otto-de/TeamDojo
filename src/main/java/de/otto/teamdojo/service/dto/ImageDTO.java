@@ -1,5 +1,6 @@
 package de.otto.teamdojo.service.dto;
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Lob;
@@ -10,6 +11,9 @@ import javax.persistence.Lob;
 public class ImageDTO implements Serializable {
 
     private Long id;
+
+    @NotNull
+    private String name;
 
     @Lob
     private byte[] small;
@@ -29,6 +33,14 @@ public class ImageDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public byte[] getSmall() {
@@ -104,6 +116,7 @@ public class ImageDTO implements Serializable {
     public String toString() {
         return "ImageDTO{" +
             "id=" + getId() +
+            ", name='" + getName() + "'" +
             ", small='" + getSmall() + "'" +
             ", medium='" + getMedium() + "'" +
             ", large='" + getLarge() + "'" +

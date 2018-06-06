@@ -15,6 +15,7 @@
             <thead>
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="teamdojoApp.image.name">Name</span></th>
             <th><span jhiTranslate="teamdojoApp.image.small">Small</span></th>
             <th><span jhiTranslate="teamdojoApp.image.medium">Medium</span></th>
             <th><span jhiTranslate="teamdojoApp.image.large">Large</span></th>
@@ -24,6 +25,7 @@
             <tbody>
             <tr *ngFor="let image of images ;trackBy: trackId">
                 <td><a [routerLink]="['/image', image.id, 'view' ]">{{image.id}}</a></td>
+                <td>{{image.name}}</td>
                 <td>
                     <a *ngIf="image.small" (click)="openFile(image.smallContentType, image.small)">
                         <img [src]="'data:' + image.smallContentType + ';base64,' + image.small" style="max-height: 30px;" alt="image image"/>
