@@ -2,7 +2,7 @@
 .teams-status {
     height: inherit;
     position: relative;
-    overflow-y: auto;
+    overflow-y: hidden;
     padding-right: 10px;
     .teams-status-avatar {
         text-align: center;

@@ -84,10 +84,14 @@
                 }
             }
         }
+        /deep/ .simplebar-track {
+            bottom: 0.4em!important;
+        }
         /deep/ .simplebar-scroll-content {
             padding-right: 1.9em!important;
             .simplebar-content {
                 margin-right: -0.6em!important;
+                padding-bottom: 3.1em!important;
                 overflow-x: hidden;
             }
         }
