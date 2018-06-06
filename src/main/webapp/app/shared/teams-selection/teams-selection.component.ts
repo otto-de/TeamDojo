@@ -51,8 +51,4 @@ export class TeamsSelectionComponent implements OnInit {
     cancelTeamSelection() {
         this.activeModal.dismiss('Team selected cancelled');
     }
-
-    getTeamImage(team: ITeam) {
-        return team.picture && team.pictureContentType ? `data:${team.pictureContentType};base64,${team.picture}` : null;
-    }
 }
