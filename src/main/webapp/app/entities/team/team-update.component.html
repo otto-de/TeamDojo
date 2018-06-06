@@ -52,23 +52,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="teamdojoApp.team.picture" for="field_picture">Picture</label>
-                    <div>
-                        <img [src]="'data:' + team.pictureContentType + ';base64,' + team.picture" style="max-height: 100px;" *ngIf="team.picture" alt="team image"/>
-                        <div *ngIf="team.picture" class="form-text text-danger clearfix">
-                            <span class="pull-left">{{team.pictureContentType}}, {{byteSize(team.picture)}}</span>
-                            <button type="button" (click)="clearInputImage('picture', 'pictureContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
-                                <span class="fa fa-times"></span>
-                            </button>
-                        </div>
-                        <input type="file" id="file_picture" (change)="setFileData($event, team, 'picture', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
-                    </div>
-                    <input type="hidden" class="form-control" name="picture" id="field_picture"
-                        [(ngModel)]="team.picture" />
-                    <input type="hidden" class="form-control" name="pictureContentType" id="field_pictureContentType"
-                        [(ngModel)]="team.pictureContentType" />
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.team.slogan" for="field_slogan">Slogan</label>
                     <input type="text" class="form-control" name="slogan" id="field_slogan"
                         [(ngModel)]="team.slogan" />

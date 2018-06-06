@@ -38,13 +38,6 @@ public class Team implements Serializable {
     @Column(name = "short_name", length = 6, nullable = false)
     private String shortName;
 
-    @Lob
-    @Column(name = "picture")
-    private byte[] picture;
-
-    @Column(name = "picture_content_type")
-    private String pictureContentType;
-
     @Column(name = "slogan")
     private String slogan;
 
@@ -99,32 +92,6 @@ public class Team implements Serializable {
 
     public void setShortName(String shortName) {
         this.shortName = shortName;
-    }
-
-    public byte[] getPicture() {
-        return picture;
-    }
-
-    public Team picture(byte[] picture) {
-        this.picture = picture;
-        return this;
-    }
-
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
-    }
-
-    public String getPictureContentType() {
-        return pictureContentType;
-    }
-
-    public Team pictureContentType(String pictureContentType) {
-        this.pictureContentType = pictureContentType;
-        return this;
-    }
-
-    public void setPictureContentType(String pictureContentType) {
-        this.pictureContentType = pictureContentType;
     }
 
     public String getSlogan() {
@@ -243,8 +210,6 @@ public class Team implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", shortName='" + getShortName() + "'" +
-            ", picture='" + getPicture() + "'" +
-            ", pictureContentType='" + getPictureContentType() + "'" +
             ", slogan='" + getSlogan() + "'" +
             ", contactPerson='" + getContactPerson() + "'" +
             "}";

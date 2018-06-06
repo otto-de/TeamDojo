@@ -13,15 +13,6 @@
                 <dd>
                     <span>{{team.shortName}}</span>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.team.picture">Picture</span></dt>
-                <dd>
-                    <div *ngIf="team.picture">
-                        <a (click)="openFile(team.pictureContentType, team.picture)">
-                            <img [src]="'data:' + team.pictureContentType + ';base64,' + team.picture" style="max-width: 100%;" alt="team image"/>
-                        </a>
-                        {{team.pictureContentType}}, {{byteSize(team.picture)}}
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="teamdojoApp.team.slogan">Slogan</span></dt>
                 <dd>
                     <span>{{team.slogan}}</span>

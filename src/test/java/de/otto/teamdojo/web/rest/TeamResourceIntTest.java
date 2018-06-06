@@ -128,8 +128,6 @@ public class TeamResourceIntTest {
         Team team = new Team()
             .name(DEFAULT_NAME)
             .shortName(DEFAULT_SHORT_NAME)
-            .picture(DEFAULT_PICTURE)
-            .pictureContentType(DEFAULT_PICTURE_CONTENT_TYPE)
             .slogan(DEFAULT_SLOGAN)
             .contactPerson(DEFAULT_CONTACT_PERSON);
         return team;
@@ -158,8 +156,6 @@ public class TeamResourceIntTest {
         Team testTeam = teamList.get(teamList.size() - 1);
         assertThat(testTeam.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testTeam.getShortName()).isEqualTo(DEFAULT_SHORT_NAME);
-        assertThat(testTeam.getPicture()).isEqualTo(DEFAULT_PICTURE);
-        assertThat(testTeam.getPictureContentType()).isEqualTo(DEFAULT_PICTURE_CONTENT_TYPE);
         assertThat(testTeam.getSlogan()).isEqualTo(DEFAULT_SLOGAN);
         assertThat(testTeam.getContactPerson()).isEqualTo(DEFAULT_CONTACT_PERSON);
     }
@@ -513,8 +509,6 @@ public class TeamResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(team.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].shortName").value(hasItem(DEFAULT_SHORT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
             .andExpect(jsonPath("$.[*].slogan").value(hasItem(DEFAULT_SLOGAN.toString())))
             .andExpect(jsonPath("$.[*].contactPerson").value(hasItem(DEFAULT_CONTACT_PERSON.toString())));
     }
@@ -554,8 +548,6 @@ public class TeamResourceIntTest {
         updatedTeam
             .name(UPDATED_NAME)
             .shortName(UPDATED_SHORT_NAME)
-            .picture(UPDATED_PICTURE)
-            .pictureContentType(UPDATED_PICTURE_CONTENT_TYPE)
             .slogan(UPDATED_SLOGAN)
             .contactPerson(UPDATED_CONTACT_PERSON);
         TeamDTO teamDTO = teamMapper.toDto(updatedTeam);
@@ -571,8 +563,6 @@ public class TeamResourceIntTest {
         Team testTeam = teamList.get(teamList.size() - 1);
         assertThat(testTeam.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testTeam.getShortName()).isEqualTo(UPDATED_SHORT_NAME);
-        assertThat(testTeam.getPicture()).isEqualTo(UPDATED_PICTURE);
-        assertThat(testTeam.getPictureContentType()).isEqualTo(UPDATED_PICTURE_CONTENT_TYPE);
         assertThat(testTeam.getSlogan()).isEqualTo(UPDATED_SLOGAN);
         assertThat(testTeam.getContactPerson()).isEqualTo(UPDATED_CONTACT_PERSON);
     }
