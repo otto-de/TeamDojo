@@ -6,6 +6,8 @@ import { TruncateStringPipe } from './pipe/truncate-string.pipe';
 import { AchievementItemComponent } from 'app/shared/achievement';
 import { TeamImageComponent } from 'app/shared/team-image/team-image.component';
 import { NotificationItemComponent, NotificationMenuComponent } from 'app/shared/notification';
+import { TeamsSelectionResolve } from 'app/shared/teams-selection/teams-selection.resolve';
+import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
 
 @NgModule({
     imports: [TeamdojoSharedLibsModule],
@@ -20,7 +22,7 @@ import { NotificationItemComponent, NotificationMenuComponent } from 'app/shared
         NotificationMenuComponent,
         NotificationItemComponent
     ],
-    providers: [],
+    providers: [TeamsSelectionService, TeamsSelectionResolve],
     exports: [
         TeamdojoSharedLibsModule,
         FindLanguageFromKeyPipe,

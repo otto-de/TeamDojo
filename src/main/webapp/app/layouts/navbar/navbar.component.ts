@@ -4,8 +4,8 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper, LoginModalService, LoginService, Principal } from 'app/core';
 import { ProfileService } from '../profiles/profile.service';
-import { TeamsSelectionService } from '../../teams/teams-selection/teams-selection.service';
-import { TeamsSelectionComponent } from 'app/teams/teams-selection/teams-selection.component';
+import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
+import { TeamsSelectionComponent } from 'app/shared/teams-selection/teams-selection.component';
 import { ITeam, Team } from 'app/shared/model/team.model';
 import { IBadge } from 'app/shared/model/badge.model';
 import { ILevel } from 'app/shared/model/level.model';
@@ -27,7 +27,6 @@ export class NavbarComponent implements OnInit {
     organizationName: string;
     modalRef: NgbModalRef;
     isTeamSelectionOpen = false;
-    teamsSelectionService: TeamsSelectionService;
 
     activeLevel: ILevel;
     activeBadge: IBadge;
@@ -42,14 +41,13 @@ export class NavbarComponent implements OnInit {
         private languageHelper: JhiLanguageHelper,
         private principal: Principal,
         private loginModalService: LoginModalService,
-        teamsSelectionService: TeamsSelectionService,
+        private teamsSelectionService: TeamsSelectionService,
         private profileService: ProfileService,
         private modalService: NgbModal,
         private router: Router,
         private route: ActivatedRoute,
         private breadcrumbService: BreadcrumbService
     ) {
-        this.teamsSelectionService = teamsSelectionService;
         this.isNavbarCollapsed = true;
     }
 
@@ -68,6 +66,7 @@ export class NavbarComponent implements OnInit {
             this.swaggerEnabled = profileInfo.swaggerEnabled;
             this.organizationName = profileInfo.organization.name;
         });
+        this.teamsSelectionService.query().subscribe();
     }
 
     loadBreadcrumb() {

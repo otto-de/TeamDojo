@@ -10,10 +10,8 @@
         <div class="team-item-wrapper" *ngFor="let team of teams">
             <div class="team-item" (click)="selectTeam(team)"
                  [ngClass]="{'selected': highlightedTeam !== null && highlightedTeam.id === team.id}">
-                <div class="team-item-row">
-                    <div class="team-avatar">
-                        <img *ngIf="team.imageId" [src]="team.imageId | imageUrl: 'small'" [title]="team.name"/>
-                    </div>
+                <div class="team-item-row d-flex justify-content-center">
+                    <jhi-team-image [team]="team" size="80px" imageSize="medium"></jhi-team-image>
                 </div>
                 <div class="team-item-row">
                     <div class="team-shortname">{{team.shortName}}</div>
