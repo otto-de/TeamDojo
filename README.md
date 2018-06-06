@@ -5,8 +5,9 @@ It allows teams to self assess their skills and checks if they are reaching a sp
 If they reach a new ability level, they will be rewarded with a cool new Team Avatar, Level Rewards - 
 like a virtual belt -  and topic specific Badges.
 TeamDojo also calculates scores, based on specific Skill, Level and Badge ranking/difficulty and ranks the teams by
-the amount of their reached scores.   
+the amount of their reached scores.  
 
+![screencast](screencast.gif "Screencast")
 
 ## Usage
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { TeamsSelectionService } from './teams-selection.service';
 import { TeamsService } from 'app/teams/teams.service';
-import { Team } from 'app/shared/model/team.model';
+import { ITeam } from 'app/shared/model/team.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,9 +11,10 @@ import { Router } from '@angular/router';
     styleUrls: ['./teams-selection.scss']
 })
 export class TeamsSelectionComponent implements OnInit {
-    highlightedTeam: Team = null;
+    highlightedTeam: ITeam = null;
+    selectedTeam: ITeam;
 
-    teams: Team[] = [];
+    teams: ITeam[] = [];
 
     constructor(
         private activeModal: NgbActiveModal,
@@ -26,10 +27,12 @@ export class TeamsSelectionComponent implements OnInit {
         this.teamsService.query().subscribe(teams => {
             this.teams = teams.body.sort((a, b) => a.shortName.localeCompare(b.shortName));
         });
-        this.highlightedTeam = this.teamsSelectionService.selectedTeam;
+        this.teamsSelectionService.query().subscribe(selectedTeam => {
+            this.selectedTeam = this.highlightedTeam = selectedTeam;
+        });
     }
 
-    selectTeam(team: Team) {
+    selectTeam(team: ITeam) {
         this.highlightedTeam = team;
     }
 

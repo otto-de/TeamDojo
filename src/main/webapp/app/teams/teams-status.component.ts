@@ -33,7 +33,7 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
             .query()
             .take(1)
             .subscribe(res => {
-                this.levelUpScore = res.body[0] ? res.body[0].levelUpScore : 0;
+                this.levelUpScore = res && res.body[0] ? res.body[0].levelUpScore : 0;
             });
         this.calculateStatus();
     }

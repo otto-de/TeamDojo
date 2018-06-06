@@ -24,7 +24,6 @@ export const feedbackRoute: Routes = [
         },
         resolve: {
             report: FeedbackResolve
-        },
-        canActivate: [UserRouteAccessService]
+        }
     }
 ];

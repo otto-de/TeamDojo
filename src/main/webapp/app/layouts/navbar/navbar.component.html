@@ -36,7 +36,7 @@
                     <jhi-notification-menu #notificationMenu></jhi-notification-menu>
                 </ul>
             </li>
-            <li class="nav-item" *ngIf="selectedTeam === null">
+            <li class="nav-item" *ngIf="!selectedTeam">
                 <a class="nav-link" (click)="selectTeam()">
                      <span class="icon">
                          <i class="fa fa-users fa-2"></i>
@@ -45,11 +45,10 @@
                 </a>
 
             </li>
-            <li ngbDropdown class="nav-item dropdown pointer" *ngIf="selectedTeam !== null">
+            <li ngbDropdown class="nav-item dropdown pointer" *ngIf="selectedTeam">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="teamDropdown">
-                    <div class="team-avatar" *ngIf="selectedTeam.imageId">
-                        <img class="avatar-image" [src]="selectedTeam.imageId | imageUrl: 'small'"
-                             [title]="selectedTeam.name"/>
+                    <div class="mr-1">
+                        <jhi-team-image [team]="selectedTeam" size="35px" imageSize="small"></jhi-team-image>
                     </div>
                     <span>Team {{selectedTeam.name}}</span>
                 </a>
