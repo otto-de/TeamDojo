@@ -19,8 +19,8 @@
         {
             "relationshipName": "image",
             "otherEntityName": "image",
-            "relationshipType": "one-to-one",
-            "otherEntityField": "id",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name",
             "ownerSide": true,
             "otherEntityRelationshipName": "badge"
         }

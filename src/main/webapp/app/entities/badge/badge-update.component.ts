@@ -45,18 +45,9 @@ export class BadgeUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.imageService.query({ filter: 'badge-is-null' }).subscribe(
+        this.imageService.query().subscribe(
             (res: HttpResponse<IImage[]>) => {
-                if (!this.badge.imageId) {
-                    this.images = res.body;
-                } else {
-                    this.imageService.find(this.badge.imageId).subscribe(
-                        (subRes: HttpResponse<IImage>) => {
-                            this.images = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
+                this.images = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );

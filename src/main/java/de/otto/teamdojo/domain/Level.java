@@ -64,8 +64,8 @@ public class Level implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<LevelSkill> skills = new HashSet<>();
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
+    @JsonIgnoreProperties("")
     private Image image;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

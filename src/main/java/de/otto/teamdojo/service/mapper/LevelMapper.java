@@ -16,6 +16,7 @@ public interface LevelMapper extends EntityMapper<LevelDTO, Level> {
     @Mapping(source = "dependsOn.id", target = "dependsOnId")
     @Mapping(source = "dependsOn.name", target = "dependsOnName")
     @Mapping(source = "image.id", target = "imageId")
+    @Mapping(source = "image.name", target = "imageName")
     LevelDTO toDto(Level level);
 
     @Mapping(source = "dimensionId", target = "dimension")

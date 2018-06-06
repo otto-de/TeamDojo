@@ -39,6 +39,8 @@ public class LevelDTO implements Serializable {
 
     private Long imageId;
 
+    private String imageName;
+
     public Long getId() {
         return id;
     }
@@ -127,6 +129,14 @@ public class LevelDTO implements Serializable {
         this.imageId = imageId;
     }
 
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -162,6 +172,7 @@ public class LevelDTO implements Serializable {
             ", dependsOn=" + getDependsOnId() +
             ", dependsOn='" + getDependsOnName() + "'" +
             ", image=" + getImageId() +
+            ", image='" + getImageName() + "'" +
             "}";
     }
 }

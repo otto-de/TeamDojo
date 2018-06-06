@@ -48,9 +48,11 @@
             <column name="completion_bonus" type="integer">
                 <constraints nullable="true" />
             </column>
+
             <column name="image_id" type="bigint">
-                <constraints unique="true" nullable="true" />
+                <constraints nullable="true" />
             </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="badge" columnName="available_until" columnDataType="datetime"/>
