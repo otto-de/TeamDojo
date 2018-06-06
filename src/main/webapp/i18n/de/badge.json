@@ -18,7 +18,6 @@
             },
             "name": "Name",
             "description": "Description",
-            "picture": "Picture",
             "availableUntil": "Available Until",
             "availableAmount": "Available Amount",
             "requiredScore": "Required Score",

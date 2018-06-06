@@ -68,11 +68,6 @@ public class BadgeResourceIntTest {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
-    private static final byte[] DEFAULT_PICTURE = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_PICTURE = TestUtil.createByteArray(2, "1");
-    private static final String DEFAULT_PICTURE_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_PICTURE_CONTENT_TYPE = "image/png";
-
     private static final Instant DEFAULT_AVAILABLE_UNTIL = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_AVAILABLE_UNTIL = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
@@ -161,8 +156,6 @@ public class BadgeResourceIntTest {
         Badge badge = new Badge()
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION)
-            .picture(DEFAULT_PICTURE)
-            .pictureContentType(DEFAULT_PICTURE_CONTENT_TYPE)
             .availableUntil(DEFAULT_AVAILABLE_UNTIL)
             .availableAmount(DEFAULT_AVAILABLE_AMOUNT)
             .requiredScore(DEFAULT_REQUIRED_SCORE)
@@ -192,8 +185,6 @@ public class BadgeResourceIntTest {
         Badge testBadge = badgeList.get(badgeList.size() - 1);
         assertThat(testBadge.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testBadge.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testBadge.getPicture()).isEqualTo(DEFAULT_PICTURE);
-        assertThat(testBadge.getPictureContentType()).isEqualTo(DEFAULT_PICTURE_CONTENT_TYPE);
         assertThat(testBadge.getAvailableUntil()).isEqualTo(DEFAULT_AVAILABLE_UNTIL);
         assertThat(testBadge.getAvailableAmount()).isEqualTo(DEFAULT_AVAILABLE_AMOUNT);
         assertThat(testBadge.getRequiredScore()).isEqualTo(DEFAULT_REQUIRED_SCORE);
@@ -291,8 +282,6 @@ public class BadgeResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(badge.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
             .andExpect(jsonPath("$.[*].availableUntil").value(hasItem(DEFAULT_AVAILABLE_UNTIL.toString())))
             .andExpect(jsonPath("$.[*].availableAmount").value(hasItem(DEFAULT_AVAILABLE_AMOUNT)))
             .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())))
@@ -344,8 +333,6 @@ public class BadgeResourceIntTest {
             .andExpect(jsonPath("$.id").value(badge.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.pictureContentType").value(DEFAULT_PICTURE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.picture").value(Base64Utils.encodeToString(DEFAULT_PICTURE)))
             .andExpect(jsonPath("$.availableUntil").value(DEFAULT_AVAILABLE_UNTIL.toString()))
             .andExpect(jsonPath("$.availableAmount").value(DEFAULT_AVAILABLE_AMOUNT))
             .andExpect(jsonPath("$.requiredScore").value(DEFAULT_REQUIRED_SCORE.doubleValue()))
@@ -761,8 +748,6 @@ public class BadgeResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(badge.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
             .andExpect(jsonPath("$.[*].availableUntil").value(hasItem(DEFAULT_AVAILABLE_UNTIL.toString())))
             .andExpect(jsonPath("$.[*].availableAmount").value(hasItem(DEFAULT_AVAILABLE_AMOUNT)))
             .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())))
@@ -805,8 +790,6 @@ public class BadgeResourceIntTest {
         updatedBadge
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
-            .picture(UPDATED_PICTURE)
-            .pictureContentType(UPDATED_PICTURE_CONTENT_TYPE)
             .availableUntil(UPDATED_AVAILABLE_UNTIL)
             .availableAmount(UPDATED_AVAILABLE_AMOUNT)
             .requiredScore(UPDATED_REQUIRED_SCORE)
@@ -825,8 +808,6 @@ public class BadgeResourceIntTest {
         Badge testBadge = badgeList.get(badgeList.size() - 1);
         assertThat(testBadge.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testBadge.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testBadge.getPicture()).isEqualTo(UPDATED_PICTURE);
-        assertThat(testBadge.getPictureContentType()).isEqualTo(UPDATED_PICTURE_CONTENT_TYPE);
         assertThat(testBadge.getAvailableUntil()).isEqualTo(UPDATED_AVAILABLE_UNTIL);
         assertThat(testBadge.getAvailableAmount()).isEqualTo(UPDATED_AVAILABLE_AMOUNT);
         assertThat(testBadge.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);

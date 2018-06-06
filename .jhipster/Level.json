@@ -49,11 +49,6 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "picture",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image"
-        },
-        {
             "fieldName": "requiredScore",
             "fieldType": "Double",
             "fieldValidateRules": [

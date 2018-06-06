@@ -17,7 +17,6 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="name"><span jhiTranslate="teamdojoApp.badge.name">Name</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="description"><span jhiTranslate="teamdojoApp.badge.description">Description</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="picture"><span jhiTranslate="teamdojoApp.badge.picture">Picture</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="availableUntil"><span jhiTranslate="teamdojoApp.badge.availableUntil">Available Until</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="availableAmount"><span jhiTranslate="teamdojoApp.badge.availableAmount">Available Amount</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="requiredScore"><span jhiTranslate="teamdojoApp.badge.requiredScore">Required Score</span> <span class="fa fa-sort"></span></th>
@@ -32,12 +31,6 @@
                 <td><a [routerLink]="['/badge', badge.id, 'view' ]">{{badge.id}}</a></td>
                 <td>{{badge.name}}</td>
                 <td>{{badge.description}}</td>
-                <td>
-                    <a *ngIf="badge.picture" (click)="openFile(badge.pictureContentType, badge.picture)">
-                        <img [src]="'data:' + badge.pictureContentType + ';base64,' + badge.picture" style="max-height: 30px;" alt="badge image"/>
-                    </a>
-                    <span *ngIf="badge.picture">{{badge.pictureContentType}}, {{byteSize(badge.picture)}}</span>
-                </td>
                 <td>{{badge.availableUntil | date:'medium'}}</td>
                 <td>{{badge.availableAmount}}</td>
                 <td>{{badge.requiredScore}}</td>

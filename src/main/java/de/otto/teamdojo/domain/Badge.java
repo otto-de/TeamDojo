@@ -36,13 +36,6 @@ public class Badge implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @Lob
-    @Column(name = "picture")
-    private byte[] picture;
-
-    @Column(name = "picture_content_type")
-    private String pictureContentType;
-
     @Column(name = "available_until")
     private Instant availableUntil;
 
@@ -113,32 +106,6 @@ public class Badge implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public byte[] getPicture() {
-        return picture;
-    }
-
-    public Badge picture(byte[] picture) {
-        this.picture = picture;
-        return this;
-    }
-
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
-    }
-
-    public String getPictureContentType() {
-        return pictureContentType;
-    }
-
-    public Badge pictureContentType(String pictureContentType) {
-        this.pictureContentType = pictureContentType;
-        return this;
-    }
-
-    public void setPictureContentType(String pictureContentType) {
-        this.pictureContentType = pictureContentType;
     }
 
     public Instant getAvailableUntil() {
@@ -296,8 +263,6 @@ public class Badge implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
-            ", picture='" + getPicture() + "'" +
-            ", pictureContentType='" + getPictureContentType() + "'" +
             ", availableUntil='" + getAvailableUntil() + "'" +
             ", availableAmount=" + getAvailableAmount() +
             ", requiredScore=" + getRequiredScore() +

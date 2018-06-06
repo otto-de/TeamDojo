@@ -13,15 +13,6 @@
                 <dd>
                     <span>{{badge.description}}</span>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.badge.picture">Picture</span></dt>
-                <dd>
-                    <div *ngIf="badge.picture">
-                        <a (click)="openFile(badge.pictureContentType, badge.picture)">
-                            <img [src]="'data:' + badge.pictureContentType + ';base64,' + badge.picture" style="max-width: 100%;" alt="badge image"/>
-                        </a>
-                        {{badge.pictureContentType}}, {{byteSize(badge.picture)}}
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="teamdojoApp.badge.availableUntil">Available Until</span></dt>
                 <dd>
                     <span>{{badge.availableUntil}}</span>
