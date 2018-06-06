@@ -36,7 +36,7 @@
                     <jhi-notification-menu #notificationMenu></jhi-notification-menu>
                 </ul>
             </li>
-            <li class="nav-item" *ngIf="teamsSelectionService.selectedTeam === null">
+            <li class="nav-item" *ngIf="selectedTeam === null">
                 <a class="nav-link" (click)="selectTeam()">
                      <span class="icon">
                          <i class="fa fa-users fa-2"></i>
@@ -45,18 +45,18 @@
                 </a>
 
             </li>
-            <li ngbDropdown class="nav-item dropdown pointer" *ngIf="teamsSelectionService.selectedTeam !== null">
+            <li ngbDropdown class="nav-item dropdown pointer" *ngIf="selectedTeam !== null">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="teamDropdown">
-                    <div class="team-avatar" *ngIf="getTeamImage(teamsSelectionService.selectedTeam)">
-                        <img class="avatar-image" [src]="getTeamImage(teamsSelectionService.selectedTeam)"
-                             [title]="teamsSelectionService.selectedTeam.name"/>
+                    <div class="team-avatar" *ngIf="selectedTeam.imageId">
+                        <img class="avatar-image" [src]="selectedTeam.imageId | imageDataUrl: 'small'"
+                             [title]="selectedTeam.name"/>
                     </div>
-                    <span>Team {{teamsSelectionService.selectedTeam.name}}</span>
+                    <span>Team {{selectedTeam.name}}</span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu>
                     <li>
                         <a class="dropdown-item"
-                           [routerLink]="['/teams', teamsSelectionService.selectedTeam.shortName]">
+                           [routerLink]="['/teams', selectedTeam.shortName]">
                             <i class="fa fa-home" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.teams.home">Living Room</span>
                         </a>

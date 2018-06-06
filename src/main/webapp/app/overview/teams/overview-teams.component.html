@@ -35,7 +35,7 @@
                 <div class="team-info d-flex align-items-center">
                     <div class="team-rank">{{i+1}}</div>
                         <div class="mr-2">
-                            <jhi-team-image [team]="teamScore.team"></jhi-team-image>
+                            <jhi-team-image [team]="teamScore.team" imageSize="small"></jhi-team-image>
                         </div>
                     <div class="team-name">
                         <a href="#" [routerLink]="['/teams', teamScore.team.shortName]">{{teamScore.team.name}}</a>
