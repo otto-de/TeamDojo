@@ -18,7 +18,6 @@
             },
             "name": "Name",
             "description": "Description",
-            "picture": "Picture",
             "requiredScore": "Required Score",
             "instantMultiplier": "Skill Score Multiplier",
             "completionBonus": "Level Completion Bonus",

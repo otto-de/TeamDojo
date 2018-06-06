@@ -17,7 +17,6 @@
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="teamdojoApp.level.name">Name</span></th>
             <th><span jhiTranslate="teamdojoApp.level.description">Description</span></th>
-            <th><span jhiTranslate="teamdojoApp.level.picture">Picture</span></th>
             <th><span jhiTranslate="teamdojoApp.level.requiredScore">Required Score</span></th>
             <th><span jhiTranslate="teamdojoApp.level.instantMultiplier">Instant Multiplier</span></th>
             <th><span jhiTranslate="teamdojoApp.level.completionBonus">Completion Bonus</span></th>
@@ -32,12 +31,6 @@
                 <td><a [routerLink]="['/level', level.id, 'view' ]">{{level.id}}</a></td>
                 <td>{{level.name}}</td>
                 <td>{{level.description}}</td>
-                <td>
-                    <a *ngIf="level.picture" (click)="openFile(level.pictureContentType, level.picture)">
-                        <img [src]="'data:' + level.pictureContentType + ';base64,' + level.picture" style="max-height: 30px;" alt="level image"/>
-                    </a>
-                    <span *ngIf="level.picture">{{level.pictureContentType}}, {{byteSize(level.picture)}}</span>
-                </td>
                 <td>{{level.requiredScore}}</td>
                 <td>{{level.instantMultiplier}}</td>
                 <td>{{level.completionBonus}}</td>
