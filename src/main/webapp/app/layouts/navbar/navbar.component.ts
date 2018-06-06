@@ -66,6 +66,7 @@ export class NavbarComponent implements OnInit {
             this.swaggerEnabled = profileInfo.swaggerEnabled;
             this.organizationName = profileInfo.organization.name;
         });
+        this.teamsSelectionService.query().subscribe();
     }
 
     loadBreadcrumb() {

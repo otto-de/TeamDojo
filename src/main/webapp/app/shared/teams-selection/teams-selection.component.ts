@@ -27,7 +27,9 @@ export class TeamsSelectionComponent implements OnInit {
         this.teamsService.query().subscribe(teams => {
             this.teams = teams.body.sort((a, b) => a.shortName.localeCompare(b.shortName));
         });
-        this.highlightedTeam = this.teamsSelectionService.selectedTeam;
+        this.teamsSelectionService.query().subscribe(selectedTeam => {
+            this.selectedTeam = this.highlightedTeam = selectedTeam;
+        });
     }
 
     selectTeam(team: ITeam) {
