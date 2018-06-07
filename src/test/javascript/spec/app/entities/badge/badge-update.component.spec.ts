@@ -9,6 +9,7 @@ import { BadgeService } from 'app/entities/badge/badge.service';
 import { Badge } from 'app/shared/model/badge.model';
 
 import { DimensionService } from 'app/entities/dimension';
+import { ImageService } from 'app/entities/image';
 
 describe('Component Tests', () => {
     describe('Badge Management Update Component', () => {
@@ -20,7 +21,7 @@ describe('Component Tests', () => {
             TestBed.configureTestingModule({
                 imports: [TeamdojoTestModule],
                 declarations: [BadgeUpdateComponent],
-                providers: [DimensionService, BadgeService]
+                providers: [DimensionService, ImageService, BadgeService]
             })
                 .overrideTemplate(BadgeUpdateComponent, '')
                 .compileComponents();

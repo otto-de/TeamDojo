@@ -1,16 +1,19 @@
 package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
-import de.otto.teamdojo.domain.Dimension;
+
 import de.otto.teamdojo.domain.Team;
+import de.otto.teamdojo.domain.Dimension;
 import de.otto.teamdojo.domain.TeamSkill;
+import de.otto.teamdojo.domain.Image;
 import de.otto.teamdojo.repository.TeamRepository;
-import de.otto.teamdojo.service.AchievableSkillService;
-import de.otto.teamdojo.service.TeamQueryService;
 import de.otto.teamdojo.service.TeamService;
 import de.otto.teamdojo.service.dto.TeamDTO;
 import de.otto.teamdojo.service.mapper.TeamMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
+import de.otto.teamdojo.service.dto.TeamCriteria;
+import de.otto.teamdojo.service.TeamQueryService;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +22,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -26,11 +30,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,11 +57,6 @@ public class TeamResourceIntTest {
     private static final String DEFAULT_SHORT_NAME = "AAAAAA";
     private static final String UPDATED_SHORT_NAME = "BBBBBB";
 
-    private static final byte[] DEFAULT_PICTURE = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_PICTURE = TestUtil.createByteArray(2, "1");
-    private static final String DEFAULT_PICTURE_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_PICTURE_CONTENT_TYPE = "image/png";
-
     private static final String DEFAULT_SLOGAN = "AAAAAAAAAA";
     private static final String UPDATED_SLOGAN = "BBBBBBBBBB";
 
@@ -73,7 +71,7 @@ public class TeamResourceIntTest {
 
     @Autowired
     private TeamMapper teamMapper;
-
+    
     @Mock
     private TeamService teamServiceMock;
 
@@ -112,7 +110,7 @@ public class TeamResourceIntTest {
 
     /**
      * Create an entity for this test.
-     * <p>
+     *
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -120,8 +118,6 @@ public class TeamResourceIntTest {
         Team team = new Team()
             .name(DEFAULT_NAME)
             .shortName(DEFAULT_SHORT_NAME)
-            .picture(DEFAULT_PICTURE)
-            .pictureContentType(DEFAULT_PICTURE_CONTENT_TYPE)
             .slogan(DEFAULT_SLOGAN)
             .contactPerson(DEFAULT_CONTACT_PERSON);
         return team;
@@ -150,8 +146,6 @@ public class TeamResourceIntTest {
         Team testTeam = teamList.get(teamList.size() - 1);
         assertThat(testTeam.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testTeam.getShortName()).isEqualTo(DEFAULT_SHORT_NAME);
-        assertThat(testTeam.getPicture()).isEqualTo(DEFAULT_PICTURE);
-        assertThat(testTeam.getPictureContentType()).isEqualTo(DEFAULT_PICTURE_CONTENT_TYPE);
         assertThat(testTeam.getSlogan()).isEqualTo(DEFAULT_SLOGAN);
         assertThat(testTeam.getContactPerson()).isEqualTo(DEFAULT_CONTACT_PERSON);
     }
@@ -227,12 +221,10 @@ public class TeamResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(team.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].shortName").value(hasItem(DEFAULT_SHORT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
             .andExpect(jsonPath("$.[*].slogan").value(hasItem(DEFAULT_SLOGAN.toString())))
             .andExpect(jsonPath("$.[*].contactPerson").value(hasItem(DEFAULT_CONTACT_PERSON.toString())));
     }
-
+    
     public void getAllTeamsWithEagerRelationshipsIsEnabled() throws Exception {
         TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService);
         when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -244,24 +236,24 @@ public class TeamResourceIntTest {
             .setMessageConverters(jacksonMessageConverter).build();
 
         restTeamMockMvc.perform(get("/api/teams?eagerload=true"))
-            .andExpect(status().isOk());
+        .andExpect(status().isOk());
 
         verify(teamServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     public void getAllTeamsWithEagerRelationshipsIsNotEnabled() throws Exception {
         TeamResource teamResource = new TeamResource(teamServiceMock, teamQueryService);
-        when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-        MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
+            when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter).build();
 
         restTeamMockMvc.perform(get("/api/teams?eagerload=true"))
-            .andExpect(status().isOk());
+        .andExpect(status().isOk());
 
-        verify(teamServiceMock, times(1)).findAllWithEagerRelationships(any());
+            verify(teamServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test
@@ -277,8 +269,6 @@ public class TeamResourceIntTest {
             .andExpect(jsonPath("$.id").value(team.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.shortName").value(DEFAULT_SHORT_NAME.toString()))
-            .andExpect(jsonPath("$.pictureContentType").value(DEFAULT_PICTURE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.picture").value(Base64Utils.encodeToString(DEFAULT_PICTURE)))
             .andExpect(jsonPath("$.slogan").value(DEFAULT_SLOGAN.toString()))
             .andExpect(jsonPath("$.contactPerson").value(DEFAULT_CONTACT_PERSON.toString()));
     }
@@ -476,6 +466,25 @@ public class TeamResourceIntTest {
         defaultTeamShouldNotBeFound("skillsId.equals=" + (skillsId + 1));
     }
 
+
+    @Test
+    @Transactional
+    public void getAllTeamsByImageIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Image image = ImageResourceIntTest.createEntity(em);
+        em.persist(image);
+        em.flush();
+        team.setImage(image);
+        teamRepository.saveAndFlush(team);
+        Long imageId = image.getId();
+
+        // Get all the teamList where image equals to imageId
+        defaultTeamShouldBeFound("imageId.equals=" + imageId);
+
+        // Get all the teamList where image equals to imageId + 1
+        defaultTeamShouldNotBeFound("imageId.equals=" + (imageId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned
      */
@@ -486,8 +495,6 @@ public class TeamResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(team.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].shortName").value(hasItem(DEFAULT_SHORT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
             .andExpect(jsonPath("$.[*].slogan").value(hasItem(DEFAULT_SLOGAN.toString())))
             .andExpect(jsonPath("$.[*].contactPerson").value(hasItem(DEFAULT_CONTACT_PERSON.toString())));
     }
@@ -527,8 +534,6 @@ public class TeamResourceIntTest {
         updatedTeam
             .name(UPDATED_NAME)
             .shortName(UPDATED_SHORT_NAME)
-            .picture(UPDATED_PICTURE)
-            .pictureContentType(UPDATED_PICTURE_CONTENT_TYPE)
             .slogan(UPDATED_SLOGAN)
             .contactPerson(UPDATED_CONTACT_PERSON);
         TeamDTO teamDTO = teamMapper.toDto(updatedTeam);
@@ -544,8 +549,6 @@ public class TeamResourceIntTest {
         Team testTeam = teamList.get(teamList.size() - 1);
         assertThat(testTeam.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testTeam.getShortName()).isEqualTo(UPDATED_SHORT_NAME);
-        assertThat(testTeam.getPicture()).isEqualTo(UPDATED_PICTURE);
-        assertThat(testTeam.getPictureContentType()).isEqualTo(UPDATED_PICTURE_CONTENT_TYPE);
         assertThat(testTeam.getSlogan()).isEqualTo(UPDATED_SLOGAN);
         assertThat(testTeam.getContactPerson()).isEqualTo(UPDATED_CONTACT_PERSON);
     }

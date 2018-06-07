@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { JhiDataUtils } from 'ng-jhipster';
 
 import { ILevel } from 'app/shared/model/level.model';
 
@@ -11,7 +10,7 @@ import { ILevel } from 'app/shared/model/level.model';
 export class LevelDetailComponent implements OnInit {
     level: ILevel;
 
-    constructor(private dataUtils: JhiDataUtils, private route: ActivatedRoute) {}
+    constructor(private route: ActivatedRoute) {}
 
     ngOnInit() {
         this.route.data.subscribe(({ level }) => {
@@ -19,13 +18,6 @@ export class LevelDetailComponent implements OnInit {
         });
     }
 
-    byteSize(field) {
-        return this.dataUtils.byteSize(field);
-    }
-
-    openFile(contentType, field) {
-        return this.dataUtils.openFile(contentType, field);
-    }
     previousState() {
         window.history.back();
     }

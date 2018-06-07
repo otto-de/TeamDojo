@@ -58,11 +58,6 @@ public class LevelResourceIntTest {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
-    private static final byte[] DEFAULT_PICTURE = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_PICTURE = TestUtil.createByteArray(2, "1");
-    private static final String DEFAULT_PICTURE_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_PICTURE_CONTENT_TYPE = "image/png";
-
     private static final Double DEFAULT_REQUIRED_SCORE = 0D;
     private static final Double UPDATED_REQUIRED_SCORE = 1D;
 
@@ -144,8 +139,6 @@ public class LevelResourceIntTest {
         Level level = new Level()
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION)
-            .picture(DEFAULT_PICTURE)
-            .pictureContentType(DEFAULT_PICTURE_CONTENT_TYPE)
             .requiredScore(DEFAULT_REQUIRED_SCORE)
             .instantMultiplier(DEFAULT_INSTANT_MULTIPLIER)
             .completionBonus(DEFAULT_COMPLETION_BONUS);
@@ -180,8 +173,6 @@ public class LevelResourceIntTest {
         Level testLevel = levelList.get(levelList.size() - 1);
         assertThat(testLevel.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testLevel.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testLevel.getPicture()).isEqualTo(DEFAULT_PICTURE);
-        assertThat(testLevel.getPictureContentType()).isEqualTo(DEFAULT_PICTURE_CONTENT_TYPE);
         assertThat(testLevel.getRequiredScore()).isEqualTo(DEFAULT_REQUIRED_SCORE);
         assertThat(testLevel.getInstantMultiplier()).isEqualTo(DEFAULT_INSTANT_MULTIPLIER);
         assertThat(testLevel.getCompletionBonus()).isEqualTo(DEFAULT_COMPLETION_BONUS);
@@ -277,8 +268,6 @@ public class LevelResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(level.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
             .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())))
             .andExpect(jsonPath("$.[*].instantMultiplier").value(hasItem(DEFAULT_INSTANT_MULTIPLIER.doubleValue())))
             .andExpect(jsonPath("$.[*].completionBonus").value(hasItem(DEFAULT_COMPLETION_BONUS)));
@@ -298,8 +287,6 @@ public class LevelResourceIntTest {
             .andExpect(jsonPath("$.id").value(level.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.pictureContentType").value(DEFAULT_PICTURE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.picture").value(Base64Utils.encodeToString(DEFAULT_PICTURE)))
             .andExpect(jsonPath("$.requiredScore").value(DEFAULT_REQUIRED_SCORE.doubleValue()))
             .andExpect(jsonPath("$.instantMultiplier").value(DEFAULT_INSTANT_MULTIPLIER.doubleValue()))
             .andExpect(jsonPath("$.completionBonus").value(DEFAULT_COMPLETION_BONUS));
@@ -624,8 +611,6 @@ public class LevelResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(level.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
             .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())))
             .andExpect(jsonPath("$.[*].instantMultiplier").value(hasItem(DEFAULT_INSTANT_MULTIPLIER.doubleValue())))
             .andExpect(jsonPath("$.[*].completionBonus").value(hasItem(DEFAULT_COMPLETION_BONUS)));
@@ -666,8 +651,6 @@ public class LevelResourceIntTest {
         updatedLevel
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
-            .picture(UPDATED_PICTURE)
-            .pictureContentType(UPDATED_PICTURE_CONTENT_TYPE)
             .requiredScore(UPDATED_REQUIRED_SCORE)
             .instantMultiplier(UPDATED_INSTANT_MULTIPLIER)
             .completionBonus(UPDATED_COMPLETION_BONUS);
@@ -684,8 +667,6 @@ public class LevelResourceIntTest {
         Level testLevel = levelList.get(levelList.size() - 1);
         assertThat(testLevel.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testLevel.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testLevel.getPicture()).isEqualTo(UPDATED_PICTURE);
-        assertThat(testLevel.getPictureContentType()).isEqualTo(UPDATED_PICTURE_CONTENT_TYPE);
         assertThat(testLevel.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
         assertThat(testLevel.getInstantMultiplier()).isEqualTo(UPDATED_INSTANT_MULTIPLIER);
         assertThat(testLevel.getCompletionBonus()).isEqualTo(UPDATED_COMPLETION_BONUS);
@@ -815,5 +796,4 @@ public class LevelResourceIntTest {
         em.persist(team2);
 
     }
-
 }

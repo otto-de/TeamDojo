@@ -18,14 +18,14 @@
             },
             "name": "Name",
             "description": "Description",
-            "picture": "Picture",
             "availableUntil": "Available Until",
             "availableAmount": "Available Amount",
             "requiredScore": "Required Score",
             "instantMultiplier": "Skill Score Multiplier",
             "completionBonus": "Badge Completion Bonus",
             "skills": "Skills",
-            "dimensions": "Dimensions"
+            "dimensions": "Dimensions",
+            "image": "Image"
         }
     }
 }

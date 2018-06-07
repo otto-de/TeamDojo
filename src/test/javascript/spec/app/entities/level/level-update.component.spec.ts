@@ -9,6 +9,7 @@ import { LevelService } from 'app/entities/level/level.service';
 import { Level } from 'app/shared/model/level.model';
 
 import { DimensionService } from 'app/entities/dimension';
+import { ImageService } from 'app/entities/image';
 
 describe('Component Tests', () => {
     describe('Level Management Update Component', () => {
@@ -20,7 +21,7 @@ describe('Component Tests', () => {
             TestBed.configureTestingModule({
                 imports: [TeamdojoTestModule],
                 declarations: [LevelUpdateComponent],
-                providers: [DimensionService, LevelService]
+                providers: [DimensionService, ImageService, LevelService]
             })
                 .overrideTemplate(LevelUpdateComponent, '')
                 .compileComponents();
