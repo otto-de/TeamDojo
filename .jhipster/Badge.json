@@ -15,6 +15,14 @@
             "otherEntityField": "name",
             "ownerSide": true,
             "otherEntityRelationshipName": "badges"
+        },
+        {
+            "relationshipName": "image",
+            "otherEntityName": "image",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "badge"
         }
     ],
     "fields": [
@@ -32,11 +40,6 @@
         {
             "fieldName": "description",
             "fieldType": "String"
-        },
-        {
-            "fieldName": "picture",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image"
         },
         {
             "fieldName": "availableUntil",

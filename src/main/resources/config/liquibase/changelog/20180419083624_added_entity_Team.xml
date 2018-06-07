@@ -29,18 +29,15 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="picture" type="longblob">
-                <constraints nullable="true" />
-            </column>
-            <column name="picture_content_type" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
             <column name="slogan" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
             <column name="contact_person" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="image_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

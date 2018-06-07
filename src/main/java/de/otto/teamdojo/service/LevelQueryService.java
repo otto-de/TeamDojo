@@ -1,14 +1,7 @@
 package de.otto.teamdojo.service;
 
-import de.otto.teamdojo.domain.Dimension_;
-import de.otto.teamdojo.domain.Level;
-import de.otto.teamdojo.domain.LevelSkill_;
-import de.otto.teamdojo.domain.Level_;
-import de.otto.teamdojo.repository.LevelRepository;
-import de.otto.teamdojo.service.dto.LevelCriteria;
-import de.otto.teamdojo.service.dto.LevelDTO;
-import de.otto.teamdojo.service.mapper.LevelMapper;
-import io.github.jhipster.service.QueryService;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -17,7 +10,15 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import io.github.jhipster.service.QueryService;
+
+import de.otto.teamdojo.domain.Level;
+import de.otto.teamdojo.domain.*; // for static metamodels
+import de.otto.teamdojo.repository.LevelRepository;
+import de.otto.teamdojo.service.dto.LevelCriteria;
+
+import de.otto.teamdojo.service.dto.LevelDTO;
+import de.otto.teamdojo.service.mapper.LevelMapper;
 
 /**
  * Service for executing complex queries for Level entities in the database.
@@ -98,6 +99,9 @@ public class LevelQueryService extends QueryService<Level> {
             }
             if (criteria.getSkillsId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getSkillsId(), Level_.skills, LevelSkill_.id));
+            }
+            if (criteria.getImageId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getImageId(), Level_.image, Image_.id));
             }
         }
         return specification;

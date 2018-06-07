@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent, TeamdojoSharedLibsModule } from './';
-import { ImageDataUrlPipe } from './pipe/image-data-url.pipe';
+import { ImageUrlPipe } from './pipe/image-url.pipe';
 import { TruncateStringPipe } from './pipe/truncate-string.pipe';
 import { AchievementItemComponent } from 'app/shared/achievement';
 import { TeamImageComponent } from 'app/shared/team-image/team-image.component';
@@ -15,7 +15,7 @@ import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selectio
         FindLanguageFromKeyPipe,
         JhiAlertComponent,
         JhiAlertErrorComponent,
-        ImageDataUrlPipe,
+        ImageUrlPipe,
         TruncateStringPipe,
         AchievementItemComponent,
         TeamImageComponent,
@@ -28,7 +28,7 @@ import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selectio
         FindLanguageFromKeyPipe,
         JhiAlertComponent,
         JhiAlertErrorComponent,
-        ImageDataUrlPipe,
+        ImageUrlPipe,
         TruncateStringPipe,
         AchievementItemComponent,
         TeamImageComponent,

@@ -17,10 +17,10 @@
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="teamdojoApp.team.name">Name</span></th>
             <th><span jhiTranslate="teamdojoApp.team.shortName">Short Name</span></th>
-            <th><span jhiTranslate="teamdojoApp.team.picture">Picture</span></th>
             <th><span jhiTranslate="teamdojoApp.team.slogan">Slogan</span></th>
             <th><span jhiTranslate="teamdojoApp.team.contactPerson">Contact Person</span></th>
             <th><span jhiTranslate="teamdojoApp.team.participations">Participations</span></th>
+            <th><span jhiTranslate="teamdojoApp.team.image">Image</span></th>
             <th></th>
             </tr>
             </thead>
@@ -29,18 +29,17 @@
                 <td><a [routerLink]="['/team', team.id, 'view' ]">{{team.id}}</a></td>
                 <td>{{team.name}}</td>
                 <td>{{team.shortName}}</td>
-                <td>
-                    <a *ngIf="team.picture" (click)="openFile(team.pictureContentType, team.picture)">
-                        <img [src]="'data:' + team.pictureContentType + ';base64,' + team.picture" style="max-height: 30px;" alt="team image"/>
-                    </a>
-                    <span *ngIf="team.picture">{{team.pictureContentType}}, {{byteSize(team.picture)}}</span>
-                </td>
                 <td>{{team.slogan}}</td>
                 <td>{{team.contactPerson}}</td>
                 <td>
                     <span *ngFor="let participations of team.participations; let last = last">
                             <a class="form-control-static" [routerLink]="['../dimension', participations?.id, 'view' ]">{{participations.name}}</a>{{last ? '' : ', '}}
                         </span>
+                </td>
+                <td>
+                    <div *ngIf="team.imageId">
+                        <a [routerLink]="['../image', team.imageId , 'view' ]" >{{team.imageName}}</a>
+                    </div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

@@ -48,7 +48,7 @@
             <li ngbDropdown class="nav-item dropdown pointer" *ngIf="selectedTeam">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="teamDropdown">
                     <div class="mr-1">
-                        <jhi-team-image [team]="selectedTeam" size="35px"></jhi-team-image>
+                        <jhi-team-image [team]="selectedTeam" size="35px" imageSize="small"></jhi-team-image>
                     </div>
                     <span>Team {{selectedTeam.name}}</span>
                 </a>
@@ -157,6 +157,12 @@
                         <a class="dropdown-item" routerLink="activity" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.activity">Activity</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="image" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.image">Image</span>
                         </a>
                     </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->

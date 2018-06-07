@@ -1,9 +1,6 @@
 package de.otto.teamdojo.service;
 
-import de.otto.teamdojo.domain.Badge;
-import de.otto.teamdojo.domain.BadgeSkill_;
-import de.otto.teamdojo.domain.Badge_;
-import de.otto.teamdojo.domain.Dimension_;
+import de.otto.teamdojo.domain.*;
 import de.otto.teamdojo.repository.BadgeRepository;
 import de.otto.teamdojo.service.dto.BadgeCriteria;
 import de.otto.teamdojo.service.dto.BadgeDTO;
@@ -101,6 +98,9 @@ public class BadgeQueryService extends QueryService<Badge> {
             }
             if (criteria.getDimensionsId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getDimensionsId(), Badge_.dimensions, Dimension_.id));
+            }
+            if (criteria.getImageId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getImageId(), Badge_.image, Image_.id));
             }
         }
         return specification;
