@@ -12,8 +12,7 @@ import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
 import { DimensionService } from 'app/entities/dimension';
 import { Progress } from 'app/shared/achievement/model/progress.model';
 import 'simplebar';
-import { FormControl } from '@angular/forms';
-import { forEach } from '@angular/router/src/utils/collection';
+import { SkillFilterPipe} from "app/shared/pipe/skill-filter.pipe";
 
 @Component({
     selector: 'jhi-overview-skills',
@@ -30,12 +29,12 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     badgeSkills: IBadgeSkill[];
     skills: ISkill[];
     activeSkills: ILevelSkill[] | IBadgeSkill[];
-    allActiveSkills: ILevelSkill[] | IBadgeSkill[] = [];
     activeLevel: ILevel;
     activeBadge: IBadge;
     dimensionsBySkillId: any;
     generalSkillsIds: number[];
-    filteredSkills: ISkill[];
+    search: string;
+    filteredSkills: ILevelSkill[] | IBadgeSkill[];
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -43,6 +42,20 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
         private breadcrumbService: BreadcrumbService,
         private dimensionService: DimensionService
     ) {}
+
+    filterSkills(search: string) {
+        this.filteredSkills = this.getActiveSkillsWithoutDetails(
+            new SkillFilterPipe().transform(this.getActiveSkillsWithDetails(), search)
+        );
+    }
+
+    getActiveSkillsWithoutDetails(filteredSkills: ISkill[]): ILevelSkill[] | IBadgeSkill[] {
+        return (filteredSkills || []).map(s => (<any>this.activeSkills || []).find(skill => s.id === skill.skillId)).filter(skill => skill);
+    }
+
+    getActiveSkillsWithDetails(): ISkill[] {
+        return (<any>this.activeSkills || []).map(skill => (this.skills || []).find(s => s.id === skill.skillId)).filter(s => s);
+    }
 
     ngOnInit() {
         this.route.data.subscribe(({ dojoModel: { teams, levels, levelSkills, badges, badgeSkills }, skills }) => {
@@ -57,11 +70,11 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
                 this.activeBadge = null;
                 if (params.get('level')) {
                     this.activeLevel = (this.levels || []).find((level: ILevel) => level.id === Number.parseInt(params.get('level')));
-                    this.activeSkills = this.activeLevel ? this.activeLevel.skills : [];
+                    this.activeSkills = this.filteredSkills = this.activeLevel ? this.activeLevel.skills : [];
                     this.updateBreadcrumb();
                 } else if (params.get('badge')) {
                     this.activeBadge = (this.badges || []).find((badge: IBadge) => badge.id === Number.parseInt(params.get('badge')));
-                    this.activeSkills = this.activeBadge ? this.activeBadge.skills : [];
+                    this.activeSkills = this.filteredSkills = this.activeBadge ? this.activeBadge.skills : [];
                     this.updateBreadcrumb();
                 } else {
                     this.activeSkills = (this.levelSkills || []).concat(this.badgeSkills || []);
@@ -168,28 +181,5 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
 
     getRateCount(rateCount: number) {
         return rateCount !== null && typeof rateCount !== 'undefined' ? rateCount : 0;
-    }
-
-    onKey(keypress: KeyboardEvent) {
-        this.allActiveSkills = this.activeSkills;
-        console.log('allActiveSkills: ', this.allActiveSkills);
-        this.filteredSkills = [];
-
-        let searchString: string;
-        searchString = searchString ? searchString : '';
-        searchString += (<HTMLInputElement>event.target).value;
-        console.log('Searchstring: ', searchString);
-
-        if (searchString.length > 0) {
-            for (const skill of this.activeSkills) {
-                if (skill.skillTitle.includes(searchString)) {
-                    this.filteredSkills.push(skill);
-                }
-            }
-            this.activeSkills = this.filteredSkills;
-            console.log(this.filteredSkills);
-        } else {
-            this.activeSkills = this.allActiveSkills;
-        }
     }
 }
