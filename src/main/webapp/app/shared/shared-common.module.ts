@@ -6,7 +6,7 @@ import { TruncateStringPipe } from './pipe/truncate-string.pipe';
 import { AchievementItemComponent } from 'app/shared/achievement';
 import { TeamImageComponent } from 'app/shared/team-image/team-image.component';
 import { NotificationItemComponent, NotificationMenuComponent } from 'app/shared/notification';
-import { SkillFilterPipe} from "app/shared/pipe/skill-filter.pipe";
+import { SkillFilterPipe } from 'app/shared/pipe/skill-filter.pipe';
 import { TeamsSelectionResolve } from 'app/shared/teams-selection/teams-selection.resolve';
 import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
 

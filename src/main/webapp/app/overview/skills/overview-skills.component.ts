@@ -12,7 +12,7 @@ import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
 import { DimensionService } from 'app/entities/dimension';
 import { Progress } from 'app/shared/achievement/model/progress.model';
 import 'simplebar';
-import { SkillFilterPipe} from "app/shared/pipe/skill-filter.pipe";
+import { SkillFilterPipe } from 'app/shared/pipe/skill-filter.pipe';
 
 @Component({
     selector: 'jhi-overview-skills',
