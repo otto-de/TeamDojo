@@ -1021,5 +1021,10 @@
             <column name="skill_id" valueNumeric="3050"/>
             <column name="team_id" valueNumeric="2550"/>
         </insert>
+        <insert tableName="organization">
+            <column name="id" valueComputed="6650"/>
+            <column name="name" value="My Organization"/>
+            <column name="level_up_score" valueNumeric="10"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>
