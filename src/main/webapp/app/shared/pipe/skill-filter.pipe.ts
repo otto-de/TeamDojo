@@ -1,13 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ISkill } from 'app/shared/model/skill.model';
-import { IBadge } from 'app/shared/model/badge.model';
+import { ILevelSkill } from 'app/shared/model/level-skill.model';
+import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
 
-@Pipe({ name: 'SkillFilter' })
+@Pipe({ name: 'skillFilter' })
 export class SkillFilterPipe implements PipeTransform {
-    transform(skills: ISkill[], searchString: string): ISkill[] {
-        return searchString.length > 2
+    transform(skills: any[], searchString: string): ILevelSkill[] | IBadgeSkill[] {
+        return searchString
             ? skills.filter(skill => {
-                  return skill.title.includes(searchString) || skill.description.includes(searchString);
+                  return skill.skillTitle && skill.skillTitle.toLowerCase().includes(searchString.toLowerCase());
               })
             : skills;
     }
