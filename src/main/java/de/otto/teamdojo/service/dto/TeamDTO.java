@@ -1,13 +1,10 @@
 package de.otto.teamdojo.service.dto;
 
-import javax.persistence.Lob;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
 
 /**
  * A DTO for the Team entity.
@@ -25,15 +22,15 @@ public class TeamDTO implements Serializable {
     @Pattern(regexp = "^[a-zA-Z0-9_-]*$")
     private String shortName;
 
-    @Lob
-    private byte[] picture;
-    private String pictureContentType;
-
     private String slogan;
 
     private String contactPerson;
 
     private Set<DimensionDTO> participations = new HashSet<>();
+
+    private Long imageId;
+
+    private String imageName;
 
     public Long getId() {
         return id;
@@ -59,22 +56,6 @@ public class TeamDTO implements Serializable {
         this.shortName = shortName;
     }
 
-    public byte[] getPicture() {
-        return picture;
-    }
-
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
-    }
-
-    public String getPictureContentType() {
-        return pictureContentType;
-    }
-
-    public void setPictureContentType(String pictureContentType) {
-        this.pictureContentType = pictureContentType;
-    }
-
     public String getSlogan() {
         return slogan;
     }
@@ -97,6 +78,22 @@ public class TeamDTO implements Serializable {
 
     public void setParticipations(Set<DimensionDTO> dimensions) {
         this.participations = dimensions;
+    }
+
+    public Long getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     @Override
@@ -126,9 +123,10 @@ public class TeamDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", shortName='" + getShortName() + "'" +
-            ", picture='" + getPicture() + "'" +
             ", slogan='" + getSlogan() + "'" +
             ", contactPerson='" + getContactPerson() + "'" +
+            ", image=" + getImageId() +
+            ", image='" + getImageName() + "'" +
             "}";
     }
 }

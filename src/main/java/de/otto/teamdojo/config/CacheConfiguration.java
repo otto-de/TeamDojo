@@ -66,6 +66,7 @@ public class CacheConfiguration {
             cm.createCache(de.otto.teamdojo.domain.Report.class.getName(), jcacheConfiguration);
             cm.createCache(de.otto.teamdojo.domain.Comment.class.getName(), jcacheConfiguration);
             cm.createCache(de.otto.teamdojo.domain.Activity.class.getName(), jcacheConfiguration);
+            cm.createCache(de.otto.teamdojo.domain.Image.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

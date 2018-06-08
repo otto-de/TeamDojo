@@ -1,0 +1,75 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="teamdojoApp.image.home.title">Images</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-image" [routerLink]="['/image/new']">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="teamdojoApp.image.home.createLabel">
+            Create new Image
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="images">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="teamdojoApp.image.name">Name</span></th>
+            <th><span jhiTranslate="teamdojoApp.image.small">Small</span></th>
+            <th><span jhiTranslate="teamdojoApp.image.medium">Medium</span></th>
+            <th><span jhiTranslate="teamdojoApp.image.large">Large</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let image of images ;trackBy: trackId">
+                <td><a [routerLink]="['/image', image.id, 'view' ]">{{image.id}}</a></td>
+                <td>{{image.name}}</td>
+                <td>
+                    <a *ngIf="image.small" (click)="openFile(image.smallContentType, image.small)">
+                        <img [src]="'data:' + image.smallContentType + ';base64,' + image.small" style="max-height: 30px;" alt="image image"/>
+                    </a>
+                    <span *ngIf="image.small">{{image.smallContentType}}, {{byteSize(image.small)}}</span>
+                </td>
+                <td>
+                    <a *ngIf="image.medium" (click)="openFile(image.mediumContentType, image.medium)">
+                        <img [src]="'data:' + image.mediumContentType + ';base64,' + image.medium" style="max-height: 30px;" alt="image image"/>
+                    </a>
+                    <span *ngIf="image.medium">{{image.mediumContentType}}, {{byteSize(image.medium)}}</span>
+                </td>
+                <td>
+                    <a *ngIf="image.large" (click)="openFile(image.largeContentType, image.large)">
+                        <img [src]="'data:' + image.largeContentType + ';base64,' + image.large" style="max-height: 30px;" alt="image image"/>
+                    </a>
+                    <span *ngIf="image.large">{{image.largeContentType}}, {{byteSize(image.large)}}</span>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/image', image.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/image', image.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'image/'+ image.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,194 +1,197 @@
-# teamdojo
-This application was generated using JHipster 5.0.0-beta.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v5.0.0-beta.0](https://www.jhipster.tech/documentation-archive/v5.0.0-beta.0).
+# TeamDojo
 
-## Development
+An application for improving (application and project) skills of your teams through gamification. 
+It allows teams to self assess their skills and checks if they are reaching a specified ability level.
+If they reach a new ability level, they will be rewarded with a cool new Team Avatar, Level Rewards - 
+like a virtual belt -  and topic specific Badges.
+TeamDojo also calculates scores, based on specific Skill, Level and Badge ranking/difficulty and ranks the teams by
+the amount of their reached scores.  
 
-Before you can build this project, you must install and configure the following dependencies on your machine:
+![screencast](screencast.gif "Screencast")
 
-1. [Node.js][]: We use Node to run a development web server and build the project.
-   Depending on your system, you can install Node either from source or as a pre-packaged bundle.
-2. [Yarn][]: We use Yarn to manage Node dependencies.
-   Depending on your system, you can install Yarn either from source or as a pre-packaged bundle.
+## Usage
 
-After installing Node, you should be able to run the following command to install development tools.
-You will only need to run this command when dependencies change in [package.json](package.json).
+### Cloning
+    
+    ToDo
+    git clone https://github.com/otto-de/...
+    cd ...
 
-    yarn install
-
-We use yarn scripts and [Webpack][] as our build system.
-
-Run the following commands in two separate terminals to create a blissful development experience where your browser
-auto-refreshes when files change on your hard drive.
-
-    ./gradlew
-    yarn start
-
-[Yarn][] is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
-specifying a newer version in [package.json](package.json). You can also run `yarn update` and `yarn install` to manage dependencies.
-Add the `help` flag on any command to see how you can use it. For example, `yarn help update`.
-
-The `yarn run` command will list all of the scripts available to run for this project.
-
-### Code Formatting
-Install the IntelliJ IDE EditorConfig Plugin and enable EditorConfig support
-
-**Java**
-Format your Java code by using the IntelliJ IDE Default Code Style and organize imports before committing.
-
-**Type Script**
-Run prettier before committing (`npm run prettier:format` or `yarn prettier --write **/*.ts`)
-Install IntelliJ IDE Prettier Plugin and use the action `Reformat with Prettier` to format the code
-
-**Line Separators**
-Configure your IDE to use Unix LF (\n) line separators
-IntelliJ IDE: Line separator (for new files)
-
-### Service workers
-
-Service workers are commented by default, to enable them please uncomment the following code.
-
-* The service worker registering script in index.html
-
-```html
-<script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker
-        .register('./sw.js')
-        .then(function() { console.log('Service Worker Registered'); });
-    }
-</script>
-```
-
-Note: workbox creates the respective service worker and dynamically generate the `sw.js`
-
-### Managing dependencies
-
-For example, to add [Leaflet][] library as a runtime dependency of your application, you would run following command:
-
-    yarn add --exact leaflet
-
-To benefit from TypeScript type definitions from [DefinitelyTyped][] repository in development, you would run following command:
-
-    yarn add --dev --exact @types/leaflet
-
-Then you would import the JS and CSS files specified in library's installation instructions so that [Webpack][] knows about them:
-Edit [src/main/webapp/app/vendor.ts](src/main/webapp/app/vendor.ts) file:
-~~~
-import 'leaflet/dist/leaflet.js';
-~~~
-
-Edit [src/main/webapp/content/css/vendor.css](src/main/webapp/content/css/vendor.css) file:
-~~~
-@import '~leaflet/dist/leaflet.css';
-~~~
-Note: there are still few other things remaining to do for Leaflet that we won't detail here.
-
-For further instructions on how to develop with JHipster, have a look at [Using JHipster in development][].
-
-### Using angular-cli
-
-You can also use [Angular CLI][] to generate some custom client code.
-
-For example, the following command:
-
-    ng generate component my-component
-
-will generate few files:
-
-    create src/main/webapp/app/my-component/my-component.component.html
-    create src/main/webapp/app/my-component/my-component.component.ts
-    update src/main/webapp/app/app.module.ts
-
-### Doing API-First development using swagger-codegen
-
-[Swagger-Codegen]() is configured for this application. You can generate API code from the `src/main/resources/swagger/api.yml` definition file by running:
-```bash
-./gradlew swagger
-```
-Then implements the generated interfaces with `@RestController` classes.
-
-To edit the `api.yml` definition file, you can use a tool such as [Swagger-Editor](). Start a local instance of the swagger-editor using docker by running: `docker-compose -f src/main/docker/swagger-editor.yml up -d`. The editor will then be reachable at [http://localhost:7742](http://localhost:7742).
-
-Refer to [Doing API-First development][] for more details.
-
-## Building for production
-
-To optimize the teamdojo application for production, run:
-
-    ./gradlew -Pprod clean bootWar
-
-This will concatenate and minify the client CSS and JavaScript files. It will also modify `index.html` so it references these new files.
-To ensure everything worked, run:
-
-    java -jar build/libs/*.war
-
-Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
-
-Refer to [Using JHipster in production][] for more details.
-
-## Testing
-
-To launch your application's tests, run:
-
-    ./gradlew test
-
-### Client tests
-
-Unit tests are run by [Karma][] and written with [Jasmine][]. They're located in [src/test/javascript/](src/test/javascript/) and can be run with:
-
-    yarn test
-
-
-
-For more information, refer to the [Running tests page][].
-
-## Using Docker to simplify development (optional)
-
-You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
-
-For example, to start a postgresql database in a docker container, run:
-
-    docker-compose -f src/main/docker/postgresql.yml up -d
-
-To stop it and remove the container, run:
-
-    docker-compose -f src/main/docker/postgresql.yml down
-
-You can also fully dockerize your application and all the services that it depends on.
-To achieve this, first build a docker image of your app by running:
+### Docker
+First build a docker image by running:
 
     ./gradlew bootWar -Pprod buildDocker
 
 Then run:
 
     docker-compose -f src/main/docker/app.yml up -d
+   
+The application will available on [http://localhost:8080](http://localhost:8080)
+    
 
-For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
+### Model
 
-## Continuous Integration (optional)
+#### Organization
 
-To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
+TeamDojo comes prefilled with some demo data.
+Log in with the default admin credentials: _admin/teamdojo_ under 
+[http://localhost:8080/#/admin](http://localhost:8080/#/admin) and change your __organization__ _Entity - Organization_.
+It will be your navigation root node.
 
-[JHipster Homepage and latest documentation]: https://www.jhipster.tech
-[JHipster 5.0.0-beta.0 archive]: https://www.jhipster.tech/documentation-archive/v5.0.0-beta.0
+#### Dimension
 
-[Using JHipster in development]: https://www.jhipster.tech/documentation-archive/v5.0.0-beta.0/development/
-[Using Docker and Docker-Compose]: https://www.jhipster.tech/documentation-archive/v5.0.0-beta.0/docker-compose
-[Using JHipster in production]: https://www.jhipster.tech/documentation-archive/v5.0.0-beta.0/production/
-[Running tests page]: https://www.jhipster.tech/documentation-archive/v5.0.0-beta.0/running-tests/
-[Setting up Continuous Integration]: https://www.jhipster.tech/documentation-archive/v5.0.0-beta.0/setting-up-ci/
+Next you would like to create some __Dimensions__ your teams want to reaches skills for: _Entity - Dimensions_. 
+Examples could be _Quality Assurance_, _Security_, _Operations_, _Architecture_, ...
+
+#### Team
+
+Teams are the users of TeamDojo. Here you can create them.
+
+_Entity - Team_
+
+- __Name__ - The full Team Name.
+- __Short Name__ - A acronym of the Team Name. It will be part of the REST URL.
+- __Picture__ - The Team Logo
+- Team __Slogan__
+- Team __Contact Person__
+- __Participations__ - Every team can participate on one or more Dimensions. 
 
 
-[Node.js]: https://nodejs.org/
-[Yarn]: https://yarnpkg.org/
-[Webpack]: https://webpack.github.io/
-[Angular CLI]: https://cli.angular.io/
-[BrowserSync]: http://www.browsersync.io/
-[Karma]: http://karma-runner.github.io/
-[Jasmine]: http://jasmine.github.io/2.0/introduction.html
-[Protractor]: https://angular.github.io/protractor/
-[Leaflet]: http://leafletjs.com/
-[DefinitelyTyped]: http://definitelytyped.org/
-[Swagger-Codegen]: https://github.com/swagger-api/swagger-codegen
-[Swagger-Editor]: http://editor.swagger.io
-[Doing API-First development]: https://www.jhipster.tech/documentation-archive/v5.0.0-beta.0/doing-api-first-development/
+#### Level
+
+Now you can specify maturity or ability __Level__ for these dimensions.
+Each Level should contains _n_ Skills - see next step.
+
+A Level consists of the following settings:
+
+_Entity - Level_
+- Name - The level name. Judo belt ranks for example: yellow, orange, green, ...
+- [OPTIONAL] __Description__ of the level.
+- A __Picture__ to be shown. You can find some examples in [examples/images/level](examples/images/level). 
+You can create your own icons, but for the best user experience get some help from some skilled UI/UX people.
+- __Required Score__ - A decimal value from 0 to 1. You can define how much percent of reached skills are necessary to get this level.
+Default can be 1.0
+- __Skill Score Multiplier__ - A decimal value. Here you can specify how much bonus points the team can reach with every skill 
+of this level. Default can be 0.0. See [Scoring System](#scoring-system-and-balancing) for more details.
+- [OPTIONAL] __Level Completion Bonus__ - A numeric value. How much bonus points the team can reach with the 
+completion of this level. See [Scoring System](#scoring-system-and-balancing) for more details.
+- __Dimension__ - Every Level must be assigned to one Dimension.
+- [OPTIONAL] A level can __depends on__ a previous level. E.g.: To reach Level 2, all skills of Level 2 and Level 1 must be completed.
+
+#### Badge
+
+While Level are the core of the maturity model, __Badges__ can be used to push some specific skills or to reward good teams.
+
+_Entities - Badges_
+- Name - The badge name. Technology specific or cool names for skill subsets. E.g.: AWS Badge, Docker Master, Always-up-to-date Badge, Password Ninja, ...
+- [OPTIONAL] __Description__ of the badge.
+- A __Picture__ to be shown. You can find some examples in [examples/images/badge](examples/images/badge). 
+You can create your own icons, but for the best user experience get some help from some skilled UI/UX people.
+- [NOT IMPLEMENTED] Available Until - not implemented yet.
+- [NOT IMPLEMENTED] Available Amount - not implemented yet.
+- __Required Score__ - A decimal value from 0 to 1. You can define how much percent of reached skills are necessary to get this badge.
+Default can be 1.0.
+- __Skill Score Multiplier__ - A decimal value. Here you can specify how much bonus points the team can reach with every skill 
+of this badge. Default can be 0.0. See [Scoring System](#scoring-system-and-balancing) for more details.
+- [OPTIONAL] __Badge Completion Bonus__ - A numeric value. How much bonus points the team can reach with the 
+completion of this badge. See [Scoring System](#scoring-system-and-balancing) for more details.
+- __Dimensions__ - Every Badge can be assigned to one ore more Dimensions.
+
+#### Skill
+
+The core element of this framework. Teams can become competent in __skills__.
+
+_Entities - Skill_
+- __Skill Title__ - Short and significant.
+- __Description__ is Part of the the skill details. Why is this skill useful? Why should a team become competent in this skill?
+- __Implementation__ - How can the team reach this skill? Hard facts to configure/implement/learn something.
+- __Validation__ - How can the team tell they have reached this skill? Hard criteria.
+- [OPTIONAL] __Expiry Priod__ - For future development. A skill expires after a period of time.
+- [OPTIONAL] __Contact__ - A person with special know how to this skill.
+- __Score__ - With every reached skill, a team gains scores. A default value could be 1 for every skill.
+- [DO NOT TOUCH] __Rate Score__ - Users can vote for a skill (1-5 stars). This value should not be set in the admin view.             
+- [DO NOT TOUCH] __Rate Count__ - Users can vote for a skill (1-5 stars). This value should not be set in the admin view.
+
+#### Assign Skills to Level and Badges
+
+Every Skill should be assigned to at least one Level or Badge:
+- _Entities - Level Skills_
+- _Entities - Badge Skills_
+
+Here you can specify which skills are necessary to reach a specific Level or badge.   
+
+### Scoring System and Balancing
+
+If a team completes a skill, it scores will be added to the team scores.
+With the Skill __Score__ property you can value it costs / complexity / importance.
+
+To honor the skill completion of specific level or badges, you can adjust the __Level/Badge Score Multiplier__.
+Every completed Skill will add it skill scores multiplied with the Score Multiplier.
+E.g.:
+    
+    Skill: TLS everywhere; Score: 10
+    Badge: Encryption Master; Score Multiplier: 2
+    
+    #Completion of TLS everywhere will resulting in:
+       10 (Skill Score) 
+    +  20 (Skill Score x Score Multiplier)
+    => 30 Points   
+     
+You can also reward the completion of level and badges. Therefor you can add bonus points with __Level/Badge Completion Bonus__.
+If the required percentage (__Required Score__) of skills for the Badge or Level is reached, the Completion Bonus will be added to the Team scores. E.g.:
+
+    Skill: TLS everywhere; Score: 10
+    Skill: Update your Systems; Score: 30
+    Level: Green; Required Score: 1.0; Level Completion Bonus: 100
+    
+    #Completion of all skills will resulting in:
+        10 (Skill Score) 
+    +   30 (Skill Score) 
+    +  100 (Completion Bonus)
+    => 140 Points
+
+ You can combine them of course:
+ 
+    Skill: TLS everywhere; Score: 10
+    Skill: Update your Systems; Score: 30
+    Level: Green; Required Score: 1.0; Score Multiplier: 1; Level Completion Bonus: 100
+    Badge: Encryption Master; Score Multiplier: 2 
+    
+    
+    #Completion of all skills will resulting in:
+        10 (Skill Score) 
+    +   10 (Skill Score x Level Multiplier)
+    +   20 (Skill Score x Badge Multiplier) 
+    +   30 (Skill Score) 
+    +   30 (Skill Score x Level Multiplier) 
+    +  100 (Level Completion Bonus)
+    => 200 Points 
+
+## Security
+
+For the reasons of maximum transparency and accessibility there exists no user / role concept.
+Everyone can see and change everything. An exception is the technical Admin. 
+It is needed to hide the internal complexity and configure rarely changeable data like teams, levels, skills, ...
+
+We believe that this tool helps software development teams to get better in their software quality.
+Any additional complexity level - processes, login, role models - will result in a decreasing motivation to use 
+yet another tool during your daily business.
+
+The easiest way to hide your internal data are IP whitelists on network level. 
+Host this tool in your internal network and let everyone use and see it.
+
+If you really want any kind of authentication/authorization process, build it, push it back into this repository but make it optional.
+
+### Default secrets / credentials
+
+The default admin credentials are: __admin/teamdojo__.
+Configured in [src/main/resources/config/liquibase/users.csv](src/main/resources/config/liquibase/users.csv).
+
+There exists a secret for the "Remember me" Cookie. Configured in [src/main/resources/config/application-prod.yml](src/main/resources/config/application-prod.yml).
+
+Change the password and secret in your productive environment.    
+ 
+
+## Development
+
+[Here](DEVELOPMENT.md) you can find the dev documentation. 

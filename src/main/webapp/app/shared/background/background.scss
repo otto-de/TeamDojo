@@ -1,3 +1,5 @@
+@import '~bootstrap/scss/bootstrap';
+
 .background-image {
     background-size: cover;
     display: block;
@@ -23,6 +25,6 @@
     }
 
     /deep/ .teams-status-achievements {
-        display: none !important;
+        visibility: hidden;
     }
 }

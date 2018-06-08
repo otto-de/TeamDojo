@@ -12,8 +12,11 @@
         @include accordion();
         height: inherit;
         padding-right: 10px;
+        /deep/ .simplebar-track {
+            bottom: 1em!important;
+        }
         /deep/ .simplebar-scroll-content {
-            padding-right: 1.369em !important;
+            padding-right: 1.93em !important;
             .simplebar-content {
                 margin-right: -0.69em !important;
             }

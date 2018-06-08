@@ -33,6 +33,8 @@ public class TeamCriteria implements Serializable {
 
     private LongFilter skillsId;
 
+    private LongFilter imageId;
+
     public TeamCriteria() {
     }
 
@@ -92,16 +94,25 @@ public class TeamCriteria implements Serializable {
         this.skillsId = skillsId;
     }
 
+    public LongFilter getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(LongFilter imageId) {
+        this.imageId = imageId;
+    }
+
     @Override
     public String toString() {
         return "TeamCriteria{" +
-            (id != null ? "id=" + id + ", " : "") +
-            (name != null ? "name=" + name + ", " : "") +
-            (shortName != null ? "shortName=" + shortName + ", " : "") +
-            (slogan != null ? "slogan=" + slogan + ", " : "") +
-            (contactPerson != null ? "contactPerson=" + contactPerson + ", " : "") +
-            (participationsId != null ? "participationsId=" + participationsId + ", " : "") +
-            (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
+                (id != null ? "id=" + id + ", " : "") +
+                (name != null ? "name=" + name + ", " : "") +
+                (shortName != null ? "shortName=" + shortName + ", " : "") +
+                (slogan != null ? "slogan=" + slogan + ", " : "") +
+                (contactPerson != null ? "contactPerson=" + contactPerson + ", " : "") +
+                (participationsId != null ? "participationsId=" + participationsId + ", " : "") +
+                (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
+                (imageId != null ? "imageId=" + imageId + ", " : "") +
             "}";
     }
 
