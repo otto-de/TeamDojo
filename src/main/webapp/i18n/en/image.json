@@ -1,0 +1,25 @@
+
+{
+    "teamdojoApp": {
+        "image" : {
+            "home": {
+                "title": "Images",
+                "createLabel": "Create a new Image",
+                "createOrEditLabel": "Create or edit a Image"
+            },
+            "created": "A new Image is created with identifier {{ param }}",
+            "updated": "A Image is updated with identifier {{ param }}",
+            "deleted": "A Image is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Image {{ id }}?"
+            },
+            "detail": {
+                "title": "Image"
+            },
+            "name": "Name",
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+        }
+    }
+}

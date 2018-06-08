@@ -5,12 +5,12 @@ export interface ITeam {
     id?: number;
     name?: string;
     shortName?: string;
-    pictureContentType?: string;
-    picture?: any;
     slogan?: string;
     contactPerson?: string;
     participations?: IDimension[];
     skills?: ITeamSkill[];
+    imageName?: string;
+    imageId?: number;
 }
 
 export class Team implements ITeam {
@@ -18,11 +18,11 @@ export class Team implements ITeam {
         public id?: number,
         public name?: string,
         public shortName?: string,
-        public pictureContentType?: string,
-        public picture?: any,
         public slogan?: string,
         public contactPerson?: string,
         public participations?: IDimension[],
-        public skills?: ITeamSkill[]
+        public skills?: ITeamSkill[],
+        public imageName?: string,
+        public imageId?: number
     ) {}
 }

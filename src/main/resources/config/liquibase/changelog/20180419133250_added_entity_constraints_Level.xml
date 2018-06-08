@@ -20,5 +20,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="level"/>
 
+        <addForeignKeyConstraint baseColumnNames="image_id"
+                                 baseTableName="level"
+                                 constraintName="fk_level_image_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="image"/>
+
     </changeSet>
 </databaseChangeLog>

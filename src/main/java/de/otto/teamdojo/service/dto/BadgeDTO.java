@@ -1,12 +1,11 @@
 package de.otto.teamdojo.service.dto;
 
-import javax.persistence.Lob;
+import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
 
 /**
  * A DTO for the Badge entity.
@@ -20,10 +19,6 @@ public class BadgeDTO implements Serializable {
     private String name;
 
     private String description;
-
-    @Lob
-    private byte[] picture;
-    private String pictureContentType;
 
     private Instant availableUntil;
 
@@ -43,6 +38,10 @@ public class BadgeDTO implements Serializable {
     private Integer completionBonus;
 
     private Set<DimensionDTO> dimensions = new HashSet<>();
+
+    private Long imageId;
+
+    private String imageName;
 
     public Long getId() {
         return id;
@@ -66,22 +65,6 @@ public class BadgeDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public byte[] getPicture() {
-        return picture;
-    }
-
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
-    }
-
-    public String getPictureContentType() {
-        return pictureContentType;
-    }
-
-    public void setPictureContentType(String pictureContentType) {
-        this.pictureContentType = pictureContentType;
     }
 
     public Instant getAvailableUntil() {
@@ -132,6 +115,22 @@ public class BadgeDTO implements Serializable {
         this.dimensions = dimensions;
     }
 
+    public Long getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -159,12 +158,13 @@ public class BadgeDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
-            ", picture='" + getPicture() + "'" +
             ", availableUntil='" + getAvailableUntil() + "'" +
             ", availableAmount=" + getAvailableAmount() +
             ", requiredScore=" + getRequiredScore() +
             ", instantMultiplier=" + getInstantMultiplier() +
             ", completionBonus=" + getCompletionBonus() +
+            ", image=" + getImageId() +
+            ", image='" + getImageName() + "'" +
             "}";
     }
 }

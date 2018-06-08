@@ -25,9 +25,9 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal"
+                    jhiTranslate="teamdojoApp.skill.detail.modalClose" (click)="c('close')"></button>
+            <button type="button" class="btn btn-default" data-dismiss="modal"
                     jhiTranslate="teamdojoApp.skill.detail.modalSubmit" id="submitVote" [disabled]="!comment"
                     (click)="voteSkill()"></button>
-            <button type="button" class="btn btn-default" data-dismiss="modal"
-                    jhiTranslate="teamdojoApp.skill.detail.modalClose" (click)="c('close')"></button>
         </div>
 </ng-template>

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TeamsSelectionService } from '../../teams/teams-selection/teams-selection.service';
+import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
 import { ITeam } from '../model/team.model';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import { ISkill } from 'app/shared/model/skill.model';
