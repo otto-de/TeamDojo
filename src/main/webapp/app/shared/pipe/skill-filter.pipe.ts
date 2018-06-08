@@ -4,10 +4,10 @@ import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
 
 @Pipe({ name: 'skillFilter' })
 export class SkillFilterPipe implements PipeTransform {
-    transform(skills: any[], searchString: string): ILevelSkill[] | IBadgeSkill[] {
+    transform(skills, searchString: string) {
         return searchString
-            ? skills.filter(skill => {
-                  return skill.skillTitle && skill.skillTitle.toLowerCase().includes(searchString.toLowerCase());
+            ? (skills || []).filter(skill => {
+                  return (skill.title || skill.skillTitle || '').toLowerCase().includes(searchString.toLowerCase());
               })
             : skills;
     }
