@@ -3,10 +3,6 @@
         <h4 jhiTranslate="teamdojoApp.overview.teams.title"></h4>
     </div>
     <div class="additional-functions d-flex align-items-center">
-        <form style="width: 100%;">
-            <input type="text" id="teams_search-term" placeholder="Suche" class="skill-search-input"
-                   [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate" disabled>
-        </form>
     </div>
     <div class="team-list" data-simplebar="init">
         <div class="team-list-header d-flex justify-content-between mb-3">
@@ -29,13 +25,13 @@
             </div>
         </div>
         <div class="team-list-body">
-            <div class="team-list-body-item d-flex align-items-center justify-content-between"
+            <div class="team-list-body-item d-flex align-items-center justify-content-between mb-1"
                 *ngFor="let teamScore of teamScores index as i"
                 [ngClass]="{irrelevant: showAsIrrelevant(teamScore.team), complete: showAsComplete(teamScore.team), incomplete: showAsIncomplete(teamScore.team)}">
                 <div class="team-info d-flex align-items-center">
                     <div class="team-rank">{{i+1}}</div>
                         <div class="mr-2">
-                            <jhi-team-image [team]="teamScore.team"></jhi-team-image>
+                            <jhi-team-image [team]="teamScore.team" imageSize="small"></jhi-team-image>
                         </div>
                     <div class="team-name">
                         <a href="#" [routerLink]="['/teams', teamScore.team.shortName]">{{teamScore.team.name}}</a>

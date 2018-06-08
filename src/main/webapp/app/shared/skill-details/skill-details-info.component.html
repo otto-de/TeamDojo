@@ -1,28 +1,33 @@
 <h4 class="skill-title">{{skill.title}}</h4>
 
 <div class="skill-actions" *ngIf="isSameTeamSelected()">
-    <button class="irrelevant action-btn" *ngIf="!achievableSkill.irrelevant" (click)="onToggleIrrelevance(true)">
-        <i class="fa fa-thumbs-o-down"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.irrelevant"></span>
-    </button>
-
-    <button class="irrelevant action-btn" *ngIf="achievableSkill.irrelevant" (click)="onToggleIrrelevance(false)">
+    <button class="irrelevant action-btn" *ngIf="achievableSkill.irrelevant; else skillNotIrrelevant"
+            (click)="onToggleIrrelevance(false)">
         <i class="fa fa-thumbs-o-up"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.relevant"></span>
     </button>
 
-    <span *ngIf="!achievableSkill.irrelevant">
-        <button *ngIf="!skillAchieved()" class="activation action-btn" (click)="onToggleSkill(true)">
-            <i class="fa fa-check"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.complete"></span>
+    <ng-template #skillNotIrrelevant>
+        <button class="irrelevant action-btn" (click)="onToggleIrrelevance(true)">
+            <i class="fa fa-thumbs-o-down"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.irrelevant"></span>
         </button>
 
-        <button *ngIf="skillAchieved()" class="activation action-btn" (click)="onToggleSkill(false)">
-            <i class="fa fa-circle-o"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.incomplete"></span>
-        </button>
-    </span>
+        <span>
+            <button *ngIf="isSkillAchieved; else skillNotAchieved" class="activation action-btn" (click)="onToggleSkill(false)">
+                <i class="fa fa-circle-o"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.incomplete"></span>
+            </button>
+
+            <ng-template #skillNotAchieved>
+                <button class="activation action-btn" (click)="onToggleSkill(true)">
+                    <i class="fa fa-check"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.complete"></span>
+                </button>
+            </ng-template>
+        </span>
+    </ng-template>
 </div>
 
 <div>
     <div class="skill-rating">
-        <jhi-star-rating (onVoteSubmitted)="onVoteSubmittedFromChild($event)" [skill]="skill"></jhi-star-rating>
+        <jhi-star-rating (onCommentSubmitted)="onCommentSubmittedFromChild($event)" (onVoteSubmitted)="onVoteSubmittedFromChild($event)" [skill]="skill"></jhi-star-rating>
     </div>
 
     <div class="skill-contact" *ngIf="skill.contact">
@@ -65,7 +70,7 @@
         <h5 jhiTranslate="teamdojoApp.teams.skills.details.achievedBy"></h5>
         <div class="achieved-by-teams">
             <jhi-team-image *ngFor="let t of achievedByTeams" class="avatar-team" [team]="t" size="8vh"
-                            placement="top" [ngbTooltip]="t.name"></jhi-team-image>
+                            imageSize="medium" placement="top" [ngbTooltip]="t.name"></jhi-team-image>
             <p *ngIf="achievedByTeams.length === 0"
                jhiTranslate="teamdojoApp.teams.skills.details.achievedByNone"></p>
             <div class="clearfix"></div>

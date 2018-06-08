@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { IBadge } from 'app/shared/model/badge.model';
 import { Principal } from 'app/core';
@@ -28,7 +28,6 @@ export class BadgeComponent implements OnInit, OnDestroy {
     constructor(
         private badgeService: BadgeService,
         private jhiAlertService: JhiAlertService,
-        private dataUtils: JhiDataUtils,
         private eventManager: JhiEventManager,
         private parseLinks: JhiParseLinks,
         private principal: Principal
@@ -81,14 +80,6 @@ export class BadgeComponent implements OnInit, OnDestroy {
 
     trackId(index: number, item: IBadge) {
         return item.id;
-    }
-
-    byteSize(field) {
-        return this.dataUtils.byteSize(field);
-    }
-
-    openFile(contentType, field) {
-        return this.dataUtils.openFile(contentType, field);
     }
 
     registerChangeInBadges() {

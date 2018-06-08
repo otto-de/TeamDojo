@@ -1,16 +1,11 @@
 @import '~bootstrap/scss/bootstrap';
-@import '../../../../content/scss/bootstrap-variables';
-@import '../../../../content/scss/colors';
-@import "../../../../content/scss/mixins";
+@import '../../../content/scss/bootstrap-variables';
+@import '../../../content/scss/colors';
+@import '../../../content/scss/mixins';
 
 .skill-comments {
     h4 {
         color: $dojo-text-primary;
-    }
-
-    .additional-functions {
-        height: 74px;
-        width: 100%;
     }
 
     .dojo-card {
@@ -99,7 +94,7 @@
         }
 
         /deep/ .simplebar-scroll-content {
-            padding-right: 1.4em !important;
+            padding-right: 2.1em !important;
             .simplebar-content {
                 margin-right: -0.7em !important;
             }

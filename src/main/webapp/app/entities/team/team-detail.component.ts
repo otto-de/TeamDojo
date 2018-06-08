@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { JhiDataUtils } from 'ng-jhipster';
 
 import { ITeam } from 'app/shared/model/team.model';
 
@@ -11,7 +10,7 @@ import { ITeam } from 'app/shared/model/team.model';
 export class TeamDetailComponent implements OnInit {
     team: ITeam;
 
-    constructor(private dataUtils: JhiDataUtils, private route: ActivatedRoute) {}
+    constructor(private route: ActivatedRoute) {}
 
     ngOnInit() {
         this.route.data.subscribe(({ team }) => {
@@ -19,13 +18,6 @@ export class TeamDetailComponent implements OnInit {
         });
     }
 
-    byteSize(field) {
-        return this.dataUtils.byteSize(field);
-    }
-
-    openFile(contentType, field) {
-        return this.dataUtils.openFile(contentType, field);
-    }
     previousState() {
         window.history.back();
     }

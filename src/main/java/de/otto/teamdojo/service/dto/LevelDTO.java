@@ -1,6 +1,5 @@
 package de.otto.teamdojo.service.dto;
 
-import javax.persistence.Lob;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -17,10 +16,6 @@ public class LevelDTO implements Serializable {
     private String name;
 
     private String description;
-
-    @Lob
-    private byte[] picture;
-    private String pictureContentType;
 
     @NotNull
     @DecimalMin(value = "0")
@@ -41,6 +36,10 @@ public class LevelDTO implements Serializable {
     private Long dependsOnId;
 
     private String dependsOnName;
+
+    private Long imageId;
+
+    private String imageName;
 
     public Long getId() {
         return id;
@@ -64,22 +63,6 @@ public class LevelDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public byte[] getPicture() {
-        return picture;
-    }
-
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
-    }
-
-    public String getPictureContentType() {
-        return pictureContentType;
-    }
-
-    public void setPictureContentType(String pictureContentType) {
-        this.pictureContentType = pictureContentType;
     }
 
     public Double getRequiredScore() {
@@ -138,6 +121,22 @@ public class LevelDTO implements Serializable {
         this.dependsOnName = levelName;
     }
 
+    public Long getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -165,7 +164,6 @@ public class LevelDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
-            ", picture='" + getPicture() + "'" +
             ", requiredScore=" + getRequiredScore() +
             ", instantMultiplier=" + getInstantMultiplier() +
             ", completionBonus=" + getCompletionBonus() +
@@ -173,6 +171,8 @@ public class LevelDTO implements Serializable {
             ", dimension='" + getDimensionName() + "'" +
             ", dependsOn=" + getDependsOnId() +
             ", dependsOn='" + getDependsOnName() + "'" +
+            ", image=" + getImageId() +
+            ", image='" + getImageName() + "'" +
             "}";
     }
 }
