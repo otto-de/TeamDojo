@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ILevel } from 'app/shared/model/level.model';
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 import { SkillDetailsComponentParent } from 'app/shared/skill-details/skill-details.component';
+import { ISkillRate } from 'app/shared/model/skill-rate.model';
 
 @Component({
     selector: 'jhi-overview-skill-details',
@@ -21,5 +22,14 @@ export class OverviewSkillDetailsComponent extends SkillDetailsComponentParent i
             this.levels = (levels && levels.body ? levels.body : levels) || [];
             super.setResolvedData({ teams, skill, comments, selectedTeam, badges, skills });
         });
+    }
+
+    onVoteSubmitted(skillRate: ISkillRate) {
+        for (const skill of this.skills) {
+            if (skillRate.skillId === skill.id) {
+                skill.rateScore = skillRate.rateScore;
+                skill.rateCount = skillRate.rateCount;
+            }
+        }
     }
 }

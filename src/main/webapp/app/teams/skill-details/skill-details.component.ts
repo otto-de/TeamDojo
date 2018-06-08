@@ -40,13 +40,5 @@ export class SkillDetailsComponent extends SkillDetailsComponentParent implement
 
     onVoteSubmitted(voteObjs) {
         this.onCommentSubmitted(voteObjs.comment);
-        const skillRate = voteObjs.skillRate;
-
-        for (const skill of this.skills) {
-            if (skillRate.skillId === skill.id) {
-                skill.rateScore = skillRate.rateScore;
-                skill.rateCount = skillRate.rateCount;
-            }
-        }
     }
 }
