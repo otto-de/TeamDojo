@@ -12,6 +12,8 @@ import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
 import { DimensionService } from 'app/entities/dimension';
 import { Progress } from 'app/shared/achievement/model/progress.model';
 import 'simplebar';
+import { Subject } from 'rxjs/Subject';
+
 @Component({
     selector: 'jhi-overview-skills',
     templateUrl: './overview-skills.component.html',
@@ -31,6 +33,8 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     activeBadge: IBadge;
     dimensionsBySkillId: any;
     generalSkillsIds: number[];
+    search$: Subject<string>;
+    search: string;
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -64,6 +68,15 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
             });
             this.loadAll();
         });
+        this.search = '';
+        this.search$ = new Subject<string>();
+        this.search$
+            .debounceTime(400)
+            .distinctUntilChanged()
+            .subscribe(value => {
+                this.search = value;
+                return value;
+            });
     }
 
     loadAll() {
