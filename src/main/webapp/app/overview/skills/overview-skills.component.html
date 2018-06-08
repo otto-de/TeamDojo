@@ -2,19 +2,17 @@
     <div>
         <h4>{{'teamdojoApp.overview.skills.title' | translate}}</h4>
     </div>
-    <div class="additional-functions d-flex align-items-center">
+    <div class="additional-functions  d-flex align-items-center">
         <input type="text" [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate"
-               id="skills_search-term" class="skill-search-input" disabled/>
+               class="skill-search-input"  [value]="search" (keyup)="search$.next($event.target.value)" />
     </div>
     <div class="teams-skills-list list-group"  data-simplebar="init">
         <li class="list-group-item list-group-item-action flex-column align-items-start mb-2 skill-container"
             [ngClass]="{'active-skill':isActiveSkill(skill)}"
-            *ngFor="let skill of activeSkills">
-            <div class="d-flex justify-content-between"
-                 >
-                <a class="#" class="text-dark mb-1 skill-title" [routerLink]="['/overview', 'skills', skill.skillId]"
-                   [queryParams]="{level: activeLevel?.id, badge: activeBadge?.id}">{{
-                    skill.skillTitle }}</a>
+            *ngFor="let skill of activeSkills | skillFilter:search"
+            [routerLink]="['/overview', 'skills', skill.skillId]" [queryParams]="{level: activeLevel?.id, badge: activeBadge?.id}">
+            <div class="d-flex justify-content-between">
+                <a class="#" class="text-dark mb-1 skill-title" >{{ skill.skillTitle }}</a>
                 <div class="d-flex align-items-end ml-auto count-teams">
                     <span class="mb-auto">{{getRelevantTeams(skill)}}</span>
                 </div>
@@ -30,5 +28,4 @@
             </ng-template>
         </li>
     </div>
-</div>
 </div>

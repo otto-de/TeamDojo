@@ -1,11 +1,11 @@
 <div class="skill-comments">
     <h4 jhiTranslate="teamdojoApp.teams.skills.comments.title"></h4>
-    <div class="additional-functions"></div>
+    <div class="additional-functions" [ngClass]="{'same-team': isSameTeam}"></div>
     <div class="dojo-card d-flex flex-column">
         <div class="comments" data-simplebar="init">
             <div *ngFor="let comment of comments" class="message d-flex align-items-end"
                  [ngClass]="isActiveTeam(comment) ? 'message-sent' : 'message-received'">
-                <jhi-team-image [team]="comment.author"></jhi-team-image>
+                <jhi-team-image [team]="comment.author" imageSize="small"></jhi-team-image>
                 <div class="speech-bubble d-flex">{{comment.text}}</div>
             </div>
         </div>

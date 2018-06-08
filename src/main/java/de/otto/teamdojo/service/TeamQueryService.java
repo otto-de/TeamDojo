@@ -1,14 +1,7 @@
 package de.otto.teamdojo.service;
 
-import de.otto.teamdojo.domain.Dimension_;
-import de.otto.teamdojo.domain.Team;
-import de.otto.teamdojo.domain.TeamSkill_;
-import de.otto.teamdojo.domain.Team_;
-import de.otto.teamdojo.repository.TeamRepository;
-import de.otto.teamdojo.service.dto.TeamCriteria;
-import de.otto.teamdojo.service.dto.TeamDTO;
-import de.otto.teamdojo.service.mapper.TeamMapper;
-import io.github.jhipster.service.QueryService;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -17,7 +10,15 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import io.github.jhipster.service.QueryService;
+
+import de.otto.teamdojo.domain.Team;
+import de.otto.teamdojo.domain.*; // for static metamodels
+import de.otto.teamdojo.repository.TeamRepository;
+import de.otto.teamdojo.service.dto.TeamCriteria;
+
+import de.otto.teamdojo.service.dto.TeamDTO;
+import de.otto.teamdojo.service.mapper.TeamMapper;
 
 /**
  * Service for executing complex queries for Team entities in the database.
@@ -57,7 +58,7 @@ public class TeamQueryService extends QueryService<Team> {
      * Return a {@link Page} of {@link TeamDTO} which matches the criteria from the database
      *
      * @param criteria The object which holds all the filters, which the entities should match.
-     * @param page     The page, which should be returned.
+     * @param page The page, which should be returned.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
@@ -94,6 +95,9 @@ public class TeamQueryService extends QueryService<Team> {
             }
             if (criteria.getSkillsId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getSkillsId(), Team_.skills, TeamSkill_.id));
+            }
+            if (criteria.getImageId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getImageId(), Team_.image, Image_.id));
             }
         }
         return specification;

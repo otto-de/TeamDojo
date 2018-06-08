@@ -29,13 +29,6 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="picture" type="longblob">
-                <constraints nullable="true" />
-            </column>
-            <column name="picture_content_type" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
             <column name="available_until" type="timestamp">
                 <constraints nullable="true" />
             </column>
@@ -56,10 +49,14 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="image_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="badge" columnName="available_until" columnDataType="datetime"/>
-
+        
         <createTable tableName="badge_dimensions">
             <column name="dimensions_id" type="bigint">
                 <constraints nullable="false"/>
@@ -70,7 +67,7 @@
         </createTable>
 
         <addPrimaryKey columnNames="badges_id, dimensions_id" tableName="badge_dimensions"/>
-
+        
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

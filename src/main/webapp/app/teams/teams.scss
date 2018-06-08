@@ -1,6 +1,6 @@
 @import '~bootstrap/scss/bootstrap';
 
-@media only screen and (min-width: map-get($grid-breakpoints, md)){
+@media only screen and (min-width: map-get($grid-breakpoints, lg)){
     .teams {
         height: calc(100vh - 151px);
         overflow: hidden;

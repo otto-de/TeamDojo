@@ -8,7 +8,7 @@ import { HttpResponse } from '@angular/common/http';
 import { ITeam } from 'app/shared/model/team.model';
 import * as moment from 'moment';
 import { CommentService } from 'app/entities/comment';
-import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
 
 @Component({
     selector: 'jhi-star-rating',
@@ -17,7 +17,8 @@ import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection
 })
 export class SkillDetailsRatingComponent implements OnInit {
     @Input() skill: ISkill;
-    @Output() onVoteSubmitted = new EventEmitter<{ skillRate: ISkillRate; comment: IComment }>();
+    @Output() onVoteSubmitted = new EventEmitter<ISkillRate>();
+    @Output() onCommentSubmitted = new EventEmitter<IComment>();
 
     rateScore;
     rateCount;
@@ -54,10 +55,11 @@ export class SkillDetailsRatingComponent implements OnInit {
                 this.skill = res.body;
                 this.rateScore = this.skill.rateScore;
                 this.rateCount = this.skill.rateCount;
+                this.onVoteSubmitted.emit({ skillId: this.skill.id, rateCount: this.rateCount, rateScore: this.rateScore });
             }
         });
 
-        this.newComment.text = '[RATING] - ' + this.comment;
+        this.newComment.text = this.rateScore + ' ★ - ' + this.comment;
         this.submitComment();
         this.comment = '';
         this.modalRef.close();
@@ -73,7 +75,7 @@ export class SkillDetailsRatingComponent implements OnInit {
         this.commentService.create(this.newComment).subscribe((res: HttpResponse<IComment>) => {
             if (res.body) {
                 this.newComment = new Comment();
-                this.onVoteSubmitted.emit({ skillRate: { rateCount: this.rateCount, rateScore: this.rateScore }, comment: res.body });
+                this.onCommentSubmitted.emit(res.body);
             }
         });
     }

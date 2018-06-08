@@ -19,5 +19,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="dimension"/>
         
+        <addForeignKeyConstraint baseColumnNames="image_id"
+                                 baseTableName="badge"
+                                 constraintName="fk_badge_image_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="image"/>
+
     </changeSet>
 </databaseChangeLog>
