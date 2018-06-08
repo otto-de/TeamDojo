@@ -46,7 +46,7 @@ spring:
             hibernate.generate_statistics: true
             hibernate.cache.region.factory_class: io.github.jhipster.config.jcache.NoDefaultJCacheRegionFactory
     liquibase:
-        contexts: dev
+        contexts: dev,demo
     mail:
         host: localhost
         port: 25
