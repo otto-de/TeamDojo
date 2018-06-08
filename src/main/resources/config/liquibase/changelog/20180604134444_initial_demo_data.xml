@@ -331,7 +331,6 @@
             <column name="id" valueNumeric="4550"/>
             <column name="name" value="Always up to date"/>
             <column name="description" value="Your dependencies and software is always up to date."/>
-            <column name="picture_content_type" value="image/png"/>
             <column name="available_until"/>
             <column name="available_amount"/>
             <column name="required_score" valueNumeric="1.0"/>
@@ -342,7 +341,6 @@
             <column name="id" valueNumeric="4600"/>
             <column name="name" value="Password master"/>
             <column name="description" value="You have completed all password-related skills"/>
-            <column name="picture_content_type" value="image/png"/>
             <column name="available_until"/>
             <column name="available_amount"/>
             <column name="required_score" valueNumeric="1.0"/>
@@ -389,8 +387,6 @@
             <column name="id" valueNumeric="2650"/>
             <column name="name" value="Level 1"/>
             <column name="description" value="There is a basic process"/>
-            <column name="picture"/>
-            <column name="picture_content_type"/>
             <column name="required_score" valueNumeric="0.9"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -401,8 +397,6 @@
             <column name="id" valueNumeric="2700"/>
             <column name="name" value="Level 2"/>
             <column name="description" value="There is a defined process"/>
-            <column name="picture"/>
-            <column name="picture_content_type"/>
             <column name="required_score" valueNumeric="0.9"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -413,8 +407,6 @@
             <column name="id" valueNumeric="2750"/>
             <column name="name" value="Level 3"/>
             <column name="description" value="There is a defined process with quantifiable goals"/>
-            <column name="picture"/>
-            <column name="picture_content_type"/>
             <column name="required_score" valueNumeric="0.9"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -425,8 +417,6 @@
             <column name="id" valueNumeric="2800"/>
             <column name="name" value="Level 4"/>
             <column name="description" value="There is a defined process with quantifiable goals which is optimized permanently"/>
-            <column name="picture"/>
-            <column name="picture_content_type"/>
             <column name="required_score" valueNumeric="0.9"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -437,7 +427,6 @@
             <column name="id" valueNumeric="1050"/>
             <column name="name" value="yellow"/>
             <column name="description"/>
-            <column name="picture_content_type" value="image/png"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -448,7 +437,6 @@
             <column name="id" valueNumeric="1600"/>
             <column name="name" value="orange"/>
             <column name="description"/>
-            <column name="picture_content_type" value="image/png"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -459,7 +447,6 @@
             <column name="id" valueNumeric="1750"/>
             <column name="name" value="green"/>
             <column name="description"/>
-            <column name="picture_content_type" value="image/png"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -470,7 +457,6 @@
             <column name="id" valueNumeric="1900"/>
             <column name="name" value="blue"/>
             <column name="description"/>
-            <column name="picture_content_type" value="image/png"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -481,7 +467,6 @@
             <column name="id" valueNumeric="2050"/>
             <column name="name" value="brown"/>
             <column name="description"/>
-            <column name="picture_content_type" value="image/png"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -492,7 +477,6 @@
             <column name="id" valueNumeric="2200"/>
             <column name="name" value="black"/>
             <column name="description"/>
-            <column name="picture_content_type" value="image/png"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -642,7 +626,6 @@
             <column name="id" valueNumeric="2350"/>
             <column name="name" value="Team 1"/>
             <column name="short_name" value="team1"/>
-            <column name="picture_content_type" value="image/jpeg"/>
             <column name="slogan"/>
             <column name="contact_person"/>
         </insert>
@@ -650,7 +633,6 @@
             <column name="id" valueNumeric="2400"/>
             <column name="name" value="Team 2"/>
             <column name="short_name" value="team2"/>
-            <column name="picture_content_type" value="image/png"/>
             <column name="slogan"/>
             <column name="contact_person"/>
         </insert>
@@ -658,7 +640,6 @@
             <column name="id" valueNumeric="2450"/>
             <column name="name" value="Team 3"/>
             <column name="short_name" value="team3"/>
-            <column name="picture_content_type" value="image/jpeg"/>
             <column name="slogan"/>
             <column name="contact_person"/>
         </insert>
@@ -666,7 +647,6 @@
             <column name="id" valueNumeric="2500"/>
             <column name="name" value="Team 4"/>
             <column name="short_name" value="team4"/>
-            <column name="picture_content_type" value="image/jpeg"/>
             <column name="slogan"/>
             <column name="contact_person"/>
         </insert>
@@ -674,7 +654,6 @@
             <column name="id" valueNumeric="2550"/>
             <column name="name" value="Operations"/>
             <column name="short_name" value="ops"/>
-            <column name="picture_content_type" value="image/jpeg"/>
             <column name="slogan"/>
             <column name="contact_person"/>
         </insert>
@@ -1042,121 +1021,5 @@
             <column name="skill_id" valueNumeric="3050"/>
             <column name="team_id" valueNumeric="2550"/>
         </insert>
-    </changeSet>
-    <changeSet author="sberlin" id="1528112686102-10" context="!test">
-        <sql>
-            <comment>Team 1 has yellow and orange level</comment>
-            INSERT INTO team_skill (id, completed_at, verified_at, irrelevant, note, skill_id, team_id)
-            SELECT nextval(&apos;hibernate_sequence&apos;), current_timestamp, current_timestamp, FALSE, NULL, level_skill.skill_id, team.id as team_id
-            FROM level_skill level_skill
-            LEFT JOIN level level ON level_skill.level_id = level.id, team team
-            WHERE (level.name = 'yellow'
-            OR level.name = 'orange')
-            AND team.short_name = 'team1'
-        </sql>
-        <sql>
-            <comment>Team 2 has yellow, orange, green, blue and brown level</comment>
-            INSERT INTO team_skill (id, completed_at, verified_at, irrelevant, note, skill_id, team_id)
-            SELECT nextval(&apos;hibernate_sequence&apos;), current_timestamp, current_timestamp, FALSE, NULL, level_skill.skill_id, team.id as team_id
-            FROM level_skill level_skill
-            LEFT JOIN level level ON level_skill.level_id = level.id, team team
-            WHERE (level.name = 'yellow'
-            OR level.name = 'orange'
-            OR level.name = 'green'
-            OR level.name = 'blue'
-            OR level.name = 'brown')
-            AND team.short_name = 'team2'
-        </sql>
-        <sql>
-            <comment>Team 3 has partly achieved the black level</comment>
-            INSERT INTO team_skill (id, completed_at, verified_at, irrelevant, note, skill_id, team_id)
-            SELECT nextval(&apos;hibernate_sequence&apos;), current_timestamp, current_timestamp, FALSE, NULL, level_skill.skill_id, team.id as team_id
-            FROM level_skill level_skill
-            LEFT JOIN level level ON level_skill.level_id = level.id, team team
-            WHERE level.name = 'black'
-            AND team.short_name = 'team3'
-            LIMIT 2
-        </sql>
-        <sql>
-            <comment>Team 4 has some skills</comment>
-            INSERT INTO team_skill (id, completed_at, verified_at, irrelevant, note, skill_id, team_id)
-            SELECT nextval(&apos;hibernate_sequence&apos;), current_timestamp, current_timestamp, FALSE, NULL, skill.id as skill_id, team.id as team_id
-            FROM skill skill, team team
-            WHERE team.short_name = 'team4'
-            AND skill.id IN (SELECT id FROM skill OFFSET random() * (SELECT count(*) FROM skill) LIMIT 10)
-        </sql>
-        <sql>
-            <comment>Team Ops has some skills</comment>
-            INSERT INTO team_skill (id, completed_at, verified_at, irrelevant, note, skill_id, team_id)
-            SELECT nextval(&apos;hibernate_sequence&apos;), current_timestamp, current_timestamp, FALSE, NULL, skill.id as skill_id, team.id as team_id
-            FROM skill skill, team team
-            WHERE team.short_name = 'ops'
-            AND skill.id IN (SELECT id FROM skill OFFSET random() * (SELECT count(*) FROM skill) LIMIT 10)
-        </sql>
-    </changeSet>
-    <changeSet author="sberlin" id="1528112686102-11" context="!test">
-        <update tableName="team">
-            <column name="picture" valueBlobFile="../blobs/Team-Data.jpg" />
-            <column name="picture_content_type" value="image/jpeg" />
-            <where>short_name = &apos;team1&apos;</where>
-        </update>
-        <update tableName="team">
-            <column name="picture" valueBlobFile="../blobs/Team-Tesla.png" />
-            <column name="picture_content_type" value="image/png" />
-            <where>short_name = &apos;team2&apos;</where>
-        </update>
-        <update tableName="team">
-            <column name="picture" valueBlobFile="../blobs/Team-FT1.jpg" />
-            <column name="picture_content_type" value="image/jpeg" />
-            <where>short_name = &apos;team3&apos;</where>
-        </update>
-        <update tableName="team">
-            <column name="picture" valueBlobFile="../blobs/Team-FT2.jpg" />
-            <column name="picture_content_type" value="image/jpeg" />
-            <where>short_name = &apos;team4&apos;</where>
-        </update>
-        <update tableName="team">
-            <column name="picture" valueBlobFile="../blobs/Team-FT3.jpg" />
-            <column name="picture_content_type" value="image/jpeg" />
-            <where>short_name = &apos;ops&apos;</where>
-        </update>
-    </changeSet>
-    <changeSet author="sberlin" id="1528112686102-12" context="!test">
-        <update tableName="badge">
-            <column name="picture" valueBlobFile="../blobs/Badge-Ninja-Tanto.png" />
-            <column name="picture_content_type" value="image/png" />
-        </update>
-    </changeSet>
-    <changeSet author="sberlin" id="1528112686102-13" context="!test">
-        <update tableName="level">
-            <column name="picture" valueBlobFile="../blobs/Belt-yellow.png" />
-            <column name="picture_content_type" value="image/png" />
-            <where>name = &apos;yellow&apos;</where>
-        </update>
-        <update tableName="level">
-            <column name="picture" valueBlobFile="../blobs/Belt-orange.png" />
-            <column name="picture_content_type" value="image/png" />
-            <where>name = &apos;orange&apos;</where>
-        </update>
-        <update tableName="level">
-            <column name="picture" valueBlobFile="../blobs/Belt-green.png" />
-            <column name="picture_content_type" value="image/png" />
-            <where>name = &apos;green&apos;</where>
-        </update>
-        <update tableName="level">
-            <column name="picture" valueBlobFile="../blobs/Belt-blue.png" />
-            <column name="picture_content_type" value="image/png" />
-            <where>name = &apos;blue&apos;</where>
-        </update>
-        <update tableName="level">
-            <column name="picture" valueBlobFile="../blobs/Belt-brown.png" />
-            <column name="picture_content_type" value="image/png" />
-            <where>name = &apos;brown&apos;</where>
-        </update>
-        <update tableName="level">
-            <column name="picture" valueBlobFile="../blobs/Belt-black.png" />
-            <column name="picture_content_type" value="image/png" />
-            <where>name = &apos;black&apos;</where>
-        </update>
     </changeSet>
 </databaseChangeLog>
