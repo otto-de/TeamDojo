@@ -1,6 +1,6 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-    <changeSet author="generated" id="1528112686102-1" context="!test">
+    <changeSet author="generated" id="1528112686102-1" context="demo">
         <insert tableName="skill">
             <column name="id" valueNumeric="1100"/>
             <column name="title" value="Input Validation"/>
@@ -326,7 +326,7 @@
             <column name="rate_count"/>
         </insert>
     </changeSet>
-    <changeSet author="generated" id="1528112686102-2" context="!test">
+    <changeSet author="generated" id="1528112686102-2" context="demo">
         <insert tableName="badge">
             <column name="id" valueNumeric="4550"/>
             <column name="name" value="Always up to date"/>
@@ -348,7 +348,7 @@
             <column name="completion_bonus" valueNumeric="0"/>
         </insert>
     </changeSet>
-    <changeSet author="generated" id="1528112686102-3" context="!test">
+    <changeSet author="generated" id="1528112686102-3" context="demo">
         <insert tableName="badge_skill">
             <column name="id" valueNumeric="4650"/>
             <column name="badge_id" valueNumeric="4550"/>
@@ -370,7 +370,7 @@
             <column name="skill_id" valueNumeric="1500"/>
         </insert>
     </changeSet>
-    <changeSet author="generated" id="1528112686102-4" context="!test">
+    <changeSet author="generated" id="1528112686102-4" context="demo">
         <insert tableName="dimension">
             <column name="id" valueNumeric="1000"/>
             <column name="name" value="Security"/>
@@ -382,7 +382,7 @@
             <column name="description"/>
         </insert>
     </changeSet>
-    <changeSet author="generated" id="1528112686102-5" context="!test">
+    <changeSet author="generated" id="1528112686102-5" context="demo">
         <insert tableName="level">
             <column name="id" valueNumeric="2650"/>
             <column name="name" value="Level 1"/>
@@ -484,7 +484,7 @@
             <column name="depends_on_id" valueNumeric="2050"/>
         </insert>
     </changeSet>
-    <changeSet author="generated" id="1528112686102-6" context="!test">
+    <changeSet author="generated" id="1528112686102-6" context="demo">
         <insert tableName="level_skill">
             <column name="id" valueNumeric="1150"/>
             <column name="skill_id" valueNumeric="1100"/>
@@ -621,7 +621,7 @@
             <column name="level_id" valueNumeric="2800"/>
         </insert>
     </changeSet>
-    <changeSet author="generated" id="1528112686102-7" context="!test">
+    <changeSet author="generated" id="1528112686102-7" context="demo">
         <insert tableName="team">
             <column name="id" valueNumeric="2350"/>
             <column name="name" value="Team 1"/>
@@ -658,7 +658,7 @@
             <column name="contact_person"/>
         </insert>
     </changeSet>
-    <changeSet author="generated" id="1528112686102-8" context="!test">
+    <changeSet author="generated" id="1528112686102-8" context="demo">
         <insert tableName="team_participations">
             <column name="participations_id" valueNumeric="1000"/>
             <column name="teams_id" valueNumeric="2350"/>
@@ -696,7 +696,7 @@
             <column name="teams_id" valueNumeric="2550"/>
         </insert>
     </changeSet>
-    <changeSet author="generated" id="1528112686102-9" context="!test">
+    <changeSet author="generated" id="1528112686102-9" context="demo">
         <insert tableName="team_skill">
             <column name="id" valueNumeric="4850"/>
             <column name="completed_at" valueDate="2018-06-04 13:44:15.757419"/>
