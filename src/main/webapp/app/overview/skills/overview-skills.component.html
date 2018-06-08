@@ -4,12 +4,12 @@
     </div>
     <div class="additional-functions d-flex align-items-center">
         <input type="text" [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate"
-               id="skills_search-term" class="skill-search-input" minlength="3" (keyup)="search && filterSkills(search)" [(ngModel)]="search" />
+               id="skills_search-term" class="skill-search-input"  [value]="search" (keyup)="search$.next($event.target.value)" />
     </div>
     <div class="teams-skills-list list-group"  data-simplebar="init">
         <li class="list-group-item list-group-item-action flex-column align-items-start mb-2 skill-container"
             [ngClass]="{'active-skill':isActiveSkill(skill)}"
-            *ngFor="let skill of filteredSkills"
+            *ngFor="let skill of activeSkills | skillFilter:search"
             [routerLink]="['/overview', 'skills', skill.skillId]" [queryParams]="{level: activeLevel?.id, badge: activeBadge?.id}">
             <div class="d-flex justify-content-between">
                 <a class="#" class="text-dark mb-1 skill-title" >{{ skill.skillTitle }}</a>

@@ -12,7 +12,7 @@ import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
 import { DimensionService } from 'app/entities/dimension';
 import { Progress } from 'app/shared/achievement/model/progress.model';
 import 'simplebar';
-import { SkillFilterPipe } from 'app/shared/pipe/skill-filter.pipe';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
     selector: 'jhi-overview-skills',
@@ -33,8 +33,8 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     activeBadge: IBadge;
     dimensionsBySkillId: any;
     generalSkillsIds: number[];
+    search$: Subject<string>;
     search: string;
-    filteredSkills: ILevelSkill[] | IBadgeSkill[];
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -42,20 +42,6 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
         private breadcrumbService: BreadcrumbService,
         private dimensionService: DimensionService
     ) {}
-
-    filterSkills(search: string) {
-        this.filteredSkills = this.getActiveSkillsWithoutDetails(
-            new SkillFilterPipe().transform(this.getActiveSkillsWithDetails(), search)
-        );
-    }
-
-    getActiveSkillsWithoutDetails(filteredSkills: ISkill[]): ILevelSkill[] | IBadgeSkill[] {
-        return (filteredSkills || []).map(s => (<any>this.activeSkills || []).find(skill => s.id === skill.skillId)).filter(skill => skill);
-    }
-
-    getActiveSkillsWithDetails(): ISkill[] {
-        return (<any>this.activeSkills || []).map(skill => (this.skills || []).find(s => s.id === skill.skillId)).filter(s => s);
-    }
 
     ngOnInit() {
         this.route.data.subscribe(({ dojoModel: { teams, levels, levelSkills, badges, badgeSkills }, skills }) => {
@@ -70,11 +56,11 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
                 this.activeBadge = null;
                 if (params.get('level')) {
                     this.activeLevel = (this.levels || []).find((level: ILevel) => level.id === Number.parseInt(params.get('level')));
-                    this.activeSkills = this.filteredSkills = this.activeLevel ? this.activeLevel.skills : [];
+                    this.activeSkills = this.activeLevel ? this.activeLevel.skills : [];
                     this.updateBreadcrumb();
                 } else if (params.get('badge')) {
                     this.activeBadge = (this.badges || []).find((badge: IBadge) => badge.id === Number.parseInt(params.get('badge')));
-                    this.activeSkills = this.filteredSkills = this.activeBadge ? this.activeBadge.skills : [];
+                    this.activeSkills = this.activeBadge ? this.activeBadge.skills : [];
                     this.updateBreadcrumb();
                 } else {
                     this.activeSkills = (this.levelSkills || []).concat(this.badgeSkills || []);
@@ -82,6 +68,15 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
             });
             this.loadAll();
         });
+        this.search = '';
+        this.search$ = new Subject<string>();
+        this.search$
+            .debounceTime(400)
+            .distinctUntilChanged()
+            .subscribe(value => {
+                this.search = value;
+                return value;
+            });
     }
 
     loadAll() {
