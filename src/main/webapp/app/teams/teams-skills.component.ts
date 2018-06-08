@@ -19,6 +19,8 @@ import { IBadge } from 'app/shared/model/badge.model';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { DimensionService } from 'app/entities/dimension';
 import 'simplebar';
+import { Subject } from 'rxjs/Subject';
+
 @Component({
     selector: 'jhi-teams-skills',
     templateUrl: './teams-skills.component.html',
@@ -38,6 +40,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     activeLevel: ILevel;
     activeDimension: IDimension;
     activeSkill: ISkill;
+    search$: Subject<string>;
+    search: string;
 
     constructor(
         private teamsSkillsService: TeamsSkillsService,
@@ -65,6 +69,15 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
             this.badgeId = badgeId ? badgeId : null;
             this.loadAll();
         });
+        this.search = '';
+        this.search$ = new Subject<string>();
+        this.search$
+            .debounceTime(400)
+            .distinctUntilChanged()
+            .subscribe(value => {
+                this.search = value;
+                return value;
+            });
     }
 
     ngOnChanges(changes: SimpleChanges) {
