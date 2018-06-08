@@ -4,7 +4,7 @@
     </div>
     <div class="additional-functions d-flex align-items-center">
         <input type="text" [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate"
-               id="skills_search-term" class="skill-search-input"  [value]="search" (keyup)="search$.next($event.target.value)" />
+               class="skill-search-input"  [value]="search" (keyup)="search$.next($event.target.value)" />
     </div>
     <div class="teams-skills-list list-group"  data-simplebar="init">
         <li class="list-group-item list-group-item-action flex-column align-items-start mb-2 skill-container"
