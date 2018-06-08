@@ -8,7 +8,6 @@ import { TeamsSkillsComponent } from 'app/teams/teams-skills.component';
 import { SkillDetailsInfoComponent } from 'app/shared/skill-details/skill-details-info.component';
 import { IComment } from 'app/shared/model/comment.model';
 import { IBadge } from 'app/shared/model/badge.model';
-import { ITeamSkill } from 'app/shared/model/team-skill.model';
 
 export class SkillDetailsComponentParent {
     team: ITeam;
