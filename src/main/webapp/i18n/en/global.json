@@ -19,6 +19,7 @@
                 "report": "Report",
                 "comment": "Comment",
                 "activity": "Activity",
+                "image": "Image",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

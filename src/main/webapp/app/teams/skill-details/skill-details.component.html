@@ -1,4 +1,4 @@
-<jhi-background-component [teamSkills]="teamSkills" [badges]="badges" [skills]="skills"></jhi-background-component>
+<jhi-background-component [teamSkills]="selectedTeam.skills" [badges]="badges" [skills]="skills"></jhi-background-component>
 
 <div class="row back">
     <div class="col-20">
@@ -17,7 +17,7 @@
                                 [team]="team" [achievableSkill]="achievableSkill"></jhi-skill-details-info>
     </div>
     <div class="skill-comments col-20">
-        <jhi-skill-details-comments [achievableSkill]="achievableSkill" [comments]="skillComments" [selectedTeam]="selectedTeam"
+        <jhi-skill-details-comments [skill]="skill" [comments]="skillComments" [selectedTeam]="selectedTeam"
                                     [teams]="teams" (onCommentSubmitted)="onCommentSubmitted($event)">
         </jhi-skill-details-comments>
     </div>

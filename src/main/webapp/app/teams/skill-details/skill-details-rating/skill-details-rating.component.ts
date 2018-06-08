@@ -8,7 +8,7 @@ import { HttpResponse } from '@angular/common/http';
 import { ITeam } from 'app/shared/model/team.model';
 import * as moment from 'moment';
 import { CommentService } from 'app/entities/comment';
-import { TeamsSelectionService } from 'app/teams/teams-selection/teams-selection.service';
+import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
 
 @Component({
     selector: 'jhi-star-rating',
@@ -59,7 +59,7 @@ export class SkillDetailsRatingComponent implements OnInit {
             }
         });
 
-        this.newComment.text = '[RATING] - ' + this.comment;
+        this.newComment.text = this.rateScore + ' ★ - ' + this.comment;
         this.submitComment();
         this.comment = '';
         this.modalRef.close();

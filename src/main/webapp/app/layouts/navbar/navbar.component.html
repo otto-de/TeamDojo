@@ -36,7 +36,7 @@
                     <jhi-notification-menu #notificationMenu></jhi-notification-menu>
                 </ul>
             </li>
-            <li class="nav-item" *ngIf="teamsSelectionService.selectedTeam === null">
+            <li class="nav-item" *ngIf="!selectedTeam">
                 <a class="nav-link" (click)="selectTeam()">
                      <span class="icon">
                          <i class="fa fa-users fa-2"></i>
@@ -45,18 +45,17 @@
                 </a>
 
             </li>
-            <li ngbDropdown class="nav-item dropdown pointer" *ngIf="teamsSelectionService.selectedTeam !== null">
+            <li ngbDropdown class="nav-item dropdown pointer" *ngIf="selectedTeam">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="teamDropdown">
-                    <div class="team-avatar" *ngIf="getTeamImage(teamsSelectionService.selectedTeam)">
-                        <img class="avatar-image" [src]="getTeamImage(teamsSelectionService.selectedTeam)"
-                             [title]="teamsSelectionService.selectedTeam.name"/>
+                    <div class="mr-1">
+                        <jhi-team-image [team]="selectedTeam" size="35px" imageSize="small"></jhi-team-image>
                     </div>
-                    <span>Team {{teamsSelectionService.selectedTeam.name}}</span>
+                    <span>Team {{selectedTeam.name}}</span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu>
                     <li>
                         <a class="dropdown-item"
-                           [routerLink]="['/teams', teamsSelectionService.selectedTeam.shortName]">
+                           [routerLink]="['/teams', selectedTeam.shortName]">
                             <i class="fa fa-home" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.teams.home">Living Room</span>
                         </a>
@@ -158,6 +157,12 @@
                         <a class="dropdown-item" routerLink="activity" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.activity">Activity</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="image" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.image">Image</span>
                         </a>
                     </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->

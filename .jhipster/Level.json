@@ -24,6 +24,14 @@
             "otherEntityName": "levelSkill",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "level"
+        },
+        {
+            "relationshipName": "image",
+            "otherEntityName": "image",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "level"
         }
     ],
     "fields": [
@@ -39,11 +47,6 @@
         {
             "fieldName": "description",
             "fieldType": "String"
-        },
-        {
-            "fieldName": "picture",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image"
         },
         {
             "fieldName": "requiredScore",

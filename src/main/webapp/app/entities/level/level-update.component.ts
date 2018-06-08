@@ -1,13 +1,15 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { JhiAlertService } from 'ng-jhipster';
 
 import { ILevel } from 'app/shared/model/level.model';
 import { LevelService } from './level.service';
 import { IDimension } from 'app/shared/model/dimension.model';
 import { DimensionService } from 'app/entities/dimension';
+import { IImage } from 'app/shared/model/image.model';
+import { ImageService } from 'app/entities/image';
 
 @Component({
     selector: 'jhi-level-update',
@@ -21,12 +23,13 @@ export class LevelUpdateComponent implements OnInit {
 
     dependsons: ILevel[];
 
+    images: IImage[];
+
     constructor(
-        private dataUtils: JhiDataUtils,
         private jhiAlertService: JhiAlertService,
         private levelService: LevelService,
         private dimensionService: DimensionService,
-        private elementRef: ElementRef,
+        private imageService: ImageService,
         private route: ActivatedRoute
     ) {}
 
@@ -56,22 +59,12 @@ export class LevelUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-    }
-
-    byteSize(field) {
-        return this.dataUtils.byteSize(field);
-    }
-
-    openFile(contentType, field) {
-        return this.dataUtils.openFile(contentType, field);
-    }
-
-    setFileData(event, entity, field, isImage) {
-        this.dataUtils.setFileData(event, entity, field, isImage);
-    }
-
-    clearInputImage(field: string, fieldContentType: string, idInput: string) {
-        this.dataUtils.clearInputImage(this.level, this.elementRef, field, fieldContentType, idInput);
+        this.imageService.query().subscribe(
+            (res: HttpResponse<IImage[]>) => {
+                this.images = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     previousState() {
@@ -109,6 +102,10 @@ export class LevelUpdateComponent implements OnInit {
     }
 
     trackLevelById(index: number, item: ILevel) {
+        return item.id;
+    }
+
+    trackImageById(index: number, item: IImage) {
         return item.id;
     }
     get level() {

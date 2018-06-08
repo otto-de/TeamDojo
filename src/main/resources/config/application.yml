@@ -59,10 +59,6 @@ spring:
             enabled: false
     thymeleaf:
         mode: HTML
-    liquibase:
-      # todo needs to be removed as soon as the scheme is stable
-      drop-first: true
-
 server:
     servlet:
         session:

@@ -1,15 +1,17 @@
 package de.otto.teamdojo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
 
 /**
  * A Level.
@@ -34,13 +36,6 @@ public class Level implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @Lob
-    @Column(name = "picture")
-    private byte[] picture;
-
-    @Column(name = "picture_content_type")
-    private String pictureContentType;
-
     @NotNull
     @DecimalMin(value = "0")
     @DecimalMax(value = "1")
@@ -58,7 +53,7 @@ public class Level implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("")
+    @JsonIgnoreProperties()
     private Dimension dimension;
 
     @OneToOne
@@ -68,6 +63,10 @@ public class Level implements Serializable {
     @OneToMany(mappedBy = "level")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<LevelSkill> skills = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties("")
+    private Image image;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -102,32 +101,6 @@ public class Level implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public byte[] getPicture() {
-        return picture;
-    }
-
-    public Level picture(byte[] picture) {
-        this.picture = picture;
-        return this;
-    }
-
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
-    }
-
-    public String getPictureContentType() {
-        return pictureContentType;
-    }
-
-    public Level pictureContentType(String pictureContentType) {
-        this.pictureContentType = pictureContentType;
-        return this;
-    }
-
-    public void setPictureContentType(String pictureContentType) {
-        this.pictureContentType = pictureContentType;
     }
 
     public Double getRequiredScore() {
@@ -219,6 +192,19 @@ public class Level implements Serializable {
     public void setSkills(Set<LevelSkill> levelSkills) {
         this.skills = levelSkills;
     }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public Level image(Image image) {
+        this.image = image;
+        return this;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -247,8 +233,6 @@ public class Level implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
-            ", picture='" + getPicture() + "'" +
-            ", pictureContentType='" + getPictureContentType() + "'" +
             ", requiredScore=" + getRequiredScore() +
             ", instantMultiplier=" + getInstantMultiplier() +
             ", completionBonus=" + getCompletionBonus() +

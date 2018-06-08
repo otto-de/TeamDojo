@@ -6,8 +6,6 @@ export interface IBadge {
     id?: number;
     name?: string;
     description?: string;
-    pictureContentType?: string;
-    picture?: any;
     availableUntil?: Moment;
     availableAmount?: number;
     requiredScore?: number;
@@ -15,6 +13,8 @@ export interface IBadge {
     completionBonus?: number;
     skills?: IBadgeSkill[];
     dimensions?: IDimension[];
+    imageName?: string;
+    imageId?: number;
 }
 
 export class Badge implements IBadge {
@@ -22,14 +22,14 @@ export class Badge implements IBadge {
         public id?: number,
         public name?: string,
         public description?: string,
-        public pictureContentType?: string,
-        public picture?: any,
         public availableUntil?: Moment,
         public availableAmount?: number,
         public requiredScore?: number,
         public instantMultiplier?: number,
         public completionBonus?: number,
         public skills?: IBadgeSkill[],
-        public dimensions?: IDimension[]
+        public dimensions?: IDimension[],
+        public imageName?: string,
+        public imageId?: number
     ) {}
 }

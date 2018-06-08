@@ -8,16 +8,19 @@
     height: inherit;
     padding-right: 10px;
     .teams-skills-list {
+        /deep/ .simplebar-track {
+            bottom: 0.9em!important;
+        }
         /deep/ .simplebar-scroll-content {
-            padding-right: 1.4em !important;
+            padding-right: 1.9em !important;
             .simplebar-content {
                 padding-left: 2px !important;
                 padding-right: 5px !important;
+                padding-bottom: 3.1em!important;
                 margin-right: -0.74em !important;
                 overflow-x: hidden;
             }
         }
-
         .skill-container {
             background-color: $dojo-bg-gradient-from;
         }
