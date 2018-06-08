@@ -29,7 +29,10 @@ export class SkillDetailsInfoComponent implements OnInit {
     @Input() achievableSkill: IAchievableSkill;
 
     @Output() onSkillChanged = new EventEmitter<IAchievableSkill>();
-    @Output() onVoteSubmitted = new EventEmitter<{ skillRate: ISkillRate; comment: IComment }>();
+
+    @Output() onVoteSubmitted = new EventEmitter<ISkillRate>();
+
+    @Output() onCommentSubmitted = new EventEmitter<IComment>();
 
     @ViewChild(SkillDetailsRatingComponent) skillRating;
 
@@ -78,9 +81,13 @@ export class SkillDetailsInfoComponent implements OnInit {
         );
     }
 
-    onVoteSubmittedFromChild(event) {
-        this.onVoteSubmitted.emit(event);
+    onVoteSubmittedFromChild(vote: ISkillRate) {
+        this.onVoteSubmitted.emit(vote);
         this.onSkillChanged.emit(this.achievableSkill);
+    }
+
+    onCommentSubmittedFromChild(comment: IComment) {
+        this.onCommentSubmitted.emit(comment);
     }
 
     onSkillInListChanged(skillObjs) {
