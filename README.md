@@ -68,32 +68,35 @@ _Entities - Level_
 - [OPTIONAL] __Description__ of the level.
 - A __Picture__ to be shown. You can find some examples in [examples/images/level](examples/images/level).
 You can create your own icons, but for the best user experience get some help from some skilled UI/UX people.
-- __Required Score__ - A decimal value from 0 to 1. You can define how much percent of reached skills are necessary to get this level.
-Default can be 1.0
-- __Skill Score Multiplier__ - A decimal value. Here you can specify how much bonus points the team can reach with every skill
-of this level. Default can be 0.0. See [Scoring System](#scoring-system-and-balancing) for more details.
+- __Required Score__ - A decimal value from 0 to 1. You can define how much percent of reached skills are necessary to
+get this level. Default can be 1.0
+- __Skill Score Multiplier__ - A decimal value. Here you can specify how much bonus points the team can reach with every
+skill of this level. Default can be 0.0. See [Scoring System](#scoring-system-and-balancing) for more details.
 - [OPTIONAL] __Level Completion Bonus__ - A numeric value. How much bonus points the team can reach with the
 completion of this level. See [Scoring System](#scoring-system-and-balancing) for more details.
 - __Dimension__ - Every Level must be assigned to one dimension.
-- [OPTIONAL] A level can __depends on__ a previous level. E.g.: To reach Level 2, all skills of Level 2 and Level 1 must be completed.
+- [OPTIONAL] A level can __depends on__ a previous level. E.g.: To reach Level 2, all skills of Level 2 and Level 1 must
+be completed.
 
 #### Badge
 
-While Level are the core of the maturity model, __Badges__ can be used to push some specific skills or to reward well performing teams.
+While Level are the core of the maturity model, __Badges__ can be used to push some specific skills or to reward well
+performing teams.
 
 _Entities - Badges_
-- Name - The badge name. Technology specific or cool names for skill subsets. E.g.: AWS Badge, Docker Master, Always-up-to-date Badge, Password Ninja, ...
+- Name - The badge name. Technology specific or cool names for skill subsets. E.g.: AWS Badge, Docker Master,
+Always-up-to-date Badge, Password Ninja, ...
 - [OPTIONAL] __Description__ of the badge.
 - A __Picture__ to be shown. You can find some examples in [examples/images/badge](examples/images/badge).
 You can create your own icons, but for the best user experience get some help from some skilled UI/UX people.
 - [NOT IMPLEMENTED] Available Until - not implemented yet.
 - [NOT IMPLEMENTED] Available Amount - not implemented yet.
-- __Required Score__ - A decimal value from 0 to 1. You can define how much percent of reached skills are necessary to get this badge.
-Default can be 1.0.
-- __Skill Score Multiplier__ - A decimal value. Here you can specify how much bonus points the team can reach with every skill
-of this badge. Default can be 0.0. See [Scoring System](#scoring-system-and-balancing) for more details.
-- [OPTIONAL] __Badge Completion Bonus__ - A numeric value. How much bonus points the team can reach with the
-completion of this badge. See [Scoring System](#scoring-system-and-balancing) for more details.
+- __Required Score__ - A decimal value from 0 to 1. You can define how much percent of reached skills are necessary to
+get this badge. Default can be 1.0.
+- __Skill Score Multiplier__ - A decimal value. Here you can specify how much bonus points the team can reach with every
+skill of this badge. Default can be 0.0. See [Scoring System](#scoring-system-and-balancing) for more details.
+- [OPTIONAL] __Badge Completion Bonus__ - A numeric value. How much bonus points the team can reach with the completion
+of this badge. See [Scoring System](#scoring-system-and-balancing) for more details.
 - __Dimensions__ - Every Badge can be assigned to one ore more Dimensions.
 
 #### Skill
@@ -137,7 +140,8 @@ E.g.:
     => 30 Points
 
 You can also reward the completion of levels and badges. Therefore you can gain bonus points with __Level/Badge Completion Bonus__.
-If the required percentage (__Required Score__) of skills for the Badge or Level is reached, the Completion Bonus will be added to the Team scores. E.g.:
+If the required percentage (__Required Score__) of skills for the Badge or Level is reached, the Completion Bonus will
+be added to the Team scores. E.g.:
 
     Skill: TLS everywhere; Score: 10
     Skill: Update your Systems; Score: 30
@@ -180,7 +184,8 @@ yet another tool during your daily business.
 The easiest way to hide your internal data are IP whitelists on network level.
 Host this tool in your internal network and let everyone use and see it.
 
-If you really want any kind of authentication/authorization process, build it, push it back into this repository but make it optional.
+If you really want any kind of authentication/authorization process, build it, push it back into this repository but
+make it optional.
 
 ### Default secrets / credentials
 

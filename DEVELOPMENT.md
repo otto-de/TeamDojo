@@ -25,9 +25,9 @@ auto-refreshes when files change on your hard drive.
     ./gradlew
     yarn start
 
-[Yarn][] is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
-specifying a newer version in [package.json](package.json). You can also run `yarn update` and `yarn install` to manage dependencies.
-Add the `help` flag on any command to see how you can use it. For example, `yarn help update`.
+[Yarn][] is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies
+by specifying a newer version in [package.json](package.json). You can also run `yarn update` and `yarn install` to
+manage dependencies. Add the `help` flag on any command to see how you can use it. For example, `yarn help update`.
 
 The `yarn run` command will list all of the scripts available to run for this project.
 
@@ -104,13 +104,16 @@ will generate changes in these files:
 
 ### Doing API-First development using swagger-codegen
 
-[Swagger-Codegen]() is configured for this application. You can generate API code from the `src/main/resources/swagger/api.yml` definition file by running:
+[Swagger-Codegen]() is configured for this application. You can generate API code from the `src/main/resources/swagger/api.yml`
+definition file by running:
 ```bash
 ./gradlew swagger
 ```
 Then implement the generated interfaces with `@RestController` classes.
 
-To edit the `api.yml` definition file, you can use a tool such as [Swagger-Editor](). Start a local instance of the swagger-editor using docker by running: `docker-compose -f src/main/docker/swagger-editor.yml up -d`. The editor will then be located at [http://localhost:7742](http://localhost:7742).
+To edit the `api.yml` definition file, you can use a tool such as [Swagger-Editor](). Start a local instance of the
+swagger-editor using docker by running: `docker-compose -f src/main/docker/swagger-editor.yml up -d`. The editor will
+then be located at [http://localhost:7742](http://localhost:7742).
 
 Refer to [Doing API-First development][] for more details.
 
@@ -120,7 +123,8 @@ To optimize the TeamDojo application for production, run:
 
     ./gradlew -Pprod clean bootWar
 
-This will concatenate and minify the client CSS and JavaScript files. It will also modify `index.html` so it references these new files.
+This will concatenate and minify the client CSS and JavaScript files. It will also modify `index.html` so it references
+these new files.
 To ensure everything worked, run:
 
     java -jar build/libs/*.war
@@ -137,7 +141,8 @@ To launch your application's tests, run:
 
 ### Client tests
 
-Unit tests are run by [Karma][] and written with [Jasmine][]. They're located in [src/test/javascript/](src/test/javascript/) and can be run with:
+Unit tests are run by [Karma][] and written with [Jasmine][]. They're located in [src/test/javascript/](src/test/javascript/)
+and can be run with:
 
     yarn test
 
@@ -145,7 +150,8 @@ For more information, refer to the [Running tests page][].
 
 ## Using Docker to simplify development (optional)
 
-You can use Docker to improve your JHipster development experience. A number of docker-compose configurations are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
+You can use Docker to improve your JHipster development experience. A number of docker-compose configurations are
+available in the [src/main/docker](src/main/docker) folder to launch required third party services.
 
 For example, to start a postgresql database in a docker container, run:
 
@@ -164,11 +170,15 @@ Then run:
 
     docker-compose -f src/main/docker/app.yml up -d
 
-For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configuration files for one or several JHipster applications.
+For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the
+docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configuration files for one
+or several JHipster applications.
 
 ## Continuous Integration (optional)
 
-To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
+To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate
+configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][]
+page for more information.
 
 [JHipster Homepage and latest documentation]: https://www.jhipster.tech
 [JHipster 5.0.0-beta.0 archive]: https://www.jhipster.tech/documentation-archive/v5.0.0-beta.0
