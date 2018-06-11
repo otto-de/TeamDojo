@@ -6,7 +6,8 @@ It allows teams to self assess their skills and checks if they are reaching a sp
 If they reach a new ability level, they will be rewarded with a cool new Team Avatar, Level Rewards -
 like a virtual belt -  and topic specific Badges.
 TeamDojo also calculates scores, based on specific skill, level and badge ranking/difficulty and ranks the teams by
-the amount of their reached scores.
+the amount of their achieved scores.
+
 
 ![screencast](screencast.gif "Screencast")
 
@@ -39,7 +40,7 @@ and change your __organization__ _Entities - Organization_. It will be your navi
 
 #### Dimension
 
-Next you would like to create some __Dimensions__ your teams want to reach skills for: _Entities - Dimension_.
+Next you would like to create some __Dimensions__ your teams want to achieve skills for: _Entities - Dimension_.
 Examples could be _Quality Assurance_, _Security_, _Operations_, _Architecture_, ...
 
 #### Team
@@ -68,11 +69,11 @@ _Entities - Level_
 - [OPTIONAL] __Description__ of the level.
 - A __Picture__ to be shown. You can find some examples in [examples/images/level](examples/images/level).
 You can create your own icons, but for the best user experience get some help from some skilled UI/UX people.
-- __Required Score__ - A decimal value from 0 to 1. You can define how much percent of reached skills are necessary to
+- __Required Score__ - A decimal value from 0 to 1. You can define how much percent of achieved skills are necessary to
 get this level. Default can be 1.0
-- __Skill Score Multiplier__ - A decimal value. Here you can specify how much bonus points the team can reach with every
+- __Skill Score Multiplier__ - A decimal value. Here you can specify how much bonus points the team can achieve with every
 skill of this level. Default can be 0.0. See [Scoring System](#scoring-system-and-balancing) for more details.
-- [OPTIONAL] __Level Completion Bonus__ - A numeric value. How much bonus points the team can reach with the
+- [OPTIONAL] __Level Completion Bonus__ - A numeric value. How much bonus points the team can achieve with the
 completion of this level. See [Scoring System](#scoring-system-and-balancing) for more details.
 - __Dimension__ - Every Level must be assigned to one dimension.
 - [OPTIONAL] A level can __depends on__ a previous level. E.g.: To reach Level 2, all skills of Level 2 and Level 1 must
@@ -91,12 +92,12 @@ Always-up-to-date Badge, Password Ninja, ...
 You can create your own icons, but for the best user experience get some help from some skilled UI/UX people.
 - [NOT IMPLEMENTED] Available Until - not implemented yet.
 - [NOT IMPLEMENTED] Available Amount - not implemented yet.
-- __Required Score__ - A decimal value from 0 to 1. You can define how much percent of reached skills are necessary to
+- __Required Score__ - A decimal value from 0 to 1. You can define how much percent of achieved skills are necessary to
 get this badge. Default can be 1.0.
-- __Skill Score Multiplier__ - A decimal value. Here you can specify how much bonus points the team can reach with every
-skill of this badge. Default can be 0.0. See [Scoring System](#scoring-system-and-balancing) for more details.
-- [OPTIONAL] __Badge Completion Bonus__ - A numeric value. How much bonus points the team can reach with the completion
-of this badge. See [Scoring System](#scoring-system-and-balancing) for more details.
+- __Skill Score Multiplier__ - A decimal value. Here you can specify how much bonus points the team can achieve with
+every skill of this badge. Default can be 0.0. See [Scoring System](#scoring-system-and-balancing) for more details.
+- [OPTIONAL] __Badge Completion Bonus__ - A numeric value. How much bonus points the team can gain with the
+completion of this badge. See [Scoring System](#scoring-system-and-balancing) for more details.
 - __Dimensions__ - Every Badge can be assigned to one ore more Dimensions.
 
 #### Skill
@@ -106,7 +107,7 @@ The core element of this framework. Teams can obtain __skills__.
 _Entities - Skill_
 - __Skill Title__ - Short and significant.
 - __Description__ - Is part of the skill details. Why is this skill useful? Why should a team aim to obtain this skill?
-- __Implementation__ - How can the team reach this skill? Hard facts to configure/implement/learn something.
+- __Implementation__ - How can the team achieve this skill? Hard facts to configure/implement/learn something.
 - __Validation__ - How can the team tell they have achieved this skill? Hard criteria.
 - [OPTIONAL] __Expiry Priod__ - For future development. A skill expires after a period of time.
 - [OPTIONAL] __Contact__ - A person with know how relevant for this skill.
@@ -120,7 +121,7 @@ Every Skill should be assigned to at least one Level or Badge:
 - _Entities - Level Skills_
 - _Entities - Badge Skills_
 
-Here you can specify which skills are necessary to reach a specific Level or Badge.
+Here you can specify which skills are necessary to obtain a specific Level or Badge.
 
 ### Scoring System and Balancing
 
