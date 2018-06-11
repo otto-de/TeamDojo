@@ -3,17 +3,17 @@
 An application for improving (application and project) skills of your teams through gamification.
 
 It allows teams to self assess their skills and checks if they are reaching a specified ability level.
-If they reach a new ability level, they will be rewarded with a cool new Team Avatar, Level Rewards - 
+If they reach a new ability level, they will be rewarded with a cool new Team Avatar, Level Rewards -
 like a virtual belt -  and topic specific Badges.
 TeamDojo also calculates scores, based on specific skill, level and badge ranking/difficulty and ranks the teams by
-the amount of their reached scores.  
+the amount of their reached scores.
 
 ![screencast](screencast.gif "Screencast")
 
 ## Usage
 
 ### Cloning
-    
+
     git clone https://github.com/otto-de/TeamDojo.git
     cd TeamDojo/
 
@@ -25,9 +25,9 @@ First build a docker image by running:
 Then run:
 
     docker-compose -f src/main/docker/app.yml up -d
-   
+
 The application will be available at [http://localhost:8080](http://localhost:8080)
-    
+
 
 ### Model
 
@@ -66,13 +66,13 @@ A Level consists of the following settings:
 _Entities - Level_
 - Name - The level name. Judo belt ranks for example: yellow, orange, green, ...
 - [OPTIONAL] __Description__ of the level.
-- A __Picture__ to be shown. You can find some examples in [examples/images/level](examples/images/level). 
+- A __Picture__ to be shown. You can find some examples in [examples/images/level](examples/images/level).
 You can create your own icons, but for the best user experience get some help from some skilled UI/UX people.
 - __Required Score__ - A decimal value from 0 to 1. You can define how much percent of reached skills are necessary to get this level.
 Default can be 1.0
-- __Skill Score Multiplier__ - A decimal value. Here you can specify how much bonus points the team can reach with every skill 
+- __Skill Score Multiplier__ - A decimal value. Here you can specify how much bonus points the team can reach with every skill
 of this level. Default can be 0.0. See [Scoring System](#scoring-system-and-balancing) for more details.
-- [OPTIONAL] __Level Completion Bonus__ - A numeric value. How much bonus points the team can reach with the 
+- [OPTIONAL] __Level Completion Bonus__ - A numeric value. How much bonus points the team can reach with the
 completion of this level. See [Scoring System](#scoring-system-and-balancing) for more details.
 - __Dimension__ - Every Level must be assigned to one dimension.
 - [OPTIONAL] A level can __depends on__ a previous level. E.g.: To reach Level 2, all skills of Level 2 and Level 1 must be completed.
@@ -84,15 +84,15 @@ While Level are the core of the maturity model, __Badges__ can be used to push s
 _Entities - Badges_
 - Name - The badge name. Technology specific or cool names for skill subsets. E.g.: AWS Badge, Docker Master, Always-up-to-date Badge, Password Ninja, ...
 - [OPTIONAL] __Description__ of the badge.
-- A __Picture__ to be shown. You can find some examples in [examples/images/badge](examples/images/badge). 
+- A __Picture__ to be shown. You can find some examples in [examples/images/badge](examples/images/badge).
 You can create your own icons, but for the best user experience get some help from some skilled UI/UX people.
 - [NOT IMPLEMENTED] Available Until - not implemented yet.
 - [NOT IMPLEMENTED] Available Amount - not implemented yet.
 - __Required Score__ - A decimal value from 0 to 1. You can define how much percent of reached skills are necessary to get this badge.
 Default can be 1.0.
-- __Skill Score Multiplier__ - A decimal value. Here you can specify how much bonus points the team can reach with every skill 
+- __Skill Score Multiplier__ - A decimal value. Here you can specify how much bonus points the team can reach with every skill
 of this badge. Default can be 0.0. See [Scoring System](#scoring-system-and-balancing) for more details.
-- [OPTIONAL] __Badge Completion Bonus__ - A numeric value. How much bonus points the team can reach with the 
+- [OPTIONAL] __Badge Completion Bonus__ - A numeric value. How much bonus points the team can reach with the
 completion of this badge. See [Scoring System](#scoring-system-and-balancing) for more details.
 - __Dimensions__ - Every Badge can be assigned to one ore more Dimensions.
 
@@ -108,7 +108,7 @@ _Entities - Skill_
 - [OPTIONAL] __Expiry Priod__ - For future development. A skill expires after a period of time.
 - [OPTIONAL] __Contact__ - A person with know how relevant for this skill.
 - __Score__ - With every achieved skill, a team gains scores. A default value could be 1 for every skill.
-- [DO NOT TOUCH] __Rate Score__ - Users can vote for a skill (1-5 stars). This value should not be set in the admin view.             
+- [DO NOT TOUCH] __Rate Score__ - Users can vote for a skill (1-5 stars). This value should not be set in the admin view.
 - [DO NOT TOUCH] __Rate Count__ - Users can vote for a skill (1-5 stars). This value should not be set in the admin view.
 
 #### Assign Skills to Level and Badges
@@ -127,44 +127,44 @@ With the Skill __Score__ property you can value its costs / complexity / importa
 To honor the skill completion of specific levels or badges, you can adjust the __Level/Badge Score Multiplier__.
 Every completed Skill will add its skill score multiplied with the Score Multiplier.
 E.g.:
-    
+
     Skill: TLS everywhere; Score: 10
     Badge: Encryption Master; Score Multiplier: 2
-    
+
     #Completion of TLS everywhere will resulting in:
-       10 (Skill Score) 
+       10 (Skill Score)
     +  20 (Skill Score x Score Multiplier)
-    => 30 Points   
-     
+    => 30 Points
+
 You can also reward the completion of levels and badges. Therefore you can gain bonus points with __Level/Badge Completion Bonus__.
 If the required percentage (__Required Score__) of skills for the Badge or Level is reached, the Completion Bonus will be added to the Team scores. E.g.:
 
     Skill: TLS everywhere; Score: 10
     Skill: Update your Systems; Score: 30
     Level: Green; Required Score: 1.0; Level Completion Bonus: 100
-    
+
     #Completion of all skills will resulting in:
-        10 (Skill Score) 
-    +   30 (Skill Score) 
+        10 (Skill Score)
+    +   30 (Skill Score)
     +  100 (Completion Bonus)
     => 140 Points
 
  You can combine them of course:
- 
+
     Skill: TLS everywhere; Score: 10
     Skill: Update your Systems; Score: 30
     Level: Green; Required Score: 1.0; Score Multiplier: 1; Level Completion Bonus: 100
-    Badge: Encryption Master; Score Multiplier: 2 
-    
-    
+    Badge: Encryption Master; Score Multiplier: 2
+
+
     #Completion of all skills will resulting in:
-        10 (Skill Score) 
+        10 (Skill Score)
     +   10 (Skill Score x Level Multiplier)
-    +   20 (Skill Score x Badge Multiplier) 
-    +   30 (Skill Score) 
-    +   30 (Skill Score x Level Multiplier) 
+    +   20 (Skill Score x Badge Multiplier)
+    +   30 (Skill Score)
+    +   30 (Skill Score x Level Multiplier)
     +  100 (Level Completion Bonus)
-    => 200 Points 
+    => 200 Points
 
 ## Security
 
@@ -174,10 +174,10 @@ He configures rarely changing data like teams, levels, skills, etc. to hide the 
 
 We believe that this tool helps software development teams to track where they are performing well and where they can
 become improve to build better software.
-Any additional complexity level - processes, login, role models - will result in a decreasing motivation to use 
+Any additional complexity level - processes, login, role models - will result in a decreasing motivation to use
 yet another tool during your daily business.
 
-The easiest way to hide your internal data are IP whitelists on network level. 
+The easiest way to hide your internal data are IP whitelists on network level.
 Host this tool in your internal network and let everyone use and see it.
 
 If you really want any kind of authentication/authorization process, build it, push it back into this repository but make it optional.
@@ -192,4 +192,4 @@ Please change the password and secret in your production environment.
 
 ## Development
 
-[Here](DEVELOPMENT.md) you can find the dev documentation. 
+[Here](DEVELOPMENT.md) you can find the dev documentation.
