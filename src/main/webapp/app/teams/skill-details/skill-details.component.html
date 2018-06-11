@@ -1,19 +1,23 @@
-<jhi-background-component [teamSkills]="selectedTeam?.skills" [badges]="badges" [skills]="skills"></jhi-background-component>
+<jhi-background-component [teamSkills]="selectedTeam?.skills" [badges]="badges"
+                          [skills]="skills"></jhi-background-component>
 
 <div class="row back">
     <div class="col-20">
-        <a class="breadcrumb-item active" [routerLink]="['/teams', team.shortName]" >
+        <a class="breadcrumb-item active" [routerLink]="['/teams', team.shortName]">
             <i class="fa fa-angle-left"></i>
             {{'global.menu.teams.home' | translate}}</a>
     </div>
 </div>
 <div class="row skill-details">
     <div class="skills-list col-20">
-        <jhi-teams-skills [iSkills]="skills" [team]="team" [skill]="achievableSkill" (onSkillClicked)="onSkillInListClicked($event)"
+        <jhi-teams-skills [iSkills]="skills" [team]="team" [skill]="achievableSkill"
+                          (onSkillClicked)="onSkillInListClicked($event)"
                           (onSkillChanged)="onSkillInListChanged($event)"></jhi-teams-skills>
     </div>
     <div class="skill-info col-60">
-        <jhi-skill-details-info (onVoteSubmitted)="onVoteSubmitted($event)" (onSkillChanged)="skillList.handleSkillChanged($event)" [skill]="skill"
+        <jhi-skill-details-info (onVoteSubmitted)="onVoteSubmitted($event)"
+                                (onCommentSubmitted)="onCommentSubmitted($event)"
+                                (onSkillChanged)="skillList.handleSkillChanged($event)" [skill]="skill"
                                 [team]="team" [achievableSkill]="achievableSkill"></jhi-skill-details-info>
     </div>
     <div class="skill-comments col-20">
