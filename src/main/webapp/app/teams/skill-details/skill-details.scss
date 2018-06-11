@@ -59,8 +59,10 @@
     /deep/ .additional-functions {
         height: 55px;
     }
-    /deep/ .additional-functions.same-team {
-        height: 90px;
-        width: 100%;
+    &.same-team {
+        /deep/ .additional-functions {
+            height: 90px;
+            width: 100%;
+        }
     }
 }
