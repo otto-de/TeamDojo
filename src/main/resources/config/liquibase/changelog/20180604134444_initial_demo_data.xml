@@ -1027,4 +1027,214 @@
             <column name="level_up_score" valueNumeric="10"/>
         </insert>
     </changeSet>
+    <changeSet author="generated" id="1528726016000-10" context="demo">
+        <insert tableName="image">
+            <column name="id" valueNumeric="6700"/>
+            <column name="name" value="Yellow belt" />
+            <column name="small" valueBlobFile="../initial-images/level/Belt-yellow.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="../initial-images/level/Belt-yellow.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="../initial-images/level/Belt-yellow.png" />
+            <column name="large_content_type" value="image/png" />
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="6750"/>
+            <column name="name" value="Orange belt" />
+            <column name="small" valueBlobFile="../initial-images/level/Belt-orange.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="../initial-images/level/Belt-orange.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="../initial-images/level/Belt-orange.png" />
+            <column name="large_content_type" value="image/png" />
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="6800"/>
+            <column name="name" value="Green belt" />
+            <column name="small" valueBlobFile="../initial-images/level/Belt-green.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="../initial-images/level/Belt-green.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="../initial-images/level/Belt-green.png" />
+            <column name="large_content_type" value="image/png" />
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="6850"/>
+            <column name="name" value="Blue belt" />
+            <column name="small" valueBlobFile="../initial-images/level/Belt-blue.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="../initial-images/level/Belt-blue.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="../initial-images/level/Belt-blue.png" />
+            <column name="large_content_type" value="image/png" />
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="6900"/>
+            <column name="name" value="Brown belt" />
+            <column name="small" valueBlobFile="../initial-images/level/Belt-brown.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="../initial-images/level/Belt-brown.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="../initial-images/level/Belt-brown.png" />
+            <column name="large_content_type" value="image/png" />
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="6950"/>
+            <column name="name" value="Black belt" />
+            <column name="small" valueBlobFile="../initial-images/level/Belt-black.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="../initial-images/level/Belt-black.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="../initial-images/level/Belt-black.png" />
+            <column name="large_content_type" value="image/png" />
+        </insert>
+    </changeSet>
+    <changeSet author="generated" id="1528726016000-11" context="demo">
+        <insert tableName="image">
+            <column name="id" valueNumeric="7000"/>
+            <column name="name" value="Badge 1" />
+            <column name="small" valueBlobFile="../initial-images/badge/badge1.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="../initial-images/badge/badge1.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="../initial-images/badge/badge1.png" />
+            <column name="large_content_type" value="image/png" />
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="7050"/>
+            <column name="name" value="Badge 2" />
+            <column name="small" valueBlobFile="../initial-images/badge/badge2.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="../initial-images/badge/badge2.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="../initial-images/badge/badge2.png" />
+            <column name="large_content_type" value="image/png" />
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="7100"/>
+            <column name="name" value="Badge 3" />
+            <column name="small" valueBlobFile="../initial-images/badge/badge3.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="../initial-images/badge/badge3.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="../initial-images/badge/badge3.png" />
+            <column name="large_content_type" value="image/png" />
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="7150"/>
+            <column name="name" value="Badge 4" />
+            <column name="small" valueBlobFile="../initial-images/badge/badge4.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="../initial-images/badge/badge4.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="../initial-images/badge/badge4.png" />
+            <column name="large_content_type" value="image/png" />
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="7200"/>
+            <column name="name" value="Badge 5" />
+            <column name="small" valueBlobFile="../initial-images/badge/badge5.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="../initial-images/badge/badge5.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="../initial-images/badge/badge5.png" />
+            <column name="large_content_type" value="image/png" />
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="7250"/>
+            <column name="name" value="Badge 6" />
+            <column name="small" valueBlobFile="../initial-images/badge/badge6.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="../initial-images/badge/badge6.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="../initial-images/badge/badge6.png" />
+            <column name="large_content_type" value="image/png" />
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="7300"/>
+            <column name="name" value="Badge 7" />
+            <column name="small" valueBlobFile="../initial-images/badge/badge7.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="../initial-images/badge/badge7.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="../initial-images/badge/badge7.png" />
+            <column name="large_content_type" value="image/png" />
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="7350"/>
+            <column name="name" value="Badge 8" />
+            <column name="small" valueBlobFile="../initial-images/badge/badge8.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="../initial-images/badge/badge8.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="../initial-images/badge/badge8.png" />
+            <column name="large_content_type" value="image/png" />
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="7400"/>
+            <column name="name" value="Badge 9" />
+            <column name="small" valueBlobFile="../initial-images/badge/badge9.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="../initial-images/badge/badge9.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="../initial-images/badge/badge9.png" />
+            <column name="large_content_type" value="image/png" />
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="7450"/>
+            <column name="name" value="Badge 10" />
+            <column name="small" valueBlobFile="../initial-images/badge/badge10.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="../initial-images/badge/badge10.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="../initial-images/badge/badge10.png" />
+            <column name="large_content_type" value="image/png" />
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="7500"/>
+            <column name="name" value="Badge 11" />
+            <column name="small" valueBlobFile="../initial-images/badge/badge11.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="../initial-images/badge/badge11.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="../initial-images/badge/badge11.png" />
+            <column name="large_content_type" value="image/png" />
+        </insert>
+    </changeSet>
+    <changeSet author="generated" id="1528726016000-12" context="demo">
+        <update tableName="level">
+            <column name="image_id" value="6700" />
+            <where>id = 1050</where>
+        </update>
+        <update tableName="level">
+            <column name="image_id" value="6750" />
+            <where>id = 1600</where>
+        </update>
+        <update tableName="level">
+            <column name="image_id" value="6800" />
+            <where>id = 1750</where>
+        </update>
+        <update tableName="level">
+            <column name="image_id" value="6850" />
+            <where>id = 1900</where>
+        </update>
+        <update tableName="level">
+            <column name="image_id" value="6900" />
+            <where>id = 2050</where>
+        </update>
+        <update tableName="level">
+            <column name="image_id" value="6950" />
+            <where>id = 2200</where>
+        </update>
+    </changeSet>
+    <changeSet author="generated" id="1528726016000-13" context="demo">
+        <update tableName="badge">
+            <column name="image_id" value="7300" />
+            <where>id = 4550</where>
+        </update>
+        <update tableName="badge">
+            <column name="image_id" value="7350" />
+            <where>id = 4600</where>
+        </update>
+    </changeSet>
 </databaseChangeLog>
