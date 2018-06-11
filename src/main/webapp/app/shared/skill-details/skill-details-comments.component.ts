@@ -21,7 +21,7 @@ export class SkillDetailsCommentsComponent implements OnInit {
     @Output() onCommentSubmitted = new EventEmitter<IComment>();
     newComment: IComment;
 
-    constructor(private commentService: CommentService, private teamsSelectionService: TeamsSelectionService) {}
+    constructor(private commentService: CommentService) {}
 
     ngOnInit() {
         this.newComment = new Comment();
@@ -43,10 +43,5 @@ export class SkillDetailsCommentsComponent implements OnInit {
                 this.onCommentSubmitted.emit(res.body);
             }
         });
-    }
-
-    get isSameTeam(): boolean {
-        const currentTeam = this.teamsSelectionService.selectedTeam;
-        return currentTeam && this.selectedTeam && currentTeam.id === this.selectedTeam.id;
     }
 }

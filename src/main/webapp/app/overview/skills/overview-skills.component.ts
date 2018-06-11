@@ -67,6 +67,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
                         this.badgeSkills.filter((b: IBadgeSkill) => !this.levelSkills.find((l: ILevelSkill) => l.skillId === b.skillId)) ||
                             []
                     );
+                    this.updateBreadcrumb();
                 }
             });
             this.loadAll();
