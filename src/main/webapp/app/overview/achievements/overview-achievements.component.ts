@@ -6,7 +6,7 @@ import { HttpResponse } from '@angular/common/http';
 import { IBadge } from 'app/shared/model/badge.model';
 import { ITeam } from 'app/shared/model/team.model';
 import { CompletionCheck } from 'app/shared/util/completion-check';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { RelevanceCheck, sortLevels } from 'app/shared';
 import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
 import 'simplebar';
@@ -27,9 +27,10 @@ export class OverviewAchievementsComponent implements OnInit {
     activeItemIds: { [key: string]: number };
     expandedDimensions: string[];
 
-    constructor(private dimensionService: DimensionService, private router: Router, private breadcrumbService: BreadcrumbService) {}
+    constructor(private route: ActivatedRoute, private dimensionService: DimensionService, private router: Router) {}
 
     ngOnInit(): void {
+        this.dimensions = [];
         this.activeItemIds = {
             badge: null,
             level: null,
@@ -65,6 +66,22 @@ export class OverviewAchievementsComponent implements OnInit {
             this.expandedDimensions = this.dimensions
                 ? this.dimensions.map((dimension: IDimension) => `achievements-dimension-${dimension.id}`)
                 : [];
+        });
+
+        this.route.queryParamMap.subscribe((params: ParamMap) => {
+            const levelId = this.getParamAsNumber('level', params);
+            const badgeId = this.getParamAsNumber('badge', params);
+            this.activeItemIds = {
+                badge: null,
+                level: null,
+                dimension: null
+            };
+
+            if (levelId) {
+                this.activeItemIds.level = levelId;
+            } else if (badgeId) {
+                this.activeItemIds.badge = badgeId;
+            }
         });
     }
 
@@ -107,5 +124,9 @@ export class OverviewAchievementsComponent implements OnInit {
                 });
             }
         }
+    }
+
+    private getParamAsNumber(name: string, params: ParamMap): number {
+        return Number.parseInt(params.get(name));
     }
 }
