@@ -10,6 +10,7 @@
 .team-item {
     border: 1px solid #ddd;
     border-radius: 0.15rem;
+    padding: 7px;
     user-select: none;
     -moz-user-select: none;
     -khtml-user-select: none;
@@ -17,7 +18,7 @@
     -o-user-select: none;
 }
 .team-shortname {
-    margin: 5px 0;
+    margin-top: 8px;
 }
 .team-item:hover {
     background: #fafafa;
@@ -34,5 +35,5 @@
 
 .team-item-row {
     text-align: center;
-    padding: 3px 0;
+    padding: 0px 0;
 }
