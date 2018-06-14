@@ -46,6 +46,7 @@ export class TeamsSelectionComponent implements OnInit {
         this.highlightedTeam = null;
         this.teamsSelectionService.selectedTeam = null;
         this.activeModal.close('No team selected');
+        this.router.navigate(['']);
     }
 
     cancelTeamSelection() {
