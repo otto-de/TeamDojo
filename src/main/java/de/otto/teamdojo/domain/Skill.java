@@ -30,13 +30,16 @@ public class Skill implements Serializable {
     @Column(name = "title", length = 80, nullable = false)
     private String title;
 
-    @Column(name = "description")
+    @Size(max = 2048)
+    @Column(name = "description", length = 2048)
     private String description;
 
-    @Column(name = "implementation")
+    @Size(max = 2048)
+    @Column(name = "implementation", length = 2048)
     private String implementation;
 
-    @Column(name = "jhi_validation")
+    @Size(max = 2048)
+    @Column(name = "jhi_validation", length = 2048)
     private String validation;
 
     @Pattern(regexp = "^P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?$")

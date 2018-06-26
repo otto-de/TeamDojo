@@ -35,15 +35,27 @@
         },
         {
             "fieldName": "description",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "2048"
         },
         {
             "fieldName": "implementation",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "2048"
         },
         {
             "fieldName": "validation",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "2048"
         },
         {
             "fieldName": "expiryPeriod",
