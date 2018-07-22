@@ -31,17 +31,35 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.skill.description" for="field_description">Description</label>
                     <input type="text" class="form-control" name="description" id="field_description"
-                        [(ngModel)]="skill.description" />
+                        [(ngModel)]="skill.description" maxlength="2048"/>
+                    <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.description?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 2048 }">
+                        This field cannot be longer than 2048 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.skill.implementation" for="field_implementation">Implementation</label>
                     <input type="text" class="form-control" name="implementation" id="field_implementation"
-                        [(ngModel)]="skill.implementation" />
+                        [(ngModel)]="skill.implementation" maxlength="2048"/>
+                    <div [hidden]="!(editForm.controls.implementation?.dirty && editForm.controls.implementation?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.implementation?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 2048 }">
+                        This field cannot be longer than 2048 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.skill.validation" for="field_validation">Validation</label>
                     <input type="text" class="form-control" name="validation" id="field_validation"
-                        [(ngModel)]="skill.validation" />
+                        [(ngModel)]="skill.validation" maxlength="2048"/>
+                    <div [hidden]="!(editForm.controls.validation?.dirty && editForm.controls.validation?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.validation?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 2048 }">
+                        This field cannot be longer than 2048 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.skill.expiryPeriod" for="field_expiryPeriod">Expiry Period</label>
