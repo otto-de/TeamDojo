@@ -1,0 +1,13 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="20180612164700-1" author="hng">
+        <modifyDataType tableName="skill" columnName="description" newDataType="varchar(2048)"></modifyDataType>
+        <modifyDataType tableName="skill" columnName="implementation" newDataType="varchar(2048)"></modifyDataType>
+        <modifyDataType tableName="skill" columnName="jhi_validation" newDataType="varchar(2048)"></modifyDataType>
+    </changeSet>
+</databaseChangeLog>

@@ -32,6 +32,11 @@
             "teams": "Teams",
             "badges": "Badges",
             "levels": "Levels"
+        },
+        "skillDTO": {
+            "description": "description",
+            "validation": "validation",
+            "implementation": "implementation"
         }
     }
 }

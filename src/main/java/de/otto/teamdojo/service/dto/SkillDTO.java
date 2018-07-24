@@ -15,10 +15,13 @@ public class SkillDTO implements Serializable {
     @Size(min = 5, max = 80)
     private String title;
 
+    @Size(max = 2048)
     private String description;
 
+    @Size(max = 2048)
     private String implementation;
 
+    @Size(max = 2048)
     private String validation;
 
     @Pattern(regexp = "^P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?$")
@@ -30,7 +33,8 @@ public class SkillDTO implements Serializable {
     @Min(value = 0)
     private Integer score;
 
-    @DecimalMin(value = "0") @DecimalMax(value = "5")
+    @DecimalMin(value = "0")
+    @DecimalMax(value = "5")
     private Double rateScore;
 
     @Min(value = 0)
