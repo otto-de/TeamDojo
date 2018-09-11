@@ -3,6 +3,7 @@ package de.otto.teamdojo.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import de.otto.teamdojo.service.DimensionQueryService;
 import de.otto.teamdojo.service.DimensionService;
+import de.otto.teamdojo.service.TeamService;
 import de.otto.teamdojo.service.dto.DimensionCriteria;
 import de.otto.teamdojo.service.dto.DimensionDTO;
 import de.otto.teamdojo.web.rest.errors.BadRequestAlertException;
@@ -34,9 +35,12 @@ public class DimensionResource {
 
     private final DimensionQueryService dimensionQueryService;
 
-    public DimensionResource(DimensionService dimensionService, DimensionQueryService dimensionQueryService) {
+    private final TeamService teamService;
+
+    public DimensionResource(DimensionService dimensionService, DimensionQueryService dimensionQueryService, TeamService teamService) {
         this.dimensionService = dimensionService;
         this.dimensionQueryService = dimensionQueryService;
+        this.teamService = teamService;
     }
 
     /**
@@ -54,6 +58,7 @@ public class DimensionResource {
             throw new BadRequestAlertException("A new dimension cannot already have an ID", ENTITY_NAME, "idexists");
         }
         DimensionDTO result = dimensionService.save(dimensionDTO);
+        teamService.addNewDimensionForAllTeams(result);
         return ResponseEntity.created(new URI("/api/dimensions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

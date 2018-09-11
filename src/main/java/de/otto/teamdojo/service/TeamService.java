@@ -1,5 +1,6 @@
 package de.otto.teamdojo.service;
 
+import de.otto.teamdojo.service.dto.DimensionDTO;
 import de.otto.teamdojo.service.dto.TeamDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,4 +49,6 @@ public interface TeamService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    void addNewDimensionForAllTeams(DimensionDTO dimensionDTO);
 }

@@ -3,6 +3,7 @@ package de.otto.teamdojo.service.impl;
 import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.repository.TeamRepository;
 import de.otto.teamdojo.service.TeamService;
+import de.otto.teamdojo.service.dto.DimensionDTO;
 import de.otto.teamdojo.service.dto.TeamDTO;
 import de.otto.teamdojo.service.mapper.TeamMapper;
 import org.slf4j.Logger;
@@ -96,5 +97,13 @@ public class TeamServiceImpl implements TeamService {
     public void delete(Long id) {
         log.debug("Request to delete Team : {}", id);
         teamRepository.deleteById(id);
+    }
+
+    @Override
+    public void addNewDimensionForAllTeams(DimensionDTO dimensionDTO){
+        this.findAll().forEach(team ->{
+            team.getParticipations().add(dimensionDTO);
+            this.save(team);
+        });
     }
 }
