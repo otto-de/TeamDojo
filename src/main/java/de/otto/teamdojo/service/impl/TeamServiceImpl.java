@@ -3,6 +3,7 @@ package de.otto.teamdojo.service.impl;
 import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.repository.TeamRepository;
 import de.otto.teamdojo.service.TeamService;
+import de.otto.teamdojo.service.TeamSkillService;
 import de.otto.teamdojo.service.dto.DimensionDTO;
 import de.otto.teamdojo.service.dto.TeamDTO;
 import de.otto.teamdojo.service.mapper.TeamMapper;
@@ -31,9 +32,12 @@ public class TeamServiceImpl implements TeamService {
 
     private final TeamMapper teamMapper;
 
-    public TeamServiceImpl(TeamRepository teamRepository, TeamMapper teamMapper) {
+    private final TeamSkillService teamSkillService;
+
+    public TeamServiceImpl(TeamRepository teamRepository, TeamMapper teamMapper, TeamSkillService teamSkillService) {
         this.teamRepository = teamRepository;
         this.teamMapper = teamMapper;
+        this.teamSkillService = teamSkillService;
     }
 
     /**
@@ -96,6 +100,8 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Team : {}", id);
+        Team team = teamRepository.findById(id).get();
+        team.getSkills().forEach(skill -> teamSkillService.delete(skill.getId()));
         teamRepository.deleteById(id);
     }
 
