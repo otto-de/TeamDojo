@@ -51,10 +51,9 @@ export const teamRoute: Routes = [
             team: TeamResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: [],
             pageTitle: 'teamdojoApp.team.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+        }
     },
     {
         path: 'team/:id/edit',

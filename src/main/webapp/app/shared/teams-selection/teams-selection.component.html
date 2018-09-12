@@ -23,6 +23,12 @@
 
 </div>
 <div class="modal-footer">
+    <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-team" (click)="createNewTeam()">
+        <span class="fa fa-plus"></span>
+        <span  jhiTranslate="teamdojoApp.team.home.createLabel">
+            Create new Team
+            </span>
+    </button>
     <button type="button" class="btn btn-outline-dark" (click)="deselectTeam()"
             jhiTranslate="teamdojoApp.teams.selection.deselect">No Team
     </button>
