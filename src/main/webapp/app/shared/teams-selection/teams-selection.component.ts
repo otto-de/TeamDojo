@@ -49,6 +49,11 @@ export class TeamsSelectionComponent implements OnInit {
         this.router.navigate(['']);
     }
 
+    createNewTeam() {
+        this.activeModal.close('Create new Team');
+        this.router.navigate(['/team/new']);
+    }
+
     cancelTeamSelection() {
         this.activeModal.dismiss('Team selected cancelled');
     }
