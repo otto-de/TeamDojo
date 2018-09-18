@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ITeam } from 'app/shared/model/team.model';
 import { ISkill } from 'app/shared/model/skill.model';
@@ -21,7 +21,7 @@ import { TeamSkillService } from 'app/entities/team-skill';
     templateUrl: './skill-details-info.component.html',
     styleUrls: ['./skill-details-info.scss']
 })
-export class SkillDetailsInfoComponent implements OnInit {
+export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     @Input() team: ITeam;
 
     @Input() skill: ISkill;
@@ -65,6 +65,10 @@ export class SkillDetailsInfoComponent implements OnInit {
             this._teamSkills = (teamSkills && teamSkills.body ? teamSkills.body : teamSkills) || [];
             this.loadData();
         });
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        this.loadData();
     }
 
     loadData() {
