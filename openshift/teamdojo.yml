@@ -23,11 +23,11 @@ spec:
           protocol: TCP
         env:
           - name: SPRING_PROFILES_ACTIVE
-            value: prod,swagger
+            value: "prod,swagger"
           - name: SPRING_DATASOURCE_URL
-            value: jdbc:postgresql://postgres:5432/teamdojo
+            value: "jdbc:postgresql://postgres:5432/teamdojo"
           - name: JHIPSTER_SLEEP
-            value: 10 # gives time for the database to boot before the application
+            value: "10" # gives time for the database to boot before the application
   test: false
   triggers:
   - type: ConfigChange
