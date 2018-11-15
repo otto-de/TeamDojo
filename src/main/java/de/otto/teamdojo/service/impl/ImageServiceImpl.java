@@ -149,6 +149,20 @@ public class ImageServiceImpl implements ImageService {
     }
 
     /**
+     * Get one image by name.
+     *
+     * @param name the name of the entity
+     * @return the entity
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<ImageDTO> findByName(String name) {
+        log.debug("Request to get Image : {}", name);
+        return imageRepository.findByName(name)
+            .map(imageMapper::toDto);
+    }
+
+    /**
      * Delete the image by id.
      *
      * @param id the id of the entity

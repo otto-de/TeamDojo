@@ -146,6 +146,32 @@ public class ImageResource {
     }
 
     /**
+     * GET  /images/name/:name : get the "name" image.
+     *
+     * @param name the name of the imageDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the imageDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/images/name/{name}")
+    @Timed
+    public ResponseEntity<byte[]> getImageContent(@PathVariable String name) {
+        log.debug("REST request to get Image : {}", name);
+        Optional<ImageDTO> imageDTO = imageService.findByName(name);
+        if (!imageDTO.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        ImageDTO image = imageDTO.get();
+
+        byte[] imageBlob;
+        String contentType;
+            imageBlob = image.getLarge();
+            contentType = image.getLargeContentType();
+        return ResponseEntity.ok()
+            .header("Content-Type", contentType)
+            .cacheControl(CacheControl.maxAge(30, TimeUnit.DAYS))
+            .body(imageBlob);
+    }
+
+    /**
      * DELETE  /images/:id : delete the "id" image.
      *
      * @param id the id of the imageDTO to delete

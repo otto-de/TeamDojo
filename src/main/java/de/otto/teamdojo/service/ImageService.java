@@ -35,6 +35,14 @@ public interface ImageService {
     Optional<ImageDTO> findOne(Long id);
 
     /**
+     * Get the "name" image.
+     *
+     * @param name the name of the entity
+     * @return the entity
+     */
+    Optional<ImageDTO> findByName(String name);
+
+    /**
      * Delete the "id" image.
      *
      * @param id the id of the entity

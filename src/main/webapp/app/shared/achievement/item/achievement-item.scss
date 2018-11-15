@@ -25,7 +25,7 @@
                 display: flex;
                 width: inherit;
                 height: inherit;
-                background: no-repeat center/90% url('../../../../content/images/badge_default.png');
+                background: no-repeat center/90% url('/api/images/name/Default_Badge');
             }
         }
         &-disabled {
@@ -54,7 +54,7 @@
                 width: inherit;
                 height: inherit;
                 z-index: 1;
-                background: no-repeat center/72% url('../../../../content/images/level_default.png');
+                background: no-repeat center/72% url('/api/images/name/Default_Level');
             }
         }
         &-disabled {
