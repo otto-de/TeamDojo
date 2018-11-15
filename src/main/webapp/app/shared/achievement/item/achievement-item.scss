@@ -19,6 +19,12 @@
                 width: 70%;
                 margin-top: -3px;
             }
+            .img-placeholder{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: inherit;
+                height: inherit;
             &::after {
                 content: '';
                 position: absolute;
@@ -26,6 +32,7 @@
                 width: inherit;
                 height: inherit;
                 background: no-repeat center/90% url('/api/images/name/Default_Badge');
+            }
             }
         }
         &-disabled {
@@ -47,15 +54,24 @@
                 width: inherit;
                 z-index: 2;
             }
-            &::before {
-                content: '';
-                position: absolute;
-                display: flex;
-                width: inherit;
-                height: inherit;
-                z-index: 1;
-                background: no-repeat center/72% url('/api/images/name/Default_Level');
-            }
+                .img-placeholder {
+                    background-color: transparent;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: inherit;
+                    height: inherit;
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        display: flex;
+                        width: inherit;
+                        height: inherit;
+                        z-index: 1;
+                        background: no-repeat center/72% url('/api/images/name/Default_Level');
+                    }
+                }
+
         }
         &-disabled {
             img, .item-image::before, .item-progress-wrapper {
