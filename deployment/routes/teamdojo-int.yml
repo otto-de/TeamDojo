@@ -1,0 +1,17 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    haproxy.router.openshift.io/ip_whitelist: 192.168.0.0/16 213.61.180.0/24
+  name: teamdojo-int
+spec:
+  host: slabdojo-int.cloudapps.iterashift.de
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: teamdojo-int
+    weight: 100
+  wildcardPolicy: None

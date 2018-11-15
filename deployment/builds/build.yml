@@ -1,14 +1,4 @@
 apiVersion: v1
-kind: ImageStream
-metadata:
-  labels:
-    app: teamdojo
-  name: teamdojo
-spec:
-  lookupPolicy:
-    local: false
----
-apiVersion: v1
 kind: BuildConfig
 metadata:
   labels:
@@ -26,6 +16,6 @@ spec:
     type: Git
   strategy:
     dockerStrategy:
-      dockerfilePath: openshift/Dockerfile
+      dockerfilePath: deployment/builds/Dockerfile
     type: Docker
 

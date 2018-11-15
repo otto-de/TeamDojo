@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: teamdojo
+  name: teamdojo
+spec:
+  replicas: 1
+  selector:
+    app: teamdojo
+    deploymentconfig: teamdojo
+  template:
+    metadata:
+      labels:
+        app: teamdojo
+        deploymentconfig: teamdojo
+    spec:
+      containers:
+      - image: docker-registry.default.svc:5000/slabdojo/teamdojo
+        name: teamdojo
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: "prod,swagger"
+          - name: SPRING_DATASOURCE_URL
+            value: "jdbc:postgresql://postgres:5432/dojo"
+          - name: SPRING_DATASOURCE_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: slabdojo-db
+                key: user
+          - name: SPRING_DATASOURCE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: slabdojo-db
+                key: password
+          - name: JHIPSTER_SLEEP
+            value: "10" # gives time for the database to boot before the application
+  test: false
