@@ -6,6 +6,7 @@ import {
     TeamSkillService,
     TeamSkillComponent,
     TeamSkillDetailComponent,
+    TeamSkillVoteComponent,
     TeamSkillUpdateComponent,
     TeamSkillDeletePopupComponent,
     TeamSkillDeleteDialogComponent,
@@ -21,11 +22,18 @@ const ENTITY_STATES = [...teamSkillRoute, ...teamSkillPopupRoute];
     declarations: [
         TeamSkillComponent,
         TeamSkillDetailComponent,
+        TeamSkillVoteComponent,
         TeamSkillUpdateComponent,
         TeamSkillDeleteDialogComponent,
         TeamSkillDeletePopupComponent
     ],
-    entryComponents: [TeamSkillComponent, TeamSkillUpdateComponent, TeamSkillDeleteDialogComponent, TeamSkillDeletePopupComponent],
+    entryComponents: [
+        TeamSkillComponent,
+        TeamSkillUpdateComponent,
+        TeamSkillVoteComponent,
+        TeamSkillDeleteDialogComponent,
+        TeamSkillDeletePopupComponent
+    ],
     providers: [TeamSkillService, TeamSkillResolve],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

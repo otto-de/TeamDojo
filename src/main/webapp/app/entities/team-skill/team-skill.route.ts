@@ -6,6 +6,7 @@ import { TeamSkill } from 'app/shared/model/team-skill.model';
 import { TeamSkillService } from './team-skill.service';
 import { TeamSkillComponent } from './team-skill.component';
 import { TeamSkillDetailComponent } from './team-skill-detail.component';
+import { TeamSkillVoteComponent } from 'app/entities/team-skill/team-skill-vote.component';
 import { TeamSkillUpdateComponent } from './team-skill-update.component';
 import { TeamSkillDeletePopupComponent } from './team-skill-delete-dialog.component';
 
@@ -40,6 +41,17 @@ export const teamSkillRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
+            pageTitle: 'teamdojoApp.teamSkill.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'team-skill/:id/vote',
+        component: TeamSkillVoteComponent,
+        resolve: {
+            teamSkill: TeamSkillResolve
+        },
+        data: {
             pageTitle: 'teamdojoApp.teamSkill.home.title'
         },
         canActivate: [UserRouteAccessService]

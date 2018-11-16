@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import de.otto.teamdojo.config.ApplicationProperties;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -52,18 +53,22 @@ public class ActivityServiceImpl implements ActivityService {
 
     private final SkillRepository skillRepository;
 
+    private final ApplicationProperties properties;
+
     private static final String MATTERMOST_URL = "https://iterachat.iteratec.de/hooks/aphkudt86ffr9j1radt4myrc8y";
 
     public ActivityServiceImpl(ActivityRepository activityRepository,
                                ActivityMapper activityMapper,
                                BadgeRepository badgeRepository,
                                TeamRepository teamRepository,
-                               SkillRepository skillRepository) {
+                               SkillRepository skillRepository,
+                               ApplicationProperties properties) {
         this.activityRepository = activityRepository;
         this.activityMapper = activityMapper;
         this.badgeRepository = badgeRepository;
         this.teamRepository = teamRepository;
         this.skillRepository = skillRepository;
+        this.properties = properties;
     }
 
     /**
@@ -112,7 +117,7 @@ public class ActivityServiceImpl implements ActivityService {
         activityDTO.setCreatedAt(Instant.now());
         activityDTO.setData(data.toString());
         log.debug("Request to create activity for SKILL_COMPLETED {}", activityDTO);
-        informMattermost(team.getName() + " hat den Skill " + skill.getTitle() + " erlernt");
+        informMattermost(team.getName() + " hat den Skill " + skill.getTitle() + " erlernt! <https://slab-dojo.cloudapps.iterashift.de/#/team-skill/"+teamSkill.getId()+"/vote|Bewerte> jetzt den Skill");
         return save(activityDTO);
     }
 
