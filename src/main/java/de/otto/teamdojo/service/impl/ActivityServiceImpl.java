@@ -117,7 +117,7 @@ public class ActivityServiceImpl implements ActivityService {
         activityDTO.setCreatedAt(Instant.now());
         activityDTO.setData(data.toString());
         log.debug("Request to create activity for SKILL_COMPLETED {}", activityDTO);
-        informMattermost(team.getName() + " hat den Skill " + skill.getTitle() + " erlernt! <https://slab-dojo.cloudapps.iterashift.de/#/team-skill/"+teamSkill.getId()+"/vote|Bewerte> jetzt den Skill");
+        informMattermost(team.getName() + " hat den Skill " + skill.getTitle() + " erlernt! <https://slabdojo.cloudapps.iterashift.de/#/team-skill/"+teamSkill.getId()+"/vote|Traust du das "+team.getName()+" zu?>");
         return save(activityDTO);
     }
 
