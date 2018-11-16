@@ -40,15 +40,19 @@
             </dl>
 
             <button type="submit"
-                    (click)="previousState()"
+                    (click)="upVote()"
+                    [routerLink]="['/']"
+                    [disabled]="disabled"
                     class="btn btn-info">
-                <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                <span class="fa fa-arrow-up"></span>&nbsp;<span> Bestätigen</span>
             </button>
 
             <button type="button"
-                    [routerLink]="['/team-skill', teamSkill.id, 'edit']"
+                    (click)="downVote()"
+                    [routerLink]="['/']"
+                    [disabled]="disabled"
                     class="btn btn-primary">
-                <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                <span class="fa fa-arrow-down"></span>&nbsp;<span> Ablehnen</span>
             </button>
         </div>
     </div>

@@ -1,12 +1,13 @@
 package de.otto.teamdojo.service.impl;
 
+import de.otto.teamdojo.service.TeamSkillService;
 import de.otto.teamdojo.domain.TeamSkill;
 import de.otto.teamdojo.repository.TeamSkillRepository;
-import de.otto.teamdojo.service.TeamSkillService;
 import de.otto.teamdojo.service.dto.TeamSkillDTO;
 import de.otto.teamdojo.service.mapper.TeamSkillMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,9 @@ public class TeamSkillServiceImpl implements TeamSkillService {
     @Override
     public TeamSkillDTO save(TeamSkillDTO teamSkillDTO) {
         log.debug("Request to save TeamSkill : {}", teamSkillDTO);
+        if(teamSkillDTO.getVote()==null){
+            teamSkillDTO.setVote(0);
+        }
         TeamSkill teamSkill = teamSkillMapper.toEntity(teamSkillDTO);
         teamSkill = teamSkillRepository.save(teamSkill);
         return teamSkillMapper.toDto(teamSkill);

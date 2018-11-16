@@ -5,7 +5,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
@@ -36,6 +37,10 @@ public class TeamSkill implements Serializable {
 
     @Column(name = "note")
     private String note;
+
+    @NotNull
+    @Column(name = "vote", nullable = false)
+    private Integer vote;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -108,6 +113,19 @@ public class TeamSkill implements Serializable {
         this.note = note;
     }
 
+    public Integer getVote() {
+        return vote;
+    }
+
+    public TeamSkill vote(Integer vote) {
+        this.vote = vote;
+        return this;
+    }
+
+    public void setVote(Integer vote) {
+        this.vote = vote;
+    }
+
     public Skill getSkill() {
         return skill;
     }
@@ -163,6 +181,7 @@ public class TeamSkill implements Serializable {
             ", verifiedAt='" + getVerifiedAt() + "'" +
             ", irrelevant='" + isIrrelevant() + "'" +
             ", note='" + getNote() + "'" +
+            ", vote=" + getVote() +
             "}";
     }
 }

@@ -37,6 +37,10 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="vote" type="integer">
+                <constraints nullable="false" />
+            </column>
+
             <column name="skill_id" type="bigint">
                 <constraints nullable="false" />
             </column>

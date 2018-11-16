@@ -33,6 +33,21 @@
                     <input type="text" class="form-control" name="note" id="field_note"
                         [(ngModel)]="teamSkill.note" />
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="teamdojoApp.teamSkill.vote" for="field_vote">Vote</label>
+                    <input type="number" class="form-control" name="vote" id="field_vote"
+                        [(ngModel)]="teamSkill.vote" required/>
+                    <div [hidden]="!(editForm.controls.vote?.dirty && editForm.controls.vote?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.vote?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.vote?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.teamSkill.skill" for="field_skill">Skill</label>

@@ -20,6 +20,7 @@
             "verifiedAt": "Verified At",
             "irrelevant": "Irrelevant",
             "note": "Note",
+            "vote": "Vote",
             "skill": "Skill",
             "team": "Team"
         }
