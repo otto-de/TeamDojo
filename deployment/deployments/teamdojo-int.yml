@@ -23,7 +23,7 @@ spec:
           protocol: TCP
         env:
           - name: SPRING_PROFILES_ACTIVE
-            value: "prod,swagger"
+            value: "int,swagger"
           - name: SPRING_DATASOURCE_URL
             value: "jdbc:postgresql://postgres-int:5432/dojo"
           - name: SPRING_DATASOURCE_USERNAME
