@@ -116,4 +116,6 @@ jhipster:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
 
-# application:
+application:
+    mattermost: https://iterachat.iteratec.de/hooks/gpucc9dcg7fqfbyyb4i38pqgmh
+    frontend: http://localhost:9000/#/

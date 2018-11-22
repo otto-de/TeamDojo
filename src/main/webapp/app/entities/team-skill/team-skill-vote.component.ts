@@ -17,7 +17,7 @@ export class TeamSkillVoteComponent implements OnInit {
     ngOnInit() {
         this.route.data.subscribe(({ teamSkill }) => {
             this.teamSkill = teamSkill.body ? teamSkill.body : teamSkill;
-            if (this.teamSkill.verifiedAt && this.teamSkill.verifiedAt != undefined && this.teamSkill.verifiedAt != null) {
+            if (this.teamSkill.verifiedAt && this.teamSkill.verifiedAt !== undefined && this.teamSkill.verifiedAt !== null) {
                 this.disabled = true;
             }
         });

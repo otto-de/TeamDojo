@@ -55,8 +55,6 @@ public class ActivityServiceImpl implements ActivityService {
 
     private final ApplicationProperties properties;
 
-    private static final String MATTERMOST_URL = "https://iterachat.iteratec.de/hooks/aphkudt86ffr9j1radt4myrc8y";
-
     public ActivityServiceImpl(ActivityRepository activityRepository,
                                ActivityMapper activityMapper,
                                BadgeRepository badgeRepository,
@@ -117,7 +115,7 @@ public class ActivityServiceImpl implements ActivityService {
         activityDTO.setCreatedAt(Instant.now());
         activityDTO.setData(data.toString());
         log.debug("Request to create activity for SKILL_COMPLETED {}", activityDTO);
-        informMattermost(team.getName() + " hat den Skill \"" + skill.getTitle() + "\" erlernt! <https://slabdojo.cloudapps.iterashift.de/#/team-skill/"+teamSkill.getId()+"/vote|Traust du das "+team.getName()+" zu?>");
+        informMattermost(team.getName() + " hat den Skill \"" + skill.getTitle() + "\" erlernt! <" + properties.getFrontend() + "team-skill/"+teamSkill.getId()+"/vote|Traust du das "+team.getName()+" zu?>");
         return save(activityDTO);
     }
 
@@ -171,7 +169,7 @@ public class ActivityServiceImpl implements ActivityService {
         Map req_body = new HashMap();
         req_body.put("text", message);
         HttpEntity<?> request = new HttpEntity<>(req_body, headers);
-        ResponseEntity<?> response = new RestTemplate().postForEntity(MATTERMOST_URL, request, String.class);
+        ResponseEntity<?> response = new RestTemplate().postForEntity(properties.getMattermost(), request, String.class);
         if (response.getStatusCodeValue() != 200) {
             log.warn("Could not post to Mattermost");
         }

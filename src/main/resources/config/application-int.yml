@@ -1,5 +1,5 @@
 # ===================================================================
-# Spring Boot configuration for the "prod" profile.
+# Spring Boot configuration for the "int" profile.
 #
 # This configuration overrides the application.yml file.
 #
@@ -121,5 +121,5 @@ jhipster:
 # ===================================================================
 
 application:
-    mattermost: https://iterachat.iteratec.de/hooks/aphkudt86ffr9j1radt4myrc8y
-    frontend: https://slabdojo.cloudapps.iterashift.de/#/
+    mattermost: https://iterachat.iteratec.de/hooks/gpucc9dcg7fqfbyyb4i38pqgmh
+    frontend: https://slabdojo-int.cloudapps.iterashift.de/#/
