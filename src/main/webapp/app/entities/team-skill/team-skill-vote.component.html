@@ -1,10 +1,23 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="teamSkill">
-            <h2><span jhiTranslate="teamdojoApp.teamSkill.detail.title">Team Skill</span> {{teamSkill.id}}</h2>
+            <h2><span jhiTranslate="teamdojoApp.teamSkill.completed" translateValues="{team: '{{teamSkill.teamName}}', skill: '{{teamSkill.skillTitle}}'}">completed the skill</span></h2>
+            <h4><i><span jhiTranslate="teamdojoApp.teamSkill.accept" translateValues="{team: '{{teamSkill.teamName}}'}">can handle the skill</span></i></h4>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="teamdojoApp.teamSkill.team">Team</span></dt>
+                <dd>
+                    <div *ngIf="teamSkill.teamId">
+                        <a [routerLink]="['/team', teamSkill.teamId, 'view']">{{teamSkill.teamName}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.teamSkill.skill">Skill</span></dt>
+                <dd>
+                    <div *ngIf="teamSkill.skillId">
+                        <a [routerLink]="['/skill', teamSkill.skillId, 'view']">{{teamSkill.skillTitle}}</a>
+                    </div>
+                </dd>
                 <dt><span jhiTranslate="teamdojoApp.teamSkill.completedAt">Completed At</span></dt>
                 <dd>
                     <span>{{teamSkill.completedAt}}</span>
@@ -13,29 +26,9 @@
                 <dd>
                     <span>{{teamSkill.verifiedAt}}</span>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.teamSkill.irrelevant">Irrelevant</span></dt>
-                <dd>
-                    <span>{{teamSkill.irrelevant}}</span>
-                </dd>
-                <dt><span jhiTranslate="teamdojoApp.teamSkill.note">Note</span></dt>
-                <dd>
-                    <span>{{teamSkill.note}}</span>
-                </dd>
                 <dt><span jhiTranslate="teamdojoApp.teamSkill.vote">Vote</span></dt>
                 <dd>
                     <span>{{teamSkill.vote}}</span>
-                </dd>
-                <dt><span jhiTranslate="teamdojoApp.teamSkill.skill">Skill</span></dt>
-                <dd>
-                    <div *ngIf="teamSkill.skillId">
-                        <a [routerLink]="['/skill', teamSkill.skillId, 'view']">{{teamSkill.skillTitle}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="teamdojoApp.teamSkill.team">Team</span></dt>
-                <dd>
-                    <div *ngIf="teamSkill.teamId">
-                        <a [routerLink]="['/team', teamSkill.teamId, 'view']">{{teamSkill.teamName}}</a>
-                    </div>
                 </dd>
             </dl>
 
@@ -44,7 +37,7 @@
                     [routerLink]="['/']"
                     [disabled]="disabled"
                     class="btn btn-info">
-                <span class="fa fa-arrow-up"></span>&nbsp;<span> Bestätigen</span>
+                <span class="fa fa-arrow-up"></span>&nbsp;<span jhiTranslate="teamdojoApp.teamSkill.upvote">Upvote</span>
             </button>
 
             <button type="button"
@@ -52,7 +45,7 @@
                     [routerLink]="['/']"
                     [disabled]="disabled"
                     class="btn btn-primary">
-                <span class="fa fa-arrow-down"></span>&nbsp;<span> Ablehnen</span>
+                <span class="fa fa-arrow-down"></span>&nbsp;<span jhiTranslate="teamdojoApp.teamSkill.downvote">Downvote</span>
             </button>
         </div>
     </div>

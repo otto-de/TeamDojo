@@ -16,6 +16,10 @@
             "detail": {
                 "title": "Team Skill"
             },
+            "completed": "{{ team }} hat den Skill {{ skill }} erlernt!",
+            "accept": "Traust du das {{ team }} zu?",
+            "upvote": "Bestätigen",
+            "downvote": "Ablehnen",
             "completedAt": "Completed At",
             "verifiedAt": "Verified At",
             "irrelevant": "Irrelevant",
