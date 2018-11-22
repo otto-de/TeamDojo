@@ -16,7 +16,7 @@
     <!--
         Added the entity TeamSkill.
     -->
-    <changeSet id="20180419092355-1" author="jhipster" runAlways="true">
+    <changeSet id="20180419092355-1" author="jhipster">
         <createTable tableName="team_skill">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
