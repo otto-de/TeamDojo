@@ -12,7 +12,7 @@
                 <h5 *ngIf="!team.slogan; else sloganWithTitle" class="team-title mb-0">{{team.name}}</h5>
                 <ng-template #sloganWithTitle>
                     <h5 class="team-slogan mb-0">{{team.slogan}}</h5>
-                    <h6 class="team-title mt-0 mb-0">{{team.name}}</h6>
+                    <h6 class="team-title mb-0">{{team.name}}</h6>
                 </ng-template>
                 <div class="team-score"><span>{{teamScore}}</span></div>
             </div>

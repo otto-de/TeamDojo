@@ -4,6 +4,7 @@ import { SkillDetailsComponentParent } from 'app/shared/skill-details/skill-deta
 import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 import { ActivatedRoute } from '@angular/router';
 import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
+import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
 
 @Component({
     selector: 'jhi-skill-details',
@@ -12,7 +13,8 @@ import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-s
 })
 export class SkillDetailsComponent extends SkillDetailsComponentParent implements OnInit {
     achievableSkill: IAchievableSkill;
-    constructor(route: ActivatedRoute, teamsSkillsService: TeamsSkillsService) {
+
+    constructor(route: ActivatedRoute, teamsSkillsService: TeamsSkillsService, private teamsSelectionService: TeamsSelectionService) {
         super(route, teamsSkillsService);
     }
 
@@ -40,5 +42,10 @@ export class SkillDetailsComponent extends SkillDetailsComponentParent implement
 
     onVoteSubmitted(voteObjs) {
         this.onCommentSubmitted(voteObjs.comment);
+    }
+
+    get isSameTeam(): boolean {
+        const currentTeam = this.teamsSelectionService.selectedTeam;
+        return currentTeam && this.team && currentTeam.id === this.team.id;
     }
 }

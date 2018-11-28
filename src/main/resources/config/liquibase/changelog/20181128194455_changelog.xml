@@ -1,0 +1,884 @@
+<databaseChangeLog xmlns='http://www.liquibase.org/xml/ns/dbchangelog' xmlns:ext='http://www.liquibase.org/xml/ns/dbchangelog-ext' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog-ext&#10;http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd&#10;http://www.liquibase.org/xml/ns/dbchangelog&#10;http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd'>
+  <changeSet author='gradle' context='!test' id='1543430695665-1'>
+    <insert tableName='dimension'>
+      <column name='id' valueNumeric='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='name' value='Security' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-2'>
+    <insert tableName='level'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='name' value='yellow' />
+      <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
+      <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;null&apos; LIMIT 1)' />
+      <column name='required_score' valueNumeric='1.0' />
+      <column name='instant_multiplier' valueNumeric='0.0' />
+      <column name='completion_bonus' valueNumeric='0.0' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-3'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Festplattenverschlüsselung für alle Devices' />
+      <column name='description' value='Devices können gestohlen werden.' />
+      <column name='implementation' value='Windows: Bitlocker oder McAffee endpoint protection aktivieren. OSX: Filevault aktivieren. Android/iOS: Gerätesperre anschalten.' />
+      <column name='jhi_validation' value='Team fragen' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Festplattenverschlüsselung für alle Devices&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-4'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Teilnahme an Securityschulung' />
+      <column name='description' value='Grundlegendes Verständnis von Security unabhängig von der Rolle' />
+      <column name='implementation' value='Teilnahme an standard Schulung' />
+      <column name='jhi_validation' value='Security Champion pflegt Liste mit Teilnehmern' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Teilnahme an Securityschulung&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-5'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Sicherheitsrelevante E‑Learning Module' />
+      <column name='description' value='Basics lernen/auffrischen' />
+      <column name='implementation' value='Interne Mitarbeiter bearbeiten die Elearning Module zur Informationssicherheit im eCampus. Die aktuellen Module behandeln Themen zum Umgang mit E-Mails, OTTO Richtlinien (1-3) und sicherer Softwareentwicklung' />
+      <column name='jhi_validation' value='Alle internen Mitarbeiter haben Pflicht- und optionale Module absolviert (Führungskraft kann validieren)' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Sicherheitsrelevante E‑Learning Module&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-6'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Sicherer Austausch von Credentials' />
+      <column name='description' value='Gesicherte Ablage von Credentials und anderen schützenswerten Daten. Mails und Chat können in falsche Hände gelangen und werden außerhalb des eigenen Einflussbereichs vielfach gespeichert. Confluence ist keine gesicherte Ablage!' />
+      <column name='implementation' value='Passwörter werden nicht per Email oder Chat verschickt oder im Wiki hinterlegt. Besser ist beispielsweise ein geteilter Passwortcontainer. Zum Beispiel KeePass.' />
+      <column name='jhi_validation' value='Aufklärungsarbeit...' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Sicherer Austausch von Credentials&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-7'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Absicherung von internen Schnittstellen (Adminseiten &amp; Toggles)' />
+      <column name='description' value='Kein Zugriff auf Adminseiten ohne Authentifizierung/Authorisierung' />
+      <column name='implementation' value='Basic auth erlaubt. Eindeutige Benutzer. Verschiedene Passwörter.' />
+      <column name='jhi_validation' value='Kein Aufruf ohne Authentifizierung. Alte geteilte Passwörter werden entfernt. Regelmäßig Passwörter tauschen' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Absicherung von internen Schnittstellen (Adminseiten &amp; Toggles)&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-8'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Eingabevalidierung von Daten' />
+      <column name='description' value='Datenkonsistenz. Injection Angriffe verhindern' />
+      <column name='implementation' value='Sanitizing der Daten.' />
+      <column name='jhi_validation' value='Fachl. Vorgaben. (Plausibilität), Aktzeptanzkriterien.. API Doku ist aktuell. Automatisch testen.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Eingabevalidierung von Daten&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-9'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Persönlicher Passwort‑Manager' />
+      <column name='description' value='Generierte Passwörter sind besser als merkbare. Sicherer als andere Speichermethoden. Teilbar mit Team' />
+      <column name='implementation' value='Teammitglieder installieren/verwenden Passwort-Manager.' />
+      <column name='jhi_validation' value='alle Otto-Relevanten Passwörter sind bei Teammitgliedern im Password-Manager' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Persönlicher Passwort‑Manager&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-10'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Team hat einen aktiven Security Champion' />
+      <column name='description' value='Treibt Sicherheitsthemen im Team und bringt Know How.' />
+      <column name='implementation' value='Das Team findet einen "Security Champion". Diese/Dieser nimmt an der Security Champion Runde teil.' />
+      <column name='jhi_validation' value='Mindestens 6-malige Teilnahme in den letzten 12 Monaten' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Team hat einen aktiven Security Champion&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-11'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Aktuelle Übersicht über das eigene System. Dokumentation aktuell halten' />
+      <column name='description' value='Man muss sein System kennen, um Schwachstellen erkennen zu können. Onboarding von Kollegen vereinfacht.' />
+      <column name='implementation' value='Regelmässiges Review der System-Dokumentation' />
+      <column name='jhi_validation' value='Zu jedem System existiert eine Dokumentation. Letztes Review ist nicht älter als 6 Monate' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Aktuelle Übersicht über das eigene System. Dokumentation aktuell halten&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-12'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Keine Credentials im Code oder in Artefakten' />
+      <column name='description' value='Zugriff durch Dritte vermeiden' />
+      <column name='implementation' value='Aktuell existiert ein zentraler Service für genau diesen Zweck: vault. Die Properties werden verschlüsselt und zugriffsgeschützt abgelegt.' />
+      <column name='jhi_validation' value='Quellcode nach Credentials durchsuchen' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Keine Credentials im Code oder in Artefakten&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-13'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Starke Passwörter' />
+      <column name='description' value='Damit sie nicht erraten werden können' />
+      <column name='implementation' value='Sichere Passwörter nutzen, im Zweifel generieren lassen.' />
+      <column name='jhi_validation' value='n/a' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Starke Passwörter&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-14'>
+    <insert tableName='level'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='name' value='orange' />
+      <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
+      <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;yellow&apos; LIMIT 1)' />
+      <column name='required_score' valueNumeric='1.0' />
+      <column name='instant_multiplier' valueNumeric='0.0' />
+      <column name='completion_bonus' valueNumeric='0.0' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-15'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Basis-Kenntnisse der OWASP Top 10 und deren Mechanik' />
+      <column name='description' value='Die OWASP Top 10 sind best practices für sichere Softwareentwicklung.' />
+      <column name='implementation' value='Lernen der OWASP Top 10. Berücksichtigung bei der Implementation von Stories' />
+      <column name='jhi_validation' value='3 Leute im Team können die OWASP Top 10 aufzählen' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Basis-Kenntnisse der OWASP Top 10 und deren Mechanik&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-16'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Regelmäßige Bedrohungsanalysen' />
+      <column name='description' value='Sicherheitslücken identifizieren, Voraussetzungen für Gegenmaßnahmen schaffen' />
+      <column name='implementation' value='Durch Nuttzung von gängigen Vorgehensmodellen (z.B. Attack Trees), Unterstützung von SCALE' />
+      <column name='jhi_validation' value='Dokumentation, Regelmäßige Überprüfung auf Aktualität' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Regelmäßige Bedrohungsanalysen&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-17'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Definition von Gegenmaßnahmen' />
+      <column name='description' value='Präventiver Schutz' />
+      <column name='implementation' value='Auswertung der Bedrohungsanalyse, Umsetzung von geeigneten Maßnahmen' />
+      <column name='jhi_validation' value='Automatisierte Tests' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Definition von Gegenmaßnahmen&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-18'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Wissenstransfer im Team' />
+      <column name='description' value='Gleiches Verständnis von Security schaffen, Aktuelle Entwicklungen, Vermeidung von Single Points of Failure (SPOF)' />
+      <column name='implementation' value='Regelmäßiger Austausch' />
+      <column name='jhi_validation' value='Einschätzung durch Security Champion' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Wissenstransfer im Team&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-19'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Sinnvolle &amp; minimale Rechtevergabe auf Servern und in Containern' />
+      <column name='description' value='Verhindern, dass Angreifer sich erweiterte Rechte verschaffen' />
+      <column name='implementation' value='Server und Container nutzen default Privilegien und haben keine root Rechte' />
+      <column name='jhi_validation' value='Automatisierte Tests' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Sinnvolle &amp; minimale Rechtevergabe auf Servern und in Containern&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-20'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Dokumentation von Ergebnissen der Bedrohunganalysen' />
+      <column name='description' value='Postmortem Analyse, Bewusstwerden der Angriffsvektoren. Rückfluss der Infos in die Applikation. Wissensaustausch und Checklisten generieren.' />
+      <column name='implementation' value='Confluence, Scale pflegt nachhaltige Historie' />
+      <column name='jhi_validation' value='Seiten wurden angelegt und sind allen bekannt' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Dokumentation von Ergebnissen der Bedrohunganalysen&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-21'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Die Pipeline ist abgesichert' />
+      <column name='description' value='Die Pipeline hat Rechte, nach Live zu deployen und ist deshalb ein attraktives Ziel fuer Angreifer' />
+      <column name='implementation' value='Jeder muss sich mit seinem persönlichen Account (z.B. LDAP) authentifizieren, um Lesezugriff auf die Pipeline zu bekommen. Die Konfiguration der Pipeline enthält keine Credentials.' />
+      <column name='jhi_validation' value='Benutzung und Einsicht von Logs sowie der Konfiguration ohne Anmeldung nicht möglich.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Die Pipeline ist abgesichert&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-22'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Vorsichtiger Umgang mit Code von außen (einbinden von externem HTML/ JS)' />
+      <column name='description' value='Schadcode-Injection vermeiden' />
+      <column name='implementation' value='Bei Storydesign beachten. Code validieren' />
+      <column name='jhi_validation' value='Tests oder bei Abnahme beachten' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Vorsichtiger Umgang mit Code von außen (einbinden von externem HTML/ JS)&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-23'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Personenbezogene Daten werden verschlüsselt gespeichert' />
+      <column name='description' value='Datenschutz, kein Vertrauen gegenueber Serverbetreibern, Konzernrichtlinie' />
+      <column name='implementation' value='(Server-)Festplatten sowie Datensätze verschlüssen' />
+      <column name='jhi_validation' value='Überprüfung von Datenbanken und Dateisystemen' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Personenbezogene Daten werden verschlüsselt gespeichert&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-24'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Securityaspekte in Definition of Done' />
+      <column name='description' value='Security sollte im Entwicklungsprozess beachtet werden. Software ist nur sicher, wenn Security kontinuierlich beachtet wird.' />
+      <column name='implementation' value='Securityaspekte in Definition of Done vorhanden, Review mit Fokus auf Security während und nach der Entwicklung' />
+      <column name='jhi_validation' value='Stories beinhalten Securityaspkete und -anforderungen' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Securityaspekte in Definition of Done&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-25'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Linter einsetzen' />
+      <column name='description' value='Helfen Fehler zu vermeiden, die zu Sicherheitslücken führen können' />
+      <column name='implementation' value='sprachspezifische Linter werden regelmäßig benutzt, Fehler und Warnungen werden behoben' />
+      <column name='jhi_validation' value='Produktiv-Code wurde durch Linter überprüft' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Linter einsetzen&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-26'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Verwendung von aktueller Software sowie Libraries' />
+      <column name='description' value='Vermeidung der Verwendung von fehlerhafter Drittanbieter-Software' />
+      <column name='implementation' value='Sprachspezifisches Tool zum Aufzeigen von Sicherheitslücken. Updates werden für Module, Libraries, Packages, Baseimage etc regelmäßig eingespielt' />
+      <column name='jhi_validation' value='Alle eingesetzten Abhängigkeiten werden regelmäßig überprüft' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Verwendung von aktueller Software sowie Libraries&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-27'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Keine personenbezogenen Daten in Logging- und Trackingdaten' />
+      <column name='description' value='Datenschutzvorgaben, Schutz vor Missbrauch' />
+      <column name='implementation' value='Beim Storydesign und der Abnahme beachten' />
+      <column name='jhi_validation' value='Teamintern, Automatisierte und manuelle Tests' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Keine personenbezogenen Daten in Logging- und Trackingdaten&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-28'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Logging / Monitoring von Security Metriken' />
+      <column name='description' value='Angriffe erkennen / nachvollziehen, Sichtbarkeit' />
+      <column name='implementation' value='Daten an Logserver schicken, Graphen erzeugen / Alerting aktivieren, KPIs bestimmen' />
+      <column name='jhi_validation' value='Logging + Visualisierung / Alerting existiert für alle KPIs' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Logging / Monitoring von Security Metriken&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-29'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Authentifizierung für API Endpunkte' />
+      <column name='description' value='Verhindern, dass unauthorisierte Nutzer &amp; Systeme auf die Schnittstellen zugreifen' />
+      <column name='implementation' value='Authentifizierungs- und Authorisierungssystem integrieren, Rollenkonzept. Sicherheitskonzept fuer unverschluesselte Schnittstellen ist vorhanden(bspw. HMAC)' />
+      <column name='jhi_validation' value='Zugriff auf interne Schnittstellen ohne Authentifizierung nicht möglich' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Authentifizierung für API Endpunkte&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-30'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Authorisierung (LDAP) bei Adminseiten (z.B. Toggles)' />
+      <column name='description' value='Accountmanagement wird zentralisiert' />
+      <column name='implementation' value='LDAP Anbindung, Funktionaler User fuer das Team' />
+      <column name='jhi_validation' value='Nur selektierte LDAP-User koennen auf die Adminseiten zugreifen' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Authorisierung (LDAP) bei Adminseiten (z.B. Toggles)&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-31'>
+    <insert tableName='level'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='name' value='green' />
+      <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
+      <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;orange&apos; LIMIT 1)' />
+      <column name='required_score' valueNumeric='1.0' />
+      <column name='instant_multiplier' valueNumeric='0.0' />
+      <column name='completion_bonus' valueNumeric='0.0' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-32'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Alarming bei security Metriken' />
+      <column name='description' value='Ueberblick fuer Team und SPOC schaffen. Transparenz von security Metriken.' />
+      <column name='implementation' value='Dashboard bereitstellen, Security KPIs erstellen und Alarming aktivieren.' />
+      <column name='jhi_validation' value='Es existiert, der SPOC findet es geil, das Team findet es auch geil' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Alarming bei security Metriken&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-33'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Datensparsamkeit' />
+      <column name='description' value='Im Falle einse Diebstahls lieber weniger Daten verlieren, Datenschutzgesetz' />
+      <column name='implementation' value='Vorher genau definieren welche Daten benoetigt werden' />
+      <column name='jhi_validation' value='Vergleich der Datenmengen. Hinterher sollte es weniger sein' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Datensparsamkeit&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-34'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Statische Codeanalyse' />
+      <column name='description' value='Automatische erkennung von Fehlern/Luecken' />
+      <column name='implementation' value='Auswahl passender tools, automatisierbar.' />
+      <column name='jhi_validation' value='geeignetes alarming' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Statische Codeanalyse&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-35'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Custom security tests als Build breaker' />
+      <column name='description' value='Sicherheit fuers Team, Live Schwachstellen vermeiden. Mehr Stabilitaet der Platform' />
+      <column name='implementation' value='Tests werden in der Pipeline ausgefuehrt' />
+      <column name='jhi_validation' value='Test-Ausgabe in der Pipeline' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Custom security tests als Build breaker&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-36'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Aktive nutzung der security Champion Zeit (3h/Wo)' />
+      <column name='description' value='Security-Themen vorantreiben, auf dem neuesten Stand bleiben' />
+      <column name='implementation' value='Blgs, Websites, neue technologien ausprobieren, security Treffen besuchen' />
+      <column name='jhi_validation' value='Zeiterfassung im Personalportal' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Aktive nutzung der security Champion Zeit (3h/Wo)&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-37'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='3rd Party Libraries evaluieren' />
+      <column name='description' value='Potenzielle Angriffsvektoren durch eingesetzten 3rd party code reduzieren' />
+      <column name='implementation' value='Github-Issues o.Ä. der eingesetzten Libraries nach Security-Problemen durchsuchen; Einsatz von Libraries mit wenig Usern überdenken; Libraries mit Sicherheitslücken austauschen' />
+      <column name='jhi_validation' value='Sämtliche Libraries wurden überprüft; Im Team ist bekannt, dass neue Libraries vor dem Einsatz auf Security-Gesichtspunkte untersucht werden müssen' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;3rd Party Libraries evaluieren&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-38'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Probleme mit Otto CA nicht umgehen' />
+      <column name='description' value='Kommunikation ohne Zertifikatsvalaidierung ist unsicher, Moegliche MITM' />
+      <column name='implementation' value='Otto CA systemspezifisch einbinden. Alle Zeritikate werden validiert (strict SSL)' />
+      <column name='jhi_validation' value='?' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Probleme mit Otto CA nicht umgehen&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-39'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Moeglichkeit Gegenmassnahmen einzuleiten' />
+      <column name='description' value='Sicherstellung des BEtriebs' />
+      <column name='implementation' value='SOS(-Runbook) ist aktuell, Security emergency toggles sind bekannt &amp; regeln getestet' />
+      <column name='jhi_validation' value='Kontaktperson gepflegt&amp;aktuell, Tests werden planmaessig 2x jaehrlich getestet (Emergency Toggles)' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Moeglichkeit Gegenmassnahmen einzuleiten&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-40'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Evil User Stories' />
+      <column name='description' value='Sicherstellen dass Schwachstellen/Bedrohungen nicht ausgenutzt werden koennen' />
+      <column name='implementation' value='Betrachten der Softer asu Angreiferperspektive und erstellen von entsprechenden Stories' />
+      <column name='jhi_validation' value='Evil User Stories werden wie normale User Stories priorisiert und implementiert (inkl Tests)' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Evil User Stories&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-41'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Automatische ueberpruefung von Abhaengigkeiten' />
+      <column name='description' value='Erkennung von veralteten Bibliotheken, Behebung von Luecken' />
+      <column name='implementation' value='Dependency checks in der Pipeline' />
+      <column name='jhi_validation' value='alarming' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Automatische ueberpruefung von Abhaengigkeiten&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-42'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Notwendigkeit von Features evaluieren, Clean up API' />
+      <column name='description' value='Angriffsvektoren reduzieren' />
+      <column name='implementation' value='Abbau von Altlasten. (Features, Code, API, Tokens, Toggles)' />
+      <column name='jhi_validation' value='Es existieren keine nicht mehr benoetigten Fatures/Code/API/Tokens/Toggles im system' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Notwendigkeit von Features evaluieren, Clean up API&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-43'>
+    <insert tableName='level'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='name' value='blue' />
+      <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
+      <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;green&apos; LIMIT 1)' />
+      <column name='required_score' valueNumeric='1.0' />
+      <column name='instant_multiplier' valueNumeric='0.0' />
+      <column name='completion_bonus' valueNumeric='0.0' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-44'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Teilnahme Security Schulung. (alle)' />
+      <column name='description' value='Grundlegendes verstaendnis fuer Security. Unabhaengig von der Rolle.' />
+      <column name='implementation' value='Teilnahme' />
+      <column name='jhi_validation' value='Security Champion pflegt Liste' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;blue&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Teilnahme Security Schulung. (alle)&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-45'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Regelmaessige Aenderung von Credentials' />
+      <column name='description' value='Sicherung gegen Kompromittierung/Verlust von Credentials' />
+      <column name='implementation' value='Anwendungen muessen Passwortrotation (mit zero downtime) erlauben' />
+      <column name='jhi_validation' value='Prozess funktioniert und wird regelmaessig durchgefuerhrt. Es gibt keine Passwoerter aelter als X Tage' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;blue&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Regelmaessige Aenderung von Credentials&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-46'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Incident Regelung' />
+      <column name='description' value='Schnelle und angemessene Reaktion auf Incidents' />
+      <column name='implementation' value='Geeigneten Prozess definieren' />
+      <column name='jhi_validation' value='Es existiert ein Incident-Response-Plan' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;blue&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Incident Regelung&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-47'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Automatische Massnahmen wenn Richtlinien verletzt sind' />
+      <column name='description' value='Damit Fehler schnell gefunden und gefixt werden.' />
+      <column name='implementation' value='Strafmassnahmen nach X Tagen einleiten. Continer nicht mehr deployen, Toggle, Emails, Alarm' />
+      <column name='jhi_validation' value='Test ob Strafmassnahmen automaitsch eingeleitet werden.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;blue&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Automatische Massnahmen wenn Richtlinien verletzt sind&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-48'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Daten werden verschluesselt gespeichert' />
+      <column name='description' value='Unbefugten den Zugriff auf Daten erschweren.' />
+      <column name='implementation' value='Daten werden mindestens auf Dateisystemebene verschluesselt.' />
+      <column name='jhi_validation' value='Daten koennen von unbefugten nicht gelesen werden.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;blue&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Daten werden verschluesselt gespeichert&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-49'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Nachschulungen' />
+      <column name='description' value='Kontinuierlicher Wissensaustausch' />
+      <column name='implementation' value='Security Champion Runde als Wissensbasis, Barcamps (Security Days), Community of Practice, Workshops, Konferenzen' />
+      <column name='jhi_validation' value='Es finden regelmaessige Angebote zum Wissenstransfer statt' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;blue&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Nachschulungen&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-50'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Ende zu Ende Verschluesselung' />
+      <column name='description' value='Niemand soll Daten mitlesen koennen (MITM). Auch nicht intern.' />
+      <column name='implementation' value='HTTPS nutzen. Eigene Zertifikate verwalten.' />
+      <column name='jhi_validation' value='Services sind nicht mehr per http erreichbar' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;blue&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Ende zu Ende Verschluesselung&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-51'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Offboarding' />
+      <column name='description' value='Ex-Mitarbeitern haben keinen Zugriff mehr' />
+      <column name='implementation' value='Persoenliche Accounts loeschen (OCN,LDAP), Dokumentation ueber Zugriffe anlegen (auch externe)' />
+      <column name='jhi_validation' value='Alle Accounts geloescht &amp; alle PWs geaendert.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;blue&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Offboarding&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-52'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Personenbezogene Daten verschluesselt uebertragen' />
+      <column name='description' value='Daten schwer verwertbar fuer Angreifer, Manipulation von Daten erschwert' />
+      <column name='implementation' value='Einsatz von SSL, Logging anonymisiert' />
+      <column name='jhi_validation' value='Alle relevanten Daten werden nur verschluesselt uebertragen' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;blue&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Personenbezogene Daten verschluesselt uebertragen&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-53'>
+    <insert tableName='level'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='name' value='brown' />
+      <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
+      <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;blue&apos; LIMIT 1)' />
+      <column name='required_score' valueNumeric='1.0' />
+      <column name='instant_multiplier' valueNumeric='0.0' />
+      <column name='completion_bonus' valueNumeric='0.0' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-54'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Automatischer Security Scanner in der Pipeline' />
+      <column name='description' value='Automatische Erkennung von Sicherheitsluecken.' />
+      <column name='implementation' value='Auswahl eines geeigneten Tools, Unterstuetzung durch Scale' />
+      <column name='jhi_validation' value='geeignetes Alarming, Build breaker' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;brown&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Automatischer Security Scanner in der Pipeline&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-55'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Regelmaessiger manueller Pentest' />
+      <column name='description' value='Um die gesamte Applikation auf Schwachstellen&amp;Robustheit zu beweisen/untersuchen' />
+      <column name='implementation' value='Externer Dienstleister, Pentest under Anleitung von SCALE, QA enabled fuer Pentest' />
+      <column name='jhi_validation' value='Anzahl der Pentests &gt; 0, Ergebnisse der Pentests sind umgesetzt.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;brown&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Regelmaessiger manueller Pentest&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-56'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Nachhalten von Incidents &amp; in die Teams tragen' />
+      <column name='description' value='Aus Fehlern lernen' />
+      <column name='implementation' value='Postmortem, Verbreitung ueber security COP' />
+      <column name='jhi_validation' value='Tests fuer gefundene Fehler/Luecken' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;brown&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Nachhalten von Incidents &amp; in die Teams tragen&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-57'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='TLS ueberall' />
+      <column name='description' value='Kommunikation vor dritten verbergen' />
+      <column name='implementation' value='alle Schnittstellen sind SSL-only. Alle Anfragen nach aussen benutzen SSL' />
+      <column name='jhi_validation' value='keine unverschluesselten Requests (in/out)' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;brown&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;TLS ueberall&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-58'>
+    <insert tableName='level'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='name' value='black' />
+      <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
+      <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;brown&apos; LIMIT 1)' />
+      <column name='required_score' valueNumeric='1.0' />
+      <column name='instant_multiplier' valueNumeric='0.0' />
+      <column name='completion_bonus' valueNumeric='0.0' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-59'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Automatischer Rollover von Credentials' />
+      <column name='description' value='Kuerzere Lebensdauer von Credentials ist sicherer. Automatisierung ist weniger fehleranfaellig.' />
+      <column name='implementation' value='Credentials werden automatisch rolliert.' />
+      <column name='jhi_validation' value='alte Credentials sind nicht mehr nutzbar.Scripte zum Rollieren existieren' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;black&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Automatischer Rollover von Credentials&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-60'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Friendly competition (Andere Teams gehackt)' />
+      <column name='description' value='Gamification, Blackbox testing' />
+      <column name='implementation' value='Capture the flag' />
+      <column name='jhi_validation' value='Hack wurde demonstriert' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;black&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Friendly competition (Andere Teams gehackt)&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1543430695665-61'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Teams halten Vortraege/Mentoring fuer andere Teams' />
+      <column name='description' value='Verbreitung von Wissen' />
+      <column name='implementation' value='Teams halten Vortraege, teilnahme and Konferenzen' />
+      <column name='jhi_validation' value='Team wird als Wissensverbreiter wahrgenommen' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;black&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Teams halten Vortraege/Mentoring fuer andere Teams&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+</databaseChangeLog>
