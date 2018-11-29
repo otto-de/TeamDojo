@@ -1,0 +1,32 @@
+
+{
+    "teamdojoApp": {
+        "teamSkill" : {
+            "home": {
+                "title": "Person Skills",
+                "createLabel": "Create a new Person Skill",
+                "createOrEditLabel": "Create or edit a Person Skill"
+            },
+            "created": "A new Person Skill is created with identifier {{ param }}",
+            "updated": "A Person Skill is updated with identifier {{ param }}",
+            "deleted": "A Person Skill is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Person Skill {{ id }}?"
+            },
+            "detail": {
+                "title": "Person Skill"
+            },
+            "completed": "{{ team }} completed the Skill {{ skill }}!",
+            "accept": "Do you think {{ team }} can handle this?",
+            "upvote": "Upvote",
+            "downvote": "Downvote",
+            "completedAt": "Completed At",
+            "verifiedAt": "Verified At",
+            "irrelevant": "Irrelevant",
+            "note": "Note",
+            "vote": "Vote",
+            "skill": "Skill",
+            "team": "Person"
+        }
+    }
+}

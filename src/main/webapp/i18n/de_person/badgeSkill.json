@@ -1,0 +1,23 @@
+
+{
+    "teamdojoApp": {
+        "badgeSkill" : {
+            "home": {
+                "title": "Badge Skills",
+                "createLabel": "Badge Skill erstellen",
+                "createOrEditLabel": "Badge Skill erstellen oder bearbeiten"
+            },
+            "created": "Badge Skill erstellt mit ID {{ param }}",
+            "updated": "Badge Skill aktualisiert mit ID {{ param }}",
+            "deleted": "Badge Skill gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Badge Skill {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Badge Skill"
+            },
+            "badge": "Badge",
+            "skill": "Skill"
+        }
+    }
+}

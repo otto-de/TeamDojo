@@ -1,0 +1,30 @@
+
+{
+    "teamdojoApp": {
+        "level" : {
+            "home": {
+                "title": "Levels",
+                "createLabel": "Create a new Level",
+                "createOrEditLabel": "Create or edit a Level"
+            },
+            "created": "A new Level is created with identifier {{ param }}",
+            "updated": "A Level is updated with identifier {{ param }}",
+            "deleted": "A Level is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Level {{ id }}?"
+            },
+            "detail": {
+                "title": "Level"
+            },
+            "name": "Name",
+            "description": "Description",
+            "requiredScore": "Required Score",
+            "instantMultiplier": "Skill Score Multiplier",
+            "completionBonus": "Level Completion Bonus",
+            "dimension": "Dimension",
+            "dependsOn": "Depends On",
+            "skills": "Skills",
+            "image": "Image"
+        }
+    }
+}

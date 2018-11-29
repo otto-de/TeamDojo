@@ -1,0 +1,60 @@
+{
+    "teamdojoApp": {
+        "teams": {
+            "home": {
+                "title": "Person"
+            },
+            "selection": {
+                "title": "Person Auswahl",
+                "deselect": "Kein Person",
+                "select": "Person auswählen"
+            },
+            "skills": {
+                "title": "Kompetenzen",
+                "notAchieved": "Noch nicht erreicht",
+                "achievedOn": "Erreicht am",
+                "search": {
+                    "placeholder": "Suche",
+                    "filter": {
+                        "label": "Erreichte Skills ausblenden"
+                    }
+                },
+                "action": {
+                    "complete": "Erlernen",
+                    "incomplete": "Verlernen",
+                    "irrelevant": "Irrelevant",
+                    "relevant": "Relevant"
+                },
+                "details": {
+                    "activate": "Kompetenz aktivieren",
+                    "deactivate": "Kompetenz deaktivieren",
+                    "desc": "Beschreibung",
+                    "implementation": "Implementation",
+                    "validation": "Validation",
+                    "achievedBy": "Erfüllt von",
+                    "achievedByNone" : "Dieser Skill wurde noch von keiner Person erfüllt!",
+                    "neededFor": "Benötigt für",
+                    "3of5": "3 von 5 Sternen",
+                    "contact": "Ansprechpartner"
+                },
+                "comments": {
+                    "title": "Kommentare",
+                    "newComment": "Dein Kommentar"
+                }
+            },
+            "status": {
+                "activities": {
+                    "title": "Aktivitäten",
+                    "received": "erhalten"
+                }
+            },
+            "achievements": {
+                "title": "Errungenschaften",
+                "generalBadges": {
+                    "title": "Allgemeine Badges"
+                }
+            },
+            "dateFormat": "dd.MM.yyyy"
+        }
+    }
+}

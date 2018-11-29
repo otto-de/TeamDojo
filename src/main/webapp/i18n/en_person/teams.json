@@ -1,0 +1,60 @@
+{
+    "teamdojoApp": {
+        "teams": {
+            "home": {
+                "title": "Person"
+            },
+            "selection": {
+                "title": "Person Selection",
+                "deselect": "No Person",
+                "select": "Select Person"
+            },
+            "skills": {
+                "title": "Skills",
+                "notAchieved": "Not yet achieved",
+                "achievedOn": "Achieved on",
+                "search": {
+                    "placeholder": "Search",
+                    "filter": {
+                        "label": "Hide completed skills"
+                    }
+                },
+                "action": {
+                    "complete": "Complete",
+                    "incomplete": "Reopen",
+                    "irrelevant": "Irrelevant",
+                    "relevant": "Relevant"
+                },
+                "details": {
+                    "activate": "Activate skill",
+                    "deactivate": "Deactivate skill",
+                    "desc": "Description",
+                    "implementation": "Implementation",
+                    "validation": "Validation",
+                    "achievedBy": "Achieved by",
+                    "achievedByNone" : "No Persons have achieved this skill yet!",
+                    "neededFor": "Needed for",
+                    "3of5": "3 out of 5 stars",
+                    "contact": "Contact"
+                },
+                "comments": {
+                    "title": "Comments",
+                    "newComment": "Your Comment"
+                }
+            },
+            "status": {
+                "activities": {
+                    "title": "Activities",
+                    "received": "received"
+                }
+            },
+            "achievements": {
+                "title": "Achievements",
+                "generalBadges": {
+                    "title": "General Badges"
+                }
+            },
+            "dateFormat": "yyyy-MM-dd"
+        }
+    }
+}

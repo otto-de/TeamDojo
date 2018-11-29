@@ -1,0 +1,23 @@
+
+{
+    "teamdojoApp": {
+        "organization" : {
+            "home": {
+                "title": "Organizations",
+                "createLabel": "Organization erstellen",
+                "createOrEditLabel": "Organization erstellen oder bearbeiten"
+            },
+            "created": "Organization erstellt mit ID {{ param }}",
+            "updated": "Organization aktualisiert mit ID {{ param }}",
+            "deleted": "Organization gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Organization {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Organization"
+            },
+            "name": "Name",
+            "levelUpScore": "Level Up Score"
+        }
+    }
+}

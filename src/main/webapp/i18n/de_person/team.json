@@ -1,0 +1,31 @@
+
+{
+    "teamdojoApp": {
+        "team" : {
+            "home": {
+                "title": "Personen",
+                "createLabel": "Person erstellen",
+                "createOrEditLabel": "Person erstellen oder bearbeiten"
+            },
+            "created": "Person erstellt mit ID {{ param }}",
+            "updated": "Person aktualisiert mit ID {{ param }}",
+            "deleted": "Person gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Person {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Person"
+            },
+            "name": "Name",
+            "shortName": "Short Name",
+            "slogan": "Slogan",
+            "contactPerson": "Contact Person",
+            "participations": "Participations",
+            "skills": "Skills",
+            "image": "Image",
+            "navigation" : {
+                "text" : "Person Wohnzimmer"
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+{
+    "teamdojoApp": {
+        "overview": {
+            "teams": {
+                "title": "Personen"
+            },
+            "achievements": {
+                "title": "Errungenschaften",
+                "generalBadges": {
+                    "title": "Allgemeine Pokale"
+                },
+                "dimensions": {
+                    "badges": {
+                        "title": "Pokale"
+                    },
+                    "levels": {
+                        "title": "Stufen"
+                    }
+                }
+            },
+            "skills": {
+                "title": "Kompetenzen"
+            },
+            "navigation" : {
+                "text" : "Personenübersicht"
+            },
+            "total-score": {
+                "title": "Insgesamt"
+            }
+        }
+    }
+}
