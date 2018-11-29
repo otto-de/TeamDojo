@@ -23,7 +23,8 @@
                     "complete": "Complete",
                     "incomplete": "Reopen",
                     "irrelevant": "Irrelevant",
-                    "relevant": "Relevant"
+                    "relevant": "Relevant",
+                    "vote": "Do you think {{ team }} can handle this?"
                 },
                 "details": {
                     "activate": "Activate skill",

@@ -20,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -82,10 +83,15 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
         teamSkill.setTeamId(teamId);
         teamSkill.setSkillId(achievableSkill.getSkillId());
         teamSkill.setCompletedAt(achievableSkill.getAchievedAt());
+        teamSkill.setVerifiedAt((achievableSkill.getVerifiedAt() != null) ? achievableSkill.getVerifiedAt() : null);
+        teamSkill.setVote((achievableSkill.getVote() != null) ? achievableSkill.getVote() : 0);
         teamSkill.setIrrelevant(achievableSkill.isIrrelevant());
+        if(teamSkill.getVote() >= 5 && teamSkill.getVerifiedAt() == null){
+            teamSkill.setVerifiedAt(Instant.now());
+        }
         teamSkill = teamSkillService.save(teamSkill);
 
-        if (teamSkill.getCompletedAt() != null) {
+        if ((originSkill == null && teamSkill.getCompletedAt() != null) || (originSkill != null && originSkill.getAchievedAt() == null && teamSkill.getCompletedAt() != null)) {
             activityService.createForCompletedSkill(teamSkill);
         }
 

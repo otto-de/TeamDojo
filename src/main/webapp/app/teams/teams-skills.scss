@@ -71,7 +71,13 @@
             padding: 10px;
             background-color: transparent;
             &.completed {
+                background-color: $warning;
+            }
+            &.verified{
                 background-color: $success;
+            }
+            &.unverified{
+                background-color: $danger;
             }
         }
         .skill-action-bar {

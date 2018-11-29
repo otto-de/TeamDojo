@@ -23,7 +23,8 @@
                     "complete": "Erlernen",
                     "incomplete": "Verlernen",
                     "irrelevant": "Irrelevant",
-                    "relevant": "Relevant"
+                    "relevant": "Relevant",
+                    "vote": "Traust du das {{ team }} zu?"
                 },
                 "details": {
                     "activate": "Kompetenz aktivieren",

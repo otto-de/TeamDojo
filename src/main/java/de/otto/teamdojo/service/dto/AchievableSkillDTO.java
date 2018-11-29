@@ -12,6 +12,8 @@ public class AchievableSkillDTO {
     private String title;
     private String description;
     private Instant achievedAt;
+    private Instant verifiedAt;
+    private Integer vote;
     private Boolean irrelevant;
     private Double rateScore;
     private Integer rateCount;
@@ -26,6 +28,8 @@ public class AchievableSkillDTO {
         String title,
         String description,
         Instant achievedAt,
+        Instant verifiedAt,
+        Integer vote,
         Boolean irrelevant,
         Double rateScore,
         Integer rateCount) {
@@ -34,6 +38,8 @@ public class AchievableSkillDTO {
         this.title = title;
         this.description = description;
         this.achievedAt = achievedAt;
+        this.verifiedAt = verifiedAt;
+        this.vote = vote;
         this.irrelevant = irrelevant;
         this.rateScore = rateScore;
         this.rateCount = rateCount;
@@ -96,4 +102,22 @@ public class AchievableSkillDTO {
     public void setRateCount(Integer rateCount) {
         this.rateCount = rateCount;
     }
+
+    public Instant getVerifiedAt() {
+        return verifiedAt;
+    }
+
+    public void setVerifiedAt(Instant verifiedAt) {
+        this.verifiedAt = verifiedAt;
+    }
+
+    public Integer getVote() {
+        return vote;
+    }
+
+    public void setVote(Integer vote) {
+        this.vote = vote;
+    }
+
+
 }

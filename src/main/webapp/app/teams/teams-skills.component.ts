@@ -255,4 +255,15 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     private getFiltersFromStorage(): string[] {
         return this.storage.retrieve('filterKey') || [];
     }
+
+    upVote(s: IAchievableSkill) {
+        console.log('Upvote TeamSkill');
+        s.vote = s.vote + 1;
+        this.updateSkill(s);
+    }
+    downVote(s: IAchievableSkill) {
+        console.log('downvote TeamSkill');
+        s.vote = s.vote - 1;
+        this.updateSkill(s);
+    }
 }

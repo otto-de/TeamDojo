@@ -20,6 +20,9 @@ export class TeamSkillVoteComponent implements OnInit {
             if (this.teamSkill.verifiedAt && this.teamSkill.verifiedAt !== undefined && this.teamSkill.verifiedAt !== null) {
                 this.disabled = true;
             }
+            if (this.teamSkill.completedAt && this.teamSkill.vote <= -5) {
+                this.disabled = true;
+            }
         });
     }
     upVote() {
