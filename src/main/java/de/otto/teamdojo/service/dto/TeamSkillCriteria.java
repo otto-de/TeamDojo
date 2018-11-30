@@ -38,6 +38,8 @@ public class TeamSkillCriteria implements Serializable {
 
     private IntegerFilter vote;
 
+    private StringFilter voters;
+
     private LongFilter skillId;
 
     private LongFilter teamId;
@@ -93,6 +95,14 @@ public class TeamSkillCriteria implements Serializable {
         this.vote = vote;
     }
 
+    public StringFilter getVoters() {
+        return voters;
+    }
+
+    public void setVoters(StringFilter voters) {
+        this.voters = voters;
+    }
+
     public LongFilter getSkillId() {
         return skillId;
     }
@@ -118,6 +128,7 @@ public class TeamSkillCriteria implements Serializable {
                 (irrelevant != null ? "irrelevant=" + irrelevant + ", " : "") +
                 (note != null ? "note=" + note + ", " : "") +
                 (vote != null ? "vote=" + vote + ", " : "") +
+                (voters != null ? "voters=" + voters + ", " : "") +
                 (skillId != null ? "skillId=" + skillId + ", " : "") +
                 (teamId != null ? "teamId=" + teamId + ", " : "") +
             "}";

@@ -68,7 +68,7 @@
                             <small jhiTranslate="teamdojoApp.teams.skills.action.incomplete"></small>
                         </a>
                     </div>
-                    <div *ngIf="!isSameTeamSelected() && skill.achievedAt && !skill.verifiedAt && skill.vote > -5"
+                    <div *ngIf="!isSameTeamSelected() && skill.achievedAt && !skill.verifiedAt && skill.vote > -5 && isTeamVoteAble(skill)"
                          class="skill-action-bar d-flex flex-wrap justify-content-between">
                         <p class="skill-action-bar-item">
                             <small jhiTranslate="teamdojoApp.teams.skills.action.vote" translateValues="{team: '{{team.name}}'}"></small>
@@ -81,7 +81,7 @@
                             <i class="fa fa-angle-up"></i>
                         </a></p>
                     </div>
-                    <div *ngIf="!isSameTeamSelected() && !skill.achievedAt && !skill.irrelevant && (!skill.vote || (skill.vote && skill.vote != 1))"
+                    <div *ngIf="!isSameTeamSelected() && !skill.achievedAt && !skill.irrelevant && (!skill.vote || (skill.vote && skill.vote != 1)) && isTeamVoteAble(skill)"
                          class="skill-action-bar d-flex flex-wrap justify-content-between">
                         <p class="skill-action-bar-item">
                             <a (click)="suggest(skill)"><small jhiTranslate="teamdojoApp.teams.skills.action.suggest" translateValues="{team: '{{team.name}}'}"></small></a>

@@ -7,6 +7,7 @@ export interface ITeamSkill {
     irrelevant?: boolean;
     note?: string;
     vote?: number;
+    voters?: string;
     skillTitle?: string;
     skillId?: number;
     teamName?: string;
@@ -21,6 +22,7 @@ export class TeamSkill implements ITeamSkill {
         public irrelevant?: boolean,
         public note?: string,
         public vote?: number,
+        public voters?: string,
         public skillTitle?: string,
         public skillId?: number,
         public teamName?: string,

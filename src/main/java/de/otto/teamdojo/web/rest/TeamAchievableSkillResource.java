@@ -61,6 +61,7 @@ public class TeamAchievableSkillResource {
     @PutMapping("/teams/{id}/achievable-skills")
     @Timed
     public ResponseEntity<AchievableSkillDTO> updateAchievableSkill(@PathVariable Long id, @RequestBody AchievableSkillDTO achievableSkill) throws JSONException {
+        log.debug("REST request to put vote {}", achievableSkill.getVote());
         AchievableSkillDTO result = achievableSkillService.updateAchievableSkill(id, achievableSkill);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("AchievableSkillDTO", result.getSkillId().toString()))

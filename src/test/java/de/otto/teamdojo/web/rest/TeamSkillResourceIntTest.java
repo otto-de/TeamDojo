@@ -64,6 +64,9 @@ public class TeamSkillResourceIntTest {
     private static final Integer DEFAULT_VOTE = 1;
     private static final Integer UPDATED_VOTE = 2;
 
+    private static final String DEFAULT_VOTERS = "AAAAAAAAAA";
+    private static final String UPDATED_VOTERS = "BBBBBBBBBB";
+
     @Autowired
     private TeamSkillRepository teamSkillRepository;
 
@@ -118,7 +121,8 @@ public class TeamSkillResourceIntTest {
             .verifiedAt(DEFAULT_VERIFIED_AT)
             .irrelevant(DEFAULT_IRRELEVANT)
             .note(DEFAULT_NOTE)
-            .vote(DEFAULT_VOTE);
+            .vote(DEFAULT_VOTE)
+            .voters(DEFAULT_VOTERS);
         // Add required entity
         Skill skill = SkillResourceIntTest.createEntity(em);
         em.persist(skill);
@@ -158,6 +162,7 @@ public class TeamSkillResourceIntTest {
         assertThat(testTeamSkill.isIrrelevant()).isEqualTo(DEFAULT_IRRELEVANT);
         assertThat(testTeamSkill.getNote()).isEqualTo(DEFAULT_NOTE);
         assertThat(testTeamSkill.getVote()).isEqualTo(DEFAULT_VOTE);
+        assertThat(testTeamSkill.getVoters()).isEqualTo(DEFAULT_VOTERS);
     }
 
     @Test
@@ -214,7 +219,8 @@ public class TeamSkillResourceIntTest {
             .andExpect(jsonPath("$.[*].verifiedAt").value(hasItem(DEFAULT_VERIFIED_AT.toString())))
             .andExpect(jsonPath("$.[*].irrelevant").value(hasItem(DEFAULT_IRRELEVANT.booleanValue())))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE.toString())))
-            .andExpect(jsonPath("$.[*].vote").value(hasItem(DEFAULT_VOTE)));
+            .andExpect(jsonPath("$.[*].vote").value(hasItem(DEFAULT_VOTE)))
+            .andExpect(jsonPath("$.[*].voters").value(hasItem(DEFAULT_VOTERS.toString())));
     }
     
 
@@ -233,7 +239,8 @@ public class TeamSkillResourceIntTest {
             .andExpect(jsonPath("$.verifiedAt").value(DEFAULT_VERIFIED_AT.toString()))
             .andExpect(jsonPath("$.irrelevant").value(DEFAULT_IRRELEVANT.booleanValue()))
             .andExpect(jsonPath("$.note").value(DEFAULT_NOTE.toString()))
-            .andExpect(jsonPath("$.vote").value(DEFAULT_VOTE));
+            .andExpect(jsonPath("$.vote").value(DEFAULT_VOTE))
+            .andExpect(jsonPath("$.voters").value(DEFAULT_VOTERS.toString()));
     }
 
     @Test
@@ -460,6 +467,45 @@ public class TeamSkillResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllTeamSkillsByVotersIsEqualToSomething() throws Exception {
+        // Initialize the database
+        teamSkillRepository.saveAndFlush(teamSkill);
+
+        // Get all the teamSkillList where voters equals to DEFAULT_VOTERS
+        defaultTeamSkillShouldBeFound("voters.equals=" + DEFAULT_VOTERS);
+
+        // Get all the teamSkillList where voters equals to UPDATED_VOTERS
+        defaultTeamSkillShouldNotBeFound("voters.equals=" + UPDATED_VOTERS);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTeamSkillsByVotersIsInShouldWork() throws Exception {
+        // Initialize the database
+        teamSkillRepository.saveAndFlush(teamSkill);
+
+        // Get all the teamSkillList where voters in DEFAULT_VOTERS or UPDATED_VOTERS
+        defaultTeamSkillShouldBeFound("voters.in=" + DEFAULT_VOTERS + "," + UPDATED_VOTERS);
+
+        // Get all the teamSkillList where voters equals to UPDATED_VOTERS
+        defaultTeamSkillShouldNotBeFound("voters.in=" + UPDATED_VOTERS);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTeamSkillsByVotersIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        teamSkillRepository.saveAndFlush(teamSkill);
+
+        // Get all the teamSkillList where voters is not null
+        defaultTeamSkillShouldBeFound("voters.specified=true");
+
+        // Get all the teamSkillList where voters is null
+        defaultTeamSkillShouldNotBeFound("voters.specified=false");
+    }
+
+    @Test
+    @Transactional
     public void getAllTeamSkillsBySkillIsEqualToSomething() throws Exception {
         // Initialize the database
         Skill skill = SkillResourceIntTest.createEntity(em);
@@ -507,7 +553,8 @@ public class TeamSkillResourceIntTest {
             .andExpect(jsonPath("$.[*].verifiedAt").value(hasItem(DEFAULT_VERIFIED_AT.toString())))
             .andExpect(jsonPath("$.[*].irrelevant").value(hasItem(DEFAULT_IRRELEVANT.booleanValue())))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE.toString())))
-            .andExpect(jsonPath("$.[*].vote").value(hasItem(DEFAULT_VOTE)));
+            .andExpect(jsonPath("$.[*].vote").value(hasItem(DEFAULT_VOTE)))
+            .andExpect(jsonPath("$.[*].voters").value(hasItem(DEFAULT_VOTERS.toString())));
     }
 
     /**
@@ -547,7 +594,8 @@ public class TeamSkillResourceIntTest {
             .verifiedAt(UPDATED_VERIFIED_AT)
             .irrelevant(UPDATED_IRRELEVANT)
             .note(UPDATED_NOTE)
-            .vote(UPDATED_VOTE);
+            .vote(UPDATED_VOTE)
+            .voters(UPDATED_VOTERS);
         TeamSkillDTO teamSkillDTO = teamSkillMapper.toDto(updatedTeamSkill);
 
         restTeamSkillMockMvc.perform(put("/api/team-skills")
@@ -564,6 +612,7 @@ public class TeamSkillResourceIntTest {
         assertThat(testTeamSkill.isIrrelevant()).isEqualTo(UPDATED_IRRELEVANT);
         assertThat(testTeamSkill.getNote()).isEqualTo(UPDATED_NOTE);
         assertThat(testTeamSkill.getVote()).isEqualTo(UPDATED_VOTE);
+        assertThat(testTeamSkill.getVoters()).isEqualTo(UPDATED_VOTERS);
     }
 
     @Test

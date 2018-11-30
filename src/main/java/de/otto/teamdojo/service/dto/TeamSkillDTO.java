@@ -23,6 +23,8 @@ public class TeamSkillDTO implements Serializable {
     @NotNull
     private Integer vote;
 
+    private String voters;
+
     private Long skillId;
 
     private String skillTitle;
@@ -77,6 +79,14 @@ public class TeamSkillDTO implements Serializable {
 
     public void setVote(Integer vote) {
         this.vote = vote;
+    }
+
+    public String getVoters() {
+        return voters;
+    }
+
+    public void setVoters(String voters) {
+        this.voters = voters;
     }
 
     public Long getSkillId() {
@@ -141,6 +151,7 @@ public class TeamSkillDTO implements Serializable {
             ", irrelevant='" + isIrrelevant() + "'" +
             ", note='" + getNote() + "'" +
             ", vote=" + getVote() +
+            ", voters='" + getVoters() + "'" +
             ", skill=" + getSkillId() +
             ", skill='" + getSkillTitle() + "'" +
             ", team=" + getTeamId() +

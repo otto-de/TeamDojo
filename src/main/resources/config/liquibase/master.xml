@@ -30,4 +30,5 @@
     <include file="config/liquibase/changelog/20180604134444_initial_demo_data.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180612164700_extend_skill_descriptions_length.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181130093500_extend_team_shortname_length.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20181130125000_added_column_voters.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

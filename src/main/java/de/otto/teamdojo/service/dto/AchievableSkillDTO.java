@@ -14,6 +14,7 @@ public class AchievableSkillDTO {
     private Instant achievedAt;
     private Instant verifiedAt;
     private Integer vote;
+    private String voters;
     private Boolean irrelevant;
     private Double rateScore;
     private Integer rateCount;
@@ -30,6 +31,7 @@ public class AchievableSkillDTO {
         Instant achievedAt,
         Instant verifiedAt,
         Integer vote,
+        String voters,
         Boolean irrelevant,
         Double rateScore,
         Integer rateCount) {
@@ -40,6 +42,7 @@ public class AchievableSkillDTO {
         this.achievedAt = achievedAt;
         this.verifiedAt = verifiedAt;
         this.vote = vote;
+        this.voters = voters;
         this.irrelevant = irrelevant;
         this.rateScore = rateScore;
         this.rateCount = rateCount;
@@ -81,6 +84,30 @@ public class AchievableSkillDTO {
         this.achievedAt = achievedAt;
     }
 
+    public Instant getVerifiedAt() {
+        return verifiedAt;
+    }
+
+    public void setVerifiedAt(Instant verifiedAt) {
+        this.verifiedAt = verifiedAt;
+    }
+
+    public Integer getVote() {
+        return vote;
+    }
+
+    public void setVote(Integer vote) {
+        this.vote = vote;
+    }
+
+    public String getVoters() {
+        return voters;
+    }
+
+    public void setVoters(String voters) {
+        this.voters = voters;
+    }
+
     public Boolean isIrrelevant() { return irrelevant; }
 
     public void setIrrelevant(Boolean irrelevant){
@@ -101,22 +128,6 @@ public class AchievableSkillDTO {
 
     public void setRateCount(Integer rateCount) {
         this.rateCount = rateCount;
-    }
-
-    public Instant getVerifiedAt() {
-        return verifiedAt;
-    }
-
-    public void setVerifiedAt(Instant verifiedAt) {
-        this.verifiedAt = verifiedAt;
-    }
-
-    public Integer getVote() {
-        return vote;
-    }
-
-    public void setVote(Integer vote) {
-        this.vote = vote;
     }
 
 

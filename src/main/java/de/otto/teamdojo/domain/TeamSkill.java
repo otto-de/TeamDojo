@@ -42,6 +42,9 @@ public class TeamSkill implements Serializable {
     @Column(name = "vote", nullable = false)
     private Integer vote;
 
+    @Column(name = "voters")
+    private String voters;
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("teams")
@@ -126,6 +129,19 @@ public class TeamSkill implements Serializable {
         this.vote = vote;
     }
 
+    public String getVoters() {
+        return voters;
+    }
+
+    public TeamSkill voters(String voters) {
+        this.voters = voters;
+        return this;
+    }
+
+    public void setVoters(String voters) {
+        this.voters = voters;
+    }
+
     public Skill getSkill() {
         return skill;
     }
@@ -182,6 +198,7 @@ public class TeamSkill implements Serializable {
             ", irrelevant='" + isIrrelevant() + "'" +
             ", note='" + getNote() + "'" +
             ", vote=" + getVote() +
+            ", voters='" + getVoters() + "'" +
             "}";
     }
 }

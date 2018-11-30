@@ -8,6 +8,7 @@ export interface IAchievableSkill {
     achievedAt?: Moment;
     verifiedAt?: Moment;
     vote?: number;
+    voters?: string;
     irrelevant?: boolean;
     rateScore?: number;
     rateCount?: number;
@@ -22,6 +23,7 @@ export class AchievableSkill implements IAchievableSkill {
         public achievedAt?: Moment,
         public verifiedAt?: Moment,
         public vote?: number,
+        public voters?: string,
         public irrelevant?: boolean,
         public rateScore?: number,
         public rateCount?: number

@@ -84,8 +84,9 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
         teamSkill.setTeamId(teamId);
         teamSkill.setSkillId(achievableSkill.getSkillId());
         teamSkill.setCompletedAt(achievableSkill.getAchievedAt());
-        teamSkill.setVerifiedAt((achievableSkill.getVerifiedAt() != null) ? achievableSkill.getVerifiedAt() : null);
+        teamSkill.setVerifiedAt(achievableSkill.getVerifiedAt());
         teamSkill.setVote((achievableSkill.getVote() != null) ? achievableSkill.getVote() : 0);
+        teamSkill.setVoters(achievableSkill.getVoters());
         teamSkill.setIrrelevant(achievableSkill.isIrrelevant());
         if(teamSkill.getVote() >= 5 && teamSkill.getVerifiedAt() == null){
             teamSkill.setVerifiedAt(Instant.now());

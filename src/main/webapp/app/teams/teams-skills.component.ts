@@ -210,6 +210,14 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         return selectedTeam && selectedTeam.id === this.team.id;
     }
 
+    isTeamVoteAble(s: IAchievableSkill) {
+        const selectedTeam = this.teamsSelectionService.selectedTeam;
+        if (selectedTeam && (!s.voters || (s.voters && !s.voters.split('||').includes(selectedTeam.id.toString())))) {
+            return true;
+        }
+        return false;
+    }
+
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
@@ -259,17 +267,27 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     upVote(s: IAchievableSkill) {
         console.log('Upvote TeamSkill');
         s.vote = s.vote + 1;
+        const array = s.voters ? s.voters.split('||') : [];
+        array.push(this.teamsSelectionService.selectedTeam.id.toString());
+        s.voters = array.join('||');
+        console.log(s);
         this.updateSkill(s);
     }
     downVote(s: IAchievableSkill) {
         console.log('downvote TeamSkill');
         s.vote = s.vote - 1;
+        const array = s.voters ? s.voters.split('||') : [];
+        array.push(this.teamsSelectionService.selectedTeam.id.toString());
+        s.voters = array.join('||');
         this.updateSkill(s);
     }
 
     suggest(s: IAchievableSkill) {
         console.log('suggest TeamSkill');
         s.vote = 1;
+        const array = s.voters ? s.voters.split('||') : [];
+        array.push(this.teamsSelectionService.selectedTeam.id.toString());
+        s.voters = array.join('||');
         this.updateSkill(s);
     }
 }
