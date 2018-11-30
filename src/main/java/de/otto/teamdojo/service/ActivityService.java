@@ -37,6 +37,12 @@ public interface ActivityService {
     ActivityDTO createForCompletedSkill(TeamSkillDTO teamSkill) throws JSONException;
 
     /**
+     * Create an activity for SKILL_SUGGESTED
+     * @param teamSkill
+     */
+    void createForSuggestedSkill(TeamSkillDTO teamSkill) throws JSONException;
+
+    /**
      * Get all the activities.
      *
      * @param pageable the pagination information

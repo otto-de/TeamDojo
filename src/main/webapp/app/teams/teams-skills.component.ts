@@ -266,4 +266,10 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         s.vote = s.vote - 1;
         this.updateSkill(s);
     }
+
+    suggest(s: IAchievableSkill) {
+        console.log('suggest TeamSkill');
+        s.vote = 1;
+        this.updateSkill(s);
+    }
 }

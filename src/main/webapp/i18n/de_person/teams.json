@@ -24,7 +24,8 @@
                     "incomplete": "Verlernen",
                     "irrelevant": "Irrelevant",
                     "relevant": "Relevant",
-                    "vote": "Traust du das {{ team }} zu?"
+                    "vote": "Traust du das {{ team }} zu?",
+                    "suggest": "{{ team }} diesen Skill Vorschlagen!"
                 },
                 "details": {
                     "activate": "Kompetenz aktivieren",

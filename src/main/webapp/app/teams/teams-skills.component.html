@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <div class="skill-status ml-auto"
-                             [ngClass]="{'completed': !skill.irrelevant && skill.achievedAt, 'verified': !skill.irrelevant && skill.achievedAt && skill.verifiedAt, 'unverified': !skill.irrelevant && skill.achievedAt && skill.vote <= -5}">
+                             [ngClass]="{'completed': (!skill.irrelevant && skill.achievedAt) || (!skill.irrelevant && !skill.achievedAt && skill.vote == 1), 'verified': !skill.irrelevant && skill.achievedAt && skill.verifiedAt, 'unverified': !skill.irrelevant && skill.achievedAt && skill.vote <= -5}">
                             <i *ngIf="skill.irrelevant" class="fa fa-thumbs-o-down"></i>
                             <i *ngIf="!skill.irrelevant && skill.achievedAt" class="fa fa-check fa-inverse"></i>
                             <i *ngIf="!skill.irrelevant &&!skill.achievedAt" class="fa fa-circle-o"></i>
@@ -80,6 +80,12 @@
                             <a (click)="upVote(skill)">
                             <i class="fa fa-angle-up"></i>
                         </a></p>
+                    </div>
+                    <div *ngIf="!isSameTeamSelected() && !skill.achievedAt && !skill.irrelevant && (!skill.vote || (skill.vote && skill.vote != 1))"
+                         class="skill-action-bar d-flex flex-wrap justify-content-between">
+                        <p class="skill-action-bar-item">
+                            <a (click)="suggest(skill)"><small jhiTranslate="teamdojoApp.teams.skills.action.suggest" translateValues="{team: '{{team.name}}'}"></small></a>
+                        </p>
                     </div>
                 </div>
             </li>

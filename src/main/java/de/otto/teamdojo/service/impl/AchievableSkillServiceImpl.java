@@ -24,6 +24,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -93,6 +94,10 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
 
         if ((originSkill == null && teamSkill.getCompletedAt() != null) || (originSkill != null && originSkill.getAchievedAt() == null && teamSkill.getCompletedAt() != null)) {
             activityService.createForCompletedSkill(teamSkill);
+        }
+
+        if (teamSkill.getCompletedAt() == null && teamSkill.getVote() == 1 && (originSkill == null || (originSkill != null && originSkill.getVote() != teamSkill.getVote()))) {
+                activityService.createForSuggestedSkill(teamSkill);
         }
 
         return skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId());

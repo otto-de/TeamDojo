@@ -24,7 +24,8 @@
                     "incomplete": "Reopen",
                     "irrelevant": "Irrelevant",
                     "relevant": "Relevant",
-                    "vote": "Do you think {{ team }} can handle this?"
+                    "vote": "Do you think {{ team }} can handle this?",
+                    "suggest": "Suggest {{ team }} this Skill!"
                 },
                 "details": {
                     "activate": "Activate skill",

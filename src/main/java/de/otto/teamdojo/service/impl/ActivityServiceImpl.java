@@ -1,9 +1,6 @@
 package de.otto.teamdojo.service.impl;
 
-import de.otto.teamdojo.domain.Activity;
-import de.otto.teamdojo.domain.Badge;
-import de.otto.teamdojo.domain.Skill;
-import de.otto.teamdojo.domain.Team;
+import de.otto.teamdojo.domain.*;
 import de.otto.teamdojo.domain.enumeration.ActivityType;
 import de.otto.teamdojo.repository.ActivityRepository;
 import de.otto.teamdojo.repository.BadgeRepository;
@@ -95,7 +92,7 @@ public class ActivityServiceImpl implements ActivityService {
         activityDTO.setCreatedAt(Instant.now());
         activityDTO.setData(data.toString());
         log.debug("Request to create activity for BADGE_CREATED {}", activityDTO);
-        informMattermost("Der Badge \"" + badge.getName() + "\" wurde erstellt");
+        informMattermost("Der Badge \"" + badge.getName() + "\" wurde erstellt", Optional.empty());
         return save(activityDTO);
     }
 
@@ -115,8 +112,16 @@ public class ActivityServiceImpl implements ActivityService {
         activityDTO.setCreatedAt(Instant.now());
         activityDTO.setData(data.toString());
         log.debug("Request to create activity for SKILL_COMPLETED {}", activityDTO);
-        informMattermost(team.getName() + " hat den Skill \"" + skill.getTitle() + "\" erlernt! <" + properties.getFrontend() + "team-skill/"+teamSkill.getId()+"/vote|Traust du das "+team.getName()+" zu?>");
+        informMattermost(team.getName() + " hat den Skill \"" + skill.getTitle() + "\" erlernt! <" + properties.getFrontend() + "team-skill/"+teamSkill.getId()+"/vote|Traust du das "+team.getName()+" zu?>", Optional.empty());
         return save(activityDTO);
+    }
+
+    @Override
+    public void createForSuggestedSkill(TeamSkillDTO teamSkill) throws JSONException {
+        Team team = teamRepository.getOne(teamSkill.getTeamId());
+        Skill skill = skillRepository.getOne(teamSkill.getSkillId());
+
+        informMattermost("Dir wird der Skill \"" + skill.getTitle() + "\" vorgeschlagen! <" + properties.getFrontend() + "teams/" + team.getShortName() + "/skills/" + skill.getId() + "|Skill jetzt zuweisen?>", Optional.of("@"+team.getShortName()));
     }
 
     /**
@@ -160,7 +165,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
 
-    private void informMattermost(String message) {
+    private void informMattermost(String message, Optional<String> username) {
         log.debug("inform Mattermost");
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
         Map<String, String> map = new HashMap<>();
@@ -168,6 +173,9 @@ public class ActivityServiceImpl implements ActivityService {
         headers.setAll(map);
         Map req_body = new HashMap();
         req_body.put("text", message);
+        if(username.isPresent()){
+            req_body.put("channel", username.get());
+        }
         HttpEntity<?> request = new HttpEntity<>(req_body, headers);
         ResponseEntity<?> response = new RestTemplate().postForEntity(properties.getMattermost(), request, String.class);
         if (response.getStatusCodeValue() != 200) {
