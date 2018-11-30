@@ -18,7 +18,7 @@ public class TeamDTO implements Serializable {
     private String name;
 
     @NotNull
-    @Size(min = 2, max = 6)
+    @Size(min = 2, max = 20)
     @Pattern(regexp = "^[a-zA-Z0-9_-]*$")
     private String shortName;
 
