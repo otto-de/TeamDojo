@@ -34,7 +34,7 @@ public class Team implements Serializable {
     private String name;
 
     @NotNull
-    @Size(min = 2, max = 6)
+    @Size(min = 2, max = 20)
     @Pattern(regexp = "^[a-zA-Z0-9_-]*$")
     @Column(name = "short_name", length = 20, nullable = false)
     private String shortName;
