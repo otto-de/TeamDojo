@@ -47,7 +47,7 @@
                 "pattern"
             ],
             "fieldValidateRulesMinlength": "2",
-            "fieldValidateRulesMaxlength": 6,
+            "fieldValidateRulesMaxlength": 20,
             "fieldValidateRulesPattern": "^[a-zA-Z0-9_-]*$"
         },
         {
