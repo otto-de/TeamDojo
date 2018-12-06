@@ -117,9 +117,10 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd''') {
                     insert(tableName: 'skill') {
                         column(name: 'id', valueComputed: 'nextval(\'hibernate_sequence\')')
                         column(name: 'title', value: skill.title.trim())
-                        column(name: 'description', value: skill.why.trim())
-                        column(name: 'implementation', value: skill.how.trim())
-                        column(name: 'jhi_validation', value: skill.validation.trim())
+                        column(name: 'description', value: (skill.why instanceof ArrayList ? skill.why.join(' ') : skill.why)?.trim())
+                        column(name: 'implementation', value: (skill.how instanceof ArrayList ? skill.how.join(' ') : skill.how)?.trim()?.concat(
+                            skill.links instanceof ArrayList ? skill.links.join(' ').trim() : ''))
+                        column(name: 'jhi_validation', value: (skill.validation instanceof ArrayList ? skill.validation.join(' ') : skill.validation)?.trim())
                         column(name: 'score', value: 1)
                     }
                     insert(tableName: 'level_skill') {

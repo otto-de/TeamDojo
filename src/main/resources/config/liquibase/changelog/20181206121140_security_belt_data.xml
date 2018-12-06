@@ -1,0 +1,1004 @@
+<databaseChangeLog xmlns='http://www.liquibase.org/xml/ns/dbchangelog' xmlns:ext='http://www.liquibase.org/xml/ns/dbchangelog-ext' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog-ext&#10;http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd&#10;http://www.liquibase.org/xml/ns/dbchangelog&#10;http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd'>
+  <changeSet author='gradle' context='!test' id='1544094699822-1'>
+    <insert tableName='dimension'>
+      <column name='id' valueNumeric='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='name' value='Security' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-2'>
+    <insert tableName='level'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='name' value='yellow' />
+      <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
+      <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;null&apos; LIMIT 1)' />
+      <column name='required_score' valueNumeric='1.0' />
+      <column name='instant_multiplier' valueNumeric='0.0' />
+      <column name='completion_bonus' valueNumeric='0.0' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-3'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Updates einspielen' />
+      <column name='description' value='Software wird für konkrete Versionen von Laufzeitsystemen (Betriebssystem, Web-Server, Bibliotheken etc.) entwickelt, getestet und für den produktiven Betrieb freigegeben. Wenn im operativen Betrieb nicht eindeutig geregelt ist, wer Updates für welche Komponente einzuspielen hat, steigt das Risiko, wegen bekannt gewordener Schwächen verwundbar zu sein.' />
+      <column name='implementation' value='Ziel ist, sowohl eine Zuständigkeit für alle Komponenten zu haben als auch Migrationspfade für die Aktualisierung von Komponenten. Es müssen auch die Abhängigkeiten geklärt werden, insbesondere, wenn ein Update Tests oder Anpassungen, die nicht von dem für das Update Zuständigen erfüllt werden können.' />
+      <column name='jhi_validation' value='Für jede Softwarekomponente die Zuständigkeiten und Abhängigkeiten geklärt.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Updates einspielen&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-4'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Kommunikation verschlüsseln' />
+      <column name='description' value='Vertrauliche Informationen wie bspw. Passwörter oder personenbezogene Daten dürfen nicht von unbefugten Personen ausgelesen werden können.' />
+      <column name='implementation' value='Sämtliche Übertragungskanäle müssen verschlüsselt werden, bspw. HTTPS statt HTTP, TLS für MQTT, Infrastruktur über VPN verbinden.[TLS Grundlagen:http://www.hivemq.com/blog/mqtt-security-fundamentals-tls-ssl] [Kostenlose Zertifikate:https://letsencrypt.org/]' />
+      <column name='jhi_validation' value='Sobald keine Komponente mehr unverschlüsselt kommuniziert.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Kommunikation verschlüsseln&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-5'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Zugangsdaten nicht öffentlich/unverschlüsselt speichern' />
+      <column name='description' value='Unbefugte Personen dürfen keinen Zugriff auf geschützte Bereiche bekommen, indem Sie Passwörter/private Keys/Access-Token aus bspw. Source Code, Repos, Wikis, Ticketsystemen, Build-Skripten auslesen können.' />
+      <column name='implementation' value='Passwörter verschlüsselt in einem Passwortmanager ablegen.' />
+      <column name='jhi_validation' value='In Source Code, Repos, Wikis, Ticketsystemen, Build-Skripten befinden sich keine Zugangsdaten mehr.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Zugangsdaten nicht öffentlich/unverschlüsselt speichern&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-6'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Kritische Informationen verschlüsseln' />
+      <column name='description' value='Kritische Informationen - die Definition hängt vom Kontext ab - sollen nur verschlüsselt abgelegt werden. Dadurch sind die Daten nach bei anderen Sicherheitslücken nicht ohne weiteres Zugreifbar. Hierzu gehören insbesondere auch Passwörter. Die passende kryptografische Funktion sorgt dafür, dass abgegriffene Daten nicht per Brute-Force entschlüsselt werden können.' />
+      <column name='implementation' value='Daten, auf die wieder im Klartext zugegriffen werden muss, sollen entweder über entsprechend konfigurierte externe Systeme (z.B. Datenbankverschlüsselung) oder programmatisch per AES verschlüsselt werden. Passwörter werden nicht mehr im Klartext benötigt und sollten daher als Salted Hash (bCrypt) abgespeichert werden.[Java crypto library BouncyCastle:https://www.bouncycastle.org/wiki/display/JA1/Java+APIs+1.X] [Passwortverschlüsselung:http://dustwell.com/how-to-handle-passwords-bcrypt.html]' />
+      <column name='jhi_validation' value='Bei der Analyse persistierter Daten sind keine kritischen Daten im Klartext zu erkennen. Code-Analyse, um sicherzustellen, dass passende Verschlüsselungsverfahren benutzt werden.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Kritische Informationen verschlüsseln&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-7'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Security Awareness Training für das gesamte Projektteam durchgeführt' />
+      <column name='description' value='Grundzüge von Security sollten jedem Teammitglied bekannt sein, um das Risiko zu minimieren, Sicherheitslücken einzubauen bzw. offen zu lassen.' />
+      <column name='implementation' value='Security Verantwortlicher des Projekts führt ein Security Awareness Training für das gesamte Projektteam durch. Die Inhalte des Trainings sind von ihm festzulegen und abhängig vom Projektumfeld.' />
+      <column name='jhi_validation' value='Projektleiter dokumentiert, wer am Training teilgenommen hat.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Security Awareness Training für das gesamte Projektteam durchgeführt&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-8'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Nicht mit "Root"-Rechten arbeiten' />
+      <column name='description' value='Systeme sollten immer nur mit den Rechten laufen, die sie auch brauchen. Auf jeden Fall ist darauf zu achten, dass sie nicht dauerhaft mit Root- oder Admin-Rechten laufen. Wird ein solches System kompromittiert, sind die möglichen Schäden bei Verwendung von Root-Rechten immens.' />
+      <column name='implementation' value='Für die verschiedenen Systeme (z.B. Webserver, Application Server, Datenbank, ...) sollen eigene Benutzerkonten angelegt werden. Diese Konten haben nur Zugriff auf die für ihre Funktion nötigen Ressourcen.[Überkategorie "Least privilege":https://www.owasp.org/index.php/Least_privilege]' />
+      <column name='jhi_validation' value='Installationen sind zu prüfen.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Nicht mit "Root"-Rechten arbeiten&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-9'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Backup einführen' />
+      <column name='description' value='Backups sind essentiell, um Datenverlust zu vermeiden und die Verfügbarkeit eines Systems zu gewährleisten. Spätestens seit der massenhaften Verbreitung von Ransomware (z.B. WannaCry) sollte die Notwendigkeit von Backups bekannt sein.' />
+      <column name='implementation' value='Hier geht es darum, ein einfaches Backup Konzept zu haben. Es muss bekannt sein, welche Daten (Daten, Konfigurationen, ...) in einem Backup enthalten sein müssen. Backups sollten erstellt werden (notfalls auch manuell). Das Thema Backup wird detaillierter in Belt 3 behandelt.' />
+      <column name='jhi_validation' value='Es wird ein Backup nach dem beschriebenen Konzept erstellt und eine parallele Installation anhand dieses Backups hochgefahren. Hier ist zu prüfen, ob alle nötigen Konfigurationen / Daten vorhanden sind.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Backup einführen&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-10'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Betriebskonzept' />
+      <column name='description' value='Auch "sichere" Software kann falsch betrieben oder konfiguriert unsicher werden.' />
+      <column name='implementation' value='Mit der Übergabe an den operativen Betrieb wird ein Betriebskonzept übergeben werden, das sowohl die (sicherheitsrelevante) Konfiguration, Annahmen der Laufzeitumgebung für den sicheren Betrieb sowieso sicherheitsrelevante Konzepte (Vertrauensgrenzen etc.) beschreibt.' />
+      <column name='jhi_validation' value='Es gibt eine für das Betriebskonzept zuständige Person die dieses während der Entwicklung pflegt und die Übergabe bei Inbetriebsetzung organisiert.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Betriebskonzept&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-11'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Bedrohungsanalyse' />
+      <column name='description' value='Ohne den Schutzbedarf der eigenen Daten zu können, können diese auch nicht entsprechend geschützt werden. Aus fachlichen Anforderungen ergeben sich nicht automatisch die Sicherheitsanforderungen und mögliche Bedrohungsszenarien (Angriffsvektoren) – diese sollten aber allen Entwicklern im Projekt bewusst sein.' />
+      <column name='implementation' value='Zu Beginn des Projekts, wenn der Projektkontext bereits bekannt ist, wird eine Bedrohungsanalyse durchgeführt, um schützenswerte Assets zu identifizieren und im Zuge des Projekts entsprechende Maßnahmen zum Schutz derselben durchführen zu können.' />
+      <column name='jhi_validation' value='Es wurde ein Workshop zur Bedrohungsanalyse durchgeführt, das Ergebnis wurde schriftlich festgehalten und floss in die Architektur ein.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Bedrohungsanalyse&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-12'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Clientgerät-Verschlüsselung aktivieren' />
+      <column name='description' value='Daten sollen auch bei direktem Zugriff auf die Festplatte geschützt sein (wenn Festplatte z.B. geklaut/ausgebaut wurde)' />
+      <column name='implementation' value='Softwareverschlüsselung der gesamten Festplatte mit den üblichen Tools. - Bei Windows BitLocker - Bei Mac FileVault - Bei Linux ein Tool verwenden analog zu den anderen Plattformen (muss vom Benutzer selbst eingerichtet werden)' />
+      <column name='jhi_validation' value='Verschlüsselung über Systemeinstellungen prüfen' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Clientgerät-Verschlüsselung aktivieren&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-13'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Basissicherheit' />
+      <column name='description' value='Jedes Projekt muss sich an bestimmte Sicherheitsvorschriften halten um nicht alle zu gefährden. Und ja damit sind wirklich ALLE gemeint. Allzu oft wird aus einem harmlosen Prototyp auf einmal ein Produktivsystem oder dieser wird für das Internet sichtbar. Dann im Nachhinein effektive Sicherheit zu gewährleisten ist deutlich komplizierter bis hin zu unmöglich.' />
+      <column name='implementation' value='Credentials haben im Quellcode oder in hinterlegten Konfigurationsdateien nichts verloren! Benutze zufällige IDs statt nur hochzählende Nummern für schützenswerte Daten etwa in Datenbanken. Das betrifft allgemein ALLE Datenschutz relevanten Elemente nicht nur Benutzer-IDs! Einfache Zähler erlauben bereits aus sich heraus bereits Rückschlüsse auf das Datenmodell und vereinfachen Angriffe wie Spoofing oder Benutzerverfolgung deutlich einfacher. Logeinträge dürfen NIE sensitive Daten enthalten. Falls die Sichtbarkeit Use-Cases unterscheidet, ersetzt die richtigen Werte wie etwa Passwärter durch ein Dummyzeichen wie &apos;*&apos;. Funktionalitäten wie Caching oder AutoCompletion müssen für alle sicherheitsrelevanten Felder wie Passwörter abgeschaltet werden. Keine Kommentierung von sicherheitsrelevanten Funktionen oder Abläufen! Weder im Code noch in Konfigurationsdateien. Bei Benutzung von HTTP Sessions bzw. Requests sollte folgende Regeln beachtet werden - Anonyme Zugriffe sollten vermieden werden und durch abgesicherte Sessions mit geschätzten Cookies ersetzt werden. - Sessions müssen einen Lifecycle haben und automatisch ablaufen. - Sessiontimeouts müssen je nach Schutzbedarf individuell ausgewählt werden. - Verwende XSRF um XSS (Cross site scripting) Angriffe zu erschweren. Das kann heutzutage eigentlich jedes Framework von sich aus, muss aber eingeschaltet werden. Regeln für Produktivsysteme - Produktiv darf nur HTTPS erlaubt sein. Nur Entwicklung/Tests auch HTTP. - Produktivsystem dürfen keine internen Daten wie Stacktraces ausgeben. Diese dürfen maximal geloggt werden. - Alle nicht unbedingt erforderlichen Endpunkte müssen abgeschaltet werden. Das gilt auch für die verwendeten Container, also etwa die Root- und Adminseiten eines Apache Tomcat.' />
+      <column name='jhi_validation' value='Regelmäßige Reviews durchführen. Mindestens ein besser mehrere Teammitglieder sollten Sicherheitstraining wie etwa unser "Web Applications Security Training" durchlaufen haben.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Basissicherheit&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-14'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Projektinfrastruktur nur für autorisierte Benutzer' />
+      <column name='description' value='Die Projektinfrastruktur muss gegen externe Zugriffe geschützt werden, damit unter anderem sensible Informationen bzw. Informationen die einen Angriff erleichtern nicht in falsche Hände geraten, oder z.B. Systeme abgeschaltet werden können.' />
+      <column name='implementation' value='Sämtliche Systeme (etwa JIRA, Jenkins, GIT, Splunk, etc.) müssen eine Authentifizierung erfordern. Der Zugriff muss per Whitelist nur für die Personen freigeschalten werden, die ihn auch tatsächlich benötigen.' />
+      <column name='jhi_validation' value='Ein neuer Benutzer/Kollege hat zu Beginn Zugriff auf kein einziges System und muss erst für die einzelnen, von ihm benötigten, Systeme freigeschalten werden.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Projektinfrastruktur nur für autorisierte Benutzer&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-15'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Personal password manager' />
+      <column name='description' value='Only strong passwords are good passwords. You should not be able to memorize them' />
+      <column name='implementation' value='Everyone in the team uses a password manager[Pass (CLI):https://www.passwordstore.org/] [KeePass:http://keepass.info/] [1Password:https://1password.com/] [Enpass:https://www.enpass.io/]' />
+      <column name='jhi_validation' value='Ask all your team members' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Personal password manager&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-16'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Throttling bei zu vielen Passwort Eingaben' />
+      <column name='description' value='Ein Angreifer probieren Listen mit Zugangsdaten aus. Dabei wollen wir uns sowohl gegen Brute-Force (Erraten des Passworts für einen Account) als auch gegen "Credential Stuffing" (Automatisiertes ausprobieren von vielen Zugangsdaten) wehren.' />
+      <column name='implementation' value='Durch Maßnahmen, die automatisiertes Ausprobieren verhindern oder verlangsamen (Rate Limit, Captcha, JS-Challenge, dynamische Blacklist, ...)[Definition "Credential Stuffing":https://www.owasp.org/index.php/Credential_stuffing]' />
+      <column name='jhi_validation' value='Es existiert ein automatischer Test' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Throttling bei zu vielen Passwort Eingaben&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-17'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Output Encoding verwenden' />
+      <column name='description' value='Steuerzeichen in der Payload können von potentieller Schadsoftware ausgenutzt werden, um eigenen Code auszuführen' />
+      <column name='implementation' value='Steuerzeichen abhängig von jeweiliger Technologie mit sicheren Zeichensatz kodieren. - Beispiel für HTML "&amp;lt;script&amp;gt;" anstatt "&lt;script&gt;" - Beispiel SQL " OR 1=1 --" anstatt "OR 1=1 --"' />
+      <column name='jhi_validation' value='Pro eingesetzter Technologie einen automatisierten Test' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Output Encoding verwenden&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-18'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Kommunikation absichern' />
+      <column name='description' value='Zu schützende Informationen können in falsche Hände geraten bzw. abgegriffen werden.' />
+      <column name='implementation' value='Keine unsicheren und angreifbaren Kommunikationswege für schützenswerte Daten verwenden. Z.B. keine Credentials per E-Mail, Chat, Wiki übertragen' />
+      <column name='jhi_validation' value='Wenn es jemandem im Projektteam auffällt weist er den Kollegen/die Kollegin darauf hin.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Kommunikation absichern&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-19'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Security-Vorgaben von Kunden durcharbeiten' />
+      <column name='description' value='Bei viele Kunden gibt es unternehmensweite Standards, die einheitliche Lösungen für wiederkehrende Problemstellungen beinhalten. Diese Standards können von Kunde zu Kunde sehr unterschiedlich ausfallen. Je früher diese - oft nicht explizit genannten - Anforderungen bekannt sind, desto geringer ist die Gefahr vor der Abnahme von Änderungen durchführen zu müssen.' />
+      <column name='implementation' value='Das Team ist im Besitz einer Security-Guideline des Kunden oder hat Gespräche mit einem verantwortlichen Ansprechpartner durchgeführt. Die nötigen Maßnahmen werden in der Architektur / Design / Backlog berücksichtigt.[Der extreme Fall - Der BSI IT-Grundschutzkatalog:https://www.bsi.bund.de/DE/Themen/ITGrundschutz/grundschutz.html]' />
+      <column name='jhi_validation' value='Abhaken von Anforderungen der Security-Guideline. Je Eintrag ein kurzer Kommentar, wie dieser umgesetzt wird, bzw. warum er für das Projekt nicht relevant ist.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Security-Vorgaben von Kunden durcharbeiten&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-20'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='No credentials in the code' />
+      <column name='description' value='Code can get into the wrong hands' />
+      <column name='implementation' value='Use a credentials provider[Talisman:https://github.com/thoughtworks/talisman]' />
+      <column name='jhi_validation' value='Automated tests' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;No credentials in the code&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-21'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Standards nutzen' />
+      <column name='description' value='Von Standards kann man erwarten, dass das Thema Sicherheit entsprechend berücksichtigt werden worden ist. In der Regel besteht bei einer Eigenimplementierung ein höheres Risiko hier etwas falsch zu machen. Speziell bei Sicherheitsthemen sollten Eigenimplementierungen soweit als möglich vermieden werden.' />
+      <column name='implementation' value='Wenn größere Use-Cases anstehen sollte immer der Einsatz von Standardframeworks gegen eine Eigenimplementierung erwogen werden. Bei Sicherheitsthemen sollten nur Standards verbaut werden. Bei Crypto-Funktionen ist von Eigenimplementierung völlig abzusehen![iteratec Best Practises:https://iteraweb.iteratec.de/confluence/x/IwLQB]' />
+      <column name='jhi_validation' value='Automatisiert Scanner gegen Runtime laufen lassen. Code-Reviews und manuelle Prüfung von Sicherheitskonfigurationen. Ist Sicherheit wirklich wichtig (etwa automatisch, wenn vom Internet erreichbar) dann (externe) Pen-Tests.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Standards nutzen&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-22'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Starke Passwörter verwenden' />
+      <column name='description' value='Passwörter dürfen nicht durch leichtes Erraten oder Brute-Force-Angriffe gefunden werden.' />
+      <column name='implementation' value='Generierte, lange Passwörter verwenden.[Passwort Stärke:https://xkcd.com/936/] [Richtlinien NIST (Appendix A):https://pages.nist.gov/800-63-3/sp800-63b.html]' />
+      <column name='jhi_validation' value='Passwörter können mit einem CrackingTool (JoinTheRipper, HashCat) nicht innerhalb kurzer Zeit gefunden werden.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Starke Passwörter verwenden&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-23'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Eingabevalidierung implementieren' />
+      <column name='description' value='Eingabevalidierung schützt vor Injektion (SQL, LDAP, XML, etc.)' />
+      <column name='implementation' value='Jeder Eingabewert muss auf seine syntaktische (richtiger Datentyp) und semantische (richtiger Dateninhalt) Korrektheit überprüft werden. Z.B. auf wohlgeformte URLs prüfen, SQL Kommandos nicht in Eingaben zulassen, XML Settings bzgl. "External Entity Processing" setzen usw. Am besten geeignete Frameworks verwenden, die den Zugriff auf Ressourcen kapseln/schützen.' />
+      <column name='jhi_validation' value='Pro OWASP Top 10 Eintrag in diesem Bereich automatische Tests implementieren. Penetrationstests durchführen (lassen).' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;yellow&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Eingabevalidierung implementieren&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-24'>
+    <insert tableName='level'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='name' value='orange' />
+      <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
+      <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;yellow&apos; LIMIT 1)' />
+      <column name='required_score' valueNumeric='1.0' />
+      <column name='instant_multiplier' valueNumeric='0.0' />
+      <column name='completion_bonus' valueNumeric='0.0' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-25'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Single Account Principle' />
+      <column name='description' value='Häufig wird bei der Implementierung von Anwendungen die Benutzerverwaltung erst sehr spät oder gar ganz am Ende eingebaut. Zu diesem Zeitpunkt sind aber evtl. Komponenten schon fertig und können nicht mehr angepasst werden, was eine Einbindung von effektiver Sicherheit praktisch unmöglich macht. Diskussionen über welche Rollen/Rechte überhaupt gebraucht werden, können sehr langwierig und schwierig sein und werden deshalb gern herausgezögert.' />
+      <column name='implementation' value='Ist eine Benutzerverwaltung zu erwarten (etwa JEDE Anwendung mit mindestens einem Benutzer) so muss von Beginn der technische Grundstock für eine Rechteverwaltung hinterlegt werden. Also im Prinzip genau das Gegenteil von einem einzigen Benutzer wie das oft in Prototypen vorkommt. Anfangs dann einfach nur sehr wenige großzügige Rollen/Rechte vergeben, diese aber bereits konsequent im Code bzw. an ALLEN Funktionen einfordern. Später müssen dann nur noch die geforderten Rollen/Rechte mit dem Rollen/Rechte-Konzept abgeglichen werden. Die nötigen Stellen sollten aber bereits alle bekannten sein.' />
+      <column name='jhi_validation' value='Es gibt von Anfang an die Unterscheidung zumindest einiger Basisrollen wie Benutzer/Admins. Es gibt ein fachlich abgenommenes Rollen/Rechte-Konzept.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Single Account Principle&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-26'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='OWASP Top 10' />
+      <column name='description' value='Die OWASP Top 10 identifizieren die zehn kritischsten Sicherheitsaspekte die für typische Web-Applikationen berücksichtigt werden müssen.' />
+      <column name='implementation' value='Verstehen jeder der angesprochenen Sicherheitsschwächen, Ergreifen geeigneter Gegenmaßnahmen oder Begründung, wieso nicht relevant.[OWASP Top 10 2013:https://www.owasp.org/index.php/Top_10_2013] [OWASP Top 10 2017 RC1:https://github.com/OWASP/Top10/raw/master/2017/OWASP%20Top%2010%20-%202017%20RC1-English.pdf]' />
+      <column name='jhi_validation' value='Es ist für jeden der zehn Punkte eine Gegenmaßnahme ergriffen worden oder dokumentiert, wieso er für das Projekt nicht relevant ist.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;OWASP Top 10&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-27'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Security Champion' />
+      <column name='description' value='In jedem Team sollte es zumindest eine Person geben, die für Security verantwortlich ist, damit das Thema nicht untergeht und angemessen behandelt wird. Durch regelmäßigen Austausch mit Security Champions von anderen Projekten wird der Wissenstransfer zwischen den Projekten gefördert. Durch die dezidierte Verantwortung wird sichergestellt, dass Security im Projekt tatsächlich behandelt wird.' />
+      <column name='implementation' value='Bestimmung einer Person im Team, die Zeit, Budget und Verantwortung für das Thema Security bekommt. Was aber nicht heißt, dass diese Person alleine sämtliche Security Features umsetzen muss![OWASP Security Champions:https://www.owasp.org/index.php/Security_Champions]' />
+      <column name='jhi_validation' value='Die Rolle ist vergeben und dokumentiert. Jeder im Team weiß wer Ansprechpartner für das Thema Security ist.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Security Champion&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-28'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Rechte-Management' />
+      <column name='description' value='Anwendungen werden typischerweise von unterschiedlichen Zielgruppen verwendet (z.B. User und Admins). Das Rechte-Management regelt, dass jeder Benutzer nur die Rechte erhält, die für seine Rolle erforderlich sind. Die Rollen und die dazugehörigen Berechtigungen müssen natürlich dem Sicherheitsbedarf der jeweiligen Anwendung angepasst sein.' />
+      <column name='implementation' value='Rollen-basierte Zugriffskontrolle (role based access control) fasst mehrere Nutzer zu ihren Rollen zusammen. Diesen Rollen werden Berechtigungen gegeben. Standardmäßig sollten alle Funktionen verboten sein, solange sie nicht explizit für eine Rolle freigegeben werden. Jeder Benutzer sollte einen eigenen Account haben, so dass sich nicht mehrere Benutzer einen "Admin" Account teilen.' />
+      <column name='jhi_validation' value='Der Sicherheitsbedarf der Anwendung und die entsprechenden Rollen sind identifiziert und dokumentiert. Ein Berechtigungskonzept anhand dieser Rollen ist umgesetzt.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Rechte-Management&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-29'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Backup &amp; Recovery' />
+      <column name='description' value='Es muss sichergestellt sein, dass Backups vollständig sind und sich ein System von Grund auf mit einem Backup wiederherstellen lässt.' />
+      <column name='implementation' value='Identifizieren aller für eine Wiederherstellung notwendigen Ressourcen; Festlegen der für die Ressourcen geeigneten Backup-Mechanismen.' />
+      <column name='jhi_validation' value='Die Wiederherstellung anhand eines Backups kann erfolgreich durchgeführt werden.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Backup &amp; Recovery&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-30'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Security-Training' />
+      <column name='description' value='Ein hohes Sicherheitsbewusstsein im Team hilft dem querschnittlichen Aspekt von Sicherheitsthemen Rechnung zu tragen und führt zu sicherer Software.' />
+      <column name='implementation' value='Alle Team-Mitglieder haben das Ziel, dass alle und insbesondere neue Team-Mitglieder Möglichkeit haben, zeitnah ein Security-Training zu machen.' />
+      <column name='jhi_validation' value='Alle Team-Mitglieder haben nach spätestens drei Monaten ein Security-Training absolviert.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Security-Training&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-31'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Anonymisierte "Testdaten" und Datenbankdumps' />
+      <column name='description' value='Häufig werden "Testdaten" aus Produktions- oder Integrationsumgebungen abgezogen. Dabei wird leider oft die Anonymisierung von personenbezogenen bzw. anderen schützenswerten Datenanteilen verzichtet. Dadurch sind diese Daten in schlecht geschützten Testsystemen enthalten und können dort einfacher abgegriffen werden.' />
+      <column name='implementation' value='Kritische Daten filtern Personenbezogene Daten anonymisieren Credentials überschreiben Diese Schritte sollten automatisiert werden um bei Wiederholung die Einhaltung nicht jedesmal erneut verifizieren zu müssen Idealerweise Testdaten nicht aus Produktionssystem abziehen sondern von Fachbereich anfordern' />
+      <column name='jhi_validation' value='Datenschutzbeauftragte einbinden Testdatensätze in regelmässigen Zeitabständen verifizieren' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;orange&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Anonymisierte "Testdaten" und Datenbankdumps&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-32'>
+    <insert tableName='level'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='name' value='green' />
+      <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
+      <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;orange&apos; LIMIT 1)' />
+      <column name='required_score' valueNumeric='1.0' />
+      <column name='instant_multiplier' valueNumeric='0.0' />
+      <column name='completion_bonus' valueNumeric='0.0' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-33'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Patchmanagement der Infrastruktur' />
+      <column name='description' value='Um nicht gegen aktuelle Sicherheitslücken verwundbar zu sein, sollte immer aktuelle Software verwendet werden.' />
+      <column name='implementation' value='Wenn möglich sollte die Infrastruktur automatisch aktualisiert werden. Falls das nicht möglich ist, sollte in einem regelmäßigen Intervall überprüft werden, ob die Infrastrukturkomponenten noch aktuell sind. Als Systemverantwortlicher sollte man einschlägige Informationsquellen ("heise Security", "full disclosure", usw.) abonnieren und lesen.' />
+      <column name='jhi_validation' value='Es existiert ein beschriebener Prozess, wie das Patchmanagement gemacht wird und dieses wird auch gelebt.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Patchmanagement der Infrastruktur&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-34'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Security Wissenstransfer im Team' />
+      <column name='description' value='Um das Bewusstsein für und das Wissen über sicherheitsrelevante Themen im Team zu verteilen und keine Wissensmonopole entstehen zu lassen, muss ein ständiger Wissensaustausch stattfinden.' />
+      <column name='implementation' value='Es gibt verschiedene Wege, dies zu erreichen - Lightning-Talks - Pair-Programming - regelmäßige Vorträge - Security-Konferenzen' />
+      <column name='jhi_validation' value='Es finden regelmäßig Maßnahmen statt und alle Team-Mitglieder sollten auf einem ähnlichen Wissenstand sein.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Security Wissenstransfer im Team&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-35'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Sichere Authentifizierung der Umsysteme' />
+      <column name='description' value='Ist die eigene Anwendung nur ein Baustein eines größeren Systems, so empfiehlt es sich Schnittstellen zu externen Systemen von Anfang an mocken. Dadurch werden die Abhängigkeiten zur Entwicklungszeit aufgelöst und möglichst wenig Aufwand in die Anbindung von sich vermutlich ändernden externen Systeme gesteckt. Dieses Prinzips sollte bei der Aufsetzung von Testumgebungen ebenfalls angewandt werden. Integrations- und Produktionsumgebungen müssen aber die echten Umsystem anbinden. Hier ist darauf zu achten, dass je nach Schutzbedarf eine sichere Authentisierung verwendet wird. Das könnte etwa 2-way-TLS oder eine Basic Auth über TLS sein. Unverschlüsselte Verbindungen dürfen nur für Tests verwendet werden!' />
+      <column name='implementation' value='Mocken externer Systeme. Eigene Schnittstellen fordern auf Stages &gt; Entwicklung ebenfalls IMMER eine Authentisierung und Verschlüselung' />
+      <column name='jhi_validation' value='Prüfen, ob Unit-Tests für die Anbindung der externen Systeme existieren und wie diese gesichert sind Reviews vor Meilensteinen wie Releases' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Sichere Authentifizierung der Umsysteme&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-36'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Security Use Cases kennen' />
+      <column name='description' value='Um sich effizient vor Angriffen schützen zu können, sollen mögliche Angriffsszenarien einer Anwendung aufgezeigt und dokumentiert werden.' />
+      <column name='implementation' value='Das Team soll auf Basis von bestehenden Kernfunktionen und Ressourcen der Anwendung mögliche Security Use Cases (z.B. Stehlen von Benutzeridentität, Manipulation von sensiblen Daten durch unauthorisierte Benutzer) ausarbeiten.[Security Use Cases:http://www.jot.fm/issues/issue_2003_05/column6/]' />
+      <column name='jhi_validation' value='Die dokumentierten Security Use Cases sollen bei der Architerkur bzw. Entwicklung der Anwendung berücksichtigt und durch QA oder Security Teams validiert werden.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Security Use Cases kennen&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-37'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Security Advisories &amp; Cheat Sheets beachten' />
+      <column name='description' value='Frameworks sind oft auf einfache Benutzung, als auf hohe Sicherheit vorkonfiguriert. Daher ist es wichtig zu wissen, welche Konfigurationen angepasst werden müssen, um eine maximale Sicherheit zu erzielen.' />
+      <column name='implementation' value='Falls es für verwendete Komponenten Security Advisories gibt, müssen diese gelesen und angewendet werden.' />
+      <column name='jhi_validation' value='Einschlägige Security Advisories sind bekannt, bzw. es ist bekannt, dass keine existieren.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Security Advisories &amp; Cheat Sheets beachten&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-38'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Patch-Management von Third-Party-Libraries' />
+      <column name='description' value='Softwareanwendungen verwenden viel Fremdcode, der in Form von Bibliotheken eingebunden wird. Sicherheitslücken in diesen Bibliotheken schlagen direkt auf die eigene Anwendung durch. Bekannte Sicherheitslücken in diesen Bibliotheken müssen erkannt werden, um sie beheben / updaten zu können.' />
+      <column name='implementation' value='Es muss eine Regelung für das Patch-Management gefunden werden. Hierzu müssen die verwendeten (auch transitiven) Bibliotheken bekannt sein und deren Versionen gegen eine Vulnerability Datenbank geprüft werden. Einige Tools helfen, diesen Prozess zu automatisieren. Die OWASP bietet hierzu den Dependency Check für Java Bibliotheken, der einfach in den Build Prozess integriert werden kann. Es ist wichtig, diesen Prozess nicht nur während der Entwicklung, sondern auch im laufenden Betrieb beizubehalten.[OWASP Dependency Check:https://www.owasp.org/index.php/OWASP_Dependency_Check]' />
+      <column name='jhi_validation' value='Es existiert ein Konzept, das die Arten von verwendeten Third-Party Abhängigkeiten beschreibt und vorgibt, wie diese auf mögliche Sicherheitslücken geprüft werden. Der Prozess ist idealerweise automatisiert und informiert bestimmte Personen über gefundene Schwachstellen.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Patch-Management von Third-Party-Libraries&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-39'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Budget für Security' />
+      <column name='description' value='Sichere Software entsteht nicht von alleine, sondern es muss gezielt darauf hingearbeitet werden. Dies benötigt zusätzliche Ressourcen.' />
+      <column name='implementation' value='Die zusätzlich benötigten Ressourcen müssen geschätzt, geplant und beauftragt werden.' />
+      <column name='jhi_validation' value='Im Projekt sind Security-relevante Themen mit eingeplant.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Budget für Security&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-40'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Code Review' />
+      <column name='description' value='Sicherheit ist leider kein statisches Thema. Damit ist gemeint das ein völlig sicheres System allein durch das Vergehen von Zeit meist automatisch unsicher wird. Dazu zählt der Verfall der Sicherheit von kryptographischen Verfahren genauso wie das Bekanntwerden von neuen Sicherheitslücken in verbauten Systemen. Daher sind Code Reviews nicht nur während der Entwicklung vonnöten, sondern müssen regelmäßig während der Lebensdauer jeder Applikation wiederholt werden.' />
+      <column name='implementation' value='Code Reviews können in der Entwicklungsphase etwa durch Peer Reviews realisiert werden.' />
+      <column name='jhi_validation' value='Sind teaminterne Reviews in den Sprints eingeplant?' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Code Review&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-41'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Throttelling der Passwort LogIn Quote' />
+      <column name='description' value='Um das Auslesen der Zugangsdaten mit einer Brute-Force Attacke zu vermeiden, soll die Anzahl der fehlgeschlagenen Anmeldeversuche limitiert werden.' />
+      <column name='implementation' value='Ein möglicher Ansatz ist die steigende Sperrzeit des betroffenen Accounts nach jedem fehlgeschlagenen Anmeldeversuch, sodass es beinahe unmöglich ist, die Zugangsdaten mittels Brute-Force Attacke auszulesen. Technisch kann die Attacke durch einen Listener, der über jede fehlgeschlagene Authentifizierung informiert wird, erkannt und vermieden werden.[OWASP Brute Force:https://www.owasp.org/index.php/Brute_force_attack] [Testing for Brute Force (OWASP):https://www.owasp.org/index.php/Testing_for_Brute_Force_(OWASP-AT-004)]' />
+      <column name='jhi_validation' value='Die Erkennung einer Brute-Force Attacke soll mittels manueller und/oder automatisierter Tests erfolgen.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;green&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Throttelling der Passwort LogIn Quote&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-42'>
+    <insert tableName='level'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='name' value='blue' />
+      <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
+      <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;green&apos; LIMIT 1)' />
+      <column name='required_score' valueNumeric='1.0' />
+      <column name='instant_multiplier' valueNumeric='0.0' />
+      <column name='completion_bonus' valueNumeric='0.0' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-43'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Architektur Review' />
+      <column name='description' value='Sicherheit ist leider kein statisches Thema. Damit ist gemeint das ein völlig sicheres System allein durch das Vergehen von Zeit meist automatisch unsicher wird. Dazu zählt der Verfall der Sicherheit von kryptographischen Verfahren genauso wie das Bekanntwerden von neuen Sicherheitslücken in verbauten Systemen. Daher sind Code Reviews nicht nur während der Entwicklung vonnöten, sondern müssen regelmäßig während der Lebensdauer jeder Applikation wiederholt werden.' />
+      <column name='implementation' value='Architektur Reviews sollten bereits relativ regelmäßig während der Entwicklungsphase durchgeführt werden. Vor Meilensteinen wie Releases sollten umfangreichere Code Reviews speziell für die Architektur / Testabdeckung vorgesehen werden.' />
+      <column name='jhi_validation' value='Sind Architekturreviews eingeplant? Sind Reviews der Testabdeckung eingeplant?' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;blue&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Architektur Review&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-44'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Policy für (Dev)Ops Credentials' />
+      <column name='description' value='Administrative und auch technische Benutzer welche für den Betrieb bzw. die Wartung einer Anwendung vonnöten sind haben meist erhöhte Privilegien. Deshalb sind diese für Angreifer natürlich besonders interessant. Daher müssen für diese Policy erhöhte Sicherheitsmaßnahmen greifen. Eine Policy sollte strengere Anforderungen an deren Credentials stellen als für "normale" Benutzer. Dazu zählen etwa längere und kompliziertere Passwörter. Zusätzlich sollte unbedingt auch eine Lebensdauer dieser Credentials festgelegt werden, um ein automatisches Ablaufen zu erzwingen. Gerade technische Benutzer haben oft erstaunliche Lebenspannen und gefährden die Sicherheit und Integrität von Anwendungen während dieser gesamten Zeit.' />
+      <column name='implementation' value='Festlegen von Richtlinien für (Dev)Ops Credentials' />
+      <column name='jhi_validation' value='Prüfen ob Richtlinien festgelegt werden Prüfen, dass diese auch befolgt werden Regelmäßige Überprüfung der Richtlinien, ob diese noch dem (aktuellen) Schutzbedarf einsprechen. Meistens reicht hier einmal pro Jahr o.ä.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;blue&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Policy für (Dev)Ops Credentials&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-45'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Betriebsinfrastruktur härten' />
+      <column name='description' value='Eine Anwendung kann noch so gut abgesichert sein, wenn der Server auf dem sie läuft Sicherheitslücken aufweist, ist das gesamte System unsicher. Gerade bei produktiven Anwendungen, die über das Internet erreichbar sind, ist es wichtig, dass die Server entsprechend abgesichert sind.' />
+      <column name='implementation' value='Es gibt viele hardening guidelines für bestimmte Systeme (Windows, Oracle Datenbanken, ...). Generell gibt es einige Regeln, die beachtet werden sollen - Es sollen nur die Services laufen, die auch benötigt werden. - Es sollen nur die Ports zugänglich sein, die benötigt werden. - Systeme sollten mit möglichst eingeschränkten Rechten arbeiten. - Starke Authentifizierung für Remote-Zugriffe verwenden. - Checklisten für die eingesetzten Systeme beachten.[Sammlung von Checklisten für einige Systeme:https://www.sans.org/score/checklists] [Sammlung der Telekom:https://www.telekom.com/de/verantwortung/datenschutz-und-datensicherheit/sicherheit/sicherheit/privacy-and-security-assessment-verfahren-342724] [JBoss Hardening Guideline:https://docs.jboss.org/author/display/AS72/Hardening+Guidelines] [Tomcat Hardening Guideline:https://geekflare.com/apache-tomcat-hardening-and-security-guide/] [Tomcat Hardening Guideline (OWASP):https://www.owasp.org/index.php/Securing_tomcat]' />
+      <column name='jhi_validation' value='Checklisten für eigene Systeme finden, durcharbeiten und dokumentieren welche Schritte umgesetzt wurden.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;blue&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Betriebsinfrastruktur härten&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-46'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Statische Codeanalyse' />
+      <column name='description' value='Tools für statische Codeanalyse können automatisiert den Quellcode der Anwendung scannen, Sicherheitslücken/Fehler erkennen und evtl. Lösungen vorschlagen.' />
+      <column name='implementation' value='Anhand des verwendeten Technologiestacks im Projekt soll das entsprechende Tool für statische Codeanalyse (wie z.B. für JavaScript - JSLint, für Java - SonarQube, Findbugs oder PMD) im Buildprozess eingebunden werden und bei jedem Commit automatisch ausgeführt werden.[Liste von Werkzeugen zur statischen Codeanalyse:https://de.wikipedia.org/wiki/Liste_von_Werkzeugen_zur_statischen_Codeanalyse]' />
+      <column name='jhi_validation' value='Die Ergebnisse sollen in festen Zeitabständen vom Entwicklungsteam analysiert und bearbeitet werden.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;blue&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Statische Codeanalyse&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-47'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Security Ansprechpartner kennen' />
+      <column name='description' value='Für einen funktionierenden Security Prozess und eine angemessene Verankerung im Unternehmen ist es wichtig das im Team die relevanten Security Ansprechpartner (intern wie extern, bei iteratec und beim Kunden) bekannt sind.' />
+      <column name='implementation' value='An einer geeigneten Stelle sind die jeweiligen Kontaktdaten der für das Projekt relevanten Security Ansprechpartner und ihre Rolle in Bezug auf das Projekt dokumentiert.' />
+      <column name='jhi_validation' value='Ein beliebiges Teammitglied kann Auskunft darüber geben welche Security Ansprechpartner für das Projekt relevant sind und Auskunft darüber geben.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;blue&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Security Ansprechpartner kennen&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-48'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Zentralisiertes Logging' />
+      <column name='description' value='Für die Diagnose von Problemen im Betrieb einer Anwendung spielen Logdaten meist eine zentrale Rolle. Moderne Architekturen verwenden aber meistens dezentralisierte Systeme. UseCases werden dann oft von mehreren Komponenten umgesetzt und für das Verständnis der Abläufe sind daher die Logdaten aller involvierten Anwendung vonnöten. Darum müssen Logdaten bei dezentralisierten Architekturen an einer zentralen Stelle wieder zusammengeführt werden. Dies erlaubt sowohl die vollständige Betrachtung von UseCases als auch das Verfolgen von Requests durch das gesamte System.' />
+      <column name='implementation' value='Je nach Menge der anfallenden Daten können diese entweder direkt zentral gesammelt werden oder erst dezentral gespeichert werden, um dann regelmäßig mit dem Sammelzentrum synchronisiert zu werden. Meistens bietet es sich hier an dafür ein Third-Party-Produkt einzusetzen.[Logging:https://www.slf4j.org/] [Zentrales Logging:https://www.loggly.com/ultimate-guide/centralizing-java-logs/]' />
+      <column name='jhi_validation' value='Überprüfung welche Frameworks / Systeme für ein zentrales Logging vorgesehen sind. Prüfung der Synchronisationsstrategien falls vorhanden. Verifikation das verteile Logs auch durchgängige Verfolgung zulassen.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;blue&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Zentralisiertes Logging&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-49'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Datenflussanalyse' />
+      <column name='description' value='Eine genaue Analyse von Datenflüssen in einem System hilft bei der Identifikation von Sicherheitslücken bzw. bei der Ausarbeitung von möglichen Bedrohungen.' />
+      <column name='implementation' value='Als Grundlage für ein Datenflussdiagram können Architekturdokumentationen, Programmablaufpläne, Quellcode oder externe Entitäten wie interagierende Drittsysteme oder Benutzer dienen.' />
+      <column name='jhi_validation' value='Die identifizierten Bedrohungen sollen durch QA oder Security Team dokumentiert und validiert werden.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;blue&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Datenflussanalyse&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-50'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Abuse Userstories schreiben und verhindern' />
+      <column name='description' value='Gerade in der agilen Entwicklung besteht die Gefahr, dass man nur von Feature zu Feature denkt und die IT-Sicherheit vernachlässigt. Eigentlich muss für jedes neue Feature eine neue Bedrohungsanalyse durchgeführt werden. Eine Möglichkeit, um das im agile Umfeld zu tun, sind Abuse Stories. Hierbei wird versucht, sich in die Rolle des Hackers zu versetzen, um das System für seine Zwecke zu missbrauchen.' />
+      <column name='implementation' value='Wie bei User-Stories, versetzt man sich die Rolle des - hier bösartigen - Benutzers. Was sind seine Ziele und seine Motivation, um diese zu erreichen? Als bösartiger Hacker möchte ich beispielsweise Kreditkarteninformationen stehlen, um sie im Darknet zu verkaufen.[OWASP - Evil User Stories:https://www.owasp.org/index.php/Agile_Software_Development:_Don%27t_Forget_EVIL_User_Stories] [Paper Agile Security Requirements Engineering:https://handouts.secappdev.org/handouts/2008/abuser%20stories.pdf]' />
+      <column name='jhi_validation' value='Abuse Stories werden parallel zu normalen User-Stories im Backlog berücksichtigt. Im Sprint ist sicherzustellen, dass eine Abuse Story nicht erreicht werden kann. Im Review ist zu erläutern, wie das Angriffsszenario verhindert wird (und ggf. zu dokumentieren).' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;blue&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Abuse Userstories schreiben und verhindern&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-51'>
+    <insert tableName='level'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='name' value='brown' />
+      <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
+      <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;blue&apos; LIMIT 1)' />
+      <column name='required_score' valueNumeric='1.0' />
+      <column name='instant_multiplier' valueNumeric='0.0' />
+      <column name='completion_bonus' valueNumeric='0.0' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-52'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Credentials rollieren' />
+      <column name='description' value='Häufig wird bei der Vergabe von Credentials oder daran gebundene Rollen und Rechte kein Lebenszyklus definiert. Konkret laufen die Credentials oder Rollen und Rechte nicht automatisch ab. Dies führt mehr oder weniger zwangsweise zu der Situation, dass mehr Rechte existieren als wirklich benötigt werden. Mit regelmässigen Prunings (Aufräumen) kann dieses Problem adressiert werden. Aber selbst mit Prunings wird es ohne automatischen Ablauf langfristig zu einer nicht mehr überschaubaren und damit beherrschbaren Menge an Berechtigungen kommen. Spätestens jetzt werden selbst die Prunings dermaßen aufwendig, dass dem Chaos praktisch nicht mehr beizukommen ist. Dies gilt insbesondere explizit auch für technische Benutzer, welche dabei gerne "vergessen" werden.' />
+      <column name='implementation' value='Jedwede Form von Berechtigungen (meist Credentials, Rollen oder Rechte) sollen immer nur zeitbefristet vergeben werden.' />
+      <column name='jhi_validation' value='Regelmässige Reviews aller Rollen-/Rechtekonzepte.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;brown&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Credentials rollieren&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-53'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Advanced Security Schulung' />
+      <column name='description' value='Die heutige Entwicklung von IT-Technologien ist rasant schnell. Jeden Tag werden neue Sicherheitlücken entdeckt, sensible Kundendaten durch Kriminelle entwendet oder neue Datenschutzgesetze verabschiedet. Um IT-Systeme stets sicher zu halten, sollte jeder Security-Verantwortlicher in die Weiterbildung und Erfahrungsaustausch investieren.' />
+      <column name='implementation' value='Eine der Maßnahmen ist die Teilnahme an Schulungen/Konferenzen mit dem Schwerpunkt IT-Security.' />
+      <column name='jhi_validation' value='Die Teilnahme an Schulungen soll in regelmäßigen Zeitabständen erfolgen und das neu angeeignete Wissen soll im Team geteilt werden.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;brown&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Advanced Security Schulung&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-54'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Zertifikatsmanagement' />
+      <column name='description' value='Der richtige Umgang mit Zertifikaten ist sehr wichtig. Falsch konfigurierte Zertifikate erwecken nur den Anschein zur Sicherheit einer Webseite beizutragen. Deshalb ist es wichtig sich gezielt Gedanken zum Einsatz von Zertifikaten zu machen. Dazu gehören unter anderem auch Revokation und das Erneuern von Zertifikaten.' />
+      <column name='implementation' value='Mögliche Konfigurationen und die Verwendung von Zertifikaten (z.B. Pinning, Einschränkung CA, etc.) werden gezielt geprüft und dem Einsatzgebiet entsprechend verwendet.[Certificate and Public Key Pinning:https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning] [SSL and TLS Deployment Best Practices:https://github.com/ssllabs/research/wiki/SSL-and-TLS-Deployment-Best-Practices] [OpenSSL Cookbook:https://www.feistyduck.com/books/openssl-cookbook/]' />
+      <column name='jhi_validation' value='Dokumentation über die Verwendung und Konfiguration von Zertifikaten im Projekt liegt vor und entspricht dem umgesetzten Stand.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;brown&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Zertifikatsmanagement&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-55'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Deaktivierung von Security Features für Tests verweigern' />
+      <column name='description' value='Oft werden gewisse Security Maßnahmen, für Tests deaktiviert, um diese zu vereinfachen. Leider wird es dann ganz gerne vergessen die Security Features wieder zu aktivieren bevor auf Produktion deployed wird.' />
+      <column name='implementation' value='Eingebaute Security Features werden zu keiner Zeit deaktiviert.' />
+      <column name='jhi_validation' value='Es existiert kein "Security Feature Ausmachschalter"' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;brown&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Deaktivierung von Security Features für Tests verweigern&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-56'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Regelmäßige Bedrohungsanalysen' />
+      <column name='description' value='Selbst herausragend geschulte Teams werden nicht in der Lage sein, sämtliche aktuell verfügbaren Angriffstechniken zu kennen oder sämtliche neuen Schwachstellen zu überblicken.' />
+      <column name='implementation' value='Regelmäßige Bedrohungsanalysen helfen dabei den Schutzbedarf der Anwendung auf einem aktuellen Stand zu halten. Damit kann dann wiederum geprüft werden, ob dieser Bedarf noch ausreichend berücksichtigt wird bzw. ob Maßnahmen abgeleitet werden müssen. Bei erhöhtem Schutzbedarf sollte die Einbeziehung von externen Experten oder Dienstleistern erwogen werden.' />
+      <column name='jhi_validation' value='Prüfung wann letzte Bedrohungsanalyse stattgefunden hat Prüfung wann nächste Bedrohungsanalyse stattfinden soll' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;brown&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Regelmäßige Bedrohungsanalysen&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-57'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='HTTPS everywhere' />
+      <column name='description' value='Erstaunlich häufig wird erst über Portscans laufender Anwendungen festgestellt, dass HTTP-Port offen sind bzw. sogar darüber Dienste angeboten werden. Heutzutage gibt es aber keinen Grund mehr in Integrations- und Produktionsumgebungen unverschlüsselte Verbindungen zu verwenden. GAR keinen Grund.' />
+      <column name='implementation' value='Umstellung sämtlicher Verbindungen auf verschlüsselte Protokolle. Natürlich muss nicht immer 2-way-TLS mit AES256 das Minimums ein, sondern der Schutz sollte dem Bedarf angepasst werden.[Advanced Encryption Standard:https://tools.ietf.org/html/rfc3268]' />
+      <column name='jhi_validation' value='Code Reviews Portscans' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;brown&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;HTTPS everywhere&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-58'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Eingabevalidierung' />
+      <column name='description' value='Die Validierung JEDWEDER Daten, welche von externer Stelle bezogen werden, ist von enormer Wichtigkeit. Damit lassen sich sowohl eine große Anzahl von (Injektion-)Angriffen im Keim ersticken, sowie typischerweise das Benutzererlebnis verbessern und sogar die Projektergebnisse, da die Datenqualität besser ausfällt.' />
+      <column name='implementation' value='Meist lassen sich dafür entweder reguläre Ausdrücke (Whitelist) oder LR Parser (Blacklist) verwenden. Im Allgemeinen sind lassen sich fast alle Validierungen mit regulären Ausdrücken vernünftig lösen. Recht komplexe oder große Datenfelder wie Uploads erfordern hingegen (LR) Parser oder Parsergeneratoren wie Flex oder Bison. Manchmal gestalten sich Validierungen komplexer als erwartet. In solchen Fällen hilft es oft, zuerst die einfachen Positiv- und Negativ-Fälle zu erledigen und sich dann auf Rest zu stürzen. Automation ist der Schlüssel um Redundanzen zu vermeiden. Implementiere zentrale Validierungsfunktionen, welche automatisch verwendet werden und welche maximal konfiguriert werden müssen. Eingabevalidierung sollte idealerweise von Anfang implementiert und mit Unit-Tests abgesichert werden. Sei bei der Erstellung von Unnit-Tests kreativ und bevorzuge Grenzfälle gegenüber eher normalen Vorgaben. Vermeide Redundanzen bei den Unit-Tests. Versuche mit möglichst wenigen TEstfällen eine hohe Abdeckung zu erreichen. Vermeide unnötige Komplexität bei der Validierung! Wenn etwa nur Integer als Eingabe möglich sind, verwende keine regulären Ausdrücke welche auch Floats oder Doubles kennen. Wenn Zeit knapp ist implementiere im ersten Schritt nur einfache Tests und erweitere diese später. Andernfalls ist die Gefahr groß, dass Validierung komplett weggelassen werden muss.[Vergleich LL mit LR Parser:http://blog.reverberate.org/2013/07/ll-and-lr-parsing-demystified.html] [Flex:https://github.com/westes/flex] [Bison:https://www.gnu.org/software/bison/]' />
+      <column name='jhi_validation' value='Das Hinzufügen einer verstecken Komponententestseite bei einer UI-Anwendung hilft oft sehr die nötigen Validierungsarten zu erfassen. Erzeuge Unit-Tests mit ungültigen Eingaben, welche Fehler produzieren um deren Behandlung zu testen.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;brown&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Eingabevalidierung&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-59'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Monitoring' />
+      <column name='description' value='Mit Monitoring lassen sich ungewöhnliche Entwicklungen im Betrieb beobachten und analysieren. Diese Entwicklungen können negativer Natur sein und aufgrund von bestehenden Fehlern/Sicherheitslücken auftreten.' />
+      <column name='implementation' value='Monitoring Tools sollen im Projekt eingesetzt und die im laufenden Betrieb produzierten Daten (z.B. Logdateien) analysiert werden. Zum Beispiel lassen sich DDOS-Angriffe oder kompromittierte Benutzeraccounts durch die Analyse von Logdateien erkennen.' />
+      <column name='jhi_validation' value='Durch Einsatz von Monitoring Tools (ELK-Stack, zabbix) kann das Entwicklerteam über anormales Verhalten der zu überwachenden Anwendung informiert werden.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;brown&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Monitoring&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-60'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='DoS Angriffe erkennen &amp; Gegenmaßnahmen durchführen' />
+      <column name='description' value='Mittlerweile kann potentiell jeder Opfer einer DoS-Attacke werden. Daher ist es wichtig die eigene Anwendung zu überwachen, um schnellstmöglich dagegen vorgehen zu können.' />
+      <column name='implementation' value='Es ist wichtig über Logging und Monitoring die eigene Anwendung und deren Infrastruktur zu überwachen. Um eine stattfindende DoS-Attacke abzuwehren, gibt es verschiedene Möglichkeiten - Implementieren von Ratelimits auf Applikationslevel - Konfigurieren von Ratelimits auf OS-Ebene - Konfiguratives Ausschalten von ressourcen-hungrigen Applikationsteilen - Routen des Traffics auf eine Blackhole-Route.[Gegenmaßnahmen:https://en.wikipedia.org/wiki/Denial-of-service_attack#Defense_techniques]' />
+      <column name='jhi_validation' value='Es existiert ein funktionierendes Monitoring und im Falle eines Angriffes gibt es eine Strategie, wie dieser erfolgreich abgewehrt werden kann.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;brown&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;DoS Angriffe erkennen &amp; Gegenmaßnahmen durchführen&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-61'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Aktives Self Assessment' />
+      <column name='description' value='Sicherheit ist leider kein statisches Thema. Damit ist gemeint das ein völlig sicheres System allein durch das Vergehen von Zeit meist automatisch unsicher wird. Dazu zählt der Verfall der Sicherheit von kryptographischen Verfahren genauso wie das Bekanntwerden von neuen Sicherheitslücken in verbauten Systemen. Mittels Reviews muss daher laufen geprüft werden, ob die Vorgaben o.ä. nach eingehalten werden. Das aktive "Self Assessment" ist nun die nächste Stufe dieser Vorgehensweise. Wichtig ist dabei etwa die Sichtbarmachung der Reviews und deren Ergebnisse, damit die Umsetzung derselben gesichert wird. Dazu zählt ebenso die Benennung von dedizierten Personen aus den Teams, welche die Einhaltung der Prozesse langfristig und nachhaltig begleiten und überprüfen. Zusätzlich müssen die Prozesse und deren Umsetzung immer wieder hinterfragt werden.' />
+      <column name='implementation' value='Benennung von dedizierten Personen Schulungen aller Teammitglieder und der dedizierten Personen im Besonderen[VDA:https://www.vda.de/de/services/Publikationen/information-security-assessment.html]' />
+      <column name='jhi_validation' value='Regelmäßige Beauftragung von externen Reviews für die eingesetzten Prozesse.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;brown&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Aktives Self Assessment&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-62'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Teilnahme an (mehreren) Schulungen' />
+      <column name='description' value='Durch die Teilnahme an Schulungen kann die Security Awareness, sofern nicht ohnehin schon vorhanden, gesteigert werden. Diese ist wichtig um die Bedeutung von Security in den Köpfen zu verankern. Technische Schulungen helfen den Entwicklern, Applikationen gegen Angriffe abzusichern. Der regelmäßige Besuch von Trainings hält die Kollegen auf dem neuesten Stand.' />
+      <column name='implementation' value='' />
+      <column name='jhi_validation' value='Kollege hat an Schulung XY teilgenommen.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;brown&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Teilnahme an (mehreren) Schulungen&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-63'>
+    <insert tableName='level'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='name' value='black' />
+      <column name='dimension_id' valueComputed='(SELECT id FROM dimension WHERE name = &apos;Security&apos; LIMIT 1)' />
+      <column name='depends_on_id' valueComputed='(SELECT id FROM level WHERE name = &apos;brown&apos; LIMIT 1)' />
+      <column name='required_score' valueNumeric='1.0' />
+      <column name='instant_multiplier' valueNumeric='0.0' />
+      <column name='completion_bonus' valueNumeric='0.0' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-64'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='2-Factor-Authentisierung (2FA)' />
+      <column name='description' value='Eine sichere Authentifizierung mittels Passwort erfordert unter anderem ein starkes Passwort. Mittels 2-Factor-Authentisierung wird eine zusätzliche Hürde eingebaut, die die Authentisierung verstärkt und die Verwendung von schwachen Passwörtern etwas entschärft (Das ist aber kein Aufruf mit 2FA nur mehr schwache Passwörter zu verwenden!).' />
+      <column name='implementation' value='Sämtliche Systeme (JIRA, SSH, etc.) sollten so konfiguriert werden, dass eine Anmeldung nur mehr mit 2FA möglich ist.' />
+      <column name='jhi_validation' value='Sämtliche Systeme sind nur über 2FA erreichbar.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;black&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;2-Factor-Authentisierung (2FA)&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-65'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Externer Penetrationstest' />
+      <column name='description' value='Um zu verhindern, dass man bei einem eigenen Penetrationstest wegen Betriebsblindheit Schwachstellen übersieht, muss ein externer Penetrationstest durchgeführt werden.' />
+      <column name='implementation' value='Externen Dienstleister beauftragen, einen Penetrationstest durchzuführen.' />
+      <column name='jhi_validation' value='Ein Penetrationstest eines externen Dienstleisters wurde durchgeführt.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;black&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Externer Penetrationstest&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-66'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Sicherheitstools in CI/CD Buildpipelines' />
+      <column name='description' value='Eine beträchtliche Anzahl von Schwachstellen in Anwendungen entstehen durch simple Programmierfehler oder Unachtsamkeit. Sehr viele davon lassen sich bereits beim Bauen der Projekte von automatisierten Tools erkennen und damit zeitnah beheben.' />
+      <column name='implementation' value='Füge mehrere Tools in Deine Pipeline ein, welche statische Codeanalysen durchführen. Prinzipiell gilt je mehr desto besser, aber die Konfiguration der Tools ist oft entscheidend und damit zeitaufwendig. Also besser weniger und besser gepflegt als viele mit Standardeinstellungen! Empfohlen werden CheckStyle oder PDM und zusätzlich FindBugs. [Konfiguriere Regelsets, welche zu Deinem Projekt passen! Richtschnur:Zu viele Regeln sind wiederum meist schlimmer als zu wenige. Jeder fälschlicherweise gemeldete Fund verringert das Vertrauen in die Qualität der erzielten Ergebnisse insgesamt. Damit verliert das Werkzeug viel an Wert.] Meist gibt es bereits Regelsets vom Kunden oder ähnlichen Projekten. Dieses zu kopieren und anzupassen dürfte deutlich schneller zu guten Ergebnissen führen als ein komplett neues aufzubauen. Wenn die Ergebnisse nicht regelmäßig in Reviews einfließen oder die Funde nicht gefixed werden, so sollten die Tools besser entfernt werden. Andernfalls kann ein falscher Eindruck von Sicherheit vermittelt werden. Umfangreichere Scanner wie etwa die SecureCodeBox (SCB) können auch benutzt werden. Wegen der höheren Komplexität ist es vermutlich sinnvoll dafür aber seltenere Zyklen zu veranschlagen. Etwa einmal pro Release?[CheckStyle:http://checkstyle.sourceforge.net/] [PMD:https://pmd.github.io/] [FindBugs:http://findbugs.sourceforge.net/] [SCB:https://iteraweb.iteratec.de/confluence/display/iwiki/secureBox]' />
+      <column name='jhi_validation' value='Die Einbeziehung der Funde in die Sprint Reviews. Die Durchführung der Scan als ToDo im Releaseplan verankern.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;black&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Sicherheitstools in CI/CD Buildpipelines&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-67'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Notfallkonzept' />
+      <column name='description' value='Jede Firma ist heute Ziel von Angriffen. Meist dürften diese ungezielt sein, aber selbst hier drohen schlimme Konsequenzen. Wie etwa bei einem Kryptotrojaner per unerkannter Spam-Mail. Gerade Phising Angriffe haben in letzter Zeit deutlich an Qualität gewonnen und sind manchmal erst auf den zweiten oder gar dritten Blick als solche erkennbar. Gerade Querschnittsfunktionen dürften dann Gefahr laufen Opfer eines solchen Angriffs zu werden. Die ebenfalls immer besser werdenden Bausteinkästen erlauben zudem einem immer größeren Personenkreis auch technische komplexe Angriffstechniken einzusetzen, da praktische keine Vorkenntnisse zur Nutzung mehr nötig sind. Daher sollte sich jede Firma überlegen, welches die wahrscheinlichsten Angriffsszenarien sind und wie im Ernstfall damit umgegangen werden soll. Statt unter Zeitdruck im Zuge eines Notfalls und dem vermutlich sich anschliessenden Chaos kann hier in Ruhe zumindest ein Plan ausgearbeitet werden wie verfahren werden soll.' />
+      <column name='implementation' value='Konkret werden dazu die Szenarien und die vorgesehenen Verfahrenweise in einem Notfallkonzept gesammelt. Dies liegt an einem definierten und bekannten Ort. Alle relevanten Stakeholder sind darüber informiert und wissen wie das Notfallhandbuch zu benutzen ist und wer welche Verantwortungen hat.[BSI:https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Veranstaltungen/ITSiKongress/13ter/Manuela_Reiss_16052013.pdf?__blob=publicationFile] [ISDSG:https://www.isdsg.de/beratung/konzepterstellung/notfallkonzept] [IT-Grundschutz:https://de.wikipedia.org/wiki/IT-Grundschutz]' />
+      <column name='jhi_validation' value='Die Stakeholder können ohne Hinweise Auskunft darüber geben, wo es sich befindet. Die Stakeholder können es schnell abrufen, einsetzen und darüber Auskunft geben wie die damit verbundenen Verantwortlichkeiten geregelt sind.' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;black&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Notfallkonzept&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-68'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Sichere CI / CD Buildpipelines' />
+      <column name='description' value='Continuous Integration (CI) und Continuous Delivery (CD) Buildpipelines dürften den Standard zum Bauen von Projekten darstellen. Allerdings ist speziell bei Jenkins- oder Bamboo-Instanzen, welche von mehreren Projekten benutzen werden oft zu sehen, dass sich niemand für die Pflege der Systeme verantwortlich fühlt. Diese Systeme stellen aber ein Stück kritischer Infrastruktur dar und müssen deshalb regelmäßig gewartet werden!' />
+      <column name='implementation' value='Pro Instanz muss es mindestens einen besser zwei Wartungsverantwortliche geben, welche regelmäßig Updates durchführen und die Konfiguration überprüfen. Das heißt nicht unbedingt, dass die Wartungsverantwortlichen die nötigen Arbeiten selbst durchführen müssen! Wichtig ist die primär die Regelmäßigkeit der Überprüfungen. Entstehendes ToDos können natürlich auch an die Teams delegiert werden. Bei den Updates müssen alle verwendeten Komponenten berücksichtigt werden! Das beinhaltet unter anderem etwa Java, Maven, Gradle, Plugins und das Quellverwaltungssystem, sowie Skriptsprachen-Interpreter wie Ruby, Grails oder Python. Der Zugriff auf die Instanzen sollte über eine Whitelist gefiltert werden. Das ist zwar nicht unbedingt bequem, aber enthalten die Buildpipelines leider häufig schützenswerte Daten wie Credentials und dürfen deshalb nicht öffentlich zugängig gemacht werden. Nur Administratoren sollten Benutzer hinzufügen oder entfernen können. Autorisierung ist dann vermutlich nicht unbedingt nötig. Wenn doch sollte die Projekte das für sich selbst entscheiden und durchsetzen können.[Updates iteratec:https://iteraweb.iteratec.de/confluence/login.action?os_destination=%2Fpages%2Fviewpage.action%3FpageId%3D122880097] [Allgemein:http://www.heise.de/security]' />
+      <column name='jhi_validation' value='Für jede Instanz, welche nur von einem Team genutzt wird, werden Peer Reviews durch die Administratoren empfohlen. Für jede Instanz mit mehreren Teams sollten zusätzlich Kommunikationskanäle geschaffen werden, über welche Maßnahmen und deren zeitliche Umsetzung verkündet werden können. Möglich wären etwa Emailverteiler oder Chats (etwa Mattermost Gruppe).' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;black&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Sichere CI / CD Buildpipelines&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+  <changeSet author='gradle' context='!test' id='1544094699822-69'>
+    <insert tableName='skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='title' value='Halten von Security Vorträgen/Schulungen' />
+      <column name='description' value='Durch das Halten von internen Security Vorträgen wird der Wissensaustausch zwischen den Projekten/Kollegen gefördert. Externe Vorträge stärken die Wahrnehmung von iteratec als sicherheitsbewusstes Unternehmen bei dem Security von Haus aus (wie z.B. Tests) Teil der Lieferung ist.' />
+      <column name='implementation' value='Vortragen eines interessanten, sicherheitsrelevanten Themengebiets - intern oder extern.' />
+      <column name='jhi_validation' value='' />
+      <column name='score' value='1' />
+    </insert>
+    <insert tableName='level_skill'>
+      <column name='id' valueComputed='nextval(&apos;hibernate_sequence&apos;)' />
+      <column name='level_id' valueComputed='(SELECT id FROM level WHERE name =&apos;black&apos; LIMIT 1)' />
+      <column name='skill_id' valueComputed='(SELECT id FROM skill WHERE title = &apos;Halten von Security Vorträgen/Schulungen&apos; LIMIT 1)' />
+    </insert>
+  </changeSet>
+</databaseChangeLog>
