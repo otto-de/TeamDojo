@@ -25,15 +25,15 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="description" type="varchar(255)">
+            <column name="description" type="varchar(2048)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="implementation" type="varchar(255)">
+            <column name="implementation" type="varchar(2048)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="jhi_validation" type="varchar(255)">
+            <column name="jhi_validation" type="varchar(2048)">
                 <constraints nullable="true" />
             </column>
 

@@ -1,18 +1,15 @@
 package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
-
-import de.otto.teamdojo.domain.TeamSkill;
 import de.otto.teamdojo.domain.Skill;
 import de.otto.teamdojo.domain.Team;
+import de.otto.teamdojo.domain.TeamSkill;
 import de.otto.teamdojo.repository.TeamSkillRepository;
+import de.otto.teamdojo.service.TeamSkillQueryService;
 import de.otto.teamdojo.service.TeamSkillService;
 import de.otto.teamdojo.service.dto.TeamSkillDTO;
 import de.otto.teamdojo.service.mapper.TeamSkillMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
-import de.otto.teamdojo.service.dto.TeamSkillCriteria;
-import de.otto.teamdojo.service.TeamSkillQueryService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -70,11 +67,8 @@ public class TeamSkillResourceIntTest {
     @Autowired
     private TeamSkillRepository teamSkillRepository;
 
-
-
     @Autowired
     private TeamSkillMapper teamSkillMapper;
-    
 
     @Autowired
     private TeamSkillService teamSkillService;
@@ -111,7 +105,7 @@ public class TeamSkillResourceIntTest {
 
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -222,7 +216,7 @@ public class TeamSkillResourceIntTest {
             .andExpect(jsonPath("$.[*].vote").value(hasItem(DEFAULT_VOTE)))
             .andExpect(jsonPath("$.[*].voters").value(hasItem(DEFAULT_VOTERS.toString())));
     }
-    
+
 
     @Test
     @Transactional
