@@ -10,7 +10,7 @@ import { TeamSkillService } from 'app/entities/team-skill/team-skill.service';
 })
 export class TeamSkillVoteComponent implements OnInit {
     teamSkill: ITeamSkill;
-    disabled: boolean = false;
+    disabled = false;
 
     constructor(private route: ActivatedRoute, private teamSkillService: TeamSkillService) {}
 

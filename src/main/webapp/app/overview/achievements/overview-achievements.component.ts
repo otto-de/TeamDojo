@@ -27,12 +27,7 @@ export class OverviewAchievementsComponent implements OnInit {
     activeItemIds: { [key: string]: number };
     expandedDimensions: string[];
 
-    constructor(
-        private route: ActivatedRoute,
-        private dimensionService: DimensionService,
-        private router: Router,
-        private breadcrumbService: BreadcrumbService // TODO used
-    ) {}
+    constructor(private route: ActivatedRoute, private dimensionService: DimensionService, private router: Router) {}
 
     ngOnInit(): void {
         this.dimensions = [];
@@ -133,10 +128,5 @@ export class OverviewAchievementsComponent implements OnInit {
 
     private getParamAsNumber(name: string, params: ParamMap): number {
         return Number.parseInt(params.get(name));
-    }
-
-    // TODO used ???
-    private setExpandedDimensionId(dimensionId: number) {
-        this.expandedDimensions.push(`achievements-dimension-${dimensionId}`);
     }
 }
