@@ -34,12 +34,9 @@ export class TeamsSelectionComponent implements OnInit {
 
     selectTeam(team: ITeam) {
         this.highlightedTeam = team;
-    }
-
-    confirmTeam() {
-        this.teamsSelectionService.selectedTeam = this.highlightedTeam;
+        this.teamsSelectionService.selectedTeam = team;
         this.activeModal.close('Team selected');
-        this.router.navigate(['teams', this.highlightedTeam.shortName]);
+        this.router.navigate(['teams', team.shortName]);
     }
 
     deselectTeam() {

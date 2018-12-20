@@ -32,8 +32,4 @@
     <button type="button" class="btn btn-outline-dark" (click)="deselectTeam()"
             jhiTranslate="teamdojoApp.teams.selection.deselect">No Team
     </button>
-    <button type="button" class="btn btn-outline-primary" [ngClass]="{'disabled':highlightedTeam === null}"
-            (click)="highlightedTeam !== null && confirmTeam()" jhiTranslate="teamdojoApp.teams.selection.select">Select
-        Team
-    </button>
 </div>
