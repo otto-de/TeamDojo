@@ -81,7 +81,7 @@
                             </a>
                             <a *ngIf="!skill.achievedAt" class="skill-action-bar-item"
                                [ngClass]="{'disabled': skill.irrelevant}"
-                               (click)="setCompleteAdmin(skill)"><i class="fa fa-check"></i>
+                               (click)="setComplete(skill)"><i class="fa fa-check"></i>
                                 <small jhiTranslate="teamdojoApp.teams.skills.action.complete"></small>
                             </a>
                             <a *ngIf="skill.achievedAt" class="skill-action-bar-item"

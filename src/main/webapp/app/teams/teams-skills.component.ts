@@ -158,14 +158,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         }
     }
 
-    setCompleteAdmin(skill: IAchievableSkill) {
-        if (!skill.irrelevant) {
-            skill.achievedAt = moment();
-            skill.verifiedAt = moment();
-            this.updateSkill(skill);
-        }
-    }
-
     setIncomplete(skill: IAchievableSkill) {
         if (!skill.irrelevant) {
             skill.achievedAt = null;
