@@ -158,6 +158,14 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         }
     }
 
+    setCompleteAdmin(skill: IAchievableSkill) {
+        if (!skill.irrelevant) {
+            skill.achievedAt = moment();
+            skill.verifiedAt = moment();
+            this.updateSkill(skill);
+        }
+    }
+
     setIncomplete(skill: IAchievableSkill) {
         if (!skill.irrelevant) {
             skill.achievedAt = null;
@@ -216,6 +224,14 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
             return true;
         }
         return false;
+    }
+
+    isVoteAble(s: IAchievableSkill) {
+        return s.achievedAt && !s.verifiedAt && s.vote > -5 && this.isTeamVoteAble(s);
+    }
+
+    isSuggestAble(s: IAchievableSkill) {
+        return !s.achievedAt && !s.irrelevant && (!s.vote || (s.vote && s.vote != 1)) && this.isTeamVoteAble(s);
     }
 
     private onError(errorMessage: string) {

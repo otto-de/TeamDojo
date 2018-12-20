@@ -68,24 +68,47 @@
                             <small jhiTranslate="teamdojoApp.teams.skills.action.incomplete"></small>
                         </a>
                     </div>
-                    <div *ngIf="!isSameTeamSelected() && skill.achievedAt && !skill.verifiedAt && skill.vote > -5 && isTeamVoteAble(skill)"
-                         class="skill-action-bar d-flex flex-wrap justify-content-between">
-                        <p class="skill-action-bar-item">
-                            <small jhiTranslate="teamdojoApp.teams.skills.action.vote" translateValues="{team: '{{team.name}}'}"></small>
-                        </p>
-                        <p><a (click)="downVote(skill)">
+                    <div *ngIf="!isSameTeamSelected()">
+                        <div *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                             class="skill-action-bar d-flex flex-wrap justify-content-between">
+                            <a *ngIf="!skill.irrelevant" class="skill-action-bar-item"
+                               (click)="setIrrelevant(skill)"><i class="fa fa-thumbs-o-down"></i>
+                                <small jhiTranslate="teamdojoApp.teams.skills.action.irrelevant"></small>
+                            </a>
+                            <a *ngIf="skill.irrelevant" class="skill-action-bar-item"
+                               (click)="setRelevant(skill)"><i class="fa fa-thumbs-o-up"></i>
+                                <small jhiTranslate="teamdojoApp.teams.skills.action.relevant"></small>
+                            </a>
+                            <a *ngIf="!skill.achievedAt" class="skill-action-bar-item"
+                               [ngClass]="{'disabled': skill.irrelevant}"
+                               (click)="setCompleteAdmin(skill)"><i class="fa fa-check"></i>
+                                <small jhiTranslate="teamdojoApp.teams.skills.action.complete"></small>
+                            </a>
+                            <a *ngIf="skill.achievedAt" class="skill-action-bar-item"
+                               [ngClass]="{'disabled': skill.irrelevant}"
+                               (click)="setIncomplete(skill)"><i class="fa fa-check"></i>
+                                <small jhiTranslate="teamdojoApp.teams.skills.action.incomplete"></small>
+                            </a>
+                        </div>
+                        <div *ngIf="isVoteAble(skill)"
+                             class="skill-action-bar d-flex flex-wrap justify-content-between">
+                            <p class="skill-action-bar-item">
+                                <small jhiTranslate="teamdojoApp.teams.skills.action.vote" translateValues="{team: '{{team.name}}'}"></small>
+                            </p>
+                            <p><a (click)="downVote(skill)">
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <p>{{skill.vote}}</p>
                             <a (click)="upVote(skill)">
-                            <i class="fa fa-angle-up"></i>
-                        </a></p>
-                    </div>
-                    <div *ngIf="!isSameTeamSelected() && !skill.achievedAt && !skill.irrelevant && (!skill.vote || (skill.vote && skill.vote != 1)) && isTeamVoteAble(skill)"
-                         class="skill-action-bar d-flex flex-wrap justify-content-between">
-                        <p class="skill-action-bar-item">
-                            <a (click)="suggest(skill)"><small jhiTranslate="teamdojoApp.teams.skills.action.suggest" translateValues="{team: '{{team.name}}'}"></small></a>
-                        </p>
+                                <i class="fa fa-angle-up"></i>
+                            </a></p>
+                        </div>
+                        <div *ngIf="isSuggestAble(skill)"
+                             class="skill-action-bar d-flex flex-wrap justify-content-between">
+                            <p class="skill-action-bar-item">
+                                <a (click)="suggest(skill)"><small jhiTranslate="teamdojoApp.teams.skills.action.suggest" translateValues="{team: '{{team.name}}'}"></small></a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </li>
