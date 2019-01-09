@@ -52,8 +52,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="teamdojoApp.skill.validation" for="field_validation">Validation</label>
-                    <input type="text" class="form-control" name="validation" id="field_validation"
-                        [(ngModel)]="skill.validation" maxlength="2048"/>
+                    <textarea class="form-control" name="validation" id="field_validation"
+                              [(ngModel)]="skill.validation" rows="3" maxlength="2048"></textarea>
                     <div [hidden]="!(editForm.controls.validation?.dirty && editForm.controls.validation?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.validation?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 2048 }">
