@@ -17,6 +17,11 @@
                     "placeholder": "Search",
                     "filter": {
                         "label": "Hide completed skills"
+                    },
+                    "orderBy": {
+                        "title": "Title",
+                        "rateScore": "Score",
+                        "rateCount": "Rate count"
                     }
                 },
                 "action": {

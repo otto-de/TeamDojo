@@ -17,6 +17,11 @@
                     "placeholder": "Suche",
                     "filter": {
                         "label": "Erreichte Skills ausblenden"
+                    },
+                    "orderBy": {
+                        "title": "Titel",
+                        "rateScore": "Punkte",
+                        "rateCount": "Anzahl Bewertungen"
                     }
                 },
                 "action": {
