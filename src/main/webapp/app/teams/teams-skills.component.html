@@ -1,23 +1,34 @@
 <div class="teams-skills">
     <div class="teams-skills-filter">
         <h4>{{'teamdojoApp.teams.skills.title' | translate}}</h4>
-        <div class="skill-search form-group mb-2">
-            <div class="form-check form-check-inline mb-2">
-                <input class="form-check-input" type="checkbox" value="" id="checkIncomplete"
-                       [checked]="filters.indexOf('INCOMPLETE') > -1" (click)="onFilterClicked('INCOMPLETE')">
-                <label class="form-check-label" for="checkIncomplete"
-                       jhiTranslate="teamdojoApp.teams.skills.search.filter.label">
-                </label>
+        <div class="d-flex flex-column justify-content-between">
+            <div class="form-inline mb-2 justify-content-between">
+                <div class="form-group form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="checkIncomplete"
+                           [checked]="filters.indexOf('INCOMPLETE') > -1" (click)="onFilterClicked('INCOMPLETE')">
+                    <label class="form-check-label" for="checkIncomplete"
+                           jhiTranslate="teamdojoApp.teams.skills.search.filter.label">
+                    </label>
+                </div>
+                <div class="form-group skill-sort">
+                    <select class="form-control" name="orderBy" [(ngModel)]="orderBy" id="field_orderBy">
+                        <option value="title">{{'teamdojoApp.teams.skills.search.orderBy.title' | translate}}</option>
+                        <option value="rateScore">{{'teamdojoApp.teams.skills.search.orderBy.rateScore' | translate}}</option>
+                        <option value="rateCount">{{'teamdojoApp.teams.skills.search.orderBy.rateCount' | translate}}</option>
+                    </select>
+                </div>
             </div>
-            <input type="text" [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate"
-                   class="skill-search-input" [value]="search" (keyup)="search$.next($event.target.value)" />
+            <div class="form-group mb-2 skill-search">
+                <input type="text" [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate"
+                       class="skill-search-input" [value]="search" (keyup)="search$.next($event.target.value)" />
+            </div>
         </div>
     </div>
     <div>
         <div class="teams-skills-list list-group" data-simplebar="init">
             <li class="list-group-item list-group-item-action flex-column align-items-start mb-3 skill-list-item"
                 [ngClass]="{'active-skill':isActiveSkill(skill), 'irrelevant-skill': skill.irrelevant, 'in-skill-details': isInSkillDetails()}"
-                *ngFor="let skill of skills | skillFilter:search"
+                *ngFor="let skill of skills | skillFilter:search | skillSort:orderBy"
                 (click)="handleSkillClicked(skill)">
                 <div class="d-flex flex-column">
                     <div class="d-flex">
