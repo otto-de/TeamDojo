@@ -13,6 +13,7 @@ import { DimensionService } from 'app/entities/dimension';
 import { Progress } from 'app/shared/achievement/model/progress.model';
 import 'simplebar';
 import { Subject } from 'rxjs/Subject';
+import { SkillSortPipe } from 'app/shared/pipe/skill-sort.pipe';
 
 @Component({
     selector: 'jhi-overview-skills',
@@ -35,6 +36,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     generalSkillsIds: number[];
     search$: Subject<string>;
     search: string;
+    orderBy = 'title';
 
     constructor(
         private jhiAlertService: JhiAlertService,
