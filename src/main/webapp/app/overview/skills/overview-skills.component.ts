@@ -13,6 +13,8 @@ import { DimensionService } from 'app/entities/dimension';
 import { Progress } from 'app/shared/achievement/model/progress.model';
 import 'simplebar';
 import { Subject } from 'rxjs/Subject';
+import { AchievableSkill } from 'app/shared/model/achievable-skill.model';
+import { SkillService } from 'app/entities/skill';
 
 @Component({
     selector: 'jhi-overview-skills',
@@ -22,6 +24,7 @@ import { Subject } from 'rxjs/Subject';
 export class OverviewSkillsComponent implements OnInit, OnChanges {
     @Input() activeSkill: ISkill;
     @Output() onSkillChanged = new EventEmitter<ISkill>();
+    @Output() onSkillClicked = new EventEmitter<{ iSkill: ISkill; aSkill: AchievableSkill }>();
     teams: ITeam[];
     levels: ILevel[];
     levelSkills: ILevelSkill[];
@@ -40,7 +43,8 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
         private jhiAlertService: JhiAlertService,
         private route: ActivatedRoute,
         private breadcrumbService: BreadcrumbService,
-        private dimensionService: DimensionService
+        private dimensionService: DimensionService,
+        private skillService: SkillService
     ) {}
 
     ngOnInit() {
@@ -119,6 +123,12 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         this.updateBreadcrumb();
         this.onSkillChanged.emit(this.activeSkill);
+        this.skillService.find(this.activeSkill.id).subscribe(skill => {
+            this.onSkillClicked.emit({
+                iSkill: skill.body,
+                aSkill: this.activeSkill
+            });
+        });
     }
 
     private updateBreadcrumb() {
