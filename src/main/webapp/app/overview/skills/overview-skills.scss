@@ -7,6 +7,9 @@
 .overviews-skills {
     height: inherit;
     padding-right: 10px;
+    .skill-search {
+        width: 100%;
+    }
     .teams-skills-list {
         /deep/ .simplebar-track {
             bottom: 0.9em !important;
@@ -41,7 +44,6 @@
 }
 
 .additional-functions {
-    height: 75px;
     width: 100%;
     padding-right: 13px;
     padding-left: 2px;

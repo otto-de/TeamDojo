@@ -2,9 +2,19 @@
     <div>
         <h4>{{'teamdojoApp.overview.skills.title' | translate}}</h4>
     </div>
-    <div class="additional-functions  d-flex align-items-center">
-        <input type="text" [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate"
-               class="skill-search-input"  [value]="search" (keyup)="search$.next($event.target.value)" />
+    <div class="additional-functions d-flex flex-column align-items-end">
+        <div class="form-group mb-2 justify-content-end skill-sort">
+            <select class="form-control" name="orderBy" id="field_orderBy"
+                    [(ngModel)]="orderBy" (ngModelChange)="onSkillSort()">
+                <option value="title">{{'teamdojoApp.teams.skills.search.orderBy.title' | translate}}</option>
+                <option value="rateScore">{{'teamdojoApp.teams.skills.search.orderBy.rateScore' | translate}}</option>
+                <option value="rateCount">{{'teamdojoApp.teams.skills.search.orderBy.rateCount' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group mb-2 skill-search">
+            <input type="text" [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate"
+                   class="skill-search-input" [value]="search" (keyup)="search$.next($event.target.value)" />
+        </div>
     </div>
     <div class="teams-skills-list list-group"  data-simplebar="init">
         <li class="list-group-item list-group-item-action flex-column align-items-start mb-2 skill-container"
