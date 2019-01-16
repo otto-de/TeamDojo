@@ -88,8 +88,14 @@
     margin: 12px;
 }
 
-.achieved-by-teams, .needed-for-levels, .needed-for-badges {
+.needed-for-levels, .needed-for-badges {
     display: flex;
+    > * {
+        display: inline-flex;
+    }
+}
+
+.achieved-by-teams{
     > * {
         display: inline-flex;
     }
