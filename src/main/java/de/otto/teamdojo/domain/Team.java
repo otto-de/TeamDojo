@@ -52,7 +52,7 @@ public class Team implements Serializable {
                inverseJoinColumns = @JoinColumn(name="participations_id", referencedColumnName="id"))
     private Set<Dimension> participations = new HashSet<>();
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team" , cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<TeamSkill> skills = new HashSet<>();
 
