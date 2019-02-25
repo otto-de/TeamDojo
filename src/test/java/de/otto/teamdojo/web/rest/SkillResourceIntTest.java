@@ -56,8 +56,12 @@ public class SkillResourceIntTest {
     private static final String DEFAULT_VALIDATION = "AAAAAAAAAA";
     private static final String UPDATED_VALIDATION = "BBBBBBBBBB";
 
-    private static final String DEFAULT_EXPIRY_PERIOD = "P+5M+24D";
-    private static final String UPDATED_EXPIRY_PERIOD = "P78Y3W";
+    //    private static final String DEFAULT_EXPIRY_PERIOD = "P+5M+24D";
+    private static final Integer DEFAULT_EXPIRY_PERIOD = 24;
+
+    //TODO clarify the meaning of the value
+//    private static final STring UPDATED_EXPIRY_PERIOD = "P78Y3W";
+    private static final Integer UPDATED_EXPIRY_PERIOD = 21;
 
     private static final String DEFAULT_CONTACT = "AAAAAAAAAA";
     private static final String UPDATED_CONTACT = "BBBBBBBBBB";
@@ -73,7 +77,6 @@ public class SkillResourceIntTest {
 
     @Autowired
     private SkillRepository skillRepository;
-
 
 
     @Autowired
@@ -115,7 +118,7 @@ public class SkillResourceIntTest {
 
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -570,7 +573,9 @@ public class SkillResourceIntTest {
     }
 
 
-    @Test @Transactional public void getAllSkillsByRateScoreIsEqualToSomething() throws Exception {
+    @Test
+    @Transactional
+    public void getAllSkillsByRateScoreIsEqualToSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
@@ -581,7 +586,9 @@ public class SkillResourceIntTest {
         defaultSkillShouldNotBeFound("rateScore.equals=" + UPDATED_RATE_SCORE);
     }
 
-    @Test @Transactional public void getAllSkillsByRateScoreIsInShouldWork() throws Exception {
+    @Test
+    @Transactional
+    public void getAllSkillsByRateScoreIsInShouldWork() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
@@ -592,7 +599,9 @@ public class SkillResourceIntTest {
         defaultSkillShouldNotBeFound("rateScore.in=" + UPDATED_RATE_SCORE);
     }
 
-    @Test @Transactional public void getAllSkillsByRateScoreIsNullOrNotNull() throws Exception {
+    @Test
+    @Transactional
+    public void getAllSkillsByRateScoreIsNullOrNotNull() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
@@ -603,7 +612,9 @@ public class SkillResourceIntTest {
         defaultSkillShouldNotBeFound("rateScore.specified=false");
     }
 
-    @Test @Transactional public void getAllSkillsByRateCountIsEqualToSomething() throws Exception {
+    @Test
+    @Transactional
+    public void getAllSkillsByRateCountIsEqualToSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
@@ -614,7 +625,9 @@ public class SkillResourceIntTest {
         defaultSkillShouldNotBeFound("rateCount.equals=" + UPDATED_RATE_COUNT);
     }
 
-    @Test @Transactional public void getAllSkillsByRateCountIsInShouldWork() throws Exception {
+    @Test
+    @Transactional
+    public void getAllSkillsByRateCountIsInShouldWork() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
@@ -625,7 +638,9 @@ public class SkillResourceIntTest {
         defaultSkillShouldNotBeFound("rateCount.in=" + UPDATED_RATE_COUNT);
     }
 
-    @Test @Transactional public void getAllSkillsByRateCountIsNullOrNotNull() throws Exception {
+    @Test
+    @Transactional
+    public void getAllSkillsByRateCountIsNullOrNotNull() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
@@ -636,7 +651,9 @@ public class SkillResourceIntTest {
         defaultSkillShouldNotBeFound("rateCount.specified=false");
     }
 
-    @Test @Transactional public void getAllSkillsByRateCountIsGreaterThanOrEqualToSomething() throws Exception {
+    @Test
+    @Transactional
+    public void getAllSkillsByRateCountIsGreaterThanOrEqualToSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
@@ -647,7 +664,9 @@ public class SkillResourceIntTest {
         defaultSkillShouldNotBeFound("rateCount.greaterOrEqualThan=" + UPDATED_RATE_COUNT);
     }
 
-    @Test @Transactional public void getAllSkillsByRateCountIsLessThanSomething() throws Exception {
+    @Test
+    @Transactional
+    public void getAllSkillsByRateCountIsLessThanSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 

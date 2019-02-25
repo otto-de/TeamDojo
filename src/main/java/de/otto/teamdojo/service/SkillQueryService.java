@@ -1,6 +1,6 @@
 package de.otto.teamdojo.service;
 
-import de.otto.teamdojo.domain.*;
+import de.otto.teamdojo.domain.Skill;
 import de.otto.teamdojo.repository.SkillRepository;
 import de.otto.teamdojo.service.dto.SkillCriteria;
 import de.otto.teamdojo.service.dto.SkillDTO;
@@ -85,7 +85,10 @@ public class SkillQueryService extends QueryService<Skill> {
                 specification = specification.and(buildStringSpecification(criteria.getValidation(), Skill_.validation));
             }
             if (criteria.getExpiryPeriod() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getExpiryPeriod(), Skill_.expiryPeriod));
+                specification = specification.and(buildRangeSpecification(criteria.getExpiryPeriod(), Skill_.expiryPeriod));
+            }
+            if (criteria.getScore() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getScore(), Skill_.score));
             }
             if (criteria.getContact() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getContact(), Skill_.contact));
