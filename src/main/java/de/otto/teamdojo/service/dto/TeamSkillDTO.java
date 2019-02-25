@@ -1,7 +1,10 @@
 package de.otto.teamdojo.service.dto;
 
+import de.otto.teamdojo.domain.enumeration.SkillStatus;
+
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 /**
@@ -22,6 +25,8 @@ public class TeamSkillDTO implements Serializable {
     private Long skillId;
 
     private String skillTitle;
+
+    private Integer skillExpiryPeriod;
 
     private Long teamId;
 
@@ -97,6 +102,36 @@ public class TeamSkillDTO implements Serializable {
 
     public void setTeamName(String teamName) {
         this.teamName = teamName;
+    }
+
+    public void setSkillExpiryPeriod(Integer skillExpiryPeriod) {
+        this.skillExpiryPeriod = skillExpiryPeriod;
+    }
+
+    public SkillStatus getSkillStatus() {
+        if (irrelevant) {
+            return SkillStatus.IRRELEVANT;
+        } else if (completedAt == null) {
+            return SkillStatus.OPEN;
+        } else if (skillExpiryPeriod == null) {
+            return SkillStatus.ACHIEVED;
+        } else {
+            Instant now = Instant.now();
+            Instant expiration = completedAt.plus(skillExpiryPeriod.longValue(), ChronoUnit.DAYS);
+            Instant expirationWarning = expiration.minus(7, ChronoUnit.DAYS);
+            if (now.isBefore(expirationWarning)) {
+                return SkillStatus.ACHIEVED;
+            } else if (now.isBefore(expiration)) {
+                return SkillStatus.EXPIRING;
+            } else {
+                return SkillStatus.EXPIRED;
+            }
+        }
+    }
+
+    public void setSkillStatus(SkillStatus skillStatus) {
+        // TODO: Allow setting a status
+        throw new UnsupportedOperationException();
     }
 
     @Override

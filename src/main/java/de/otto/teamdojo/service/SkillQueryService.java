@@ -1,6 +1,6 @@
 package de.otto.teamdojo.service;
 
-import de.otto.teamdojo.domain.Skill;
+import de.otto.teamdojo.domain.*;
 import de.otto.teamdojo.repository.SkillRepository;
 import de.otto.teamdojo.service.dto.SkillCriteria;
 import de.otto.teamdojo.service.dto.SkillDTO;
