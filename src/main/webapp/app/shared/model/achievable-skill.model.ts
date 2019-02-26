@@ -7,6 +7,7 @@ export interface IAchievableSkill {
     description?: string;
     achievedAt?: Moment;
     irrelevant?: boolean;
+    skillStatus?: string;
     rateScore?: number;
     rateCount?: number;
 }
@@ -19,6 +20,7 @@ export class AchievableSkill implements IAchievableSkill {
         public description?: string,
         public achievedAt?: Moment,
         public irrelevant?: boolean,
+        public skillStatus?: string,
         public rateScore?: number,
         public rateCount?: number
     ) {}

@@ -5,6 +5,7 @@ export interface ITeamSkill {
     completedAt?: Moment;
     verifiedAt?: Moment;
     irrelevant?: boolean;
+    skillStatus?: string;
     note?: string;
     skillTitle?: string;
     skillId?: number;
@@ -18,6 +19,7 @@ export class TeamSkill implements ITeamSkill {
         public completedAt?: Moment,
         public verifiedAt?: Moment,
         public irrelevant?: boolean,
+        public skillStatus?: string,
         public note?: string,
         public skillTitle?: string,
         public skillId?: number,

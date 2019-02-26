@@ -1,0 +1,46 @@
+.skill-action-items {
+
+    .skill-action-item {
+        &.disabled {
+            opacity: 0.3;
+            cursor: default;
+        }
+        i {
+            margin-right: 3px;
+        }
+        a {
+            small {
+                color: $dojo-text-secondary;
+            }
+        }
+        i.skill-relevance-action-item {
+            &.IRRELEVANT {
+                &:before {
+                    content: "\f087";
+                }
+            }
+            &.ACHIEVED,
+            &.OPEN,
+            &.EXPIRING,
+            &.EXPIRED {
+                &:before {
+                    content: "\f088";
+                }
+            }
+        }
+        i.skill-status-action-item {
+            &.OPEN,
+            &.EXPIRED {
+                &:before {
+                    content: "\f00c";
+                }
+            }
+            &.ACHIEVED,
+            &.EXPIRING {
+                &:before {
+                    content: "\f10c";
+                }
+            }
+        }
+    }
+}

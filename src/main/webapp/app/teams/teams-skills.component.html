@@ -21,7 +21,7 @@
                 (click)="handleSkillClicked(skill)">
                 <div class="d-flex flex-column">
                     <div class="d-flex">
-                        <div class="skill-title d-flex flex-column" [ngClass]="{'irrelevant': skill.irrelevant}">
+                        <div class="skill-title d-flex flex-column {{skill.skillStatus}}">
                             <div>
                                 <a *ngIf="isInSkillDetails()" class="mb-1">{{skill.title}}</a>
                                 <a *ngIf="!isInSkillDetails()"
@@ -40,33 +40,22 @@
                                 </ng-template>
                             </div>
                         </div>
-                        <div class="skill-status ml-auto"
-                             [ngClass]="{'completed': !skill.irrelevant && skill.achievedAt}">
-                            <i *ngIf="skill.irrelevant" class="fa fa-thumbs-o-down"></i>
-                            <i *ngIf="!skill.irrelevant && skill.achievedAt" class="fa fa-check fa-inverse"></i>
-                            <i *ngIf="!skill.irrelevant &&!skill.achievedAt" class="fa fa-circle-o"></i>
+                        <div class="skill-status ml-auto fa fa-inverse {{skill.skillStatus}}"
+                             title="{{'teamdojoApp.teams.skills.status.' + skill.skillStatus | translate}}">
                         </div>
                     </div>
                     <div *ngIf="isSameTeamSelected()"
-                         class="skill-action-bar d-flex flex-wrap justify-content-between">
-                        <a *ngIf="!skill.irrelevant" class="skill-action-bar-item"
-                           (click)="setIrrelevant(skill)"><i class="fa fa-thumbs-o-down"></i>
-                            <small jhiTranslate="teamdojoApp.teams.skills.action.irrelevant"></small>
+                         class="skill-action-items d-flex flex-wrap justify-content-between">
+
+                        <a class="skill-action-item" (click)="toggleRelevance(skill)">
+                            <i class="skill-relevance-action-item fa {{skill.skillStatus}}"></i>
+                            <small jhiTranslate="teamdojoApp.teams.skills.relevanceAction.{{skill.skillStatus}}"></small>
                         </a>
-                        <a *ngIf="skill.irrelevant" class="skill-action-bar-item"
-                           (click)="setRelevant(skill)"><i class="fa fa-thumbs-o-up"></i>
-                            <small jhiTranslate="teamdojoApp.teams.skills.action.relevant"></small>
+                        <a class="skill-action-item" (click)="clickSkillStatus(skill)">
+                            <i class="skill-status-action-item fa {{skill.skillStatus}}"></i>
+                            <small jhiTranslate="teamdojoApp.teams.skills.action.{{skill.skillStatus}}"></small>
                         </a>
-                        <a *ngIf="!skill.achievedAt" class="skill-action-bar-item"
-                           [ngClass]="{'disabled': skill.irrelevant}"
-                           (click)="setComplete(skill)"><i class="fa fa-check"></i>
-                            <small jhiTranslate="teamdojoApp.teams.skills.action.complete"></small>
-                        </a>
-                        <a *ngIf="skill.achievedAt" class="skill-action-bar-item"
-                           [ngClass]="{'disabled': skill.irrelevant}"
-                           (click)="setIncomplete(skill)"><i class="fa fa-check"></i>
-                            <small jhiTranslate="teamdojoApp.teams.skills.action.incomplete"></small>
-                        </a>
+
                     </div>
                 </div>
             </li>

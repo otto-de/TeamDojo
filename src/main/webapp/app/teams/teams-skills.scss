@@ -3,6 +3,7 @@
 @import '../../content/scss/colors';
 @import "../../content/scss/mixins";
 @import '/skill-details/skill-details-rating/skill-details-rating';
+@import '/skill-details/skill-details-status/skill-details-status';
 
 .in-skill-details {
     cursor: pointer;
@@ -50,7 +51,7 @@
             padding: 5px 5px 5px 20px;
             word-break: break-word;
 
-            &.irrelevant {
+            &.IRRELEVANT {
                 opacity: 0.3;
             }
         }
@@ -67,31 +68,44 @@
             margin-right: 5px;
         }
         .skill-status {
-            color: $dojo-text-secondary;
             padding: 10px;
-            background-color: transparent;
-            &.completed {
+            width: 35px;
+            cursor: default;
+            &.IRRELEVANT {
+                &:before {
+                    content: "\f088";
+                }
+                background-color: $body-bg;
+                color: $dojo-text-secondary;
+            }
+            &.ACHIEVED {
                 background-color: $success;
+                &:before {
+                    content: "\f00c";
+                }
+            }
+            &.EXPIRED {
+                background-color: $danger;
+                &:before {
+                    content: "\f10c";
+                }
+            }
+            &.EXPIRING {
+                background-color: $warning;
+                &:before {
+                    content: "\f071";
+                }
+            }
+            &.OPEN {
+                background-color: $info;
+                &:before {
+                    content: "\f10c";
+                }
             }
         }
-        .skill-action-bar {
+        .skill-action-items {
             padding: 5px 10px;
             border-top: 1px solid $gray-400;
-
-            &-item {
-                &.disabled {
-                    opacity: 0.3;
-                    cursor: default;
-                }
-                i {
-                    margin-right: 3px;
-                }
-                a {
-                    small {
-                        color: $dojo-text-secondary;
-                    }
-                }
-            }
         }
         .list-group-item {
             @include skill-list-entry();

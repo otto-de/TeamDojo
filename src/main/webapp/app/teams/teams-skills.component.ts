@@ -165,6 +165,14 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         }
     }
 
+    clickSkillStatus(skill: IAchievableSkill) {
+        if (skill.skillStatus === 'ACHIEVED' || skill.skillStatus === 'EXPIRING') {
+            this.setIncomplete(skill);
+        } else if (skill.skillStatus === 'OPEN' || skill.skillStatus === 'EXPIRED') {
+            this.setComplete(skill);
+        }
+    }
+
     setIrrelevant(skill: IAchievableSkill) {
         skill.irrelevant = true;
         skill.achievedAt = null;
@@ -174,6 +182,14 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     setRelevant(skill: IAchievableSkill) {
         skill.irrelevant = false;
         this.updateSkill(skill);
+    }
+
+    toggleRelevance(skill: IAchievableSkill) {
+        if (skill.irrelevant) {
+            this.setRelevant(skill);
+        } else {
+            this.setIrrelevant(skill);
+        }
     }
 
     private updateSkill(skill: IAchievableSkill) {
