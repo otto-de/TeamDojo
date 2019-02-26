@@ -3,7 +3,6 @@ package de.otto.teamdojo.test.util;
 import de.otto.teamdojo.domain.Skill;
 
 import javax.persistence.EntityManager;
-import java.time.Instant;
 
 public class SkillTestDataProvider {
 
@@ -45,17 +44,9 @@ public class SkillTestDataProvider {
     public static final String DOCKERIZED_VAL = DOCKERIZED + IMPLEMENTATION;
     public static final String DOCKERIZED_IMPL = DOCKERIZED + VALIDATION;
 
-    public static final String STATUS_DETERMINATION_TITLE = "Status Determination";
-
     public static SkillBuilder skill(String title) {
         return new SkillBuilder(title, 1);
     }
-
-
-    public static SkillBuilder skill(Boolean irrelevant, Instant completedAt, Integer skillExpiryPeriod) {
-        return new SkillBuilder(STATUS_DETERMINATION_TITLE, irrelevant, completedAt, skillExpiryPeriod);
-    }
-
 
     public static SkillBuilder inputValidation() {
         return skill(INPUT_VALIDATION_TITLE)
@@ -105,13 +96,6 @@ public class SkillTestDataProvider {
             .rateScore(RATE_SCORE);
     }
 
-    public static SkillBuilder status(Boolean irrelevant, Instant completedAt, Integer skillExpiryPeriod) {
-        return skill(STATUS_DETERMINATION_TITLE)
-            .irrelevant(irrelevant)
-            .completedAt(completedAt)
-            .skillExpiryPeriod(skillExpiryPeriod);
-    }
-
     public static class SkillBuilder {
 
         private final String title;
@@ -121,23 +105,11 @@ public class SkillTestDataProvider {
         private Integer score;
         private Double rateScore;
         private Integer rateCount;
-        private Boolean irrelevant;
-        private Instant completedAt;
-        private Integer skillExpiryPeriod;
 
         public SkillBuilder(String title, Integer score) {
             this.title = title;
             this.score = score;
         }
-
-        public SkillBuilder(String title, Boolean irrelevant, Instant completedAt, Integer skillExpiryPeriod) {
-            this.irrelevant = irrelevant;
-            this.completedAt = completedAt;
-            this.skillExpiryPeriod = skillExpiryPeriod;
-            this.title = title;
-        }
-
-
 
         public SkillBuilder description(String description) {
             this.description = description;
@@ -161,21 +133,6 @@ public class SkillTestDataProvider {
 
         public SkillBuilder rateCount(Integer rateCount){
             this.rateCount = rateCount;
-            return this;
-        }
-
-        public SkillBuilder irrelevant(Boolean irrelevant){
-            this.irrelevant = irrelevant;
-            return this;
-        }
-
-        public SkillBuilder completedAt(Instant completedAt){
-            this.completedAt = completedAt;
-            return this;
-        }
-
-        public SkillBuilder skillExpiryPeriod(Integer skillExpiryPeriod){
-            this.skillExpiryPeriod = skillExpiryPeriod;
             return this;
         }
 
