@@ -109,24 +109,7 @@ public class TeamSkillDTO implements Serializable {
     }
 
     public SkillStatus getSkillStatus() {
-        if (irrelevant) {
-            return SkillStatus.IRRELEVANT;
-        } else if (completedAt == null) {
-            return SkillStatus.OPEN;
-        } else if (skillExpiryPeriod == null) {
-            return SkillStatus.ACHIEVED;
-        } else {
-            Instant now = Instant.now();
-            Instant expiration = completedAt.plus(skillExpiryPeriod.longValue(), ChronoUnit.DAYS);
-            Instant expirationWarning = expiration.minus(7, ChronoUnit.DAYS);
-            if (now.isBefore(expirationWarning)) {
-                return SkillStatus.ACHIEVED;
-            } else if (now.isBefore(expiration)) {
-                return SkillStatus.EXPIRING;
-            } else {
-                return SkillStatus.EXPIRED;
-            }
-        }
+        return SkillStatus.determineSkillStatus(irrelevant, completedAt, skillExpiryPeriod);
     }
 
     public void setSkillStatus(SkillStatus skillStatus) {
