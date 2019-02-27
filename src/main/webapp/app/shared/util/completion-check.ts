@@ -51,7 +51,7 @@ export class CompletionCheck {
     }
 
     private isTeamSkillCompleted(teamSkill: ITeamSkill): boolean {
-        return teamSkill && !!teamSkill.completedAt;
+        return teamSkill && (teamSkill.skillStatus === 'ACHIEVED' || teamSkill.skillStatus === 'EXPIRING');
     }
 
     private findTeamSkill(itemSkill: ILevelSkill | IBadgeSkill): ITeamSkill {

@@ -181,7 +181,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     }
 
     private isTeamSkillCompleted(teamSkill: ITeamSkill): boolean {
-        return teamSkill && !!teamSkill.completedAt;
+        return teamSkill && (teamSkill.skillStatus === 'ACHIEVED' || teamSkill.skillStatus === 'EXPIRING');
     }
 
     isActiveSkill(iLevelSkill: ILevelSkill) {

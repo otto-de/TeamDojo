@@ -45,7 +45,7 @@ export class TeamScoreCalculation {
 
     private static _isSkillCompleted(team: ITeam, skill: ISkill): boolean {
         const teamSkill = (team.skills || []).find((ts: ITeamSkill) => ts.skillId === skill.id);
-        return !!(teamSkill && teamSkill.completedAt);
+        return !!(teamSkill && (teamSkill.skillStatus === 'ACHIEVED' || teamSkill.skillStatus === 'EXPIRING'));
     }
 
     private static _getBonus(team: ITeam, item: ILevel | IBadge, skills: ISkill[]): number {

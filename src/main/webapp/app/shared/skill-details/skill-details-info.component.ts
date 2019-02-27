@@ -70,7 +70,10 @@ export class SkillDetailsInfoComponent implements OnInit {
     loadData() {
         this.achievedByTeams = this._teams.filter((team: ITeam) =>
             this._teamSkills.some(
-                (teamSkill: ITeamSkill) => team.id === teamSkill.teamId && teamSkill.skillId === this.skill.id && !!teamSkill.completedAt
+                (teamSkill: ITeamSkill) =>
+                    team.id === teamSkill.teamId &&
+                    teamSkill.skillId === this.skill.id &&
+                    (teamSkill.skillStatus === 'ACHIEVED' || teamSkill.skillStatus === 'EXPIRING')
             )
         );
         this.neededForLevels = this._levels.filter((level: ILevel) =>
