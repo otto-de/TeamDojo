@@ -44,11 +44,11 @@ public enum SkillStatus {
             return SkillStatus.ACHIEVED;
         } else {
             Instant now = Instant.now();
-            Instant expiration = completedAt.plus(skillExpiryPeriod.longValue(), ChronoUnit.DAYS);
-            Instant expirationWarning = expiration.minus(7, ChronoUnit.DAYS);
-            if (now.isBefore(expirationWarning)) {
+            Instant expiration = completedAt.plus(skillExpiryPeriod.intValue(), ChronoUnit.DAYS);
+            Instant expirationWarningEnds = expiration.plus(7, ChronoUnit.DAYS);
+            if (now.isBefore(expiration)) {
                 return SkillStatus.ACHIEVED;
-            } else if (now.isBefore(expiration)) {
+            } else if (now.isBefore(expirationWarningEnds)) {
                 return SkillStatus.EXPIRING;
             } else {
                 return SkillStatus.EXPIRED;
