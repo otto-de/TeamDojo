@@ -40,7 +40,7 @@ public class SkillStatusDeterminationUnitTest {
 
     @Test
     public void testSkillStatusEXPIRING() {
-        SkillStatus skillStatus = SkillStatus.determineSkillStatus(false, now.minus(12, ChronoUnit.DAYS), 14);
+        SkillStatus skillStatus = SkillStatus.determineSkillStatus(false, now.minus(18, ChronoUnit.DAYS), 14);
         Assert.assertTrue(skillStatus == SkillStatus.EXPIRING);
     }
 
