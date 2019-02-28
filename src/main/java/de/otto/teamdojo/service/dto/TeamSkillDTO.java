@@ -112,11 +112,6 @@ public class TeamSkillDTO implements Serializable {
         return SkillStatus.determineSkillStatus(irrelevant, completedAt, skillExpiryPeriod);
     }
 
-    public void setSkillStatus(SkillStatus skillStatus) {
-        // TODO: Allow setting a status
-        throw new UnsupportedOperationException();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
