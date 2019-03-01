@@ -56,11 +56,8 @@ public class SkillResourceIntTest {
     private static final String DEFAULT_VALIDATION = "AAAAAAAAAA";
     private static final String UPDATED_VALIDATION = "BBBBBBBBBB";
 
-    //    private static final String DEFAULT_EXPIRY_PERIOD = "P+5M+24D";
     private static final Integer DEFAULT_EXPIRY_PERIOD = 24;
 
-    //TODO clarify the meaning of the value
-//    private static final STring UPDATED_EXPIRY_PERIOD = "P78Y3W";
     private static final Integer UPDATED_EXPIRY_PERIOD = 21;
 
     private static final String DEFAULT_CONTACT = "AAAAAAAAAA";

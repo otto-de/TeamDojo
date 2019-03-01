@@ -42,6 +42,7 @@ public class Skill implements Serializable {
     @Column(name = "jhi_validation", length = 2048)
     private String validation;
 
+    @Column(name = "expiry_period")
     private Integer expiryPeriod;
 
     @Column(name = "contact")

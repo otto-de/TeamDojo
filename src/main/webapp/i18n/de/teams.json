@@ -20,11 +20,11 @@
                     }
                 },
                 "status": {
-                    "IRRELEVANT": "Dieser skill ist irrelevant.",
-                    "ACHIEVED": "Dieser Skill wurde bereits erlernt.",
-                    "EXPIRING": "Dieser Skill wurde erlernt, wird aber innerhalb der nächsten Tage veralten.",
-                    "EXPIRED": "Dieser Skill wurde schon einmal erlernt, ist aber inzwischen veraltet.",
-                    "OPEN": "Dieser Skill muss noch erlernt werden."
+                    "IRRELEVANT": "Dieser Skill ist irrelevant.",
+                    "ACHIEVED": "Dieser Skill wurde bereits erreicht.",
+                    "EXPIRING": "Dieser Skill wurde erreicht, wird aber innerhalb der nächsten Tage veralten.",
+                    "EXPIRED": "Dieser Skill wurde schon einmal erreicht, ist aber inzwischen veraltet.",
+                    "OPEN": "Dieser Skill muss noch erreicht werden."
                 },
                 "relevanceAction": {
                     "IRRELEVANT": "Relevant",
