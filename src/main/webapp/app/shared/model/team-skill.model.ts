@@ -1,11 +1,12 @@
 import { Moment } from 'moment';
+import { SkillStatus } from 'app/shared/model/skill-status';
 
 export interface ITeamSkill {
     id?: number;
     completedAt?: Moment;
     verifiedAt?: Moment;
     irrelevant?: boolean;
-    skillStatus?: string;
+    skillStatus?: SkillStatus;
     note?: string;
     skillTitle?: string;
     skillId?: number;
@@ -19,7 +20,7 @@ export class TeamSkill implements ITeamSkill {
         public completedAt?: Moment,
         public verifiedAt?: Moment,
         public irrelevant?: boolean,
-        public skillStatus?: string,
+        public skillStatus?: SkillStatus,
         public note?: string,
         public skillTitle?: string,
         public skillId?: number,

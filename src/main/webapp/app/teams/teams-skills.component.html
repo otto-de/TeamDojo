@@ -21,7 +21,7 @@
                 (click)="handleSkillClicked(skill)">
                 <div class="d-flex flex-column">
                     <div class="d-flex">
-                        <div class="skill-title d-flex flex-column {{skill.skillStatus}}">
+                        <div class="skill-title d-flex flex-column skill-status-{{getStatusClass(skill)}}">
                             <div>
                                 <a *ngIf="isInSkillDetails()" class="mb-1">{{skill.title}}</a>
                                 <a *ngIf="!isInSkillDetails()"
@@ -40,7 +40,7 @@
                                 </ng-template>
                             </div>
                         </div>
-                        <div class="skill-status ml-auto fa fa-inverse {{skill.skillStatus}}"
+                        <div class="skill-status ml-auto fa fa-inverse skill-status-{{getStatusClass(skill)}}"
                              title="{{'teamdojoApp.teams.skills.status.' + skill.skillStatus | translate}}">
                         </div>
                     </div>
@@ -48,11 +48,11 @@
                          class="skill-action-items d-flex flex-wrap justify-content-between">
 
                         <a class="skill-action-item" (click)="toggleRelevance(skill)">
-                            <i class="skill-relevance-action-item fa {{skill.skillStatus}}"></i>
+                            <i class="skill-relevance-action-item fa skill-status-{{getStatusClass(skill)}}"></i>
                             <small jhiTranslate="teamdojoApp.teams.skills.relevanceAction.{{skill.skillStatus}}"></small>
                         </a>
                         <a class="skill-action-item" (click)="clickSkillStatus(skill)">
-                            <i class="skill-status-action-item fa {{skill.skillStatus}}"></i>
+                            <i class="skill-status-action-item fa skill-status-{{getStatusClass(skill)}}"></i>
                             <small jhiTranslate="teamdojoApp.teams.skills.action.{{skill.skillStatus}}"></small>
                         </a>
 

@@ -14,31 +14,31 @@
             }
         }
         i.skill-relevance-action-item {
-            &.IRRELEVANT {
+            &.skill-status-irrelevant {
                 &:before {
-                    content: "\f087";
+                    content: "\f087"; // thumbs-up
                 }
             }
-            &.ACHIEVED,
-            &.OPEN,
-            &.EXPIRING,
-            &.EXPIRED {
+            &.skill-status-achieved,
+            &.skill-status-open,
+            &.skill-status-expiring,
+            &.skill-status-expired {
                 &:before {
-                    content: "\f088";
+                    content: "\f088"; // thumbs-down
                 }
             }
         }
         i.skill-status-action-item {
-            &.OPEN,
-            &.EXPIRED {
+            &.skill-status-open,
+            &.skill-status-expired {
                 &:before {
-                    content: "\f00c";
+                    content: "\f00c"; // checkmark
                 }
             }
-            &.ACHIEVED,
-            &.EXPIRING {
+            &.skill-status-achieved,
+            &.skill-status-expiring {
                 &:before {
-                    content: "\f10c";
+                    content: "\f10c"; // circle-o
                 }
             }
         }

@@ -4,6 +4,7 @@ import { ITeam } from 'app/shared/model/team.model';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import { ISkill } from 'app/shared/model/skill.model';
 import { CompletionCheck, RelevanceCheck } from 'app/shared';
+import { SkillStatusUtils } from 'app/shared/model/skill-status';
 
 export class TeamScoreCalculation {
     static calcTeamScore(team: ITeam, skills: ISkill[], badges: IBadge[]): number {
@@ -45,7 +46,7 @@ export class TeamScoreCalculation {
 
     private static _isSkillCompleted(team: ITeam, skill: ISkill): boolean {
         const teamSkill = (team.skills || []).find((ts: ITeamSkill) => ts.skillId === skill.id);
-        return !!(teamSkill && (teamSkill.skillStatus === 'ACHIEVED' || teamSkill.skillStatus === 'EXPIRING'));
+        return teamSkill && SkillStatusUtils.isValid(teamSkill.skillStatus);
     }
 
     private static _getBonus(team: ITeam, item: ILevel | IBadge, skills: ISkill[]): number {

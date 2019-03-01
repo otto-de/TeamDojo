@@ -71,35 +71,35 @@
             padding: 10px;
             width: 35px;
             cursor: default;
-            &.IRRELEVANT {
+            &.skill-status-irrelevant {
                 &:before {
-                    content: "\f088";
+                    content: "\f088";  // thumbs-down
                 }
                 background-color: $body-bg;
                 color: $dojo-text-secondary;
             }
-            &.ACHIEVED {
+            &.skill-status-achieved {
                 background-color: $success;
                 &:before {
-                    content: "\f00c";
+                    content: "\f00c"; // checkmark
                 }
             }
-            &.EXPIRED {
+            &.skill-status-expired {
                 background-color: $danger;
                 &:before {
-                    content: "\f10c";
+                    content: "\f10c"; // circle-o
                 }
             }
-            &.EXPIRING {
+            &.skill-status-expiring {
                 background-color: $warning;
                 &:before {
-                    content: "\f071";
+                    content: "\f071"; // exclamation-triangle
                 }
             }
-            &.OPEN {
+            &.skill-status-open {
                 color: black;
                 &:before {
-                    content: "\f10c";
+                    content: "\f10c"; // circle-o
                 }
             }
         }

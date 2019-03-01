@@ -19,6 +19,7 @@ import { Observable } from 'rxjs';
 import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { HttpResponse } from '@angular/common/http';
 import * as moment from 'moment';
+import { SkillStatus } from 'app/shared/model/skill-status';
 
 describe('Component Tests', () => {
     describe('Team Skills Component', () => {
@@ -69,14 +70,14 @@ describe('Component Tests', () => {
                 expect(aSkill).toBeTruthy();
                 expect(aSkill.skillId).toEqual(1100);
                 expect(aSkill.title).toEqual('Input Validation');
-                expect(aSkill.skillStatus).toEqual('OPEN');
+                expect(aSkill.skillStatus).toEqual(SkillStatus.OPEN);
                 expect(aSkill.irrelevant).toEqual(!clickedOnce);
                 const achievableSkill = {
                     teamSkillId: 1553,
                     skillId: aSkill.skillId,
                     title: aSkill.title,
                     irrelevant: aSkill.irrelevant,
-                    skillStatus: clickedOnce ? 'OPEN' : 'IRRELEVANT'
+                    skillStatus: clickedOnce ? SkillStatus.OPEN : SkillStatus.IRRELEVANT
                 };
                 return Observable.of(new HttpResponse({ body: achievableSkill }));
             });
@@ -99,7 +100,7 @@ describe('Component Tests', () => {
                 expect(ev.aSkill.skillId).toEqual(1100);
                 expect(ev.aSkill.title).toEqual('Input Validation');
                 expect(ev.aSkill.irrelevant).toEqual(!clickedOnce);
-                expect(ev.aSkill.skillStatus).toEqual(!clickedOnce ? 'IRRELEVANT' : 'OPEN');
+                expect(ev.aSkill.skillStatus).toEqual(!clickedOnce ? SkillStatus.IRRELEVANT : SkillStatus.OPEN);
                 if (clickedOnce) {
                     done();
                 }
@@ -108,7 +109,7 @@ describe('Component Tests', () => {
             comp.team = new Team(125);
             comp.ngOnInit();
 
-            const skill = { skillId: 1100, title: 'Input Validation', skillStatus: 'OPEN', irrelevant: false };
+            const skill = { skillId: 1100, title: 'Input Validation', skillStatus: SkillStatus.OPEN, irrelevant: false };
 
             expect(skill['irrelevant']).toEqual(false);
 
@@ -135,14 +136,14 @@ describe('Component Tests', () => {
                 expect(aSkill).toBeTruthy();
                 expect(aSkill.skillId).toEqual(1500);
                 expect(aSkill.title).toEqual('Strong passwords');
-                expect(aSkill.skillStatus).toEqual(clickedOnce ? 'ACHIEVED' : 'OPEN');
+                expect(aSkill.skillStatus).toEqual(clickedOnce ? SkillStatus.ACHIEVED : SkillStatus.OPEN);
                 expect(aSkill.irrelevant).toEqual(false);
                 const achievableSkill = {
                     teamSkillId: 1556,
                     skillId: aSkill.skillId,
                     title: aSkill.title,
                     irrelevant: aSkill.irrelevant,
-                    skillStatus: clickedOnce ? 'OPEN' : 'ACHIEVED'
+                    skillStatus: clickedOnce ? SkillStatus.OPEN : SkillStatus.ACHIEVED
                 };
                 if (!clickedOnce) {
                     achievableSkill['achievedAt'] = moment();
@@ -168,7 +169,7 @@ describe('Component Tests', () => {
                 expect(ev.aSkill.skillId).toEqual(1500);
                 expect(ev.aSkill.title).toEqual('Strong passwords');
                 expect(ev.aSkill.irrelevant).toEqual(false);
-                expect(ev.aSkill.skillStatus).toEqual(!clickedOnce ? 'ACHIEVED' : 'OPEN');
+                expect(ev.aSkill.skillStatus).toEqual(!clickedOnce ? SkillStatus.ACHIEVED : SkillStatus.OPEN);
 
                 skill = ev.aSkill;
 
@@ -180,21 +181,21 @@ describe('Component Tests', () => {
             comp.team = new Team(160);
             comp.ngOnInit();
 
-            let skill = { skillId: 1500, title: 'Strong passwords', skillStatus: 'OPEN', irrelevant: false };
+            let skill = { skillId: 1500, title: 'Strong passwords', skillStatus: SkillStatus.OPEN, irrelevant: false };
 
             expect(skill['achievedAt']).toBeUndefined();
-            expect(skill['skillStatus']).toEqual('OPEN');
+            expect(skill['skillStatus']).toEqual(SkillStatus.OPEN);
 
             comp.clickSkillStatus(skill);
 
             expect(skill['achievedAt']).toBeDefined();
-            expect(skill['skillStatus']).toEqual('ACHIEVED');
+            expect(skill['skillStatus']).toEqual(SkillStatus.ACHIEVED);
 
             clickedOnce = true;
             comp.clickSkillStatus(skill);
 
             expect(skill['achievedAt']).toBeUndefined();
-            expect(skill['skillStatus']).toEqual('OPEN');
+            expect(skill['skillStatus']).toEqual(SkillStatus.OPEN);
         });
     });
 });

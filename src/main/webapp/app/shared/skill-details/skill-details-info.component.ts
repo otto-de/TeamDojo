@@ -15,6 +15,7 @@ import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
 import { ILevelSkill } from 'app/shared/model/level-skill.model';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import { TeamSkillService } from 'app/entities/team-skill';
+import { SkillStatus, SkillStatusUtils } from 'app/shared/model/skill-status';
 
 @Component({
     selector: 'jhi-skill-details-info',
@@ -71,9 +72,7 @@ export class SkillDetailsInfoComponent implements OnInit {
         this.achievedByTeams = this._teams.filter((team: ITeam) =>
             this._teamSkills.some(
                 (teamSkill: ITeamSkill) =>
-                    team.id === teamSkill.teamId &&
-                    teamSkill.skillId === this.skill.id &&
-                    (teamSkill.skillStatus === 'ACHIEVED' || teamSkill.skillStatus === 'EXPIRING')
+                    team.id === teamSkill.teamId && teamSkill.skillId === this.skill.id && SkillStatusUtils.isValid(teamSkill.skillStatus)
             )
         );
         this.neededForLevels = this._levels.filter((level: ILevel) =>
@@ -110,17 +109,23 @@ export class SkillDetailsInfoComponent implements OnInit {
         this.skillRating.onSkillChanged(skillObjs.iSkill);
     }
 
-    onToggleSkill(isActivated: boolean) {
-        this.achievableSkill.achievedAt = isActivated ? moment() : null;
+    onToggleSkill() {
+        const isActivating = !SkillStatusUtils.isValid(this.achievableSkill.skillStatus);
+        this.achievableSkill.achievedAt = isActivating ? moment() : null;
         this.onSkillChanged.emit(this.achievableSkill);
     }
 
-    onToggleIrrelevance(irrelevant: boolean) {
-        if (irrelevant) {
+    onToggleIrrelevance() {
+        const isIrrelevant = this.achievableSkill.skillStatus === SkillStatus.IRRELEVANT;
+        if (isIrrelevant) {
             this.achievableSkill.achievedAt = null;
         }
-        this.achievableSkill.irrelevant = irrelevant;
+        this.achievableSkill.irrelevant = isIrrelevant;
         this.onSkillChanged.emit(this.achievableSkill);
+    }
+
+    getStatusClass(skill: IAchievableSkill): string {
+        return SkillStatusUtils.getStyleClassName(skill.skillStatus);
     }
 
     updateSkillRating(skill: ISkill) {

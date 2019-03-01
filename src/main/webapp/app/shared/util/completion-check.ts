@@ -6,6 +6,7 @@ import { ITeam } from 'app/shared/model/team.model';
 import { IProgress, Progress } from 'app/shared/achievement/model/progress.model';
 import { ITeamSkill } from 'app/shared/model/team-skill.model';
 import { ISkill } from 'app/shared/model/skill.model';
+import { SkillStatusUtils } from 'app/shared/model/skill-status';
 
 export class CompletionCheck {
     constructor(private team: ITeam, private item: ILevel | IBadge, private allSkills: ISkill[]) {}
@@ -51,7 +52,7 @@ export class CompletionCheck {
     }
 
     private isTeamSkillCompleted(teamSkill: ITeamSkill): boolean {
-        return teamSkill && (teamSkill.skillStatus === 'ACHIEVED' || teamSkill.skillStatus === 'EXPIRING');
+        return teamSkill && SkillStatusUtils.isValid(teamSkill.skillStatus);
     }
 
     private findTeamSkill(itemSkill: ILevelSkill | IBadgeSkill): ITeamSkill {

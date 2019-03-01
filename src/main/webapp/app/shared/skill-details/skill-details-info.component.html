@@ -3,12 +3,12 @@
 <div class="skill-action-items" *ngIf="isSameTeamSelected()">
 
     <small jhiTranslate="teamdojoApp.teams.skills.status.{{achievableSkill.skillStatus}}" class="skill-status"></small>
-    <a class="skill-action-item" (click)="onToggleIrrelevance(achievableSkill.skillStatus != 'IRRELEVANT')">
-        <i class="skill-relevance-action-item fa {{achievableSkill.skillStatus}}"></i>
+    <a class="skill-action-item" (click)="onToggleIrrelevance()">
+        <i class="skill-relevance-action-item fa skill-status-{{getStatusClass(achievableSkill)}}"></i>
         <small jhiTranslate="teamdojoApp.teams.skills.relevanceAction.{{achievableSkill.skillStatus}}"></small>
     </a>
-    <a class="skill-action-item" (click)="onToggleSkill(achievableSkill.skillStatus != 'ACHIEVED' && achievableSkill.skillStatus != 'EXPIRING')">
-        <i class="skill-status-action-item fa {{achievableSkill.skillStatus}}"></i>
+    <a class="skill-action-item" (click)="onToggleSkill()">
+        <i class="skill-status-action-item fa skill-status-{{getStatusClass(achievableSkill)}}"></i>
         <small jhiTranslate="teamdojoApp.teams.skills.action.{{achievableSkill.skillStatus}}"></small>
     </a>
 

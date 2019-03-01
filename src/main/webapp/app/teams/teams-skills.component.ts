@@ -20,6 +20,7 @@ import { IDimension } from 'app/shared/model/dimension.model';
 import { DimensionService } from 'app/entities/dimension';
 import 'simplebar';
 import { Subject } from 'rxjs/Subject';
+import { SkillStatusUtils } from 'app/shared/model/skill-status';
 
 @Component({
     selector: 'jhi-teams-skills',
@@ -165,10 +166,14 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         }
     }
 
+    getStatusClass(skill: IAchievableSkill): string {
+        return SkillStatusUtils.getStyleClassName(skill.skillStatus);
+    }
+
     clickSkillStatus(skill: IAchievableSkill) {
-        if (skill.skillStatus === 'ACHIEVED' || skill.skillStatus === 'EXPIRING') {
+        if (SkillStatusUtils.isValid(skill.skillStatus)) {
             this.setIncomplete(skill);
-        } else if (skill.skillStatus === 'OPEN' || skill.skillStatus === 'EXPIRED') {
+        } else if (SkillStatusUtils.isInvalid(skill.skillStatus)) {
             this.setComplete(skill);
         }
     }
