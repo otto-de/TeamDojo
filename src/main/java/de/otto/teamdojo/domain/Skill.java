@@ -42,9 +42,8 @@ public class Skill implements Serializable {
     @Column(name = "jhi_validation", length = 2048)
     private String validation;
 
-    @Pattern(regexp = "^P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?$")
     @Column(name = "expiry_period")
-    private String expiryPeriod;
+    private Integer expiryPeriod;
 
     @Column(name = "contact")
     private String contact;
@@ -131,16 +130,16 @@ public class Skill implements Serializable {
         this.validation = validation;
     }
 
-    public String getExpiryPeriod() {
-        return expiryPeriod;
-    }
-
-    public Skill expiryPeriod(String expiryPeriod) {
+    public Skill expiryPeriod(Integer expiryPeriod) {
         this.expiryPeriod = expiryPeriod;
         return this;
     }
 
-    public void setExpiryPeriod(String expiryPeriod) {
+    public Integer getExpiryPeriod() {
+        return expiryPeriod;
+    }
+
+    public void setExpiryPeriod(Integer expiryPeriod) {
         this.expiryPeriod = expiryPeriod;
     }
 

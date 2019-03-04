@@ -2,22 +2,29 @@
 @import '../../../content/scss/bootstrap-variables';
 @import '../../../content/scss/colors';
 @import '../../../content/scss/mixins';
+@import '../../teams/skill-details/skill-details-status/skill-details-status';
 
 .skill-title {
     margin-bottom: 15px;
     color: $dojo-text-primary;
+}
+.skill-status {
+    display: block;
 }
 .desc-block {
 
     margin-bottom: 35px;
 }
 
-.skill-actions {
+.skill-action-items {
     * {
         color: $dojo-text-primary;
     }
+    display: block;
     margin-bottom: 5px;
-    margin-left: 2px;
+    .skill-action-item {
+        margin-right: 20px;
+    }
 }
 
 .skill-rating {

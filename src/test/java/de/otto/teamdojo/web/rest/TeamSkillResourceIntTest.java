@@ -397,6 +397,16 @@ public class TeamSkillResourceIntTest {
         defaultTeamSkillShouldNotBeFound("teamId.equals=" + (teamId + 1));
     }
 
+    @Test
+    @Transactional
+    public void getTeamSkillSkillStatusShouldNotBeNull()  {
+        TeamSkill persistedTeamSkill =  teamSkillRepository.saveAndFlush(teamSkill);
+        assertThat(persistedTeamSkill).isNotNull();
+        TeamSkillDTO teamSkillDTO =  teamSkillMapper.toDto(persistedTeamSkill);
+        assertThat(teamSkillDTO).isNotNull();
+        assertThat(teamSkillDTO.getSkillStatus()).isNotNull();
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned
      */

@@ -1,28 +1,17 @@
 <h4 class="skill-title">{{skill.title}}</h4>
 
-<div class="skill-actions" *ngIf="isSameTeamSelected()">
-    <button class="irrelevant action-btn" *ngIf="achievableSkill.irrelevant; else skillNotIrrelevant"
-            (click)="onToggleIrrelevance(false)">
-        <i class="fa fa-thumbs-o-up"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.relevant"></span>
-    </button>
+<div class="skill-action-items" *ngIf="isSameTeamSelected()">
 
-    <ng-template #skillNotIrrelevant>
-        <button class="irrelevant action-btn" (click)="onToggleIrrelevance(true)">
-            <i class="fa fa-thumbs-o-down"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.irrelevant"></span>
-        </button>
+    <small jhiTranslate="teamdojoApp.teams.skills.status.{{achievableSkill.skillStatus}}" class="skill-status"></small>
+    <a class="skill-action-item" (click)="onToggleIrrelevance()">
+        <i class="skill-relevance-action-item fa skill-status-{{getStatusClass(achievableSkill)}}"></i>
+        <small jhiTranslate="teamdojoApp.teams.skills.relevanceAction.{{achievableSkill.skillStatus}}"></small>
+    </a>
+    <a class="skill-action-item" (click)="onToggleSkill()">
+        <i class="skill-status-action-item fa skill-status-{{getStatusClass(achievableSkill)}}"></i>
+        <small jhiTranslate="teamdojoApp.teams.skills.action.{{achievableSkill.skillStatus}}"></small>
+    </a>
 
-        <span>
-            <button *ngIf="isSkillAchieved; else skillNotAchieved" class="activation action-btn" (click)="onToggleSkill(false)">
-                <i class="fa fa-circle-o"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.incomplete"></span>
-            </button>
-
-            <ng-template #skillNotAchieved>
-                <button class="activation action-btn" (click)="onToggleSkill(true)">
-                    <i class="fa fa-check"></i> <span jhiTranslate="teamdojoApp.teams.skills.action.complete"></span>
-                </button>
-            </ng-template>
-        </span>
-    </ng-template>
 </div>
 
 <div>

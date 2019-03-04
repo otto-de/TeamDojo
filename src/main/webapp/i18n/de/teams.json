@@ -19,11 +19,26 @@
                         "label": "Erreichte Skills ausblenden"
                     }
                 },
+                "status": {
+                    "IRRELEVANT": "Dieser Skill ist irrelevant.",
+                    "ACHIEVED": "Dieser Skill wurde bereits erreicht.",
+                    "EXPIRING": "Dieser Skill wurde erreicht, wird aber innerhalb der nächsten Tage veralten.",
+                    "EXPIRED": "Dieser Skill wurde schon einmal erreicht, ist aber inzwischen veraltet.",
+                    "OPEN": "Dieser Skill muss noch erreicht werden."
+                },
+                "relevanceAction": {
+                    "IRRELEVANT": "Relevant",
+                    "ACHIEVED": "Irrelevant",
+                    "EXPIRING": "Irrelevant",
+                    "EXPIRED": "Irrelevant",
+                    "OPEN": "Irrelevant"
+                },
                 "action": {
-                    "complete": "Erlernen",
-                    "incomplete": "Verlernen",
-                    "irrelevant": "Irrelevant",
-                    "relevant": "Relevant"
+                    "IRRELEVANT": "",
+                    "ACHIEVED": "Verlernen",
+                    "EXPIRING": "Verlernen",
+                    "EXPIRED": "Erneuern",
+                    "OPEN": "Erlernen"
                 },
                 "details": {
                     "activate": "Kompetenz aktivieren",

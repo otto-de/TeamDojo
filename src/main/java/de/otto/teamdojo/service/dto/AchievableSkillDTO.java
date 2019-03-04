@@ -1,5 +1,7 @@
 package de.otto.teamdojo.service.dto;
 
+import de.otto.teamdojo.domain.enumeration.SkillStatus;
+
 import java.time.Instant;
 
 /**
@@ -13,6 +15,7 @@ public class AchievableSkillDTO {
     private String description;
     private Instant achievedAt;
     private Boolean irrelevant;
+    private Integer skillExpiryPeriod;
     private Double rateScore;
     private Integer rateCount;
 
@@ -27,6 +30,7 @@ public class AchievableSkillDTO {
         String description,
         Instant achievedAt,
         Boolean irrelevant,
+        Integer expiryPeriod,
         Double rateScore,
         Integer rateCount) {
         this.teamSkillId = teamSkillId;
@@ -35,6 +39,7 @@ public class AchievableSkillDTO {
         this.description = description;
         this.achievedAt = achievedAt;
         this.irrelevant = irrelevant;
+        this.skillExpiryPeriod = expiryPeriod;
         this.rateScore = rateScore;
         this.rateCount = rateCount;
     }
@@ -96,4 +101,9 @@ public class AchievableSkillDTO {
     public void setRateCount(Integer rateCount) {
         this.rateCount = rateCount;
     }
+
+    public SkillStatus getSkillStatus() {
+        return SkillStatus.determineSkillStatus(irrelevant, achievedAt, skillExpiryPeriod);
+    }
+
 }

@@ -13,6 +13,7 @@ public interface TeamSkillMapper extends EntityMapper<TeamSkillDTO, TeamSkill> {
 
     @Mapping(source = "skill.id", target = "skillId")
     @Mapping(source = "skill.title", target = "skillTitle")
+    @Mapping(source = "skill.expiryPeriod", target = "skillExpiryPeriod")
     @Mapping(source = "team.id", target = "teamId")
     @Mapping(source = "team.name", target = "teamName")
     TeamSkillDTO toDto(TeamSkill teamSkill);

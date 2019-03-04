@@ -29,4 +29,6 @@
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <include file="config/liquibase/changelog/20180604134444_initial_demo_data.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180612164700_extend_skill_descriptions_length.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190222103700_extend_skill_expiryPeriod.xml" relativeToChangelogFile="false"/>
+
 </databaseChangeLog>

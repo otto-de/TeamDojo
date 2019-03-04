@@ -24,14 +24,17 @@
             "description": "Description",
             "implementation": "Implementation",
             "validation": "Validation",
-            "expiryPeriod": "Expiry Period",
+            "expiryPeriod": "Expiry Period (in Tagen)",
             "contact": "Contact",
             "score": "Score",
             "rateScore": "Rate Score",
             "rateCount": "Rate Count",
             "teams": "Teams",
             "badges": "Badges",
-            "levels": "Levels"
+            "levels": "Levels",
+            "fieldValidation": {
+                "expiryPeriod": "Die Expiry-Period muss eine positive ganze Zahl sein."
+            }
         },
         "skillDTO": {
             "description": "description",

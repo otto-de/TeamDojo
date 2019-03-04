@@ -1,0 +1,46 @@
+.skill-action-items {
+
+    .skill-action-item {
+        &.disabled {
+            opacity: 0.3;
+            cursor: default;
+        }
+        i {
+            margin-right: 3px;
+        }
+        a {
+            small {
+                color: $dojo-text-secondary;
+            }
+        }
+        i.skill-relevance-action-item {
+            &.skill-status-irrelevant {
+                &:before {
+                    content: "\f087"; // thumbs-up
+                }
+            }
+            &.skill-status-achieved,
+            &.skill-status-open,
+            &.skill-status-expiring,
+            &.skill-status-expired {
+                &:before {
+                    content: "\f088"; // thumbs-down
+                }
+            }
+        }
+        i.skill-status-action-item {
+            &.skill-status-open,
+            &.skill-status-expired {
+                &:before {
+                    content: "\f00c"; // checkmark
+                }
+            }
+            &.skill-status-achieved,
+            &.skill-status-expiring {
+                &:before {
+                    content: "\f10c"; // circle-o
+                }
+            }
+        }
+    }
+}
