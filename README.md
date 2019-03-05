@@ -228,6 +228,9 @@ In the context of a given Team, a skill is in the
 The corresponding skill status for a team is determined and set in the AchievableSkillDTO and passed as part of the 
 JSON string on to the frontend. 
 
+At the frontend, the skillstatus information in the JSON-string from the backend is deserialized into a typescript object (SkillStatus enum in the 
+IAchievableSkill Typescript type).
 
-
+The Skillstatus information at the frontend is used to calculate the number of teams that have acquired a given skill, to display the status 
+of a skill for a given team, to toggle status from one state to another.
 
