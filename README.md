@@ -199,3 +199,35 @@ Please change the password and secret in your production environment.
 ## Development
 
 [Here](DEVELOPMENT.md) you can find the dev documentation.
+
+## Further Development (Status determination feature)
+
+Determining the status of a skill acquired by a Team was reworked.
+
+A combination of data from the Skill and Teamskill entities are used in the determination of the status.
+
+The fields used in calculating the status are "irrelevant" and "completedAt" (From the TeamSkill Entity) and "expiryPeriod" (from the Skill Entity).
+
+In the context of a given Team, a skill is in the 
+
+  OPEN Status - If the TeamSkill.completedAt field is not set (that is null) and TeamSkill.irrelevant is not true
+  
+  IRRELEVANT status - If the TeamSkill.irrelevant field is set to true, notwithstanding the values of the other fields.
+  
+  ACHIEVED status - If the TeamSkill.completedAt field is set and the TeamSkill.irrelevant is not true and the TeamSkill.completedAt
+                    plus the SKill.expiryPeriod (in days) is later than the current date.
+                   
+  EXPIRING status - If the TeamSkill.completedAt field is set and the TeamSkill.irrelevant is not true, the current date 
+                    is later than the TeamSkill.completedAt plus the SKill.expiryPeriod (in days) but not later than a 
+                    7-days grace period.
+                    
+  EXPIRED status - If the TeamSkill.completedAt field is set and the TeamSkill.irrelevant is not true, the current date 
+                   is later than the TeamSkill.completedAt plus the SKill.expiryPeriod (in days) and the 7-days grace period
+                   is past.
+
+The corresponding skill status for a team is determined and set in the AchievableSkillDTO and passed as part of the 
+JSON string on to the frontend. 
+
+
+
+
