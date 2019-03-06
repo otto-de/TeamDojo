@@ -27,7 +27,7 @@ public class SkillStatusDeterminationUnitTest {
     }
 
     @Test
-    public void testSkillStatusACHIEVED_status_does_not_expire() {
+    public void testSkillStatusACHIEVED_skill_does_not_expire() {
         SkillStatus skillStatus = SkillStatus.determineSkillStatus(false, now.minus(2, ChronoUnit.DAYS), null);
         Assert.assertTrue(skillStatus == SkillStatus.ACHIEVED);
     }
