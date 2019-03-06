@@ -116,7 +116,7 @@ export class SkillDetailsInfoComponent implements OnInit {
     }
 
     onToggleIrrelevance() {
-        const isIrrelevant = this.achievableSkill.skillStatus === SkillStatus.IRRELEVANT;
+        const isIrrelevant = this.achievableSkill.skillStatus !== SkillStatus.IRRELEVANT;
         if (isIrrelevant) {
             this.achievableSkill.achievedAt = null;
         }
