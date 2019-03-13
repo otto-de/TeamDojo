@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180418125335_added_entity_Dimension.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180418141117_added_entity_Skill.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180419083624_added_entity_Team.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180419092355_added_entity_TeamSkill.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180419133250_added_entity_Level.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180419135514_added_entity_Badge.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180419141143_added_entity_BadgeSkill.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180419154302_added_entity_LevelSkill.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180517074753_added_entity_Organization.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180525122526_added_entity_Report.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180528114846_added_entity_Comment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180529124818_added_entity_Activity.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180605123508_added_entity_Image.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20180419083624_added_entity_constraints_Team.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180419092355_added_entity_constraints_TeamSkill.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180419133250_added_entity_constraints_Level.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180419135514_added_entity_constraints_Badge.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180419141143_added_entity_constraints_BadgeSkill.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180419154302_added_entity_constraints_LevelSkill.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180528114846_added_entity_constraints_Comment.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+</databaseChangeLog>

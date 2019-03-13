@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="image">
+            <h2><span jhiTranslate="teamdojoApp.image.detail.title">Image</span> {{image.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="teamdojoApp.image.name">Name</span></dt>
+                <dd>
+                    <span>{{image.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.image.small">Small</span></dt>
+                <dd>
+                    <div *ngIf="image.small">
+                        <a (click)="openFile(image.smallContentType, image.small)">
+                            <img [src]="'data:' + image.smallContentType + ';base64,' + image.small" style="max-width: 100%;" alt="image image"/>
+                        </a>
+                        {{image.smallContentType}}, {{byteSize(image.small)}}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.image.medium">Medium</span></dt>
+                <dd>
+                    <div *ngIf="image.medium">
+                        <a (click)="openFile(image.mediumContentType, image.medium)">
+                            <img [src]="'data:' + image.mediumContentType + ';base64,' + image.medium" style="max-width: 100%;" alt="image image"/>
+                        </a>
+                        {{image.mediumContentType}}, {{byteSize(image.medium)}}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.image.large">Large</span></dt>
+                <dd>
+                    <div *ngIf="image.large">
+                        <a (click)="openFile(image.largeContentType, image.large)">
+                            <img [src]="'data:' + image.largeContentType + ';base64,' + image.large" style="max-width: 100%;" alt="image image"/>
+                        </a>
+                        {{image.largeContentType}}, {{byteSize(image.large)}}
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/image', image.id, 'edit']"
+                    class="btn btn-primary">
+                <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

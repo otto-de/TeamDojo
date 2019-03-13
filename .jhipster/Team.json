@@ -1,0 +1,68 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "participations",
+            "otherEntityName": "dimension",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "participants"
+        },
+        {
+            "relationshipName": "skills",
+            "otherEntityName": "teamSkill",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "team"
+        },
+        {
+            "relationshipName": "image",
+            "otherEntityName": "image",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "team"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "2",
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "shortName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength",
+                "pattern"
+            ],
+            "fieldValidateRulesMinlength": "2",
+            "fieldValidateRulesMaxlength": 6,
+            "fieldValidateRulesPattern": "^[a-zA-Z0-9_-]*$"
+        },
+        {
+            "fieldName": "slogan",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "contactPerson",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180419083624",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "team",
+    "jpaMetamodelFiltering": true,
+    "pagination": "no"
+}

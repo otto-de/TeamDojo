@@ -1,0 +1,31 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="dimension">
+            <h2><span jhiTranslate="teamdojoApp.dimension.detail.title">Dimension</span> {{dimension.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="teamdojoApp.dimension.name">Name</span></dt>
+                <dd>
+                    <span>{{dimension.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.dimension.description">Description</span></dt>
+                <dd>
+                    <span>{{dimension.description}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/dimension', dimension.id, 'edit']"
+                    class="btn btn-primary">
+                <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

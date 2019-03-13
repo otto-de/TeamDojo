@@ -1,0 +1,31 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "skill",
+            "otherEntityName": "skill",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "title"
+        },
+        {
+            "relationshipName": "level",
+            "otherEntityName": "level",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20180419154302",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "level_skill",
+    "jpaMetamodelFiltering": true,
+    "pagination": "no"
+}

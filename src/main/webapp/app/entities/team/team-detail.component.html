@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="team">
+            <h2><span jhiTranslate="teamdojoApp.team.detail.title">Team</span> {{team.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="teamdojoApp.team.name">Name</span></dt>
+                <dd>
+                    <span>{{team.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.team.shortName">Short Name</span></dt>
+                <dd>
+                    <span>{{team.shortName}}</span>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.team.slogan">Slogan</span></dt>
+                <dd>
+                    <span>{{team.slogan}}</span>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.team.contactPerson">Contact Person</span></dt>
+                <dd>
+                    <span>{{team.contactPerson}}</span>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.team.participations">Participations</span></dt>
+                <dd>
+                    <span *ngFor="let participations of team.participations; let last = last">
+                        <a [routerLink]="['/dimension', participations?.id, 'view' ]">{{participations.name}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.team.image">Image</span></dt>
+                <dd>
+                    <div *ngIf="team.imageId">
+                        <a [routerLink]="['/image', team.imageId, 'view']">{{team.imageName}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/team', team.id, 'edit']"
+                    class="btn btn-primary">
+                <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

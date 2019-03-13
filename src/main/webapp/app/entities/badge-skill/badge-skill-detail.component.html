@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="badgeSkill">
+            <h2><span jhiTranslate="teamdojoApp.badgeSkill.detail.title">Badge Skill</span> {{badgeSkill.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="teamdojoApp.badgeSkill.badge">Badge</span></dt>
+                <dd>
+                    <div *ngIf="badgeSkill.badgeId">
+                        <a [routerLink]="['/badge', badgeSkill.badgeId, 'view']">{{badgeSkill.badgeName}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.badgeSkill.skill">Skill</span></dt>
+                <dd>
+                    <div *ngIf="badgeSkill.skillId">
+                        <a [routerLink]="['/skill', badgeSkill.skillId, 'view']">{{badgeSkill.skillTitle}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/badge-skill', badgeSkill.id, 'edit']"
+                    class="btn btn-primary">
+                <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

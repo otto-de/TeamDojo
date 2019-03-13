@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="levelSkill">
+            <h2><span jhiTranslate="teamdojoApp.levelSkill.detail.title">Level Skill</span> {{levelSkill.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="teamdojoApp.levelSkill.skill">Skill</span></dt>
+                <dd>
+                    <div *ngIf="levelSkill.skillId">
+                        <a [routerLink]="['/skill', levelSkill.skillId, 'view']">{{levelSkill.skillTitle}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="teamdojoApp.levelSkill.level">Level</span></dt>
+                <dd>
+                    <div *ngIf="levelSkill.levelId">
+                        <a [routerLink]="['/level', levelSkill.levelId, 'view']">{{levelSkill.levelName}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/level-skill', levelSkill.id, 'edit']"
+                    class="btn btn-primary">
+                <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

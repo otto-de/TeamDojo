@@ -1,0 +1,72 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="teamdojoApp.badge.home.title">Badges</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-badge" [routerLink]="['/badge/new']">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="teamdojoApp.badge.home.createLabel">
+            Create new Badge
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="badges">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="name"><span jhiTranslate="teamdojoApp.badge.name">Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="description"><span jhiTranslate="teamdojoApp.badge.description">Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="availableUntil"><span jhiTranslate="teamdojoApp.badge.availableUntil">Available Until</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="availableAmount"><span jhiTranslate="teamdojoApp.badge.availableAmount">Available Amount</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="requiredScore"><span jhiTranslate="teamdojoApp.badge.requiredScore">Required Score</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="instantMultiplier"><span jhiTranslate="teamdojoApp.badge.instantMultiplier">Instant Multiplier</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="completionBonus"><span jhiTranslate="teamdojoApp.badge.completionBonus">Completion Bonus</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="imageName"><span jhiTranslate="teamdojoApp.badge.image">Image</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let badge of badges ;trackBy: trackId">
+                <td><a [routerLink]="['/badge', badge.id, 'view' ]">{{badge.id}}</a></td>
+                <td>{{badge.name}}</td>
+                <td>{{badge.description}}</td>
+                <td>{{badge.availableUntil | date:'medium'}}</td>
+                <td>{{badge.availableAmount}}</td>
+                <td>{{badge.requiredScore}}</td>
+                <td>{{badge.instantMultiplier}}</td>
+                <td>{{badge.completionBonus}}</td>
+                <td>
+                    <div *ngIf="badge.imageId">
+                        <a [routerLink]="['../image', badge.imageId , 'view' ]" >{{badge.imageName}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/badge', badge.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/badge', badge.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'badge/'+ badge.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
