@@ -37,8 +37,9 @@
 @mixin accordion() {
     ::ng-deep .card-header {
         background-color: $dojo-bg-gradient-from;
-        border-bottom: 2px solid rgba(0, 0, 0, 0.125);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
         min-height: 50px;
+        margin-bottom: 0px;
         a {
             text-decoration: none;
         }
