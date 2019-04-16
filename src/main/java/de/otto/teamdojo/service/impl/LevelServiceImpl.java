@@ -89,7 +89,7 @@ public class LevelServiceImpl implements LevelService {
         levelRepository.deleteById(id);
     }
 
-    public Page<LevelDTO> findByIdIn(List<Long> levelIds, Pageable pageable){
+    public Page<LevelDTO> findByIdIn(List<Long> levelIds, Pageable pageable) {
         {
             log.debug("Request to get Levels by level Ids: {}", levelIds);
             return levelRepository.findByIdIn(levelIds, pageable)

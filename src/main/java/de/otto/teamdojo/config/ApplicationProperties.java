@@ -11,4 +11,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
 
+    private String[] displayOnActiveProfiles = null;
+
+    public String[] getDisplayOnActiveProfiles() {
+        return displayOnActiveProfiles;
+    }
+
+    public void setDisplayOnActiveProfiles(String[] displayOnActiveProfiles) {
+        this.displayOnActiveProfiles = displayOnActiveProfiles;
+    }
+
 }

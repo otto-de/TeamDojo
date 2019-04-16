@@ -14,7 +14,7 @@
                         <div class="achievement-list-header-right">
 
                             <i class="fa fa-caret-right mr-2"></i>
-                            <span jhiTranslate="teamdojoApp.teams.achievements.generalBadges.title"></span>
+                            <span tdTranslate="teamdojoApp.teams.achievements.generalBadges.title"></span>
                         </div>
                     </div>
                 </ng-template>
@@ -62,7 +62,7 @@
                     <ng-template ngbPanelContent>
                         <div>
                             <div *ngIf="dimension.levels.length" class="item-list-title"
-                                 jhiTranslate="teamdojoApp.overview.achievements.dimensions.levels.title"></div>
+                                 tdTranslate="teamdojoApp.overview.achievements.dimensions.levels.title"></div>
                             <div class="d-flex flex-wrap">
                                 <div *ngFor="let level of dimension.levels">
                                     <jhi-achievement-item type="item-level" [hasStatus]="true" [item]="level"
@@ -75,7 +75,7 @@
                                 </div>
                             </div>
                             <div *ngIf="dimension.badges.length" class="item-list-title"
-                                 jhiTranslate="teamdojoApp.overview.achievements.dimensions.badges.title"></div>
+                                 tdTranslate="teamdojoApp.overview.achievements.dimensions.badges.title"></div>
                             <div class="d-flex flex-wrap">
                                 <div *ngFor="let badge of dimension.badges">
                                     <jhi-achievement-item type="item-badge" [hasStatus]="true" [item]="badge"

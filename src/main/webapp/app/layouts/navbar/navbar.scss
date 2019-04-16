@@ -16,14 +16,15 @@ Navbar
                 .breadcrumb-item + .breadcrumb-item::before {
                     color: rgba(255, 255, 255, 0.8);
                     font: normal normal normal 14px/1 FontAwesome;
-                    content: "\F054";
+                    content: '\F054';
                 }
                 a {
-                    color: rgba(233, 233, 233, 1.0);
+                    color: rgba(233, 233, 233, 1);
                     font-weight: normal;
                 }
-                .breadcrumb-item.active, .breadcrumb-item::before {
-                    color: rgba(233, 233, 233, 1.0);
+                .breadcrumb-item.active,
+                .breadcrumb-item::before {
+                    color: rgba(233, 233, 233, 1);
                 }
             }
         }
@@ -44,11 +45,14 @@ Navbar
         color: $dojo-text-inverse-primary;
     }
 
-    .dropdown-item:focus, .dropdown-item:hover{
+    .dropdown-item:focus,
+    .dropdown-item:hover {
         background-color: #9a9f7c;
     }
 
-    .dropdown-item.active, .dropdown-item.active:focus, .dropdown-item.active:hover {
+    .dropdown-item.active,
+    .dropdown-item.active:focus,
+    .dropdown-item.active:hover {
         background-color: $warning;
     }
     .dropdown-toggle::after {
@@ -100,10 +104,8 @@ Navbar
     }
 }
 
-.breadcrumb-item{
-    color: $dojo-text-inverse-primary
-
-    a {
+.breadcrumb-item {
+    color: $dojo-text-inverse-primary a {
         color: $dojo-text-inverse-primary !important;
     }
 }
@@ -112,14 +114,14 @@ Navbar
 Logo styles
 ========================================================================== */
 .navbar-brand {
-    padding:0px;
+    padding: 0px;
     &.logo {
         .logo-img {
             height: 58px;
             width: 190px;
             display: inline-block;
             vertical-align: middle;
-            background: url("../../../content/images/team-dojo.png") no-repeat center center;
+            background: url('../../../content/images/team-dojo.png') no-repeat center center;
             background-size: contain;
         }
     }

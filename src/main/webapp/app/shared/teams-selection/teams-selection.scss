@@ -1,14 +1,14 @@
 .team-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 .team-item-wrapper {
     flex: 1 1 20%;
     padding: 10px;
 }
 .team-item {
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     border-radius: 0.15rem;
     padding: 7px;
     user-select: none;
@@ -25,7 +25,7 @@
     cursor: pointer;
 }
 .team-item.selected {
-    border-color: #3E8ACC;
+    border-color: #3e8acc;
     font-weight: bold;
 }
 .team-item.selected:hover {

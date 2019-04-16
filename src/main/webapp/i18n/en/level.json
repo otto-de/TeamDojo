@@ -1,7 +1,6 @@
-
 {
     "teamdojoApp": {
-        "level" : {
+        "level": {
             "home": {
                 "title": "Levels",
                 "createLabel": "Create a new Level",

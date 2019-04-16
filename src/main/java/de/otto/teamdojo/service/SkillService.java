@@ -45,7 +45,8 @@ public interface SkillService {
 
     /**
      * Creates a new vote
-     * @param id the entity to udpate
+     *
+     * @param id        the entity to udpate
      * @param rateScore stars to update
      * @return the persisted entity
      */

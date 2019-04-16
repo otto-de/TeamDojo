@@ -2,14 +2,14 @@
 
 <div class="skill-action-items" *ngIf="isSameTeamSelected()">
 
-    <small jhiTranslate="teamdojoApp.teams.skills.status.{{achievableSkill.skillStatus}}" class="skill-status"></small>
+    <small tdTranslate="teamdojoApp.teams.skills.status.{{achievableSkill.skillStatus}}" class="skill-status"></small>
     <a class="skill-action-item" (click)="onToggleIrrelevance()">
         <i class="skill-relevance-action-item fa skill-status-{{getStatusClass(achievableSkill)}}"></i>
-        <small jhiTranslate="teamdojoApp.teams.skills.relevanceAction.{{achievableSkill.skillStatus}}"></small>
+        <small tdTranslate="teamdojoApp.teams.skills.relevanceAction.{{achievableSkill.skillStatus}}"></small>
     </a>
     <a class="skill-action-item" (click)="onToggleSkill()">
         <i class="skill-status-action-item fa skill-status-{{getStatusClass(achievableSkill)}}"></i>
-        <small jhiTranslate="teamdojoApp.teams.skills.action.{{achievableSkill.skillStatus}}"></small>
+        <small tdTranslate="teamdojoApp.teams.skills.action.{{achievableSkill.skillStatus}}"></small>
     </a>
 
 </div>
@@ -20,7 +20,7 @@
     </div>
 
     <div class="skill-contact" *ngIf="skill.contact">
-        <span jhiTranslate="teamdojoApp.teams.skills.details.contact">Contact</span>:
+        <span tdTranslate="teamdojoApp.teams.skills.details.contact">Contact</span>:
         <span>{{skill.contact}}</span>
     </div>
     <div class="clearfix"></div>
@@ -29,20 +29,20 @@
 
 <div class="dojo-card">
     <div class="skill-desc desc-block">
-        <h5 jhiTranslate="teamdojoApp.teams.skills.details.desc"></h5>
+        <h5 tdTranslate="teamdojoApp.teams.skills.details.desc"></h5>
         <p>{{skill.description}}</p>
     </div>
     <div class="skill-impl desc-block">
-        <h5 jhiTranslate="teamdojoApp.teams.skills.details.implementation"></h5>
+        <h5 tdTranslate="teamdojoApp.teams.skills.details.implementation"></h5>
         <p>{{skill.implementation}}</p>
     </div>
     <div class="skill-validation desc-block">
-        <h5 jhiTranslate="teamdojoApp.teams.skills.details.validation"></h5>
+        <h5 tdTranslate="teamdojoApp.teams.skills.details.validation"></h5>
         <p>{{skill.validation}}</p>
     </div>
 
     <div class="needed-for">
-        <h5 jhiTranslate="teamdojoApp.teams.skills.details.neededFor"></h5>
+        <h5 tdTranslate="teamdojoApp.teams.skills.details.neededFor"></h5>
         <div class="needed-for-avatars">
             <div class="needed-for-levels">
                 <jhi-achievement-item type="item-level" [item]="l" *ngFor="let l of neededForLevels">
@@ -56,12 +56,12 @@
     </div>
 
     <div class="achieved-by">
-        <h5 jhiTranslate="teamdojoApp.teams.skills.details.achievedBy"></h5>
+        <h5 tdTranslate="teamdojoApp.teams.skills.details.achievedBy"></h5>
         <div class="achieved-by-teams">
             <jhi-team-image *ngFor="let t of achievedByTeams" class="avatar-team" [team]="t" size="8vh"
                             imageSize="medium" placement="top" [ngbTooltip]="t.name"></jhi-team-image>
             <p *ngIf="achievedByTeams.length === 0"
-               jhiTranslate="teamdojoApp.teams.skills.details.achievedByNone"></p>
+               tdTranslate="teamdojoApp.teams.skills.details.achievedByNone"></p>
             <div class="clearfix"></div>
         </div>
     </div>

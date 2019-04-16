@@ -79,17 +79,6 @@ public class DimensionResourceIntTest {
 
     private Dimension dimension;
 
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final DimensionResource dimensionResource = new DimensionResource(dimensionService, dimensionQueryService);
-        this.restDimensionMockMvc = MockMvcBuilders.standaloneSetup(dimensionResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-    }
-
     /**
      * Create an entity for this test.
      * <p>
@@ -101,6 +90,17 @@ public class DimensionResourceIntTest {
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION);
         return dimension;
+    }
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        final DimensionResource dimensionResource = new DimensionResource(dimensionService, dimensionQueryService);
+        this.restDimensionMockMvc = MockMvcBuilders.standaloneSetup(dimensionResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
     }
 
     @Before

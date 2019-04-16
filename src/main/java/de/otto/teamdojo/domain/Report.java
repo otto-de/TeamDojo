@@ -1,16 +1,15 @@
 package de.otto.teamdojo.domain;
 
+import de.otto.teamdojo.domain.enumeration.ReportType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
-
-import de.otto.teamdojo.domain.enumeration.ReportType;
 
 /**
  * A Report.
@@ -57,17 +56,21 @@ public class Report implements Serializable {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Report title(String title) {
         this.title = title;
         return this;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Report description(String description) {
@@ -75,12 +78,12 @@ public class Report implements Serializable {
         return this;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public ReportType getType() {
         return type;
+    }
+
+    public void setType(ReportType type) {
+        this.type = type;
     }
 
     public Report type(ReportType type) {
@@ -88,21 +91,17 @@ public class Report implements Serializable {
         return this;
     }
 
-    public void setType(ReportType type) {
-        this.type = type;
-    }
-
     public Instant getCreationDate() {
         return creationDate;
+    }
+
+    public void setCreationDate(Instant creationDate) {
+        this.creationDate = creationDate;
     }
 
     public Report creationDate(Instant creationDate) {
         this.creationDate = creationDate;
         return this;
-    }
-
-    public void setCreationDate(Instant creationDate) {
-        this.creationDate = creationDate;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

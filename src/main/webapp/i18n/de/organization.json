@@ -1,7 +1,6 @@
-
 {
     "teamdojoApp": {
-        "organization" : {
+        "organization": {
             "home": {
                 "title": "Organizations",
                 "createLabel": "Organization erstellen",

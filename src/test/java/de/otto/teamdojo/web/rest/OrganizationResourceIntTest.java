@@ -1,18 +1,15 @@
 package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
-
 import de.otto.teamdojo.domain.Organization;
 import de.otto.teamdojo.repository.OrganizationRepository;
 import de.otto.teamdojo.service.OrganizationService;
 import de.otto.teamdojo.service.dto.OrganizationDTO;
 import de.otto.teamdojo.service.mapper.OrganizationMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.ArrayList;
 
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,10 +49,9 @@ public class OrganizationResourceIntTest {
     private OrganizationRepository organizationRepository;
 
 
-
     @Autowired
     private OrganizationMapper organizationMapper;
-    
+
 
     @Autowired
     private OrganizationService organizationService;
@@ -77,6 +72,19 @@ public class OrganizationResourceIntTest {
 
     private Organization organization;
 
+    /**
+     * Create an entity for this test.
+     * <p>
+     * This is a static method, as tests for other entities might also need it,
+     * if they test an entity which requires the current entity.
+     */
+    public static Organization createEntity(EntityManager em) {
+        Organization organization = new Organization()
+            .name(DEFAULT_NAME)
+            .levelUpScore(DEFAULT_LEVEL_UP_SCORE);
+        return organization;
+    }
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -86,19 +94,6 @@ public class OrganizationResourceIntTest {
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter).build();
-    }
-
-    /**
-     * Create an entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
-    public static Organization createEntity(EntityManager em) {
-        Organization organization = new Organization()
-            .name(DEFAULT_NAME)
-            .levelUpScore(DEFAULT_LEVEL_UP_SCORE);
-        return organization;
     }
 
     @Before
@@ -179,7 +174,7 @@ public class OrganizationResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].levelUpScore").value(hasItem(DEFAULT_LEVEL_UP_SCORE)));
     }
-    
+
 
     @Test
     @Transactional

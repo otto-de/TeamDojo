@@ -105,14 +105,14 @@ public class TeamCriteria implements Serializable {
     @Override
     public String toString() {
         return "TeamCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (name != null ? "name=" + name + ", " : "") +
-                (shortName != null ? "shortName=" + shortName + ", " : "") +
-                (slogan != null ? "slogan=" + slogan + ", " : "") +
-                (contactPerson != null ? "contactPerson=" + contactPerson + ", " : "") +
-                (participationsId != null ? "participationsId=" + participationsId + ", " : "") +
-                (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
-                (imageId != null ? "imageId=" + imageId + ", " : "") +
+            (id != null ? "id=" + id + ", " : "") +
+            (name != null ? "name=" + name + ", " : "") +
+            (shortName != null ? "shortName=" + shortName + ", " : "") +
+            (slogan != null ? "slogan=" + slogan + ", " : "") +
+            (contactPerson != null ? "contactPerson=" + contactPerson + ", " : "") +
+            (participationsId != null ? "participationsId=" + participationsId + ", " : "") +
+            (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
+            (imageId != null ? "imageId=" + imageId + ", " : "") +
             "}";
     }
 

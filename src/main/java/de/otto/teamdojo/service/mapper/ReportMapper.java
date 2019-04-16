@@ -1,16 +1,14 @@
 package de.otto.teamdojo.service.mapper;
 
-import de.otto.teamdojo.domain.*;
+import de.otto.teamdojo.domain.Report;
 import de.otto.teamdojo.service.dto.ReportDTO;
-
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
 
 /**
  * Mapper for the entity Report and its DTO ReportDTO.
  */
 @Mapper(componentModel = "spring", uses = {})
 public interface ReportMapper extends EntityMapper<ReportDTO, Report> {
-
 
 
     default Report fromId(Long id) {

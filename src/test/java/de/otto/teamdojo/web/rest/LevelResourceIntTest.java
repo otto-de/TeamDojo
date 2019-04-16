@@ -22,7 +22,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
 import java.util.Date;
@@ -71,7 +70,6 @@ public class LevelResourceIntTest {
     private LevelRepository levelRepository;
 
 
-
     @Autowired
     private LevelMapper levelMapper;
 
@@ -118,20 +116,9 @@ public class LevelResourceIntTest {
     private Badge awsReady;
     private Badge alwaysUpToDate;
 
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final LevelResource levelResource = new LevelResource(levelService, levelQueryService, levelSkillService);
-        this.restLevelMockMvc = MockMvcBuilders.standaloneSetup(levelResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-    }
-
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -148,6 +135,17 @@ public class LevelResourceIntTest {
         em.flush();
         level.setDimension(dimension);
         return level;
+    }
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        final LevelResource levelResource = new LevelResource(levelService, levelQueryService, levelSkillService);
+        this.restLevelMockMvc = MockMvcBuilders.standaloneSetup(levelResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
     }
 
     @Before
@@ -574,10 +572,11 @@ public class LevelResourceIntTest {
     @Transactional
     public void getAllLevelsBySkillId() throws Exception {
 
-        setupTestData();;
+        setupTestData();
+        ;
         em.flush();
 
-        restLevelMockMvc.perform(get("/api/levels?skillsId.in="+softwareUpdates.getId()))
+        restLevelMockMvc.perform(get("/api/levels?skillsId.in=" + softwareUpdates.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.length()").value(2))

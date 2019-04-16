@@ -47,26 +47,26 @@ public class BadgeSkill implements Serializable {
         return badge;
     }
 
+    public void setBadge(Badge badge) {
+        this.badge = badge;
+    }
+
     public BadgeSkill badge(Badge badge) {
         this.badge = badge;
         return this;
-    }
-
-    public void setBadge(Badge badge) {
-        this.badge = badge;
     }
 
     public Skill getSkill() {
         return skill;
     }
 
+    public void setSkill(Skill skill) {
+        this.skill = skill;
+    }
+
     public BadgeSkill skill(Skill skill) {
         this.skill = skill;
         return this;
-    }
-
-    public void setSkill(Skill skill) {
-        this.skill = skill;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -37,8 +37,6 @@ public class LevelTestDataProvider {
     }
 
 
-
-
     public static LevelBuilder green(Dimension dimension) {
         return level(GREEN_NAME, dimension).requiredScore(0.8);
     }
@@ -65,9 +63,11 @@ public class LevelTestDataProvider {
     public static LevelBuilder os1(Dimension dimension) {
         return level(OS_1_NAME, dimension).requiredScore(0.8);
     }
+
     public static LevelBuilder os2(Dimension dimension) {
         return level(OS_2_NAME, dimension).requiredScore(0.8);
     }
+
     public static LevelBuilder os3(Dimension dimension) {
         return level(OS_3_NAME, dimension).requiredScore(0.8);
     }

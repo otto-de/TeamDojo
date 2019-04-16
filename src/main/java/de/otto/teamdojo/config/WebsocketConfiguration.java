@@ -29,10 +29,8 @@ import java.util.Optional;
 @EnableWebSocketMessageBroker
 public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer {
 
-    private final Logger log = LoggerFactory.getLogger(WebsocketConfiguration.class);
-
     public static final String IP_ADDRESS = "IP_ADDRESS";
-
+    private final Logger log = LoggerFactory.getLogger(WebsocketConfiguration.class);
     private final JHipsterProperties jHipsterProperties;
 
     public WebsocketConfiguration(JHipsterProperties jHipsterProperties) {

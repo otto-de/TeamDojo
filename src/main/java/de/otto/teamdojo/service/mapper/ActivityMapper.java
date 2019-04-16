@@ -11,7 +11,6 @@ import org.mapstruct.Mapper;
 public interface ActivityMapper extends EntityMapper<ActivityDTO, Activity> {
 
 
-
     default Activity fromId(Long id) {
         if (id == null) {
             return null;

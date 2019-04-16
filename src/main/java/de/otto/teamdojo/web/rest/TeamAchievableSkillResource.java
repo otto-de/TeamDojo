@@ -1,6 +1,6 @@
 package de.otto.teamdojo.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
+
 import de.otto.teamdojo.service.AchievableSkillService;
 import de.otto.teamdojo.service.dto.AchievableSkillDTO;
 import de.otto.teamdojo.web.rest.util.HeaderUtil;
@@ -15,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -31,7 +30,6 @@ public class TeamAchievableSkillResource {
     }
 
     @GetMapping("/teams/{id}/achievable-skills")
-    @Timed
     public ResponseEntity<List<AchievableSkillDTO>> getAchievableSkills(
         @PathVariable Long id,
         @RequestParam(name = "levelId", required = false, defaultValue = "") List<Long> levelIds,
@@ -45,7 +43,6 @@ public class TeamAchievableSkillResource {
     }
 
     @GetMapping("/teams/{teamId}/achievable-skills/{skillId}")
-    @Timed
     public ResponseEntity<AchievableSkillDTO> getAchievableSkills(
         @PathVariable Long teamId,
         @PathVariable Long skillId) {
@@ -59,7 +56,6 @@ public class TeamAchievableSkillResource {
     }
 
     @PutMapping("/teams/{id}/achievable-skills")
-    @Timed
     public ResponseEntity<AchievableSkillDTO> updateAchievableSkill(@PathVariable Long id, @RequestBody AchievableSkillDTO achievableSkill) throws JSONException {
         AchievableSkillDTO result = achievableSkillService.updateAchievableSkill(id, achievableSkill);
         return ResponseEntity.ok()

@@ -1,18 +1,16 @@
 package de.otto.teamdojo.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Badge.
@@ -66,8 +64,8 @@ public class Badge implements Serializable {
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "badge_dimensions",
-               joinColumns = @JoinColumn(name="badges_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="dimensions_id", referencedColumnName="id"))
+        joinColumns = @JoinColumn(name = "badges_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "dimensions_id", referencedColumnName = "id"))
     private Set<Dimension> dimensions = new HashSet<>();
 
     @ManyToOne
@@ -87,17 +85,21 @@ public class Badge implements Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Badge name(String name) {
         this.name = name;
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Badge description(String description) {
@@ -105,12 +107,12 @@ public class Badge implements Serializable {
         return this;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Instant getAvailableUntil() {
         return availableUntil;
+    }
+
+    public void setAvailableUntil(Instant availableUntil) {
+        this.availableUntil = availableUntil;
     }
 
     public Badge availableUntil(Instant availableUntil) {
@@ -118,12 +120,12 @@ public class Badge implements Serializable {
         return this;
     }
 
-    public void setAvailableUntil(Instant availableUntil) {
-        this.availableUntil = availableUntil;
-    }
-
     public Integer getAvailableAmount() {
         return availableAmount;
+    }
+
+    public void setAvailableAmount(Integer availableAmount) {
+        this.availableAmount = availableAmount;
     }
 
     public Badge availableAmount(Integer availableAmount) {
@@ -131,12 +133,12 @@ public class Badge implements Serializable {
         return this;
     }
 
-    public void setAvailableAmount(Integer availableAmount) {
-        this.availableAmount = availableAmount;
-    }
-
     public Double getRequiredScore() {
         return requiredScore;
+    }
+
+    public void setRequiredScore(Double requiredScore) {
+        this.requiredScore = requiredScore;
     }
 
     public Badge requiredScore(Double requiredScore) {
@@ -144,12 +146,12 @@ public class Badge implements Serializable {
         return this;
     }
 
-    public void setRequiredScore(Double requiredScore) {
-        this.requiredScore = requiredScore;
-    }
-
     public Double getInstantMultiplier() {
         return instantMultiplier;
+    }
+
+    public void setInstantMultiplier(Double instantMultiplier) {
+        this.instantMultiplier = instantMultiplier;
     }
 
     public Badge instantMultiplier(Double instantMultiplier) {
@@ -157,12 +159,12 @@ public class Badge implements Serializable {
         return this;
     }
 
-    public void setInstantMultiplier(Double instantMultiplier) {
-        this.instantMultiplier = instantMultiplier;
-    }
-
     public Integer getCompletionBonus() {
         return completionBonus;
+    }
+
+    public void setCompletionBonus(Integer completionBonus) {
+        this.completionBonus = completionBonus;
     }
 
     public Badge completionBonus(Integer completionBonus) {
@@ -170,12 +172,12 @@ public class Badge implements Serializable {
         return this;
     }
 
-    public void setCompletionBonus(Integer completionBonus) {
-        this.completionBonus = completionBonus;
-    }
-
     public Set<BadgeSkill> getSkills() {
         return skills;
+    }
+
+    public void setSkills(Set<BadgeSkill> badgeSkills) {
+        this.skills = badgeSkills;
     }
 
     public Badge skills(Set<BadgeSkill> badgeSkills) {
@@ -195,12 +197,12 @@ public class Badge implements Serializable {
         return this;
     }
 
-    public void setSkills(Set<BadgeSkill> badgeSkills) {
-        this.skills = badgeSkills;
-    }
-
     public Set<Dimension> getDimensions() {
         return dimensions;
+    }
+
+    public void setDimensions(Set<Dimension> dimensions) {
+        this.dimensions = dimensions;
     }
 
     public Badge dimensions(Set<Dimension> dimensions) {
@@ -220,21 +222,17 @@ public class Badge implements Serializable {
         return this;
     }
 
-    public void setDimensions(Set<Dimension> dimensions) {
-        this.dimensions = dimensions;
-    }
-
     public Image getImage() {
         return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public Badge image(Image image) {
         this.image = image;
         return this;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

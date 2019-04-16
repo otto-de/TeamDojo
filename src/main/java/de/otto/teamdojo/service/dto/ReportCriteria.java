@@ -1,18 +1,12 @@
 package de.otto.teamdojo.service.dto;
 
-import java.io.Serializable;
 import de.otto.teamdojo.domain.enumeration.ReportType;
-import io.github.jhipster.service.filter.BooleanFilter;
-import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.FloatFilter;
-import io.github.jhipster.service.filter.IntegerFilter;
+import io.github.jhipster.service.filter.InstantFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 
-import io.github.jhipster.service.filter.InstantFilter;
-
-
+import java.io.Serializable;
 
 
 /**
@@ -24,23 +18,11 @@ import io.github.jhipster.service.filter.InstantFilter;
  * fix type specific filters.
  */
 public class ReportCriteria implements Serializable {
-    /**
-     * Class for filtering ReportType
-     */
-    public static class ReportTypeFilter extends Filter<ReportType> {
-    }
-
     private static final long serialVersionUID = 1L;
-
-
     private LongFilter id;
-
     private StringFilter title;
-
     private StringFilter description;
-
     private ReportTypeFilter type;
-
     private InstantFilter creationDate;
 
     public ReportCriteria() {
@@ -89,12 +71,18 @@ public class ReportCriteria implements Serializable {
     @Override
     public String toString() {
         return "ReportCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (title != null ? "title=" + title + ", " : "") +
-                (description != null ? "description=" + description + ", " : "") +
-                (type != null ? "type=" + type + ", " : "") +
-                (creationDate != null ? "creationDate=" + creationDate + ", " : "") +
+            (id != null ? "id=" + id + ", " : "") +
+            (title != null ? "title=" + title + ", " : "") +
+            (description != null ? "description=" + description + ", " : "") +
+            (type != null ? "type=" + type + ", " : "") +
+            (creationDate != null ? "creationDate=" + creationDate + ", " : "") +
             "}";
+    }
+
+    /**
+     * Class for filtering ReportType
+     */
+    public static class ReportTypeFilter extends Filter<ReportType> {
     }
 
 }

@@ -60,26 +60,26 @@ public class TeamSkill implements Serializable {
         return completedAt;
     }
 
+    public void setCompletedAt(Instant completedAt) {
+        this.completedAt = completedAt;
+    }
+
     public TeamSkill completedAt(Instant completedAt) {
         this.completedAt = completedAt;
         return this;
-    }
-
-    public void setCompletedAt(Instant completedAt) {
-        this.completedAt = completedAt;
     }
 
     public Instant getVerifiedAt() {
         return verifiedAt;
     }
 
+    public void setVerifiedAt(Instant verifiedAt) {
+        this.verifiedAt = verifiedAt;
+    }
+
     public TeamSkill verifiedAt(Instant verifiedAt) {
         this.verifiedAt = verifiedAt;
         return this;
-    }
-
-    public void setVerifiedAt(Instant verifiedAt) {
-        this.verifiedAt = verifiedAt;
     }
 
     public Boolean isIrrelevant() {
@@ -99,17 +99,21 @@ public class TeamSkill implements Serializable {
         return note;
     }
 
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     public TeamSkill note(String note) {
         this.note = note;
         return this;
     }
 
-    public void setNote(String note) {
-        this.note = note;
-    }
-
     public Skill getSkill() {
         return skill;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
     }
 
     public TeamSkill skill(Skill skill) {
@@ -117,21 +121,17 @@ public class TeamSkill implements Serializable {
         return this;
     }
 
-    public void setSkill(Skill skill) {
-        this.skill = skill;
-    }
-
     public Team getTeam() {
         return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public TeamSkill team(Team team) {
         this.team = team;
         return this;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

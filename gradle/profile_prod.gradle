@@ -1,8 +1,9 @@
 apply plugin: 'org.springframework.boot'
+apply plugin: "com.gorylenko.gradle-git-properties"
 apply plugin: 'com.moowork.node'
 
 dependencies {
-
+    testCompile "com.h2database:h2"
 }
 
 def profiles = 'prod'
@@ -12,6 +13,10 @@ if (project.hasProperty('no-liquibase')) {
 
 if (project.hasProperty('swagger')) {
     profiles += ',swagger'
+}
+
+springBoot {
+    buildInfo()
 }
 
 bootRun {
@@ -34,8 +39,9 @@ task cleanwww(type: YarnTask, dependsOn: 'webpack') {
     args = ["run", "clean-www"]
 }
 
-war {
-    webAppDirName = 'build/www/'
+task copyIntoStatic (type: Copy) {
+    from 'build/www/'
+    into 'build/resources/main/static'
 }
 
 processResources {
@@ -56,8 +62,10 @@ generateGitProperties {
 }
 
 gitProperties {
-    keys = ['git.branch', 'git.commit.id.abbrev']
+    keys = ['git.branch', 'git.commit.id.abbrev', 'git.commit.id.describe']
 }
 
 test.dependsOn webpack_test
-processResources.dependsOn cleanwww
+processResources.dependsOn webpack
+copyIntoStatic.dependsOn processResources
+bootJar.dependsOn copyIntoStatic

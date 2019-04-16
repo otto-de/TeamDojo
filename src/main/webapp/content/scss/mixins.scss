@@ -5,7 +5,7 @@
     background-color: $dojo-bg-gradient-from;
     border-radius: 2px;
     @include shadow();
-    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     &:hover {
         -webkit-box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
         box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
@@ -29,26 +29,27 @@
     }
 }
 
-@mixin shadow(){
+@mixin shadow() {
     -webkit-box-shadow: 0px 2px 4px rgba(119, 119, 119, 0.16), 0px 2px 4px rgba(119, 119, 119, 0.23);
     box-shadow: 0px 2px 4px rgba(119, 119, 119, 0.16), 0px 2px 4px rgba(119, 119, 119, 0.23);
 }
 
-@mixin accordion(){
-    /deep/ .card-header {
+@mixin accordion() {
+    ::ng-deep .card-header {
         background-color: $dojo-bg-gradient-from;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.125);
         min-height: 50px;
         a {
             text-decoration: none;
         }
     }
-    /deep/ .card {
+    ::ng-deep .card {
         @include shadow();
         margin-bottom: 25px;
         background-color: $dojo-bg-gradient-from;
         border: none;
 
-        /deep/ .card-body {
+        ::ng-deep .card-body {
             background-color: $dojo-bg-gradient-from;
         }
     }

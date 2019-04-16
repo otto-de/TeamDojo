@@ -12,7 +12,6 @@
     display: block;
 }
 .desc-block {
-
     margin-bottom: 35px;
 }
 
@@ -47,7 +46,7 @@
     cursor: pointer;
     padding: 0;
     padding-bottom: 5px;
-    border-bottom: 1px solid transparent;
+    border-bottom: 2px solid transparent;
     margin-right: 15px;
     i {
         margin-right: 3px;
@@ -95,7 +94,9 @@
     margin: 12px;
 }
 
-.needed-for-levels, .needed-for-badges, .achieved-by-teams{
+.needed-for-levels,
+.needed-for-badges,
+.achieved-by-teams {
     display: flex;
     flex-flow: wrap;
     > * {

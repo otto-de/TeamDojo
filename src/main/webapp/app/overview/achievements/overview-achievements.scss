@@ -1,7 +1,6 @@
 @import '~bootstrap/scss/bootstrap';
 @import '../../../content/scss/_colors.scss';
-@import "../../../content/scss/mixins";
-
+@import '../../../content/scss/mixins';
 
 .overviews-achievements {
     .additional-functions {
@@ -12,10 +11,10 @@
         @include accordion();
         height: inherit;
         padding-right: 10px;
-        /deep/ .simplebar-track {
-            bottom: 1em!important;
+        ::ng-deep .simplebar-track {
+            bottom: 1em !important;
         }
-        /deep/ .simplebar-scroll-content {
+        ::ng-deep .simplebar-scroll-content {
             padding-right: 1.94em !important;
             .simplebar-content {
                 margin-right: -0.69em !important;
@@ -28,7 +27,7 @@
         }
     }
 }
-@media only screen and (min-width: map-get($grid-breakpoints, lg)){
+@media only screen and (min-width: map-get($grid-breakpoints, lg)) {
     .overviews-achievements {
         .achievement-container {
             height: calc(100vh - 242px);

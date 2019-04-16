@@ -1,7 +1,6 @@
-
 {
     "teamdojoApp": {
-        "comment" : {
+        "comment": {
             "home": {
                 "title": "Comments",
                 "createLabel": "Create a new Comment",

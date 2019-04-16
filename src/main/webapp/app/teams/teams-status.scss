@@ -76,12 +76,11 @@
             h5 {
                 margin-bottom: 0;
             }
-            /deep/ .achievement-item {
+            ::ng-deep .achievement-item {
                 padding-top: 0;
             }
         }
         .teams-status-achievements-badges {
         }
-
     }
 }

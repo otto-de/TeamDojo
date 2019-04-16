@@ -1,7 +1,6 @@
-
 {
     "teamdojoApp": {
-        "activity" : {
+        "activity": {
             "home": {
                 "title": "Activities",
                 "createLabel": "Activity erstellen",

@@ -1,20 +1,20 @@
 package de.otto.teamdojo.service.impl;
 
-import de.otto.teamdojo.service.OrganizationService;
 import de.otto.teamdojo.domain.Organization;
 import de.otto.teamdojo.repository.OrganizationRepository;
+import de.otto.teamdojo.service.OrganizationService;
 import de.otto.teamdojo.service.dto.OrganizationDTO;
 import de.otto.teamdojo.service.mapper.OrganizationMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
 /**
  * Service Implementation for managing Organization.
  */

@@ -1,7 +1,6 @@
-
 {
     "teamdojoApp": {
-        "dimension" : {
+        "dimension": {
             "home": {
                 "title": "Dimensions",
                 "createLabel": "Create a new Dimension",

@@ -1,17 +1,17 @@
 package de.otto.teamdojo.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Team.
@@ -48,11 +48,11 @@ public class Team implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "team_participations",
-               joinColumns = @JoinColumn(name="teams_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="participations_id", referencedColumnName="id"))
+        joinColumns = @JoinColumn(name = "teams_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "participations_id", referencedColumnName = "id"))
     private Set<Dimension> participations = new HashSet<>();
 
-    @OneToMany(mappedBy = "team" , cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<TeamSkill> skills = new HashSet<>();
 
@@ -73,17 +73,21 @@ public class Team implements Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Team name(String name) {
         this.name = name;
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getShortName() {
         return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 
     public Team shortName(String shortName) {
@@ -91,12 +95,12 @@ public class Team implements Serializable {
         return this;
     }
 
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
-    }
-
     public String getSlogan() {
         return slogan;
+    }
+
+    public void setSlogan(String slogan) {
+        this.slogan = slogan;
     }
 
     public Team slogan(String slogan) {
@@ -104,12 +108,12 @@ public class Team implements Serializable {
         return this;
     }
 
-    public void setSlogan(String slogan) {
-        this.slogan = slogan;
-    }
-
     public String getContactPerson() {
         return contactPerson;
+    }
+
+    public void setContactPerson(String contactPerson) {
+        this.contactPerson = contactPerson;
     }
 
     public Team contactPerson(String contactPerson) {
@@ -117,12 +121,12 @@ public class Team implements Serializable {
         return this;
     }
 
-    public void setContactPerson(String contactPerson) {
-        this.contactPerson = contactPerson;
-    }
-
     public Set<Dimension> getParticipations() {
         return participations;
+    }
+
+    public void setParticipations(Set<Dimension> dimensions) {
+        this.participations = dimensions;
     }
 
     public Team participations(Set<Dimension> dimensions) {
@@ -142,12 +146,12 @@ public class Team implements Serializable {
         return this;
     }
 
-    public void setParticipations(Set<Dimension> dimensions) {
-        this.participations = dimensions;
-    }
-
     public Set<TeamSkill> getSkills() {
         return skills;
+    }
+
+    public void setSkills(Set<TeamSkill> teamSkills) {
+        this.skills = teamSkills;
     }
 
     public Team skills(Set<TeamSkill> teamSkills) {
@@ -167,21 +171,17 @@ public class Team implements Serializable {
         return this;
     }
 
-    public void setSkills(Set<TeamSkill> teamSkills) {
-        this.skills = teamSkills;
-    }
-
     public Image getImage() {
         return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public Team image(Image image) {
         this.image = image;
         return this;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

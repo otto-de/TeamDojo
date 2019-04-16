@@ -1,7 +1,5 @@
 package de.otto.teamdojo.service.dto;
 
-import java.time.Instant;
-
 /**
  * A DTO representing skills that can be achieved by a team
  */

@@ -53,9 +53,14 @@ public class Skill implements Serializable {
     @Column(name = "score", nullable = false)
     private Integer score;
 
-    @DecimalMin(value = "0") @DecimalMax(value = "5") @Column(name = "rate_score") private Double rateScore;
+    @DecimalMin(value = "0")
+    @DecimalMax(value = "5")
+    @Column(name = "rate_score")
+    private Double rateScore;
 
-    @Min(value = 0) @Column(name = "rate_count") private Integer rateCount;
+    @Min(value = 0)
+    @Column(name = "rate_count")
+    private Integer rateCount;
 
     @OneToMany(mappedBy = "skill")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -82,17 +87,21 @@ public class Skill implements Serializable {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Skill title(String title) {
         this.title = title;
         return this;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Skill description(String description) {
@@ -100,12 +109,12 @@ public class Skill implements Serializable {
         return this;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getImplementation() {
         return implementation;
+    }
+
+    public void setImplementation(String implementation) {
+        this.implementation = implementation;
     }
 
     public Skill implementation(String implementation) {
@@ -113,21 +122,17 @@ public class Skill implements Serializable {
         return this;
     }
 
-    public void setImplementation(String implementation) {
-        this.implementation = implementation;
-    }
-
     public String getValidation() {
         return validation;
+    }
+
+    public void setValidation(String validation) {
+        this.validation = validation;
     }
 
     public Skill validation(String validation) {
         this.validation = validation;
         return this;
-    }
-
-    public void setValidation(String validation) {
-        this.validation = validation;
     }
 
     public Skill expiryPeriod(Integer expiryPeriod) {
@@ -147,17 +152,21 @@ public class Skill implements Serializable {
         return contact;
     }
 
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
     public Skill contact(String contact) {
         this.contact = contact;
         return this;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
     public Integer getScore() {
         return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
     public Skill score(Integer score) {
@@ -165,12 +174,12 @@ public class Skill implements Serializable {
         return this;
     }
 
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
     public Double getRateScore() {
         return rateScore;
+    }
+
+    public void setRateScore(Double rateScore) {
+        this.rateScore = rateScore;
     }
 
     public Skill rateScore(Double rateScore) {
@@ -178,12 +187,12 @@ public class Skill implements Serializable {
         return this;
     }
 
-    public void setRateScore(Double rateScore) {
-        this.rateScore = rateScore;
-    }
-
     public Integer getRateCount() {
         return rateCount;
+    }
+
+    public void setRateCount(Integer rateCount) {
+        this.rateCount = rateCount;
     }
 
     public Skill rateCount(Integer rateCount) {
@@ -191,12 +200,12 @@ public class Skill implements Serializable {
         return this;
     }
 
-    public void setRateCount(Integer rateCount) {
-        this.rateCount = rateCount;
-    }
-
     public Set<TeamSkill> getTeams() {
         return teams;
+    }
+
+    public void setTeams(Set<TeamSkill> teamSkills) {
+        this.teams = teamSkills;
     }
 
     public Skill teams(Set<TeamSkill> teamSkills) {
@@ -216,12 +225,12 @@ public class Skill implements Serializable {
         return this;
     }
 
-    public void setTeams(Set<TeamSkill> teamSkills) {
-        this.teams = teamSkills;
-    }
-
     public Set<BadgeSkill> getBadges() {
         return badges;
+    }
+
+    public void setBadges(Set<BadgeSkill> badgeSkills) {
+        this.badges = badgeSkills;
     }
 
     public Skill badges(Set<BadgeSkill> badgeSkills) {
@@ -241,12 +250,12 @@ public class Skill implements Serializable {
         return this;
     }
 
-    public void setBadges(Set<BadgeSkill> badgeSkills) {
-        this.badges = badgeSkills;
-    }
-
     public Set<LevelSkill> getLevels() {
         return levels;
+    }
+
+    public void setLevels(Set<LevelSkill> levelSkills) {
+        this.levels = levelSkills;
     }
 
     public Skill levels(Set<LevelSkill> levelSkills) {
@@ -264,10 +273,6 @@ public class Skill implements Serializable {
         this.levels.remove(levelSkill);
         levelSkill.setSkill(null);
         return this;
-    }
-
-    public void setLevels(Set<LevelSkill> levelSkills) {
-        this.levels = levelSkills;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

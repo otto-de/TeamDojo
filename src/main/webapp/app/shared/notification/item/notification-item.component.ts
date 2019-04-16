@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { INotification } from 'app/shared/notification/model/notification.model';
 import { IBadge } from 'app/shared/model/badge.model';
 import { ITeam } from 'app/shared/model/team.model';
@@ -8,7 +8,7 @@ import { ITeam } from 'app/shared/model/team.model';
     templateUrl: './notification-item.component.html',
     styleUrls: ['./notification-item.scss']
 })
-export class NotificationItemComponent implements OnInit {
+export class NotificationItemComponent implements OnChanges {
     @Input() notification: INotification;
     @Input() teams: ITeam[];
     @Input() badges: IBadge[];
@@ -17,7 +17,7 @@ export class NotificationItemComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit(): void {
+    ngOnChanges(): void {
         this.item = {};
         const type = this.notification.activity.type;
         if (type.toString() === 'BADGE_CREATED') {

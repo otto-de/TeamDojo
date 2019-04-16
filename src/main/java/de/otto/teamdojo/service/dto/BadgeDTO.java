@@ -1,11 +1,11 @@
 package de.otto.teamdojo.service.dto;
 
-import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A DTO for the Badge entity.

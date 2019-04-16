@@ -1,7 +1,6 @@
-
 {
     "teamdojoApp": {
-        "levelSkill" : {
+        "levelSkill": {
             "home": {
                 "title": "Level Skills",
                 "createLabel": "Create a new Level Skill",

@@ -46,7 +46,6 @@ public class LevelSkillResourceIntTest {
     private LevelSkillRepository levelSkillRepository;
 
 
-
     @Autowired
     private LevelSkillMapper levelSkillMapper;
 
@@ -73,17 +72,6 @@ public class LevelSkillResourceIntTest {
 
     private LevelSkill levelSkill;
 
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final LevelSkillResource levelSkillResource = new LevelSkillResource(levelSkillService, levelSkillQueryService);
-        this.restLevelSkillMockMvc = MockMvcBuilders.standaloneSetup(levelSkillResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-    }
-
     /**
      * Create an entity for this test.
      * <p>
@@ -103,6 +91,17 @@ public class LevelSkillResourceIntTest {
         em.flush();
         levelSkill.setLevel(level);
         return levelSkill;
+    }
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        final LevelSkillResource levelSkillResource = new LevelSkillResource(levelSkillService, levelSkillQueryService);
+        this.restLevelSkillMockMvc = MockMvcBuilders.standaloneSetup(levelSkillResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
     }
 
     @Before

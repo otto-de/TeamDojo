@@ -23,18 +23,18 @@ public class BadRequestAlertException extends AbstractThrowableProblem {
         this.errorKey = errorKey;
     }
 
+    private static Map<String, Object> getAlertParameters(String entityName, String errorKey) {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("message", "error." + errorKey);
+        parameters.put("params", entityName);
+        return parameters;
+    }
+
     public String getEntityName() {
         return entityName;
     }
 
     public String getErrorKey() {
         return errorKey;
-    }
-
-    private static Map<String, Object> getAlertParameters(String entityName, String errorKey) {
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("message", "error." + errorKey);
-        parameters.put("params", entityName);
-        return parameters;
     }
 }

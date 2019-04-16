@@ -1,43 +1,43 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="level">
-            <h2><span jhiTranslate="teamdojoApp.level.detail.title">Level</span> {{level.id}}</h2>
+            <h2><span tdTranslate="teamdojoApp.level.detail.title">Level</span> {{level.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="teamdojoApp.level.name">Name</span></dt>
+                <dt><span tdTranslate="teamdojoApp.level.name">Name</span></dt>
                 <dd>
                     <span>{{level.name}}</span>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.level.description">Description</span></dt>
+                <dt><span tdTranslate="teamdojoApp.level.description">Description</span></dt>
                 <dd>
                     <span>{{level.description}}</span>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.level.requiredScore">Required Score</span></dt>
+                <dt><span tdTranslate="teamdojoApp.level.requiredScore">Required Score</span></dt>
                 <dd>
                     <span>{{level.requiredScore}}</span>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.level.instantMultiplier">Instant Multiplier</span></dt>
+                <dt><span tdTranslate="teamdojoApp.level.instantMultiplier">Instant Multiplier</span></dt>
                 <dd>
                     <span>{{level.instantMultiplier}}</span>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.level.completionBonus">Completion Bonus</span></dt>
+                <dt><span tdTranslate="teamdojoApp.level.completionBonus">Completion Bonus</span></dt>
                 <dd>
                     <span>{{level.completionBonus}}</span>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.level.dimension">Dimension</span></dt>
+                <dt><span tdTranslate="teamdojoApp.level.dimension">Dimension</span></dt>
                 <dd>
                     <div *ngIf="level.dimensionId">
                         <a [routerLink]="['/dimension', level.dimensionId, 'view']">{{level.dimensionName}}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.level.dependsOn">Depends On</span></dt>
+                <dt><span tdTranslate="teamdojoApp.level.dependsOn">Depends On</span></dt>
                 <dd>
                     <div *ngIf="level.dependsOnId">
                         <a [routerLink]="['/level', level.dependsOnId, 'view']">{{level.dependsOnName}}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.level.image">Image</span></dt>
+                <dt><span tdTranslate="teamdojoApp.level.image">Image</span></dt>
                 <dd>
                     <div *ngIf="level.imageId">
                         <a [routerLink]="['/image', level.imageId, 'view']">{{level.imageName}}</a>
@@ -48,13 +48,13 @@
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
-                <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                <span class="fa fa-arrow-left"></span>&nbsp;<span tdTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/level', level.id, 'edit']"
                     class="btn btn-primary">
-                <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                <span class="fa fa-pencil"></span>&nbsp;<span tdTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>
     </div>

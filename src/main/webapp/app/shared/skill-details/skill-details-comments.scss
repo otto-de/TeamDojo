@@ -23,7 +23,7 @@
         }
         .new-comment {
             padding: 10px;
-            border-top: 1px solid #ccc;
+            border-top: 2px solid #ccc;
 
             .send-btn {
                 height: 100%;
@@ -59,12 +59,12 @@
                 border: 12px solid transparent;
                 border-bottom-color: #e9deb9;
             }
-            &~ .message {
+            & ~ .message {
                 margin-top: 0.5rem;
             }
         }
 
-        .message-received  {
+        .message-received {
             flex-direction: row;
 
             .speech-bubble {
@@ -78,7 +78,7 @@
             }
         }
 
-        .message-sent  {
+        .message-sent {
             flex-direction: row-reverse;
 
             .speech-bubble {
@@ -93,7 +93,7 @@
             }
         }
 
-        /deep/ .simplebar-scroll-content {
+        ::ng-deep .simplebar-scroll-content {
             padding-right: 2.1em !important;
             .simplebar-content {
                 margin-right: -0.7em !important;
