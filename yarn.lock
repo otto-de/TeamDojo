@@ -2418,7 +2418,7 @@ copy-webpack-plugin@4.6.0:
     p-limit "^1.0.0"
     serialize-javascript "^1.4.0"
 
-core-js@2.6.5, core-js@^2.6.2:
+core-js@2.6.5:
   version "2.6.5"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.5.tgz#44bc8d249e7fb2ff5d00e0341a7ffb94fbf67895"
   integrity sha512-klh/kDpwX8hryYL14M9w/xei6vrv6sE8gTHDG7/T/+SEovB/G4ejwcfE/CBzO6Edsu+OETZMZ3wcX/EjUkrl5A==
@@ -2430,6 +2430,11 @@ core-js@^1.0.0:
 core-js@^2.4.0:
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.5.tgz#b14dde936c640c0579a6b50cabcc132dd6127e3b"
+
+core-js@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.0.1.tgz#1343182634298f7f38622f95e73f54e48ddf4738"
+  integrity sha512-sco40rF+2KlE0ROMvydjkrVMMG1vYilP2ALoRXcYR4obqbYIuV3Bg+51GEDW+HF8n7NRA+iaA4qD0nD9lo9mew==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -8990,7 +8995,7 @@ requires-port@1.x.x, requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
 
-resize-observer-polyfill@^1.5.0:
+resize-observer-polyfill@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
   integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
@@ -9461,17 +9466,17 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
-simplebar@3.1.5:
-  version "3.1.5"
-  resolved "https://registry.yarnpkg.com/simplebar/-/simplebar-3.1.5.tgz#257f2d0836baa250cd2a8841892a10c3c3081b17"
-  integrity sha512-6hPEvcUEbgRWAyldqdd5yd1OcrnxelopEOKwMwOafLc0/Kc3Um2x1US8t+feUAA5ae+lTbrQwcGJvMH+9A23FA==
+simplebar@4.0.0-alpha.6:
+  version "4.0.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/simplebar/-/simplebar-4.0.0-alpha.6.tgz#69b2822486b8950f2d7121773d0c52361b3a3b30"
+  integrity sha512-OWU0lrx1hI/o7WddOz1TNlvQQiNMTv6I6p06HQwC1NjYORxutNOWM56Z/au9tVAz551x+IZn6UAuQGjkCgDnNQ==
   dependencies:
     can-use-dom "^0.1.0"
-    core-js "^2.6.2"
+    core-js "^3.0.1"
     lodash.debounce "^4.0.8"
     lodash.memoize "^4.1.2"
     lodash.throttle "^4.1.1"
-    resize-observer-polyfill "^1.5.0"
+    resize-observer-polyfill "^1.5.1"
     scrollbarwidth "^0.1.3"
 
 sisteransi@^1.0.0:
