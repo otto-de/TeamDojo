@@ -15,12 +15,6 @@ h4 {
     font-weight: 400;
 }
 
-*,
-*::before,
-*::after {
-    box-sizing: content-box;
-}
-
 a {
     color: $dojo-text-primary;
     font-weight: bold;

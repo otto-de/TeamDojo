@@ -20,6 +20,7 @@
         .comments {
             height: calc(100% - 60px);
             padding: 10px;
+            overflow: hidden;
         }
         .new-comment {
             padding: 10px;
