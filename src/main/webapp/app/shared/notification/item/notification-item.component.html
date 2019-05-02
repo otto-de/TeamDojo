@@ -10,7 +10,7 @@
                                       [active]="false"
                                       (onItemSelected)="true"></jhi-achievement-item>
                 <div class="notification-body-text" tdTranslate="teamdojoApp.notification.body.text.badgeCreated"
-                     translateValues="{'badgeName':'{{notification.data.badgeName}}' }"></div>
+                     translateValues="{'badgeName':'{{this.sanitize(notification.data.badgeName)}}' }"></div>
             </ng-container>
             <ng-container *ngSwitchCase="'SKILL_COMPLETED'">
                 <i class="notification-body-icon fa fa-check fa-2x"></i>
