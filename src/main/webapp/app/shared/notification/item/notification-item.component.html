@@ -16,7 +16,7 @@
                 <i class="notification-body-icon fa fa-check fa-2x"></i>
                 <jhi-team-image class="notification-body-team-image" [team]="item" imageSize="small"></jhi-team-image>
                 <div class="notification-body-text" tdTranslate="teamdojoApp.notification.body.text.skillCompleted" 
-                translateValues="{'skillTitle':'{{notification.data.skillTitle}}'}"></div>
+                translateValues="{'skillTitle':'{{this.sanitize(notification.data.skillTitle)}}'}"></div>
             </ng-container>
         </div>
     </div>

@@ -28,4 +28,19 @@ export class NotificationItemComponent implements OnChanges {
             this.item = this.teams.find((t: ITeam) => t.id === teamId);
         }
     }
+
+    private sanitize(value: any): any {
+        // ngxTranslate has a bug that prevents some special charaters to be
+        // inside the string that you want to substitute.
+        // This is why we are substituting these characters with same looking
+        // UTF-8 characters.
+        // Link: https://github.com/ngx-translate/core/issues/569#
+        if (value !== null && typeof value !== 'undefined' && value !== 'undefined') {
+            return value
+                .replace(/\"/g, '″')
+                .replace(/:/g, '᛬')
+                .replace(/'/g, '′');
+        }
+        return null;
+    }
 }
