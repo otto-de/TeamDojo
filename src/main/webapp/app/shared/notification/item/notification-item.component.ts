@@ -29,7 +29,7 @@ export class NotificationItemComponent implements OnChanges {
         }
     }
 
-    private sanitize(value: any): any {
+    sanitize(value: any): any {
         // ngxTranslate has a bug that prevents some special charaters to be
         // inside the string that you want to substitute.
         // This is why we are substituting these characters with same looking
