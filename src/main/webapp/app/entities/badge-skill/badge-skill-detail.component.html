@@ -1,17 +1,17 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="badgeSkill">
-            <h2><span jhiTranslate="teamdojoApp.badgeSkill.detail.title">Badge Skill</span> {{badgeSkill.id}}</h2>
+            <h2><span tdTranslate="teamdojoApp.badgeSkill.detail.title">Badge Skill</span> {{badgeSkill.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="teamdojoApp.badgeSkill.badge">Badge</span></dt>
+                <dt><span tdTranslate="teamdojoApp.badgeSkill.badge">Badge</span></dt>
                 <dd>
                     <div *ngIf="badgeSkill.badgeId">
                         <a [routerLink]="['/badge', badgeSkill.badgeId, 'view']">{{badgeSkill.badgeName}}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.badgeSkill.skill">Skill</span></dt>
+                <dt><span tdTranslate="teamdojoApp.badgeSkill.skill">Skill</span></dt>
                 <dd>
                     <div *ngIf="badgeSkill.skillId">
                         <a [routerLink]="['/skill', badgeSkill.skillId, 'view']">{{badgeSkill.skillTitle}}</a>
@@ -22,13 +22,13 @@
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
-                <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                <span class="fa fa-arrow-left"></span>&nbsp;<span tdTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/badge-skill', badgeSkill.id, 'edit']"
                     class="btn btn-primary">
-                <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                <span class="fa fa-pencil"></span>&nbsp;<span tdTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>
     </div>

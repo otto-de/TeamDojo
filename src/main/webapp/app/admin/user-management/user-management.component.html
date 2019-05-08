@@ -1,8 +1,8 @@
 <div>
     <h2>
-        <span jhiTranslate="userManagement.home.title">Users</span>
+        <span tdTranslate="userManagement.home.title">Users</span>
         <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['../user-management/new']">
-            <span class="fa fa-plus"></span> <span jhiTranslate="userManagement.home.createLabel">Create a new User</span>
+            <span class="fa fa-plus"></span> <span tdTranslate="userManagement.home.createLabel">Create a new User</span>
         </button>
     </h2>
     <jhi-alert></jhi-alert>
@@ -10,15 +10,15 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="login"><span jhiTranslate="userManagement.login">Login</span> <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="email"><span jhiTranslate="userManagement.email">Email</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="id"><span tdTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="login"><span tdTranslate="userManagement.login">Login</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="email"><span tdTranslate="userManagement.email">Email</span> <span class="fa fa-sort"></span></th>
                 <th></th>
-                <th jhiSortBy="langKey"> <span jhiTranslate="userManagement.langKey">Lang Key</span> <span class="fa fa-sort"></span></th>
-                <th><span jhiTranslate="userManagement.profiles">Profiles</span></th>
-                <th jhiSortBy="createdDate"><span jhiTranslate="userManagement.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="lastModifiedBy"><span jhiTranslate="userManagement.lastModifiedBy">Last Modified By</span> <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="lastModifiedDate"><span jhiTranslate="userManagement.lastModifiedDate">Last Modified Date</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="langKey"> <span tdTranslate="userManagement.langKey">Lang Key</span> <span class="fa fa-sort"></span></th>
+                <th><span tdTranslate="userManagement.profiles">Profiles</span></th>
+                <th jhiSortBy="createdDate"><span tdTranslate="userManagement.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="lastModifiedBy"><span tdTranslate="userManagement.lastModifiedBy">Last Modified By</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="lastModifiedDate"><span tdTranslate="userManagement.lastModifiedDate">Last Modified Date</span> <span class="fa fa-sort"></span></th>
                 <th></th>
             </tr>
             </thead>
@@ -29,9 +29,9 @@
                 <td>{{user.email}}</td>
                 <td>
                     <button class="btn btn-danger btn-sm" (click)="setActive(user, true)" *ngIf="!user.activated"
-                            jhiTranslate="userManagement.deactivated">Deactivated</button>
+                            tdTranslate="userManagement.deactivated">Deactivated</button>
                     <button class="btn btn-success btn-sm" (click)="setActive(user, false)" *ngIf="user.activated"
-                            [disabled]="currentAccount.login === user.login" jhiTranslate="userManagement.activated">Activated</button>
+                            [disabled]="currentAccount.login === user.login" tdTranslate="userManagement.activated">Activated</button>
                 </td>
                 <td>{{user.langKey}}</td>
                 <td>
@@ -48,14 +48,14 @@
                                 [routerLink]="['../user-management', user.login, 'view']"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            <span class="d-none d-md-inline" tdTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['../user-management', user.login, 'edit']"
                                 queryParamsHandling="merge"
                                 class="btn btn-primary btn-sm">
                             <span class="fa fa-pencil"></span>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            <span class="d-none d-md-inline" tdTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'user-management/'+ user.login + '/delete'} }]"
@@ -63,7 +63,7 @@
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm" [disabled]="currentAccount.login === user.login">
                             <span class="fa fa-remove"></span>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            <span class="d-none d-md-inline" tdTranslate="entity.action.delete">Delete</span>
                         </button>
                     </div>
                 </td>

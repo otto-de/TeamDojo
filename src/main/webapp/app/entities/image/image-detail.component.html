@@ -1,15 +1,15 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="image">
-            <h2><span jhiTranslate="teamdojoApp.image.detail.title">Image</span> {{image.id}}</h2>
+            <h2><span tdTranslate="teamdojoApp.image.detail.title">Image</span> {{image.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="teamdojoApp.image.name">Name</span></dt>
+                <dt><span tdTranslate="teamdojoApp.image.name">Name</span></dt>
                 <dd>
                     <span>{{image.name}}</span>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.image.small">Small</span></dt>
+                <dt><span tdTranslate="teamdojoApp.image.small">Small</span></dt>
                 <dd>
                     <div *ngIf="image.small">
                         <a (click)="openFile(image.smallContentType, image.small)">
@@ -18,7 +18,7 @@
                         {{image.smallContentType}}, {{byteSize(image.small)}}
                     </div>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.image.medium">Medium</span></dt>
+                <dt><span tdTranslate="teamdojoApp.image.medium">Medium</span></dt>
                 <dd>
                     <div *ngIf="image.medium">
                         <a (click)="openFile(image.mediumContentType, image.medium)">
@@ -27,7 +27,7 @@
                         {{image.mediumContentType}}, {{byteSize(image.medium)}}
                     </div>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.image.large">Large</span></dt>
+                <dt><span tdTranslate="teamdojoApp.image.large">Large</span></dt>
                 <dd>
                     <div *ngIf="image.large">
                         <a (click)="openFile(image.largeContentType, image.large)">
@@ -41,13 +41,13 @@
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
-                <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                <span class="fa fa-arrow-left"></span>&nbsp;<span tdTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/image', image.id, 'edit']"
                     class="btn btn-primary">
-                <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                <span class="fa fa-pencil"></span>&nbsp;<span tdTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>
     </div>

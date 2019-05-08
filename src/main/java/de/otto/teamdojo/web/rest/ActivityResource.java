@@ -1,6 +1,6 @@
 package de.otto.teamdojo.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
+
 import de.otto.teamdojo.service.ActivityQueryService;
 import de.otto.teamdojo.service.ActivityService;
 import de.otto.teamdojo.service.dto.ActivityCriteria;
@@ -31,10 +31,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class ActivityResource {
 
-    private final Logger log = LoggerFactory.getLogger(ActivityResource.class);
-
     private static final String ENTITY_NAME = "activity";
-
+    private final Logger log = LoggerFactory.getLogger(ActivityResource.class);
     private final ActivityService activityService;
 
     private final ActivityQueryService activityQueryService;
@@ -52,7 +50,6 @@ public class ActivityResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/activities")
-    @Timed
     public ResponseEntity<ActivityDTO> createActivity(@Valid @RequestBody ActivityDTO activityDTO) throws URISyntaxException {
         log.debug("REST request to save Activity : {}", activityDTO);
         if (activityDTO.getId() != null) {
@@ -74,7 +71,6 @@ public class ActivityResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/activities")
-    @Timed
     public ResponseEntity<ActivityDTO> updateActivity(@Valid @RequestBody ActivityDTO activityDTO) throws URISyntaxException {
         log.debug("REST request to update Activity : {}", activityDTO);
         if (activityDTO.getId() == null) {
@@ -94,7 +90,6 @@ public class ActivityResource {
      * @return the ResponseEntity with status 200 (OK) and the list of activities in body
      */
     @GetMapping("/activities")
-    @Timed
     public ResponseEntity<List<ActivityDTO>> getAllActivities(ActivityCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Activities by criteria: {}", criteria);
         Page<ActivityDTO> page = activityQueryService.findByCriteria(criteria, pageable);
@@ -109,7 +104,6 @@ public class ActivityResource {
      * @return the ResponseEntity with status 200 (OK) and with body the activityDTO, or with status 404 (Not Found)
      */
     @GetMapping("/activities/{id}")
-    @Timed
     public ResponseEntity<ActivityDTO> getActivity(@PathVariable Long id) {
         log.debug("REST request to get Activity : {}", id);
         Optional<ActivityDTO> activityDTO = activityService.findOne(id);
@@ -123,7 +117,6 @@ public class ActivityResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/activities/{id}")
-    @Timed
     public ResponseEntity<Void> deleteActivity(@PathVariable Long id) {
         log.debug("REST request to delete Activity : {}", id);
         activityService.delete(id);

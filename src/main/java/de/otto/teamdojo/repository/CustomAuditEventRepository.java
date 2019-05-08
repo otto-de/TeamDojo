@@ -22,13 +22,11 @@ import java.util.Map;
 @Repository
 public class CustomAuditEventRepository implements AuditEventRepository {
 
-    private static final String AUTHORIZATION_FAILURE = "AUTHORIZATION_FAILURE";
-
     /**
      * Should be the same as in Liquibase migration.
      */
     protected static final int EVENT_DATA_COLUMN_MAX_LENGTH = 255;
-
+    private static final String AUTHORIZATION_FAILURE = "AUTHORIZATION_FAILURE";
     private final PersistenceAuditEventRepository persistenceAuditEventRepository;
 
     private final AuditEventConverter auditEventConverter;

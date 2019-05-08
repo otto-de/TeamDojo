@@ -60,11 +60,11 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
                 this.activeLevel = null;
                 this.activeBadge = null;
                 if (params.get('level')) {
-                    this.activeLevel = (this.levels || []).find((level: ILevel) => level.id === Number.parseInt(params.get('level')));
+                    this.activeLevel = (this.levels || []).find((level: ILevel) => level.id === Number.parseInt(params.get('level'), 10));
                     this.activeSkills = this.activeLevel ? this.activeLevel.skills : [];
                     this.updateBreadcrumb();
                 } else if (params.get('badge')) {
-                    this.activeBadge = (this.badges || []).find((badge: IBadge) => badge.id === Number.parseInt(params.get('badge')));
+                    this.activeBadge = (this.badges || []).find((badge: IBadge) => badge.id === Number.parseInt(params.get('badge'), 10));
                     this.activeSkills = this.activeBadge ? this.activeBadge.skills : [];
                     this.updateBreadcrumb();
                 } else {

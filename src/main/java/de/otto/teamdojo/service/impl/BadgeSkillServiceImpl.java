@@ -86,7 +86,7 @@ public class BadgeSkillServiceImpl implements BadgeSkillService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<BadgeSkillDTO> findBySkillIdIn(List<Long> skillIds, Pageable pageable){
+    public List<BadgeSkillDTO> findBySkillIdIn(List<Long> skillIds, Pageable pageable) {
         log.debug("Request to get BadgeSkill by skill Ids: {}", skillIds);
 
         return badgeSkillRepository.findBySkillIdIn(skillIds, pageable)

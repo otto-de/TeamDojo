@@ -56,17 +56,21 @@ public class Comment implements Serializable {
         return text;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public Comment text(String text) {
         this.text = text;
         return this;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public Instant getCreationDate() {
         return creationDate;
+    }
+
+    public void setCreationDate(Instant creationDate) {
+        this.creationDate = creationDate;
     }
 
     public Comment creationDate(Instant creationDate) {
@@ -74,12 +78,12 @@ public class Comment implements Serializable {
         return this;
     }
 
-    public void setCreationDate(Instant creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public Team getTeam() {
         return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public Comment team(Team team) {
@@ -87,21 +91,17 @@ public class Comment implements Serializable {
         return this;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
     public Skill getSkill() {
         return skill;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
     }
 
     public Comment skill(Skill skill) {
         this.skill = skill;
         return this;
-    }
-
-    public void setSkill(Skill skill) {
-        this.skill = skill;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

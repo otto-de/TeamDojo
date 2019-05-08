@@ -71,7 +71,7 @@ public class BadgeServiceImpl implements BadgeService {
             .map(badgeMapper::toDto);
     }
 
-    public Page<BadgeDTO> findByIdIn(List<Long> badgeIds, Pageable pageable){
+    public Page<BadgeDTO> findByIdIn(List<Long> badgeIds, Pageable pageable) {
         log.debug("Request to get Badges by Badge Ids: {}", badgeIds);
         return badgeRepository.findByIdIn(badgeIds, pageable)
             .map(badgeMapper::toDto);

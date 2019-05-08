@@ -1,9 +1,9 @@
 package de.otto.teamdojo.service.dto;
 
-import javax.validation.constraints.*;
+import javax.persistence.Lob;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Lob;
 
 /**
  * A DTO for the Image entity.

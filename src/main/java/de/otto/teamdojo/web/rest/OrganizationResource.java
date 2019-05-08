@@ -1,10 +1,10 @@
 package de.otto.teamdojo.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
+
 import de.otto.teamdojo.service.OrganizationService;
+import de.otto.teamdojo.service.dto.OrganizationDTO;
 import de.otto.teamdojo.web.rest.errors.BadRequestAlertException;
 import de.otto.teamdojo.web.rest.util.HeaderUtil;
-import de.otto.teamdojo.service.dto.OrganizationDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -25,10 +24,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class OrganizationResource {
 
-    private final Logger log = LoggerFactory.getLogger(OrganizationResource.class);
-
     private static final String ENTITY_NAME = "organization";
-
+    private final Logger log = LoggerFactory.getLogger(OrganizationResource.class);
     private final OrganizationService organizationService;
 
     public OrganizationResource(OrganizationService organizationService) {
@@ -43,7 +40,6 @@ public class OrganizationResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/organizations")
-    @Timed
     public ResponseEntity<OrganizationDTO> createOrganization(@Valid @RequestBody OrganizationDTO organizationDTO) throws URISyntaxException {
         log.debug("REST request to save Organization : {}", organizationDTO);
         if (organizationDTO.getId() != null) {
@@ -65,7 +61,6 @@ public class OrganizationResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/organizations")
-    @Timed
     public ResponseEntity<OrganizationDTO> updateOrganization(@Valid @RequestBody OrganizationDTO organizationDTO) throws URISyntaxException {
         log.debug("REST request to update Organization : {}", organizationDTO);
         if (organizationDTO.getId() == null) {
@@ -83,7 +78,6 @@ public class OrganizationResource {
      * @return the ResponseEntity with status 200 (OK) and the list of organizations in body
      */
     @GetMapping("/organizations")
-    @Timed
     public List<OrganizationDTO> getAllOrganizations() {
         log.debug("REST request to get all Organizations");
         return organizationService.findAll();
@@ -96,7 +90,6 @@ public class OrganizationResource {
      * @return the ResponseEntity with status 200 (OK) and with body the organizationDTO, or with status 404 (Not Found)
      */
     @GetMapping("/organizations/{id}")
-    @Timed
     public ResponseEntity<OrganizationDTO> getOrganization(@PathVariable Long id) {
         log.debug("REST request to get Organization : {}", id);
         Optional<OrganizationDTO> organizationDTO = organizationService.findOne(id);
@@ -110,7 +103,6 @@ public class OrganizationResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/organizations/{id}")
-    @Timed
     public ResponseEntity<Void> deleteOrganization(@PathVariable Long id) {
         log.debug("REST request to delete Organization : {}", id);
         organizationService.delete(id);

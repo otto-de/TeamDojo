@@ -24,12 +24,13 @@ export class AchievementItemComponent {
     }
 
     get progressWidth() {
-        return this.progress * (100 - this.irrelevancePercentage) / 100.0;
+        return (this.progress * (100 - this.irrelevancePercentage)) / 100.0;
     }
 
     get itemStatusCssClass() {
         let itemStatus;
-        const requiredScore = this.item.requiredScore * 100;
+        let requiredScore = this.item.requiredScore * 100;
+
         if (this.progress >= requiredScore && this.completable) {
             itemStatus = 'complete';
         } else if (this.progress > 0) {

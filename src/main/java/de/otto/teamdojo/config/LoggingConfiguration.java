@@ -30,14 +30,10 @@ public class LoggingConfiguration {
     private static final String ASYNC_LOGSTASH_APPENDER_NAME = "ASYNC_LOGSTASH";
 
     private final Logger log = LoggerFactory.getLogger(LoggingConfiguration.class);
-
-    private LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
-
     private final String appName;
-
     private final String serverPort;
-
     private final JHipsterProperties jHipsterProperties;
+    private LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
 
     public LoggingConfiguration(@Value("${spring.application.name}") String appName, @Value("${server.port}") String serverPort,
                                 JHipsterProperties jHipsterProperties) {

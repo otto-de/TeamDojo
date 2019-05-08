@@ -1,25 +1,25 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="comment">
-            <h2><span jhiTranslate="teamdojoApp.comment.detail.title">Comment</span> {{comment.id}}</h2>
+            <h2><span tdTranslate="teamdojoApp.comment.detail.title">Comment</span> {{comment.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="teamdojoApp.comment.text">Text</span></dt>
+                <dt><span tdTranslate="teamdojoApp.comment.text">Text</span></dt>
                 <dd>
                     <span>{{comment.text}}</span>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.comment.creationDate">Creation Date</span></dt>
+                <dt><span tdTranslate="teamdojoApp.comment.creationDate">Creation Date</span></dt>
                 <dd>
                     <span>{{comment.creationDate}}</span>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.comment.team">Team</span></dt>
+                <dt><span tdTranslate="teamdojoApp.comment.team">Team</span></dt>
                 <dd>
                     <div *ngIf="comment.teamId">
                         <a [routerLink]="['/team', comment.teamId, 'view']">{{comment.teamShortName}}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="teamdojoApp.comment.skill">Skill</span></dt>
+                <dt><span tdTranslate="teamdojoApp.comment.skill">Skill</span></dt>
                 <dd>
                     <div *ngIf="comment.skillId">
                         <a [routerLink]="['/skill', comment.skillId, 'view']">{{comment.skillTitle}}</a>
@@ -30,13 +30,13 @@
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
-                <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                <span class="fa fa-arrow-left"></span>&nbsp;<span tdTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/comment', comment.id, 'edit']"
                     class="btn btn-primary">
-                <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                <span class="fa fa-pencil"></span>&nbsp;<span tdTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>
     </div>

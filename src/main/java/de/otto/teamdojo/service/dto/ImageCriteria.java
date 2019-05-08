@@ -1,17 +1,10 @@
 package de.otto.teamdojo.service.dto;
 
-import java.io.Serializable;
-import io.github.jhipster.service.filter.BooleanFilter;
-import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.FloatFilter;
-import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 
-
-
-
+import java.io.Serializable;
 
 
 /**
@@ -52,8 +45,8 @@ public class ImageCriteria implements Serializable {
     @Override
     public String toString() {
         return "ImageCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (name != null ? "name=" + name + ", " : "") +
+            (id != null ? "id=" + id + ", " : "") +
+            (name != null ? "name=" + name + ", " : "") +
             "}";
     }
 

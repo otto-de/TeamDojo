@@ -1,17 +1,17 @@
 @import '../../../content/scss/_colors.scss';
 @import '~bootstrap/scss/bootstrap';
 @import '../../../content/scss/bootstrap-variables';
-@import "../../../content/scss/mixins";
+@import '../../../content/scss/mixins';
 @import '../../teams/skill-details/skill-details-rating/skill-details-rating';
 
 .overviews-skills {
     height: inherit;
     padding-right: 10px;
     .teams-skills-list {
-        /deep/ .simplebar-track {
+        ::ng-deep .simplebar-track {
             bottom: 0.9em !important;
         }
-        /deep/ .simplebar-scroll-content {
+        ::ng-deep .simplebar-scroll-content {
             padding-right: 1.94em !important;
             .simplebar-content {
                 padding-left: 2px !important;
@@ -69,6 +69,5 @@
             height: calc(100vh - 242px);
             padding-right: 5px;
         }
-
     }
 }

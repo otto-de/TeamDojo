@@ -149,6 +149,6 @@ export class TeamsAchievementsComponent implements OnInit, OnChanges {
     }
 
     private getParamAsNumber(name: string, params: ParamMap): number {
-        return Number.parseInt(params.get(name));
+        return Number.parseInt(params.get(name), 10);
     }
 }

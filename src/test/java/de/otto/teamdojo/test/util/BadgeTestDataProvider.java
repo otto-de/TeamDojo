@@ -11,14 +11,12 @@ import java.util.Set;
 
 public class BadgeTestDataProvider {
 
-    private static String DESCRIPTION = " Description";
     public static String AWS_READY_NAME = "AWS Ready";
-    public static String AWS_READY_DESC = AWS_READY_NAME + DESCRIPTION;
-
     public static String ALWAYS_UP_TO_DATE_NAME = "Always up to date";
-    public static String ALWAYS_UP_TO_DATE_DESC = ALWAYS_UP_TO_DATE_NAME + DESCRIPTION;
-
     public static String BEST_TEAM_NAME = "Always up to date";
+    private static String DESCRIPTION = " Description";
+    public static String AWS_READY_DESC = AWS_READY_NAME + DESCRIPTION;
+    public static String ALWAYS_UP_TO_DATE_DESC = ALWAYS_UP_TO_DATE_NAME + DESCRIPTION;
     public static String BEST_TEAM_DESC = BEST_TEAM_NAME + DESCRIPTION;
 
     public static BadgeBuilder badge(String name) {

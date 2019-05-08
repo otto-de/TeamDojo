@@ -1,6 +1,6 @@
 <ngb-rating [(rate)]="rateScore" max="5" [readonly]="!isActiveTeam()" (click)="open(voteModal)" [starTemplate]="stars">
 </ngb-rating>
-{{rateCount}} <span class="rating-text" jhiTranslate="teamdojoApp.skill.detail.rateCount"></span>
+{{rateCount}} <span class="rating-text" tdTranslate="teamdojoApp.skill.detail.rateCount"></span>
 
 <ng-template #stars let-fill="fill" let-index="index">
     <span class="star" [class.full]="fill === 100">
@@ -10,7 +10,7 @@
 
 <ng-template #voteModal let-c="close" let-d="dismiss">
         <div class="modal-header">
-            <h4 class="modal-title" jhiTranslate="teamdojoApp.skill.detail.modalTitle"></h4>
+            <h4 class="modal-title" tdTranslate="teamdojoApp.skill.detail.modalTitle"></h4>
             <button type="button" class="close" (click)="d('Cross click')">
                 <span>&times;</span>
             </button>
@@ -25,9 +25,9 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal"
-                    jhiTranslate="teamdojoApp.skill.detail.modalClose" (click)="c('close')"></button>
+                    tdTranslate="teamdojoApp.skill.detail.modalClose" (click)="c('close')"></button>
             <button type="button" class="btn btn-default" data-dismiss="modal"
-                    jhiTranslate="teamdojoApp.skill.detail.modalSubmit" id="submitVote" [disabled]="!comment"
+                    tdTranslate="teamdojoApp.skill.detail.modalSubmit" id="submitVote" [disabled]="!comment"
                     (click)="voteSkill()"></button>
         </div>
 </ng-template>

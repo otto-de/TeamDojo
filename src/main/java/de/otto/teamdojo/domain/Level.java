@@ -1,17 +1,15 @@
 package de.otto.teamdojo.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Level.
@@ -81,17 +79,21 @@ public class Level implements Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Level name(String name) {
         this.name = name;
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Level description(String description) {
@@ -99,12 +101,12 @@ public class Level implements Serializable {
         return this;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Double getRequiredScore() {
         return requiredScore;
+    }
+
+    public void setRequiredScore(Double requiredScore) {
+        this.requiredScore = requiredScore;
     }
 
     public Level requiredScore(Double requiredScore) {
@@ -112,12 +114,12 @@ public class Level implements Serializable {
         return this;
     }
 
-    public void setRequiredScore(Double requiredScore) {
-        this.requiredScore = requiredScore;
-    }
-
     public Double getInstantMultiplier() {
         return instantMultiplier;
+    }
+
+    public void setInstantMultiplier(Double instantMultiplier) {
+        this.instantMultiplier = instantMultiplier;
     }
 
     public Level instantMultiplier(Double instantMultiplier) {
@@ -125,12 +127,12 @@ public class Level implements Serializable {
         return this;
     }
 
-    public void setInstantMultiplier(Double instantMultiplier) {
-        this.instantMultiplier = instantMultiplier;
-    }
-
     public Integer getCompletionBonus() {
         return completionBonus;
+    }
+
+    public void setCompletionBonus(Integer completionBonus) {
+        this.completionBonus = completionBonus;
     }
 
     public Level completionBonus(Integer completionBonus) {
@@ -138,12 +140,12 @@ public class Level implements Serializable {
         return this;
     }
 
-    public void setCompletionBonus(Integer completionBonus) {
-        this.completionBonus = completionBonus;
-    }
-
     public Dimension getDimension() {
         return dimension;
+    }
+
+    public void setDimension(Dimension dimension) {
+        this.dimension = dimension;
     }
 
     public Level dimension(Dimension dimension) {
@@ -151,12 +153,12 @@ public class Level implements Serializable {
         return this;
     }
 
-    public void setDimension(Dimension dimension) {
-        this.dimension = dimension;
-    }
-
     public Level getDependsOn() {
         return dependsOn;
+    }
+
+    public void setDependsOn(Level level) {
+        this.dependsOn = level;
     }
 
     public Level dependsOn(Level level) {
@@ -164,12 +166,12 @@ public class Level implements Serializable {
         return this;
     }
 
-    public void setDependsOn(Level level) {
-        this.dependsOn = level;
-    }
-
     public Set<LevelSkill> getSkills() {
         return skills;
+    }
+
+    public void setSkills(Set<LevelSkill> levelSkills) {
+        this.skills = levelSkills;
     }
 
     public Level skills(Set<LevelSkill> levelSkills) {
@@ -189,21 +191,17 @@ public class Level implements Serializable {
         return this;
     }
 
-    public void setSkills(Set<LevelSkill> levelSkills) {
-        this.skills = levelSkills;
-    }
-
     public Image getImage() {
         return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public Level image(Image image) {
         this.image = image;
         return this;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -1,60 +1,35 @@
 buildscript {
     repositories {
-        jcenter()
+        gradlePluginPortal()
     }
-
     dependencies {
-        classpath 'com.bmuschko:gradle-docker-plugin:3.2.5'
+        classpath "gradle.plugin.com.google.cloud.tools:jib-gradle-plugin:0.9.11"
     }
 }
 
-apply plugin: com.bmuschko.gradle.docker.DockerRemoteApiPlugin
+apply plugin: com.google.cloud.tools.jib.gradle.JibPlugin
 
-import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
-import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
-import com.bmuschko.gradle.docker.tasks.image.DockerTagImage
-
-docker {
-    registryCredentials {
-        username = project.docker_user
-        password = project.docker_password
-        email = project.docker_email
+jib {
+    from {
+        image = 'openjdk:8-jre-alpine'
+    }
+    to {
+        image = 'teamdojo:latest'
+    }
+    container {
+        entrypoint = ['sh', '-c', 'chmod +x /entrypoint.sh && sync && /entrypoint.sh']
+        ports = ['8080']
+        environment = [
+            SPRING_OUTPUT_ANSI_ENABLED: 'ALWAYS',
+            JHIPSTER_SLEEP: '0'
+        ]
+        useCurrentTimestamp = true
     }
 }
 
-task copyDockerFiles(type: Copy) {
-    description = "Copy Dockerfile and required data to build directory"
-    from 'src/main/docker'
-    from "${project.buildDir}/libs"
-    into { "${project.buildDir}/docker" }
-    include "*"
-    exclude "**/*.yml"
-}
-def dockerImageName = project.docker_repository ? project.docker_repository + "/otto/teamdojo" : "otto/teamdojo";
-ext.getDockerImageNameWithTags = {
-    def dockerTags = ["$dockerImageName:${version}".toString()]
-    if (version.toString().contains('SNAPSHOT')) {
-        dockerTags.push("$dockerImageName:next".toString());
-    } else {
-        dockerTags.push("$dockerImageName:latest".toString());
-    }
-    return dockerTags;
-}
-def dockerImageNameWithTags = getDockerImageNameWithTags();
-
-task buildDocker(type: DockerBuildImage, dependsOn: 'copyDockerFiles') {
-    description = "Package application as Docker image"
-    group = "Docker"
-    inputDir = project.file("${project.buildDir}/docker")
-    tags = dockerImageNameWithTags
+task copyWwwIntoStatic (type: Copy) {
+    from 'build/www/'
+    into 'build/resources/main/static'
 }
 
-task pushDockerVersion(type: DockerPushImage, dependsOn: 'buildDocker') {
-    description = "Pushes the image with the concrete version number"
-    imageName = dockerImageNameWithTags[0];
-}
-
-task pushDocker(type: DockerPushImage, dependsOn: 'pushDockerVersion') {
-    description = "Pushes the image with tag 'latest' or 'next'"
-    imageName = dockerImageNameWithTags[1];
-}
+jibDockerBuild.dependsOn copyWwwIntoStatic

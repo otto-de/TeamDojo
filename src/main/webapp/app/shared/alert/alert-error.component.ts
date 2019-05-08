@@ -7,12 +7,13 @@ import { Subscription } from 'rxjs/Subscription';
     selector: 'jhi-alert-error',
     template: `
         <div class="alerts" role="alert">
-            <div *ngFor="let alert of alerts"  [ngClass]="{\'alert.position\': true, \'toast\': alert.toast}">
+            <div *ngFor="let alert of alerts" [ngClass]="{\'alert.position\': true, \'toast\': alert.toast}">
                 <ngb-alert *ngIf="alert && alert.type && alert.msg" [type]="alert.type" (close)="alert.close(alerts)">
                     <pre [innerHTML]="alert.msg"></pre>
                 </ngb-alert>
             </div>
-        </div>`
+        </div>
+    `
 })
 export class JhiAlertErrorComponent implements OnDestroy {
     alerts: any[];

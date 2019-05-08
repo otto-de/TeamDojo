@@ -4,8 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -62,17 +61,21 @@ public class Image implements Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Image name(String name) {
         this.name = name;
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public byte[] getSmall() {
         return small;
+    }
+
+    public void setSmall(byte[] small) {
+        this.small = small;
     }
 
     public Image small(byte[] small) {
@@ -80,12 +83,12 @@ public class Image implements Serializable {
         return this;
     }
 
-    public void setSmall(byte[] small) {
-        this.small = small;
-    }
-
     public String getSmallContentType() {
         return smallContentType;
+    }
+
+    public void setSmallContentType(String smallContentType) {
+        this.smallContentType = smallContentType;
     }
 
     public Image smallContentType(String smallContentType) {
@@ -93,12 +96,12 @@ public class Image implements Serializable {
         return this;
     }
 
-    public void setSmallContentType(String smallContentType) {
-        this.smallContentType = smallContentType;
-    }
-
     public byte[] getMedium() {
         return medium;
+    }
+
+    public void setMedium(byte[] medium) {
+        this.medium = medium;
     }
 
     public Image medium(byte[] medium) {
@@ -106,12 +109,12 @@ public class Image implements Serializable {
         return this;
     }
 
-    public void setMedium(byte[] medium) {
-        this.medium = medium;
-    }
-
     public String getMediumContentType() {
         return mediumContentType;
+    }
+
+    public void setMediumContentType(String mediumContentType) {
+        this.mediumContentType = mediumContentType;
     }
 
     public Image mediumContentType(String mediumContentType) {
@@ -119,12 +122,12 @@ public class Image implements Serializable {
         return this;
     }
 
-    public void setMediumContentType(String mediumContentType) {
-        this.mediumContentType = mediumContentType;
-    }
-
     public byte[] getLarge() {
         return large;
+    }
+
+    public void setLarge(byte[] large) {
+        this.large = large;
     }
 
     public Image large(byte[] large) {
@@ -132,21 +135,17 @@ public class Image implements Serializable {
         return this;
     }
 
-    public void setLarge(byte[] large) {
-        this.large = large;
-    }
-
     public String getLargeContentType() {
         return largeContentType;
+    }
+
+    public void setLargeContentType(String largeContentType) {
+        this.largeContentType = largeContentType;
     }
 
     public Image largeContentType(String largeContentType) {
         this.largeContentType = largeContentType;
         return this;
-    }
-
-    public void setLargeContentType(String largeContentType) {
-        this.largeContentType = largeContentType;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

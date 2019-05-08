@@ -1,22 +1,18 @@
 package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
-
 import de.otto.teamdojo.domain.Comment;
-import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.domain.Skill;
+import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.repository.CommentRepository;
+import de.otto.teamdojo.service.CommentQueryService;
 import de.otto.teamdojo.service.CommentService;
 import de.otto.teamdojo.service.dto.CommentDTO;
 import de.otto.teamdojo.service.mapper.CommentMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
-import de.otto.teamdojo.service.dto.CommentCriteria;
-import de.otto.teamdojo.service.CommentQueryService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,7 +28,6 @@ import javax.persistence.EntityManager;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.ArrayList;
 
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -59,10 +54,9 @@ public class CommentResourceIntTest {
     private CommentRepository commentRepository;
 
 
-
     @Autowired
     private CommentMapper commentMapper;
-    
+
 
     @Autowired
     private CommentService commentService;
@@ -86,20 +80,9 @@ public class CommentResourceIntTest {
 
     private Comment comment;
 
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final CommentResource commentResource = new CommentResource(commentService, commentQueryService);
-        this.restCommentMockMvc = MockMvcBuilders.standaloneSetup(commentResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-    }
-
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -118,6 +101,17 @@ public class CommentResourceIntTest {
         em.flush();
         comment.setSkill(skill);
         return comment;
+    }
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        final CommentResource commentResource = new CommentResource(commentService, commentQueryService);
+        this.restCommentMockMvc = MockMvcBuilders.standaloneSetup(commentResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
     }
 
     @Before
@@ -217,7 +211,7 @@ public class CommentResourceIntTest {
             .andExpect(jsonPath("$.[*].text").value(hasItem(DEFAULT_TEXT.toString())))
             .andExpect(jsonPath("$.[*].creationDate").value(hasItem(DEFAULT_CREATION_DATE.toString())));
     }
-    
+
 
     @Test
     @Transactional

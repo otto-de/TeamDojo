@@ -9,8 +9,6 @@ import io.github.jhipster.service.filter.StringFilter;
 import java.io.Serializable;
 
 
-
-
 /**
  * Criteria class for the Activity entity. This class is used in ActivityResource to
  * receive all the possible filtering options from the Http GET request parameters.
@@ -20,21 +18,10 @@ import java.io.Serializable;
  * fix type specific filters.
  */
 public class ActivityCriteria implements Serializable {
-    /**
-     * Class for filtering ActivityType
-     */
-    public static class ActivityTypeFilter extends Filter<ActivityType> {
-    }
-
     private static final long serialVersionUID = 1L;
-
-
     private LongFilter id;
-
     private ActivityTypeFilter type;
-
     private StringFilter data;
-
     private InstantFilter createdAt;
 
     public ActivityCriteria() {
@@ -75,11 +62,17 @@ public class ActivityCriteria implements Serializable {
     @Override
     public String toString() {
         return "ActivityCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (type != null ? "type=" + type + ", " : "") +
-                (data != null ? "data=" + data + ", " : "") +
-                (createdAt != null ? "createdAt=" + createdAt + ", " : "") +
+            (id != null ? "id=" + id + ", " : "") +
+            (type != null ? "type=" + type + ", " : "") +
+            (data != null ? "data=" + data + ", " : "") +
+            (createdAt != null ? "createdAt=" + createdAt + ", " : "") +
             "}";
+    }
+
+    /**
+     * Class for filtering ActivityType
+     */
+    public static class ActivityTypeFilter extends Filter<ActivityType> {
     }
 
 }

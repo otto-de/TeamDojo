@@ -1,5 +1,6 @@
 package de.otto.teamdojo.web.rest;
 
+import de.otto.teamdojo.config.ApplicationProperties;
 import de.otto.teamdojo.config.DefaultProfileUtil;
 import de.otto.teamdojo.service.OrganizationService;
 import de.otto.teamdojo.service.dto.OrganizationDTO;
@@ -31,11 +32,13 @@ public class ProfileInfoResource {
 
     private final OrganizationService organizationService;
 
-    public ProfileInfoResource(Environment env, JHipsterProperties jHipsterProperties, OrganizationService organizationService) {
+    private final ApplicationProperties applicationProperties;
+
+    public ProfileInfoResource(Environment env, JHipsterProperties jHipsterProperties, OrganizationService organizationService, ApplicationProperties applicationProperties) {
         this.env = env;
         this.jHipsterProperties = jHipsterProperties;
         this.organizationService = organizationService;
-
+        this.applicationProperties = applicationProperties;
     }
 
     @GetMapping("/profile-info")
@@ -46,7 +49,7 @@ public class ProfileInfoResource {
     }
 
     private String getRibbonEnv(String[] activeProfiles) {
-        String[] displayOnActiveProfiles = jHipsterProperties.getRibbon().getDisplayOnActiveProfiles();
+        String[] displayOnActiveProfiles = applicationProperties.getDisplayOnActiveProfiles();
         if (displayOnActiveProfiles == null) {
             return null;
         }

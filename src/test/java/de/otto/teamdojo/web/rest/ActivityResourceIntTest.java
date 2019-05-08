@@ -33,6 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 /**
  * Test class for the ActivityResource REST controller.
  *
@@ -53,7 +54,6 @@ public class ActivityResourceIntTest {
 
     @Autowired
     private ActivityRepository activityRepository;
-
 
 
     @Autowired
@@ -82,20 +82,9 @@ public class ActivityResourceIntTest {
 
     private Activity activity;
 
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final ActivityResource activityResource = new ActivityResource(activityService, activityQueryService);
-        this.restActivityMockMvc = MockMvcBuilders.standaloneSetup(activityResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-    }
-
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -105,6 +94,17 @@ public class ActivityResourceIntTest {
             .data(DEFAULT_DATA)
             .createdAt(DEFAULT_CREATED_AT);
         return activity;
+    }
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        final ActivityResource activityResource = new ActivityResource(activityService, activityQueryService);
+        this.restActivityMockMvc = MockMvcBuilders.standaloneSetup(activityResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
     }
 
     @Before
@@ -340,6 +340,7 @@ public class ActivityResourceIntTest {
         // Get all the activityList where createdAt is null
         defaultActivityShouldNotBeFound("createdAt.specified=false");
     }
+
     /**
      * Executes the search, and checks that the default entity is returned
      */

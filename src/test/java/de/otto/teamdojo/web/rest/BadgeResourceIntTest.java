@@ -22,10 +22,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
@@ -36,13 +34,10 @@ import java.util.List;
 
 import static de.otto.teamdojo.test.util.BadgeTestDataProvider.alwaysUpToDate;
 import static de.otto.teamdojo.test.util.BadgeTestDataProvider.awsReady;
-import static de.otto.teamdojo.test.util.DimensionTestDataProvider.security;
 import static de.otto.teamdojo.test.util.DimensionTestDataProvider.operations;
-import static de.otto.teamdojo.test.util.LevelTestDataProvider.orange;
-import static de.otto.teamdojo.test.util.LevelTestDataProvider.yellow;
-import static de.otto.teamdojo.test.util.LevelTestDataProvider.os1;
+import static de.otto.teamdojo.test.util.DimensionTestDataProvider.security;
+import static de.otto.teamdojo.test.util.LevelTestDataProvider.*;
 import static de.otto.teamdojo.test.util.SkillTestDataProvider.*;
-import static de.otto.teamdojo.test.util.SkillTestDataProvider.evilUserStories;
 import static de.otto.teamdojo.test.util.TeamTestDataProvider.ft1;
 import static de.otto.teamdojo.test.util.TeamTestDataProvider.ft2;
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
@@ -135,20 +130,9 @@ public class BadgeResourceIntTest {
     private Badge awsReady;
     private Badge alwaysUpToDate;
 
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final BadgeResource badgeResource = new BadgeResource(badgeService, badgeQueryService, badgeSkillService);
-        this.restBadgeMockMvc = MockMvcBuilders.standaloneSetup(badgeResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-    }
-
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -165,7 +149,20 @@ public class BadgeResourceIntTest {
     }
 
     @Before
-    public void initTest() { badge = createEntity(em); }
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        final BadgeResource badgeResource = new BadgeResource(badgeService, badgeQueryService, badgeSkillService);
+        this.restBadgeMockMvc = MockMvcBuilders.standaloneSetup(badgeResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+    }
+
+    @Before
+    public void initTest() {
+        badge = createEntity(em);
+    }
 
     @Test
     @Transactional

@@ -12,9 +12,7 @@
         "skipLibCheck": true,
         "outDir": "build/www/app",
         "lib": ["es7", "dom"],
-        "typeRoots": [
-            "node_modules/@types"
-        ],
+        "typeRoots": ["node_modules/@types"],
         "baseUrl": "./",
         "paths": {
             "app/*": ["src/main/webapp/app/*"]
@@ -23,7 +21,8 @@
     },
     "angularCompilerOptions": {
         "genDir": "build/aot",
-        "skipMetadataEmit" : true,
-        "fullTemplateTypeCheck": true
+        "skipMetadataEmit": true,
+        "fullTemplateTypeCheck": true,
+        "preserveWhitespaces": true
     }
 }

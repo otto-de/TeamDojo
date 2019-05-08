@@ -15,7 +15,6 @@ import {
     UserMgmtUpdateComponent,
     UserMgmtDeleteDialogComponent,
     LogsComponent,
-    JhiMetricsMonitoringModalComponent,
     JhiMetricsMonitoringComponent,
     JhiHealthModalComponent,
     JhiHealthCheckComponent,
@@ -51,10 +50,9 @@ import {
         JhiHealthModalComponent,
         JhiDocsComponent,
         JhiTrackerComponent,
-        JhiMetricsMonitoringComponent,
-        JhiMetricsMonitoringModalComponent
+        JhiMetricsMonitoringComponent
     ],
-    entryComponents: [UserMgmtUpdateComponent, UserMgmtDeleteDialogComponent, JhiHealthModalComponent, JhiMetricsMonitoringModalComponent],
+    entryComponents: [UserMgmtUpdateComponent, UserMgmtDeleteDialogComponent, JhiHealthModalComponent],
     providers: [
         AuditResolvePagingParams,
         AuditsService,

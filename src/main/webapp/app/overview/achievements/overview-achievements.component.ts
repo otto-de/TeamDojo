@@ -96,7 +96,7 @@ export class OverviewAchievementsComponent implements OnInit {
                 }
             }
         });
-        return baseCount === 0 ? 0 : completedCount / baseCount * 100;
+        return baseCount === 0 ? 0 : (completedCount / baseCount) * 100;
     }
 
     private isLevelOrBadgeCompleted(team: ITeam, item: ILevel | IBadge): boolean {
@@ -127,6 +127,6 @@ export class OverviewAchievementsComponent implements OnInit {
     }
 
     private getParamAsNumber(name: string, params: ParamMap): number {
-        return Number.parseInt(params.get(name));
+        return Number.parseInt(params.get(name), 10);
     }
 }

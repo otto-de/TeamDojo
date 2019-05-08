@@ -103,19 +103,6 @@ public class UserResourceIntTest {
 
     private User user;
 
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).clear();
-        cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).clear();
-        UserResource userResource = new UserResource(userRepository, userService, mailService);
-        this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setMessageConverters(jacksonMessageConverter)
-            .build();
-    }
-
     /**
      * Create a User.
      * <p>
@@ -133,6 +120,19 @@ public class UserResourceIntTest {
         user.setImageUrl(DEFAULT_IMAGEURL);
         user.setLangKey(DEFAULT_LANGKEY);
         return user;
+    }
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).clear();
+        cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).clear();
+        UserResource userResource = new UserResource(userRepository, userService, mailService);
+        this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setMessageConverters(jacksonMessageConverter)
+            .build();
     }
 
     @Before

@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -25,12 +24,14 @@ public interface ActivityService {
 
     /**
      * Create an activity for BADGE_CREATED
+     *
      * @return the persisted entity
      */
     ActivityDTO createForNewBadge(BadgeDTO badgeDTO) throws JSONException;
 
     /**
      * Create an activity for SKILL_COMPLETED
+     *
      * @param teamSkill
      * @return the persisted entity
      */

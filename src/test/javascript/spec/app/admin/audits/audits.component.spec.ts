@@ -38,17 +38,15 @@ describe('Component Tests', () => {
         let fixture: ComponentFixture<AuditsComponent>;
         let service: AuditsService;
 
-        beforeEach(
-            async(() => {
-                TestBed.configureTestingModule({
-                    imports: [TeamdojoTestModule],
-                    declarations: [AuditsComponent],
-                    providers: [AuditsService, NgbPaginationConfig, PaginationConfig]
-                })
-                    .overrideTemplate(AuditsComponent, '')
-                    .compileComponents();
+        beforeEach(async(() => {
+            TestBed.configureTestingModule({
+                imports: [TeamdojoTestModule],
+                declarations: [AuditsComponent],
+                providers: [AuditsService, NgbPaginationConfig, PaginationConfig]
             })
-        );
+                .overrideTemplate(AuditsComponent, '')
+                .compileComponents();
+        }));
 
         beforeEach(() => {
             fixture = TestBed.createComponent(AuditsComponent);

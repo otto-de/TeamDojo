@@ -1,17 +1,8 @@
 package de.otto.teamdojo.service.dto;
 
+import io.github.jhipster.service.filter.*;
+
 import java.io.Serializable;
-import io.github.jhipster.service.filter.BooleanFilter;
-import io.github.jhipster.service.filter.DoubleFilter;
-import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.FloatFilter;
-import io.github.jhipster.service.filter.IntegerFilter;
-import io.github.jhipster.service.filter.LongFilter;
-import io.github.jhipster.service.filter.StringFilter;
-
-
-
-
 
 
 /**
@@ -132,16 +123,16 @@ public class LevelCriteria implements Serializable {
     @Override
     public String toString() {
         return "LevelCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (name != null ? "name=" + name + ", " : "") +
-                (description != null ? "description=" + description + ", " : "") +
-                (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
-                (instantMultiplier != null ? "instantMultiplier=" + instantMultiplier + ", " : "") +
-                (completionBonus != null ? "completionBonus=" + completionBonus + ", " : "") +
-                (dimensionId != null ? "dimensionId=" + dimensionId + ", " : "") +
-                (dependsOnId != null ? "dependsOnId=" + dependsOnId + ", " : "") +
-                (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
-                (imageId != null ? "imageId=" + imageId + ", " : "") +
+            (id != null ? "id=" + id + ", " : "") +
+            (name != null ? "name=" + name + ", " : "") +
+            (description != null ? "description=" + description + ", " : "") +
+            (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
+            (instantMultiplier != null ? "instantMultiplier=" + instantMultiplier + ", " : "") +
+            (completionBonus != null ? "completionBonus=" + completionBonus + ", " : "") +
+            (dimensionId != null ? "dimensionId=" + dimensionId + ", " : "") +
+            (dependsOnId != null ? "dependsOnId=" + dependsOnId + ", " : "") +
+            (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
+            (imageId != null ? "imageId=" + imageId + ", " : "") +
             "}";
     }
 

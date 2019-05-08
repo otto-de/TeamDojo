@@ -50,17 +50,21 @@ public class Activity implements Serializable {
         return type;
     }
 
+    public void setType(ActivityType type) {
+        this.type = type;
+    }
+
     public Activity type(ActivityType type) {
         this.type = type;
         return this;
     }
 
-    public void setType(ActivityType type) {
-        this.type = type;
-    }
-
     public String getData() {
         return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 
     public Activity data(String data) {
@@ -68,21 +72,17 @@ public class Activity implements Serializable {
         return this;
     }
 
-    public void setData(String data) {
-        this.data = data;
-    }
-
     public Instant getCreatedAt() {
         return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Activity createdAt(Instant createdAt) {
         this.createdAt = createdAt;
         return this;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

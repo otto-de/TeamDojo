@@ -80,9 +80,11 @@ public class AchievableSkillDTO {
         this.achievedAt = achievedAt;
     }
 
-    public Boolean isIrrelevant() { return irrelevant; }
+    public Boolean isIrrelevant() {
+        return irrelevant;
+    }
 
-    public void setIrrelevant(Boolean irrelevant){
+    public void setIrrelevant(Boolean irrelevant) {
         this.irrelevant = irrelevant;
     }
 

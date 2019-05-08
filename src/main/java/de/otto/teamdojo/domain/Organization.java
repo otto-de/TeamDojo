@@ -4,8 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -44,26 +43,26 @@ public class Organization implements Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Organization name(String name) {
         this.name = name;
         return this;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Integer getLevelUpScore() {
         return levelUpScore;
     }
 
+    public void setLevelUpScore(Integer levelUpScore) {
+        this.levelUpScore = levelUpScore;
+    }
+
     public Organization levelUpScore(Integer levelUpScore) {
         this.levelUpScore = levelUpScore;
         return this;
-    }
-
-    public void setLevelUpScore(Integer levelUpScore) {
-        this.levelUpScore = levelUpScore;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -1,7 +1,6 @@
-
 {
     "teamdojoApp": {
-        "badge" : {
+        "badge": {
             "home": {
                 "title": "Badges",
                 "createLabel": "Create a new Badge",

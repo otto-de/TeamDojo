@@ -86,17 +86,6 @@ public class TeamSkillResourceIntTest {
 
     private TeamSkill teamSkill;
 
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final TeamSkillResource teamSkillResource = new TeamSkillResource(teamSkillService, teamSkillQueryService);
-        this.restTeamSkillMockMvc = MockMvcBuilders.standaloneSetup(teamSkillResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-    }
-
     /**
      * Create an entity for this test.
      * <p>
@@ -120,6 +109,17 @@ public class TeamSkillResourceIntTest {
         em.flush();
         teamSkill.setTeam(team);
         return teamSkill;
+    }
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        final TeamSkillResource teamSkillResource = new TeamSkillResource(teamSkillService, teamSkillQueryService);
+        this.restTeamSkillMockMvc = MockMvcBuilders.standaloneSetup(teamSkillResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
     }
 
     @Before
@@ -399,10 +399,10 @@ public class TeamSkillResourceIntTest {
 
     @Test
     @Transactional
-    public void getTeamSkillSkillStatusShouldNotBeNull()  {
-        TeamSkill persistedTeamSkill =  teamSkillRepository.saveAndFlush(teamSkill);
+    public void getTeamSkillSkillStatusShouldNotBeNull() {
+        TeamSkill persistedTeamSkill = teamSkillRepository.saveAndFlush(teamSkill);
         assertThat(persistedTeamSkill).isNotNull();
-        TeamSkillDTO teamSkillDTO =  teamSkillMapper.toDto(persistedTeamSkill);
+        TeamSkillDTO teamSkillDTO = teamSkillMapper.toDto(persistedTeamSkill);
         assertThat(teamSkillDTO).isNotNull();
         assertThat(teamSkillDTO.getSkillStatus()).isNotNull();
     }
