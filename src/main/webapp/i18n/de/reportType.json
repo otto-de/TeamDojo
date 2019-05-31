@@ -1,6 +1,6 @@
 {
     "teamdojoApp": {
-        "ReportType" : {
+        "ReportType": {
             "null": "",
             "BUG": "Fehler",
             "WISH": "Wunsch",

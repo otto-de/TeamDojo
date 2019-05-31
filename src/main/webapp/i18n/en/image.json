@@ -1,7 +1,6 @@
-
 {
     "teamdojoApp": {
-        "image" : {
+        "image": {
             "home": {
                 "title": "Images",
                 "createLabel": "Create a new Image",

@@ -1,6 +1,6 @@
 package de.otto.teamdojo.service.dto;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 

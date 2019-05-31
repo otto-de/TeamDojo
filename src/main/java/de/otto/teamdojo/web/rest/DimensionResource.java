@@ -1,6 +1,6 @@
 package de.otto.teamdojo.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
+
 import de.otto.teamdojo.service.DimensionQueryService;
 import de.otto.teamdojo.service.DimensionService;
 import de.otto.teamdojo.service.dto.DimensionCriteria;
@@ -26,10 +26,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class DimensionResource {
 
-    private final Logger log = LoggerFactory.getLogger(DimensionResource.class);
-
     private static final String ENTITY_NAME = "dimension";
-
+    private final Logger log = LoggerFactory.getLogger(DimensionResource.class);
     private final DimensionService dimensionService;
 
     private final DimensionQueryService dimensionQueryService;
@@ -47,7 +45,6 @@ public class DimensionResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/dimensions")
-    @Timed
     public ResponseEntity<DimensionDTO> createDimension(@Valid @RequestBody DimensionDTO dimensionDTO) throws URISyntaxException {
         log.debug("REST request to save Dimension : {}", dimensionDTO);
         if (dimensionDTO.getId() != null) {
@@ -69,7 +66,6 @@ public class DimensionResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/dimensions")
-    @Timed
     public ResponseEntity<DimensionDTO> updateDimension(@Valid @RequestBody DimensionDTO dimensionDTO) throws URISyntaxException {
         log.debug("REST request to update Dimension : {}", dimensionDTO);
         if (dimensionDTO.getId() == null) {
@@ -88,7 +84,6 @@ public class DimensionResource {
      * @return the ResponseEntity with status 200 (OK) and the list of dimensions in body
      */
     @GetMapping("/dimensions")
-    @Timed
     public ResponseEntity<List<DimensionDTO>> getAllDimensions(DimensionCriteria criteria) {
         log.debug("REST request to get Dimensions by criteria: {}", criteria);
         List<DimensionDTO> entityList = dimensionQueryService.findByCriteria(criteria);
@@ -102,7 +97,6 @@ public class DimensionResource {
      * @return the ResponseEntity with status 200 (OK) and with body the dimensionDTO, or with status 404 (Not Found)
      */
     @GetMapping("/dimensions/{id}")
-    @Timed
     public ResponseEntity<DimensionDTO> getDimension(@PathVariable Long id) {
         log.debug("REST request to get Dimension : {}", id);
         Optional<DimensionDTO> dimensionDTO = dimensionService.findOne(id);
@@ -116,7 +110,6 @@ public class DimensionResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/dimensions/{id}")
-    @Timed
     public ResponseEntity<Void> deleteDimension(@PathVariable Long id) {
         log.debug("REST request to delete Dimension : {}", id);
         dimensionService.delete(id);

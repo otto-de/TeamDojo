@@ -63,17 +63,21 @@ public class Dimension implements Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Dimension name(String name) {
         this.name = name;
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Dimension description(String description) {
@@ -81,12 +85,12 @@ public class Dimension implements Serializable {
         return this;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Set<Team> getParticipants() {
         return participants;
+    }
+
+    public void setParticipants(Set<Team> teams) {
+        this.participants = teams;
     }
 
     public Dimension participants(Set<Team> teams) {
@@ -106,12 +110,12 @@ public class Dimension implements Serializable {
         return this;
     }
 
-    public void setParticipants(Set<Team> teams) {
-        this.participants = teams;
-    }
-
     public Set<Level> getLevels() {
         return levels;
+    }
+
+    public void setLevels(Set<Level> levels) {
+        this.levels = levels;
     }
 
     public Dimension levels(Set<Level> levels) {
@@ -131,12 +135,12 @@ public class Dimension implements Serializable {
         return this;
     }
 
-    public void setLevels(Set<Level> levels) {
-        this.levels = levels;
-    }
-
     public Set<Badge> getBadges() {
         return badges;
+    }
+
+    public void setBadges(Set<Badge> badges) {
+        this.badges = badges;
     }
 
     public Dimension badges(Set<Badge> badges) {
@@ -154,10 +158,6 @@ public class Dimension implements Serializable {
         this.badges.remove(badge);
         badge.getDimensions().remove(this);
         return this;
-    }
-
-    public void setBadges(Set<Badge> badges) {
-        this.badges = badges;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -1,45 +1,45 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-activity-heading" jhiTranslate="teamdojoApp.activity.home.createOrEditLabel">Create or edit a Activity</h2>
+            <h2 id="jhi-activity-heading" tdTranslate="teamdojoApp.activity.home.createOrEditLabel">Create or edit a Activity</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!activity.id">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <label for="id" tdTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="activity.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="teamdojoApp.activity.type" for="field_type">Type</label>
+                    <label class="form-control-label" tdTranslate="teamdojoApp.activity.type" for="field_type">Type</label>
                     <select class="form-control" name="type" [(ngModel)]="activity.type" id="field_type"  required>
                         <option value="SKILL_COMPLETED">{{'teamdojoApp.ActivityType.SKILL_COMPLETED' | translate}}</option>
                         <option value="BADGE_CREATED">{{'teamdojoApp.ActivityType.BADGE_CREATED' | translate}}</option>
                     </select>
                     <div [hidden]="!(editForm.controls.type?.dirty && editForm.controls.type?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.type?.errors?.required" jhiTranslate="entity.validation.required">
+                        [hidden]="!editForm.controls.type?.errors?.required" tdTranslate="entity.validation.required">
                         This field is required.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="teamdojoApp.activity.data" for="field_data">Data</label>
+                    <label class="form-control-label" tdTranslate="teamdojoApp.activity.data" for="field_data">Data</label>
                     <input type="text" class="form-control" name="data" id="field_data"
                         [(ngModel)]="activity.data" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="teamdojoApp.activity.createdAt" for="field_createdAt">Created At</label>
+                    <label class="form-control-label" tdTranslate="teamdojoApp.activity.createdAt" for="field_createdAt">Created At</label>
                     <div class="d-flex">
                         <input id="field_createdAt" type="datetime-local" class="form-control" name="createdAt" [(ngModel)]="createdAt"
                         required/>
                     </div>
                     <div [hidden]="!(editForm.controls.createdAt?.dirty && editForm.controls.createdAt?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.createdAt?.errors?.required" jhiTranslate="entity.validation.required">
+                        [hidden]="!editForm.controls.createdAt?.errors?.required" tdTranslate="entity.validation.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.createdAt?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            [hidden]="!editForm.controls.createdAt?.errors?.ZonedDateTimelocal" tdTranslate="entity.validation.ZonedDateTimelocal">
                             This field should be a date and time.
                         </small>
                     </div>
@@ -48,10 +48,10 @@
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                    <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                    <span class="fa fa-ban"></span>&nbsp;<span tdTranslate="entity.action.cancel">Cancel</span>
                 </button>
                 <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                    <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                    <span class="fa fa-save"></span>&nbsp;<span tdTranslate="entity.action.save">Save</span>
                 </button>
             </div>
         </form>

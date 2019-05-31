@@ -12,24 +12,24 @@
         font-size: 1.8vh;
     }
 
-    th, thead{
+    th,
+    thead {
         border-top: none;
     }
     thead {
-        border-bottom: 1px solid #E5E1D8;;
+        border-bottom: 2px solid #e5e1d8;
     }
 
     .team-list {
         background: rgba($dojo-bg-gradient-from, 0.5);
         &-header {
             &-title {
-
             }
             &-scores {
                 width: 48%;
-              //  color: $dojo-text-primary;
+                //  color: $dojo-text-primary;
                 img {
-                    width: 5.0vh;
+                    width: 5vh;
                     opacity: 0.5;
                 }
                 margin-right: 40px;
@@ -37,7 +37,7 @@
                     min-width: 5em;
                 }
             }
-            border-bottom: 1px solid #E5E1D8;
+            border-bottom: 2px solid #e5e1d8;
         }
 
         &-body {
@@ -47,19 +47,19 @@
                     min-width: 2em;
                 }
                 .team-info {
-                   width: 48%;
+                    width: 48%;
                     .team-name {
                         a {
                             color: $dojo-text-primary;
                             word-break: break-word;
-                            font-size: 1.0rem;
+                            font-size: 1rem;
                         }
                     }
                 }
                 .team-scores {
                     width: 48%;
                     .score {
-                       // color: $dojo-text-primary;
+                        // color: $dojo-text-primary;
                         min-width: 5em;
                         text-align: center;
                     }
@@ -84,14 +84,14 @@
                 }
             }
         }
-        /deep/ .simplebar-track {
-            bottom: 0.7em!important;
+        ::ng-deep .simplebar-track {
+            bottom: 0.7em !important;
         }
-        /deep/ .simplebar-scroll-content {
-            padding-right: 1.9em!important;
+        ::ng-deep .simplebar-scroll-content {
+            padding-right: 1.9em !important;
             .simplebar-content {
-                margin-right: -0.6em!important;
-                padding-bottom: 3.1em!important;
+                margin-right: -0.6em !important;
+                padding-bottom: 3.1em !important;
                 overflow-x: hidden;
             }
         }
@@ -118,7 +118,6 @@
     :-ms-input-placeholder {
         font-style: italic;
     }
-
 }
 @media only screen and (min-width: map-get($grid-breakpoints, lg)) {
     .overviews-teams {

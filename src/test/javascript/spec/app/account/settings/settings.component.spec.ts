@@ -14,22 +14,20 @@ describe('Component Tests', () => {
         let mockAuth: any;
         let mockPrincipal: any;
 
-        beforeEach(
-            async(() => {
-                TestBed.configureTestingModule({
-                    imports: [TeamdojoTestModule],
-                    declarations: [SettingsComponent],
-                    providers: [
-                        {
-                            provide: JhiTrackerService,
-                            useClass: MockTrackerService
-                        }
-                    ]
-                })
-                    .overrideTemplate(SettingsComponent, '')
-                    .compileComponents();
+        beforeEach(async(() => {
+            TestBed.configureTestingModule({
+                imports: [TeamdojoTestModule],
+                declarations: [SettingsComponent],
+                providers: [
+                    {
+                        provide: JhiTrackerService,
+                        useClass: MockTrackerService
+                    }
+                ]
             })
-        );
+                .overrideTemplate(SettingsComponent, '')
+                .compileComponents();
+        }));
 
         beforeEach(() => {
             fixture = TestBed.createComponent(SettingsComponent);

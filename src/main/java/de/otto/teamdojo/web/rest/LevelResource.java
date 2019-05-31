@@ -1,6 +1,6 @@
 package de.otto.teamdojo.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
+
 import de.otto.teamdojo.service.LevelQueryService;
 import de.otto.teamdojo.service.LevelService;
 import de.otto.teamdojo.service.LevelSkillService;
@@ -34,10 +34,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class LevelResource {
 
-    private final Logger log = LoggerFactory.getLogger(LevelResource.class);
-
     private static final String ENTITY_NAME = "level";
-
+    private final Logger log = LoggerFactory.getLogger(LevelResource.class);
     private final LevelService levelService;
 
     private final LevelQueryService levelQueryService;
@@ -58,7 +56,6 @@ public class LevelResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/levels")
-    @Timed
     public ResponseEntity<LevelDTO> createLevel(@Valid @RequestBody LevelDTO levelDTO) throws URISyntaxException {
         log.debug("REST request to save Level : {}", levelDTO);
         if (levelDTO.getId() != null) {
@@ -80,7 +77,6 @@ public class LevelResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/levels")
-    @Timed
     public ResponseEntity<LevelDTO> updateLevel(@Valid @RequestBody LevelDTO levelDTO) throws URISyntaxException {
         log.debug("REST request to update Level : {}", levelDTO);
         if (levelDTO.getId() == null) {
@@ -99,11 +95,10 @@ public class LevelResource {
      * @return the ResponseEntity with status 200 (OK) and the list of levels in body
      */
     @GetMapping("/levels")
-    @Timed
     public ResponseEntity<List<LevelDTO>> getAllLevels(LevelCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Levels by criteria: {}", criteria);
 
-        if(criteria != null && criteria.getSkillsId() != null && criteria.getSkillsId().getIn() != null)
+        if (criteria != null && criteria.getSkillsId() != null && criteria.getSkillsId().getIn() != null)
             return getAllLevelsBySkills(criteria.getSkillsId().getIn(), pageable);
 
         List<LevelDTO> entityList = levelQueryService.findByCriteria(criteria);
@@ -124,7 +119,7 @@ public class LevelResource {
 
         List<LevelSkillDTO> levelSkills = levelSkillService.findBySkillIdIn(skillsId, pageable);
         List<Long> levelIds = new ArrayList<>();
-        for(LevelSkillDTO levelSkill : levelSkills){
+        for (LevelSkillDTO levelSkill : levelSkills) {
             levelIds.add(levelSkill.getLevelId());
         }
 
@@ -141,7 +136,6 @@ public class LevelResource {
      * @return the ResponseEntity with status 200 (OK) and with body the levelDTO, or with status 404 (Not Found)
      */
     @GetMapping("/levels/{id}")
-    @Timed
     public ResponseEntity<LevelDTO> getLevel(@PathVariable Long id) {
         log.debug("REST request to get Level : {}", id);
         Optional<LevelDTO> levelDTO = levelService.findOne(id);
@@ -155,7 +149,6 @@ public class LevelResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/levels/{id}")
-    @Timed
     public ResponseEntity<Void> deleteLevel(@PathVariable Long id) {
         log.debug("REST request to delete Level : {}", id);
         levelService.delete(id);

@@ -16,25 +16,23 @@ describe('Component Tests', () => {
         let fixture: ComponentFixture<PasswordComponent>;
         let service: PasswordService;
 
-        beforeEach(
-            async(() => {
-                TestBed.configureTestingModule({
-                    imports: [TeamdojoTestModule],
-                    declarations: [PasswordComponent],
-                    providers: [
-                        Principal,
-                        AccountService,
-                        {
-                            provide: JhiTrackerService,
-                            useClass: MockTrackerService
-                        },
-                        PasswordService
-                    ]
-                })
-                    .overrideTemplate(PasswordComponent, '')
-                    .compileComponents();
+        beforeEach(async(() => {
+            TestBed.configureTestingModule({
+                imports: [TeamdojoTestModule],
+                declarations: [PasswordComponent],
+                providers: [
+                    Principal,
+                    AccountService,
+                    {
+                        provide: JhiTrackerService,
+                        useClass: MockTrackerService
+                    },
+                    PasswordService
+                ]
             })
-        );
+                .overrideTemplate(PasswordComponent, '')
+                .compileComponents();
+        }));
 
         beforeEach(() => {
             fixture = TestBed.createComponent(PasswordComponent);

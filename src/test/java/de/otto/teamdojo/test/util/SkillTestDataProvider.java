@@ -126,12 +126,12 @@ public class SkillTestDataProvider {
             return this;
         }
 
-        public SkillBuilder rateScore(Double rateScore){
+        public SkillBuilder rateScore(Double rateScore) {
             this.rateScore = rateScore;
             return this;
         }
 
-        public SkillBuilder rateCount(Integer rateCount){
+        public SkillBuilder rateCount(Integer rateCount) {
             this.rateCount = rateCount;
             return this;
         }

@@ -5,7 +5,7 @@
     </div>
 </ng-template>
 <div class="achievement-item" (click)="selectItem($event)" [ngClass]="[active ? 'active' : '', type, itemStatusCssClass]"
-     [ngbPopover]="popoverContent" triggers="mouseenter:mouseleave" placement="top">
+     [ngbPopover]="popoverContent" triggers="mouseenter:mouseleave" placement="right">
     <div class="item-content d-flex justify-content-center" [ngStyle]="{'width': size, 'height': size}">
         <span class="item-image">
             <img *ngIf="item.imageId ; else picturePlaceholder" [title]="item.name"

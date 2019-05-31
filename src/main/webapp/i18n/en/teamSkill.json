@@ -1,7 +1,6 @@
-
 {
     "teamdojoApp": {
-        "teamSkill" : {
+        "teamSkill": {
             "home": {
                 "title": "Team Skills",
                 "createLabel": "Create a new Team Skill",

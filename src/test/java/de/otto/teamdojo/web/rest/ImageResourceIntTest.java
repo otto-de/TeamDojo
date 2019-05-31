@@ -1,21 +1,17 @@
 package de.otto.teamdojo.web.rest;
 
 import de.otto.teamdojo.TeamdojoApp;
-
 import de.otto.teamdojo.domain.Image;
 import de.otto.teamdojo.repository.ImageRepository;
+import de.otto.teamdojo.service.ImageQueryService;
 import de.otto.teamdojo.service.ImageService;
 import de.otto.teamdojo.service.dto.ImageDTO;
 import de.otto.teamdojo.service.mapper.ImageMapper;
 import de.otto.teamdojo.web.rest.errors.ExceptionTranslator;
-import de.otto.teamdojo.service.dto.ImageCriteria;
-import de.otto.teamdojo.service.ImageQueryService;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,7 +26,6 @@ import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.ArrayList;
 
 import static de.otto.teamdojo.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -69,7 +64,6 @@ public class ImageResourceIntTest {
     private ImageRepository imageRepository;
 
 
-
     @Autowired
     private ImageMapper imageMapper;
 
@@ -96,20 +90,9 @@ public class ImageResourceIntTest {
 
     private Image image;
 
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final ImageResource imageResource = new ImageResource(imageService, imageQueryService);
-        this.restImageMockMvc = MockMvcBuilders.standaloneSetup(imageResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-    }
-
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -123,6 +106,17 @@ public class ImageResourceIntTest {
             .large(DEFAULT_LARGE)
             .largeContentType(DEFAULT_LARGE_CONTENT_TYPE);
         return image;
+    }
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        final ImageResource imageResource = new ImageResource(imageService, imageQueryService);
+        this.restImageMockMvc = MockMvcBuilders.standaloneSetup(imageResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
     }
 
     @Before
@@ -275,6 +269,7 @@ public class ImageResourceIntTest {
         // Get all the imageList where name is null
         defaultImageShouldNotBeFound("name.specified=false");
     }
+
     /**
      * Executes the search, and checks that the default entity is returned
      */

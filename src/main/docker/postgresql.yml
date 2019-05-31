@@ -1,7 +1,7 @@
 version: '2'
 services:
     teamdojo-postgresql:
-        image: postgres:9.6.5
+        image: postgres:10.4
         # volumes:
         #     - ~/volumes/jhipster/teamdojo/postgresql/:/var/lib/postgresql/data/
         environment:

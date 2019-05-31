@@ -88,11 +88,12 @@ public class SkillServiceImpl implements SkillService {
 
     /**
      * Creates a new vote
-     * @param id the entity to udpate
+     *
+     * @param id        the entity to udpate
      * @param rateScore stars to update
      * @return the persisted entity
      */
-    public SkillDTO createVote(Long id, Integer rateScore){
+    public SkillDTO createVote(Long id, Integer rateScore) {
         Skill skill = skillRepository.findById(id).get();
 
         Integer rateCount = skill.getRateCount() == null ? 0 : skill.getRateCount();
@@ -101,7 +102,7 @@ public class SkillServiceImpl implements SkillService {
         Double avgRate = newrate / (rateCount + 1);
 
         skill.setRateScore(avgRate);
-        skill.setRateCount(rateCount+1);
+        skill.setRateCount(rateCount + 1);
         skill = skillRepository.saveAndFlush(skill);
 
         return skillMapper.toDto(skill);

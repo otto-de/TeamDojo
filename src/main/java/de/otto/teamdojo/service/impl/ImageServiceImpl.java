@@ -1,13 +1,12 @@
 package de.otto.teamdojo.service.impl;
 
-import de.otto.teamdojo.service.ImageService;
 import de.otto.teamdojo.domain.Image;
 import de.otto.teamdojo.repository.ImageRepository;
+import de.otto.teamdojo.service.ImageService;
 import de.otto.teamdojo.service.dto.ImageDTO;
 import de.otto.teamdojo.service.mapper.ImageMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +16,11 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Optional;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
 /**
  * Service Implementation for managing Image.
  */
@@ -31,7 +31,7 @@ public class ImageServiceImpl implements ImageService {
     public static final int MAX_SIZE_LARGE = 512;
     public static final int MAX_SIZE_MEDIUM = 224;
     public static final int MAX_SIZE_SMALL = 72;
-    public static final String IMAGE_FORMAT  = "png";
+    public static final String IMAGE_FORMAT = "png";
 
     private final Logger log = LoggerFactory.getLogger(ImageServiceImpl.class);
 

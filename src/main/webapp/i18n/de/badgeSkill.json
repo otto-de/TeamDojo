@@ -1,7 +1,6 @@
-
 {
     "teamdojoApp": {
-        "badgeSkill" : {
+        "badgeSkill": {
             "home": {
                 "title": "Badge Skills",
                 "createLabel": "Badge Skill erstellen",

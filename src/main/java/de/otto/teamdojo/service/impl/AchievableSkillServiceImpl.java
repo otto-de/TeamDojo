@@ -12,7 +12,6 @@ import de.otto.teamdojo.service.ActivityService;
 import de.otto.teamdojo.service.TeamSkillService;
 import de.otto.teamdojo.service.dto.AchievableSkillDTO;
 import de.otto.teamdojo.service.dto.TeamSkillDTO;
-import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -29,10 +28,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class AchievableSkillServiceImpl implements AchievableSkillService {
 
-    private final Logger log = LoggerFactory.getLogger(AchievableSkillServiceImpl.class);
-
     private static final List<String> ALL_FILTER = Lists.newArrayList("COMPLETE", "INCOMPLETE");
-
+    private final Logger log = LoggerFactory.getLogger(AchievableSkillServiceImpl.class);
     private final SkillRepository skillRepository;
 
     private final TeamRepository teamRepository;
@@ -74,7 +71,7 @@ public class AchievableSkillServiceImpl implements AchievableSkillService {
     }
 
     @Override
-    public AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill) throws JSONException {
+    public AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill) {
         AchievableSkillDTO originSkill = skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId());
 
         TeamSkillDTO teamSkill = new TeamSkillDTO();

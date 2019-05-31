@@ -1,17 +1,8 @@
 package de.otto.teamdojo.service.dto;
 
+import io.github.jhipster.service.filter.*;
+
 import java.io.Serializable;
-import io.github.jhipster.service.filter.BooleanFilter;
-import io.github.jhipster.service.filter.DoubleFilter;
-import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.FloatFilter;
-import io.github.jhipster.service.filter.IntegerFilter;
-import io.github.jhipster.service.filter.LongFilter;
-import io.github.jhipster.service.filter.StringFilter;
-
-import io.github.jhipster.service.filter.InstantFilter;
-
-
 
 
 /**
@@ -142,17 +133,17 @@ public class BadgeCriteria implements Serializable {
     @Override
     public String toString() {
         return "BadgeCriteria{" +
-                (id != null ? "id=" + id + ", " : "") +
-                (name != null ? "name=" + name + ", " : "") +
-                (description != null ? "description=" + description + ", " : "") +
-                (availableUntil != null ? "availableUntil=" + availableUntil + ", " : "") +
-                (availableAmount != null ? "availableAmount=" + availableAmount + ", " : "") +
-                (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
-                (instantMultiplier != null ? "instantMultiplier=" + instantMultiplier + ", " : "") +
-                (completionBonus != null ? "completionBonus=" + completionBonus + ", " : "") +
-                (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
-                (dimensionsId != null ? "dimensionsId=" + dimensionsId + ", " : "") +
-                (imageId != null ? "imageId=" + imageId + ", " : "") +
+            (id != null ? "id=" + id + ", " : "") +
+            (name != null ? "name=" + name + ", " : "") +
+            (description != null ? "description=" + description + ", " : "") +
+            (availableUntil != null ? "availableUntil=" + availableUntil + ", " : "") +
+            (availableAmount != null ? "availableAmount=" + availableAmount + ", " : "") +
+            (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
+            (instantMultiplier != null ? "instantMultiplier=" + instantMultiplier + ", " : "") +
+            (completionBonus != null ? "completionBonus=" + completionBonus + ", " : "") +
+            (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
+            (dimensionsId != null ? "dimensionsId=" + dimensionsId + ", " : "") +
+            (imageId != null ? "imageId=" + imageId + ", " : "") +
             "}";
     }
 

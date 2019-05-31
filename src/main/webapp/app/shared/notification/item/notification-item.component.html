@@ -9,14 +9,14 @@
                 <jhi-achievement-item [item]="item" type="item-badge" [hasStatus]="false"
                                       [active]="false"
                                       (onItemSelected)="true"></jhi-achievement-item>
-                <div class="notification-body-text" jhiTranslate="teamdojoApp.notification.body.text.badgeCreated"
-                     translateValues="{'badgeName':'{{notification.data.badgeName}}' }"></div>
+                <div class="notification-body-text" tdTranslate="teamdojoApp.notification.body.text.badgeCreated"
+                     translateValues="{'badgeName':'{{this.sanitize(notification.data.badgeName)}}' }"></div>
             </ng-container>
             <ng-container *ngSwitchCase="'SKILL_COMPLETED'">
                 <i class="notification-body-icon fa fa-check fa-2x"></i>
                 <jhi-team-image class="notification-body-team-image" [team]="item" imageSize="small"></jhi-team-image>
-                <div class="notification-body-text" jhiTranslate="teamdojoApp.notification.body.text.skillCompleted"
-                     translateValues="{'skillTitle':'{{notification.data.skillTitle}}' }"></div>
+                <div class="notification-body-text" tdTranslate="teamdojoApp.notification.body.text.skillCompleted" 
+                translateValues="{'skillTitle':'{{this.sanitize(notification.data.skillTitle)}}'}"></div>
             </ng-container>
         </div>
     </div>

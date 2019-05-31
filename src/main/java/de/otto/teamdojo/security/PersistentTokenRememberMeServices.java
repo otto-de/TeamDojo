@@ -59,22 +59,16 @@ import java.util.concurrent.TimeUnit;
 public class PersistentTokenRememberMeServices extends
     AbstractRememberMeServices {
 
-    private final Logger log = LoggerFactory.getLogger(PersistentTokenRememberMeServices.class);
-
     // Token is valid for one month
     private static final int TOKEN_VALIDITY_DAYS = 31;
-
     private static final int TOKEN_VALIDITY_SECONDS = 60 * 60 * 24 * TOKEN_VALIDITY_DAYS;
-
     private static final int UPGRADED_TOKEN_VALIDITY_SECONDS = 5;
-
+    private final Logger log = LoggerFactory.getLogger(PersistentTokenRememberMeServices.class);
+    private final PersistentTokenRepository persistentTokenRepository;
+    private final UserRepository userRepository;
     private Cache<String, UpgradedRememberMeToken> upgradedTokenCache = CacheBuilder.newBuilder()
         .expireAfterWrite(UPGRADED_TOKEN_VALIDITY_SECONDS, TimeUnit.SECONDS)
         .build();
-
-    private final PersistentTokenRepository persistentTokenRepository;
-
-    private final UserRepository userRepository;
 
     public PersistentTokenRememberMeServices(JHipsterProperties jHipsterProperties,
                                              org.springframework.security.core.userdetails.UserDetailsService userDetailsService,

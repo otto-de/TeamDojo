@@ -72,17 +72,6 @@ public class BadgeSkillResourceIntTest {
 
     private BadgeSkill badgeSkill;
 
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final BadgeSkillResource badgeSkillResource = new BadgeSkillResource(badgeSkillService, badgeSkillQueryService);
-        this.restBadgeSkillMockMvc = MockMvcBuilders.standaloneSetup(badgeSkillResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-    }
-
     /**
      * Create an entity for this test.
      * <p>
@@ -102,6 +91,17 @@ public class BadgeSkillResourceIntTest {
         em.flush();
         badgeSkill.setSkill(skill);
         return badgeSkill;
+    }
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        final BadgeSkillResource badgeSkillResource = new BadgeSkillResource(badgeSkillService, badgeSkillQueryService);
+        this.restBadgeSkillMockMvc = MockMvcBuilders.standaloneSetup(badgeSkillResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
     }
 
     @Before

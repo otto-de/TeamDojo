@@ -6,7 +6,7 @@
                 <input class="form-check-input" type="checkbox" value="" id="checkIncomplete"
                        [checked]="filters.indexOf('INCOMPLETE') > -1" (click)="onFilterClicked('INCOMPLETE')">
                 <label class="form-check-label" for="checkIncomplete"
-                       jhiTranslate="teamdojoApp.teams.skills.search.filter.label">
+                       tdTranslate="teamdojoApp.teams.skills.search.filter.label">
                 </label>
             </div>
             <input type="text" [placeholder]="'teamdojoApp.teams.skills.search.placeholder' | translate"
@@ -31,7 +31,7 @@
                             <div>
                                 <ngb-rating [(rate)]="skill.rateScore" max="5" [readonly]="true" [starTemplate]="stars">
                                 </ngb-rating>
-                                {{getRateCount(skill.rateCount)}} <span class="rating-text" jhiTranslate="teamdojoApp.skill.detail.rateCount"></span>
+                                {{getRateCount(skill.rateCount)}} <span class="rating-text" tdTranslate="teamdojoApp.skill.detail.rateCount"></span>
 
                                 <ng-template #stars let-fill="fill" let-index="index">
                                     <span class="star star-sm" [class.full]="fill === 100">
@@ -49,11 +49,11 @@
 
                         <a class="skill-action-item" (click)="toggleRelevance(skill)">
                             <i class="skill-relevance-action-item fa skill-status-{{getStatusClass(skill)}}"></i>
-                            <small jhiTranslate="teamdojoApp.teams.skills.relevanceAction.{{skill.skillStatus}}"></small>
+                            <small tdTranslate="teamdojoApp.teams.skills.relevanceAction.{{skill.skillStatus}}"></small>
                         </a>
                         <a class="skill-action-item" (click)="clickSkillStatus(skill)">
                             <i class="skill-status-action-item fa skill-status-{{getStatusClass(skill)}}"></i>
-                            <small jhiTranslate="teamdojoApp.teams.skills.action.{{skill.skillStatus}}"></small>
+                            <small tdTranslate="teamdojoApp.teams.skills.action.{{skill.skillStatus}}"></small>
                         </a>
 
                     </div>

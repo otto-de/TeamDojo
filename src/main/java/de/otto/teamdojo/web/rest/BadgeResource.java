@@ -1,6 +1,6 @@
 package de.otto.teamdojo.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
+
 import de.otto.teamdojo.service.BadgeQueryService;
 import de.otto.teamdojo.service.BadgeService;
 import de.otto.teamdojo.service.BadgeSkillService;
@@ -35,10 +35,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class BadgeResource {
 
-    private final Logger log = LoggerFactory.getLogger(BadgeResource.class);
-
     private static final String ENTITY_NAME = "badge";
-
+    private final Logger log = LoggerFactory.getLogger(BadgeResource.class);
     private final BadgeService badgeService;
     private final BadgeSkillService badgeSkillService;
 
@@ -58,7 +56,6 @@ public class BadgeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/badges")
-    @Timed
     public ResponseEntity<BadgeDTO> createBadge(@Valid @RequestBody BadgeDTO badgeDTO) throws URISyntaxException, JSONException {
         log.debug("REST request to save Badge : {}", badgeDTO);
         if (badgeDTO.getId() != null) {
@@ -80,7 +77,6 @@ public class BadgeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/badges")
-    @Timed
     public ResponseEntity<BadgeDTO> updateBadge(@Valid @RequestBody BadgeDTO badgeDTO) throws URISyntaxException, JSONException {
         log.debug("REST request to update Badge : {}", badgeDTO);
         if (badgeDTO.getId() == null) {
@@ -100,11 +96,10 @@ public class BadgeResource {
      * @return the ResponseEntity with status 200 (OK) and the list of badges in body
      */
     @GetMapping("/badges")
-    @Timed
     public ResponseEntity<List<BadgeDTO>> getAllBadges(BadgeCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Badges by criteria: {}", criteria);
 
-        if(criteria != null && criteria.getSkillsId() != null && criteria.getSkillsId().getIn() != null)
+        if (criteria != null && criteria.getSkillsId() != null && criteria.getSkillsId().getIn() != null)
             return getAllBadgesBySkills(criteria.getSkillsId().getIn(), pageable);
 
         Page<BadgeDTO> page = badgeQueryService.findByCriteria(criteria, pageable);
@@ -126,7 +121,7 @@ public class BadgeResource {
 
         List<BadgeSkillDTO> badgeSkills = badgeSkillService.findBySkillIdIn(skillsId, pageable);
         List<Long> badgeIds = new ArrayList<>();
-        for (BadgeSkillDTO badgeSkill : badgeSkills){
+        for (BadgeSkillDTO badgeSkill : badgeSkills) {
             badgeIds.add(badgeSkill.getBadgeId());
         }
 
@@ -142,7 +137,6 @@ public class BadgeResource {
      * @return the ResponseEntity with status 200 (OK) and with body the badgeDTO, or with status 404 (Not Found)
      */
     @GetMapping("/badges/{id}")
-    @Timed
     public ResponseEntity<BadgeDTO> getBadge(@PathVariable Long id) {
         log.debug("REST request to get Badge : {}", id);
         Optional<BadgeDTO> badgeDTO = badgeService.findOne(id);
@@ -156,7 +150,6 @@ public class BadgeResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/badges/{id}")
-    @Timed
     public ResponseEntity<Void> deleteBadge(@PathVariable Long id) {
         log.debug("REST request to delete Badge : {}", id);
         badgeService.delete(id);

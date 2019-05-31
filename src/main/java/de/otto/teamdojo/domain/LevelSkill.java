@@ -47,26 +47,26 @@ public class LevelSkill implements Serializable {
         return skill;
     }
 
+    public void setSkill(Skill skill) {
+        this.skill = skill;
+    }
+
     public LevelSkill skill(Skill skill) {
         this.skill = skill;
         return this;
-    }
-
-    public void setSkill(Skill skill) {
-        this.skill = skill;
     }
 
     public Level getLevel() {
         return level;
     }
 
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
     public LevelSkill level(Level level) {
         this.level = level;
         return this;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

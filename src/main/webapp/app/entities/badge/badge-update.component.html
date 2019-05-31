@@ -1,126 +1,126 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-badge-heading" jhiTranslate="teamdojoApp.badge.home.createOrEditLabel">Create or edit a Badge</h2>
+            <h2 id="jhi-badge-heading" tdTranslate="teamdojoApp.badge.home.createOrEditLabel">Create or edit a Badge</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!badge.id">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <label for="id" tdTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="badge.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="teamdojoApp.badge.name" for="field_name">Name</label>
+                    <label class="form-control-label" tdTranslate="teamdojoApp.badge.name" for="field_name">Name</label>
                     <input type="text" class="form-control" name="name" id="field_name"
                         [(ngModel)]="badge.name" required minlength="2" maxlength="20"/>
                     <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                        [hidden]="!editForm.controls.name?.errors?.required" tdTranslate="entity.validation.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.name?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 2 }">
+                        [hidden]="!editForm.controls.name?.errors?.minlength" tdTranslate="entity.validation.minlength" translateValues="{ min: 2 }">
                         This field is required to be at least 2 characters.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.name?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 20 }">
+                        [hidden]="!editForm.controls.name?.errors?.maxlength" tdTranslate="entity.validation.maxlength" translateValues="{ max: 20 }">
                         This field cannot be longer than 20 characters.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="teamdojoApp.badge.description" for="field_description">Description</label>
+                    <label class="form-control-label" tdTranslate="teamdojoApp.badge.description" for="field_description">Description</label>
                     <input type="text" class="form-control" name="description" id="field_description"
                         [(ngModel)]="badge.description" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="teamdojoApp.badge.availableUntil" for="field_availableUntil">Available Until</label>
+                    <label class="form-control-label" tdTranslate="teamdojoApp.badge.availableUntil" for="field_availableUntil">Available Until</label>
                     <div class="d-flex">
                         <input id="field_availableUntil" type="datetime-local" class="form-control" name="availableUntil" [(ngModel)]="availableUntil"
                         />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="teamdojoApp.badge.availableAmount" for="field_availableAmount">Available Amount</label>
+                    <label class="form-control-label" tdTranslate="teamdojoApp.badge.availableAmount" for="field_availableAmount">Available Amount</label>
                     <input type="number" class="form-control" name="availableAmount" id="field_availableAmount"
                         [(ngModel)]="badge.availableAmount" min="1"/>
                     <div [hidden]="!(editForm.controls.availableAmount?.dirty && editForm.controls.availableAmount?.invalid)">
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.availableAmount?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 1 }">
+                            [hidden]="!editForm.controls.availableAmount?.errors?.min" tdTranslate="entity.validation.min" translateValues="{ min: 1 }">
                             This field should be at least 1.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.availableAmount?.errors?.number" jhiTranslate="entity.validation.number">
+                            [hidden]="!editForm.controls.availableAmount?.errors?.number" tdTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="teamdojoApp.badge.requiredScore" for="field_requiredScore">Required Score</label>
+                    <label class="form-control-label" tdTranslate="teamdojoApp.badge.requiredScore" for="field_requiredScore">Required Score</label>
                     <input type="number" class="form-control" name="requiredScore" id="field_requiredScore"
                         [(ngModel)]="badge.requiredScore" required min="0" max="1"/>
                     <div [hidden]="!(editForm.controls.requiredScore?.dirty && editForm.controls.requiredScore?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.requiredScore?.errors?.required" jhiTranslate="entity.validation.required">
+                        [hidden]="!editForm.controls.requiredScore?.errors?.required" tdTranslate="entity.validation.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.requiredScore?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                            [hidden]="!editForm.controls.requiredScore?.errors?.min" tdTranslate="entity.validation.min" translateValues="{ min: 0 }">
                             This field should be at least 0.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.requiredScore?.errors?.max" jhiTranslate="entity.validation.max" translateValues="{ max: 1 }">
+                            [hidden]="!editForm.controls.requiredScore?.errors?.max" tdTranslate="entity.validation.max" translateValues="{ max: 1 }">
                             This field cannot be more than 1.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.requiredScore?.errors?.number" jhiTranslate="entity.validation.number">
+                            [hidden]="!editForm.controls.requiredScore?.errors?.number" tdTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="teamdojoApp.badge.instantMultiplier" for="field_instantMultiplier">Instant Multiplier</label>
+                    <label class="form-control-label" tdTranslate="teamdojoApp.badge.instantMultiplier" for="field_instantMultiplier">Instant Multiplier</label>
                     <input type="number" class="form-control" name="instantMultiplier" id="field_instantMultiplier"
                         [(ngModel)]="badge.instantMultiplier" required min="0"/>
                     <div [hidden]="!(editForm.controls.instantMultiplier?.dirty && editForm.controls.instantMultiplier?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.instantMultiplier?.errors?.required" jhiTranslate="entity.validation.required">
+                        [hidden]="!editForm.controls.instantMultiplier?.errors?.required" tdTranslate="entity.validation.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.instantMultiplier?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                            [hidden]="!editForm.controls.instantMultiplier?.errors?.min" tdTranslate="entity.validation.min" translateValues="{ min: 0 }">
                             This field should be at least 0.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.instantMultiplier?.errors?.number" jhiTranslate="entity.validation.number">
+                            [hidden]="!editForm.controls.instantMultiplier?.errors?.number" tdTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="teamdojoApp.badge.completionBonus" for="field_completionBonus">Completion Bonus</label>
+                    <label class="form-control-label" tdTranslate="teamdojoApp.badge.completionBonus" for="field_completionBonus">Completion Bonus</label>
                     <input type="number" class="form-control" name="completionBonus" id="field_completionBonus"
                         [(ngModel)]="badge.completionBonus" min="0"/>
                     <div [hidden]="!(editForm.controls.completionBonus?.dirty && editForm.controls.completionBonus?.invalid)">
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.completionBonus?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                            [hidden]="!editForm.controls.completionBonus?.errors?.min" tdTranslate="entity.validation.min" translateValues="{ min: 0 }">
                             This field should be at least 0.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.completionBonus?.errors?.number" jhiTranslate="entity.validation.number">
+                            [hidden]="!editForm.controls.completionBonus?.errors?.number" tdTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label jhiTranslate="teamdojoApp.badge.dimensions" for="field_dimensions">Dimensions</label>
+                    <label tdTranslate="teamdojoApp.badge.dimensions" for="field_dimensions">Dimensions</label>
                     <select class="form-control" id="field_dimensions" multiple name="dimensions" [(ngModel)]="badge.dimensions">
                         <option [ngValue]="getSelected(badge.dimensions, dimensionOption)" *ngFor="let dimensionOption of dimensions; trackBy: trackDimensionById">{{dimensionOption.name}}</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="teamdojoApp.badge.image" for="field_image">Image</label>
+                    <label class="form-control-label" tdTranslate="teamdojoApp.badge.image" for="field_image">Image</label>
                     <select class="form-control" id="field_image" name="image" [(ngModel)]="badge.imageId" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="imageOption.id" *ngFor="let imageOption of images; trackBy: trackImageById">{{imageOption.name}}</option>
@@ -129,10 +129,10 @@
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                    <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                    <span class="fa fa-ban"></span>&nbsp;<span tdTranslate="entity.action.cancel">Cancel</span>
                 </button>
                 <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                    <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                    <span class="fa fa-save"></span>&nbsp;<span tdTranslate="entity.action.save">Save</span>
                 </button>
             </div>
         </form>

@@ -20,8 +20,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import static de.otto.teamdojo.test.util.BadgeTestDataProvider.alwaysUpToDate;
 import static de.otto.teamdojo.test.util.BadgeTestDataProvider.awsReady;
 import static de.otto.teamdojo.test.util.DimensionTestDataProvider.security;
@@ -29,6 +27,7 @@ import static de.otto.teamdojo.test.util.LevelTestDataProvider.orange;
 import static de.otto.teamdojo.test.util.LevelTestDataProvider.yellow;
 import static de.otto.teamdojo.test.util.SkillTestDataProvider.*;
 import static de.otto.teamdojo.test.util.TeamTestDataProvider.ft1;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TeamdojoApp.class)

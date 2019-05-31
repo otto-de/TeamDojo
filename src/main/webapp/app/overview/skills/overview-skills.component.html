@@ -19,7 +19,7 @@
             </div>
             <ngb-rating [(rate)]="findSkill(skill.skillId).rateScore" max="5" [readonly]="true" [starTemplate]="stars">
             </ngb-rating>
-            {{getRateCount(findSkill(skill.skillId).rateCount)}} <span class="rating-text" jhiTranslate="teamdojoApp.skill.detail.rateCount"></span>
+            {{getRateCount(findSkill(skill.skillId).rateCount)}} <span class="rating-text" tdTranslate="teamdojoApp.skill.detail.rateCount"></span>
 
             <ng-template #stars let-fill="fill" let-index="index">
                 <span class="star star-sm" [class.full]="fill === 100">

@@ -1,7 +1,6 @@
 package de.otto.teamdojo.repository;
 
 import de.otto.teamdojo.domain.LevelSkill;
-import de.otto.teamdojo.service.SkillService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,6 +16,6 @@ import java.util.List;
 @Repository
 public interface LevelSkillRepository extends JpaRepository<LevelSkill, Long>, JpaSpecificationExecutor<LevelSkill> {
 
-    Page<LevelSkill> findBySkillIdIn(List<Long> skillIds,  Pageable pageable);
+    Page<LevelSkill> findBySkillIdIn(List<Long> skillIds, Pageable pageable);
 
 }

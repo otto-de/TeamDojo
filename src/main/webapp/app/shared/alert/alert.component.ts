@@ -10,7 +10,8 @@ import { JhiAlertService } from 'ng-jhipster';
                     <pre [innerHTML]="alert.msg"></pre>
                 </ngb-alert>
             </div>
-        </div>`
+        </div>
+    `
 })
 export class JhiAlertComponent implements OnInit, OnDestroy {
     alerts: any[];

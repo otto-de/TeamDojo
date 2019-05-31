@@ -1,9 +1,9 @@
 package de.otto.teamdojo.service.mapper;
 
-import de.otto.teamdojo.domain.*;
+import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.service.dto.TeamDTO;
-
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 /**
  * Mapper for the entity Team and its DTO TeamDTO.

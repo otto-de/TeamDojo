@@ -102,17 +102,6 @@ public class SkillResourceIntTest {
 
     private Skill skill;
 
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final SkillResource skillResource = new SkillResource(skillService, skillQueryService);
-        this.restSkillMockMvc = MockMvcBuilders.standaloneSetup(skillResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-    }
-
     /**
      * Create an entity for this test.
      * <p>
@@ -131,6 +120,17 @@ public class SkillResourceIntTest {
             .rateScore(DEFAULT_RATE_SCORE)
             .rateCount(DEFAULT_RATE_COUNT);
         return skill;
+    }
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        final SkillResource skillResource = new SkillResource(skillService, skillQueryService);
+        this.restSkillMockMvc = MockMvcBuilders.standaloneSetup(skillResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
     }
 
     @Before

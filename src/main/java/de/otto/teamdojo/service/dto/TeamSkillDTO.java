@@ -4,7 +4,6 @@ import de.otto.teamdojo.domain.enumeration.SkillStatus;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 /**

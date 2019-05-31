@@ -1,7 +1,11 @@
 package de.otto.teamdojo.service;
 
-import java.util.List;
-
+import de.otto.teamdojo.domain.*;
+import de.otto.teamdojo.repository.LevelRepository;
+import de.otto.teamdojo.service.dto.LevelCriteria;
+import de.otto.teamdojo.service.dto.LevelDTO;
+import de.otto.teamdojo.service.mapper.LevelMapper;
+import io.github.jhipster.service.QueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -10,15 +14,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.github.jhipster.service.QueryService;
-
-import de.otto.teamdojo.domain.Level;
-import de.otto.teamdojo.domain.*; // for static metamodels
-import de.otto.teamdojo.repository.LevelRepository;
-import de.otto.teamdojo.service.dto.LevelCriteria;
-
-import de.otto.teamdojo.service.dto.LevelDTO;
-import de.otto.teamdojo.service.mapper.LevelMapper;
+import java.util.List;
 
 /**
  * Service for executing complex queries for Level entities in the database.
@@ -43,6 +39,7 @@ public class LevelQueryService extends QueryService<Level> {
 
     /**
      * Return a {@link List} of {@link LevelDTO} which matches the criteria from the database
+     *
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching entities.
      */
@@ -55,8 +52,9 @@ public class LevelQueryService extends QueryService<Level> {
 
     /**
      * Return a {@link Page} of {@link LevelDTO} which matches the criteria from the database
+     *
      * @param criteria The object which holds all the filters, which the entities should match.
-     * @param page The page, which should be returned.
+     * @param page     The page, which should be returned.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)

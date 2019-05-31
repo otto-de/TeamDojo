@@ -1,13 +1,13 @@
 @import '~bootstrap/scss/bootstrap';
-@import "../../content/scss/colors";
-@import "../../content/scss/mixins";
+@import '../../content/scss/colors';
+@import '../../content/scss/mixins';
 
 .teams-achievements {
     .achievement-container {
-        /deep/ .simplebar-track {
-            bottom: 1em!important;
+        ::ng-deep .simplebar-track {
+            bottom: 1em !important;
         }
-        /deep/ .simplebar-scroll-content {
+        ::ng-deep .simplebar-scroll-content {
             padding-right: 1.94em !important;
             .simplebar-content {
                 margin-right: -0.69em !important;
@@ -17,7 +17,6 @@
         height: inherit;
         padding-right: 10px;
         .achievement-list {
-
         }
         &-body {
             .achievement-list-title {
@@ -26,13 +25,14 @@
         }
     }
 }
-@media only screen and (min-width: map-get($grid-breakpoints, lg)){
+@media only screen and (min-width: map-get($grid-breakpoints, lg)) {
     .teams-achievements {
         .achievement-container {
             height: calc(100vh - 242px);
             padding: 5px;
         }
-        /deep/ .card-header, /deep/ .achievement-list-header .achievement-list-header-left .achievement-item {
+        ::ng-deep .card-header,
+        ::ng-deep .achievement-list-header .achievement-list-header-left .achievement-item {
             padding: 0;
         }
     }
