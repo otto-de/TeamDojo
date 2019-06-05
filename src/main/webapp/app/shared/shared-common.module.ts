@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent, TeamdojoSharedLibsModule } from './';
 import { ImageUrlPipe } from './pipe/image-url.pipe';
-import { TdTranslateComponent } from './translate/tdtranslate.directive';
+import { TdTranslateComponent } from './translate/tdTranslate.directive';
 import { TruncateStringPipe } from './pipe/truncate-string.pipe';
 import { AchievementItemComponent } from 'app/shared/achievement';
 import { TeamImageComponent } from 'app/shared/team-image/team-image.component';
