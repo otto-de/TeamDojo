@@ -21,7 +21,7 @@ the amount of their achieved scores.
 ### Docker
 First build a docker image by running:
 
-    ./gradlew bootWar -Pprod buildDocker
+    ./gradlew bootWar -Pprod -PnodeInstall jibDockerBuild
 
 Then run:
 
