@@ -29,7 +29,7 @@ export class AchievementItemComponent {
 
     get itemStatusCssClass() {
         let itemStatus;
-        let requiredScore = this.item.requiredScore * 100;
+        const requiredScore = this.item.requiredScore * 100;
 
         if (this.progress >= requiredScore && this.completable) {
             itemStatus = 'complete';
