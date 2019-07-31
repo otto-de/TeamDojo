@@ -9,7 +9,6 @@ import {
     adminState,
     AuditResolvePagingParams,
     AuditsComponent,
-    UserDeleteDialogComponent,
     UserMgmtComponent,
     UserMgmtDetailComponent,
     UserMgmtUpdateComponent,
@@ -39,7 +38,6 @@ import {
     ],
     declarations: [
         AuditsComponent,
-        UserDeleteDialogComponent,
         UserMgmtComponent,
         UserMgmtDetailComponent,
         UserMgmtUpdateComponent,

@@ -28,36 +28,3 @@ export class UserMgmtDeleteDialogComponent {
         });
     }
 }
-
-@Component({
-    selector: 'jhi-user-delete-dialog',
-    template: ''
-})
-export class UserDeleteDialogComponent implements OnInit, OnDestroy {
-    private ngbModalRef: NgbModalRef;
-
-    constructor(private route: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
-
-    ngOnInit() {
-        this.route.data.subscribe(({ user }) => {
-            setTimeout(() => {
-                this.ngbModalRef = this.modalService.open(UserMgmtDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
-                this.ngbModalRef.componentInstance.user = user.body;
-                this.ngbModalRef.result.then(
-                    result => {
-                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
-                        this.ngbModalRef = null;
-                    },
-                    reason => {
-                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
-                        this.ngbModalRef = null;
-                    }
-                );
-            }, 0);
-        });
-    }
-
-    ngOnDestroy() {
-        this.ngbModalRef = null;
-    }
-}

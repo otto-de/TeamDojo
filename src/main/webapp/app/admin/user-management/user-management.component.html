@@ -57,10 +57,12 @@
                             <span class="fa fa-pencil"></span>
                             <span class="d-none d-md-inline" tdTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'user-management/'+ user.login + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
+                        <!--
+                            Due to a bug (https://github.com/jhipster/generator-jhipster/issues/7383) in JHipster 5.x,
+                            invoking a popup to confirm deletion of users via Angular routing does not work.
+                            The fix applies the mechanism used in JHipster 6.x to delete a user.
+                          -->
+                        <button type="button" (click)="deleteUser(user)"
                                 class="btn btn-danger btn-sm" [disabled]="currentAccount.login === user.login">
                             <span class="fa fa-remove"></span>
                             <span class="d-none d-md-inline" tdTranslate="entity.action.delete">Delete</span>
