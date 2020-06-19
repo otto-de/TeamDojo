@@ -88,6 +88,14 @@ public class AchievableSkillDTO {
         this.irrelevant = irrelevant;
     }
 
+    public Integer getSkillExpiryPeriod() {
+        return skillExpiryPeriod;
+    }
+
+    public void setSkillExpiryPeriod(Integer skillExpiryPeriod) {
+        this.skillExpiryPeriod = skillExpiryPeriod;
+    }
+
     public Double getRateScore() {
         return rateScore;
     }
