@@ -8,6 +8,7 @@ import de.otto.teamdojo.domain.Level;
 import de.otto.teamdojo.domain.Skill;
 import de.otto.teamdojo.domain.Team;
 import de.otto.teamdojo.domain.TeamSkill;
+import de.otto.teamdojo.domain.enumeration.SkillStatus;
 import de.otto.teamdojo.service.dto.AchievableSkillDTO;
 import org.junit.After;
 import org.junit.Before;
@@ -24,6 +25,8 @@ import javax.persistence.EntityManager;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static de.otto.teamdojo.test.util.BadgeTestDataProvider.alwaysUpToDate;
@@ -116,6 +119,27 @@ public class SkillRepositoryIntTest {
         assertThat(results.map(AchievableSkillDTO::getTitle)).containsExactlyInAnyOrder(
             INPUT_VALIDATION_TITLE, SOFTWARE_UPDATES_TITLE, STRONG_PASSWORDS_TITLE, PASSWORD_MANAGER_TITLE,
             DOCKERIZED_TITLE);
+
+        // Collect DTOs into Map
+        Map<String, AchievableSkillDTO> resultMap =
+            results.stream().collect(Collectors.toMap(AchievableSkillDTO::getTitle, Function.identity()));
+
+        // Verify SkillStatus
+        AchievableSkillDTO inputValidationDTO = resultMap.get(INPUT_VALIDATION_TITLE);
+        assertThat(inputValidationDTO.getSkillStatus()).isSameAs(SkillStatus.ACHIEVED);
+
+        AchievableSkillDTO softwareUpdatesDTO = resultMap.get(SOFTWARE_UPDATES_TITLE);
+        assertThat(softwareUpdatesDTO.getSkillStatus()).isSameAs(SkillStatus.ACHIEVED);
+
+        AchievableSkillDTO strongPasswordsDTO = resultMap.get(STRONG_PASSWORDS_TITLE);
+        assertThat(strongPasswordsDTO.getSkillStatus()).isSameAs(SkillStatus.OPEN);
+
+        AchievableSkillDTO passwordManagerDTO = resultMap.get(PASSWORD_MANAGER_TITLE);
+        assertThat(passwordManagerDTO.getSkillStatus()).isSameAs(SkillStatus.EXPIRED);
+
+        AchievableSkillDTO dockerizedDTO = resultMap.get(DOCKERIZED_TITLE);
+        assertThat(dockerizedDTO.getSkillStatus()).isSameAs(SkillStatus.OPEN);
+
     }
 
     @Test
