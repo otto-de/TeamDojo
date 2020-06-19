@@ -2,7 +2,12 @@ package de.otto.teamdojo.repository;
 
 import com.google.common.collect.Lists;
 import de.otto.teamdojo.TeamdojoApp;
-import de.otto.teamdojo.domain.*;
+import de.otto.teamdojo.domain.Badge;
+import de.otto.teamdojo.domain.Dimension;
+import de.otto.teamdojo.domain.Level;
+import de.otto.teamdojo.domain.Skill;
+import de.otto.teamdojo.domain.Team;
+import de.otto.teamdojo.domain.TeamSkill;
 import de.otto.teamdojo.service.dto.AchievableSkillDTO;
 import org.junit.After;
 import org.junit.Before;
@@ -17,8 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
-import java.util.ArrayList;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static de.otto.teamdojo.test.util.BadgeTestDataProvider.alwaysUpToDate;
 import static de.otto.teamdojo.test.util.BadgeTestDataProvider.awsReady;
@@ -44,18 +50,21 @@ public class SkillRepositoryIntTest {
     private Skill inputValidation;
     private Skill softwareUpdates;
     private Skill strongPasswords;
+    private Skill passwordManager;
     private Skill dockerized;
+    private Skill evilUserStories;
     private Level yellow;
     private Level orange;
     private Dimension security;
-    private TeamSkill teamSkill;
+    private TeamSkill inputValidationSkill;
+    private TeamSkill softwareUpdatesSkill;
+    private TeamSkill passwordManagerSkill;
     private Badge awsReady;
     private Badge alwaysUpToDate;
 
     @Before
     public void setup() {
         setupTestData();
-
     }
 
     @After
@@ -64,81 +73,132 @@ public class SkillRepositoryIntTest {
         inputValidation = null;
         softwareUpdates = null;
         strongPasswords = null;
+        passwordManager = null;
         dockerized = null;
+        evilUserStories = null;
         yellow = null;
         orange = null;
         security = null;
-        teamSkill = null;
+        inputValidationSkill = null;
+        softwareUpdatesSkill = null;
+        passwordManagerSkill = null;
         awsReady = null;
         alwaysUpToDate = null;
     }
 
     @Test
     @Transactional
-    public void getCompleteAndIncompleteSkills() throws Exception {
-        setupTestData();
+    public void getAllSkills() {
 
-        Skill evilUserStories_notAchievable = evilUserStories().build(em);
+        List<Skill> allSkills = skillRepository.findAll();
+        assertThat(allSkills).isNotNull();
+        List<String> allTitles = allSkills.stream().map(Skill::getTitle).collect(Collectors.toList());
+        assertThat(allTitles.size()).isEqualTo(6);
+        assertThat(allTitles).containsExactlyInAnyOrder(
+            INPUT_VALIDATION_TITLE, SOFTWARE_UPDATES_TITLE, STRONG_PASSWORDS_TITLE, PASSWORD_MANAGER_TITLE,
+            DOCKERIZED_TITLE, EVIL_USER_STORIES_TITLE);
 
-        em.flush();
+    }
+
+    @Test
+    @Transactional
+    public void getCompleteAndIncompleteSkillsForAllLevelsAndBadges() {
 
         Long teamId = team.getId();
 
         List<Long> levelIds = Lists.newArrayList(yellow.getId(), orange.getId());
-
-        List<Long> badgeIds = Lists.newArrayList(awsReady.getId());
-
+        List<Long> badgeIds = Lists.newArrayList(awsReady.getId(), alwaysUpToDate.getId());
         List<String> filter = Lists.newArrayList("COMPLETE", "INCOMPLETE");
 
-        Page<AchievableSkillDTO> results = skillRepository.findAchievableSkillsByLevelsAndBadges(teamId, levelIds, badgeIds, filter, Pageable.unpaged());
-        assertThat(results.getTotalElements()).isEqualTo(4);
+        Page<AchievableSkillDTO> results = skillRepository.findAchievableSkillsByLevelsAndBadges(
+            teamId, levelIds, badgeIds, filter, Pageable.unpaged());
+        assertThat(results.getTotalElements()).isEqualTo(5);
+        assertThat(results.map(AchievableSkillDTO::getTitle)).containsExactlyInAnyOrder(
+            INPUT_VALIDATION_TITLE, SOFTWARE_UPDATES_TITLE, STRONG_PASSWORDS_TITLE, PASSWORD_MANAGER_TITLE,
+            DOCKERIZED_TITLE);
     }
 
     @Test
     @Transactional
-    public void getIncompleteSkills() throws Exception {
-        setupTestData();
-        em.flush();
+    public void getCompleteAndIncompleteSkillsForLevelYellow() {
 
         Long teamId = team.getId();
 
-        List<Long> levelIds = new ArrayList<Long>();
-        levelIds.add(yellow.getId());
-        levelIds.add(orange.getId());
+        List<Long> levelIds = Lists.newArrayList(yellow.getId());
+        List<String> filter = Lists.newArrayList("COMPLETE", "INCOMPLETE");
 
-        List<Long> badgeIds = new ArrayList<Long>();
-        badgeIds.add(awsReady.getId());
+        Page<AchievableSkillDTO> results = skillRepository.findAchievableSkillsByLevels(
+            teamId, levelIds, filter, Pageable.unpaged());
+        assertThat(results.getTotalElements()).isEqualTo(2);
+        assertThat(results.map(AchievableSkillDTO::getTitle)).containsExactlyInAnyOrder(
+            INPUT_VALIDATION_TITLE, SOFTWARE_UPDATES_TITLE);
+    }
 
-        List<String> filter = new ArrayList<String>();
-        filter.add("INCOMPLETE");
+    @Test
+    @Transactional
+    public void getCompleteAndIncompleteSkillsForBadgeAwsReady() {
 
-        Page<AchievableSkillDTO> results = skillRepository.findAchievableSkillsByLevelsAndBadges(teamId, levelIds, badgeIds, filter, Pageable.unpaged());
+        Long teamId = team.getId();
+
+        List<Long> badgeIds = Lists.newArrayList(awsReady.getId());
+        List<String> filter = Lists.newArrayList("COMPLETE", "INCOMPLETE");
+
+        Page<AchievableSkillDTO> results = skillRepository.findAchievableSkillsByBadges(
+            teamId, badgeIds, filter, Pageable.unpaged());
+        assertThat(results.getTotalElements()).isEqualTo(2);
+        assertThat(results.map(AchievableSkillDTO::getTitle)).containsExactlyInAnyOrder(
+            INPUT_VALIDATION_TITLE, DOCKERIZED_TITLE);
+    }
+
+    @Test
+    @Transactional
+    public void getCompleteAndIncompleteSkillsForLevelOrangeAndBadgeAlwaysUpToDate() {
+
+        Long teamId = team.getId();
+
+        List<Long> levelIds = Lists.newArrayList(orange.getId());
+        List<Long> badgeIds = Lists.newArrayList(alwaysUpToDate.getId());
+        List<String> filter = Lists.newArrayList("COMPLETE", "INCOMPLETE");
+
+        Page<AchievableSkillDTO> results = skillRepository.findAchievableSkillsByLevelsAndBadges(
+            teamId, levelIds, badgeIds, filter, Pageable.unpaged());
         assertThat(results.getTotalElements()).isEqualTo(3);
+        assertThat(results.map(AchievableSkillDTO::getTitle)).containsExactlyInAnyOrder(
+            SOFTWARE_UPDATES_TITLE, STRONG_PASSWORDS_TITLE, PASSWORD_MANAGER_TITLE);
     }
 
     @Test
     @Transactional
-    public void getCompleteSkills() throws Exception {
-        setupTestData();
-
-        Skill evilUserStories_notAchievable = evilUserStories().build(em);
-
-        em.flush();
+    public void getIncompleteSkills() {
 
         Long teamId = team.getId();
 
-        List<Long> levelIds = new ArrayList<Long>();
-        levelIds.add(yellow.getId());
-        levelIds.add(orange.getId());
+        List<Long> levelIds = Lists.newArrayList(yellow.getId(), orange.getId());
+        List<Long> badgeIds = Lists.newArrayList(awsReady.getId());
+        List<String> filter = Lists.newArrayList("INCOMPLETE");
 
-        List<Long> badgeIds = new ArrayList<Long>();
-        badgeIds.add(awsReady.getId());
+        Page<AchievableSkillDTO> results = skillRepository.findAchievableSkillsByLevelsAndBadges(
+            teamId, levelIds, badgeIds, filter, Pageable.unpaged());
+        assertThat(results.getTotalElements()).isEqualTo(2);
+        assertThat(results.map(AchievableSkillDTO::getTitle)).containsExactlyInAnyOrder(
+            STRONG_PASSWORDS_TITLE, DOCKERIZED_TITLE);
+    }
 
-        List<String> filter = new ArrayList<String>();
-        filter.add("COMPLETE");
+    @Test
+    @Transactional
+    public void getCompleteSkills() {
 
-        Page<AchievableSkillDTO> results = skillRepository.findAchievableSkillsByLevelsAndBadges(teamId, levelIds, badgeIds, filter, Pageable.unpaged());
-        assertThat(results.getTotalElements()).isEqualTo(1);
+        Long teamId = team.getId();
+
+        List<Long> levelIds = Lists.newArrayList(yellow.getId(), orange.getId());
+        List<Long> badgeIds = Lists.newArrayList(awsReady.getId());
+        List<String> filter = Lists.newArrayList("COMPLETE");
+
+        Page<AchievableSkillDTO> results = skillRepository.findAchievableSkillsByLevelsAndBadges(
+            teamId, levelIds, badgeIds, filter, Pageable.unpaged());
+        assertThat(results.getTotalElements()).isEqualTo(3);
+        assertThat(results.map(AchievableSkillDTO::getTitle)).containsExactlyInAnyOrder(
+            INPUT_VALIDATION_TITLE, SOFTWARE_UPDATES_TITLE, PASSWORD_MANAGER_TITLE);
     }
 
     private void setupTestData() {
@@ -146,15 +206,16 @@ public class SkillRepositoryIntTest {
         inputValidation = inputValidation().build(em);
         softwareUpdates = softwareUpdates().build(em);
         strongPasswords = strongPasswords().build(em);
+        passwordManager = passwordManager().build(em);
         dockerized = dockerized().build(em);
-        Skill evilUserStories_notAchievable = evilUserStories().build(em);
+        evilUserStories = evilUserStories().build(em);
 
         //Dimension
         security = security().build(em);
 
         //Level
         yellow = yellow(security).addSkill(inputValidation).addSkill(softwareUpdates).build(em);
-        orange = orange(security).addSkill(strongPasswords).dependsOn(yellow).build(em);
+        orange = orange(security).addSkill(strongPasswords).addSkill(passwordManager).dependsOn(yellow).build(em);
 
         //Badges
         awsReady = awsReady().addDimension(security).addSkill(inputValidation).addSkill(dockerized).build(em);
@@ -164,12 +225,27 @@ public class SkillRepositoryIntTest {
         team.addParticipations(security);
         em.persist(team);
 
-        teamSkill = new TeamSkill();
-        teamSkill.setTeam(team);
-        teamSkill.setCompletedAt((Instant.now()));
-        teamSkill.setSkill(inputValidation);
-        em.persist(teamSkill);
-        team.addSkills(teamSkill);
+        inputValidationSkill = new TeamSkill();
+        inputValidationSkill.setTeam(team);
+        inputValidationSkill.setCompletedAt((Instant.now().minus(20, ChronoUnit.DAYS)));
+        inputValidationSkill.setSkill(inputValidation);
+        em.persist(inputValidationSkill);
+        team.addSkills(inputValidationSkill);
+
+        softwareUpdatesSkill = new TeamSkill();
+        softwareUpdatesSkill.setTeam(team);
+        softwareUpdatesSkill.setCompletedAt((Instant.now().minus(120, ChronoUnit.DAYS)));
+        softwareUpdatesSkill.setSkill(softwareUpdates);
+        em.persist(softwareUpdatesSkill);
+        team.addSkills(softwareUpdatesSkill);
+
+        passwordManagerSkill = new TeamSkill();
+        passwordManagerSkill.setTeam(team);
+        passwordManagerSkill.setCompletedAt((Instant.now().minus(120, ChronoUnit.DAYS)));
+        passwordManagerSkill.setSkill(passwordManager);
+        em.persist(passwordManagerSkill);
+        team.addSkills(passwordManagerSkill);
+
         em.persist(team);
     }
 }
