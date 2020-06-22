@@ -35,7 +35,7 @@ public interface SkillRepository extends JpaRepository<Skill, Long>, JpaSpecific
             boolean allow(AchievableSkillDTO dto) {
                 SkillStatus status = SkillStatus.determineSkillStatus(
                     null, dto.getAchievedAt(), dto.getSkillExpiryPeriod());
-                return status == SkillStatus.ACHIEVED || status == SkillStatus.EXPIRING || status == SkillStatus.EXPIRED;
+                return status == SkillStatus.ACHIEVED || status == SkillStatus.EXPIRING;
             }
         },
         INCOMPLETE() {
@@ -43,7 +43,7 @@ public interface SkillRepository extends JpaRepository<Skill, Long>, JpaSpecific
             boolean allow(AchievableSkillDTO dto) {
                 SkillStatus status = SkillStatus.determineSkillStatus(
                     null, dto.getAchievedAt(), dto.getSkillExpiryPeriod());
-                return status == SkillStatus.OPEN;
+                return status == SkillStatus.OPEN || status == SkillStatus.EXPIRED;
             }
         },
         NONE() {

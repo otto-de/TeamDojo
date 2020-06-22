@@ -203,9 +203,9 @@ public class SkillRepositoryIntTest {
 
         Page<AchievableSkillDTO> results = skillRepository.findAchievableSkillsByLevelsAndBadges(
             teamId, levelIds, badgeIds, filter, Pageable.unpaged());
-        assertThat(results.getTotalElements()).isEqualTo(2);
+        assertThat(results.getTotalElements()).isEqualTo(3);
         assertThat(results.map(AchievableSkillDTO::getTitle)).containsExactlyInAnyOrder(
-            STRONG_PASSWORDS_TITLE, DOCKERIZED_TITLE);
+            STRONG_PASSWORDS_TITLE, DOCKERIZED_TITLE, PASSWORD_MANAGER_TITLE);
     }
 
     @Test
@@ -220,9 +220,9 @@ public class SkillRepositoryIntTest {
 
         Page<AchievableSkillDTO> results = skillRepository.findAchievableSkillsByLevelsAndBadges(
             teamId, levelIds, badgeIds, filter, Pageable.unpaged());
-        assertThat(results.getTotalElements()).isEqualTo(3);
+        assertThat(results.getTotalElements()).isEqualTo(2);
         assertThat(results.map(AchievableSkillDTO::getTitle)).containsExactlyInAnyOrder(
-            INPUT_VALIDATION_TITLE, SOFTWARE_UPDATES_TITLE, PASSWORD_MANAGER_TITLE);
+            INPUT_VALIDATION_TITLE, SOFTWARE_UPDATES_TITLE);
     }
 
     private void setupTestData() {
