@@ -13,6 +13,7 @@ public class SkillTestDataProvider {
 
     private static final Double RATE_SCORE = 4.5;
     private static final Integer RATE_COUNT = 5;
+    private static final Integer EXPIRY_PERIOD = 90;
 
     private static final String INPUT_VALIDATION = "Input Validation";
     public static final String INPUT_VALIDATION_TITLE = INPUT_VALIDATION;
@@ -32,11 +33,17 @@ public class SkillTestDataProvider {
     public static final String STRONG_PASSWORDS_VAL = STRONG_PASSWORDS + IMPLEMENTATION;
     public static final String STRONG_PASSWORDS_IMPL = STRONG_PASSWORDS + VALIDATION;
 
+    private static final String PASSWORD_MANAGER = "Personal password manager";
+    public static final String PASSWORD_MANAGER_TITLE = PASSWORD_MANAGER;
+    public static final String PASSWORD_MANAGER_DESC = PASSWORD_MANAGER + DESCRIPTION;
+    public static final String PASSWORD_MANAGER_VAL = PASSWORD_MANAGER + VALIDATION;
+    public static final String PASSWORD_MANAGER_IMPL = PASSWORD_MANAGER + IMPLEMENTATION;
+
     private static final String EVIL_USER_STORIES = "Evil user stories";
-    private static final String EVIL_USER_STORIES_TITLE = EVIL_USER_STORIES;
-    private static final String EVIL_USER_STORIES_DESC = EVIL_USER_STORIES + DESCRIPTION;
-    private static final String EVIL_USER_STORIES_VAL = EVIL_USER_STORIES + VALIDATION;
-    private static final String EVIL_USER_STORIES_IMPL = EVIL_USER_STORIES + IMPLEMENTATION;
+    public static final String EVIL_USER_STORIES_TITLE = EVIL_USER_STORIES;
+    public static final String EVIL_USER_STORIES_DESC = EVIL_USER_STORIES + DESCRIPTION;
+    public static final String EVIL_USER_STORIES_VAL = EVIL_USER_STORIES + VALIDATION;
+    public static final String EVIL_USER_STORIES_IMPL = EVIL_USER_STORIES + IMPLEMENTATION;
 
     private static final String DOCKERIZED = "Dockerized";
     public static final String DOCKERIZED_TITLE = DOCKERIZED;
@@ -54,7 +61,8 @@ public class SkillTestDataProvider {
             .validation(INPUT_VALIDATION_VAL)
             .implementation(INPUT_VALIDATION_IMPL)
             .rateCount(RATE_COUNT)
-            .rateScore(RATE_SCORE);
+            .rateScore(RATE_SCORE)
+            .expiryPeriod(EXPIRY_PERIOD);
 
     }
 
@@ -74,7 +82,18 @@ public class SkillTestDataProvider {
             .validation(STRONG_PASSWORDS_VAL)
             .implementation(STRONG_PASSWORDS_IMPL)
             .rateCount(RATE_COUNT)
-            .rateScore(RATE_SCORE);
+            .rateScore(RATE_SCORE)
+            .expiryPeriod(EXPIRY_PERIOD);
+    }
+
+    public static SkillBuilder passwordManager() {
+        return skill(PASSWORD_MANAGER_TITLE)
+            .description(PASSWORD_MANAGER_DESC)
+            .validation(PASSWORD_MANAGER_VAL)
+            .implementation(PASSWORD_MANAGER_IMPL)
+            .rateCount(RATE_COUNT)
+            .rateScore(RATE_SCORE)
+            .expiryPeriod(EXPIRY_PERIOD);
     }
 
     public static SkillBuilder evilUserStories() {
@@ -105,6 +124,7 @@ public class SkillTestDataProvider {
         private Integer score;
         private Double rateScore;
         private Integer rateCount;
+        private Integer expiryPeriod;
 
         public SkillBuilder(String title, Integer score) {
             this.title = title;
@@ -136,6 +156,11 @@ public class SkillTestDataProvider {
             return this;
         }
 
+        public SkillBuilder expiryPeriod(Integer expiryPeriod) {
+            this.expiryPeriod = expiryPeriod;
+            return this;
+        }
+
         public Skill build(EntityManager em) {
             Skill skill = build();
             em.persist(skill);
@@ -148,7 +173,8 @@ public class SkillTestDataProvider {
                 .description(description)
                 .validation(validation)
                 .implementation(implementation)
-                .score(score);
+                .score(score)
+                .expiryPeriod(expiryPeriod);
         }
     }
 
