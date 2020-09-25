@@ -10,7 +10,7 @@ buildscript {
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}"
         classpath "io.spring.gradle:propdeps-plugin:0.0.10.RELEASE"
-        classpath "org.openapitools:openapi-generator-gradle-plugin:3.3.0"
+        classpath "org.openapitools:openapi-generator-gradle-plugin:4.3.1"
         classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.5.2"
         //jhipster-needle-gradle-buildscript-dependency - JHipster will add additional gradle build script plugins here
     }
@@ -197,7 +197,7 @@ dependencies {
     compile "org.hibernate:hibernate-envers"
     compile "org.hibernate.validator:hibernate-validator"
     compile "org.liquibase:liquibase-core"
-    compile "com.mattbertolini:liquibase-slf4j"
+    compile "com.mattbertolini:liquibase-slf4j:3.0.0"
     liquibaseRuntime "org.liquibase:liquibase-core"
     liquibaseRuntime "org.liquibase.ext:liquibase-hibernate5:${liquibase_hibernate5_version}"
     liquibaseRuntime sourceSets.main.compileClasspath
@@ -241,7 +241,7 @@ dependencies {
     testCompile "org.assertj:assertj-core"
     testCompile "junit:junit"
     testCompile "org.mockito:mockito-core"
-    testCompile "com.mattbertolini:liquibase-slf4j"
+    testCompile "com.mattbertolini:liquibase-slf4j:3.0.0"
     testCompile "org.hamcrest:hamcrest-library"
     testCompile "com.h2database:h2"
     liquibaseRuntime "com.h2database:h2"

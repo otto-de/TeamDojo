@@ -2,7 +2,6 @@ package de.otto.teamdojo.config;
 
 import de.otto.teamdojo.repository.UserRepository;
 import io.github.jhipster.config.JHipsterProperties;
-import io.github.jhipster.config.jcache.BeanClassLoaderAwareJCacheRegionFactory;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.ExpiryPolicyBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
@@ -17,21 +16,19 @@ import java.time.Duration;
 
 @Configuration
 @EnableCaching
-@AutoConfigureBefore(value = {WebConfigurer.class, DatabaseConfiguration.class})
+@AutoConfigureBefore(value = {WebConfigurer.class, LiquibaseConfiguration.class})
 public class CacheConfiguration {
 
     private final javax.cache.configuration.Configuration<Object, Object> jcacheConfiguration;
 
     public CacheConfiguration(JHipsterProperties jHipsterProperties) {
-        BeanClassLoaderAwareJCacheRegionFactory.setBeanClassLoader(this.getClass().getClassLoader());
-        JHipsterProperties.Cache.Ehcache ehcache =
-            jHipsterProperties.getCache().getEhcache();
+            JHipsterProperties.Cache.Ehcache ehcache = jHipsterProperties.getCache().getEhcache();
 
-        jcacheConfiguration = Eh107Configuration.fromEhcacheCacheConfiguration(
-            CacheConfigurationBuilder.newCacheConfigurationBuilder(Object.class, Object.class,
-                ResourcePoolsBuilder.heap(ehcache.getMaxEntries()))
-                .withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofSeconds(ehcache.getTimeToLiveSeconds())))
-                .build());
+            jcacheConfiguration = Eh107Configuration.fromEhcacheCacheConfiguration(
+                CacheConfigurationBuilder.newCacheConfigurationBuilder(Object.class, Object.class,
+                    ResourcePoolsBuilder.heap(ehcache.getMaxEntries()))
+                    .withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofSeconds(ehcache.getTimeToLiveSeconds())))
+                    .build());
     }
 
     @Bean

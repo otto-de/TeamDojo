@@ -22,8 +22,8 @@ management:
                 include: ["configprops", "env", "health", "info", "threaddump", "logfile", "jhi-metrics", "prometheus" ]
     endpoint:
         health:
-            show-details: when-authorized
-        jhi-metrics:
+            show-details: when_authorized
+        jhimetrics:
             enabled: true
     info:
         git:
@@ -37,19 +37,12 @@ management:
             prometheus:
                 enabled: true
                 step: 60
-        binders:
-            jvm:
-                enabled: true
-            processor:
-                enabled: true
-            uptime:
-                enabled: true
-            logback:
-                enabled: true
-            files:
-                enabled: true
-            integration:
-                enabled: true
+        enable:
+            http: true
+            jvm: true
+            logback: true
+            process: true
+            system: true
         distribution:
             percentiles-histogram:
                 all: true
@@ -57,7 +50,9 @@ management:
                 all: 0, 0.5, 0.75, 0.95, 0.99, 1.0
         web:
             server:
-                auto-time-requests: true
+                request:
+                    autotime:
+                        enabled: true
 
 spring:
     application:
@@ -83,9 +78,6 @@ spring:
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
     messages:
         basename: i18n/messages
-    mvc:
-        favicon:
-            enabled: false
     thymeleaf:
         mode: HTML
 
