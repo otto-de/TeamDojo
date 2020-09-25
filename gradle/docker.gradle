@@ -3,7 +3,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath "gradle.plugin.com.google.cloud.tools:jib-gradle-plugin:0.9.11"
+        classpath "gradle.plugin.com.google.cloud.tools:jib-gradle-plugin:2.5.0"
     }
 }
 
@@ -11,7 +11,7 @@ apply plugin: com.google.cloud.tools.jib.gradle.JibPlugin
 
 jib {
     from {
-        image = 'openjdk:8-jre-alpine'
+        image = 'openjdk:11-slim'
     }
     to {
         image = 'teamdojo:latest'
@@ -23,7 +23,8 @@ jib {
             SPRING_OUTPUT_ANSI_ENABLED: 'ALWAYS',
             JHIPSTER_SLEEP: '0'
         ]
-        useCurrentTimestamp = true
+        creationTime = "USE_CURRENT_TIMESTAMP"
+        user = 1000
     }
 }
 
