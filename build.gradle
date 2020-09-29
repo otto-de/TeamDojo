@@ -160,6 +160,13 @@ liquibase {
 configurations {
     providedRuntime
     compile.exclude module: "spring-boot-starter-tomcat"
+    all {
+        resolutionStrategy {
+            // Inherited version from Spring Boot can't be used because of regressions:
+            // To be removed as soon as spring-boot use the same version
+            force 'org.liquibase:liquibase-core:3.9.0'
+        }
+    }
 }
 
 repositories {
