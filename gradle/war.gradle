@@ -1,0 +1,11 @@
+apply plugin: "war"
+
+bootWar {
+    mainClassName = "de.otto.teamdojo.TeamdojoApp"
+}
+
+war {
+    webAppDirName = "build/www/"
+    enabled = true
+    archiveExtension = "war.original"
+}

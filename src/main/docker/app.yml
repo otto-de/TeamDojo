@@ -1,7 +1,7 @@
 version: '2'
 services:
     teamdojo-app:
-        image: otto/teamdojo:next
+        image: teamdojo
         environment:
             - _JAVA_OPTIONS=-Xmx512m -Xms256m
             - SPRING_PROFILES_ACTIVE=prod,swagger
