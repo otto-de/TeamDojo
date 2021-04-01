@@ -58,6 +58,10 @@ spring:
     application:
         name: teamdojo
     data:
+        web:
+            pageable:
+                default-page-size: 100000 # The backend support paging, but not the frontend...
+                max-page-size: 100000
         jpa:
             repositories:
                 bootstrap-mode: deferred
@@ -71,9 +75,6 @@ spring:
         properties:
             hibernate.jdbc.time_zone: UTC
             hibernate.connection_disables_autocommit: true
-            hibernate.jdbs.batch_size: 25
-            hibernate.order_inserts: true
-            hibernate.order_updates: true
         hibernate:
             ddl-auto: none
             naming:
