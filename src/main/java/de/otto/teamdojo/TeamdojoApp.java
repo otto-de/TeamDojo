@@ -8,13 +8,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.method.annotation.InitBinderDataBinderFactory;
+import org.springframework.web.method.support.InvocableHandlerMethod;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
+import org.springframework.web.servlet.mvc.method.annotation.ServletRequestDataBinderFactory;
 
 import javax.annotation.PostConstruct;
 import java.net.InetAddress;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
 @SpringBootApplication
 @EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
@@ -78,6 +85,34 @@ public class TeamdojoApp {
         if (activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT) && activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_CLOUD)) {
             log.error("You have misconfigured your application! It should not " +
                 "run with both the 'dev' and 'cloud' profiles at the same time.");
+        }
+    }
+
+    // Mitigation for spring4shell.
+    @Bean
+    public WebMvcRegistrations mvcRegistrations() {
+        return new WebMvcRegistrations() {
+            @Override
+            public RequestMappingHandlerAdapter getRequestMappingHandlerAdapter() {
+                return new ExtendedRequestMappingHandlerAdapter();
+            }
+        };
+    }
+
+    private static class ExtendedRequestMappingHandlerAdapter extends RequestMappingHandlerAdapter {
+        @Override
+        protected InitBinderDataBinderFactory createDataBinderFactory(List<InvocableHandlerMethod> methods) {
+            return new ServletRequestDataBinderFactory(methods, getWebBindingInitializer()) {
+                @Override
+                protected ServletRequestDataBinder createBinderInstance(Object target, String name, NativeWebRequest request) throws Exception {
+                    ServletRequestDataBinder binder = super.createBinderInstance(target, name, request);
+                    String[] fields = binder.getDisallowedFields();
+                    List<String> fieldList = new ArrayList<>(fields != null ? Arrays.asList(fields) : Collections.emptyList());
+                    fieldList.addAll(Arrays.asList("class.*", "Class.*", "*.class.*", "*.Class.*"));
+                    binder.setDisallowedFields(fieldList.toArray(new String[]{}));
+                    return binder;
+                }
+            };
         }
     }
 }
